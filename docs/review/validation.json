@@ -1,0 +1,58 @@
+{
+  "fixture_warning": "New regression fixtures validate software behavior, not actual game mechanics or feasibility.",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "test_all_revised_plans_have_proven_prefix_conflicts_and_no_simulation (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_all_revised_plans_have_proven_prefix_conflicts_and_no_simulation) ... ok\ntest_exactly_one_completed_kimi_call_and_raw_response_is_immutable (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_exactly_one_completed_kimi_call_and_raw_response_is_immutable) ... ERROR\ntest_experience_memory_is_conditional_and_source_bound (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_experience_memory_is_conditional_and_source_bound) ... ERROR\ntest_grounding_has_no_unknown_entities_and_records_route_warnings (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_grounding_has_no_unknown_entities_and_records_route_warnings) ... ok\ntest_learning_progress_reports_new_conflict_for_each_plan (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_learning_progress_reports_new_conflict_for_each_plan) ... ok\ntest_reasoning_context_distinguishes_repetition_from_reconsideration (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_reasoning_context_distinguishes_repetition_from_reconsideration) ... ok\ntest_required_artifacts_and_final_status_agree (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_required_artifacts_and_final_status_agree) ... FAIL\ntest_structured_plans_are_specific_and_reference_prior_evidence (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_structured_plans_are_specific_and_reference_prior_evidence) ... ok\ntest_empty_pool_is_not_a_numeric_dp_proof (test_v3_frame295_review_regression.Frame295ProofDisciplineTests.test_empty_pool_is_not_a_numeric_dp_proof) ... ok\ntest_lowercase_retreat_basis_is_not_lost (test_v3_frame295_review_regression.Frame295ProofDisciplineTests.test_lowercase_retreat_basis_is_not_lost) ... ok\ntest_missing_dependencies_do_not_partially_overwrite_evidence (test_v3_frame295_review_regression.Frame295ProofDisciplineTests.test_missing_dependencies_do_not_partially_overwrite_evidence) ... ok\ntest_three_295_conflicts_do_not_prove_three_plan_failures (test_v3_frame295_review_regression.Frame295ProofDisciplineTests.test_three_295_conflicts_do_not_prove_three_plan_failures) ... ok\ntest_unknown_deadline_does_not_become_spawn_deadline (test_v3_frame295_review_regression.Frame295ProofDisciplineTests.test_unknown_deadline_does_not_become_spawn_deadline) ... ok\n\n======================================================================\nERROR: test_exactly_one_completed_kimi_call_and_raw_response_is_immutable (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_exactly_one_completed_kimi_call_and_raw_response_is_immutable)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/scratch/53d759038d4f/KimiArk/tests/test_r8_1_constraint_informed_tactical_revision_v3.py\", line 77, in test_exactly_one_completed_kimi_call_and_raw_response_is_immutable\n    completion = self.module.load(OUT / \"response_completion_validation.json\")\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_constraint_informed_tactical_revision_v3.py\", line 43, in load\n    return json.loads(path.read_text())\n                      ^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/53d759038d4f/KimiArk/output/r8_1_constraint_informed_revision_v3/response_completion_validation.json'\n\n======================================================================\nERROR: test_experience_memory_is_conditional_and_source_bound (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_experience_memory_is_conditional_and_source_bound)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/scratch/53d759038d4f/KimiArk/tests/test_r8_1_constraint_informed_tactical_revision_v3.py\", line 30, in test_experience_memory_is_conditional_and_source_bound\n    result = self.module.experience_memory()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_constraint_informed_tactical_revision_v3.py\", line 219, in experience_memory\n    feedback = load(AUDIT / \"future_llm_feasibility_feedback.json\")\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_constraint_informed_tactical_revision_v3.py\", line 43, in load\n    return json.loads(path.read_text())\n                      ^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/53d759038d4f/KimiArk/output/r8_1_operational_feasibility_unsat_core_audit_v1/future_llm_feasibility_feedback.json'\n\n======================================================================\nFAIL: test_required_artifacts_and_final_status_agree (test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests.test_required_artifacts_and_final_status_agree)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/scratch/53d759038d4f/KimiArk/tests/test_r8_1_constraint_informed_tactical_revision_v3.py\", line 160, in test_required_artifacts_and_final_status_agree\n    self.assertTrue((OUT / name).is_file(), f\"missing artifact: {name}\")\nAssertionError: False is not true : missing artifact: llm_raw_response.txt\n\n----------------------------------------------------------------------\nRan 13 tests in 0.022s\n\nFAILED (failures=1, errors=2)\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_assistant_prefill_and_previous_response_are_forbidden (test_kimi_responses_transport.ResponsesTransportTests.test_assistant_prefill_and_previous_response_are_forbidden) ... ok\ntest_completed_response_without_message_is_rejected (test_kimi_responses_transport.ResponsesTransportTests.test_completed_response_without_message_is_rejected) ... ok\ntest_connection_close_without_terminal_is_incomplete (test_kimi_responses_transport.ResponsesTransportTests.test_connection_close_without_terminal_is_incomplete) ... ok\ntest_duplicated_output_done_does_not_duplicate_text (test_kimi_responses_transport.ResponsesTransportTests.test_duplicated_output_done_does_not_duplicate_text) ... ok\ntest_event_order_is_preserved (test_kimi_responses_transport.ResponsesTransportTests.test_event_order_is_preserved) ... ok\ntest_failed_terminal_is_preserved (test_kimi_responses_transport.ResponsesTransportTests.test_failed_terminal_is_preserved) ... ok\ntest_malformed_data_does_not_crash_accumulator (test_kimi_responses_transport.ResponsesTransportTests.test_malformed_data_does_not_crash_accumulator) ... ok\ntest_normal_stream_separates_reasoning_and_final_text (test_kimi_responses_transport.ResponsesTransportTests.test_normal_stream_separates_reasoning_and_final_text) ... ok\ntest_reasoning_is_not_final_output (test_kimi_responses_transport.ResponsesTransportTests.test_reasoning_is_not_final_output) ... ok\ntest_stream_interruption_has_no_synthetic_completion (test_kimi_responses_transport.ResponsesTransportTests.test_stream_interruption_has_no_synthetic_completion) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "compileall",
+        "-q",
+        "scripts",
+        "tests"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -923,8 +923,8 @@ def feasibility_analysis() -> dict[str, Any]:
             route_id, kind = str(slot["deadline_basis"]).split(":", 1)
             route = routes.get(route_id)
             deadline = repair.establishment_deadline(route, kind)
-            if deadline is None and route:
-                deadline = min(route.get("spawn_frames") or [0])
+            # A spawn time is not an establishment deadline. Unknown timing
+            # must remain unknown until the plan-specific contract resolves it.
             if deadline is None or deadline > 729:
                 continue
             opening_rows.append({**slot, "deadline_frame": deadline})
@@ -939,9 +939,10 @@ def feasibility_analysis() -> dict[str, Any]:
             available_dp = 10.0 + float(row["deadline_frame"]) / 30.0
             deficit = max(0.0, (minimum_cost or 0.0) - available_dp)
             status = (
-                "FEASIBLE_PREFIX_BOUND"
+                "NO_DP_CONFLICT_UNDER_SIMPLIFIED_ASSUMPTIONS"
                 if minimum_cost is not None and deficit <= 1e-9
-                else "DP_INFEASIBLE_PREFIX_BOUND"
+                else ("CANDIDATE_POOL_EMPTY" if minimum_cost is None
+                      else "DP_CONFLICT_UNDER_SIMPLIFIED_ASSUMPTIONS")
             )
             row_result = {
                 "deadline_frame": row["deadline_frame"],
@@ -954,7 +955,7 @@ def feasibility_analysis() -> dict[str, Any]:
                 "status": status,
             }
             prefix_results.append(row_result)
-            if status != "FEASIBLE_PREFIX_BOUND" and first_conflict is None:
+            if status != "NO_DP_CONFLICT_UNDER_SIMPLIFIED_ASSUMPTIONS" and first_conflict is None:
                 first_conflict = row_result
         empty_roles = sorted(
             {
@@ -963,13 +964,21 @@ def feasibility_analysis() -> dict[str, Any]:
                 if not plan_capability_pool(context, repair, row, all_plan_slots)
             }
         )
-        current_mechanics_status = (
-            "INFEASIBLE_WITH_PROVEN_CONFLICT" if first_conflict else "FEASIBILITY_UNKNOWN"
-        )
+        # This analyzer does not establish that its deadline, distinct-unit
+        # assignment, or natural-only economy bounds preserve the supplied plan.
+        # Its arithmetic is diagnostic, never a proof of plan infeasibility.
+        current_mechanics_status = "FEASIBILITY_UNKNOWN"
         records.append(
             {
                 "operational_plan_id": plan["operational_plan_id"],
                 "classification": current_mechanics_status,
+                "proof_limitations": [
+                    "PLAN_SPECIFIC_DEADLINE_NOT_VERIFIED",
+                    "SHARING_CONDITIONAL_PHASE_AND_TRANSITION_SEMANTICS_NOT_VERIFIED",
+                    "NATURAL_ONLY_DP_IS_NOT_A_VERIFIED_TOTAL_DP_UPPER_BOUND",
+                    "CAPABILITY_POOL_AND_GEOMETRY_NOT_FULLY_VERIFIED",
+                    "ONLY_DEADLINES_AT_OR_BEFORE_FRAME_729_ANALYZED",
+                ],
                 "first_conflict": first_conflict,
                 "prefix_results": prefix_results,
                 "empty_roles_in_opening_prefix": empty_roles,
@@ -977,7 +986,7 @@ def feasibility_analysis() -> dict[str, Any]:
                     "initial_dp": 10.0,
                     "natural_dp_rate_per_second": 1.0,
                     "retreat_refund": 0.0,
-                    "reason": "Current runtime and prior exact ledgers apply no retreat refund; refund timing is unresolved.",
+                    "reason": "Diagnostic assumptions only; skill DP and retreat refunds are omitted, not proven unavailable.",
                 },
                 "required_unverified_conditions": [
                     condition
@@ -985,14 +994,15 @@ def feasibility_analysis() -> dict[str, Any]:
                         "RETREAT_REFUND_AMOUNT_AND_TIMING",
                         "SAFE_ARRIVAL_GAP_FOR_SAME_TILE_UPGRADE",
                     ]
-                    if any("RETREAT" in str(row.get("retreat_basis", "")) for row in plan["compiler_slots"])
+                    if any(row.get("retreat_basis") or row.get("must_vacate_slot")
+                           for row in plan["compiler_slots"])
                 ],
             }
         )
     return {
         "schema_version": "R8_1_CONSTRAINT_INFORMED_FEASIBILITY_CERTIFICATES_V1",
         "mechanics_version": MECHANICS,
-        "no_simulation_reason": "No plan has a constructive witness because mandatory retreat-refund economics are unverified and current-runtime DP prefixes are proven infeasible.",
+        "no_simulation_reason": "No constructive witness: plan-specific deadlines, semantics and complete economy remain unverified; simplified prefix conflicts are not proven tactical failures.",
         "records": records,
     }
 
@@ -1010,6 +1020,9 @@ def import_repair() -> Any:
 
 def postprocess() -> dict[str, Any]:
     parsed = load(OUT / "llm_structured_output.json")
+    # Validate required dependencies before replacing any historical artifacts.
+    grounding = grounding_validation()
+    feasibility = feasibility_analysis()
     write("revised_stage_understanding.json", {
         "schema_version": "R8_1_REVISED_STAGE_UNDERSTANDING_V3",
         "source": "output/r8_1_constraint_informed_revision_v3/llm_structured_output.json",
@@ -1025,9 +1038,7 @@ def postprocess() -> dict[str, Any]:
         "plans": parsed["revised_operational_plans"],
     })
     write("constraint_informed_reasoning_context.json", reasoning_context())
-    grounding = grounding_validation()
     write("grounding_validation.json", grounding)
-    feasibility = feasibility_analysis()
     write("feasibility_certificates.json", feasibility)
     write("constructive_feasibility_witnesses.json", {
         "schema_version": "R8_1_CONSTRUCTIVE_FEASIBILITY_WITNESSES_V1",
@@ -1038,7 +1049,7 @@ def postprocess() -> dict[str, Any]:
     learning_rows = []
     eliminated = repeated = replaced = 0
     for record in feasibility["records"]:
-        if record["first_conflict"]:
+        if record["classification"] == "INFEASIBLE_WITH_PROVEN_CONFLICT":
             classification = "OLD_CONFLICT_REPLACED_BY_NEW_CONFLICT"
             replaced += 1
         else:
@@ -1080,8 +1091,8 @@ def postprocess() -> dict[str, Any]:
     write("battle_failure_feedback.json", {
         "schema_version": "R8_1_CONSTRAINT_INFORMED_BATTLE_FAILURE_FEEDBACK_V1",
         "simulation_run": False,
-        "primary_feedback": "All revised plans still rely on retreat-refund economics not implemented or evidenced in current mechanics; two plans also miss their supplied route-3 fire deadline before refund could occur.",
-        "future_deterministic_prerequisite": "Obtain a source-backed retreat refund and redeploy timing decision before simulating refund-dependent plans.",
+        "primary_feedback": feasibility["no_simulation_reason"],
+        "future_deterministic_prerequisite": "Verify plan-specific deadlines, responsibility semantics and complete source-backed economy before promoting any diagnostic conflict to tactical feedback.",
         "new_conflicts": [
             {
                 "operational_plan_id": row["operational_plan_id"],
@@ -1091,14 +1102,14 @@ def postprocess() -> dict[str, Any]:
                 "deficit": row["first_conflict"]["deficit"],
             }
             for row in feasibility["records"]
-            if row["first_conflict"]
+            if row["classification"] == "INFEASIBLE_WITH_PROVEN_CONFLICT"
         ],
     })
     write("learning_progress_assessment.json", {
         "schema_version": "R8_1_LEARNING_PROGRESS_ASSESSMENT_V1",
-        "classification": "PARTIAL",
+        "classification": "NOT_DETERMINED",
         "evidence_used": "The plans explicitly cite EXP-001 through EXP-006 and materially change pioneer/medic, merged-anchor, upstream/downstream blocking, and delayed-upgrade structures.",
-        "remaining_failure": "Each revised structure replaces the old mandatory-prefix contradiction with a new unverified-refund or early-anchor DP conflict.",
+        "remaining_failure": feasibility["no_simulation_reason"],
         "old_conflicts_eliminated": eliminated,
         "old_conflicts_repeated": repeated,
         "new_conflicts_discovered": replaced,
@@ -1133,7 +1144,7 @@ def final_status(grounding: dict[str, Any], feasibility: dict[str, Any]) -> dict
         "CURRENT_MODEL_WIN": "NOT_RUN",
         "ROBUST_WIN": "NOT_RUN",
         "LEARNING_PROGRESS": learning["classification"],
-        "PRIMARY_REMAINING_BOTTLENECK": "MIXED_DEADLINE_ECONOMY_AND_RETREAT_REFUND_UNVERIFIED",
+        "PRIMARY_REMAINING_BOTTLENECK": "PLAN_SPECIFIC_DETERMINISTIC_CONTRACT_UNVERIFIED",
         "MECHANICS_CHANGED": "NO",
         "REAL_GAME_VALIDATION": "UNTESTED",
         "GIT_COMMIT_CREATED": "PENDING",
