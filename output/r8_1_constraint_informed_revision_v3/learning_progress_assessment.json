@@ -1,0 +1,77 @@
+{
+  "classification": "PARTIAL",
+  "evidence_used": "The plans explicitly cite EXP-001 through EXP-006 and materially change pioneer/medic, merged-anchor, upstream/downstream blocking, and delayed-upgrade structures.",
+  "new_conflicts_discovered": 3,
+  "old_conflicts_eliminated": 0,
+  "old_conflicts_repeated": 0,
+  "records": [
+    {
+      "evidence": {
+        "available_dp_no_retreat_refund": 19.833333333333336,
+        "deadline_frame": 295,
+        "deficit": 2.1666666666666643,
+        "minimum_assignment": {
+          "A01_C03_STUB": "char_272_strong",
+          "A02_C01_DAM": "char_445_wscoot",
+          "A03_MERGED_ANCHOR": "char_124_kroos"
+        },
+        "minimum_cost": 22.0,
+        "prefix_slots": [
+          "A01_C03_STUB",
+          "A02_C01_DAM",
+          "A03_MERGED_ANCHOR"
+        ],
+        "slot_id": "A03_MERGED_ANCHOR",
+        "status": "DP_INFEASIBLE_PREFIX_BOUND"
+      },
+      "learning_progress": "OLD_CONFLICT_REPLACED_BY_NEW_CONFLICT",
+      "operational_plan_id": "R8OP-A-MERGED-ANCHOR-REFUND-LATTICE"
+    },
+    {
+      "evidence": {
+        "available_dp_no_retreat_refund": 19.833333333333336,
+        "deadline_frame": 295,
+        "deficit": 1.1666666666666643,
+        "minimum_assignment": {
+          "B01_C03_STUB": "char_272_strong",
+          "B02_UPSTREAM_DAM": "char_322_lmlee",
+          "B04_POCKET_FIRE": "char_124_kroos"
+        },
+        "minimum_cost": 21.0,
+        "prefix_slots": [
+          "B01_C03_STUB",
+          "B02_UPSTREAM_DAM",
+          "B04_POCKET_FIRE"
+        ],
+        "slot_id": "B04_POCKET_FIRE",
+        "status": "DP_INFEASIBLE_PREFIX_BOUND"
+      },
+      "learning_progress": "OLD_CONFLICT_REPLACED_BY_NEW_CONFLICT",
+      "operational_plan_id": "R8OP-B-UPSTREAM-DAM-AND-RELAY"
+    },
+    {
+      "evidence": {
+        "available_dp_no_retreat_refund": 19.833333333333336,
+        "deadline_frame": 295,
+        "deficit": 2.1666666666666643,
+        "minimum_assignment": {
+          "C01_C03_STUB": "char_272_strong",
+          "C02_POCKET_PLACEHOLDER": "char_445_wscoot",
+          "C03_MERGED_ANCHOR": "char_124_kroos"
+        },
+        "minimum_cost": 22.0,
+        "prefix_slots": [
+          "C01_C03_STUB",
+          "C02_POCKET_PLACEHOLDER",
+          "C03_MERGED_ANCHOR"
+        ],
+        "slot_id": "C03_MERGED_ANCHOR",
+        "status": "DP_INFEASIBLE_PREFIX_BOUND"
+      },
+      "learning_progress": "OLD_CONFLICT_REPLACED_BY_NEW_CONFLICT",
+      "operational_plan_id": "R8OP-C-DELAYED-KILLING-BLOCK-EVOLUTION"
+    }
+  ],
+  "remaining_failure": "Each revised structure replaces the old mandatory-prefix contradiction with a new unverified-refund or early-anchor DP conflict.",
+  "schema_version": "R8_1_LEARNING_PROGRESS_ASSESSMENT_V1"
+}

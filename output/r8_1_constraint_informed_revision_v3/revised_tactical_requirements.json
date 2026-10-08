@@ -1,0 +1,71 @@
+{
+  "payload": [
+    {
+      "basis": "route-2 latest_safe_blocker_frame 27; <=5-cost self-clearing body (char_272_strong class), retreated once after the kill to bank the refund bridge",
+      "classification": "MANDATORY",
+      "evidence": "OE_02, IR_03, EXP-006",
+      "requirement_id": "REQ_C03_STUB"
+    },
+    {
+      "basis": "route-1 block by frame 191 with def>=322 block-2 body (wscoot class) so no medic and no early fire is needed to keep it alive",
+      "classification": "MANDATORY",
+      "evidence": "OE_02, IR_01, EXP-006",
+      "requirement_id": "REQ_C01_DAM"
+    },
+    {
+      "basis": "~480+ eDPS auto-cycle fire on [8,5] established early enough that route-3 dies before route-4's second contact (941); merged into the C07 anchor (Plan A/C) or dedicated [9,5] with dam-relaxed timing (Plan B)",
+      "classification": "MANDATORY",
+      "evidence": "EXP-006, route-4 spawn_frames [750,1050]",
+      "requirement_id": "REQ_POCKET_QUEUE_FIRE"
+    },
+    {
+      "basis": "route-7 latest block 725; cost-6 duelist solo (talr/nothin class), no support required",
+      "classification": "MANDATORY",
+      "evidence": "IR_05, route-7 contact_to_leak 1.86s, supplied operator stats",
+      "requirement_id": "REQ_C05_BODY"
+    },
+    {
+      "basis": "route-6 latest block 729; held by the second cost-6 duelist IFF the stub retreat refund is confirmed (else conceded, 1 life, re-established for route-14 by ~frame 3600)",
+      "classification": "CONDITIONAL",
+      "evidence": "IR_06, route-6 contact 625 / leak window 4.78s",
+      "requirement_id": "REQ_C06_BODY"
+    },
+    {
+      "basis": "route-8 is unblockable (IR_04 empty) and its kill requirement lands exactly in the crunch; conceded (1 of 5 lives) unless the verifier proves the roadblock-diverted path yields enough coverage time for a cheap [6,2] piece plus [9,2] tail to kill it",
+      "classification": "CONDITIONAL_CONCESSION",
+      "evidence": "IR_04 legal_tiles empty, trap_020_roadblock at [3,1], C04 one_resource_plausible=true, EXP-002/004 prefix deficits",
+      "requirement_id": "REQ_C04_ROUTE8"
+    },
+    {
+      "basis": "route-10 spawn 1350; SC_01 is the ONLY C07 coverage; in Plan A this is the same deployment as REQ_POCKET_QUEUE_FIRE",
+      "classification": "MANDATORY",
+      "evidence": "IR_07 empty, SC_01 route_count 33",
+      "requirement_id": "REQ_C07_ANCHOR"
+    },
+    {
+      "basis": "backfield pioneer on a path-free tile ([9,4]) cycling auto DP from ~frame 800-960 onward to fund W03-W05 reinforcements; never assigned a combat role",
+      "classification": "MANDATORY_MID",
+      "evidence": "OE_01, FORM_01 legal tiles vs cluster path_segments, char_420_flamtl supplied skill",
+      "requirement_id": "REQ_BATTERY"
+    },
+    {
+      "basis": "route-16 (W05) is the first C04 route after the conceded route-8; heavy auto-cycle piece at [6,2] established during the W03-W04 lull",
+      "classification": "MANDATORY_DELAYED",
+      "evidence": "SC_03, pressure window W05 route list",
+      "requirement_id": "REQ_C04_FIRE"
+    },
+    {
+      "basis": "durable dam (chip-only damage) plus self-sufficient duelists make standing sustain unnecessary; one medic remains an optional 8th-slot insurance for W05/W06 if duelist margins fail in verification",
+      "classification": "REMOVED_FROM_PREFIX",
+      "evidence": "EXP-001/003/005 cores include POCKET_MEDIC; wscoot/talr/nothin supplied stat lines",
+      "requirement_id": "REQ_MEDIC"
+    },
+    {
+      "basis": "routes 33/34 (4 uterers, spawns 4650-4824) are contested by the full late formation with priorities (pocket train > C04 26/27 > C05/C06 rows > C07 29-32 > 33/34); up to 3 further concessions preserve margin 1",
+      "classification": "CONDITIONAL_TRIAGE",
+      "evidence": "W06 simultaneous_responsibilities, OP-05 concession analysis",
+      "requirement_id": "REQ_W06_TAIL"
+    }
+  ],
+  "schema_version": "R8_1_REVISED_TACTICAL_REQUIREMENTS_V3"
+}

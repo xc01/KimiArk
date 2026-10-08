@@ -1,0 +1,1330 @@
+{
+  "kimi_call_count": 1,
+  "plans": [
+    {
+      "allowed_substitutions": [
+        "Stub: any cost<=5 block-capable unit that solos or safely holds route-2 until its retreat window.",
+        "Dam: any block>=2, def>=322, cost<=8 unit (wscoot class); def>=330 alternatives acceptable at cost<=11 if the verifier re-checks the 191 arithmetic.",
+        "Anchor: any auto-cycle heavy meeting both cell floors ([8,5] sustained, [8,0] burst); physical or arts.",
+        "Duelists: talr/nothin interchangeable across C05/C06; a third same-class unit may replace the conditional medic.",
+        "Battery: texas-class +12/35s pioneer acceptable if flamtl-class unavailable (first proc later; verifier re-checks W05 funding).",
+        "[6,2] heavy: any distinct auto-cycle heavy meeting the C04 diverted-path floor."
+      ],
+      "battle_phases": [
+        {
+          "actions": "stub + dam + (delayed) anchor via refund",
+          "economy_note": "spend 28 by ~frame 500 against 10+16.7+5 refund = 31.7; margin ~3.7",
+          "phase": "OPENING_W01",
+          "windows": [
+            "W01"
+          ]
+        },
+        {
+          "actions": "duelists at 725/729; route-8 conditional concession; battery deployed post-crunch",
+          "economy_note": "total spend 35 by 729 vs 34.3 natural + 5 refund = 39.3; margin ~4.3 (zero-pioneer-prefix by design)",
+          "phase": "W02_CRUNCH",
+          "windows": [
+            "W02"
+          ]
+        },
+        {
+          "actions": "anchor owns C07 route-10/12; battery cycles fund nothing yet; pocket queue clears route-9 train one per ~205 frames",
+          "economy_note": "procs at ~1070/1610/2150 accumulate ~+18 by 2250",
+          "phase": "W03_W04_BUILD",
+          "windows": [
+            "W03",
+            "W04"
+          ]
+        },
+        {
+          "actions": "[6,2] heavy by route-16; duelists re-own routes 15/14; optional medic if margins failed",
+          "economy_note": "spend 35+12(battery)+15([6,2]) = 62 vs 85+18 = 103 by 2250",
+          "phase": "W05_REINFORCE",
+          "windows": [
+            "W05"
+          ]
+        },
+        {
+          "actions": "priorities: pocket route-28 train, C04 26/27, C05/C06 rows, C07 29-32, then 33/34; strong returns as flex body (25s redeploy long since ready)",
+          "economy_note": "battery has returned ~+48 cumulative by 4850; lives 4 remaining after route-8",
+          "phase": "W06_TRIAGE",
+          "windows": [
+            "W06"
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "evidence": "EXP-006 (fang died 654); char_445_wscoot supplied stats; OE_02",
+          "previous": "<=9-cost pioneer opener at [8,5] generating +6 DP and tanking lane-01 (EXP-001 core, EXP-006 trace)",
+          "revised": "Pioneer removed from the pocket entirely; [8,5] tank is a cost-8 def>=322 dam with zero economy role; economy comes from stub refund + backfield battery"
+        },
+        {
+          "evidence": "SC_01 route_count 33, covered_cells [8,0],[8,5],[9,5]",
+          "previous": "Three distinct ranged deployments by 941-1350 ([9,5] + [6,2] + [9,2])",
+          "revised": "One merged SC_01 anchor by ~frame 400-500; [6,2] heavy delayed to route-16 (W05)"
+        },
+        {
+          "evidence": "lane-01 enemies all atk 330 vs dam def 322; sustain_pressure classification reviewed",
+          "previous": "POCKET_MEDIC mandatory by 941 (in EXP-001/003/005 cores)",
+          "revised": "Removed from prefix; optional 8th-slot insurance only"
+        },
+        {
+          "evidence": "supplied operator stat lines; EXP-002 deficit 4.1667",
+          "previous": "Premium 16-18-cost isolated duelists by 625/725 (EXP-002 core)",
+          "revised": "Cost-6 talr/nothin-class duelists; shared coverage permitted as insurance, not forbidden"
+        },
+        {
+          "evidence": "IR_04 legal_tiles empty; EXP-002/004 prefix arithmetic",
+          "previous": "Zero-early-leak dogma / no concession before 4650 (OP-05 forbidden_substitutions)",
+          "revised": "Exactly one conditional shoulder concession: route-8 (worst supplied economics: unblockable, crunch-timed)"
+        },
+        {
+          "evidence": "EXP-006 event sequence; route-4 spawn_frames [750,1050]",
+          "previous": "Pocket fire deadline ~805 (OP-01) which EXP-006 proved illusory",
+          "revised": "Anchor established by ~frame 400-500 via the refund bridge; queue contract: route-3 dead before route-4 second contact 941, route-1 dead before 805"
+        }
+      ],
+      "compiler_slots": [
+        {
+          "affordance_id": "IR_03",
+          "capability_requirements": "cost<=5; def>=240 vs 330-atk; self-kill ~280+ eDPS vs 150-def OR hold >=18s; exemplar char_272_strong; planner_safe_for_basic_attack",
+          "corridor": "C03",
+          "deadline_basis": "route-2:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 5,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": "W01",
+          "replacement_group": "RG_STUB_FLEX",
+          "retreat_basis": "single retreat after route-2 confirmed dead (~frame 390); banks refund; 25s redeploy permits W06 return",
+          "role": "BLOCK",
+          "slot_id": "A01_C03_STUB"
+        },
+        {
+          "affordance_id": "IR_01",
+          "capability_requirements": "cost<=8; block>=2; def>=322 (chip-only vs 330-atk); HP>=2000; exemplar char_445_wscoot",
+          "corridor": "C01+C02",
+          "deadline_basis": "route-1:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 8,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03",
+            "W05",
+            "W06"
+          ],
+          "role": "BLOCK",
+          "slot_id": "A02_C01_DAM"
+        },
+        {
+          "affordance_id": "SC_01",
+          "capability_requirements": "cost<=15; auto-activate burst skill; >=450 eDPS vs 150-def on blocked [8,5] targets; single-cell burst >=550 vs 100-def at [8,0]; exemplar char_4211_snhunt",
+          "corridor": "C01+C04+C07",
+          "deadline_basis": "route-3:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "max_cost_design_choice": 15,
+          "may_share_live_operator": true,
+          "phase": "EARLY_ESTABLISHMENT",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03",
+            "W04",
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "shared_responsibilities": [
+            "pocket queue-clear on cell [8,5]",
+            "C07 anchor (only SC_01 coverage)",
+            "C04 tail-catch on cell [8,0]"
+          ],
+          "slot_id": "A03_MERGED_ANCHOR"
+        },
+        {
+          "affordance_id": "IR_05",
+          "capability_requirements": "cost<=6; HP>=1500; def>=255; >=370 eDPS vs 100-def; redeploy<=25s preferred; exemplar char_4155_talr",
+          "corridor": "C05",
+          "deadline_basis": "route-7:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "phase": "W02_CRUNCH",
+          "pressure_window": [
+            "W02",
+            "W05",
+            "W06"
+          ],
+          "role": "DUELIST",
+          "slot_id": "A04_C05_DUELIST"
+        },
+        {
+          "affordance_id": "IR_06",
+          "capability_requirements": "cost<=6; same stat floor as A04; exemplar char_455_nothin; CONDITIONAL: requires stub refund >= ~1 DP by frame ~390, else convert route-6 to concession and re-establish this slot by route-14 (~frame 3600)",
+          "corridor": "C06",
+          "deadline_basis": "route-6:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "phase": "W02_CRUNCH",
+          "pressure_window": [
+            "W02",
+            "W05",
+            "W06"
+          ],
+          "role": "DUELIST",
+          "slot_id": "A05_C06_DUELIST"
+        },
+        {
+          "affordance_id": "OE_01",
+          "capability_requirements": "dp_immediate>=6 per auto cycle; cycle<=~18s preferred (char_420_flamtl); tile must be off all path cells ([9,4] per FORM_01 vs cluster path_segments); cost<=12; NEVER assigned a combat responsibility",
+          "corridor": "NONE_BACKFIELD",
+          "deadline_basis": "route-10:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+          "max_cost_design_choice": 12,
+          "may_share_live_operator": false,
+          "phase": "MID_ECONOMY",
+          "pressure_window": [
+            "W02",
+            "W03"
+          ],
+          "role": "PIONEER_BLOCK",
+          "slot_id": "A06_BATTERY"
+        },
+        {
+          "affordance_id": "SC_03",
+          "capability_requirements": ">=450 eDPS vs 100-def across device-diverted coverage; auto skill; distinct operator from A03 (ray/coldst/snhunt class)",
+          "corridor": "C04",
+          "deadline_basis": "route-16:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "may_share_live_operator": false,
+          "phase": "W05_REINFORCE",
+          "pressure_window": [
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "slot_id": "A07_C04_FIRE"
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "verifier proves roadblock-diverted C04 path gives [6,2]+[9,2] enough coverage time for a cheap piece to kill route-8",
+          "id": "COND_ROUTE8",
+          "if_false": "concede route-8 (1 life); [6,2] heavy delayed to route-16",
+          "if_true": "deploy cheap [6,2] chip by ~frame 660-700 and hold route-8 (zero early leaks)"
+        },
+        {
+          "condition": "stub retreat refund >= ~1 DP confirmed by frame ~390",
+          "id": "COND_ROUTE6",
+          "if_false": "concede route-6 (1 life); re-establish [6,1] by ~frame 3600 for route-14",
+          "if_true": "nothin-class duelist at [6,1] by 729 solos route-6"
+        },
+        {
+          "condition": "duelist survival margins fail in verification or live play",
+          "id": "COND_MEDIC",
+          "if_false": "slot stays reserve",
+          "if_true": "deploy cost<=13 medic in the free slot covering [5,1]/[6,1]"
+        },
+        {
+          "condition": "W06 peak concurrency threatens priorities 1-3",
+          "id": "COND_TAIL",
+          "if_false": "contest full tail with anchor + [6,2] + flex body",
+          "if_true": "release up to 3 of routes 33/34"
+        }
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: dam [8,5] blocks; merged anchor clears the queue (~480+ eDPS, one kill per ~205 frames); contract verified against block-2 depth at 805/941.",
+        "C03: stub solo-kills route-2, retreats once at ~390; tile surplus thereafter.",
+        "C04: route-8 conditional concession (1 life) OR cheap [6,2] chip + anchor tail IF verifier proves diversion length; routes 16/26/27 owned by the W05 [6,2] heavy plus anchor tail at [8,0].",
+        "C05: talr-class duelist at [5,1] solos routes 7/15/24/25; anchor and [6,2] provide incidental insurance via coverage overlap at [5,1].",
+        "C06: nothin-class duelist at [6,1] solos route-6 (conditional on refund) and routes 14/22/23; else conceded-and-rebuilt by ~frame 3600.",
+        "C07: merged anchor at [9,2] from well before route-10 (1350); single-cell burst >=550 vs 100-def at [8,0]; tail routes 33/34 triaged under life-budget priorities."
+      ],
+      "damage_responsibilities": [
+        "Pocket queue (routes 1/3/4/9/18/28): merged anchor, ~480+ eDPS vs 150-def, one kill per ~205 frames; block-2 depth never exceeded by construction.",
+        "route-2: stub self-damage (~291/hit vs 150-def) inside its survival margin.",
+        "C05/C06 rows: duelist self-damage (~375-385/hit vs 100-def) with coverage insurance.",
+        "C04: W05 heavy + anchor tail; route-8 per conditional branch.",
+        "C07: anchor single-cell burst at [8,0]; per-route engagement geometry deferred to verifier."
+      ],
+      "forbidden_substitutions": [
+        "Any sub-300-def unit as the [8,5] dam (EXP-006 pattern).",
+        "Any pioneer deployed on a lane-01/lane-02 path tile for economy (must be path-free [9,4] or equivalent).",
+        "Support/medic professions in any damage slot (CMF-2).",
+        "Any ACTIVATE_SKILL load-bearing step (CMF-3).",
+        "A second standing medic in the base plan (defeats the prefix deletion; medic is conditional insurance only).",
+        "Spending any resource on route-8 unless the verifier proves the diversion branch (triage discipline).",
+        "More than one retreat on the same unit; no retreat of a non-deployed unit; no same-tile replacement."
+      ],
+      "formation_structure": {
+        "crunch": "+ [9,2] merged anchor (15), [5,1] duelist (6), [6,1] duelist (6), minus stub (retreated)",
+        "deployment_limit_usage": "peak 7 of 8, one slot held as rotating reserve",
+        "endgame_standing": "dam, anchor, duelist x2, battery, [6,2] heavy = 6 standing + 2 free slots (medic insurance / strong-return flex / FRD)",
+        "midgame": "+ [9,4] battery (12), + [6,2] heavy (15)",
+        "opening": "[3,3] stub (5), [8,5] dam (8)"
+      },
+      "formation_transitions": [
+        {
+          "detail": "All deployments on distinct legal tiles (FT_01/FT_02); no teardown.",
+          "id": "T1",
+          "type": "ADDITIVE"
+        },
+        {
+          "detail": "Stub retreated once after route-2 dies (verified live-unit retreat); frees slot and banks refund; stub may REDEPLOY after its 25s cooldown as W06 flex (distinct legal re-deployment of a retreated unit, not same-operator relay abuse).",
+          "id": "T2",
+          "type": "SINGLE_RETREAT"
+        },
+        {
+          "detail": "No same-tile replacement anywhere in this plan.",
+          "id": "T3",
+          "type": "NO_SAME_TILE"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        "Stub at [3,3] by frame 27; dam at [8,5] by frame 191 (OE_02).",
+        "Anchor active early enough that route-1 dies before frame 805 and route-3 before frame 941 (queue contract; verifier resolves exact latest establishment from its measured eDPS).",
+        "Duelist at [5,1] by 725 and (conditional) at [6,1] by 729.",
+        "Cumulative planned leaks: route-8 only (1) unless diversion branch holds; total <=4 including W06 triage; margin >=1.",
+        "Deployment count <=8 at all times; one slot reserved from W03.",
+        "No planned operator deaths; no pioneer on a path tile."
+      ],
+      "opening_responsibilities": [
+        "Frame 0-27: cost-5 self-clearing stub at [3,3] (IR_03) owns C03/route-2 solo (strong-class: kills in ~12s inside its survival margin).",
+        "~Frame 90: cost-8 def>=322 block-2 dam at [8,5] (IR_01) owns C01+C02 from route-1 contact onward with chip-only damage.",
+        "~Frame 390: route-2 confirmed dead; stub retreated once (legal single retreat of a live unit), banking the refund bridge.",
+        "~Frame 400-500 (refund-funded): merged anchor on [9,2] (SC_01) active; queue-clear contract starts: route-1 dead before 805, route-3 dead before 941, then one kill per ~205 frames through the route-28 train.",
+        "~Frame 570-720: cost-6 duelists land at [5,1] (route-7 by 725) and [6,1] (route-6 by 729; conditional on refund).",
+        "~Frame 800-960: battery pioneer on [9,4] starts cycling; first proc ~frame 1070."
+      ],
+      "operational_plan_id": "R8OP-A-MERGED-ANCHOR-REFUND-LATTICE",
+      "optional_responsibilities": [
+        {
+          "affordance_id": "FORM_01",
+          "detail": "medic whose range covers [5,1]/[6,1] from a legal high tile; deadline_basis route-15:MEDIC if exercised",
+          "establishment_semantic": "MUST_HAVE_COVERAGE",
+          "id": "OPT_MEDIC",
+          "role": "SUSTAIN"
+        },
+        {
+          "affordance_id": "FT_02",
+          "detail": "retreated stub redeploys (25s cooldown) as a W06 flex body on priorities 1-3 only",
+          "id": "OPT_STRONG_RETURN",
+          "role": "RELAY"
+        }
+      ],
+      "parent_hypothesis_id": "R8HYP-A-MERGED-ANCHOR",
+      "pressure_window_responsibilities": [
+        "W01: stub owns C03; dam owns C01+C02; anchor arrives via refund before the EXP-006 death window closes.",
+        "W02: duelists own routes 7/6; anchor owns pocket queue; route-8 conceded-or-chipped per conditional branch.",
+        "W03-W04: anchor owns C07 route-10/12 and pocket route-9 train; battery banks the mid-game.",
+        "W05: [6,2] heavy owns route-16 with anchor tail; duelists own routes 15/14; static formation otherwise.",
+        "W06: priority-ordered triage as listed; concede at most 3 of routes 33/34 to preserve life margin 1."
+      ],
+      "reserve_strategy": {
+        "dp_reserve": "battery cycles reserved for W05 heavy and W06 flex; no planned spend of the last ~4 DP at any checkpoint",
+        "lives_total": 5,
+        "planned_concessions": [
+          "route-8 (1 uterer, conditional on diversion branch)"
+        ],
+        "slot_reserve": "one deployment slot kept free from W03 onward",
+        "triage_headroom": "up to 3 of routes 33/34 under W06 priorities; margin never below 1"
+      },
+      "selected_affordance_ids": [
+        "IR_01",
+        "IR_03",
+        "IR_05",
+        "IR_06",
+        "SC_01",
+        "SC_03",
+        "OE_01",
+        "OE_02",
+        "FT_01",
+        "FT_02",
+        "FORM_01"
+      ],
+      "skill_intents": [
+        "All load-bearing damage skills are auto-activate (snhunt-class 2.3x-per-3-attacks ATTACK recovery); CMF-3 respected: no ACTIVATE_SKILL is load-bearing.",
+        "Battery skill is TIME-recovery auto DP (+6 per ~18s cycle); assumed to fire without enemies in range (verifier question).",
+        "Duelists and dam are planner_safe_for_basic_attack with no skill dependence."
+      ],
+      "stable_roles": [
+        {
+          "role": "lane-01 dam",
+          "tile": "[8,5]",
+          "unit_class": "char_445_wscoot",
+          "window": "frame ~90 to end"
+        },
+        {
+          "role": "merged anchor",
+          "tile": "[9,2]",
+          "unit_class": "char_4211_snhunt class",
+          "window": "~frame 400-500 to end"
+        },
+        {
+          "role": "C05 duelist",
+          "tile": "[5,1]",
+          "unit_class": "char_4155_talr",
+          "window": "~frame 570 to end"
+        },
+        {
+          "role": "C06 duelist",
+          "tile": "[6,1]",
+          "unit_class": "char_455_nothin",
+          "window": "~frame 600-720 to end"
+        },
+        {
+          "role": "battery",
+          "tile": "[9,4]",
+          "unit_class": "char_420_flamtl",
+          "window": "~frame 800-960 to end"
+        },
+        {
+          "role": "C04 heavy",
+          "tile": "[6,2]",
+          "unit_class": "second snhunt/ray/coldst class",
+          "window": "W05 to end"
+        }
+      ],
+      "sustain_responsibilities": [
+        "Lane-01: none (dam takes chip-only damage from 330-atk uoffcr; cumulative chip bounded and verifier-checked against 2199 HP).",
+        "Lane-02: duelist self-sufficiency (HP>=1500, def>=255); margins vs 380-atk uterer are ~2-3 hits of buffer and are a named uncertainty.",
+        "Optional medic in the free 8th slot (chnut/glinder-class, cost 12-13) covering [5,1]/[6,1] from a FORM_01-legal high tile, deployed only if verification or live margins demand."
+      ],
+      "tactical_thesis": "Merge what EXP-001/003/005 paid for three times: one heavy auto-cycle unit on SC_01 [9,2] owns the pocket queue-clear (cell [8,5]), C07 (route-10 onward) and C04 tail-catch (cell [8,0]) as ONE deployment. A def>=322 dam at [8,5] (wscoot-class, cost 8) makes lane-01 pressure chip-only, deleting POCKET_MEDIC from the mandatory prefix. The [3,3] stub (cost 5, strong-class) solos route-2 and is retreated at ~frame 390, banking a refund that funds the anchor inside the EXP-006 survival window. Cost-6 duelist-class bodies (talr/nothin) solo routes 7 and 6 at one-third of OP-02's assumed price. Route-8 is the single planned conditional concession (unblockable, IR_04 empty) unless the verifier proves the roadblock-diverted path makes it cheaply killable. A flamtl-class battery on path-free [9,4] cycles +6 DP every ~18s from ~frame 1070 to fund the W05 [6,2] heavy and W06 flex.",
+      "temporary_roles": [
+        {
+          "exit": "single legal retreat",
+          "role": "C03 stub",
+          "unit_class": "char_272_strong",
+          "window": "frame 0 to ~390, then optional W06 return"
+        },
+        {
+          "exit": "none required",
+          "role": "W06 flex body",
+          "unit_class": "returned stub or gravel-class FRD",
+          "window": "W06 priority support only"
+        }
+      ],
+      "verifier_questions": [
+        "What is the exact retreat refund for char_272_strong retreated live at ~frame 390 (full paid cost, partial, none)?",
+        "Is [9,2] deployable given trap_020_roadblock#2 occupies it; if it must be destroyed first, what is the earliest legal anchor frame and by whom?",
+        "Exact engagement model for C07 uterers at [8,0]: how many attack opportunities does the anchor get per crossing, and was one_resource_plausible validated against 3500 HP / speed 1.7?",
+        "Does the roadblock at [3,1] divert route-8's [2,1]->[8,0] leg through SC_03-covered cells, and what is the resulting coverage duration?",
+        "Exact enemy attack intervals (not supplied) for uoffcr/uterer, to validate dam chip totals and duelist margins.",
+        "Does the battery pioneer's auto DP skill fire with no enemy in range?",
+        "Latest legal establishment frame for the anchor such that route-3 dies before 941 under measured eDPS."
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "Upstream dam: any cost<=7 def>=300 block-capable unit; if none realizes, revert to Plan A's single-dam topology (plan degrades gracefully).",
+        "Grind piece: any cheap ranged covering [3,5] (SC_02/SC_05/SC_06 tiles).",
+        "All duelist/dam/anchor/battery substitutions as per Plan A.",
+        "If CMF-1 is adjudicated to ban the [3,5] dam, this plan is void; use Plan A."
+      ],
+      "battle_phases": [
+        {
+          "actions": "stub + upstream dam + downstream dam",
+          "economy_note": "spend 20 by ~frame 300",
+          "phase": "OPENING_W01",
+          "windows": [
+            "W01"
+          ]
+        },
+        {
+          "actions": "pocket fire by ~600, talr by ~725; concede route-6/route-8 per branches",
+          "economy_note": "spend 41-5 refund = 36 by 729 vs 39.3; margin ~3.3",
+          "phase": "W02_CRUNCH",
+          "windows": [
+            "W02"
+          ]
+        },
+        {
+          "actions": "C07 anchor at [9,2] by route-10 (1350); battery cycling; [5,5] grind piece deployed to kill the dammed route-1 and chip lane-02",
+          "economy_note": "procs fund anchor + grind piece",
+          "phase": "W03_W04_BUILD",
+          "windows": [
+            "W03",
+            "W04"
+          ]
+        },
+        {
+          "actions": "[6,2] heavy by route-16; nothin-class relay body at [6,1] by route-14 (~frame 3600-3700)",
+          "economy_note": "well inside battery-funded surplus",
+          "phase": "W05_REINFORCE",
+          "windows": [
+            "W05"
+          ]
+        },
+        {
+          "actions": "same priority order as Plan A; relay rotation frees a slot if any body falls",
+          "economy_note": "3 lives remain after shoulder concessions",
+          "phase": "W06_TRIAGE",
+          "windows": [
+            "W06"
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "evidence": "IR_01 legal_tiles [[3,5],[8,5]]; route-3 contact ~350 at [8,5]",
+          "previous": "Single [8,5] pocket must stack route-1+route-3 on one block-2 unit with fire by ~527 (13-frame overflow pathology found in all prior arithmetic)",
+          "revised": "Queue split across two tiles; each tile's block-count and fire deadline relaxes by ~200 frames"
+        },
+        {
+          "evidence": "EXP-003 deficit 1.6333 with RELAY_625/RELAY_725 in core",
+          "previous": "OP-03 relay as additive cost on a full standing lattice (EXP-003 core)",
+          "revised": "Relay as slot rotation with refunds: nothin-class serves route-14/22/23 then may rotate; stub returns as flex; no third standing ranged and no second medic"
+        },
+        {
+          "evidence": "IR_01 lists [3,5] as legal for routes 17/18/28/3/4/9",
+          "previous": "CMF-1 '[3,5] at 191' prohibition interpreted as banning any [3,5] usage",
+          "revised": "The forbidden pattern was replacing the lane-01 main block; here [3,5] is a supplementary upstream dam established ~frame 120 with [8,5] still present at ~frame 300; verifier adjudicates legality"
+        },
+        {
+          "evidence": "char_322_lmlee supplied stats (1552/308, cost 7, 25s redeploy)",
+          "previous": "Fire deadline set by blocker death (EXP-006)",
+          "revised": "Both dams are def>=308; deadlines set by block-count only, and split so they never bind"
+        }
+      ],
+      "compiler_slots": [
+        {
+          "affordance_id": "IR_03",
+          "capability_requirements": "as Plan A A01 (char_272_strong class)",
+          "corridor": "C03",
+          "deadline_basis": "route-2:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 5,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": "W01",
+          "replacement_group": "RG_STUB_FLEX",
+          "retreat_basis": "single retreat after route-2 dies (~frame 390); refund bridge",
+          "role": "BLOCK",
+          "slot_id": "B01_C03_STUB"
+        },
+        {
+          "affordance_id": "IR_01",
+          "capability_requirements": "cost<=7; block>=1; def>=300; HP>=1500; tile [3,5]; exemplar char_322_lmlee; assignment is the single route-1 enemy only",
+          "corridor": "C01+C02",
+          "deadline_basis": "route-1:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 7,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03",
+            "W05",
+            "W06"
+          ],
+          "role": "BLOCK",
+          "slot_id": "B02_UPSTREAM_DAM"
+        },
+        {
+          "affordance_id": "IR_01",
+          "capability_requirements": "as Plan A A02 (char_445_wscoot class); owns route-3 onward",
+          "corridor": "C01",
+          "deadline_basis": "route-3:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 8,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03",
+            "W05",
+            "W06"
+          ],
+          "role": "BLOCK",
+          "slot_id": "B03_DOWNSTREAM_DAM"
+        },
+        {
+          "affordance_id": "SC_04",
+          "capability_requirements": "cost<=15; >=450 eDPS vs 150-def on [8,5] blocked targets; auto skill; exemplar char_4211_snhunt; establishment relaxed to ~frame 600 by the dam split (route-3 dead before 941)",
+          "corridor": "C01",
+          "deadline_basis": "route-3:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "max_cost_design_choice": 15,
+          "may_share_live_operator": false,
+          "phase": "EARLY_ESTABLISHMENT",
+          "pressure_window": [
+            "W02",
+            "W03",
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "slot_id": "B04_POCKET_FIRE"
+        },
+        {
+          "affordance_id": "IR_05",
+          "capability_requirements": "as Plan A A04 (char_4155_talr class)",
+          "corridor": "C05",
+          "deadline_basis": "route-7:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "phase": "W02_CRUNCH",
+          "pressure_window": [
+            "W02",
+            "W05",
+            "W06"
+          ],
+          "role": "DUELIST",
+          "slot_id": "B05_C05_DUELIST"
+        },
+        {
+          "affordance_id": "IR_06",
+          "capability_requirements": "cost<=6; duelist stat floor (HP>=1500, def>=255, >=370 eDPS vs 100-def); exemplar char_455_nothin; route-6 itself is conceded by design unless the verifier's refund rule funds a 729 establishment",
+          "corridor": "C06",
+          "deadline_basis": "route-14:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "phase": "W05_REINFORCE",
+          "pressure_window": [
+            "W05",
+            "W06"
+          ],
+          "retreat_basis": "optional single retreat after route-23 clears for W06 slot rotation",
+          "role": "RELAY",
+          "slot_id": "B06_C06_RELAY"
+        },
+        {
+          "affordance_id": "SC_02",
+          "capability_requirements": "cost<=11; >=250 eDPS vs 150-def; grinds the dammed route-1 enemy (no leak deadline) and chips [5,1]/[6,1] rows; exemplar aprl/jesica class",
+          "corridor": "C01+C05+C06",
+          "deadline_basis": "route-15:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 11,
+          "may_share_live_operator": false,
+          "phase": "W03_BUILD",
+          "pressure_window": [
+            "W03",
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "slot_id": "B07_R1_GRIND"
+        },
+        {
+          "affordance_id": "SC_01",
+          "capability_requirements": "as Plan A A03 but a DISTINCT operator from B04 (ray/coldst/snhunt class)",
+          "corridor": "C07",
+          "deadline_basis": "route-10:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "max_cost_design_choice": 17,
+          "may_share_live_operator": false,
+          "phase": "W03_BUILD",
+          "pressure_window": [
+            "W03",
+            "W04",
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "slot_id": "B08_C07_ANCHOR"
+        },
+        {
+          "affordance_id": "OE_01",
+          "capability_requirements": "as Plan A A06 (char_420_flamtl on path-free [9,4])",
+          "corridor": "NONE_BACKFIELD",
+          "deadline_basis": "route-10:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+          "max_cost_design_choice": 12,
+          "may_share_live_operator": false,
+          "phase": "MID_ECONOMY",
+          "pressure_window": [
+            "W02",
+            "W03"
+          ],
+          "role": "PIONEER_BLOCK",
+          "slot_id": "B09_BATTERY"
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "as Plan A",
+          "id": "COND_ROUTE8",
+          "if_false": "concede (1 life)",
+          "if_true": "cheap [6,2] chip holds route-8"
+        },
+        {
+          "condition": "refund + timing funds a 729 establishment (spend 42 vs available; needs full refund)",
+          "id": "COND_ROUTE6",
+          "if_false": "concede (1 life), relay body arrives for route-14",
+          "if_true": "hold route-6 with the relay body at [6,1]"
+        },
+        {
+          "condition": "duelist margins fail",
+          "id": "COND_MEDIC",
+          "if_false": "no medic",
+          "if_true": "rotate grind piece out, deploy medic in its slot"
+        },
+        {
+          "condition": "W06 peak threatens priorities 1-3",
+          "id": "COND_TAIL",
+          "if_false": "contest full tail",
+          "if_true": "release up to 2 of routes 33/34"
+        }
+      ],
+      "corridor_responsibilities": [
+        "C01: split - [3,5] dam owns route-1 indefinitely (grind piece kills it during W03); [8,5] dam owns routes 3/4/9/18/28 with dedicated [9,5] fire.",
+        "C02: route-1 blocked upstream at first contact; never reaches the pocket.",
+        "C03: stub solo + single retreat.",
+        "C04: identical conditional branch to Plan A; [6,2] heavy owns routes 16/26/27.",
+        "C05: talr-class duelist at [5,1] from ~630 solos routes 7/15/24/25; [5,5] grind piece adds insurance coverage.",
+        "C06: route-6 conceded by design (or held under refund branch); nothin-class relay owns routes 14/22/23 from ~frame 3600.",
+        "C07: dedicated snhunt-class anchor at [9,2] by 1350 (distinct operator from the [9,5] piece)."
+      ],
+      "damage_responsibilities": [
+        "Pocket queue (routes 3/4/9/18/28): [9,5] snhunt-class, one kill per ~205 frames against a single-dam queue.",
+        "route-1: [5,5] grind piece during W03 (no deadline pressure; dammed indefinitely).",
+        "route-2: stub self-clear.",
+        "C05 rows: duelist solo + grind piece insurance.",
+        "C06 late rows: relay duelist solo.",
+        "C04/C07: as Plan A ([6,2] heavy + anchor; route-8 branch)."
+      ],
+      "forbidden_substitutions": [
+        "Using the [3,5] dam as the ONLY lane-01 block (that is the CMF-1 pattern; [8,5] dam is mandatory).",
+        "Sub-300-def units in either dam slot (EXP-006 pattern).",
+        "Third standing heavy ranged or second medic in the base plan (EXP-003 core pattern).",
+        "Same-operator redeploy chains as a planned step; more than one retreat per unit.",
+        "Support/medic professions in damage slots (CMF-2); manual-skill dependence (CMF-3)."
+      ],
+      "formation_structure": {
+        "crunch": "+ [9,5] pocket fire (15), [5,1] duelist (6), minus stub",
+        "deployment_limit_usage": "peak 8 of 8 with one planned rotation (grind piece or relay body)",
+        "endgame_standing": "two dams, pocket fire, duelist, anchor, battery, grind piece, relay body = 8 of 8; grind piece is the rotation candidate",
+        "midgame": "+ [9,2] anchor (15), [9,4] battery (12), [5,5] grind piece (11)",
+        "opening": "[3,3] stub (5), [3,5] upstream dam (7), [8,5] downstream dam (8)"
+      },
+      "formation_transitions": [
+        {
+          "detail": "FT_01/FT_02 throughout; distinct tiles only.",
+          "id": "T1",
+          "type": "ADDITIVE"
+        },
+        {
+          "detail": "Stub retreat at ~390 (refund bridge).",
+          "id": "T2",
+          "type": "SINGLE_RETREAT"
+        },
+        {
+          "detail": "nothin-class may retreat once after route-23 clears (~4089+) to free the slot for W06 flex; each unit retreats at most once; no same-operator redeploy chains.",
+          "id": "T3",
+          "type": "RELAY_ROTATION"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        "Stub by 27; upstream dam before route-1 passes [3,5] (verifier resolves exact latest frame); downstream dam before route-3's ~350 contact.",
+        "Pocket fire active by ~frame 600 with route-3 dead before 941.",
+        "Duelist at [5,1] by 725.",
+        "Cumulative planned leaks <=2 (route-6, route-8) before W06; <=4 total; margin >=1.",
+        "Deployment count <=8 with at most one planned rotation.",
+        "No planned operator deaths; battery never on a path tile."
+      ],
+      "opening_responsibilities": [
+        "Frame 0-27: strong-class stub at [3,3] solos route-2; retreats ~390 for the refund bridge.",
+        "~Frame 120: lmlee-class dam at [3,5] arrests route-1 upstream (single enemy, block-1 sufficient).",
+        "~Frame 300: wscoot-class dam at [8,5] before route-3's ~350 contact.",
+        "~Frame 600 (refund-funded): snhunt-class pocket fire at [9,5] active; route-3 dies ~frame 810, well before 941.",
+        "~Frame 630: talr-class duelist at [5,1], comfortably before route-7's 725 deadline.",
+        "Route-6: conceded by design (1 life) unless the verifier's refund rule lets nothin land by 729 (spend would be 42 vs 39.3; only full refund plus battery timing closes it).",
+        "Route-8: conceded (1 life) under the same conditional branch as Plan A."
+      ],
+      "operational_plan_id": "R8OP-B-UPSTREAM-DAM-AND-RELAY",
+      "optional_responsibilities": [
+        {
+          "affordance_id": "FORM_01",
+          "detail": "insurance medic via slot rotation; deadline_basis route-15:MEDIC if exercised",
+          "establishment_semantic": "MUST_HAVE_COVERAGE",
+          "id": "OPT_MEDIC",
+          "role": "SUSTAIN"
+        },
+        {
+          "affordance_id": "FT_02",
+          "detail": "retreated stub returns as W06 flex body",
+          "id": "OPT_STRONG_RETURN",
+          "role": "RELAY"
+        }
+      ],
+      "parent_hypothesis_id": "R8HYP-B-UPSTREAM-DAM",
+      "pressure_window_responsibilities": [
+        "W01: three-piece opening (stub, upstream dam, downstream dam).",
+        "W02: pocket fire + C05 duelist; two conditional concessions.",
+        "W03-W04: anchor owns C07; grind piece owns dammed route-1 and lane-02 chip.",
+        "W05: relay body owns route-14; [6,2] owns route-16; duelist owns route-15.",
+        "W06: priority triage; relay/slot rotation as reserve."
+      ],
+      "reserve_strategy": {
+        "dp_reserve": "battery surplus reserved for anchor + grind piece + relay",
+        "lives_total": 5,
+        "planned_concessions": [
+          "route-6 (1 uterer, by design unless refund branch closes)",
+          "route-8 (1 uterer, conditional on diversion branch)"
+        ],
+        "slot_reserve": "grind-piece slot designated as the rotation slot",
+        "triage_headroom": "up to 2 of routes 33/34; margin >=1"
+      },
+      "selected_affordance_ids": [
+        "IR_01",
+        "IR_03",
+        "IR_05",
+        "IR_06",
+        "SC_01",
+        "SC_02",
+        "SC_03",
+        "SC_04",
+        "OE_01",
+        "OE_02",
+        "FT_01",
+        "FT_02",
+        "FORM_01"
+      ],
+      "skill_intents": [
+        "All load-bearing damage auto-activate; no ACTIVATE_SKILL (CMF-3).",
+        "Battery cycles for economy only.",
+        "Relay bodies are basic-attack-safe (planner_safe_for_basic_attack)."
+      ],
+      "stable_roles": [
+        {
+          "role": "upstream dam",
+          "tile": "[3,5]",
+          "unit_class": "char_322_lmlee",
+          "window": "~frame 120 to end"
+        },
+        {
+          "role": "downstream dam",
+          "tile": "[8,5]",
+          "unit_class": "char_445_wscoot",
+          "window": "~frame 300 to end"
+        },
+        {
+          "role": "pocket fire",
+          "tile": "[9,5]",
+          "unit_class": "snhunt class",
+          "window": "~frame 600 to end"
+        },
+        {
+          "role": "C05 duelist",
+          "tile": "[5,1]",
+          "unit_class": "char_4155_talr",
+          "window": "~frame 630 to end"
+        },
+        {
+          "role": "C07 anchor",
+          "tile": "[9,2]",
+          "unit_class": "second snhunt/ray/coldst class",
+          "window": "by 1350 to end"
+        },
+        {
+          "role": "grind piece",
+          "tile": "[5,5]",
+          "unit_class": "aprl/jesica class (cost<=11)",
+          "window": "W03 to rotation"
+        },
+        {
+          "role": "battery",
+          "tile": "[9,4]",
+          "unit_class": "char_420_flamtl",
+          "window": "~frame 800 to end"
+        }
+      ],
+      "sustain_responsibilities": [
+        "Both dams chip-immune by stat floor (308/322 def vs 330 atk).",
+        "Duelist self-sufficiency; same optional-medic insurance clause as Plan A if margins fail."
+      ],
+      "tactical_thesis": "Change lane-01 topology instead of lane-01 economics: a cost-7 chip-immune block-1 dam at [3,5] (lmlee-class, IR_01's upstream legal tile) arrests route-1 alone indefinitely, while the wscoot-class dam at [8,5] owns route-3 onward. Splitting the queue means [8,5]'s block-2 never stacks route-1 with route-3, so pocket fire (dedicated [9,5], SC_04) need only guarantee route-3 dead by 941 - relaxing its establishment from ~frame 450 to ~600 - and route-1 has NO kill deadline at all (ground down later by a cheap [5,5] piece via SC_02). This buys the DP to hold route-7 with an early duelist, conceding only route-6 (conditional on refund arithmetic) and route-8. The lane-02 late rows are a true relay this time: nothin-class deploys for route-14, may retreat after route-23 to rotate the slot, with the returned stub as W06 flex - preserving OP-03's relay concept as slot rotation plus refunds rather than additive cost.",
+      "temporary_roles": [
+        {
+          "exit": "single retreat",
+          "role": "C03 stub",
+          "unit_class": "char_272_strong",
+          "window": "0 to ~390"
+        },
+        {
+          "exit": "optional single retreat for W06 slot rotation",
+          "role": "C06 relay body",
+          "unit_class": "char_455_nothin",
+          "window": "~frame 3600 to route-23 clear"
+        }
+      ],
+      "verifier_questions": [
+        "What is the latest legal frame to establish the [3,5] dam against route-1 given its [3,5]->[4,5] detour (path_signature shows a double-back)?",
+        "Does CMF-1 as encoded prohibit ANY [3,5] establishment after frame 0, or only the replacement-of-[8,5] pattern?",
+        "Confirm the dam split actually prevents route-1 and route-3 from stacking on one tile under the runtime's blocking model.",
+        "Same shared questions as Plan A: refund rule, [9,2] roadblock, C07 engagement model, enemy attack intervals, battery auto-proc with no target."
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "Any auto-cycle ATTACK-recovery killing-block per upgrade slot from the supplied multiplier classes (2.9x-3.1x/2SP; 2.3x-2.5x/3SP; 1.75x/2SP acceptable only for C06 with verifier eDPS check).",
+        "Upgrade ORDER may be permuted if the verifier finds tighter gaps (e.g. [6,1] before [5,1]).",
+        "Budget downgrade: char_347_jaksel (cost 7) may substitute for any upgrade if the fund runs short, accepting lower eDPS.",
+        "All Plan A substitutions for the crunch formation."
+      ],
+      "battle_phases": [
+        {
+          "actions": "as Plan A",
+          "economy_note": "28 by ~500 vs 31.7",
+          "phase": "OPENING_W01",
+          "windows": [
+            "W01"
+          ]
+        },
+        {
+          "actions": "as Plan A",
+          "economy_note": "35 by 729 vs 39.3",
+          "phase": "W02_CRUNCH",
+          "windows": [
+            "W02"
+          ]
+        },
+        {
+          "actions": "anchor owns C07 and pocket queue; bank upgrade fund",
+          "economy_note": "procs ~1070/1610/2150",
+          "phase": "W03_W04_HOLD",
+          "windows": [
+            "W03",
+            "W04"
+          ]
+        },
+        {
+          "actions": "upgrade [8,5] (post-train, pre-3415), upgrade [5,1] (pre-2727), upgrade [6,1] (pre-3750); [6,2] heavy by route-16",
+          "economy_note": "upgrades 20+19+18 plus [6,2] 15 funded by procs+refunds against DP ~103 by 2250 and ~170 by 3900",
+          "phase": "W04_W05_EVOLVE",
+          "windows": [
+            "W04",
+            "W05"
+          ]
+        },
+        {
+          "actions": "evolved ground owns lane density; anchor + [6,2] own C07/C04; tail triage as Plan A",
+          "economy_note": "3-4 lives remaining",
+          "phase": "W06_SELF_CLEAR",
+          "windows": [
+            "W06"
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "evidence": "EXP-004 deficit 4.7; FT_03 legality; route-18 contact 3415 as the [8,5] upgrade deadline",
+          "previous": "Every ground unit must be a self-clearing killing-block by 725/729 (EXP-004 core: 45.0 vs 40.3)",
+          "revised": "Cheap bodies meet the supplied block deadlines; killing capability arrives via upgrades at ~2100/2500/3600 funded by battery procs and refunds"
+        },
+        {
+          "evidence": "FT_03 vacate-first; W03-W04 spawn lull in pressure_windows data",
+          "previous": "Exactly one same-tile upgrade in the whole plan (OP-04 doctrine)",
+          "revised": "Exactly three planned same-tile upgrades, each in a verifier-confirmed arrival gap, each unit retreated at most once"
+        },
+        {
+          "evidence": "SC_01 merge discovery; EXP-006 requires early fire regardless of ground doctrine",
+          "previous": "Ranged reduced to [9,2] + one lane-02 piece with ground doing all early work",
+          "revised": "Merged anchor ([9,2]) does the early pocket queue exactly as Plan A; ground upgrades take over lane-01/lane-02 density only from W04-W05"
+        },
+        {
+          "evidence": "EXP-006; char_445_wscoot stats",
+          "previous": "Placeholder at [8,5] is a pioneer whose proc funds the killers",
+          "revised": "Placeholder is the chip-immune wscoot-class dam (no proc, no death risk); funding comes from stub refund + battery"
+        }
+      ],
+      "compiler_slots": [
+        {
+          "affordance_id": "IR_03",
+          "capability_requirements": "as Plan A A01",
+          "corridor": "C03",
+          "deadline_basis": "route-2:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 5,
+          "may_share_live_operator": false,
+          "phase": "OPENING",
+          "pressure_window": "W01",
+          "replacement_group": "RG_STUB",
+          "retreat_basis": "single retreat after route-2 dies (~390)",
+          "role": "BLOCK",
+          "slot_id": "C01_C03_STUB"
+        },
+        {
+          "affordance_id": "IR_01",
+          "capability_requirements": "as Plan A A02 (char_445_wscoot class)",
+          "corridor": "C01+C02",
+          "deadline_basis": "route-1:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 8,
+          "may_share_live_operator": false,
+          "must_vacate_slot": true,
+          "phase": "OPENING",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03"
+          ],
+          "replacement_group": "RG_POCKET_UPGRADE",
+          "retreat_basis": "single retreat in the verified gap after the route-9 train clears and before route-18 contact 3415",
+          "role": "BLOCK",
+          "slot_id": "C02_POCKET_PLACEHOLDER"
+        },
+        {
+          "affordance_id": "SC_01",
+          "capability_requirements": "as Plan A A03",
+          "corridor": "C01+C04+C07",
+          "deadline_basis": "route-3:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "max_cost_design_choice": 15,
+          "may_share_live_operator": true,
+          "phase": "EARLY_ESTABLISHMENT",
+          "pressure_window": [
+            "W01",
+            "W02",
+            "W03",
+            "W04",
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "shared_responsibilities": [
+            "pocket queue-clear until the [8,5] upgrade completes",
+            "C07 anchor",
+            "C04 tail-catch at [8,0]"
+          ],
+          "slot_id": "C03_MERGED_ANCHOR"
+        },
+        {
+          "affordance_id": "IR_05",
+          "capability_requirements": "as Plan A A04 (char_4155_talr class)",
+          "corridor": "C05",
+          "deadline_basis": "route-7:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "must_vacate_slot": true,
+          "phase": "W02_CRUNCH",
+          "pressure_window": [
+            "W02"
+          ],
+          "replacement_group": "RG_C05_UPGRADE",
+          "retreat_basis": "single retreat in the gap after route-7 clears and before route-15 (spawn 2580)",
+          "role": "DUELIST",
+          "slot_id": "C04_C05_BODY"
+        },
+        {
+          "affordance_id": "IR_06",
+          "capability_requirements": "as Plan A A05 (char_455_nothin class; conditional on refund as Plan A)",
+          "corridor": "C06",
+          "deadline_basis": "route-6:BLOCK",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "max_cost_design_choice": 6,
+          "may_share_live_operator": false,
+          "must_vacate_slot": true,
+          "phase": "W02_CRUNCH",
+          "pressure_window": [
+            "W02"
+          ],
+          "replacement_group": "RG_C06_UPGRADE",
+          "retreat_basis": "single retreat in the gap before route-14 (~frame 3600)",
+          "role": "DUELIST",
+          "slot_id": "C05_C06_BODY"
+        },
+        {
+          "affordance_id": "IR_01",
+          "capability_requirements": "auto-cycle ATTACK-recovery multiplier >=2.9x per <=2-3 SP; block>=2; cost<=20; def>=220; exemplars char_017_huang, char_172_svrash",
+          "corridor": "C01",
+          "deadline_basis": "route-18:BLOCK",
+          "establishment_semantic": "MUST_COMPLETE_TRANSITION",
+          "max_cost_design_choice": 20,
+          "may_share_live_operator": false,
+          "phase": "W04_EVOLVE",
+          "pressure_window": [
+            "W04",
+            "W05",
+            "W06"
+          ],
+          "replacement_group": "RG_POCKET_UPGRADE",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C06_POCKET_UPGRADE"
+        },
+        {
+          "affordance_id": "IR_05",
+          "capability_requirements": "auto-cycle multiplier >=2.5x per <=3 SP; exemplars char_350_surtr (3.1x/2SP) or char_347_jaksel (2.5x/3SP, cost 7 budget option)",
+          "corridor": "C05",
+          "deadline_basis": "route-15:BLOCK",
+          "establishment_semantic": "MUST_COMPLETE_TRANSITION",
+          "max_cost_design_choice": 19,
+          "may_share_live_operator": false,
+          "phase": "W05_EVOLVE",
+          "pressure_window": [
+            "W05",
+            "W06"
+          ],
+          "replacement_group": "RG_C05_UPGRADE",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C07_C05_UPGRADE"
+        },
+        {
+          "affordance_id": "IR_06",
+          "capability_requirements": "auto-cycle multiplier >=2.3x per <=3 SP; block>=2 preferred; exemplar char_172_svrash or char_130_doberm",
+          "corridor": "C06",
+          "deadline_basis": "route-14:BLOCK",
+          "establishment_semantic": "MUST_COMPLETE_TRANSITION",
+          "max_cost_design_choice": 18,
+          "may_share_live_operator": false,
+          "phase": "W05_EVOLVE",
+          "pressure_window": [
+            "W05",
+            "W06"
+          ],
+          "replacement_group": "RG_C06_UPGRADE",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C08_C06_UPGRADE"
+        },
+        {
+          "affordance_id": "SC_03",
+          "capability_requirements": "as Plan A A07",
+          "corridor": "C04",
+          "deadline_basis": "route-16:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE",
+          "may_share_live_operator": false,
+          "phase": "W05_REINFORCE",
+          "pressure_window": [
+            "W05",
+            "W06"
+          ],
+          "role": "RANGED_DPS",
+          "slot_id": "C09_C04_FIRE"
+        },
+        {
+          "affordance_id": "OE_01",
+          "capability_requirements": "as Plan A A06 (char_420_flamtl on [9,4])",
+          "corridor": "NONE_BACKFIELD",
+          "deadline_basis": "route-10:FIRE",
+          "establishment_semantic": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+          "max_cost_design_choice": 12,
+          "may_share_live_operator": false,
+          "phase": "MID_ECONOMY",
+          "pressure_window": [
+            "W02",
+            "W03"
+          ],
+          "role": "PIONEER_BLOCK",
+          "slot_id": "C10_BATTERY"
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "as Plan A",
+          "id": "COND_ROUTE8",
+          "if_false": "concede (1 life)",
+          "if_true": "cheap [6,2] chip holds route-8"
+        },
+        {
+          "condition": "refund >= ~1 DP confirmed",
+          "id": "COND_ROUTE6",
+          "if_false": "concede route-6; C06 upgrade installs directly by ~frame 3600 (no placeholder needed)",
+          "if_true": "duelist holds route-6 then upgrades"
+        },
+        {
+          "condition": "any arrival gap proves too short for a safe swap",
+          "id": "COND_UPGRADE_SLIP",
+          "if_false": "execute as planned",
+          "if_true": "slide that upgrade to the next gap and keep the placeholder (formation degrades to Plan A statically)"
+        },
+        {
+          "condition": "as Plan A",
+          "id": "COND_TAIL",
+          "if_false": "contest full tail",
+          "if_true": "release up to 3 of routes 33/34"
+        }
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: dam then killing-block upgrade at [8,5]; anchor bridges the queue until the upgrade completes (contract: upgrade done before route-18 contact 3415).",
+        "C03: stub solo + retreat (refund bridge).",
+        "C04: route-8 conditional concession; [6,2] heavy owns 16/26/27 with anchor tail.",
+        "C05: duelist then killing-block upgrade owns routes 7/15/24/25.",
+        "C06: duelist (conditional on refund) then killing-block upgrade owns routes 6/14/22/23.",
+        "C07: merged anchor from ~450; tail triage priorities as Plan A."
+      ],
+      "damage_responsibilities": [
+        "Pre-evolution: anchor owns pocket queue and C07; duelists own lane-02 rows (as Plan A).",
+        "Post-evolution: killing-blocks own lane-01/lane-02 queues with supplied auto multipliers (2.9x-3.1x per 2 SP; 2.3x-2.5x per 3 SP); anchor + [6,2] own the unblockables."
+      ],
+      "forbidden_substitutions": [
+        "Any upgrade successor with skill_supported=false or manual-only skills (breaks the auto-cycle doctrine).",
+        "Upgrading during a live engagement or outside a verifier-confirmed arrival gap.",
+        "Same-operator redeploy for any upgrade (successors are DIFFERENT operators).",
+        "More than three same-tile upgrades or more than one retreat per unit.",
+        "Any sub-300-def placeholder at [8,5] (EXP-006 pattern).",
+        "Installing any killing-block during W02 (the EXP-004 pattern)."
+      ],
+      "formation_structure": {
+        "deployment_limit_usage": "peak 8 via vacate-first; never exceeds limit during upgrades",
+        "endgame_standing": "[8,5] killer, [5,1] killer, [6,1] killer, anchor, battery, [6,2] heavy = 6 standing + 2 reserve slots",
+        "midgame": "+ battery, + [6,2] heavy",
+        "opening": "as Plan A crunch formation"
+      },
+      "formation_transitions": [
+        {
+          "detail": "FT_01/FT_02 for all initial deployments.",
+          "id": "T1",
+          "type": "ADDITIVE"
+        },
+        {
+          "detail": "Stub at ~390 (refund bridge).",
+          "id": "T2",
+          "type": "SINGLE_RETREAT"
+        },
+        {
+          "detail": "FT_03 vacate-first at [8,5], [5,1], [6,1]; each in a verifier-confirmed arrival gap; the successor is a DIFFERENT operator; no unit is retreated twice; upgrades never during a live engagement.",
+          "id": "T3",
+          "type": "SAME_TILE_UPGRADE_X3"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        "Crunch invariants identical to Plan A (27/191/725/729 deadlines; spend 35 vs 39.3 by 729 with refund).",
+        "Each upgrade completes before its deadline_basis event: [8,5] before route-18 contact 3415; [5,1] before route-15 contact 2727; [6,1] before route-14 (~frame 3600).",
+        "Deployment count <=8 through every transition (vacate-first).",
+        "Exactly three same-tile upgrades; at most four retreats total (stub + three placeholders).",
+        "Cumulative planned leaks: route-8 (conditional) plus at most 3 tail; margin >=1."
+      ],
+      "opening_responsibilities": [
+        "Identical crunch formation to Plan A: stub (5) @0-27, dam (8) @~90, merged anchor (15) @~400-500 via refund, duelists (6+6) @~570-720, route-8 conditional concession.",
+        "Battery on [9,4] @~800-960; procs from ~1070."
+      ],
+      "operational_plan_id": "R8OP-C-DELAYED-KILLING-BLOCK-EVOLUTION",
+      "optional_responsibilities": [
+        {
+          "affordance_id": "FORM_01",
+          "detail": "insurance medic in a reserve slot if placeholder/duelist margins fail; deadline_basis route-15:MEDIC if exercised",
+          "establishment_semantic": "MUST_HAVE_COVERAGE",
+          "id": "OPT_MEDIC",
+          "role": "SUSTAIN"
+        },
+        {
+          "affordance_id": "FT_02",
+          "detail": "retreated stub returns as W06 flex body",
+          "id": "OPT_STRONG_RETURN",
+          "role": "RELAY"
+        }
+      ],
+      "parent_hypothesis_id": "R8HYP-C-DELAYED-EVOLUTION",
+      "pressure_window_responsibilities": [
+        "W01-W02: identical to Plan A.",
+        "W03-W04: hold with anchor; bank upgrades.",
+        "W05: three upgrades land in gaps; formation becomes self-clearing.",
+        "W06: evolved formation under priority triage; anchor + [6,2] on the unblockables."
+      ],
+      "reserve_strategy": {
+        "dp_reserve": "upgrade fund is fenced: battery procs and refunds are not spent on anything before the three upgrades complete",
+        "lives_total": 5,
+        "planned_concessions": [
+          "route-8 (conditional, 1)"
+        ],
+        "slot_reserve": "vacate-first keeps one effective slot of headroom during every transition",
+        "triage_headroom": "up to 3 of routes 33/34; margin >=1"
+      },
+      "selected_affordance_ids": [
+        "IR_01",
+        "IR_03",
+        "IR_05",
+        "IR_06",
+        "SC_01",
+        "SC_03",
+        "OE_01",
+        "OE_02",
+        "FT_01",
+        "FT_02",
+        "FT_03",
+        "FORM_01"
+      ],
+      "skill_intents": [
+        "Every damage operator post-evolution has skill_supported=true AND skill_auto_activate=true (OP-04 doctrine preserved).",
+        "No ACTIVATE_SKILL load-bearing at any point (CMF-3).",
+        "Upgrade successors must be basic-attack-safe during the swap frame window."
+      ],
+      "stable_roles": [
+        {
+          "role": "merged anchor",
+          "tile": "[9,2]",
+          "unit_class": "char_4211_snhunt class",
+          "window": "~450 to end"
+        },
+        {
+          "role": "battery",
+          "tile": "[9,4]",
+          "unit_class": "char_420_flamtl",
+          "window": "~800 to end"
+        },
+        {
+          "role": "C04 heavy",
+          "tile": "[6,2]",
+          "unit_class": "second heavy class",
+          "window": "W05 to end"
+        },
+        {
+          "role": "[8,5] killer",
+          "tile": "[8,5]",
+          "unit_class": "char_017_huang / char_172_svrash class (2.9x per 2 SP auto, block>=2)",
+          "window": "post-upgrade to end"
+        },
+        {
+          "role": "[5,1] killer",
+          "tile": "[5,1]",
+          "unit_class": "char_350_surtr class (3.1x per 2 SP auto) or char_347_jaksel budget class",
+          "window": "post-upgrade to end"
+        },
+        {
+          "role": "[6,1] killer",
+          "tile": "[6,1]",
+          "unit_class": "char_172_svrash class (block>=2 preferred)",
+          "window": "post-upgrade to end"
+        }
+      ],
+      "sustain_responsibilities": [
+        "Pre-evolution: dam chip-immunity + duelist self-sufficiency (as Plan A).",
+        "Post-evolution: killing-blocks chosen with def>=220 and HP>=1450; optional medic insurance clause unchanged."
+      ],
+      "tactical_thesis": "Redeem OP-04 by moving its thesis out of the killing zone: W02 is held by the CHEAPEST legal bodies (cost-6 duelist-blocks at [5,1]/[6,1], cost-8 dam at [8,5], merged anchor bridge fire), and the auto-cycle killing-block formation is INSTALLED LATER through three planned vacate-first same-tile upgrades (FT_03) in verified arrival gaps: [8,5] dam upgrades to a 2.9x/2-SP block-2 killer (huang/svrash class) after the route-9 train clears and before route-18's 3415 contact; [5,1] and [6,1] duelists upgrade to auto-cycle killers (surtr/jaksel/svrash class) before routes 15 (2727) and 14 (~3750). The crunch formation and the endgame formation are deliberately different formations connected by legal transitions, funded by the battery and refunds - directly reversing EXP-004's fatal assumption that killers were needed by 725/729.",
+      "temporary_roles": [
+        {
+          "exit": "single retreat",
+          "role": "C03 stub",
+          "unit_class": "char_272_strong",
+          "window": "0 to ~390"
+        },
+        {
+          "exit": "single retreat immediately before successor deploys",
+          "role": "[8,5] placeholder dam",
+          "unit_class": "char_445_wscoot",
+          "window": "~90 to post-train gap (~2100-3300)"
+        },
+        {
+          "exit": "single retreat before upgrade",
+          "role": "C05 body",
+          "unit_class": "char_4155_talr",
+          "window": "~570 to pre-2727 gap"
+        },
+        {
+          "exit": "single retreat before upgrade",
+          "role": "C06 body",
+          "unit_class": "char_455_nothin",
+          "window": "~600-720 to pre-3750 gap"
+        }
+      ],
+      "verifier_questions": [
+        "Exact arrival gaps around the route-9 train (contacts 1405-2250) and route-18 (3415/3715): is there a verified swap window for the [8,5] upgrade, and how long is it?",
+        "Do killing-block auto-cycle eDPS values (2.9x per 2 SP on 429-444 atk) clear route-28's five-train within the supplied inter-arrival gaps?",
+        "Same shared questions as Plan A: refund rule, [9,2] roadblock, C07 engagement, enemy attack intervals, battery auto-proc, diverted C04 path length."
+      ]
+    }
+  ],
+  "schema_version": "R8_1_REVISED_OPERATIONAL_PLANS_V3"
+}
