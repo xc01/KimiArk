@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import importlib.util
+import gzip
+import hashlib
 import json
+import math
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/r8_1_constraint_informed_revision_v3"
+EVIDENCE = ROOT / "output/r8_1_deadline_295_reclassification_v1"
 SCRIPT = ROOT / "scripts/run_r8_1_constraint_informed_tactical_revision_v3.py"
 
 
@@ -79,7 +83,91 @@ class ConstraintInformedTacticalRevisionV3Tests(unittest.TestCase):
         self.assertEqual(1, completion["kimi_call_count"])
         self.assertTrue(completion["successful_completion"])
         self.assertEqual(3, len(parsed["revised_operational_plans"]))
-        self.assertGreater((OUT / "llm_raw_response.txt").stat().st_size, 1_000_000)
+        raw_path = OUT / "llm_raw_response.txt"
+        compressed_path = EVIDENCE / "llm_raw_response.txt.gz"
+        if raw_path.is_file():
+            self.assertGreater(raw_path.stat().st_size, 1_000_000)
+        else:
+            self.assertTrue(compressed_path.is_file())
+
+    def test_compressed_llm_call_record_matches_original_hash(self) -> None:
+        manifest = self.module.load(EVIDENCE / "llm_raw_response_manifest.json")
+        compressed_path = ROOT / manifest["delivered_path"]
+        self.assertTrue(compressed_path.is_file())
+        self.assertEqual(manifest["compression"], "gzip")
+        self.assertEqual(
+            hashlib.sha256(compressed_path.read_bytes()).hexdigest(),
+            manifest["delivered_sha256"],
+        )
+        with gzip.open(compressed_path, "rb") as handle:
+            restored = handle.read()
+        self.assertEqual(len(restored), manifest["original_bytes"])
+        self.assertEqual(
+            hashlib.sha256(restored).hexdigest(),
+            manifest["original_sha256"],
+        )
+
+    def test_deadline_295_is_reclassified_as_contact_event_not_hard_deadline(self) -> None:
+        result = self.module.load(EVIDENCE / "deadline_295_reclassification.json")
+        self.assertEqual(
+            "DERIVED_EARLIEST_OPERATOR_CONTACT_EVENT_NOT_PROVEN_ESTABLISHMENT_DEADLINE",
+            result["corrected_classification"],
+        )
+        self.assertFalse(result["is_confirmed_hard_deadline"])
+        self.assertFalse(result["replacement_deadline_invented"])
+        self.assertTrue(result["original_artifacts_preserved"])
+        self.assertIn(
+            "R8OP-A-MERGED-ANCHOR-REFUND-LATTICE:A03_MERGED_ANCHOR:295",
+            result["affected_previous_conflicts"],
+        )
+        self.assertIn(
+            "R8OP-B-UPSTREAM-DAM-AND-RELAY:B04_POCKET_FIRE:295",
+            result["affected_previous_conflicts"],
+        )
+        self.assertIn(
+            "R8OP-C-DELAYED-KILLING-BLOCK-EVOLUTION:C03_MERGED_ANCHOR:295",
+            result["affected_previous_conflicts"],
+        )
+
+    def test_route3_contact_evidence_recomputes_from_gamedata(self) -> None:
+        result = self.module.load(EVIDENCE / "route3_contact_evidence.json")
+        level = self.module.load(EVIDENCE / "gamedata/level_main_08-01.json")
+        enemy = self.module.load(EVIDENCE / "gamedata/enemy_1107_uoffcr.json")
+        fragment = next(
+            fragment
+            for wave in level["waves"]
+            for fragment in wave.get("fragments", [])
+            if any(
+                action.get("actionType") == "SPAWN"
+                and action.get("routeIndex") == 3
+                and action.get("key") == "enemy_1107_uoffcr"
+                for action in fragment.get("actions", [])
+            )
+        )
+        action = next(
+            action
+            for action in fragment["actions"]
+            if action.get("actionType") == "SPAWN"
+            and action.get("routeIndex") == 3
+            and action.get("key") == "enemy_1107_uoffcr"
+        )
+        spawn_seconds = (
+            float(level["waves"][0].get("preDelay", 0))
+            + float(fragment.get("preDelay", 0))
+            + float(action.get("preDelay", 0))
+        )
+        speed = float(
+            enemy["enemies"][0]["Value"][0]["enemyData"]["attributes"]["moveSpeed"]["m_value"]
+        )
+        contact_frame = math.ceil(
+            spawn_seconds * 30 + result["earliest_operator_contact_distance"] / speed * 30
+        )
+        latest_frame = math.ceil(
+            spawn_seconds * 30 + result["latest_interception_distance"] / speed * 30
+        )
+        self.assertEqual(240, result["spawn_frame"])
+        self.assertEqual(295, contact_frame)
+        self.assertEqual(431, latest_frame)
 
     def test_structured_plans_are_specific_and_reference_prior_evidence(self) -> None:
         parsed = self.module.load(OUT / "llm_structured_output.json")
@@ -139,7 +227,6 @@ class ConstraintInformedTacticalRevisionV3Tests(unittest.TestCase):
             "feasibility_experience_memory.json",
             "constraint_informed_reasoning_context.json",
             "llm_request_fingerprint.json",
-            "llm_raw_response.txt",
             "llm_structured_output.json",
             "lessons_from_infeasibility.json",
             "revised_stage_understanding.json",
@@ -158,6 +245,8 @@ class ConstraintInformedTacticalRevisionV3Tests(unittest.TestCase):
         ]
         for name in required:
             self.assertTrue((OUT / name).is_file(), f"missing artifact: {name}")
+        self.assertTrue((EVIDENCE / "llm_raw_response_manifest.json").is_file())
+        self.assertTrue((EVIDENCE / "llm_raw_response.txt.gz").is_file())
 
 
 if __name__ == "__main__":

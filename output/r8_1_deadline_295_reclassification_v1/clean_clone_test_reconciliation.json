@@ -1,0 +1,30 @@
+{
+  "clean_clone_observation_after_fix": {
+    "errors": 0,
+    "failures": 0,
+    "status": "PASS",
+    "tests_run": 21
+  },
+  "clean_clone_observation_before_fix": {
+    "errors": 2,
+    "failures": 1,
+    "missing_or_incomplete_inputs": [
+      "output/r8_1_constraint_informed_revision_v3/llm_raw_response.txt",
+      "output/r8_1_operational_feasibility_unsat_core_audit_v1/future_llm_feasibility_feedback.json",
+      "output/r8_1_constraint_informed_revision_v3/response_completion_validation.json"
+    ],
+    "status": "FAIL",
+    "tests_run": 18
+  },
+  "deadline_295_reclassification": "output/r8_1_deadline_295_reclassification_v1/deadline_295_reclassification.json",
+  "diagnosis": "The prior PASS was environment-local, not reproducible from the delivered Git tree.",
+  "remediation": [
+    "Added compressed raw SSE/HTTP call record with SHA-256 manifest.",
+    "Added completion validation and feasibility feedback evidence.",
+    "Added route-3 GameData/contact evidence.",
+    "Reclassified frame 295 as a derived earliest-contact event, not a proven hard deadline.",
+    "Updated tests to verify either the raw or compressed immutable call record."
+  ],
+  "saved_report_claim": "PASS",
+  "schema_version": "R8_1_CLEAN_CLONE_TEST_RECONCILIATION_V1"
+}
