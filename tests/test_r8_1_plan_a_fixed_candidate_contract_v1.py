@@ -92,6 +92,34 @@ class PlanAFixedCandidateContractTests(unittest.TestCase):
         self.assertEqual("NOT_PERFORMED", self.result["tactical_revision"])
         self.assertEqual("PASS", self.result["validation"]["status"])
 
+    def test_refund_persists_and_ledger_conserves_dp(self):
+        rows = load_module().ledger_rows(12, refund=5, anchor_frame=400)
+        spent = 0
+        credited = 0
+        for row in rows:
+            self.assertAlmostEqual(10 + row["frame"] / 30 - spent + credited, row["available_dp_before"], places=5)
+            spent += row["cost"]
+            credited += row["refund"]
+            self.assertAlmostEqual(10 + row["frame"] / 30 - spent + credited, row["available_dp_after"], places=5)
+        self.assertAlmostEqual(2.3, rows[-1]["available_dp_after"])
+        self.assertTrue(all(row["affordable"] for row in rows))
+
+    def test_false_cond_route6_branch_has_no_a05_deployment(self):
+        for branch in self.result["economy"]["branches"]:
+            rows = branch["no_refund_current_simulator"]["rows"]
+            self.assertNotIn("A05_C06_DUELIST_DEPLOY", [row["event"] for row in rows])
+            self.assertTrue(all(row["affordable"] for row in rows))
+
+    def test_tests_are_not_claimed_executed_by_validator(self):
+        self.assertEqual([], self.result["validation"]["test_results"])
+        self.assertEqual("NOT_EXECUTED_BY_THIS_VALIDATOR", self.result["validation"]["test_execution_status"])
+
+    def test_full_deployment_branch_requires_distinct_duelists(self):
+        combinations = self.result["structural_combinations"]
+        self.assertEqual(6, sum(row["full_deployment_branch_distinct_operators"] for row in combinations))
+        for row in combinations:
+            self.assertNotIn("ANCHOR_EFFECTIVE_DPS_BELOW_PLAN_FLOOR", row["qualification_blockers"])
+
 
 if __name__ == "__main__":
     unittest.main()

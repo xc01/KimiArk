@@ -202,11 +202,14 @@ def finite_window_contracts(
                     "attack_events": route_3_events,
                 },
             }
-            contract["latest_first_attack_frame_if_targets_stay_on_tile"] = 250
+            route_1_duration = route_1_events[-1]["attack_frame"] - first_attack
+            total_duration = route_3_events[-1]["attack_frame"] - first_attack
+            latest_start = min(805 - 1 - route_1_duration, 941 - 1 - total_duration)
+            contract["latest_first_attack_frame_if_targets_stay_on_tile"] = latest_start
             contract["latest_first_attack_frame_if_targets_transit_without_block"] = None
             contract["latest_frame_note"] = (
                 "With one-second attacks and simulator spawn-order targeting, route-1 must start by "
-                "frame 250 so route-3 can begin at 610 and finish at 940. If neither target remains "
+                f"frame {latest_start} under these fixed assumptions. If neither target remains "
                 "on [8,5], the two 3300-HP contracts cannot both be completed before their windows close."
             )
             contract["finite_window_deadline_contract_pass"] = (
@@ -241,16 +244,17 @@ def dp_at(frame: int, spent: float, *, initial: float = 10.0) -> float:
     return initial + frame / 30.0 - spent
 
 
-def ledger_rows(anchor_cost: float, *, refund: float, anchor_frame: int) -> list[dict[str, Any]]:
+def ledger_rows(anchor_cost: float, *, refund: float, anchor_frame: int, include_a05: bool = True) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     spent = 0.0
-    last_frame = 0
+    cumulative_refund = 0.0
 
     def add(event: str, frame: int, cost: float, extra_refund: float = 0.0) -> None:
-        nonlocal spent, last_frame
-        before = dp_at(frame, spent) + extra_refund
+        nonlocal spent, cumulative_refund
+        before = dp_at(frame, spent) + cumulative_refund
+        cumulative_refund += extra_refund
         spent += cost
-        after = before - cost
+        after = before - cost + extra_refund
         rows.append(
             {
                 "affordable": after >= -1e-9,
@@ -262,14 +266,14 @@ def ledger_rows(anchor_cost: float, *, refund: float, anchor_frame: int) -> list
                 "refund": extra_refund,
             }
         )
-        last_frame = frame
 
     add("A01_C03_STUB_DEPLOY", 27, 5.0)
     add("A02_C01_DAM_DEPLOY", 191, 8.0)
     add("A01_C03_STUB_RETREAT", 390, 0.0, refund)
     add("A03_MERGED_ANCHOR_DEPLOY", anchor_frame, anchor_cost)
     add("A04_C05_DUELIST_DEPLOY", 725, 6.0)
-    add("A05_C06_DUELIST_DEPLOY", 729, 6.0)
+    if include_a05:
+        add("A05_C06_DUELIST_DEPLOY", 729, 6.0)
     return rows
 
 
@@ -332,7 +336,8 @@ def economy_contracts(candidates: list[dict[str, Any]]) -> dict[str, Any]:
                     "a05_without_refund_dp_after": a05_row["available_dp_after"],
                     "anchor_deploy_frame": no_refund_anchor_frame,
                     "cond_route6_branch": "OMIT_A05_AND_CONCEDE_ROUTE_6",
-                    "rows": no_refund_rows,
+                    "rows": ledger_rows(anchor_cost, refund=0.0, anchor_frame=no_refund_anchor_frame, include_a05=False),
+                    "counterfactual_a05_deployment_rows": no_refund_rows,
                     "status": "CONFIRMED_UNDER_CURRENT_SIMULATOR_BASE_COST_MODEL",
                 },
                 "finite_damage_deadline_base_cost_check": {
@@ -386,7 +391,14 @@ def combination_contracts(
         }
         blockers: set[str] = set()
         for row in candidates.values():
-            blockers.update(row["qualification_blockers"])
+            blockers.update(
+                "ANCHOR_EXACT_DAMAGE_CONTRACT_UNVERIFIED"
+                if reason == "ANCHOR_EFFECTIVE_DPS_BELOW_PLAN_FLOOR" else reason
+                for reason in row["qualification_blockers"]
+            )
+        full_roster_distinct = len({row["operator_id"] for row in candidates.values()}) == len(candidates)
+        if not full_roster_distinct:
+            blockers.add("FULL_A05_DEPLOYMENT_BRANCH_REUSES_LIVE_OPERATOR")
         blockers.add("ORIGIN_9_2_ROADBLOCK_DEPLOYMENT_LEGALITY_UNKNOWN")
         blockers.add("RETREAT_REFUND_AMOUNT_AND_TO_ACCOUNT_FRAME_UNKNOWN")
         finite_status = finite_by_id[a03["operator_id"]]["evidence_status"]
@@ -397,6 +409,7 @@ def combination_contracts(
                 "combination_index": index,
                 "candidates": {slot: row["operator_id"] for slot, row in candidates.items()},
                 "faithful_witness": False,
+                "full_deployment_branch_distinct_operators": full_roster_distinct,
                 "finite_anchor_contract_status": finite_status,
                 "no_refund_cond_route6_branch": "OMIT_A05_AND_CONCEDE_ROUTE_6",
                 "qualification_blockers": sorted(blockers),
@@ -434,25 +447,8 @@ def validate(payload: dict[str, Any], historical_hashes: list[dict[str, Any]]) -
         "checks": checks,
         "schema_version": "R8_1_PLAN_A_FIXED_CONTRACT_VALIDATION_V1",
         "status": "PASS" if all(checks.values()) else "FAIL",
-        "test_results": [
-            {
-                "command": "python3 -m compileall -q scripts src tests",
-                "exit_code": 0,
-                "status": "PASS",
-            },
-            {
-                "command": "PYTHONPATH=src:scripts python3 -m unittest tests.test_r8_1_plan_a_fixed_candidate_contract_v1 tests.test_r8_1_plan_a_opening_witness_v1 tests.test_r8_1_v3_source_evidence_reverification tests.test_v3_frame295_review_regression tests.test_r8_1_constraint_informed_tactical_revision_v3 scripts.test_kimi_responses_transport -v",
-                "exit_code": 0,
-                "status": "PASS",
-                "tests_run": 48,
-            },
-            {
-                "command": "historical artifact SHA-256 comparison against docs/review/23a623a/historical_artifact_hashes.json",
-                "exit_code": 0,
-                "status": "PASS",
-                "files_checked": 6,
-            },
-        ],
+        "test_results": [],
+        "test_execution_status": "NOT_EXECUTED_BY_THIS_VALIDATOR",
     }
 
 

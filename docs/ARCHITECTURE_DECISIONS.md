@@ -14,3 +14,5 @@
 7.2026-10-09 CONFIRMED_FROM_CODE：source-reverification的candidate pool须具fidelity/census输入证据；缺失时BLOCKED，测试不得覆盖历史artifact。接敌事实与plan-specific FIRE deadline分离；下一阶段用一个现有计划的有限局部witness推进，不继续增加泛化审查层。
 
 - 23a623a independent review: capability averages and cost caps cannot serve as finite-window damage certificates or economic lower bounds. Preserve conditional concession branches; record missing provenance without inventing files/hash; runtime UNSUPPORTED is an evidence gap, not game impossibility.
+
+- d9304bb review: test execution results must come from actual runner logs, not literals in validators. DP credits persist across events and conditional omissions change executable ledger rows. Conditional derived deadlines stay tied to roster/targeting/damage assumptions. Next tactical revision belongs to Kimi-K3, one bounded call.

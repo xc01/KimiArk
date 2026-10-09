@@ -54,3 +54,6 @@ CONFIRMED_FROM_CODE：审查补丁已合入为 `491a9a0`；真实 `scripts/build
 CONFIRMED_FROM_CODE（当前模拟器公式与确定性上下文）：只使用旧候选 1/1/3/2/2 并实际枚举 12 个结构组合。caper 从 [9,2] DOWN 可覆盖 [8,5]；angel/aprl 不可覆盖。caper 逐击、attack-SP 计算在 450 帧部署时 route-1 第 12 击于 780 帧完成；随后 route-3 于 810 开火、1140 帧完成，错过 941。若两个目标均被持续挡在 [8,5]，双期限要求 route-1 最晚 250 帧开火，route-3 在 610–940 完成。
 
 CONFIRMED_FROM_CODE（base-cost model）：frame-250 前缀 A01+A02 后可用 DP 5.333；aprl 11 成本缺 5.667，caper/angel 12 成本缺 6.667。无退款、base-cost 分支中 A04 在 725 可支付；A05 在 729 不可支付，因此保留 COND_ROUTE6 false 分支：省略 A05 并让 route-6。退款与 merchant 实际经济仍 UNKNOWN。`trap_020_roadblock#2` 占据 [9,2]，anchor 部署合法性 UNKNOWN。没有 faithful witness，阶段模拟 0 次；这不是全战略不可行。
+
+## 最新独立审查：d9304bb
+CONFIRMED_FROM_CODE：实际fetch及remote HEAD核对；生成脚本hash与12个manifest输入一致；原定向48/48复现。780/1140与条件性250推导复算成立，但非通用FIRE期限。确认退款只在一行入账后丢失、A05省略仅文字、测试PASS硬编码三类程序缺陷并最小修复；定向52/52通过。hypothetical5退款在12-cost开局729为+2.3（不含upkeep），仍不是事实可行证书。12结构tuple中6个全部署分支重复duelist。历史artifacts保持，纠正计算在review/d9304bb/。无Kimi/关卡模拟；下一阶段一次Kimi-K3开局修订，详NEXT_MILESTONE。

@@ -53,3 +53,6 @@ CONFIRMED_FROM_CODE: DPS原始平均公式非逐击有限窗口伤害界；账�
 - 条件：仅限 Plan A 固定候选、[9,2] origin、[8,5] 目标、route-1/route-3 当前确定性上下文、1 秒攻击、attack-SP cycle、模拟器 target ordering 和 A02 持续阻挡假设。若目标不停留在 [8,5]，caper 也不能同时完成两个 3300 HP 契约。
 - 事实：caper 在 450 帧部署时 route-1 780 帧击杀，但 route-3 810–1140 帧击杀，超过 941。双期限模型要求 A03 最晚 250 帧开火；该前缀可用 DP 5.333，aprl 缺 5.667，caper/angel 缺 6.667。angel/aprl 缺少 [8,5] 覆盖。
 - 限制：[9,2] roadblock 部署、退款、merchant 成本/upkeep、真实 target ordering、技能调度和 Exact GameData timing 未证实；当前 UNSUPPORTED 是证据缺口，不是游戏不可行证明。该经验只用于条件性反馈，不触发无授权 V4。
+
+## EXP-D930-CAPER（条件性模型经验）
+CONFIRMED_FROM_CODE: 344ATK/1s/3normal+1skill(2.3x), two3300HP/150DEF continuously held, no intervening targets/fire, instant hits: first450->kills780/1140; strict805/941 requires first<=250. No-refund/no-upkeep fixed13DPprefix leaves5.333 at250 versuscaper12. Applies only to stated assumptions; not generaldeadline/minimalUNSAT/globalstrategyfailure. Wscootblock0 under inactive skill undermines holding assumption; support/occupancy/targeting/timing unknown. Refund ledger bug corrected: hypothetical5 refund persists,729balance+2.3 for12-costanchor; not game proof. Kimi should revise assumptions, not blindly satisfy250.
