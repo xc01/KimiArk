@@ -25,7 +25,7 @@
 
 ## 当前决定
 
-证据恢复与只读复验完成；未生成 witness，未模拟，未调用 Kimi。三份计划保持 FEASIBILITY_UNKNOWN。295 只保留为接敌事实和诊断前缀假设。审查模型核对本轮 diff 后才能决定下一阶段。
+审查补丁 `59add38` 已合入；fidelity/census 表已恢复。Plan A 有界复验完成：qualified opening 组合为 0，未生成 witness，未模拟，未调用 Kimi。原因是 A03 无支持的高 DPS anchor、部分 trait 语义不可用，且退款 UNKNOWN。这是 scoped conflict，不是全局战术失败。
 
 ## 最新独立审查：f1a1c7d
 

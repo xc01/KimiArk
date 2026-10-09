@@ -89,3 +89,7 @@ NEXT_MILESTONE：审查后确定的唯一下一项有界工作及验收条件。
 完成审查前不得启动 V4 战术推理或扩大模拟搜索。
 
 迁移前状态：项目目标、理念、架构与历史经验已整理；Work 交接曾尝试但尚未成功，GitHub 获取与审查尚未执行。请实际开展上述接管与首轮审查，不只回复确认收到。
+
+## 十一、当前边界（2026-10-09）
+
+`R8_1_PLAN_A_OPENING_WITNESS_V1` 是有界复验：Plan A qualified opening 组合为 0，stage-prefix 模拟为 0。295 仍是 route-3 最早接敌事实，不是 FIRE establishment deadline。退款与关键 trait 语义保持 UNKNOWN/UNSUPPORTED；结论只约束当前 Plan A 开局 witness，不升格为全战略不可行。

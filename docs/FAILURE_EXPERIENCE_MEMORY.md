@@ -32,6 +32,14 @@ REPORTED_BY_PREVIOUS_WORKER：保留 `output/r8_1_constraint_informed_revision_v
 - 保留限制：22/21/22 DP vs 19.8333 的前缀算术只是自然-only、distinct-unit、无退款/技能收入假设下的诊断冲突集。它不证明计划不可行，也不证明退款能解决冲突。
 - 可复用经验：区分 CONTACT、BLOCK、FIRE establishment 和 KILL-by target；只有计划/机制显式要求时才把事件转为 deadline。
 
+## REVIEW-PLAN-A-OPENING-004：合并 anchor 与 trait/退款语义不可暂视为已建立
+
+- 状态：CONFIRMED_FROM_CODE（当前候选/几何/DP 计算）；战斗结果 UNKNOWN。
+- 条件：仅限 `R8OP-A-MERGED-ANCHOR-REFUND-LATTICE` frame 0–941、当前 fidelity 表、当前 [3,3]/[8,5]/[9,2]/[5,1]/[6,1] 结构与最多 3 候选/槽、16 组合预算。
+- 事实：A03 三个候选 effective DPS 均低于 450 vs 150 DEF；`char_4211_snhunt` 的 skill-only DPS 可达下限，但 ammo/trait `atk_scale` unsupported。A02 trait 说明技能未开时 block 0；A04/A05 的 merchant trait interval/cost decision-critical unsupported。
+- 退款：来源与到账时刻 UNKNOWN，当前模拟器为 no refund。无退款时 A05 缺 5.7 DP；假设 full-cost refund 仍缺 0.7 DP。
+- 结论：没有 faithful opening witness，因此 0–941 模拟 0 次。这是 scoped conflict；不能推为全战略不可行，也不能用假设退款或放行 trait 制造 witness。
+
 ## REVIEW-FIDELITY-003：缺表静默扩大候选池
 
 CONFIRMED_FROM_CODE；适用于load_fidelity_tables缺任一表的fresh checkout。证据review/f1a1c7d/：无fidelity/census时已保存21候选变22，新增char_4211_snhunt；原测试仅非空断言仍通过。原因是缺表静默跳过trait/talent检查，不能把其pool当忠实候选。修复本轮reverification缺表BLOCKED并保持候选UNKNOWN。局限：不证明新增干员不合法，也不证明计划不可行；必须恢复原表并逐职责核对selected usage。

@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "budget_respected": true,
+    "fidelity_tables_are_305_operator_inputs": true,
+    "fidelity_tables_present": true,
+    "frame_295_not_used_as_fire_deadline": true,
+    "no_simulation_without_faithful_witness": true,
+    "review_patch_applied": true,
+    "scoped_conflicts_are_not_global_infeasibility": true,
+    "snhunt_not_artificially_added_or_removed": true
+  },
+  "test_results": [
+    {
+      "command": "python3 -m compileall -q scripts src tests",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=src:scripts python3 -m unittest tests.test_r8_1_plan_a_opening_witness_v1 -v",
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_run": 7
+    },
+    {
+      "command": "PYTHONPATH=src:scripts python3 -m unittest discover -s tests -v",
+      "exit_code": 1,
+      "status": "PARTIAL",
+      "tests_run": 103,
+      "tests_passed": 96,
+      "blocked_module_count": 7,
+      "blocker": "pytest is unavailable; seven pytest-based modules report loader ImportError and are not counted as passed."
+    }
+  ],
+  "schema_version": "R8_1_PLAN_A_OPENING_WITNESS_VALIDATION_V1",
+  "status": "PASS"
+}
