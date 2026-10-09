@@ -28,26 +28,37 @@
     "scripts/test_kimi_responses_transport.py",
     "tests/test_r8_1_constraint_informed_tactical_revision_v3.py"
   ],
-  "missing_critical_inputs": [
-    "scripts/run_r8_1_operational_semantic_preservation_repair_v1.py",
-    "output/r8_1_llm_tactical_context_v1/deterministic_context.json",
-    "output/r8_1_llm_operationalization_v1/deterministic_affordance_catalog.json",
-    "output/r8_1_operational_feasibility_unsat_core_audit_v1/future_llm_feasibility_feedback.json",
-    "output/r8_1_operational_feasibility_unsat_core_audit_v1/optimistic_dp_feasibility_bounds.json",
-    "output/r8_1_operational_feasibility_unsat_core_audit_v1/unsat_core_certificates.json",
-    "output/r8_1_operational_feasibility_unsat_core_audit_v1/exact_dp_ledgers.json",
-    "output/r8_1_revision_numeric_grounding_recovery_v1/normalized_revised_operational_plans.json",
-    "output/r8_1_revised_search_coverage_causal_audit_v1/first_failure_causal_analysis.json",
-    "output/r8_1_constraint_informed_revision_v3/llm_raw_response.txt",
-    "output/r8_1_constraint_informed_revision_v3/response_completion_validation.json",
-    "output/r8_1_constraint_informed_revision_v3/constraint_informed_reasoning_prompt.txt",
-    "output/r8_1_constraint_informed_revision_v3/llm_request.json",
-    "output/r8_1_constraint_informed_revision_v3/llm_response_envelope.json"
-  ],
-  "missing_source_trees": [
-    "src",
-    "data/ArknightsGameData"
-  ],
+  "missing_critical_inputs": [],
+  "missing_source_trees": [],
+  "source_evidence_restoration": {
+    "status": "RESTORED",
+    "restoration_milestone": "R8_1_V3_SOURCE_EVIDENCE_REVERIFICATION_V1",
+    "deliveries": [
+      "src/",
+      "scripts/run_r8_1_operational_semantic_preservation_repair_v1.py",
+      "scripts/run_r8_1_revised_operational_plan_search_v1.py",
+      "scripts/run_r8_1_operational_feasibility_unsat_core_audit_v1.py",
+      "output/r8_1_llm_operationalization_v1/deterministic_affordance_catalog.json",
+      "output/r8_1_constraint_informed_revision_v3/constraint_informed_reasoning_prompt.txt",
+      "output/r8_1_revision_numeric_grounding_recovery_v1/normalized_revised_operational_plans.json",
+      "output/r8_1_operational_feasibility_unsat_core_audit_v1/exact_dp_ledgers.json",
+      "output/r8_1_operational_feasibility_unsat_core_audit_v1/optimistic_dp_feasibility_bounds.json",
+      "output/r8_1_operational_feasibility_unsat_core_audit_v1/unsat_core_certificates.json",
+      "output/r8_1_operational_feasibility_unsat_core_audit_v1/future_llm_feasibility_feedback.json",
+      "output/r8_1_revised_search_coverage_causal_audit_v1/first_failure_causal_analysis.json",
+      "output/r8_1_revised_search_coverage_causal_audit_v1/c01_frame678_event_trace.json",
+      "output/r8_1_constraint_informed_revision_v3/llm_request.json",
+      "output/r8_1_constraint_informed_revision_v3/constraint_informed_reasoning_prompt.txt",
+      "output/r8_1_constraint_informed_revision_v3/llm_response_envelope.json",
+      "output/r8_1_constraint_informed_revision_v3/response_completion_validation.json",
+      "output/r8_1_constraint_informed_revision_v3/llm_raw_response.txt.gz",
+      "output/r8_1_constraint_informed_revision_v3/llm_raw_response_manifest.json",
+      "output/r8_1_v3_source_evidence_reverification_v1/",
+      "docs/review/gamedata_source.json"
+    ],
+    "raw_response_policy": "The 23.9 MB SSE stream is delivered as gzip with SHA-256 manifest; the uncompressed local file remains ignored.",
+    "gamedata_policy": "The 1.1 GB GameData tree remains ignored; docs/review/gamedata_source.json supplies the exact archive hash, upstream commit, data version, and restore commands."
+  },
   "artifact_hashes": {
     "output/r8_1_constraint_informed_revision_v3/battle_failure_feedback.json": "df12f5048072a9872d11c898c0f4a29993ac20450cc666a75ab350673f2570a4",
     "output/r8_1_constraint_informed_revision_v3/bounded_search_results.json": "e4bf350aa6f60475a6cb872d7364f703b7907f0119fdd262d3e07b00a87d3e61",

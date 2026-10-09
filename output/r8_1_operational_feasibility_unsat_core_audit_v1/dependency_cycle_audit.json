@@ -1,0 +1,72 @@
+{
+  "records": [
+    {
+      "cycle_found": false,
+      "edges": [],
+      "finding": "Observed dependencies form a directed acyclic precedence chain; no operator is required to generate DP before legal deployment.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR"
+    },
+    {
+      "cycle_found": false,
+      "edges": [],
+      "finding": "Observed dependencies form a directed acyclic precedence chain; no operator is required to generate DP before legal deployment.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION"
+    },
+    {
+      "cycle_found": false,
+      "edges": [
+        {
+          "from": "relay N deploy",
+          "kind": "LIVE_UNIT_PRECEDENCE",
+          "to": "relay N retreat"
+        },
+        {
+          "from": "relay N retreat",
+          "kind": "TILE_VACACY",
+          "to": "relay N+1 same-tile deploy"
+        }
+      ],
+      "finding": "Observed dependencies form a directed acyclic precedence chain; no operator is required to generate DP before legal deployment.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02"
+    },
+    {
+      "cycle_found": false,
+      "edges": [
+        {
+          "from": "C03_STUB deployed",
+          "kind": "ECONOMY_PRECEDENCE",
+          "to": "POCKET_PLACEHOLDER affordable"
+        },
+        {
+          "from": "POCKET_PLACEHOLDER deployed",
+          "kind": "ECONOMY_GENERATION",
+          "to": "AUTO_DP_PROC"
+        },
+        {
+          "from": "AUTO_DP_PROC",
+          "kind": "ECONOMY_SUPPORT",
+          "to": "C05_KILLER/C06_KILLER affordability"
+        },
+        {
+          "from": "POCKET_PLACEHOLDER live",
+          "kind": "SAME_TILE_PRECEDENCE",
+          "to": "POCKET_PLACEHOLDER retreat"
+        },
+        {
+          "from": "POCKET_PLACEHOLDER retreat",
+          "kind": "TILE_VACACY",
+          "to": "POCKET_KILLER deploy"
+        }
+      ],
+      "finding": "Observed dependencies form a directed acyclic precedence chain; no operator is required to generate DP before legal deployment.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS"
+    },
+    {
+      "cycle_found": false,
+      "edges": [],
+      "finding": "Observed dependencies form a directed acyclic precedence chain; no operator is required to generate DP before legal deployment.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR"
+    }
+  ],
+  "schema_version": "R8_1_DEPENDENCY_CYCLE_AUDIT_V1"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "R8_1_GAMEDATA_SOURCE_MANIFEST_V1",
+  "repository_url": "https://github.com/Kengxxiao/ArknightsGameData.git",
+  "extracted_path": "data/ArknightsGameData",
+  "extracted_tree_is_independent_git_checkout": false,
+  "archive_path": "ArknightsGameData-master.zip",
+  "archive_sha256": "42beacd9f1ab33906db71af8944e72b064162f72484eed5b7dcbdd49bddb1db0",
+  "archive_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "data_version": "Stream://torappu-data/v077/rel77.0",
+  "version_control": "77.2.0",
+  "evidence_class": "CONFIRMED_FROM_CODE",
+  "gitignored": true,
+  "restore_commands": [
+    "mkdir -p data",
+    "git clone https://github.com/Kengxxiao/ArknightsGameData.git data/ArknightsGameData",
+    "git -C data/ArknightsGameData checkout 0ef7f952dfd018392200157a5c79a6511ba69122"
+  ],
+  "verification_commands": [
+    "sha256sum ArknightsGameData-master.zip",
+    "python3 scripts/audit_r8_1_deadline_295_reclassification.py"
+  ],
+  "verification_limitations": {
+    "extracted_tree_independent_git_metadata_available": false,
+    "archive_commit_is_authoritative": true,
+    "archive_sha256_is_authoritative": true
+  },
+  "runtime_fidelity_note": "The planner uses the m18.9-stage-device-runtime-v1 approximation over this GameData source. Simulator behavior is not claimed to be real-client success."
+}

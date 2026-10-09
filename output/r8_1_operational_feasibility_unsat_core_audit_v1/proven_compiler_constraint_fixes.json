@@ -1,0 +1,22 @@
+{
+  "fixes": [
+    {
+      "changed_files": [
+        "scripts/run_r8_1_operational_semantic_preservation_repair_v1.py",
+        "tests/test_operational_semantic_preservation_repair_v1.py"
+      ],
+      "corrected_interpretation": "A prefix is affordable when post-payment DP balance is nonnegative; candidate frames must not precede prior deployments.",
+      "fix_id": "DP_SCHEDULER_POST_PAYMENT_DOUBLE_COUNT",
+      "invalid_because": "This double-counts every deployment: the same cost is represented both as an outflow and as a lower bound on balance.",
+      "original_constraint": "After paying cumulative deployment costs, the scheduler required the remaining DP balance to also be >= cumulative cost.",
+      "status": "FIXED_AND_REGRESSION_TESTED"
+    }
+  ],
+  "prior_fixes_referenced": [
+    "POCKET_FIRE deadline semantics corrected from route-3/295 to route-4/805 for OP-01 and OP-05.",
+    "OP-05 medic deadline corrected to the plan's frame-941 requirement.",
+    "OP-04 same-tile upgrade deadline corrected to route-18/frame-3415 semantics.",
+    "OP-05 unavoidable automatic coverage no longer classified as an extra resource allocation."
+  ],
+  "schema_version": "R8_1_PROVEN_COMPILER_CONSTRAINT_FIXES_V1"
+}

@@ -1,0 +1,47 @@
+{
+  "acceptance_criteria_satisfied": "PENDING_SHARED_OR_DISTINCT_SIMULATION",
+  "action_language_blocker": null,
+  "classification": "COMPILABLE_WITH_SIMULATED_CONCESSION_CHECK",
+  "compiler_representation": "The plan reuses the full lattice actions from OP-01, excludes all manual SKILL actions, and delegates the exact concession count to deterministic simulation.",
+  "distinct_faithful_realizations": 0,
+  "explicit_semantics": {
+    "concession_budget": 4,
+    "concession_routes": [
+      "route-33",
+      "route-34"
+    ],
+    "concession_spawn_frames": {
+      "route-33": [
+        4650,
+        4674
+      ],
+      "route-34": [
+        4800,
+        4824
+      ]
+    },
+    "concession_unlock_frame": 4650,
+    "forbidden_resource_allocation": [
+      "INTERPRETATION: any concession before frame 4650 (early-concession model REJECTED per OP-07 review).",
+      "INTERPRETATION: spending any resource (skills, relay bodies, repositioning) on routes 33/34.",
+      "INTERPRETATION: conceding >4 enemies total.",
+      "INTERPRETATION: support/medic classes in DPS slots (CMF-2); manual-skill dependence (CMF-3); [3,5]-at-191 opening (CMF-1)."
+    ],
+    "priorities": [
+      "pocket_train",
+      "C04_26_27",
+      "C05_C06_rows",
+      "C07_29_32"
+    ],
+    "zero_leak_gate_frame": 4524
+  },
+  "identical_action_acceptable": true,
+  "op01_contract_independently_enforced": true,
+  "reason": "An identical no-manual-skill action sequence is acceptable only after independent OP-05 contract checks and a simulated <=4 late concession result.",
+  "route_specific_resource_rule": "No additional DEPLOY, RETREAT, or ACTIVATE_SKILL resource may be added for route-33/route-34. Existing [9,2] automatic basic attacks are unavoidable background coverage, not an additional tactical allocation.",
+  "schema_version": "R8_1_OP05_CROSS_PLAN_REALIZATION_VALIDATION_V1",
+  "semantic_preservation_repaired": true,
+  "shared_realizations_verified": 0,
+  "structure_matches_op01": true,
+  "targeting_control_available_in_action_language": false
+}

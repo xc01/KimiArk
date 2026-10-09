@@ -1,20 +1,18 @@
-# 唯一下一里程碑：恢复 V3 源证据并忠实复验现有 A/B/C
+# 已完成里程碑：恢复 V3 源证据并忠实复验现有 A/B/C
 
-状态：READY_FOR_INPUT_RECOVERY，关键源文件缺失；这是审查后的单一有界工作，不是 Kimi V4。
+状态：SOURCE_EVIDENCE_RESTORED_AND_REVERIFIED，无新增战术，无 Kimi 调用，无模拟。下一步必须先由审查模型核对本轮证据；在此之前不启动 Kimi V4。
 
 ## 范围
 
-恢复 review/evidence_index.json 列出的原始 repair/依赖闭包、关卡 context/catalog、GameData/模拟器的确切版本、旧 ledger/trace 与原 Kimi request/response/completion；记录源 commit、hash、机制版本。原工作目录或完整归档是当前缺件的必要来源。不能用测试 stub、旧摘要或新模型调用替代。
+已恢复 repair 源码与依赖闭包、关卡 context/catalog、GameData 版本清单、旧 ledger/trace、原 Kimi request/response/completion，并新增 `output/r8_1_v3_source_evidence_reverification_v1/`。23.9 MB SSE 原始响应以 gzip + SHA-256 交付；1.1 GB GameData 以精确 archive hash、upstream commit、data version 和恢复命令交付。可用 `docs/review/evidence_index.json`、`docs/review/gamedata_source.json` 和该 milestone 的 manifest 追溯。
 
 只复验既有三份 OperationalPlans，保持原结构和用户职责边界。不生成新计划，不调用 Kimi，不扩大候选/模拟搜索，不猜改机制。
 
 ## 验收条件
 
-1. fresh checkout/明确版本的依赖包可独立运行相关测试及离线复验；缺失清单逐项有真实文件和可追溯版本。原调用证据缺失则继续保留 REPORTED，不造一次调用证明。
-2. 对三个 fire 槽逐一列出 295 的真实来源、route event、所用位置/干员/队列假设及推导；区分接敌、必须阻挡、必须开火、必须击杀，解决计划叙述与 deadline_basis 的冲突。任何放宽均需可复算事实，不把 400–600 叙述直接设为 deadline。
-3. 现有计划分别检查真实候选能力/选定技能/朝向/覆盖、共享职责、条件让路、分期替换、完整自然与技能 DP、合法退款/再部署时机，建立每条约束来源。退款在发生前不可使用；额外收入不可凭猜测计入。
-4. 每份输出一个确定结果：具范围和来源的冲突证据，或明确 UNKNOWN 及缺项，或完整 faithful witness。不能只因 cutoff<=729 无冲突就判可行；不称 minimal UNSAT core，除非另有最小性证明。
-5. faithful witness 必须包含 DEPLOY(operator,tile,direction,frame)、ACTIVATE_SKILL、RETREAT 及责任/phase/skill/transition fidelity。最多每份既有计划一条时间线、总计不超过三条；没有 witness 则模拟零次。若可执行，模拟后记录有意义的首因，不增加搜索。若 WIN，以相同时间线重验两种已知 roadblock targeting，才记录 robust WIN；真实游戏单独验证。
-6. 审查真实 diff、测试和 artifacts 后更新六份长期文档，再决定后续阶段。未满足条件不启动 Kimi V4。
-
-停止条件：依赖恢复失败或合法经济/机制仍无法证明，则以 UNKNOWN 交付精确缺项和下一决策所需证据；不得用 blanket proven 拒绝继续学习，也不得合成成功验证。
+1. fresh 交付包含 `src/`、repair/search/audit 脚本、旧 artifacts 和 V3 调用记录；缺失清单已清空。
+2. 三个 fire 槽已确认 295 来自 route-3 `enemy_1107_uoffcr` 最早接敌事件：spawn 240、speed 1.1、contact distance 2、formula `ceil(240 + 2 / 1.1 * 30) = 295`。它与 431 的 BLOCK 语义不同。
+3. 三份计划中的 FIRE establishment deadline 均为 UNKNOWN；A/C 的 queue contract 指向 route-1 before 805、route-3 before 941 并要求按 eDPS 解出 establishment；B 明确提出 dam split 和约 600 的叙述性 establishment。未发明替代 deadline。
+4. 22/21/22 DP vs 19.8333 的 295 冲突保留为 `DIAGNOSTIC_CONFLICTING_CONSTRAINT_SET_NOT_PROVEN_UNSAT_CORE`；不再作为计划不可行证明。自然-only DP、distinct assignment、退款和技能收入仍是限制。
+5. 未生成 faithful witness，因此模拟次数为 0；现有三份计划的可行性为 UNKNOWN，不是 proven feasible，也不是 proven infeasible。
+6. 定向复验测试 29/29 PASS；compileall PASS。完整 unittest 94 项中 87 项 PASS，7 个模块因系统缺少 `pytest` 在导入阶段 BLOCKED，未标为通过。审查模型仍需核对真实 diff、manifest 和测试；未满足前不启动 Kimi V4。

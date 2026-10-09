@@ -1,0 +1,587 @@
+{
+  "epistemic_status": "CONFIRMED_FROM_CODE for supplied artifacts and arithmetic; plan feasibility remains UNKNOWN without a full constructive schedule and simulator replay.",
+  "kimi_calls": 0,
+  "mechanics_version": "m18.9-stage-device-runtime-v1",
+  "new_tactical_plans": 0,
+  "reclassification": {
+    "corrected_classification": "DERIVED_EARLIEST_OPERATOR_CONTACT_EVENT_NOT_PROVEN_ESTABLISHMENT_DEADLINE",
+    "is_confirmed_hard_deadline": false,
+    "previous_claim": "ROUTE3_FIRE_ESTABLISHMENT_DEADLINE_295"
+  },
+  "records": [
+    {
+      "affordance_reference_valid": true,
+      "candidate_pool_ids": [
+        "char_124_kroos",
+        "char_211_adnach",
+        "char_126_shotst",
+        "char_133_mm",
+        "char_190_clour",
+        "char_235_jesica",
+        "char_129_bluep",
+        "char_204_platnm",
+        "char_365_aprl",
+        "char_367_swllow",
+        "char_103_angel",
+        "char_332_archet",
+        "char_4100_caper",
+        "char_456_ash",
+        "char_1021_kroos2",
+        "char_498_inside",
+        "char_366_acdrop",
+        "char_4138_narant",
+        "char_145_prove",
+        "char_4006_melnte",
+        "char_4177_brigid"
+      ],
+      "candidate_pool_size": 21,
+      "compiler_slot": {
+        "affordance_id": "SC_01",
+        "capability_requirements": "cost<=15; auto-activate burst skill; >=450 eDPS vs 150-def on blocked [8,5] targets; single-cell burst >=550 vs 100-def at [8,0]; exemplar char_4211_snhunt",
+        "corridor": "C01+C04+C07",
+        "deadline_basis": "route-3:FIRE",
+        "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+        "max_cost_design_choice": 15,
+        "may_share_live_operator": true,
+        "phase": "EARLY_ESTABLISHMENT",
+        "pressure_window": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05",
+          "W06"
+        ],
+        "role": "RANGED_DPS",
+        "shared_responsibilities": [
+          "pocket queue-clear on cell [8,5]",
+          "C07 anchor (only SC_01 coverage)",
+          "C04 tail-catch on cell [8,0]"
+        ],
+        "slot_id": "A03_MERGED_ANCHOR"
+      },
+      "frame_295_semantics": {
+        "BLOCK": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 431,
+          "is_establishment_deadline": false,
+          "meaning": "Latest safe blocker frame for route-3."
+        },
+        "CONTACT": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 295,
+          "is_establishment_deadline": false,
+          "meaning": "Earliest possible operator contact on route-3 at a legal interception tile."
+        },
+        "FIRE": {
+          "classification": "UNKNOWN_PLAN_SPECIFIC_DEADLINE",
+          "frame": null,
+          "is_establishment_deadline": false,
+          "meaning": "The plan requires route-3 to die before frame 941; establishment depends on blocking, geometry, facing, coverage, and measured damage. The supplied evidence does not establish a hard fire establishment deadline."
+        },
+        "KILL": {
+          "classification": "PLAN_TARGET_NOT_CONSTRUCTIVE_WITNESS",
+          "frame": 941,
+          "is_establishment_deadline": false,
+          "meaning": "The plan states a kill-by target; this is not proof that any schedule achieves it."
+        }
+      },
+      "mandatory_invariants": [
+        "Stub at [3,3] by frame 27; dam at [8,5] by frame 191 (OE_02).",
+        "Anchor active early enough that route-1 dies before frame 805 and route-3 before frame 941 (queue contract; verifier resolves exact latest establishment from its measured eDPS).",
+        "Duelist at [5,1] by 725 and (conditional) at [6,1] by 729.",
+        "Cumulative planned leaks: route-8 only (1) unless diversion branch holds; total <=4 including W06 triage; margin >=1.",
+        "Deployment count <=8 at all times; one slot reserved from W03.",
+        "No planned operator deaths; no pioneer on a path tile."
+      ],
+      "operational_plan_id": "R8OP-A-MERGED-ANCHOR-REFUND-LATTICE",
+      "plan_specific_fire_deadline": {
+        "reason": "Plan text gives an outcome target, not a source-backed establishment frame.",
+        "replacement_deadline_invented": false,
+        "status": "UNKNOWN"
+      },
+      "plan_text_timing": {
+        "class": "PLAN_TEXT_TACTICAL_DESIGN_TARGET",
+        "is_exact_game_fact": false,
+        "rows": [
+          "~Frame 400-500 (refund-funded): merged anchor on [9,2] (SC_01) active; queue-clear contract starts: route-1 dead before 805, route-3 dead before 941, then one kill per ~205 frames through the route-28 train."
+        ]
+      },
+      "previous_295_prefix_conflict": {
+        "assumed_deadline_frame": 295,
+        "available_dp_under_natural_only_assumption": 19.833333333333336,
+        "certificate_class": "DIAGNOSTIC_CONFLICTING_CONSTRAINT_SET_NOT_PROVEN_UNSAT_CORE",
+        "deficit": 2.1666666666666643,
+        "economy_assumptions": {
+          "initial_dp": 10.0,
+          "natural_rate": 1.0,
+          "retreat_refund": 0.0,
+          "skill_dp": 0.0
+        },
+        "is_plan_infeasibility_proof": false,
+        "minimum_assignment": {
+          "A01_C03_STUB": "char_272_strong",
+          "A02_C01_DAM": "char_445_wscoot",
+          "A03_MERGED_ANCHOR": "char_124_kroos"
+        },
+        "minimum_cost": 22.0,
+        "prefix_slots": [
+          "A01_C03_STUB",
+          "A02_C01_DAM",
+          "A03_MERGED_ANCHOR"
+        ],
+        "proof_limitations": [
+          "FRAME_295_IS_NOT_A_PLAN_SPECIFIC_FIRE_ESTABLISHMENT_DEADLINE",
+          "NATURAL_ONLY_DP_IS_NOT_A_VERIFIED_TOTAL_DP_UPPER_BOUND",
+          "DISTINCT_UNIT_ASSIGNMENT_AND_ROLE_SHARING_ARE_SIMPLIFIED",
+          "REFUND_AND_SKILL_ECONOMY_ARE_NOT_RESOLVED"
+        ],
+        "recomputed_available_dp": 19.833333333333336,
+        "recomputed_minimum_cost": 22.0,
+        "slot_id": "A03_MERGED_ANCHOR"
+      },
+      "selected_affordance": {
+        "affordance_id": "SC_01",
+        "legal_tiles": [
+          [
+            9,
+            2
+          ]
+        ],
+        "pressure_windows": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05",
+          "W06"
+        ],
+        "served_routes": [
+          "route-1",
+          "route-10",
+          "route-11",
+          "route-12",
+          "route-13",
+          "route-14",
+          "route-15",
+          "route-16",
+          "route-17",
+          "route-18",
+          "route-19",
+          "route-2",
+          "route-20",
+          "route-21",
+          "route-22",
+          "route-23",
+          "route-24",
+          "route-25",
+          "route-26",
+          "route-27",
+          "route-28",
+          "route-29",
+          "route-3",
+          "route-30",
+          "route-31",
+          "route-32",
+          "route-33",
+          "route-34",
+          "route-4",
+          "route-6",
+          "route-7",
+          "route-8",
+          "route-9"
+        ],
+        "type": "SHARED_RANGED_COVERAGE_REGION"
+      },
+      "slot_id": "A03_MERGED_ANCHOR"
+    },
+    {
+      "affordance_reference_valid": true,
+      "candidate_pool_ids": [
+        "char_124_kroos",
+        "char_211_adnach",
+        "char_126_shotst",
+        "char_133_mm",
+        "char_190_clour",
+        "char_235_jesica",
+        "char_129_bluep",
+        "char_204_platnm",
+        "char_365_aprl",
+        "char_367_swllow",
+        "char_103_angel",
+        "char_332_archet",
+        "char_4100_caper",
+        "char_456_ash",
+        "char_1021_kroos2",
+        "char_498_inside",
+        "char_366_acdrop",
+        "char_4138_narant",
+        "char_145_prove",
+        "char_4006_melnte",
+        "char_4177_brigid"
+      ],
+      "candidate_pool_size": 21,
+      "compiler_slot": {
+        "affordance_id": "SC_04",
+        "capability_requirements": "cost<=15; >=450 eDPS vs 150-def on [8,5] blocked targets; auto skill; exemplar char_4211_snhunt; establishment relaxed to ~frame 600 by the dam split (route-3 dead before 941)",
+        "corridor": "C01",
+        "deadline_basis": "route-3:FIRE",
+        "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+        "max_cost_design_choice": 15,
+        "may_share_live_operator": false,
+        "phase": "EARLY_ESTABLISHMENT",
+        "pressure_window": [
+          "W02",
+          "W03",
+          "W05",
+          "W06"
+        ],
+        "role": "RANGED_DPS",
+        "slot_id": "B04_POCKET_FIRE"
+      },
+      "frame_295_semantics": {
+        "BLOCK": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 431,
+          "is_establishment_deadline": false,
+          "meaning": "Latest safe blocker frame for route-3."
+        },
+        "CONTACT": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 295,
+          "is_establishment_deadline": false,
+          "meaning": "Earliest possible operator contact on route-3 at a legal interception tile."
+        },
+        "FIRE": {
+          "classification": "UNKNOWN_PLAN_SPECIFIC_DEADLINE",
+          "frame": null,
+          "is_establishment_deadline": false,
+          "meaning": "The plan requires route-3 to die before frame 941; establishment depends on blocking, geometry, facing, coverage, and measured damage. The supplied evidence does not establish a hard fire establishment deadline."
+        },
+        "KILL": {
+          "classification": "PLAN_TARGET_NOT_CONSTRUCTIVE_WITNESS",
+          "frame": 941,
+          "is_establishment_deadline": false,
+          "meaning": "The plan states a kill-by target; this is not proof that any schedule achieves it."
+        }
+      },
+      "mandatory_invariants": [
+        "Stub by 27; upstream dam before route-1 passes [3,5] (verifier resolves exact latest frame); downstream dam before route-3's ~350 contact.",
+        "Pocket fire active by ~frame 600 with route-3 dead before 941.",
+        "Duelist at [5,1] by 725.",
+        "Cumulative planned leaks <=2 (route-6, route-8) before W06; <=4 total; margin >=1.",
+        "Deployment count <=8 with at most one planned rotation.",
+        "No planned operator deaths; battery never on a path tile."
+      ],
+      "operational_plan_id": "R8OP-B-UPSTREAM-DAM-AND-RELAY",
+      "plan_specific_fire_deadline": {
+        "reason": "Plan text gives an outcome target, not a source-backed establishment frame.",
+        "replacement_deadline_invented": false,
+        "status": "UNKNOWN"
+      },
+      "plan_text_timing": {
+        "class": "PLAN_TEXT_TACTICAL_DESIGN_TARGET",
+        "is_exact_game_fact": false,
+        "rows": [
+          "~Frame 300: wscoot-class dam at [8,5] before route-3's ~350 contact.",
+          "~Frame 600 (refund-funded): snhunt-class pocket fire at [9,5] active; route-3 dies ~frame 810, well before 941."
+        ]
+      },
+      "previous_295_prefix_conflict": {
+        "assumed_deadline_frame": 295,
+        "available_dp_under_natural_only_assumption": 19.833333333333336,
+        "certificate_class": "DIAGNOSTIC_CONFLICTING_CONSTRAINT_SET_NOT_PROVEN_UNSAT_CORE",
+        "deficit": 1.1666666666666643,
+        "economy_assumptions": {
+          "initial_dp": 10.0,
+          "natural_rate": 1.0,
+          "retreat_refund": 0.0,
+          "skill_dp": 0.0
+        },
+        "is_plan_infeasibility_proof": false,
+        "minimum_assignment": {
+          "B01_C03_STUB": "char_272_strong",
+          "B02_UPSTREAM_DAM": "char_322_lmlee",
+          "B04_POCKET_FIRE": "char_124_kroos"
+        },
+        "minimum_cost": 21.0,
+        "prefix_slots": [
+          "B01_C03_STUB",
+          "B02_UPSTREAM_DAM",
+          "B04_POCKET_FIRE"
+        ],
+        "proof_limitations": [
+          "FRAME_295_IS_NOT_A_PLAN_SPECIFIC_FIRE_ESTABLISHMENT_DEADLINE",
+          "NATURAL_ONLY_DP_IS_NOT_A_VERIFIED_TOTAL_DP_UPPER_BOUND",
+          "DISTINCT_UNIT_ASSIGNMENT_AND_ROLE_SHARING_ARE_SIMPLIFIED",
+          "REFUND_AND_SKILL_ECONOMY_ARE_NOT_RESOLVED"
+        ],
+        "recomputed_available_dp": 19.833333333333336,
+        "recomputed_minimum_cost": 21.0,
+        "slot_id": "B04_POCKET_FIRE"
+      },
+      "selected_affordance": {
+        "affordance_id": "SC_04",
+        "legal_tiles": [
+          [
+            9,
+            5
+          ]
+        ],
+        "pressure_windows": [
+          "W01",
+          "W02",
+          "W03",
+          "W05",
+          "W06"
+        ],
+        "served_routes": [
+          "route-1",
+          "route-17",
+          "route-18",
+          "route-2",
+          "route-28",
+          "route-3",
+          "route-4",
+          "route-9"
+        ],
+        "type": "SHARED_RANGED_COVERAGE_REGION"
+      },
+      "slot_id": "B04_POCKET_FIRE"
+    },
+    {
+      "affordance_reference_valid": true,
+      "candidate_pool_ids": [
+        "char_124_kroos",
+        "char_211_adnach",
+        "char_126_shotst",
+        "char_133_mm",
+        "char_190_clour",
+        "char_235_jesica",
+        "char_129_bluep",
+        "char_204_platnm",
+        "char_365_aprl",
+        "char_367_swllow",
+        "char_103_angel",
+        "char_332_archet",
+        "char_4100_caper",
+        "char_456_ash",
+        "char_1021_kroos2",
+        "char_498_inside",
+        "char_366_acdrop",
+        "char_4138_narant",
+        "char_145_prove",
+        "char_4006_melnte",
+        "char_4177_brigid"
+      ],
+      "candidate_pool_size": 21,
+      "compiler_slot": {
+        "affordance_id": "SC_01",
+        "capability_requirements": "as Plan A A03",
+        "corridor": "C01+C04+C07",
+        "deadline_basis": "route-3:FIRE",
+        "establishment_semantic": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+        "max_cost_design_choice": 15,
+        "may_share_live_operator": true,
+        "phase": "EARLY_ESTABLISHMENT",
+        "pressure_window": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05",
+          "W06"
+        ],
+        "role": "RANGED_DPS",
+        "shared_responsibilities": [
+          "pocket queue-clear until the [8,5] upgrade completes",
+          "C07 anchor",
+          "C04 tail-catch at [8,0]"
+        ],
+        "slot_id": "C03_MERGED_ANCHOR"
+      },
+      "frame_295_semantics": {
+        "BLOCK": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 431,
+          "is_establishment_deadline": false,
+          "meaning": "Latest safe blocker frame for route-3."
+        },
+        "CONTACT": {
+          "classification": "CONFIRMED_DERIVED_EVENT",
+          "frame": 295,
+          "is_establishment_deadline": false,
+          "meaning": "Earliest possible operator contact on route-3 at a legal interception tile."
+        },
+        "FIRE": {
+          "classification": "UNKNOWN_PLAN_SPECIFIC_DEADLINE",
+          "frame": null,
+          "is_establishment_deadline": false,
+          "meaning": "The plan requires route-3 to die before frame 941; establishment depends on blocking, geometry, facing, coverage, and measured damage. The supplied evidence does not establish a hard fire establishment deadline."
+        },
+        "KILL": {
+          "classification": "PLAN_TARGET_NOT_CONSTRUCTIVE_WITNESS",
+          "frame": 941,
+          "is_establishment_deadline": false,
+          "meaning": "The plan states a kill-by target; this is not proof that any schedule achieves it."
+        }
+      },
+      "mandatory_invariants": [
+        "Crunch invariants identical to Plan A (27/191/725/729 deadlines; spend 35 vs 39.3 by 729 with refund).",
+        "Each upgrade completes before its deadline_basis event: [8,5] before route-18 contact 3415; [5,1] before route-15 contact 2727; [6,1] before route-14 (~frame 3600).",
+        "Deployment count <=8 through every transition (vacate-first).",
+        "Exactly three same-tile upgrades; at most four retreats total (stub + three placeholders).",
+        "Cumulative planned leaks: route-8 (conditional) plus at most 3 tail; margin >=1."
+      ],
+      "operational_plan_id": "R8OP-C-DELAYED-KILLING-BLOCK-EVOLUTION",
+      "plan_specific_fire_deadline": {
+        "reason": "Plan text gives an outcome target, not a source-backed establishment frame.",
+        "replacement_deadline_invented": false,
+        "status": "UNKNOWN"
+      },
+      "plan_text_timing": {
+        "class": "PLAN_TEXT_TACTICAL_DESIGN_TARGET",
+        "is_exact_game_fact": false,
+        "rows": []
+      },
+      "previous_295_prefix_conflict": {
+        "assumed_deadline_frame": 295,
+        "available_dp_under_natural_only_assumption": 19.833333333333336,
+        "certificate_class": "DIAGNOSTIC_CONFLICTING_CONSTRAINT_SET_NOT_PROVEN_UNSAT_CORE",
+        "deficit": 2.1666666666666643,
+        "economy_assumptions": {
+          "initial_dp": 10.0,
+          "natural_rate": 1.0,
+          "retreat_refund": 0.0,
+          "skill_dp": 0.0
+        },
+        "is_plan_infeasibility_proof": false,
+        "minimum_assignment": {
+          "C01_C03_STUB": "char_272_strong",
+          "C02_POCKET_PLACEHOLDER": "char_445_wscoot",
+          "C03_MERGED_ANCHOR": "char_124_kroos"
+        },
+        "minimum_cost": 22.0,
+        "prefix_slots": [
+          "C01_C03_STUB",
+          "C02_POCKET_PLACEHOLDER",
+          "C03_MERGED_ANCHOR"
+        ],
+        "proof_limitations": [
+          "FRAME_295_IS_NOT_A_PLAN_SPECIFIC_FIRE_ESTABLISHMENT_DEADLINE",
+          "NATURAL_ONLY_DP_IS_NOT_A_VERIFIED_TOTAL_DP_UPPER_BOUND",
+          "DISTINCT_UNIT_ASSIGNMENT_AND_ROLE_SHARING_ARE_SIMPLIFIED",
+          "REFUND_AND_SKILL_ECONOMY_ARE_NOT_RESOLVED"
+        ],
+        "recomputed_available_dp": 19.833333333333336,
+        "recomputed_minimum_cost": 22.0,
+        "slot_id": "C03_MERGED_ANCHOR"
+      },
+      "selected_affordance": {
+        "affordance_id": "SC_01",
+        "legal_tiles": [
+          [
+            9,
+            2
+          ]
+        ],
+        "pressure_windows": [
+          "W01",
+          "W02",
+          "W03",
+          "W04",
+          "W05",
+          "W06"
+        ],
+        "served_routes": [
+          "route-1",
+          "route-10",
+          "route-11",
+          "route-12",
+          "route-13",
+          "route-14",
+          "route-15",
+          "route-16",
+          "route-17",
+          "route-18",
+          "route-19",
+          "route-2",
+          "route-20",
+          "route-21",
+          "route-22",
+          "route-23",
+          "route-24",
+          "route-25",
+          "route-26",
+          "route-27",
+          "route-28",
+          "route-29",
+          "route-3",
+          "route-30",
+          "route-31",
+          "route-32",
+          "route-33",
+          "route-34",
+          "route-4",
+          "route-6",
+          "route-7",
+          "route-8",
+          "route-9"
+        ],
+        "type": "SHARED_RANGED_COVERAGE_REGION"
+      },
+      "slot_id": "C03_MERGED_ANCHOR"
+    }
+  ],
+  "route3_contact_facts": {
+    "agreement": true,
+    "derivation": "ceil(spawn_frame + earliest_contact_distance / move_speed * frame_rate)",
+    "evidence_class": "CONFIRMED_FROM_CODE",
+    "expected_from_deterministic_context": {
+      "earliest_operator_contact_distance": 2.0,
+      "earliest_operator_contact_frame": 295,
+      "enemy_id": "enemy_1107_uoffcr",
+      "latest_interception_distance": 7.0,
+      "latest_safe_blocker_frame": 431,
+      "legal_interception_tiles": [
+        [
+          3,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ]
+    },
+    "route_evidence_values": {
+      "earliest_operator_contact_distance": 2.0,
+      "earliest_operator_contact_frame": 295,
+      "enemy_id": "enemy_1107_uoffcr",
+      "latest_interception_distance": 7.0,
+      "latest_safe_blocker_frame": 431,
+      "legal_interception_tiles": [
+        [
+          3,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ]
+    }
+  },
+  "schema_version": "R8_1_V3_SOURCE_EVIDENCE_REVERIFICATION_V1",
+  "simulations": 0,
+  "stage_id": "main_08-01",
+  "summary": {
+    "constructive_witnesses": 0,
+    "old_295_conflicts_promoted_to_plan_infeasibility": 0,
+    "old_295_conflicts_retained_as_diagnostic": 3,
+    "plan_specific_fire_deadlines_resolved": 0,
+    "plan_specific_fire_deadlines_unknown": 3,
+    "plans_reverified": 3,
+    "simulations": 0
+  }
+}

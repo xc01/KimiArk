@@ -23,3 +23,11 @@ REPORTED_BY_PREVIOUS_WORKER：保留 `output/r8_1_constraint_informed_revision_v
 - 证据：原 V3 L982–988 的 uppercase RETREAT 判断与真实三个计划；原 certificates 的 unverified list 全空；新增回归。
 - 原因：大小写字面匹配漏掉真实小写文本。
 - 修复：依据字段存在性列待验证退款/安全交接条件；不授权任何 refund 数额、时机或机制。
+
+## REVIEW-CONTACT-295-003：接敌事件不是开火 establishment deadline
+
+- 状态：CONFIRMED_FROM_CODE；适用于 main_08-01 route-3、`enemy_1107_uoffcr`、mechanics `m18.9-stage-device-runtime-v1`。
+- 事实：spawn frame 240，speed 1.1，earliest operator contact distance 2，formula `ceil(240 + 2 / 1.1 * 30) = 295`；route-3 BLOCK 事实是 431。
+- 修正：295 是最早可能接敌事件，不是 FIRE establishment deadline。V3 A/B/C 的 plan-specific FIRE deadline 保持 UNKNOWN；400–600 叙述是战术目标，不自动升格为游戏事实。
+- 保留限制：22/21/22 DP vs 19.8333 的前缀算术只是自然-only、distinct-unit、无退款/技能收入假设下的诊断冲突集。它不证明计划不可行，也不证明退款能解决冲突。
+- 可复用经验：区分 CONTACT、BLOCK、FIRE establishment 和 KILL-by target；只有计划/机制显式要求时才把事件转为 deadline。

@@ -1,0 +1,1271 @@
+{
+  "records": [
+    {
+      "edges": [
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C07_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:C07_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT"
+        }
+      ],
+      "nodes": [
+        "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C07_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS",
+        "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT",
+        "R-OP-01-POCKET-AND-FLOOR:NO_LOAD_BEARING_ACTIVATE_SKILL"
+      ],
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "pattern_slots": [
+        {
+          "corridors": [
+            "C03"
+          ],
+          "direction": "RIGHT",
+          "max_cost": 5,
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "target": 0,
+          "temporary": true,
+          "tile": [
+            3,
+            3
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "max_cost": 9,
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "target": 136,
+          "temporary": false,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "LEFT",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            9,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C07",
+            "C04"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "target": 1350,
+          "temporary": false,
+          "tile": [
+            9,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 6,
+          "role": "BLOCK",
+          "slot_id": "C05_BLOCK",
+          "target": 725,
+          "temporary": false,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 6,
+          "role": "BLOCK",
+          "slot_id": "C06_BLOCK",
+          "target": 729,
+          "temporary": false,
+          "tile": [
+            6,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C01"
+          ],
+          "direction": "UP",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "target": 941,
+          "temporary": false,
+          "tile": [
+            7,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C03_STUB:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C03_STUB:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C07_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:C07_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT"
+        }
+      ],
+      "nodes": [
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C03_STUB:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_MEDIC:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C07_FIRE:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:NO_LOAD_BEARING_ACTIVATE_SKILL"
+      ],
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "pattern_slots": [
+        {
+          "corridors": [
+            "C03"
+          ],
+          "direction": "RIGHT",
+          "max_cost": 5,
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "target": 0,
+          "temporary": true,
+          "tile": [
+            3,
+            3
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "max_cost": 9,
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "target": 136,
+          "temporary": false,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 18,
+          "role": "DUELIST",
+          "slot_id": "C06_DUELIST",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            1,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 18,
+          "role": "DUELIST",
+          "slot_id": "C05_DUELIST",
+          "target": 700,
+          "temporary": false,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C04"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C07"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "target": 1350,
+          "temporary": false,
+          "tile": [
+            9,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "RIGHT",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_OVERFLOW",
+          "target": 700,
+          "temporary": false,
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C01"
+          ],
+          "direction": "UP",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "target": 941,
+          "temporary": false,
+          "tile": [
+            7,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C07_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:C07_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:LANE02_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:LANE02_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_2727:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_2727:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_3789:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_3789:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_3927:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_3927:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_4089:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_4089:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_4377:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_4377:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT"
+        }
+      ],
+      "nodes": [
+        "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:C07_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:LANE02_MEDIC:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_2727:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_3927:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_3789:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_4089:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_4377:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS",
+        "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT",
+        "R-OP-03-FRD-RELAY-LANE02:NO_LOAD_BEARING_ACTIVATE_SKILL"
+      ],
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "pattern_slots": [
+        {
+          "corridors": [
+            "C03"
+          ],
+          "direction": "RIGHT",
+          "max_cost": 5,
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "target": 0,
+          "temporary": true,
+          "tile": [
+            3,
+            3
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "max_cost": 9,
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "target": 136,
+          "temporary": false,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "RIGHT",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "target": 700,
+          "temporary": false,
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C07"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "target": 1350,
+          "temporary": false,
+          "tile": [
+            9,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C01"
+          ],
+          "direction": "RIGHT",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "target": 941,
+          "temporary": false,
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C05",
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "SUSTAIN",
+          "slot_id": "LANE02_MEDIC",
+          "target": 2250,
+          "temporary": false,
+          "tile": [
+            7,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_625",
+          "target": 570,
+          "temporary": true,
+          "tile": [
+            1,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_725",
+          "target": 670,
+          "temporary": true,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_2727",
+          "target": 2680,
+          "temporary": true,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_3789",
+          "target": 3740,
+          "temporary": true,
+          "tile": [
+            6,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_3927",
+          "target": 3880,
+          "temporary": true,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_4089",
+          "target": 4040,
+          "temporary": true,
+          "tile": [
+            6,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 8,
+          "role": "RELAY",
+          "slot_id": "RELAY_4377",
+          "target": 4330,
+          "temporary": true,
+          "tile": [
+            5,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C03_STUB:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C03_STUB:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C07_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C07_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_KILLER:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_KILLER:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+          "relation": "MUST_VACATE_TILE",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:SAME_TILE_UPGRADE_ORDER"
+        },
+        {
+          "from": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:SAME_TILE_UPGRADE_ORDER",
+          "relation": "ENABLES_DEPLOY",
+          "to": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_KILLER:DEADLINE"
+        }
+      ],
+      "nodes": [
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C03_STUB:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_MEDIC:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C07_FIRE:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:NO_LOAD_BEARING_ACTIVATE_SKILL",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:SAME_TILE_UPGRADE_ORDER"
+      ],
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "pattern_slots": [
+        {
+          "corridors": [
+            "C03"
+          ],
+          "direction": "RIGHT",
+          "max_cost": 5,
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "target": 0,
+          "temporary": true,
+          "tile": [
+            3,
+            3
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_PLACEHOLDER",
+          "target": 136,
+          "temporary": true,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "role": "KILLING_BLOCK",
+          "slot_id": "POCKET_KILLER",
+          "target": 2400,
+          "temporary": false,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C05_KILLER",
+          "target": 700,
+          "temporary": false,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C06_KILLER",
+          "target": 704,
+          "temporary": false,
+          "tile": [
+            6,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C07"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "target": 1350,
+          "temporary": false,
+          "tile": [
+            9,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C01"
+          ],
+          "direction": "RIGHT",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "target": 941,
+          "temporary": false,
+          "tile": [
+            6,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C07_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C07_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+          "relation": "REQUIRES_DISTINCT_OPERATOR",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "from": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+          "relation": "CONSUMES_LIVE_SLOT",
+          "to": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT"
+        }
+      ],
+      "nodes": [
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C07_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:NO_LOAD_BEARING_ACTIVATE_SKILL",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:ZERO_LEAK_THROUGH_4524",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:LATE_CONCESSION_BUDGET_4",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:NO_EXTRA_RESOURCE_ON_ROUTES_33_34"
+      ],
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "pattern_slots": [
+        {
+          "corridors": [
+            "C03"
+          ],
+          "direction": "RIGHT",
+          "max_cost": 5,
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "target": 0,
+          "temporary": true,
+          "tile": [
+            3,
+            3
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "UP",
+          "max_cost": 9,
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "target": 136,
+          "temporary": false,
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C01",
+            "C02"
+          ],
+          "direction": "LEFT",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            9,
+            5
+          ]
+        },
+        {
+          "corridors": [
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "target": 600,
+          "temporary": false,
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C07"
+          ],
+          "direction": "UP",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "target": 1350,
+          "temporary": false,
+          "tile": [
+            9,
+            2
+          ]
+        },
+        {
+          "corridors": [
+            "C05"
+          ],
+          "direction": "UP",
+          "max_cost": 6,
+          "role": "BLOCK",
+          "slot_id": "C05_BLOCK",
+          "target": 725,
+          "temporary": false,
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C06"
+          ],
+          "direction": "UP",
+          "max_cost": 6,
+          "role": "BLOCK",
+          "slot_id": "C06_BLOCK",
+          "target": 729,
+          "temporary": false,
+          "tile": [
+            6,
+            1
+          ]
+        },
+        {
+          "corridors": [
+            "C01"
+          ],
+          "direction": "UP",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "target": 941,
+          "temporary": false,
+          "tile": [
+            7,
+            5
+          ]
+        }
+      ]
+    }
+  ],
+  "schema_version": "R8_1_PER_PLAN_CONSTRAINT_GRAPHS_V1"
+}

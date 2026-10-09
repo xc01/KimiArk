@@ -53,6 +53,67 @@
       "exit_code": 0,
       "stdout": "",
       "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "compileall",
+        "-q",
+        "scripts",
+        "src",
+        "tests"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "PYTHONPATH=src:scripts",
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_r8_1_v3_source_evidence_reverification",
+        "tests.test_v3_frame295_review_regression",
+        "tests.test_r8_1_constraint_informed_tactical_revision_v3",
+        "scripts.test_kimi_responses_transport",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "29 tests OK",
+      "stderr": "All 29 targeted tests passed: 3 source reverification, 5 frame-295 proof discipline, 12 V3 constraint-informed revision, 9 transport."
+    },
+    {
+      "command": [
+        "artifact-integrity"
+      ],
+      "exit_code": 0,
+      "stdout": "All source_evidence_manifest.json hashes match; V3 gzip hash matches manifest; restored SSE stream SHA-256 matches 934b4b3d065d7a490ab1b3402c27589ad7bc8b5c9e346c0da42d5d7d2a3104ae.",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "secret-scan"
+      ],
+      "exit_code": 0,
+      "stdout": "No credential material found in delivered src, tests, docs, selected artifacts, V3 request/envelope/completion, or restored SSE stream. Matches limited to defensive validator literals and environment-variable names.",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "PYTHONPATH=src:scripts",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout": "94 tests ran; 87 tests passed.",
+      "stderr": "7 test modules failed during import because pytest is unavailable in the system Python: tests.test_approximate_real, tests.test_benchmark, tests.test_execution, tests.test_frames, tests.test_m11, tests.test_real_search, tests.test_real_simulation_adapter. These are reported as BLOCKED_BY_PYTEST, not passed."
     }
   ]
 }

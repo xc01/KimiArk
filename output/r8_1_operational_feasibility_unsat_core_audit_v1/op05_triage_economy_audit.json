@@ -1,0 +1,87 @@
+{
+  "checks": [
+    {
+      "evidence": "The repaired contract only prohibits added deploy/retreat/skill resources; unavoidable [9,2] coverage is retained.",
+      "possibility": "Deprioritized route-33/34 was required to receive extra full coverage",
+      "rejected": true
+    },
+    {
+      "evidence": "The optional [3,3] retreat/reserve is not included as a mandatory deadline cost in the opening prefix.",
+      "possibility": "Reserve deployed before operational trigger",
+      "rejected": true
+    },
+    {
+      "evidence": "OP-05 has no same-tile upgrade; [3,3] is temporary and [8,5] is a different tile/role.",
+      "possibility": "Temporary and permanent frontline unnecessarily coexist",
+      "rejected": true
+    },
+    {
+      "evidence": "Distinct simultaneous live operators remain a game rule; role sharing is not promoted beyond the plan.",
+      "possibility": "Independent units required where sharing is allowed",
+      "rejected": true
+    },
+    {
+      "evidence": "The first DP contradiction occurs before the late triage phase: at the frame-941 medic deadline.",
+      "possibility": "Late phase fully established during opening",
+      "rejected": true
+    }
+  ],
+  "first_economy_conflict": {
+    "assignment": {
+      "C03_STUB": "char_272_strong",
+      "C04_FIRE": "char_124_kroos",
+      "C05_BLOCK": "char_4155_talr",
+      "C06_BLOCK": "char_455_nothin",
+      "POCKET_BLOCK": "char_123_fang",
+      "POCKET_FIRE": "char_211_adnach",
+      "POCKET_MEDIC": "char_181_flower"
+    },
+    "available_dp": 47.36666666666667,
+    "cost_model": "trait_aware_audit_only",
+    "deadline_frame": 941,
+    "deficit": 1.6333333333333329,
+    "mandatory_prefix_slots": [
+      "C03_STUB",
+      "POCKET_BLOCK",
+      "C04_FIRE",
+      "C05_BLOCK",
+      "C06_BLOCK",
+      "POCKET_FIRE",
+      "POCKET_MEDIC"
+    ],
+    "minimum_cost": 49.0,
+    "slot_id": "POCKET_MEDIC"
+  },
+  "runtime_first_economy_conflict": {
+    "assignment": {
+      "C03_STUB": "char_272_strong",
+      "C04_FIRE": "char_124_kroos",
+      "C05_BLOCK": "char_237_gravel",
+      "C06_BLOCK": "char_4155_talr",
+      "POCKET_BLOCK": "char_123_fang",
+      "POCKET_FIRE": "char_211_adnach"
+    },
+    "available_dp": 42.83333333333333,
+    "cost_model": "runtime_supported",
+    "deadline_frame": 805,
+    "deficit": 1.1666666666666714,
+    "mandatory_prefix_slots": [
+      "C03_STUB",
+      "POCKET_BLOCK",
+      "C04_FIRE",
+      "C05_BLOCK",
+      "C06_BLOCK",
+      "POCKET_FIRE"
+    ],
+    "minimum_cost": 44.0,
+    "slot_id": "POCKET_FIRE"
+  },
+  "schema_version": "R8_1_OP05_TRIAGE_ECONOMY_AUDIT_V1",
+  "triage_contract_preserved": true,
+  "win_compatibility": {
+    "compatible_with_win_if_no_other_leak": true,
+    "margin": 1,
+    "planned_concessions": 4,
+    "stage_life": 5
+  }
+}

@@ -1,0 +1,1717 @@
+{
+  "initial_dp": 10.0,
+  "mechanics_version": "m18.9-stage-device-runtime-v1",
+  "natural_dp_rate_per_second": 1.0,
+  "records": [
+    {
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "variants": [
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_BLOCK": "char_237_gravel",
+            "C06_BLOCK": "char_4155_talr",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_FIRE": "char_211_adnach",
+            "POCKET_MEDIC": "char_181_flower"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 805,
+              "deficit_frames": 215,
+              "scheduled_frame": 1020,
+              "slot_id": "POCKET_FIRE"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 499,
+              "scheduled_frame": 1440,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 390,
+              "scheduled_frame": 1740,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 5.0,
+              "dp_after": 5.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 120,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 6.0,
+              "dp_before_action": 6.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 6.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 6.0,
+              "dp_after": 0.0,
+              "dp_before_action": 6.0,
+              "event": "DEPLOY",
+              "frame": 570,
+              "natural_accrual": 6.0,
+              "operator_id": "char_237_gravel",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 10.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 690,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 6.0,
+              "dp_after": 4.033333333333335,
+              "dp_before_action": 10.033333333333335,
+              "event": "DEPLOY",
+              "frame": 691,
+              "natural_accrual": 0.03333333333333499,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.000000000000002,
+              "dp_before_action": 15.000000000000002,
+              "event": "DEPLOY",
+              "frame": 1020,
+              "natural_accrual": 10.966666666666667,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333335,
+              "dp_before_action": 6.033333333333335,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1021,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1440,
+              "natural_accrual": 13.966666666666667,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1441,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 1740,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 68.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 390,
+            "C05_BLOCK": 570,
+            "C06_BLOCK": 691,
+            "C07_FIRE": 1740,
+            "POCKET_BLOCK": 120,
+            "POCKET_FIRE": 1020,
+            "POCKET_MEDIC": 1440
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "CURRENT_SIMULATOR_SUPPORTED"
+        },
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_BLOCK": "char_4155_talr",
+            "C06_BLOCK": "char_455_nothin",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_FIRE": "char_211_adnach",
+            "POCKET_MEDIC": "char_181_flower"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 229,
+              "scheduled_frame": 1170,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 120,
+              "scheduled_frame": 1470,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 2.0,
+              "dp_after": 8.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 30,
+              "natural_accrual": 1.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 9.0,
+              "dp_before_action": 9.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 9.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 300,
+              "natural_accrual": 0.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 480,
+              "natural_accrual": 3.0,
+              "operator_id": "char_455_nothin",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 10.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 600,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 1.033333333333335,
+              "dp_before_action": 10.033333333333335,
+              "event": "DEPLOY",
+              "frame": 601,
+              "natural_accrual": 0.03333333333333499,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 1.0666666666666684,
+              "dp_before_action": 1.0666666666666684,
+              "event": "ACTIVATE_SKILL",
+              "frame": 602,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0000000000000036,
+              "dp_before_action": 20.000000000000004,
+              "event": "DEPLOY",
+              "frame": 1170,
+              "natural_accrual": 18.933333333333334,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333337,
+              "dp_before_action": 6.033333333333337,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1171,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0000000000000036,
+              "dp_before_action": 16.000000000000004,
+              "event": "DEPLOY",
+              "frame": 1470,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 59.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 300,
+            "C05_BLOCK": 390,
+            "C06_BLOCK": 480,
+            "C07_FIRE": 1470,
+            "POCKET_BLOCK": 30,
+            "POCKET_FIRE": 601,
+            "POCKET_MEDIC": 1170
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY"
+        }
+      ]
+    },
+    {
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "variants": [
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_DUELIST": "char_445_wscoot",
+            "C06_DUELIST": "char_4064_mlynar",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_MEDIC": "char_181_flower",
+            "POCKET_OVERFLOW": "char_211_adnach"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 729,
+              "deficit_frames": 201,
+              "scheduled_frame": 930,
+              "slot_id": "C06_DUELIST"
+            },
+            {
+              "deadline_frame": 805,
+              "deficit_frames": 395,
+              "scheduled_frame": 1200,
+              "slot_id": "POCKET_OVERFLOW"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 679,
+              "scheduled_frame": 1620,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 570,
+              "scheduled_frame": 1920,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 5.0,
+              "dp_after": 5.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 120,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 9.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 8.0,
+              "dp_after": 0.0,
+              "dp_before_action": 8.0,
+              "event": "DEPLOY",
+              "frame": 630,
+              "natural_accrual": 8.0,
+              "operator_id": "char_445_wscoot",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 8.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 690,
+              "natural_accrual": 2.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 930,
+              "natural_accrual": 8.0,
+              "operator_id": "char_4064_mlynar",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.0,
+              "dp_before_action": 15.0,
+              "event": "DEPLOY",
+              "frame": 1200,
+              "natural_accrual": 9.0,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1201,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1620,
+              "natural_accrual": 13.966666666666667,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1621,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 1920,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 74.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 390,
+            "C05_DUELIST": 630,
+            "C06_DUELIST": 930,
+            "C07_FIRE": 1920,
+            "POCKET_BLOCK": 120,
+            "POCKET_MEDIC": 1620,
+            "POCKET_OVERFLOW": 1200
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "CURRENT_SIMULATOR_SUPPORTED"
+        },
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_DUELIST": "char_445_wscoot",
+            "C06_DUELIST": "char_4064_mlynar",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_MEDIC": "char_181_flower",
+            "POCKET_OVERFLOW": "char_211_adnach"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 729,
+              "deficit_frames": 111,
+              "scheduled_frame": 840,
+              "slot_id": "C06_DUELIST"
+            },
+            {
+              "deadline_frame": 805,
+              "deficit_frames": 305,
+              "scheduled_frame": 1110,
+              "slot_id": "POCKET_OVERFLOW"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 589,
+              "scheduled_frame": 1530,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 480,
+              "scheduled_frame": 1830,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 2.0,
+              "dp_after": 8.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 30,
+              "natural_accrual": 1.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 300,
+              "natural_accrual": 9.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 8.0,
+              "dp_after": 0.0,
+              "dp_before_action": 8.0,
+              "event": "DEPLOY",
+              "frame": 540,
+              "natural_accrual": 8.0,
+              "operator_id": "char_445_wscoot",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 8.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 600,
+              "natural_accrual": 2.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 840,
+              "natural_accrual": 8.0,
+              "operator_id": "char_4064_mlynar",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.0,
+              "dp_before_action": 15.0,
+              "event": "DEPLOY",
+              "frame": 1110,
+              "natural_accrual": 9.0,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1111,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1530,
+              "natural_accrual": 13.966666666666667,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1531,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 1830,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 71.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 300,
+            "C05_DUELIST": 540,
+            "C06_DUELIST": 840,
+            "C07_FIRE": 1830,
+            "POCKET_BLOCK": 30,
+            "POCKET_MEDIC": 1530,
+            "POCKET_OVERFLOW": 1110
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY"
+        }
+      ]
+    },
+    {
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "variants": [
+        {
+          "deadline_misses": [],
+          "ledger": [],
+          "minimum_total_cost": null,
+          "status": "NO_DISTINCT_LEGAL_OPERATORS",
+          "variant": "CURRENT_SIMULATOR_SUPPORTED"
+        },
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C07_FIRE": "char_126_shotst",
+            "LANE02_MEDIC": "char_1020_reed2",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_FIRE": "char_211_adnach",
+            "POCKET_MEDIC": "char_181_flower",
+            "RELAY_2727": "char_322_lmlee",
+            "RELAY_3789": "char_144_red",
+            "RELAY_3927": "char_237_gravel",
+            "RELAY_4089": "char_243_waaifu",
+            "RELAY_4377": "char_1028_texas2",
+            "RELAY_625": "char_455_nothin",
+            "RELAY_725": "char_4155_talr"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 229,
+              "scheduled_frame": 1170,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 120,
+              "scheduled_frame": 1470,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 2.0,
+              "dp_after": 8.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 30,
+              "natural_accrual": 1.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 300,
+              "natural_accrual": 9.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 480,
+              "natural_accrual": 3.0,
+              "operator_id": "char_455_nothin",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 10.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 600,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 1.033333333333335,
+              "dp_before_action": 10.033333333333335,
+              "event": "DEPLOY",
+              "frame": 601,
+              "natural_accrual": 0.03333333333333499,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 1.0666666666666684,
+              "dp_before_action": 1.0666666666666684,
+              "event": "ACTIVATE_SKILL",
+              "frame": 602,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 3.6666666666666687,
+              "dp_before_action": 3.6666666666666687,
+              "event": "RETREAT",
+              "frame": 680,
+              "natural_accrual": 2.6,
+              "operator_id": "char_455_nothin",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 7.000000000000002,
+              "dp_before_action": 7.000000000000002,
+              "event": "RETREAT",
+              "frame": 780,
+              "natural_accrual": 3.3333333333333335,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1170,
+              "natural_accrual": 13.0,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1171,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 1470,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 15.0,
+              "dp_after": 6.0,
+              "dp_before_action": 21.0,
+              "event": "DEPLOY",
+              "frame": 1920,
+              "natural_accrual": 15.0,
+              "operator_id": "char_1020_reed2",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 4.0,
+              "dp_after": 2.0,
+              "dp_before_action": 6.0,
+              "event": "DEPLOY",
+              "frame": 1920,
+              "natural_accrual": 0.0,
+              "operator_id": "char_322_lmlee",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 2.033333333333333,
+              "dp_before_action": 2.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1921,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_1020_reed2"
+            },
+            {
+              "deployment_cost": 7.0,
+              "dp_after": 12.0,
+              "dp_before_action": 19.0,
+              "event": "DEPLOY",
+              "frame": 2430,
+              "natural_accrual": 16.966666666666665,
+              "operator_id": "char_144_red",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 25.0,
+              "dp_before_action": 25.0,
+              "event": "RETREAT",
+              "frame": 2820,
+              "natural_accrual": 13.0,
+              "operator_id": "char_322_lmlee",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 6.0,
+              "dp_after": 19.033333333333335,
+              "dp_before_action": 25.033333333333335,
+              "event": "DEPLOY",
+              "frame": 2821,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_237_gravel",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 53.0,
+              "dp_before_action": 53.0,
+              "event": "RETREAT",
+              "frame": 3840,
+              "natural_accrual": 33.96666666666667,
+              "operator_id": "char_144_red",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 7.0,
+              "dp_after": 46.03333333333333,
+              "dp_before_action": 53.03333333333333,
+              "event": "DEPLOY",
+              "frame": 3841,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_243_waaifu",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 50.33333333333333,
+              "dp_before_action": 50.33333333333333,
+              "event": "RETREAT",
+              "frame": 3970,
+              "natural_accrual": 4.3,
+              "operator_id": "char_237_gravel",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 8.0,
+              "dp_after": 42.36666666666666,
+              "dp_before_action": 50.36666666666666,
+              "event": "DEPLOY",
+              "frame": 3971,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_1028_texas2",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 47.66666666666666,
+              "dp_before_action": 47.66666666666666,
+              "event": "RETREAT",
+              "frame": 4130,
+              "natural_accrual": 5.3,
+              "operator_id": "char_243_waaifu",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 58.66666666666666,
+              "dp_before_action": 58.66666666666666,
+              "event": "RETREAT",
+              "frame": 4460,
+              "natural_accrual": 11.0,
+              "operator_id": "char_1028_texas2",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            }
+          ],
+          "minimum_total_cost": 106.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 300,
+            "C07_FIRE": 1470,
+            "LANE02_MEDIC": 1920,
+            "POCKET_BLOCK": 30,
+            "POCKET_FIRE": 601,
+            "POCKET_MEDIC": 1170,
+            "RELAY_2727": 1920,
+            "RELAY_2727:RETREAT": 2820,
+            "RELAY_3789": 2430,
+            "RELAY_3789:RETREAT": 3840,
+            "RELAY_3927": 2821,
+            "RELAY_3927:RETREAT": 3970,
+            "RELAY_4089": 3841,
+            "RELAY_4377": 3971,
+            "RELAY_625": 480,
+            "RELAY_725": 390,
+            "RELAY_725:RETREAT": 780
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY"
+        }
+      ]
+    },
+    {
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "variants": [
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_KILLER": "char_347_jaksel",
+            "C06_KILLER": "char_230_savage",
+            "C07_FIRE": "char_211_adnach",
+            "POCKET_KILLER": "char_350_surtr",
+            "POCKET_MEDIC": "char_181_flower",
+            "POCKET_PLACEHOLDER": "char_123_fang"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 729,
+              "deficit_frames": 411,
+              "scheduled_frame": 1140,
+              "slot_id": "C06_KILLER"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 619,
+              "scheduled_frame": 1560,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 480,
+              "scheduled_frame": 1830,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 5.0,
+              "dp_after": 5.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 120,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 6.0,
+              "dp_before_action": 6.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 6.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 7.0,
+              "dp_after": 0.0,
+              "dp_before_action": 7.0,
+              "event": "DEPLOY",
+              "frame": 600,
+              "natural_accrual": 7.0,
+              "operator_id": "char_347_jaksel",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 9.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 690,
+              "natural_accrual": 3.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 18.0,
+              "dp_after": 6.0,
+              "dp_before_action": 24.0,
+              "event": "DEPLOY",
+              "frame": 1140,
+              "natural_accrual": 15.0,
+              "operator_id": "char_230_savage",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1560,
+              "natural_accrual": 14.0,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1561,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.0,
+              "dp_before_action": 15.0,
+              "event": "DEPLOY",
+              "frame": 1830,
+              "natural_accrual": 8.966666666666667,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1831,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 23.333333333333336,
+              "dp_before_action": 23.333333333333336,
+              "event": "RETREAT",
+              "frame": 2350,
+              "natural_accrual": 17.3,
+              "operator_id": "char_123_fang",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 19.0,
+              "dp_after": 6.0000000000000036,
+              "dp_before_action": 25.000000000000004,
+              "event": "DEPLOY",
+              "frame": 2400,
+              "natural_accrual": 1.6666666666666667,
+              "operator_id": "char_350_surtr",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 90.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 390,
+            "C05_KILLER": 600,
+            "C06_KILLER": 1140,
+            "C07_FIRE": 1830,
+            "POCKET_KILLER": 2400,
+            "POCKET_MEDIC": 1560,
+            "POCKET_PLACEHOLDER": 120,
+            "POCKET_PLACEHOLDER:RETREAT": 2350
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "CURRENT_SIMULATOR_SUPPORTED"
+        },
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_KILLER": "char_347_jaksel",
+            "C06_KILLER": "char_230_savage",
+            "C07_FIRE": "char_211_adnach",
+            "POCKET_KILLER": "char_350_surtr",
+            "POCKET_MEDIC": "char_181_flower",
+            "POCKET_PLACEHOLDER": "char_123_fang"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 729,
+              "deficit_frames": 321,
+              "scheduled_frame": 1050,
+              "slot_id": "C06_KILLER"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 529,
+              "scheduled_frame": 1470,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 390,
+              "scheduled_frame": 1740,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 2.0,
+              "dp_after": 8.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 30,
+              "natural_accrual": 1.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 9.0,
+              "dp_before_action": 9.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 9.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 300,
+              "natural_accrual": 0.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 7.0,
+              "dp_after": 0.0,
+              "dp_before_action": 7.0,
+              "event": "DEPLOY",
+              "frame": 510,
+              "natural_accrual": 7.0,
+              "operator_id": "char_347_jaksel",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 9.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 600,
+              "natural_accrual": 3.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 18.0,
+              "dp_after": 6.0,
+              "dp_before_action": 24.0,
+              "event": "DEPLOY",
+              "frame": 1050,
+              "natural_accrual": 15.0,
+              "operator_id": "char_230_savage",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1470,
+              "natural_accrual": 14.0,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1471,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.0,
+              "dp_before_action": 15.0,
+              "event": "DEPLOY",
+              "frame": 1740,
+              "natural_accrual": 8.966666666666667,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1741,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 26.333333333333336,
+              "dp_before_action": 26.333333333333336,
+              "event": "RETREAT",
+              "frame": 2350,
+              "natural_accrual": 20.3,
+              "operator_id": "char_123_fang",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 19.0,
+              "dp_after": 7.366666666666671,
+              "dp_before_action": 26.36666666666667,
+              "event": "DEPLOY",
+              "frame": 2351,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_350_surtr",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 87.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 300,
+            "C05_KILLER": 510,
+            "C06_KILLER": 1050,
+            "C07_FIRE": 1740,
+            "POCKET_KILLER": 2351,
+            "POCKET_MEDIC": 1470,
+            "POCKET_PLACEHOLDER": 30,
+            "POCKET_PLACEHOLDER:RETREAT": 2350
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY"
+        }
+      ]
+    },
+    {
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "variants": [
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_BLOCK": "char_237_gravel",
+            "C06_BLOCK": "char_4155_talr",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_FIRE": "char_211_adnach",
+            "POCKET_MEDIC": "char_181_flower"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 805,
+              "deficit_frames": 215,
+              "scheduled_frame": 1020,
+              "slot_id": "POCKET_FIRE"
+            },
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 499,
+              "scheduled_frame": 1440,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 390,
+              "scheduled_frame": 1740,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 5.0,
+              "dp_after": 5.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 120,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 6.0,
+              "dp_before_action": 6.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 6.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 6.0,
+              "dp_after": 0.0,
+              "dp_before_action": 6.0,
+              "event": "DEPLOY",
+              "frame": 570,
+              "natural_accrual": 6.0,
+              "operator_id": "char_237_gravel",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 10.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 690,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 6.0,
+              "dp_after": 4.033333333333335,
+              "dp_before_action": 10.033333333333335,
+              "event": "DEPLOY",
+              "frame": 691,
+              "natural_accrual": 0.03333333333333499,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 6.000000000000002,
+              "dp_before_action": 15.000000000000002,
+              "event": "DEPLOY",
+              "frame": 1020,
+              "natural_accrual": 10.966666666666667,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333335,
+              "dp_before_action": 6.033333333333335,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1021,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0,
+              "dp_before_action": 20.0,
+              "event": "DEPLOY",
+              "frame": 1440,
+              "natural_accrual": 13.966666666666667,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333333,
+              "dp_before_action": 6.033333333333333,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1441,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0,
+              "dp_before_action": 16.0,
+              "event": "DEPLOY",
+              "frame": 1740,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 68.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 390,
+            "C05_BLOCK": 570,
+            "C06_BLOCK": 691,
+            "C07_FIRE": 1740,
+            "POCKET_BLOCK": 120,
+            "POCKET_FIRE": 1020,
+            "POCKET_MEDIC": 1440
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "CURRENT_SIMULATOR_SUPPORTED"
+        },
+        {
+          "assignment": {
+            "C03_STUB": "char_272_strong",
+            "C04_FIRE": "char_124_kroos",
+            "C05_BLOCK": "char_4155_talr",
+            "C06_BLOCK": "char_455_nothin",
+            "C07_FIRE": "char_126_shotst",
+            "POCKET_BLOCK": "char_123_fang",
+            "POCKET_FIRE": "char_211_adnach",
+            "POCKET_MEDIC": "char_181_flower"
+          },
+          "deadline_misses": [
+            {
+              "deadline_frame": 941,
+              "deficit_frames": 229,
+              "scheduled_frame": 1170,
+              "slot_id": "POCKET_MEDIC"
+            },
+            {
+              "deadline_frame": 1350,
+              "deficit_frames": 120,
+              "scheduled_frame": 1470,
+              "slot_id": "C07_FIRE"
+            }
+          ],
+          "dp_feasible": true,
+          "dp_reasons": [],
+          "ledger": [
+            {
+              "dp_after": 10.0,
+              "dp_before": 10.0,
+              "event": "INITIAL",
+              "frame": 0
+            },
+            {
+              "deployment_cost": 2.0,
+              "dp_after": 8.0,
+              "dp_before_action": 10.0,
+              "event": "DEPLOY",
+              "frame": 0,
+              "natural_accrual": 0.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 30,
+              "natural_accrual": 1.0,
+              "operator_id": "char_123_fang",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 0.0,
+              "dp_after": 9.0,
+              "dp_before_action": 9.0,
+              "event": "RETREAT",
+              "frame": 300,
+              "natural_accrual": 9.0,
+              "operator_id": "char_272_strong",
+              "refund": 0.0,
+              "refund_basis": "NOT_APPLIED_REFUND_UNRESOLVED_IN_CLIENT_TIMING_EVIDENCE"
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 0.0,
+              "dp_before_action": 9.0,
+              "event": "DEPLOY",
+              "frame": 300,
+              "natural_accrual": 0.0,
+              "operator_id": "char_124_kroos",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 390,
+              "natural_accrual": 3.0,
+              "operator_id": "char_4155_talr",
+              "refund": 0.0
+            },
+            {
+              "deployment_cost": 3.0,
+              "dp_after": 0.0,
+              "dp_before_action": 3.0,
+              "event": "DEPLOY",
+              "frame": 480,
+              "natural_accrual": 3.0,
+              "operator_id": "char_455_nothin",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 10.0,
+              "event": "AUTO_DP_PROC",
+              "frame": 600,
+              "natural_accrual": 4.0,
+              "operator_id": "char_123_fang",
+              "skill_dp": 6.0
+            },
+            {
+              "deployment_cost": 9.0,
+              "dp_after": 1.033333333333335,
+              "dp_before_action": 10.033333333333335,
+              "event": "DEPLOY",
+              "frame": 601,
+              "natural_accrual": 0.03333333333333499,
+              "operator_id": "char_211_adnach",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 1.0666666666666684,
+              "dp_before_action": 1.0666666666666684,
+              "event": "ACTIVATE_SKILL",
+              "frame": 602,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_211_adnach"
+            },
+            {
+              "deployment_cost": 14.0,
+              "dp_after": 6.0000000000000036,
+              "dp_before_action": 20.000000000000004,
+              "event": "DEPLOY",
+              "frame": 1170,
+              "natural_accrual": 18.933333333333334,
+              "operator_id": "char_181_flower",
+              "refund": 0.0
+            },
+            {
+              "dp_after": 6.033333333333337,
+              "dp_before_action": 6.033333333333337,
+              "event": "ACTIVATE_SKILL",
+              "frame": 1171,
+              "natural_accrual": 0.03333333333333333,
+              "operator_id": "char_181_flower"
+            },
+            {
+              "deployment_cost": 10.0,
+              "dp_after": 6.0000000000000036,
+              "dp_before_action": 16.000000000000004,
+              "event": "DEPLOY",
+              "frame": 1470,
+              "natural_accrual": 9.966666666666667,
+              "operator_id": "char_126_shotst",
+              "refund": 0.0
+            }
+          ],
+          "minimum_total_cost": 59.0,
+          "scheduled_frames": {
+            "C03_STUB": 0,
+            "C04_FIRE": 300,
+            "C05_BLOCK": 390,
+            "C06_BLOCK": 480,
+            "C07_FIRE": 1470,
+            "POCKET_BLOCK": 30,
+            "POCKET_FIRE": 601,
+            "POCKET_MEDIC": 1170
+          },
+          "status": "DP_FEASIBLE_BUT_DEADLINE_INFEASIBLE",
+          "variant": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY"
+        }
+      ]
+    }
+  ],
+  "retreat_refund_policy": "NOT_APPLIED; refund timing/evidence unresolved and simulator currently applies no refund",
+  "schema_version": "R8_1_EXACT_DP_LEDGERS_V1"
+}

@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "check": "compileall",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_usage_fidelity",
+      "status": "PASS"
+    },
+    {
+      "check": "deadline_and_establishment",
+      "status": "PASS"
+    },
+    {
+      "check": "artifact_integrity",
+      "status": "PASS"
+    },
+    {
+      "check": "secret_scan",
+      "status": "PASS"
+    },
+    {
+      "check": "compilation_readiness",
+      "status": "BLOCKED"
+    }
+  ],
+  "missing_artifacts": [],
+  "overall_status": "FAIL",
+  "pytest": "UNAVAILABLE",
+  "schema_version": "R8_1_SEMANTIC_PRESERVATION_REPAIR_VALIDATION_V1",
+  "secret_scan_hits": [],
+  "unittest_output_tail": [
+    "test_deadline_establishment_rejects_late_deployment (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_earliest_phase_is_not_a_deadline_staged_noop (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_unrelated_fidelity_metadata_does_not_block_operator (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_unsupported_decision_critical_trait_blocks_operator (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_unsupported_noncritical_trait_metadata_does_not_block_blocker (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_unsupported_selected_skill_blocks_killing_block (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "test_unsupported_unused_skill_does_not_block_supported_selected_skill (tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests) ... ok",
+    "",
+    "----------------------------------------------------------------------",
+    "Ran 7 tests in 0.009s",
+    "",
+    "OK"
+  ],
+  "unittest_returncode": 0
+}

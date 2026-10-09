@@ -1,0 +1,1012 @@
+{
+  "revised_operational_plans": [
+    {
+      "allowed_substitutions": [
+        "INTERPRETATION: any block-capable unit costing <=5 for [3,3]; any block-2 unit costing <=9 with an auto DP skill for [8,5]; if no <=9 block-2 pioneer realizes, fall back to the cheapest block-2 <=9 and shave [6,2] cost by 1 (verifier re-checks 725/729 arithmetic).",
+        "INTERPRETATION: any damaging ranged meeting the floor for [9,5]/[6,2]/[9,2]; physical or arts.",
+        "INTERPRETATION: any medic whose supplied range covers [8,5] from a FORM_01-legal tile.",
+        "INTERPRETATION: [5,1]/[6,1] blocks may be any cost-<=6 block-capable units."
+      ],
+      "battle_phases": [
+        "phase_opening_W01: OBSERVATION: route-2 deadline 27 at [3,3] (IR_03); route-1 deadline 191 at [8,5] (IR_01/IR_02); INTERPRETATION: two-move opening, no [3,5] frame-0 attempt (arithmetically infeasible with initial_dp 10).",
+        "phase_pocket_armament_W02: OBSERVATION: route-3 contact 295, route-4 contacts 805/941; route-8 (C04) spawns 660; route-7/6 deadlines 725/729; INTERPRETATION: [9,5] pocket fire and [6,2] anchor come online before their first obligations; lane-02 cheap blocks funded by the pioneer's auto DP proc.",
+        "phase_anchor_W03_W04: OBSERVATION: C07 begins at frame 1350 (route-10); route-9 train contacts 1405-2305; INTERPRETATION: [9,2] heavy anchor online by 1350; medic covering the pocket by 941.",
+        "phase_attrition_W05_W06: OBSERVATION: route-18 pair (3415/3715 contacts) and route-28 five-train (3955-4915 contacts) plus all lane-02 corridors; INTERPRETATION: static formation; kill-gap contract and C07 floor decide; no repositioning."
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: INTERPRETATION: [8,5] block-2 pioneer (IR_01/IR_02) with a kill-gap contract served by [9,5] (SC_04): route-1's uoffcr dead before route-3's contact 295; queue depth never exceeds block-2.",
+        "C03: OBSERVATION: IR_03 tiles [3,3]/[4,3]; INTERPRETATION: <=5-cost stopper by frame 27; its tile becomes surplus after route-2 dies.",
+        "C04: OBSERVATION: IR_04 legal_tiles empty; INTERPRETATION: precontact kill from [6,2] (SC_03) with floor >=300 effective DPS, supported by [9,2] incidental fire.",
+        "C05: OBSERVATION: IR_05 tile [5,1], deadlines 725 (route-7), 2727 (route-15), 3927/4377 (routes 24/25); INTERPRETATION: cheap block (cost <=6) grinding under [6,2]/[5,5]-free fire; never left unblocked.",
+        "C06: OBSERVATION: IR_06 tiles [1,2]/[6,1], deadlines 625/729 (route-6), 3789/4089 (routes 22/23); INTERPRETATION: cheap block (cost <=6) at [6,1] by 729 funded by pioneer proc.",
+        "C07: OBSERVATION: IR_07 empty; SC_01 only coverage; INTERPRETATION: [9,2] heavy anchor by frame 1350 with aspirational floor ~700 effective DPS vs 100-def speed-1.7 targets and explicit per-pair obligations."
+      ],
+      "damage_structure": {
+        "floors": "INTERPRETATION: [9,5] and [6,2] >=300 effective single-target DPS vs 100-150 def; [9,2] targets ~700 effective DPS (3500 HP in ~4.7s) using the best sustained-damage roster unit; pocket combined (blocker + [9,5]) >= ~350 effective DPS to meet the 159-frame contract jointly with block-2 queueing.",
+        "forbidden_in_dps_slots": "OBSERVATION-derived: support and medic professions (e.g., sora-class, skadi2-class, chnut-class) are banned from [9,5]/[6,2]/[9,2] per CMF-2.",
+        "typing": "INTERPRETATION: physical or arts both acceptable per supplied def<=150/res=20; floors are computed net of supplied def/res."
+      },
+      "forbidden_substitutions": [
+        "INTERPRETATION: deploying the lane-01 opening block at [3,5] after frame 0 (CMF-1).",
+        "INTERPRETATION: support or medic professions in [9,5]/[6,2]/[9,2] (CMF-2).",
+        "INTERPRETATION: replacing SC_03 [6,2] with a region lacking C04 routes (e.g., SC_02).",
+        "INTERPRETATION: any plan step requiring ACTIVATE_SKILL for a kill obligation (CMF-3).",
+        "INTERPRETATION: multi-unit retreats or teardown (OP-09 rejected pattern); more than one RETREAT total in this plan."
+      ],
+      "formation_transitions": [
+        "T01_additive_only: OBSERVATION: FT_01/FT_02; all seven post-opening deployments are additive on distinct tiles; no teardown (OP-09 teardown REJECTED).",
+        "T02_optional_stub_exit: INTERPRETATION: after route-2 dies (post frame ~240+kill), the [3,3] stub MAY be retreated once to bank DP/slot for W06; RETREAT is verified realizable; the tile is not reused.",
+        "T03_no_same_tile: INTERPRETATION: this plan performs no same-tile replacement; FT_03 is not exercised."
+      ],
+      "frontline_structure": {
+        "high_ground": "INTERPRETATION: [9,5]=pocket fire, [6,2]=C04/approach, [9,2]=C07 anchor; roles are exclusive by design (contrast OP-01's shared anchors).",
+        "lane_01": "INTERPRETATION: single block-2 frontline at [8,5] backed by [9,5] fire; [3,3] is a W01-only stub.",
+        "lane_02": "INTERPRETATION: [5,1] and [6,1] cheap standing blocks inside [6,2] coverage; no forward tiles used."
+      },
+      "handoffs": [
+        "H01: INTERPRETATION: no handoff overlap needed; all growth is additive per FT_01.",
+        "H02: INTERPRETATION: optional [3,3] stub exit is a no-successor handoff; C03 has no further spawns after route-2 per supplied timeline."
+      ],
+      "numeric_grounding_recovery": {
+        "annotated_finding_ids": [
+          "NF-048",
+          "NF-049",
+          "NF-050",
+          "NF-051",
+          "NF-052",
+          "NF-053",
+          "NF-054",
+          "NF-055",
+          "NF-056",
+          "NF-057",
+          "NF-058",
+          "NF-059",
+          "NF-060",
+          "NF-061",
+          "NF-062",
+          "NF-063",
+          "NF-064"
+        ],
+        "execution_critical_ungrounded_value_count": 0,
+        "normalized_field_changes": "Added provenance metadata only; original plan fields are byte-for-byte preserved in semantic JSON structure.",
+        "quarantined_noncritical_findings": [],
+        "schema_version": "R8_1_NUMERIC_GROUNDING_RECOVERY_V1",
+        "status": "CONDITIONALLY_RECOVERABLE",
+        "verifier_conditions": [
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "post-opener natural DP estimate at decision frame 136",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "deterministic inter-contact or window duration",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "deterministic inter-contact or window duration",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "deterministic inter-contact or window duration"
+        ]
+      },
+      "opening_structure": {
+        "economy_proof": "TACTICAL_ASSUMPTION: pioneer auto DP proc (initial_sp/sp_cost per supplied data) lands before ~frame 700, funding cost-<=6 blocks at [5,1] and [6,1] by frames 725/729; verifier checks exact cumulative DP at 136/295/660/725/729/941/1350.",
+        "move_1": "OBSERVATION: <=5-cost block-capable unit at [3,3] by frame 27 (OE_02 cost<=10 bound; only one <=5 ground exists, so exactly one).",
+        "move_2": "INTERPRETATION: block-2 pioneer-class unit costing <=9 at [8,5] by frame ~136-191 (natural DP ~9.5 at 136 after move 1); candidates are DP-skill-auto pioneers per supplied skill data (dp_immediate 6-12, skill_auto_activate true)."
+      },
+      "operational_invariants": [
+        "OBSERVATION: [3,3] blocker by frame 27; [8,5] block-2 by frame 191 (target ~136).",
+        "OBSERVATION: [5,1] by 725 and [6,1] by 729 (OE_03).",
+        "OBSERVATION: deployment count <= 8 (FORM_01).",
+        "INTERPRETATION: [9,2] heavy anchor exists by frame 1350; medic by frame 941.",
+        "INTERPRETATION: pocket kill contract: no lane-01 queue exceeds depth 2 at [8,5] before frame 805.",
+        "INTERPRETATION: no ACTIVATE_SKILL is required for any kill obligation.",
+        "TACTICAL_ASSUMPTION: pioneer auto DP proc occurs before ~frame 700.",
+        "TACTICAL_ASSUMPTION: zero planned operator deaths; zero planned leaks."
+      ],
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "parent_revised_hypothesis_id": "R-HYP-01-POCKET-AND-FLOOR",
+      "phase_responsibilities": [
+        {
+          "coexistence": "OBSERVATION: [3,3] and [8,5] are distinct FORM_01-legal ground tiles.",
+          "corridor_window": "C03 (IR_03, W01), C01+C02 (IR_01/IR_02, W01)",
+          "phase": "phase_opening_W01",
+          "purpose": "Meet frames 27 and 191 with exact cost arithmetic",
+          "sharing": "INTERPRETATION: the [8,5] unit is both lane-01 blocker and the early economy engine via its supplied auto DP skill (dp_immediate 6-12)."
+        },
+        {
+          "coexistence": "OBSERVATION: high-ground [9,5]/[6,2] plus ground [5,1]/[6,1] coexist within FORM_01's limit of 8.",
+          "corridor_window": "C04 (IR_04), C05 (IR_05), C06 (IR_06), C01 (IR_01), all W02",
+          "phase": "phase_pocket_armament_W02",
+          "purpose": "Arm the pocket and stand up lane-02 before frames 725/729",
+          "sharing": "INTERPRETATION: [9,5] (SC_04) fires into [8,5]; [6,2] (SC_03) covers C04 and the [5,1]/[6,1] approach cells."
+        },
+        {
+          "coexistence": "INTERPRETATION: formation is now 8/8: [3,3], [8,5], [5,1], [6,1], [9,5], [6,2], [9,2], medic.",
+          "corridor_window": "C07 (IR_07, W03-W04), C01 (IR_01, W03)",
+          "phase": "phase_anchor_W03_W04",
+          "purpose": "Install the C07 primary anchor and scheduled sustain",
+          "sharing": "TACTICAL_ASSUMPTION: [9,2] prioritizes C07 approach cells; its incidental fire into [8,5] is a bonus, not a contract."
+        },
+        {
+          "coexistence": "OBSERVATION: unchanged 8-slot formation.",
+          "corridor_window": "all W05-W06 corridors (IR_01, IR_04, IR_05, IR_06, IR_07)",
+          "phase": "phase_attrition_W05_W06",
+          "purpose": "Hold static and meet kill-rate contracts",
+          "sharing": "INTERPRETATION: the medic's coverage is shared across [8,5] and reachable lane-02 tiles; no slot changes."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        "W01: [3,3] owns C03; [8,5] owns C01+C02 and economy.",
+        "W02: [9,5] owns the pocket kill-gap; [6,2] owns C04; [5,1]/[6,1] own C05/C06 by supplied deadlines.",
+        "W03-W04: [9,2] owns C07 (routes 10-13, 19-21); pocket owns route-9 train; medic owns sustain by 941.",
+        "W05-W06: static formation owns all corridors; [9,2] owns C07 pairs 29-34 subject to its floor; pocket owns route-18 pair + route-28 train."
+      ],
+      "reserve_structure": {
+        "emergency_semantics": "INTERPRETATION: NO_EARLY_RESERVE_RELEASE; any pre-W06 leak is a plan failure signal, not a budget event.",
+        "leak_budget": "INTERPRETATION: life_points=5 is NOT a planned resource here (contrast R-OP-05); all corridors target zero leaks.",
+        "unit_reserve": "INTERPRETATION: none standing; the [3,3] stub slot (if T02 exercised) plus DP banking is the only reserve."
+      },
+      "selected_affordances": [
+        {
+          "alternatives": [
+            "IR_03 at [4,3]"
+          ],
+          "note": "OBSERVATION: deadline 27; cost <=5 required by initial_dp arithmetic.",
+          "preferred": "IR_03 at [3,3]",
+          "role": "c03_stub"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: deadline 191 at [8,5] (not [3,5]); CMF-1 correction; [3,5]-openings forbidden.",
+          "preferred": "IR_01+IR_02 at [8,5] with block-2 DP-pioneer",
+          "role": "lane01_block_economy"
+        },
+        {
+          "alternatives": [
+            "SC_01 at [9,2] sharing pocket duty (weakens C07 contract)"
+          ],
+          "note": "OBSERVATION: SC_04 covered_cells include [8,5] and [9,5]; serves 8 lane-01 routes.",
+          "preferred": "SC_04 at [9,5]",
+          "role": "pocket_fire"
+        },
+        {
+          "alternatives": [
+            "SC_02 at [5,5] replacing SC_03 if roster ranges demand (keeps C04 route presence per SC_02? NO - SC_02 lacks C04 routes; therefore forbidden)"
+          ],
+          "note": "OBSERVATION: SC_03 is the only C04 coverage besides SC_01; SC_01 is the only C07 coverage.",
+          "preferred": "SC_03 at [6,2]; SC_01 at [9,2]",
+          "role": "lane02_anchors"
+        },
+        {
+          "alternatives": [
+            "IR_06 at [1,2] (forward variant; see R-OP-02)"
+          ],
+          "note": "OBSERVATION: deadlines 725/729 per OE_03.",
+          "preferred": "IR_05 at [5,1]; IR_06 at [6,1]",
+          "role": "lane02_blocks"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: FORM_01 caps at 8.",
+          "preferred": "OE_01, OE_02, OE_03, FT_01, FT_02, FORM_01",
+          "role": "enablers"
+        }
+      ],
+      "skill_intents": [
+        "INTERPRETATION: no ACTIVATE_SKILL is load-bearing (R-REQ-06); damage operators prefer skill_supported && skill_auto_activate (ATTACK-recovery multipliers 1.4x-3.1x per supplied data).",
+        "INTERPRETATION: the [8,5] pioneer's auto DP skill is part of the economy proof; TIME-recovery supported skills (e.g., 1.45x+aspd sniper skills) may be manually fired in W06 as bonus only."
+      ],
+      "stable_structure": {
+        "formation": "INTERPRETATION: 8-slot static formation: [3,3] stub, [8,5] block-2 pioneer, [5,1] block, [6,1] block, [9,5] pocket DPS, [6,2] lane-02 DPS, [9,2] heavy anchor, medic on a FORM_01 high-ground tile whose range includes [8,5].",
+        "kill_contracts": "INTERPRETATION: pocket kills a 3300-HP 150-def uoffcr within 159 frames (route-1->route-3 gap); [6,2]+blocks handle lane-02 queues per supplied contact frames; [9,2] holds C07 singles at zero leaks and each pair's first member.",
+        "slot_budget": "OBSERVATION: FORM_01 limit 8 fully used; the [3,3] stub is the only removable unit."
+      },
+      "sustain_structure": {
+        "deaths_budget": "INTERPRETATION: zero planned deaths; CMF-5 evidence (4-5 deaths) is treated as a plan defect, not a resource.",
+        "lane_02": "INTERPRETATION: [5,1]/[6,1] blocks are cheap and replaceable; engagements are short per supplied contact spacing; no dedicated lane-02 medic in the base 8.",
+        "medic_deadline": "INTERPRETATION: medic online by frame 941 (route-4 second contact), tile chosen from FORM_01 high ground with [8,5] in range; exact reach escalated to verifier_questions."
+      },
+      "tactical_thesis": "INTERPRETATION: Open with verified arithmetic (<=5 at [3,3], <=9 block-2 DP-pioneer at [8,5]), then run a split-fire lattice: [9,5] (SC_04) owns the [8,5] pocket kill-gap contract, [9,2] (SC_01) owns lane-02 as a full-time heavy anchor with a stated C07 kill floor, [6,2] (SC_03) owns C04 precontact and lane-02 approach; every damage slot carries an effective-DPS floor and support/medic classes are banned from damage slots.",
+      "temporary_roles": [
+        "INTERPRETATION: [3,3] stub is temporary (W01 only) with optional single retreat.",
+        "INTERPRETATION: [8,5] pioneer is permanent in this plan (upgrade variant lives in R-OP-04)."
+      ],
+      "verifier_questions": [
+        "At the chosen costs, is cumulative natural DP >= 5 by 27, >= 14 by ~136, >= (14 + [9,5] cost) before 805, >= (that + [6,2] cost) before 660-725 ordering, and >= full 8-slot schedule by 1350?",
+        "Does the realized [9,5] unit's range actually include [8,5] when placed at [9,5] facing the pocket, and is the 159-frame kill contract met vs 3300 HP/150 def?",
+        "Which FORM_01 high-ground tiles put [8,5] inside the chosen medic's supplied range?",
+        "Does [9,2]'s targeting behavior split fire between C07 approach cells and [8,5], and does that break either contract?",
+        "What is route-17's spawn timing (absent from exact_route_threats) and does it alter lane-01 concurrency?"
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "INTERPRETATION: duelists may be any unit meeting the autonomy floor (self-heal skill_supported, or HP>=1900/def>=150 with effective DPS>=300).",
+        "INTERPRETATION: [6,1] may replace [1,2] only if the verifier shows the duelist cannot survive the forward post; this weakens but does not break the thesis.",
+        "INTERPRETATION: ranged may be physical or arts meeting floors.",
+        "INTERPRETATION: [8,5] opener may be any block-2 <=9 (pioneer proc not load-bearing here)."
+      ],
+      "battle_phases": [
+        "phase_opening_W01: OBSERVATION: deadlines 27 ([3,3]) and 191 ([8,5]); same corrected arithmetic as R-OP-01.",
+        "phase_duelists_W02: OBSERVATION: route-6 first contact at [1,2] is frame 625 with 143 frames to leak; route-7 contact 725 at [5,1]; INTERPRETATION: duelists are placed BEFORE their corridors' first contacts, chosen for autonomous survival.",
+        "phase_unblockable_focus_W03_W04: OBSERVATION: C07 from 1350; C04 route-16 in W05 approach; INTERPRETATION: three ranged pieces concentrate on C04/C07 with zero C05/C06 obligations.",
+        "phase_stress_W05_W06: OBSERVATION: lane-02 duels recur at supplied frames (route-15 2727; routes 22/23 3789/4089; routes 24/25 3927/4377); INTERPRETATION: duelists re-engage solo; ranged never diverts."
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: INTERPRETATION: [8,5] block-2 pocket with [5,5] (SC_02 covered_cells include [5,5]-adjacent lane-01 cells and [8,5]-line support per its route list) plus medic; kill-gap contract as R-OP-01.",
+        "C03: OBSERVATION: [3,3] stub by frame 27 (IR_03).",
+        "C04: OBSERVATION: unblockable (IR_04 empty); INTERPRETATION: [6,2] primary + [9,2] secondary with combined floor >=600 effective DPS on route-8/16/26/27 approach cells.",
+        "C05: OBSERVATION: [5,1] (IR_05); INTERPRETATION: autonomous duelist (floor: HP>=1900 OR supported self-heal skill; effective DPS>=300 vs 100 def) engaging routes 7/15/24/25 solo.",
+        "C06: OBSERVATION: [1,2] (IR_06) preferred; route-6 contact 625 with 143 frames to leak; INTERPRETATION: autonomous duelist engages at [1,2], maximizing engagement length; [6,1] is the fallback tile.",
+        "C07: OBSERVATION: SC_01 only; INTERPRETATION: [9,2] heavy anchor with the R-OP-01 floor and per-pair obligations."
+      ],
+      "damage_structure": {
+        "allocation_rule": "INTERPRETATION: 100% of ranged damage obligation is C04/C07/pocket; 0% to C05/C06.",
+        "duelist_floor": "INTERPRETATION: effective DPS >=300 vs 100 def (kill 3500 HP in <=12s) AND (HP>=1900 with def>=150, or a supplied supported self-heal skill, e.g., immediate_self_heal_ratio 0.5-0.7 or heal_mode entries in the operator table).",
+        "ranged_floors": "INTERPRETATION: [9,2] ~700 effective DPS target; [6,2] >=300; [5,5] >=300."
+      },
+      "forbidden_substitutions": [
+        "INTERPRETATION: assigning ranged support to C05/C06 (destroys the isolation thesis).",
+        "INTERPRETATION: support/medic classes in any DPS slot (CMF-2).",
+        "INTERPRETATION: frame-191 [3,5] opening (CMF-1).",
+        "INTERPRETATION: second medic replacing a ranged piece (under-arms the unblockables).",
+        "INTERPRETATION: moving duelists mid-run (topology is fixed)."
+      ],
+      "formation_transitions": [
+        "T01_additive_only: OBSERVATION: FT_01/FT_02; no teardown, no same-tile moves.",
+        "T02_optional_stub_exit: INTERPRETATION: [3,3] stub may retreat once after route-2 dies (verified mechanic), banking a slot for a W06 fast-redeploy body.",
+        "T03_duelist_continuity: INTERPRETATION: duelists never move; corridor ownership is permanent."
+      ],
+      "frontline_structure": {
+        "lane_01": "INTERPRETATION: [8,5] block-2 + [5,5] fire + medic.",
+        "lane_02_forward": "INTERPRETATION: [1,2] is a forward isolated post - the plan's defining topology; [5,1] is a mid-field post.",
+        "no_shared_fire": "INTERPRETATION: ranged units are forbidden from being assigned C05/C06 duties; if simulation shows duelists losing, the plan fails rather than reallocates (that is the hypothesis under test)."
+      },
+      "handoffs": [
+        "H01: INTERPRETATION: all additive; the only exit is the optional stub retreat with no successor.",
+        "H02: INTERPRETATION: if a duelist dies, the corridor is reopened to leaks by design; the plan accepts this as its falsification path rather than designing a rescue chain."
+      ],
+      "numeric_grounding_recovery": {
+        "annotated_finding_ids": [
+          "NF-065",
+          "NF-066",
+          "NF-067",
+          "NF-068",
+          "NF-069",
+          "NF-070",
+          "NF-071",
+          "NF-072",
+          "NF-073"
+        ],
+        "execution_critical_ungrounded_value_count": 0,
+        "normalized_field_changes": "Added provenance metadata only; original plan fields are byte-for-byte preserved in semantic JSON structure.",
+        "quarantined_noncritical_findings": [],
+        "schema_version": "R8_1_NUMERIC_GROUNDING_RECOVERY_V1",
+        "status": "CONDITIONALLY_RECOVERABLE",
+        "verifier_conditions": [
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "deterministic inter-contact or window duration",
+          "LLM-proposed effective-DPS, HP, or verification threshold"
+        ]
+      },
+      "opening_structure": {
+        "economy_note": "INTERPRETATION: unlike R-OP-01, this plan does NOT rely on a pioneer proc for its W02 pair, trading opener flexibility for corridor autonomy.",
+        "move_1": "OBSERVATION: <=5-cost at [3,3] by 27.",
+        "move_2": "INTERPRETATION: <=9-cost block-2 at [8,5] by ~136-191.",
+        "move_3_4": "INTERPRETATION: duelists at [1,2] before frame 625 and [5,1] before frame 725; duelist cost budget <=16-18 each is affordable by 625 under natural DP (cumulative ~30 at 625 minus 14 opening) without pioneer dependence; verifier checks."
+      },
+      "operational_invariants": [
+        "OBSERVATION: [3,3] by 27; [8,5] by 191; [1,2] duelist before 625; [5,1] duelist before 725; limit <=8.",
+        "INTERPRETATION: [9,2] by 1350; medic by 941.",
+        "INTERPRETATION: zero ranged obligation to C05/C06 at any frame.",
+        "INTERPRETATION: no ACTIVATE_SKILL load-bearing.",
+        "TACTICAL_ASSUMPTION: duelists survive every W02-W06 engagement without external healing.",
+        "TACTICAL_ASSUMPTION: zero planned leaks."
+      ],
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "parent_revised_hypothesis_id": "R-HYP-02-FORWARD-DUELIST-ISOLATION",
+      "phase_responsibilities": [
+        {
+          "coexistence": "OBSERVATION: distinct FORM_01 tiles.",
+          "corridor_window": "C03 (IR_03), C01+C02 (IR_01/IR_02)",
+          "phase": "phase_opening_W01",
+          "purpose": "Corrected two-move opening",
+          "sharing": "INTERPRETATION: [8,5] opener doubles as economy via auto DP skill."
+        },
+        {
+          "coexistence": "OBSERVATION: [1,2] and [5,1] are distinct ground tiles within FORM_01.",
+          "corridor_window": "C06 (IR_06 at [1,2], route-6 contact 625), C05 (IR_05 at [5,1], route-7 contact 725)",
+          "phase": "phase_duelists_W02",
+          "purpose": "Establish autonomous corridor ownership",
+          "sharing": "INTERPRETATION: duelists receive NO ranged or medic support by design; support slots are reserved for unblockables."
+        },
+        {
+          "coexistence": "INTERPRETATION: 8 slots: [3,3], [8,5], [1,2], [5,1], [9,2], [6,2], [5,5], medic.",
+          "corridor_window": "C07 (IR_07), C04 (IR_04), C01 (IR_01, route-9 train)",
+          "phase": "phase_unblockable_focus_W03_W04",
+          "purpose": "Concentrate all ranged on unblockables and pocket",
+          "sharing": "INTERPRETATION: [9,2]=C07 primary; [6,2]=C04 primary; [5,5] (SC_02)=pocket + lane-02 approach overflow."
+        },
+        {
+          "coexistence": "OBSERVATION: static formation.",
+          "corridor_window": "all W05-W06 corridors",
+          "phase": "phase_stress_W05_W06",
+          "purpose": "Survive recurring duels plus the peak",
+          "sharing": "INTERPRETATION: medic covers [8,5]; duelists self-sustain; ranged focus unchanged."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        "W01: [3,3] + [8,5] as R-OP-01.",
+        "W02: [1,2] duelist owns route-6; [5,1] duelist owns route-7; [6,2] owns route-8 (C04) precontact.",
+        "W03-W04: [9,2] owns C07 10-13/19-21; [5,5]+[8,5] own route-9 train; medic owns pocket sustain.",
+        "W05-W06: duelists re-own routes 15/22/23/24/25 at supplied frames; [6,2]+[9,2] own C04 26/27 and C07 29-34; pocket owns route-18/28."
+      ],
+      "reserve_structure": {
+        "leak_budget": "INTERPRETATION: zero planned leaks; NO_EARLY_RESERVE_RELEASE.",
+        "unit_reserve": "INTERPRETATION: none standing; optional [3,3] retreat banks one slot for a single W06 fast-redeploy body at [8,5]-line or [5,1] leak patching."
+      },
+      "selected_affordances": [
+        {
+          "alternatives": [
+            "IR_03 at [4,3]"
+          ],
+          "note": "OBSERVATION: deadline 27.",
+          "preferred": "IR_03 at [3,3]",
+          "role": "c03_stub"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: deadline 191 at [8,5].",
+          "preferred": "IR_01+IR_02 at [8,5]",
+          "role": "lane01_block"
+        },
+        {
+          "alternatives": [
+            "IR_06 at [6,1]"
+          ],
+          "note": "OBSERVATION: [1,2] contact 625, 143 frames to leak vs 39 frames at [6,1] (768-729); forward engagement is the thesis.",
+          "preferred": "IR_06 at [1,2]",
+          "role": "c06_duel_tile"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: only C05 block tile; deadline 725.",
+          "preferred": "IR_05 at [5,1]",
+          "role": "c05_duel_tile"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: SC_03/SC_01 are the only C04/C07 coverage; SC_02 supports pocket + lane-02 approach cells per its route list.",
+          "preferred": "SC_01 at [9,2]; SC_03 at [6,2]; SC_02 at [5,5]",
+          "role": "unblockable_fire"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: limit 8.",
+          "preferred": "OE_01, OE_02, FT_01, FT_02, FORM_01",
+          "role": "enablers"
+        }
+      ],
+      "skill_intents": [
+        "INTERPRETATION: no load-bearing ACTIVATE_SKILL (R-REQ-06); duelist self-heal skills must be skill_supported per supplied data; auto DPS multipliers preferred on ranged."
+      ],
+      "stable_structure": {
+        "autonomy_claim": "TACTICAL_ASSUMPTION: each duelist wins its W02 duel with HP to spare; verifier may falsify against enemy attack interval (not supplied).",
+        "focus_claim": "INTERPRETATION: C04 receives two ranged pieces and C07 one-and-a-half ([9,2] plus [6,2] overflow if geometry allows), strictly more than any failed plan allocated.",
+        "formation": "INTERPRETATION: [3,3] stub, [8,5] block-2, [1,2] duelist, [5,1] duelist, [9,2] heavy, [6,2] DPS, [5,5] DPS, medic = 8."
+      },
+      "sustain_structure": {
+        "duelists": "INTERPRETATION: self-sustain only (see floors); no medic reach required to [1,2]/[5,1].",
+        "medic": "INTERPRETATION: one medic for [8,5] by frame 941 on a FORM_01 high-ground tile in range.",
+        "risk": "TACTICAL_ASSUMPTION: enemy attack interval (not supplied) does not make 380-atk duels lethal faster than the duelist's 12s kill time; escalated to verifier."
+      },
+      "tactical_thesis": "INTERPRETATION: C05 and C06 become autonomous duel corridors - self-sustaining duelists at [5,1] and [1,2] win 1v1 without support - while the ENTIRE ranged budget ([9,2], [6,2], [5,5]) plus pocket geometry is dedicated to the unblockable corridors C04/C07 and the lane-01 pocket, doubling the fire allocation prior plans gave the unblockables.",
+      "temporary_roles": [
+        "INTERPRETATION: [3,3] stub only; duelists are permanent corridor owners."
+      ],
+      "verifier_questions": [
+        "With enemy attack interval unsupplied, does the realized [1,2] duelist survive route-6 (arrival ~625) and route-14/22/23 (3750-4050)?",
+        "Does [5,1]'s duelist meet route-7's 725 contact and route-15's 2727 contact?",
+        "Does the C04 fire allocation ([6,2] primary + [9,2] secondary) kill routes 8/16/26/27 precontact at the stated floors?",
+        "Is cumulative DP sufficient for two <=18-cost duelists by frames 625/725 after the 14-DP opening?",
+        "Does [5,5] (SC_02) actually contribute fire into the [8,5] pocket per its covered_cells?"
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "INTERPRETATION: any distinct fast-redeploy unit (redeploy_seconds 18-25 per supplied data, cost <=8) per relay assignment; duplicates across rows are allowed only if they are different operators.",
+        "INTERPRETATION: [9,5] (SC_04) may replace [5,5] (SC_02) shifting fire toward the pocket.",
+        "INTERPRETATION: second medic may be replaced by a healing-defender on a lane-02-adjacent ground tile if one exists in FORM_01.",
+        "INTERPRETATION: standing [5,1] body instead of relay for that corridor if realization prefers (degrades gracefully toward R-OP-01)."
+      ],
+      "battle_phases": [
+        "phase_opening_W01: OBSERVATION: deadlines 27/191; corrected two-move opening as R-OP-01.",
+        "phase_first_relay_W02: OBSERVATION: route-6 (contact 625 at [1,2], 729 at [6,1]) and route-7 (contact 725 at [5,1]); INTERPRETATION: relay unit R1 meets route-6 at [6,1], R2 meets route-7 at [5,1]; both exit after kills.",
+        "phase_three_ranged_W03_W04: OBSERVATION: C07 from 1350; INTERPRETATION: standing lattice completes: [9,2], [6,2], [5,5], medic x2; relay rests.",
+        "phase_relay_peak_W05_W06: OBSERVATION: lane-02 rows at 2580/2727 (route-15), 3750 (14/22), 4050 (23), 3780/3927 (24), 4230/4377 (25); INTERPRETATION: remaining distinct relay units cover rows the ranged lattice cannot kill in time."
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: INTERPRETATION: [8,5] block-2 + [5,5] fire + medicA.",
+        "C03: OBSERVATION: [3,3] stub by 27.",
+        "C04: OBSERVATION: unblockable; INTERPRETATION: [6,2] primary + [9,2] secondary; [5,5] overflow if its cells intersect (SC_02 lists C05/C06 routes, not C04 - so C04 rests on SC_03+SC_01 only).",
+        "C05: OBSERVATION: rows at spawns 630 (route-7), 2580 (route-15), 3780 (route-24), 4230 (route-25); INTERPRETATION: relay body at [5,1] per row when [6,2]/[5,5] cannot kill in the supplied windows; route-7's 1.86s contact-to-leak makes its relay deployment MANDATORY and pre-timed before 725.",
+        "C06: OBSERVATION: rows at 600 (route-6), 3750 (routes 14/22), 4050 (route-23); INTERPRETATION: relay body at [6,1] (or [1,2]) per row, pre-timed before supplied contact frames 625-729/3789/4089.",
+        "C07: OBSERVATION: SC_01 only; INTERPRETATION: [9,2] heavy anchor; relay is never assigned to C07 (no legal tiles, IR_07)."
+      ],
+      "damage_structure": {
+        "forbidden_in_dps_slots": "OBSERVATION-derived: support/medic professions banned from [9,2]/[6,2]/[5,5] (CMF-2).",
+        "ranged_floors": "INTERPRETATION: [9,2] ~700 target; [6,2] >=300; [5,5] >=300; combined lane-02 approach fire >=600 effective DPS so most rows die precontact and relay is the exception, not the rule.",
+        "relay_combat": "INTERPRETATION: relay units need only stall (block >=1, survive ~5-10s vs 330-380 atk), not kill; their exits are scheduled after the kill completes."
+      },
+      "forbidden_substitutions": [
+        "INTERPRETATION: same-operator redeploy as a planned step (unsupported).",
+        "INTERPRETATION: standing lane-02 blockers in the base design (collapses to R-OP-01).",
+        "INTERPRETATION: relay assignments to C07 (no legal tiles, IR_07).",
+        "INTERPRETATION: support/medic classes in DPS slots (CMF-2).",
+        "INTERPRETATION: more than one RETREAT on the same unit or retreat of a non-deployed unit."
+      ],
+      "formation_transitions": [
+        "T01_additive_standing: OBSERVATION: FT_01/FT_02 for all standing pieces.",
+        "T02_relay_cycle: INTERPRETATION: each relay action is DEPLOY -> (engage) -> RETREAT once, or expire in place; RETREAT is verified; no unit is retreated twice (double-retreat error forbidden).",
+        "T03_no_teardown: INTERPRETATION: standing lattice is never dismantled."
+      ],
+      "frontline_structure": {
+        "high_ground": "INTERPRETATION: three-ranged lattice is the plan's payoff: strictly more sustained fire on C04/C05/C06 approach than any failed plan.",
+        "lane_01": "INTERPRETATION: [8,5] block-2 + [5,5] + medicA.",
+        "lane_02": "INTERPRETATION: transient frontline - tiles [5,1]/[6,1]/[1,2] host bodies only during their row's engagement window; between rows the lane is covered purely by [6,2]/[5,5] fire."
+      },
+      "handoffs": [
+        "H01_row_handoff: INTERPRETATION: lane-02 corridor ownership passes ranged-lattice -> relay body -> ranged-lattice per row; the relay handoff requires the lattice to be firing before the body lands (overlap-first principle retained from OP-09).",
+        "H02_exit_discipline: INTERPRETATION: each RETREAT targets a live, currently-deployed unit exactly once (learned from the OP-09/OP-10 double-retreat error)."
+      ],
+      "numeric_grounding_recovery": {
+        "annotated_finding_ids": [
+          "NF-074",
+          "NF-075",
+          "NF-076"
+        ],
+        "execution_critical_ungrounded_value_count": 0,
+        "normalized_field_changes": "Added provenance metadata only; original plan fields are byte-for-byte preserved in semantic JSON structure.",
+        "quarantined_noncritical_findings": [],
+        "schema_version": "R8_1_NUMERIC_GROUNDING_RECOVERY_V1",
+        "status": "CONDITIONALLY_RECOVERABLE",
+        "verifier_conditions": [
+          "deterministic inter-contact or window duration",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold"
+        ]
+      },
+      "opening_structure": {
+        "move_1_2": "OBSERVATION: <=5 at [3,3] by 27; <=9 block-2 at [8,5] by ~136-191.",
+        "relay_economy": "INTERPRETATION: each relay deployment costs <=8; W02 requires two (<=16) by frames 725/729 on top of the opening 14 and [6,2] (<=13); verifier checks cumulative DP; the [8,5] pioneer proc (if realized) provides margin.",
+        "standing_build_order": "INTERPRETATION: [6,2] before 660, [5,5] before 805, medicA by 941, [9,2] by 1350, medicB by 2250."
+      },
+      "operational_invariants": [
+        "OBSERVATION: opening deadlines 27/191; relay at [5,1] before 725 and [6,1] before 729; limit <=8 at all times.",
+        "INTERPRETATION: each relay operator deploys at most once; each retreat is legal (live unit, single retreat).",
+        "INTERPRETATION: [9,2] by 1350; medicA by 941.",
+        "INTERPRETATION: no ACTIVATE_SKILL load-bearing.",
+        "TACTICAL_ASSUMPTION: every lane-02 row is either killed precontact by the lattice or met by its assigned relay body before the supplied contact frame.",
+        "TACTICAL_ASSUMPTION: zero planned leaks; zero reliance on unsupported redeploy."
+      ],
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "parent_revised_hypothesis_id": "R-HYP-03-FRD-RELAY-LANE02",
+      "phase_responsibilities": [
+        {
+          "coexistence": "OBSERVATION: distinct tiles.",
+          "corridor_window": "C03 (IR_03), C01+C02 (IR_01/IR_02)",
+          "phase": "phase_opening_W01",
+          "purpose": "Corrected opening",
+          "sharing": "INTERPRETATION: [8,5] opener doubles as economy."
+        },
+        {
+          "coexistence": "OBSERVATION: 6 standing + 2 relay <= FORM_01 limit 8.",
+          "corridor_window": "C06 (route-6), C05 (route-7)",
+          "phase": "phase_first_relay_W02",
+          "purpose": "Meet 725/729 without standing blocks",
+          "sharing": "INTERPRETATION: relay slots are time-shared; at most 2 relay bodies coexist with 6 standing slots."
+        },
+        {
+          "coexistence": "INTERPRETATION: standing = [3,3], [8,5], [9,2], [6,2], [5,5], medicA, medicB = 7; 1 relay active = 8.",
+          "corridor_window": "C07 (IR_07), C01 (route-9 train)",
+          "phase": "phase_three_ranged_W03_W04",
+          "purpose": "Complete the 3-ranged lattice",
+          "sharing": "INTERPRETATION: [5,5] (SC_02) covers pocket + [5,1]/[6,1] approach, relieving relay frequency."
+        },
+        {
+          "coexistence": "OBSERVATION: standing 7 + 1 active relay = 8.",
+          "corridor_window": "C05/C06 rows (supplied frames), C04 26/27, C07 29-34, lane-01 train",
+          "phase": "phase_relay_peak_W05_W06",
+          "purpose": "Surge coverage via distinct relay bodies",
+          "sharing": "INTERPRETATION: relay ownership is assigned per spawn row, not per tile."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        "W01: [3,3], [8,5] as R-OP-01.",
+        "W02: R1 owns route-6 at [6,1] by 729; R2 owns route-7 at [5,1] by 725; [6,2] owns route-8.",
+        "W03-W04: [9,2] owns C07; lattice builds; relay idle.",
+        "W05-W06: R3 owns route-15 (contact 2727); R4/R5 own routes 14/22 (3750/3789); R6 owns route-24 (3927); R7 owns route-23 (4089); R8 owns route-25 (4377); lattice owns C04 26/27 and C07; pocket owns route-18/28."
+      ],
+      "redeployment_dependency": "REDEPLOYMENT_DEPENDENCY: NONE for the primary design - each relay operator is deployed at most once and the relay rotates distinct operators; a CONDITIONAL unsupported dependency exists only if the W06 tail (routes 22-25 within frames 3750-4377, four rows in 627 frames) cannot be covered by distinct remaining relay units, in which case the plan degrades to holding [5,1] with one standing body and conceding nothing else - that fallback must not itself require same-operator redeploy.",
+      "reserve_structure": {
+        "dp_reserve": "TACTICAL_ASSUMPTION: relay DP draw (<=8 per row, ~5 rows) is funded by natural DP plus pioneer proc; verifier may falsify.",
+        "leak_budget": "INTERPRETATION: zero planned leaks; NO_EARLY_RESERVE_RELEASE.",
+        "unit_reserve": "INTERPRETATION: the unassigned remainder of the distinct relay pool is the W06 emergency reserve (leak patching at [8,5]/[5,1]/[6,1])."
+      },
+      "selected_affordances": [
+        {
+          "alternatives": [
+            "IR_03 at [4,3]"
+          ],
+          "note": "OBSERVATION: deadline 27.",
+          "preferred": "IR_03 at [3,3]",
+          "role": "c03_stub"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: deadline 191.",
+          "preferred": "IR_01+IR_02 at [8,5]",
+          "role": "lane01_block"
+        },
+        {
+          "alternatives": [
+            "IR_06 at [1,2]"
+          ],
+          "note": "OBSERVATION: row contact frames supplied (625/725/2727/3789/3927/4089/4377).",
+          "preferred": "IR_05 at [5,1]; IR_06 at [6,1]",
+          "role": "relay_tiles"
+        },
+        {
+          "alternatives": [
+            "SC_04 at [9,5] in place of SC_02 (pocket-weighted, loses [5,1]/[6,1] approach cells)"
+          ],
+          "note": "OBSERVATION: SC_02 route list includes C05/C06 routes; SC_01/SC_03 are the only C07/C04 coverage.",
+          "preferred": "SC_01 at [9,2]; SC_03 at [6,2]; SC_02 at [5,5]",
+          "role": "ranged_lattice"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: FT_03 governs any same-tile relay re-landing on a just-vacated tile.",
+          "preferred": "OE_01, OE_02, OE_03, FT_01, FT_02, FT_03, FORM_01",
+          "role": "enablers"
+        }
+      ],
+      "skill_intents": [
+        "INTERPRETATION: no load-bearing ACTIVATE_SKILL (R-REQ-06); ranged lattice prefers auto multipliers; relay units deploy with whatever base stats - their skills are unused."
+      ],
+      "stable_structure": {
+        "capacity_invariant": "OBSERVATION: standing 7 + active relay 1 (occasionally 2) <= 8.",
+        "relay_pool": "INTERPRETATION: up to 8 distinct fast-redeploy operators (supplied redeploy_seconds 18-25, cost <=8), each assigned at most one engagement.",
+        "standing": "INTERPRETATION: 7 standing: [3,3] stub, [8,5] block-2, [9,2] heavy, [6,2] DPS, [5,5] DPS, medicA (pocket), medicB (lane-02 reach if tile exists, else pocket support)."
+      },
+      "sustain_structure": {
+        "medics": "INTERPRETATION: medicA for [8,5] by 941; medicB positioned to cover [5,1]/[6,1] engagement tiles if a FORM_01-legal tile with range exists (verifier question), else pocket reinforcement.",
+        "relay_survival": "INTERPRETATION: relay bodies are expendable; their death after blocking is acceptable only if the enemy dies to ranged fire immediately after."
+      },
+      "tactical_thesis": "INTERPRETATION: The lane-02 block function is a sequenced role, not standing slots: a relay of DISTINCT fast-redeploy units (redeploy 18-25s, cost <=8) meets each supplied lane-02 spawn row at [5,1]/[6,1]/[1,2] and exits after its engagement, funding a THIRD standing heavy ranged ([5,5] joins [9,2] and [6,2]) and a second medic relative to R-OP-01.",
+      "temporary_roles": [
+        "INTERPRETATION: every relay body is temporary by design (single engagement).",
+        "INTERPRETATION: [3,3] stub is semi-temporary; may retreat once after route-2 dies to add an 8th distinct relay body."
+      ],
+      "verifier_questions": [
+        "Is cumulative DP sufficient for the opening + [6,2] + two <=8 relay deployments by frames 725/729?",
+        "Does the lattice kill route-15 (spawn 2580, contact 2727) precontact at the stated floors, or is R3's relay mandatory there too?",
+        "Can four distinct remaining relay units cover rows at 3750/3750/3780/3927/4050/4230 (six rows) - if not, which rows degrade to lattice-only, and does that leak?",
+        "Does a FORM_01-legal medic tile with range to [5,1] or [6,1] exist for medicB?",
+        "Does FT_03 permit a relay body to land on [5,1] immediately after the previous body retreated there?"
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "INTERPRETATION: any auto-activate ATTACK-recovery killing-block per ground slot (supplied examples: 2.9x/2-sp warriors, 3.1x warrior, 2.3x/3-sp warrior, 1.75x/2-sp melee).",
+        "INTERPRETATION: placeholder [8,5] may be any block-2 <=9.",
+        "INTERPRETATION: [9,2] may be any auto-cycled multi-hit sniper meeting the floor.",
+        "INTERPRETATION: flex slot: second medic or one fast-redeploy body."
+      ],
+      "battle_phases": [
+        "phase_opening_W01: OBSERVATION: deadlines 27/191; cheap opener pair as R-OP-01 (the killing-block cannot meet the frame-136 cost bound - arithmetic retained from OP-10's falsification).",
+        "phase_ranged_minimal_W02: OBSERVATION: route-6/7/8 in W02; INTERPRETATION: only TWO ranged deploy ([6,2] then [9,2] early); lane-02 blocks are killing-class units at [5,1]/[6,1] meeting 725/729.",
+        "phase_upgrade_W03_W04: OBSERVATION: route-9 train contacts 1405-2305; INTERPRETATION: after W03 stabilizes, RETREAT the [8,5] opener and same-tile deploy a killing-block (FT_03 vacate-first); medic by 941 regardless.",
+        "phase_sustained_peak_W05_W06: OBSERVATION: W06 is ~37s with 23 enemies in sub-waves (3750-4860); INTERPRETATION: auto-cycled multipliers deliver continuous elevated DPS with zero manual actions; no burst banking exists anywhere in the plan."
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: INTERPRETATION: [8,5] placeholder block-2 (W01-W03) upgrading to a killing-block (W03+), with pocket fire from the upgraded unit itself plus medic; contract: route-9 train (contacts 1405-2305) is the upgrade's proof case.",
+        "C03: OBSERVATION: [3,3] stub by 27; retreated after route-2 dies.",
+        "C04: OBSERVATION: unblockable; INTERPRETATION: [6,2] primary + [9,2] secondary (only two ranged in the plan).",
+        "C05: OBSERVATION: [5,1]; INTERPRETATION: killing-block with auto multiplier clears routes 7/15/24/25 at supplied contacts (725/2727/3927/4377).",
+        "C06: OBSERVATION: [6,1] (or [1,2]); INTERPRETATION: killing-block clears routes 6/14/22/23.",
+        "C07: OBSERVATION: SC_01 only; INTERPRETATION: [9,2] heavy anchor with the standard floor; auto-cycled multi-hit sniper class preferred (supplied: 1.45x 3-hit, ATTACK recovery, auto)."
+      ],
+      "damage_structure": {
+        "ground_floors": "INTERPRETATION: each killing-block's auto-cycled effective DPS >= 400 vs 100-150 def (e.g., base ~430-450 atk with 2.9x cycling per supplied skill data).",
+        "no_manual": "OBSERVATION-derived: zero ACTIVATE_SKILL steps anywhere (CMF-3); any skill_used must be skill_auto_activate=true per supplied data.",
+        "ranged_floors": "INTERPRETATION: [9,2] ~700 target with auto multi-hit; [6,2] >=300."
+      },
+      "forbidden_substitutions": [
+        "INTERPRETATION: any ground DPS slot with skill_supported=false or manual-only skills (breaks the auto-cycle doctrine).",
+        "INTERPRETATION: adding a third ranged in place of a killing-block (destroys the merge thesis).",
+        "INTERPRETATION: same-operator redeploy for the placeholder (unsupported); the upgrade is a DIFFERENT operator.",
+        "INTERPRETATION: any ACTIVATE_SKILL load-bearing step (CMF-3).",
+        "INTERPRETATION: upgrading during a live engagement (swap must land in an arrival gap)."
+      ],
+      "formation_transitions": [
+        "T01_additive: OBSERVATION: FT_01/FT_02 for [5,1]/[6,1]/[6,2]/[9,2]/medic.",
+        "T02_same_tile_upgrade: INTERPRETATION: RETREAT [8,5]-placeholder (once, live unit), then DEPLOY killing-block on [8,5]; FT_03 vacate-first; RETREAT verified; redeployment of the SAME operator is NOT involved.",
+        "T03_stub_exit: INTERPRETATION: RETREAT [3,3] stub once after route-2 dies; tile unused thereafter.",
+        "T04_no_teardown: INTERPRETATION: at most two RETREAT actions total in the entire plan."
+      ],
+      "frontline_structure": {
+        "high_ground": "INTERPRETATION: deliberately minimal: [6,2] + [9,2]; the plan trades ranged count for ground kill capacity.",
+        "lane_01": "INTERPRETATION: [8,5] evolves placeholder->killing-block; it is both wall and primary pocket DPS post-upgrade.",
+        "lane_02": "INTERPRETATION: [5,1]/[6,1] killing-blocks are self-clearing frontlines under light [6,2] support."
+      },
+      "handoffs": [
+        "H01_upgrade_handoff: INTERPRETATION: same-tile [8,5] handoff with vacate-first; existing [6,2]/[9,2] fire provides functional cover during the empty frame(s).",
+        "H02_stub_handoff: INTERPRETATION: [3,3] exit is successor-less; C03 has no further spawns per supplied timeline.",
+        "H03_discipline: INTERPRETATION: at most two RETREATs total, each targeting a distinct live unit once."
+      ],
+      "numeric_grounding_recovery": {
+        "annotated_finding_ids": [
+          "NF-077",
+          "NF-078",
+          "NF-079",
+          "NF-080",
+          "NF-081",
+          "NF-082",
+          "NF-083",
+          "NF-084",
+          "NF-085",
+          "NF-086",
+          "NF-087",
+          "NF-088",
+          "NF-089",
+          "NF-090",
+          "NF-091",
+          "NF-092",
+          "NF-093"
+        ],
+        "execution_critical_ungrounded_value_count": 0,
+        "normalized_field_changes": "Added provenance metadata only; original plan fields are byte-for-byte preserved in semantic JSON structure.",
+        "quarantined_noncritical_findings": [
+          "NF-082",
+          "NF-083",
+          "NF-085",
+          "NF-086"
+        ],
+        "schema_version": "R8_1_NUMERIC_GROUNDING_RECOVERY_V1",
+        "status": "CONDITIONALLY_RECOVERABLE",
+        "verifier_conditions": [
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing"
+        ]
+      },
+      "opening_structure": {
+        "medic": "INTERPRETATION: medic by 941.",
+        "move_1_2": "OBSERVATION: <=5 at [3,3] by 27; <=9 block-2 at [8,5] by ~136-191 (placeholder).",
+        "w02_build": "INTERPRETATION: [6,2] (<=13) before 660; [5,1] killing-block (e.g., 2.9x-class warrior costing 17-20) by 725 and [6,1] killing-block by 729 require the placeholder's pioneer proc OR cumulative-DP proof; verifier checks both branches."
+      },
+      "operational_invariants": [
+        "OBSERVATION: deadlines 27/191/725/729 met by placeholder+killing-blocks; limit <=8.",
+        "OBSERVATION: exactly one same-tile replacement ([8,5]) and at most two RETREATs total.",
+        "INTERPRETATION: [9,2] by 1350; medic by 941; upgrade completes before route-18's contact 3415 at the latest.",
+        "INTERPRETATION: every DPS operator has skill_supported=true and skill_auto_activate=true.",
+        "TACTICAL_ASSUMPTION: auto-cycled ground DPS >=400 effective per killing-block.",
+        "TACTICAL_ASSUMPTION: zero planned leaks; zero planned deaths."
+      ],
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "parent_revised_hypothesis_id": "R-HYP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "phase_responsibilities": [
+        {
+          "coexistence": "OBSERVATION: distinct tiles.",
+          "corridor_window": "C03 (IR_03), C01+C02 (IR_01/IR_02)",
+          "phase": "phase_opening_W01",
+          "purpose": "Meet deadlines cheaply; bank toward killing-blocks",
+          "sharing": "INTERPRETATION: opener [8,5] is explicitly a placeholder for its own successor."
+        },
+        {
+          "coexistence": "OBSERVATION: FORM_01 limit respected.",
+          "corridor_window": "C04 (IR_04), C05 (IR_05), C06 (IR_06)",
+          "phase": "phase_ranged_minimal_W02",
+          "purpose": "Two ranged only; killing-blocks at [5,1]/[6,1]",
+          "sharing": "INTERPRETATION: [6,2] covers C04; [5,1]/[6,1] killing-blocks self-clear via auto skills."
+        },
+        {
+          "coexistence": "INTERPRETATION: FT_03 vacate-first; no overlap on [8,5]; functional overlap provided by [9,5]-free existing fire during the swap frame.",
+          "corridor_window": "C01 (route-9 train), C07 (IR_07)",
+          "phase": "phase_upgrade_W03_W04",
+          "purpose": "Surgical same-tile upgrade at [8,5]; [9,2] online",
+          "sharing": "INTERPRETATION: the upgrade converts the weakest link (cheap blocker) into the pocket's primary killer."
+        },
+        {
+          "coexistence": "OBSERVATION: static post-upgrade formation.",
+          "corridor_window": "all W05-W06 corridors",
+          "phase": "phase_sustained_peak_W05_W06",
+          "purpose": "Sustained auto-cycled throughput",
+          "sharing": "INTERPRETATION: every ground unit contributes kills; ranged freed to unblockables."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        "W01: [3,3] + placeholder [8,5].",
+        "W02: [6,2] owns route-8; killing-blocks own routes 6/7.",
+        "W03-W04: upgrade owns route-9 train; [9,2] owns C07.",
+        "W05-W06: auto-cycled blocks own lane-01 train and lane-02 rows; [6,2]+[9,2] own C04 26/27 and C07 29-34."
+      ],
+      "reserve_structure": {
+        "leak_budget": "INTERPRETATION: zero planned leaks; NO_EARLY_RESERVE_RELEASE.",
+        "unit_reserve": "INTERPRETATION: one flex slot post-[3,3]-retreat: second medic OR a single fast-redeploy body for W06 leak patching."
+      },
+      "selected_affordances": [
+        {
+          "alternatives": [
+            "IR_03 at [4,3]"
+          ],
+          "note": "OBSERVATION: deadline 27.",
+          "preferred": "IR_03 at [3,3]",
+          "role": "c03_stub"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: deadline 191; FT_03 governs the swap.",
+          "preferred": "IR_01+IR_02 at [8,5] (placeholder then killing-block, same tile)",
+          "role": "lane01_tile"
+        },
+        {
+          "alternatives": [
+            "IR_06 at [1,2]"
+          ],
+          "note": "OBSERVATION: deadlines 725/729.",
+          "preferred": "IR_05 at [5,1]; IR_06 at [6,1]",
+          "role": "lane02_killing_blocks"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: only C04/C07 coverage regions.",
+          "preferred": "SC_03 at [6,2]; SC_01 at [9,2]",
+          "role": "minimal_ranged"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: FT_03 exercised exactly once.",
+          "preferred": "OE_01, OE_02, OE_03, FT_01, FT_02, FT_03, FORM_01",
+          "role": "enablers"
+        }
+      ],
+      "skill_intents": [
+        "INTERPRETATION: ALL damage skills are auto-activate ATTACK-recovery per supplied data (next_attack_atk_scale 1.4-3.1); none are manually triggered.",
+        "INTERPRETATION: if a realized killing-block's skill is skill_supported=false, that realization is invalid - the thesis requires cycling multipliers, not raw stats."
+      ],
+      "stable_structure": {
+        "post_upgrade": "INTERPRETATION: [8,5]-killing-block, [5,1]-killer, [6,1]-killer, [6,2], [9,2], medic, +1 flex (second medic or fast-redeploy) = 7-8 after [3,3] retreat.",
+        "pre_upgrade": "INTERPRETATION: [3,3], [8,5]-placeholder, [5,1]-killer, [6,1]-killer, [6,2], medic (6 slots).",
+        "throughput_claim": "TACTICAL_ASSUMPTION: supplied auto multipliers (next_attack_atk_scale 2.9-3.1 every ~2 attacks) roughly double ground DPS, meeting the pocket and lane-02 kill contracts; verifier computes realized cycle DPS."
+      },
+      "sustain_structure": {
+        "lane_02": "INTERPRETATION: killing-blocks have moderate def (~220-260 per supplied candidates) vs 330-380 atk; engagements are short because kills are fast; no lane-02 medic in base; flex slot may add one.",
+        "medic": "INTERPRETATION: one medic for [8,5] by 941; post-upgrade the [8,5] killer faces route-9/18/28 volume (330 atk each) - medic reach verified.",
+        "upgrade_window_risk": "TACTICAL_ASSUMPTION: the [8,5] swap frame occurs outside any live engagement (scheduled after route-9's 1405-2305 series or between its gaps); verifier picks the exact gap."
+      },
+      "tactical_thesis": "INTERPRETATION: Block positions are the damage structure: every ground unit is a killing-block with supplied auto-activate ATTACK-recovery multipliers (2.9x-3.1x next-attack, 2-sp-cost class; or 1.75x-2.3x, 2-3-sp class), sized to clear its own queue within the supplied inter-arrival gaps; ranged is reduced to [9,2] (C07) + one lane-02 piece; the plan performs exactly ONE surgical same-tile upgrade - the cheap [8,5] opener is retreated after W03 and replaced on [8,5] by a killing-block - plus the [3,3] stub removal.",
+      "temporary_roles": [
+        "INTERPRETATION: [8,5] placeholder (retreated once at upgrade).",
+        "INTERPRETATION: [3,3] stub (retreated once after route-2)."
+      ],
+      "verifier_questions": [
+        "What is the realized cycle DPS of each chosen killing-block under the supplied auto-skill model, and does it meet >=400 effective?",
+        "Is cumulative DP sufficient for two 17-20-cost killing-blocks by frames 725/729 (with and without the placeholder pioneer proc)?",
+        "Which arrival gap between route-9 contacts (1405/1705/2005/2305) and route-18 (3415) hosts the [8,5] swap with zero live engagements?",
+        "Does the upgraded [8,5] plus medic hold the route-28 five-train (contacts ~3955-4915 every ~240 frames)?",
+        "Does the two-ranged net ([6,2]+[9,2]) still meet C04 routes 8/16/26/27 obligations at their floors?"
+      ]
+    },
+    {
+      "allowed_substitutions": [
+        "INTERPRETATION: all R-OP-01 substitutions (cost-bounded openers, floored DPS, medic reach).",
+        "INTERPRETATION: the concession pair (33/34) may be swapped for a different 4-enemy C07 tail set ONLY if verifier data shows a cheaper set; total concessions must remain exactly <=4 and >=1 margin.",
+        "INTERPRETATION: the W06 fast-redeploy body may be any cost-<=8 distinct unit."
+      ],
+      "battle_phases": [
+        "phase_opening_W01: OBSERVATION: deadlines 27/191; corrected arithmetic as R-OP-01; concession count must remain 0.",
+        "phase_lattice_W02_W04: OBSERVATION: all blockable corridors active by W02, C07 from 1350; INTERPRETATION: full lattice ([8,5] pocket + [9,5] pocket fire + [6,2] + [9,2] + [5,1]/[6,1] + medic) with zero leaks as a hard phase gate.",
+        "phase_pre_peak_W05: OBSERVATION: routes 15/16/17/18/19/20/21 in W05 (frames 2250-3600); INTERPRETATION: dress-rehearsal window must close at zero leaks before the peak; any leak here falsifies the plan.",
+        "phase_peak_triage_W06: OBSERVATION: frames 3750-4860; INTERPRETATION: defend in priority order: (1) route-28 train + route-18 tail at the pocket, (2) C04 26/27 precontact, (3) C05 24/25 and C06 22/23 at blocks, (4) C07 29/30/31/32 at [9,2]; routes 33/34 are not reinforced, not focused, and are allowed to leak (4 total)."
+      ],
+      "corridor_responsibilities": [
+        "C01+C02: INTERPRETATION: [8,5] block-2 + [9,5] pocket fire + medic; zero leaks, including the route-28 five-train.",
+        "C03: OBSERVATION: [3,3] stub by 27.",
+        "C04: OBSERVATION: unblockable; INTERPRETATION: [6,2]+[9,2] precontact; routes 26/27 (W06) are priority (2) in the triage order.",
+        "C05: OBSERVATION: [5,1] block; routes 24 (3927) and 25 (4377) are priority (3); zero leaks.",
+        "C06: OBSERVATION: [6,1] block; routes 22 (3789) and 23 (4089) are priority (3); zero leaks.",
+        "C07: OBSERVATION: SC_01 only; INTERPRETATION: [9,2] holds everything through route-32 (spawns 4500/4524); routes 33 (4650/4674) and 34 (4800/4824) are CONCEDED by design (exactly 4 leaks = budget 5 with margin 1)."
+      ],
+      "damage_structure": {
+        "floors": "INTERPRETATION: identical floors to R-OP-01 ([9,5]/[6,2] >=300; [9,2] ~700 target; pocket contract 159-frame gap).",
+        "triage_effect": "TACTICAL_ASSUMPTION: refusing split-fire onto 33/34 measurably increases effective DPS on priorities (1)-(3) during frames 4500-4860; verifier may quantify via targeting model."
+      },
+      "forbidden_substitutions": [
+        "INTERPRETATION: any concession before frame 4650 (early-concession model REJECTED per OP-07 review).",
+        "INTERPRETATION: spending any resource (skills, relay bodies, repositioning) on routes 33/34.",
+        "INTERPRETATION: conceding >4 enemies total.",
+        "INTERPRETATION: support/medic classes in DPS slots (CMF-2); manual-skill dependence (CMF-3); [3,5]-at-191 opening (CMF-1)."
+      ],
+      "formation_transitions": [
+        "T01_additive_only: OBSERVATION: FT_01/FT_02; no teardown, no same-tile moves.",
+        "T02_optional_stub_exit: INTERPRETATION: [3,3] stub may retreat once after route-2 dies, banking a slot for one W06 fast-redeploy body used ONLY on priorities (1)-(3), never on 33/34.",
+        "T03_no_rebuild: INTERPRETATION: none."
+      ],
+      "frontline_structure": {
+        "high_ground": "INTERPRETATION: [9,2] is the C07 anchor with a defined end-of-contract at frame 4524; [9,5] stays pocket-loyal all peak.",
+        "lane_01": "INTERPRETATION: [8,5] block-2 + [9,5] + medic; the peak's first priority.",
+        "lane_02": "INTERPRETATION: [5,1]/[6,1] blocks + [6,2] fire; third priority."
+      },
+      "handoffs": [
+        "H01: INTERPRETATION: additive growth only; no handoff overlap required.",
+        "H02: INTERPRETATION: at frame ~4524 the C07 responsibility hands off from '[9,2] active defense' to 'life-budget absorption' - a doctrinal handoff with no unit movement."
+      ],
+      "numeric_grounding_recovery": {
+        "annotated_finding_ids": [
+          "NF-094",
+          "NF-095",
+          "NF-096",
+          "NF-097",
+          "NF-098",
+          "NF-099",
+          "NF-100",
+          "NF-101"
+        ],
+        "execution_critical_ungrounded_value_count": 0,
+        "normalized_field_changes": "Added provenance metadata only; original plan fields are byte-for-byte preserved in semantic JSON structure.",
+        "quarantined_noncritical_findings": [],
+        "schema_version": "R8_1_NUMERIC_GROUNDING_RECOVERY_V1",
+        "status": "CONDITIONALLY_RECOVERABLE",
+        "verifier_conditions": [
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "LLM-proposed effective-DPS, HP, or verification threshold",
+          "deterministic inter-contact or window duration",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing",
+          "route contact/travel timing"
+        ]
+      },
+      "opening_structure": {
+        "lattice_build": "INTERPRETATION: [9,5] before 431-805; [6,2] before 660; [5,1]/[6,1] by 725/729; medic by 941; [9,2] by 1350 - identical economy to R-OP-01, including the pioneer-proc bridge at 725/729.",
+        "move_1_2": "OBSERVATION: <=5 at [3,3] by 27; <=9 block-2 at [8,5] by ~136-191."
+      },
+      "operational_invariants": [
+        "OBSERVATION: deadlines 27/191/725/729; limit <=8.",
+        "OBSERVATION: cumulative leaks = 0 through frame 4524; cumulative leaks <= 4 at frame 4860+.",
+        "INTERPRETATION: [9,2] active on C07 from 1350 through 4524; medic by 941.",
+        "INTERPRETATION: no ACTIVATE_SKILL load-bearing.",
+        "TACTICAL_ASSUMPTION: the lattice's kill contracts hold for routes 28, 18, 26, 27, 24, 25, 22, 23 under peak concurrency.",
+        "TACTICAL_ASSUMPTION: routes 33/34 leak exactly 4 and no stray sixth leak occurs."
+      ],
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "parent_revised_hypothesis_id": "R-HYP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "phase_responsibilities": [
+        {
+          "coexistence": "OBSERVATION: distinct tiles.",
+          "corridor_window": "C03 (IR_03), C01+C02 (IR_01/IR_02)",
+          "phase": "phase_opening_W01",
+          "purpose": "Zero-leak opening",
+          "sharing": "INTERPRETATION: identical to R-OP-01 opening; any leak consumes the budget and falsifies the triage."
+        },
+        {
+          "coexistence": "OBSERVATION: 8-slot lattice as R-OP-01.",
+          "corridor_window": "C04/C05/C06 (W02), C07 (W03-W04), C01 (route-9 train)",
+          "phase": "phase_lattice_W02_W04",
+          "purpose": "Prove the lattice leakproof across 1350-3600",
+          "sharing": "INTERPRETATION: [9,2] owns C07 pairs 19/21 and singles 10/11/20 in this phase - its proof case."
+        },
+        {
+          "coexistence": "OBSERVATION: static formation.",
+          "corridor_window": "route-15 (2727), routes 16/17/18/19/20/21 (supplied W05 frames)",
+          "phase": "phase_pre_peak_W05",
+          "purpose": "Full-dress zero-leak gate before the peak",
+          "sharing": "INTERPRETATION: if this gate leaks, verifier should report the plan as failed rather than spending budget."
+        },
+        {
+          "coexistence": "OBSERVATION: static formation; only targeting priority changes.",
+          "corridor_window": "route-28 train, route-18 tail, C04 26/27, C05 24/25, C06 22/23, C07 29-34",
+          "phase": "phase_peak_triage_W06",
+          "purpose": "Priority-ordered defense with a 4-leak tail release",
+          "sharing": "INTERPRETATION: [9,2] fires on C07 through frame 4524 (route-32 pair); after that its attention joins the pocket/C04; no resource is spent on 33/34."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        "W01-W04: zero-leak lattice proof (opening + W02 pair + C07 early pairs).",
+        "W05: zero-leak dress rehearsal (route-15 at 2727, route-18 pair at 3415/3715, C07 19/20/21).",
+        "W06: priorities (1) pocket train, (2) C04 26/27, (3) C05/C06 rows, (4) C07 29-32; release 33/34."
+      ],
+      "reserve_structure": {
+        "hard_rule": "INTERPRETATION: any leak before frame 4650 is a failure, not a budget event.",
+        "leak_budget": "OBSERVATION: life_points=5; INTERPRETATION: LATE_TAIL_RELEASE semantics - budget is locked until frame 4650, then exactly 4 is spent on routes 33/34.",
+        "unit_reserve": "INTERPRETATION: optional [3,3]-retreat slot funds one fast-redeploy body for priorities (1)-(3) emergencies."
+      },
+      "selected_affordances": [
+        {
+          "alternatives": [
+            "IR_03 at [4,3]"
+          ],
+          "note": "OBSERVATION: deadline 27.",
+          "preferred": "IR_03 at [3,3]",
+          "role": "c03_stub"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: deadline 191; SC_04 covered_cells include [8,5].",
+          "preferred": "IR_01+IR_02 at [8,5]; SC_04 at [9,5]",
+          "role": "lane01_pocket"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: only C04/C07 coverage.",
+          "preferred": "SC_03 at [6,2]; SC_01 at [9,2]",
+          "role": "lane02_fire"
+        },
+        {
+          "alternatives": [
+            "IR_06 at [1,2]"
+          ],
+          "note": "OBSERVATION: deadlines 725/729; W06 contacts 3927/4377/3789/4089.",
+          "preferred": "IR_05 at [5,1]; IR_06 at [6,1]",
+          "role": "lane02_blocks"
+        },
+        {
+          "alternatives": [],
+          "note": "OBSERVATION: limit 8.",
+          "preferred": "OE_01, OE_02, OE_03, FT_01, FT_02, FORM_01",
+          "role": "enablers"
+        }
+      ],
+      "skill_intents": [
+        "INTERPRETATION: no load-bearing ACTIVATE_SKILL (R-REQ-06); if TIME-recovery supported skills exist on [9,2]/[6,2]/[9,5], they may be manually fired once each during frames 3750-4524 on priorities (1)-(4) as bonus; nothing is fired on 33/34."
+      ],
+      "stable_structure": {
+        "concession_ledger": "OBSERVATION: life_points=5; planned spend: route-33 x2 + route-34 x2 = 4; margin: 1.",
+        "difference": "INTERPRETATION: the difference is doctrinal, not structural - explicit W06 targeting priorities and a formal concession ledger; this isolates whether peak-attention allocation (not formation) decides the stage.",
+        "formation": "INTERPRETATION: R-OP-01's 8-slot lattice unchanged: [3,3], [8,5], [5,1], [6,1], [9,5], [6,2], [9,2], medic."
+      },
+      "sustain_structure": {
+        "lane_02": "INTERPRETATION: blocks grind behind [6,2]; short engagements per supplied contact spacing.",
+        "medic": "INTERPRETATION: one medic for [8,5] by 941; the peak survival of the pocket against route-28's train is the plan's sustain proof case."
+      },
+      "tactical_thesis": "INTERPRETATION: Spend the 5-life budget deliberately: build the R-OP-01-class leakproof lattice for everything before frame 4650, and concede exactly route-33 (spawns 4650/4674) and route-34 (spawns 4800/4824) - four uterers - because they arrive inside the simultaneous peak of route-28's five-train, C04 26/27, C05 24/25 and C06 22/23, and are the worst coverage economics on the map (one tile, speed 1.7, 24-frame pair spacing).",
+      "temporary_roles": [
+        "INTERPRETATION: [3,3] stub (optional single retreat).",
+        "INTERPRETATION: the optional fast-redeploy body is a single-engagement temporary role in W06."
+      ],
+      "verifier_questions": [
+        "Does the lattice provably hold zero leaks through frame 4524 within the faithful realization budget (the entire thesis rests on this)?",
+        "What is the realized leak set when 33/34 are ignored - is it exactly {route-33 x2, route-34 x2}?",
+        "Does pocket throughput survive route-28 contacts at ~3955/4195/4435/4675/4915 while [9,5] receives no support?",
+        "Is the true C07 pair-straggler count before 4650 zero at the realized [9,2] DPS (routes 19/21/29/30/31/32)?",
+        "Does refusing 33/34 measurably change outcomes on priorities (1)-(3) versus R-OP-01 with identical formation?"
+      ]
+    }
+  ],
+  "schema_version": "R8_1_REVISED_OPERATIONAL_PLANS_NUMERIC_GROUNDING_NORMALIZED_V1",
+  "source_response": "output/kimi_k3_stable_transport_revision_replay_v1/tactical_replay_structured_output.json",
+  "source_response_sha256": "80ba4c08fdfc867b44e3e946f3f758dcf19e17449e9ace3cbe65b3a460138cb6"
+}

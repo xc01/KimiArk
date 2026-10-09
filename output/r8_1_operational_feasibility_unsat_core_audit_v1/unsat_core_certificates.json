@@ -1,0 +1,415 @@
+{
+  "records": [
+    {
+      "available_dp": 47.36666666666667,
+      "core_constraints": [
+        "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "core_type": "CONFLICTING_CONSTRAINT_SET",
+      "cost_model": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY",
+      "deadline_frame": 941,
+      "deficit": 1.6333333333333329,
+      "mandatory_prefix_slots": [
+        "C03_STUB",
+        "POCKET_BLOCK",
+        "C04_FIRE",
+        "C05_BLOCK",
+        "C06_BLOCK",
+        "POCKET_FIRE",
+        "POCKET_MEDIC"
+      ],
+      "minimum_cost": 49.0,
+      "necessary_constraints_from_single_removal": [
+        "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+        "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "note": "Minimum-cost, distinct-operator contradiction is proven; single-removal minimality is not claimed because delayed deadline feasibility requires a grounded later event.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "removal_tests": [
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 35.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 47.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "feasible": null,
+          "reason": "Requires a grounded later event to compute a safe available-DP bound; minimality is not claimed.",
+          "relaxed_minimum_cost": 49.0,
+          "removed_constraint": "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE_FRAME"
+        }
+      ],
+      "status": "CONFLICTING_CONSTRAINT_SET"
+    },
+    {
+      "available_dp": 42.83333333333333,
+      "core_constraints": [
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE"
+      ],
+      "core_type": "CONFLICTING_CONSTRAINT_SET",
+      "cost_model": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY",
+      "deadline_frame": 805,
+      "deficit": 4.166666666666671,
+      "mandatory_prefix_slots": [
+        "C03_STUB",
+        "POCKET_BLOCK",
+        "C04_FIRE",
+        "C05_DUELIST",
+        "C06_DUELIST",
+        "POCKET_OVERFLOW"
+      ],
+      "minimum_cost": 47.0,
+      "necessary_constraints_from_single_removal": [
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+        "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE"
+      ],
+      "note": "Minimum-cost, distinct-operator contradiction is proven; single-removal minimality is not claimed because delayed deadline feasibility requires a grounded later event.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "removal_tests": [
+        {
+          "feasible": false,
+          "relaxed_minimum_cost": 45.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:C03_STUB:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 38.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 38.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 37.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 37.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 38.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE"
+        },
+        {
+          "feasible": false,
+          "relaxed_minimum_cost": 45.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "feasible": null,
+          "reason": "Requires a grounded later event to compute a safe available-DP bound; minimality is not claimed.",
+          "relaxed_minimum_cost": 47.0,
+          "removed_constraint": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE_FRAME"
+        }
+      ],
+      "status": "CONFLICTING_CONSTRAINT_SET"
+    },
+    {
+      "available_dp": 47.36666666666667,
+      "core_constraints": [
+        "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "core_type": "CONFLICTING_CONSTRAINT_SET",
+      "cost_model": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY",
+      "deadline_frame": 941,
+      "deficit": 1.6333333333333329,
+      "mandatory_prefix_slots": [
+        "C03_STUB",
+        "POCKET_BLOCK",
+        "C04_FIRE",
+        "RELAY_725",
+        "RELAY_625",
+        "POCKET_FIRE",
+        "POCKET_MEDIC"
+      ],
+      "minimum_cost": 49.0,
+      "necessary_constraints_from_single_removal": [
+        "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+        "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "note": "Minimum-cost, distinct-operator contradiction is proven; single-removal minimality is not claimed because delayed deadline feasibility requires a grounded later event.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "removal_tests": [
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 35.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 47.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "feasible": null,
+          "reason": "Requires a grounded later event to compute a safe available-DP bound; minimality is not claimed.",
+          "relaxed_minimum_cost": 49.0,
+          "removed_constraint": "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE_FRAME"
+        }
+      ],
+      "status": "CONFLICTING_CONSTRAINT_SET"
+    },
+    {
+      "available_dp": 40.3,
+      "core_constraints": [
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "core_type": "CONFLICTING_CONSTRAINT_SET",
+      "cost_model": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY",
+      "deadline_frame": 729,
+      "deficit": 4.700000000000003,
+      "mandatory_prefix_slots": [
+        "C03_STUB",
+        "POCKET_PLACEHOLDER",
+        "C04_FIRE",
+        "C05_KILLER",
+        "C06_KILLER"
+      ],
+      "minimum_cost": 45.0,
+      "necessary_constraints_from_single_removal": [
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "note": "Minimum-cost, distinct-operator contradiction is proven; single-removal minimality is not claimed because delayed deadline feasibility requires a grounded later event.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "removal_tests": [
+        {
+          "feasible": false,
+          "relaxed_minimum_cost": 43.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C03_STUB:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 36.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 36.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 27.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 27.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 34.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "feasible": null,
+          "reason": "Requires a grounded later event to compute a safe available-DP bound; minimality is not claimed.",
+          "relaxed_minimum_cost": 45.0,
+          "removed_constraint": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE_FRAME"
+        }
+      ],
+      "status": "CONFLICTING_CONSTRAINT_SET"
+    },
+    {
+      "available_dp": 47.36666666666667,
+      "core_constraints": [
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "core_type": "CONFLICTING_CONSTRAINT_SET",
+      "cost_model": "PLAN_ALLOWED_TRAIT_AWARE_AUDIT_ONLY",
+      "deadline_frame": 941,
+      "deficit": 1.6333333333333329,
+      "mandatory_prefix_slots": [
+        "C03_STUB",
+        "POCKET_BLOCK",
+        "C04_FIRE",
+        "C05_BLOCK",
+        "C06_BLOCK",
+        "POCKET_FIRE",
+        "POCKET_MEDIC"
+      ],
+      "minimum_cost": 49.0,
+      "necessary_constraints_from_single_removal": [
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+      ],
+      "note": "Minimum-cost, distinct-operator contradiction is proven; single-removal minimality is not claimed because delayed deadline feasibility requires a grounded later event.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "removal_tests": [
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 46.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 40.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 35.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE"
+        },
+        {
+          "feasible": true,
+          "relaxed_minimum_cost": 47.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS"
+        },
+        {
+          "feasible": null,
+          "reason": "Requires a grounded later event to compute a safe available-DP bound; minimality is not claimed.",
+          "relaxed_minimum_cost": 49.0,
+          "removed_constraint": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE_FRAME"
+        }
+      ],
+      "status": "CONFLICTING_CONSTRAINT_SET"
+    }
+  ],
+  "schema_version": "R8_1_UNSAT_CORE_CERTIFICATES_V1"
+}

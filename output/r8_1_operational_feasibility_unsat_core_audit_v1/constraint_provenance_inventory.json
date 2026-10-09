@@ -1,0 +1,767 @@
+{
+  "category_counts": {
+    "GAME_RULE_HARD": 10,
+    "PLAN_CONDITIONAL": 1,
+    "PLAN_INVARIANT_HARD": 54
+  },
+  "records": [
+    {
+      "constraints": [
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:C03_STUB:DEADLINE",
+          "cost": null,
+          "deadline_frame": 27,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C03_STUB must satisfy its documented establishment state by frame 27"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:POCKET_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 191,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_BLOCK must satisfy its documented establishment state by frame 191"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:C04_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 660,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C04_FIRE must satisfy its documented establishment state by frame 660"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:C05_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 725,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C05_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C05_BLOCK must satisfy its documented establishment state by frame 725"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:C06_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 729,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C06_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C06_BLOCK must satisfy its documented establishment state by frame 729"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:POCKET_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 805,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_FIRE must satisfy its documented establishment state by frame 805"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:POCKET_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 941,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_MEDIC must satisfy its documented establishment state by frame 941"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:C07_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 1350,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C07_FIRE must satisfy its documented establishment state by frame 1350"
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:DISTINCT_SIMULTANEOUS_OPERATORS",
+          "kind": "roster",
+          "source": "deployment runtime forbids one operator occupying multiple live instances",
+          "statement": "Distinct live slots use distinct operator IDs unless the plan explicitly authorizes sequential redeployment."
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:FORM_01_DEPLOYMENT_LIMIT",
+          "kind": "capacity",
+          "source": "stage deployment limit",
+          "statement": "Live deployment count remains within the stage limit."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-01-POCKET-AND-FLOOR:NO_LOAD_BEARING_ACTIVATE_SKILL",
+          "kind": "skill",
+          "source": "normalized OperationalPlan skill_intents",
+          "statement": "No ACTIVATE_SKILL is required for a kill obligation."
+        }
+      ],
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR"
+    },
+    {
+      "constraints": [
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:C03_STUB:DEADLINE",
+          "cost": null,
+          "deadline_frame": 27,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C03_STUB must satisfy its documented establishment state by frame 27"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 191,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_BLOCK must satisfy its documented establishment state by frame 191"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:C04_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 660,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C04_FIRE must satisfy its documented establishment state by frame 660"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:C05_DUELIST:DEADLINE",
+          "cost": null,
+          "deadline_frame": 725,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "DUELIST",
+          "slot_id": "C05_DUELIST",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C05_DUELIST must satisfy its documented establishment state by frame 725"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:C06_DUELIST:DEADLINE",
+          "cost": null,
+          "deadline_frame": 729,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "DUELIST",
+          "slot_id": "C06_DUELIST",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C06_DUELIST must satisfy its documented establishment state by frame 729"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_OVERFLOW:DEADLINE",
+          "cost": null,
+          "deadline_frame": 805,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_OVERFLOW",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_OVERFLOW must satisfy its documented establishment state by frame 805"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:POCKET_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 941,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_MEDIC must satisfy its documented establishment state by frame 941"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:C07_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 1350,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C07_FIRE must satisfy its documented establishment state by frame 1350"
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:DISTINCT_SIMULTANEOUS_OPERATORS",
+          "kind": "roster",
+          "source": "deployment runtime forbids one operator occupying multiple live instances",
+          "statement": "Distinct live slots use distinct operator IDs unless the plan explicitly authorizes sequential redeployment."
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:FORM_01_DEPLOYMENT_LIMIT",
+          "kind": "capacity",
+          "source": "stage deployment limit",
+          "statement": "Live deployment count remains within the stage limit."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-02-FORWARD-DUELIST-ISOLATION:NO_LOAD_BEARING_ACTIVATE_SKILL",
+          "kind": "skill",
+          "source": "normalized OperationalPlan skill_intents",
+          "statement": "No ACTIVATE_SKILL is required for a kill obligation."
+        }
+      ],
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION"
+    },
+    {
+      "constraints": [
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:C03_STUB:DEADLINE",
+          "cost": null,
+          "deadline_frame": 27,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C03_STUB must satisfy its documented establishment state by frame 27"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:POCKET_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 191,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_BLOCK must satisfy its documented establishment state by frame 191"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:C04_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 660,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C04_FIRE must satisfy its documented establishment state by frame 660"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_725:DEADLINE",
+          "cost": null,
+          "deadline_frame": 725,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_725",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_725 must satisfy its documented establishment state by frame 725"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_625:DEADLINE",
+          "cost": null,
+          "deadline_frame": 729,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_625",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_625 must satisfy its documented establishment state by frame 729"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:POCKET_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 805,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_FIRE must satisfy its documented establishment state by frame 805"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:POCKET_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 941,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_MEDIC must satisfy its documented establishment state by frame 941"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:C07_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 1350,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C07_FIRE must satisfy its documented establishment state by frame 1350"
+        },
+        {
+          "category": "PLAN_CONDITIONAL",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:LANE02_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 2727,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": false,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "LANE02_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "LANE02_MEDIC must satisfy its documented establishment state by frame 2727"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_2727:DEADLINE",
+          "cost": null,
+          "deadline_frame": 2727,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_2727",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_2727 must satisfy its documented establishment state by frame 2727"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_3927:DEADLINE",
+          "cost": null,
+          "deadline_frame": 3927,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_3927",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_3927 must satisfy its documented establishment state by frame 3927"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_3789:DEADLINE",
+          "cost": null,
+          "deadline_frame": 3949,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_3789",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_3789 must satisfy its documented establishment state by frame 3949"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_4089:DEADLINE",
+          "cost": null,
+          "deadline_frame": 4249,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_4089",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_4089 must satisfy its documented establishment state by frame 4249"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:RELAY_4377:DEADLINE",
+          "cost": null,
+          "deadline_frame": 4377,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RELAY",
+          "slot_id": "RELAY_4377",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "RELAY_4377 must satisfy its documented establishment state by frame 4377"
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:DISTINCT_SIMULTANEOUS_OPERATORS",
+          "kind": "roster",
+          "source": "deployment runtime forbids one operator occupying multiple live instances",
+          "statement": "Distinct live slots use distinct operator IDs unless the plan explicitly authorizes sequential redeployment."
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:FORM_01_DEPLOYMENT_LIMIT",
+          "kind": "capacity",
+          "source": "stage deployment limit",
+          "statement": "Live deployment count remains within the stage limit."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-03-FRD-RELAY-LANE02:NO_LOAD_BEARING_ACTIVATE_SKILL",
+          "kind": "skill",
+          "source": "normalized OperationalPlan skill_intents",
+          "statement": "No ACTIVATE_SKILL is required for a kill obligation."
+        }
+      ],
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02"
+    },
+    {
+      "constraints": [
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C03_STUB:DEADLINE",
+          "cost": null,
+          "deadline_frame": 27,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C03_STUB must satisfy its documented establishment state by frame 27"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_PLACEHOLDER:DEADLINE",
+          "cost": null,
+          "deadline_frame": 191,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_PLACEHOLDER",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_PLACEHOLDER must satisfy its documented establishment state by frame 191"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C04_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 660,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C04_FIRE must satisfy its documented establishment state by frame 660"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C05_KILLER:DEADLINE",
+          "cost": null,
+          "deadline_frame": 725,
+          "deadline_semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C05_KILLER",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C05_KILLER must satisfy its documented establishment state by frame 725"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C06_KILLER:DEADLINE",
+          "cost": null,
+          "deadline_frame": 729,
+          "deadline_semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "KILLING_BLOCK",
+          "slot_id": "C06_KILLER",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C06_KILLER must satisfy its documented establishment state by frame 729"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 941,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_MEDIC must satisfy its documented establishment state by frame 941"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:C07_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 1350,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C07_FIRE must satisfy its documented establishment state by frame 1350"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:POCKET_KILLER:DEADLINE",
+          "cost": null,
+          "deadline_frame": 3415,
+          "deadline_semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "KILLING_BLOCK",
+          "slot_id": "POCKET_KILLER",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_KILLER must satisfy its documented establishment state by frame 3415"
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:DISTINCT_SIMULTANEOUS_OPERATORS",
+          "kind": "roster",
+          "source": "deployment runtime forbids one operator occupying multiple live instances",
+          "statement": "Distinct live slots use distinct operator IDs unless the plan explicitly authorizes sequential redeployment."
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:FORM_01_DEPLOYMENT_LIMIT",
+          "kind": "capacity",
+          "source": "stage deployment limit",
+          "statement": "Live deployment count remains within the stage limit."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:NO_LOAD_BEARING_ACTIVATE_SKILL",
+          "kind": "skill",
+          "source": "normalized OperationalPlan skill_intents",
+          "statement": "No ACTIVATE_SKILL is required for a kill obligation."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS:SAME_TILE_UPGRADE_ORDER",
+          "kind": "formation_transition",
+          "source": "normalized OperationalPlan T02_same_tile_upgrade",
+          "statement": "RETREAT [8,5] placeholder, then deploy a different killing-block on the vacated tile."
+        }
+      ],
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS"
+    },
+    {
+      "constraints": [
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C03_STUB:DEADLINE",
+          "cost": null,
+          "deadline_frame": 27,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C03_STUB",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C03_STUB must satisfy its documented establishment state by frame 27"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 191,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "PIONEER_BLOCK",
+          "slot_id": "POCKET_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_BLOCK must satisfy its documented establishment state by frame 191"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C04_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 660,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C04_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C04_FIRE must satisfy its documented establishment state by frame 660"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C05_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 725,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C05_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C05_BLOCK must satisfy its documented establishment state by frame 725"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C06_BLOCK:DEADLINE",
+          "cost": null,
+          "deadline_frame": 729,
+          "deadline_semantic_state": "MUST_BE_ACTIVE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "BLOCK",
+          "slot_id": "C06_BLOCK",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C06_BLOCK must satisfy its documented establishment state by frame 729"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 805,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "POCKET_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_FIRE must satisfy its documented establishment state by frame 805"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:POCKET_MEDIC:DEADLINE",
+          "cost": null,
+          "deadline_frame": 941,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "SUSTAIN",
+          "slot_id": "POCKET_MEDIC",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "POCKET_MEDIC must satisfy its documented establishment state by frame 941"
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:C07_FIRE:DEADLINE",
+          "cost": null,
+          "deadline_frame": 1350,
+          "deadline_semantic_state": "MUST_HAVE_COVERAGE",
+          "execution_critical": true,
+          "kind": "deadline_establishment",
+          "role": "RANGED_DPS",
+          "slot_id": "C07_FIRE",
+          "source": "normalized OperationalPlan operational_invariants/battle_phases + exact_route_threats",
+          "statement": "C07_FIRE must satisfy its documented establishment state by frame 1350"
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:DISTINCT_SIMULTANEOUS_OPERATORS",
+          "kind": "roster",
+          "source": "deployment runtime forbids one operator occupying multiple live instances",
+          "statement": "Distinct live slots use distinct operator IDs unless the plan explicitly authorizes sequential redeployment."
+        },
+        {
+          "category": "GAME_RULE_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:FORM_01_DEPLOYMENT_LIMIT",
+          "kind": "capacity",
+          "source": "stage deployment limit",
+          "statement": "Live deployment count remains within the stage limit."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:NO_LOAD_BEARING_ACTIVATE_SKILL",
+          "kind": "skill",
+          "source": "normalized OperationalPlan skill_intents",
+          "statement": "No ACTIVATE_SKILL is required for a kill obligation."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:ZERO_LEAK_THROUGH_4524",
+          "kind": "leak_budget",
+          "source": "normalized OperationalPlan operational_invariants",
+          "statement": "Cumulative leaks are zero through frame 4524."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:LATE_CONCESSION_BUDGET_4",
+          "kind": "triage",
+          "source": "normalized OperationalPlan W06 triage semantics",
+          "statement": "Only routes 33/34 may be released after frame 4650, with total leaked enemies <=4."
+        },
+        {
+          "category": "PLAN_INVARIANT_HARD",
+          "constraint_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR:NO_EXTRA_RESOURCE_ON_ROUTES_33_34",
+          "kind": "triage",
+          "source": "normalized OperationalPlan forbidden_substitutions",
+          "statement": "No additional deploy/retreat/skill resource is allocated to routes 33/34; unavoidable existing [9,2] coverage is not an added allocation."
+        }
+      ],
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR"
+    }
+  ],
+  "schema_version": "R8_1_CONSTRAINT_PROVENANCE_INVENTORY_V1",
+  "total_constraints": 65
+}

@@ -1,0 +1,542 @@
+{
+  "prior_semantic_error_count": 3,
+  "prior_semantic_errors_fixed": [
+    {
+      "basis": "Plan's own cumulative-DP verifier question and first route-4 obligation",
+      "corrected": "route-4 contact frame 805",
+      "old": "route-3 contact frame 295",
+      "plans": [
+        "R-OP-01-POCKET-AND-FLOOR",
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR"
+      ],
+      "slot_id": "POCKET_FIRE"
+    },
+    {
+      "basis": "Plan explicitly requires medic by frame 941",
+      "corrected": "route-4 last safe/block deadline frame 941",
+      "old": "route-4 earliest contact frame 805",
+      "plans": [
+        "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR"
+      ],
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "basis": "Plan requires upgrade before route-18 contact and treats route-9 as the upgrade proof case",
+      "corrected": "route-18 contact frame 3415",
+      "old": "route-9 first train blocker frame 1541",
+      "plans": [
+        "R-OP-04-AUTOCYCLE-KILLING-BLOCKS"
+      ],
+      "slot_id": "POCKET_KILLER"
+    }
+  ],
+  "records": [
+    {
+      "deadline_frame": 27,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C03_STUB"
+    },
+    {
+      "deadline_frame": 191,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Opening defense and economy source are absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "PIONEER_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_BLOCK"
+    },
+    {
+      "deadline_frame": 660,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C04_FIRE"
+    },
+    {
+      "deadline_frame": 725,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C05_BLOCK"
+    },
+    {
+      "deadline_frame": 729,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C06_BLOCK"
+    },
+    {
+      "deadline_frame": 805,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_FIRE"
+    },
+    {
+      "deadline_frame": 941,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "deadline_frame": 1350,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-01-POCKET-AND-FLOOR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C07_FIRE"
+    },
+    {
+      "deadline_frame": 27,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C03_STUB"
+    },
+    {
+      "deadline_frame": 191,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Opening defense and economy source are absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "PIONEER_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_BLOCK"
+    },
+    {
+      "deadline_frame": 660,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C04_FIRE"
+    },
+    {
+      "deadline_frame": 725,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "DUELIST",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C05_DUELIST"
+    },
+    {
+      "deadline_frame": 729,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "DUELIST",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C06_DUELIST"
+    },
+    {
+      "deadline_frame": 805,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_OVERFLOW"
+    },
+    {
+      "deadline_frame": 941,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "deadline_frame": 1350,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-02-FORWARD-DUELIST-ISOLATION",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C07_FIRE"
+    },
+    {
+      "deadline_frame": 27,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C03_STUB"
+    },
+    {
+      "deadline_frame": 191,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Opening defense and economy source are absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "PIONEER_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_BLOCK"
+    },
+    {
+      "deadline_frame": 660,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C04_FIRE"
+    },
+    {
+      "deadline_frame": 725,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_725"
+    },
+    {
+      "deadline_frame": 729,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_625"
+    },
+    {
+      "deadline_frame": 805,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_FIRE"
+    },
+    {
+      "deadline_frame": 941,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "deadline_frame": 1350,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C07_FIRE"
+    },
+    {
+      "deadline_frame": 2727,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "LANE02_MEDIC"
+    },
+    {
+      "deadline_frame": 2727,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_2727"
+    },
+    {
+      "deadline_frame": 3927,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_3927"
+    },
+    {
+      "deadline_frame": 3949,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_3789"
+    },
+    {
+      "deadline_frame": 4249,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_4089"
+    },
+    {
+      "deadline_frame": 4377,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-03-FRD-RELAY-LANE02",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RELAY",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "RELAY_4377"
+    },
+    {
+      "deadline_frame": 27,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C03_STUB"
+    },
+    {
+      "deadline_frame": 191,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Opening defense and economy source are absent.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "PIONEER_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_PLACEHOLDER"
+    },
+    {
+      "deadline_frame": 660,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C04_FIRE"
+    },
+    {
+      "deadline_frame": 725,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Blocking/damage responsibility is not available; skill charge is not required at the deadline.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "KILLING_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+      "skill_ready_required": false,
+      "slot_id": "C05_KILLER"
+    },
+    {
+      "deadline_frame": 729,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Blocking/damage responsibility is not available; skill charge is not required at the deadline.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "KILLING_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+      "skill_ready_required": false,
+      "slot_id": "C06_KILLER"
+    },
+    {
+      "deadline_frame": 941,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "deadline_frame": 1350,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C07_FIRE"
+    },
+    {
+      "deadline_frame": 3415,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Blocking/damage responsibility is not available; skill charge is not required at the deadline.",
+      "operational_plan_id": "R-OP-04-AUTOCYCLE-KILLING-BLOCKS",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "KILLING_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_WITH_AUTO_SKILL_SUPPORTED",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_KILLER"
+    },
+    {
+      "deadline_frame": 27,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C03_STUB"
+    },
+    {
+      "deadline_frame": 191,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Opening defense and economy source are absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "PIONEER_BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE_AND_DP_CAPABLE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_BLOCK"
+    },
+    {
+      "deadline_frame": 660,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C04_FIRE"
+    },
+    {
+      "deadline_frame": 725,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C05_BLOCK"
+    },
+    {
+      "deadline_frame": 729,
+      "deployment_alone_sufficient": true,
+      "failure_if_missed": "Required blocking/stalling role is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "BLOCK",
+      "semantic_state": "MUST_BE_ACTIVE",
+      "skill_ready_required": false,
+      "slot_id": "C06_BLOCK"
+    },
+    {
+      "deadline_frame": 805,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_FIRE"
+    },
+    {
+      "deadline_frame": 941,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "SUSTAIN",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "POCKET_MEDIC"
+    },
+    {
+      "deadline_frame": 1350,
+      "deployment_alone_sufficient": false,
+      "failure_if_missed": "Required damage or healing coverage is absent.",
+      "operational_plan_id": "R-OP-05-TAIL-TRIAGE-PLANNED-FOUR",
+      "provenance": "Exact route event + normalized plan wording; no skill charge is promoted beyond explicit plan semantics.",
+      "role": "RANGED_DPS",
+      "semantic_state": "MUST_HAVE_COVERAGE",
+      "skill_ready_required": false,
+      "slot_id": "C07_FIRE"
+    }
+  ],
+  "schema_version": "R8_1_DEADLINE_SEMANTICS_AUDIT_V1"
+}
