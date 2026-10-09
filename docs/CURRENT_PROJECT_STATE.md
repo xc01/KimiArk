@@ -43,6 +43,12 @@ CONFIRMED_FROM_CODE：remote master 与 HEAD 核实；12 个 manifest 文件 has
 
 CONFIRMED_FROM_CODE：实际 fetch/ls-remote 核实 master=23a623ae4960c0095d71f1f28ca5d3d782e642c1；两表真实存在、hash 与305项匹配。Plan A 是候选 gate audit，12为数量乘积，未枚举执行；无 witness/模拟。
 
+## 2026-10-10：一次有界 Kimi-K3 Plan A 修订
+
+CONFIRMED_FROM_CODE：审查修复已合入为 `8a2a0d3`。Kimi-K3 恰好调用一次并返回 `response.completed`，model 字段为 `kimi-k3`。新计划 `R8OP-A1-BLOCK1-COOP-ANCHOR390` 显式拒绝把 250 当作通用 deadline，移除 wscoot 的无技能 dam 职责，假设退款为 0，默认省略 A05/route-6，并把 [9,2] roadblock、cooperation、upkeep 和 target ordering 留作条件分支。
+
+有界确定性校验实际生成 2 个 distinct opening 组合和 1 条方向完整动作候选；0 次阶段模拟。当前模拟器公式下：strong route-2 于 357 击杀；caper-only route-1 最晚 474 开火、804 击杀；talr+caper 在“两目标持续被挡且按当前 target ordering”的假设下 route-1 431、route-3 600。这些是条件性局部证书，不是完整 witness。`[9,2]` 部署合法性、退款、merchant upkeep、真实 targeting/timing 仍 UNKNOWN。
+
 fresh checkout 缺 build_operator_runtime_fidelity.py，原7项Plan A测试在初始化失败。最小修复为来源缺失显式UNKNOWN；定向41/41通过。DPS公式不是有限窗口伤害上/下界；15-DP账本不是实际候选经济下界；A05条件让路未计算。caper能覆盖[8,5]，不能声称全部几何不覆盖。历史artifacts保持不变，失效结论由本段与review报告约束。
 
 wscoot技能未开阻挡0的description与计划无技能依赖dam矛盾；merchant upkeep/ammo/refund等运行时仍未证实。不能把未支持机制推广成战术失败。先完成NEXT_MILESTONE中的固定候选契约计算，无Kimi/V4/扩搜。worker全量96/103仅REPORTED_BY_PREVIOUS_WORKER；本轮无完整测试通过声明。

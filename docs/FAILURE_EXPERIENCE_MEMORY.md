@@ -56,3 +56,9 @@ CONFIRMED_FROM_CODE: DPS原始平均公式非逐击有限窗口伤害界；账�
 
 ## EXP-D930-CAPER（条件性模型经验）
 CONFIRMED_FROM_CODE: 344ATK/1s/3normal+1skill(2.3x), two3300HP/150DEF continuously held, no intervening targets/fire, instant hits: first450->kills780/1140; strict805/941 requires first<=250. No-refund/no-upkeep fixed13DPprefix leaves5.333 at250 versuscaper12. Applies only to stated assumptions; not generaldeadline/minimalUNSAT/globalstrategyfailure. Wscootblock0 under inactive skill undermines holding assumption; support/occupancy/targeting/timing unknown. Refund ledger bug corrected: hypothetical5 refund persists,729balance+2.3 for12-costanchor; not game proof. Kimi should revise assumptions, not blindly satisfy250.
+
+## PLAN-A1-REVISION-001: 修订开局的条件共享与让路
+
+- 状态：Kimi 调用与新计划内容 CONFIRMED_FROM_CODE；战斗结果和真实机制 UNKNOWN。
+- 可复用经验：若 block-2 依赖未开技能，则不能同时承担“无技能阻挡”和“火力合作”。当同一 live duelist 无法占两个槽时，条件让路必须实际省略部署和成本，而不是只改文字。退款金额未确认时，自然 DP 前缀和假设退款账本必须分开。
+- 条件事实：在当前模拟器逐击公式、两目标持续被挡、当前 target ordering 和 talr+caper 同时开火的假设下，route-1 431、route-3 600 完成；这不是通用 FIRE deadline。若 cooperation、roadblock 部署或 merchant upkeep 未证实，计划必须回落到显式 concession。

@@ -1,0 +1,44 @@
+{
+  "changed_conflicting_assumptions_enforced": {
+    "A05_omitted_by_default": true,
+    "anchor_is_caper_only": true,
+    "no_frame_250_deadline": true,
+    "no_refund_assumed": true,
+    "wscoot_not_mandatory_before_941": true
+  },
+  "invariants": [
+    "Distinct live operators per simultaneous slot; A04 != A05 structurally (A05 omitted).",
+    "Deployment count <= 8 at all times; opening peak 4.",
+    "caper at [9,2] facing DOWN; anchor has NO substitute (angel/aprl geometrically forbidden).",
+    "No pioneer on any path tile; no battery before 941.",
+    "No planned operator deaths; survival claims expressed only as hit-count buffers pending enemy-interval data.",
+    "No refund in the mandatory ledger; no merchant-upkeep dependence; <= 2 concurrent merchants in the opening (strong until ~400, talr from 191, nothin from 725).",
+    "No load-bearing manual skill before 941.",
+    "Opening planned leaks: route-6 + route-8 by default (2 of 5); route-3 only as fallback (3rd); route-7 only under worst-case upkeep (4th); margin never below 1.",
+    "Frame 250 is never used as an establishment or FIRE deadline.",
+    "All spending frozen after nothin @725 through 941 to protect the zero-slack 390 ledger."
+  ],
+  "schema_version": "R8_1_PLAN_A1_SEMANTIC_TRACEABILITY_V1",
+  "traceability": [
+    {
+      "enforcement": "candidate_frontier and action candidate",
+      "invariant": "Distinct live operators per simultaneous slot"
+    },
+    {
+      "enforcement": "geometry certificate and single A03 candidate",
+      "invariant": "caper at [9,2] DOWN, no angel/aprl substitute"
+    },
+    {
+      "enforcement": "action candidate omits A05",
+      "invariant": "A05 omitted and route-6 conceded"
+    },
+    {
+      "enforcement": "base-cost DP ledger",
+      "invariant": "No refund in mandatory ledger"
+    },
+    {
+      "enforcement": "finite damage certificate",
+      "invariant": "Frame 250 not used; route contracts derived from per-hit sequence"
+    }
+  ]
+}

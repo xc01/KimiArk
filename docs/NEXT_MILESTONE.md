@@ -1,31 +1,11 @@
-# 唯一下一里程碑：一次有界 Kimi-K3 开局战术修订
+# 当前入口：审查 R8OP-A1 条件动作候选
 
-决定基于 d9304bb 独立源码审查；先合入本轮 review patch。Work 审查已完成，允许进入本节限定的一次修订，不允许无限重试或扩大搜索。本轮审查本身未调用 Kimi。
+基线：d9304bb 审查补丁已合入为 `8a2a0d3`；Kimi-K3 已完成唯一一次 Plan A 开局修订，确定性有界校验完成。
 
-## 准备
+目标：外部审查模型核对真实请求/响应、`R8OP-A1-BLOCK1-COOP-ANCHOR390`、2 个 distinct 组合、1 条动作候选、DP/逐击证书与 UNKNOWN。审查通过后可决定是否执行一条固定前缀模拟。
 
-保留旧 artifacts；从修复后的只读计算生成独立的新证据目录与 manifest。记录真实测试日志，不能用脚本写死 PASS。核对恢复脚本与历史表来源；原始生成 commit 仍 UNKNOWN。
+关键证据：`output/r8_1_plan_a_bounded_kimi_revision_v4/llm_request.json`、`llm_raw_response.txt`、`llm_structured_output.json`，以及 `output/r8_1_plan_a1_bounded_validation_v1/`。
 
-## 输入证据
+必须审查的边界：[9,2] roadblock 部署合法性、退款金额与到账帧、merchant cost/upkeep、真实 target ordering、Exact GameData timing、route-3 handoff 和 route-6/route-8 concession 生命周期。这些保持 UNKNOWN；不得升格为战术不可行。
 
-向 Kimi 提供关卡事实、机制公式和能力事实的来源，以及 docs/review/d9304bb/REVIEW.md 与 corrected_calculations.json 中限定条件。重点：
-- wscoot未开技能不攻击且block0，与无技能dam职责冲突；merchant的部署成本不能代表长期费用。
-- caper在双目标持续被挡、无其他火力/目标、当前简化攻击周期下，450开火得到780/1140；250仅是这组条件的推导，绝非通用FIRE deadline。
-- 假设退款必须持续入账；12-cost anchor的hypothetical5 refund账本在729为+2.3，不是-2.7。退款金额、入账帧、upkeep、ammo、roadblock占格、真实targeting/timing仍UNKNOWN。
-- angel/aprl不能从[9,2]覆盖[8,5]；caper可以。六个全部署tuple重复使用同一duelist，不能部署成两名；COND_ROUTE6允许省略A05。
-
-不能把这些限定的模型冲突推广为战略不可行，不能要求Kimi机械地满足250或预先指定新打法。
-
-## 唯一任务与预算
-
-恰好一次 Kimi-K3 调用，最多生成一个新的 Plan A 开局 OperationalPlan（0–941）；保留其与旧战略的联系，允许Kimi自主改变开局结构、职责共享、阶段移交或经济依赖。不得由GLM/Python替它决定战术。提供事实与可用能力，不强制某个固定阵型。
-
-Kimi必须说明吸收哪些反例、改变哪些旧假设、保留哪些战术思想；具体给出职责、方向/位置意图、压力窗口、技能意图、条件分支和deadline依据。不能将尚未支持的机制作为无证据的成功保证。
-
-随后确定性系统只做新计划的有界开局编译/校验：每个必需槽最多3候选、最多16个完整组合、不静默丢弃共享/让路/撤退语义。输出最多一个方向完整的0–941动作候选及条件性证书，或具体的 scoped conflict/UNKNOWN。不允许失败后自动再调Kimi，不运行关卡模拟或完整搜索。
-
-## 验收与交付
-
-原始请求/响应、源事实/证据manifest、一次调用记录、新计划与旧假设对照、编译约束追踪、DP账本、几何与实际选择、局部证书及测试上传GitHub。不存在faithful候选时诚实报告无witness，不能回退为通用策略冒充执行。更新六份长期项目文档并报告实际remote HEAD。完成后由Work再读代码决定是否执行单条固定前缀模拟。
-
-WIN仍为硬目标；本里程碑不声称WIN。禁止扩大模拟搜索、调用次数>1、多个新计划、硬编码新战术或猜测修改机制。
+禁止：再次调用 Kimi、新增 OperationalPlans、扩大模拟搜索、修改无证据机制、将本轮条件候选说成 faithful witness 或 WIN。无 WIN 声明。

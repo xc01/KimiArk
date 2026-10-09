@@ -1,0 +1,742 @@
+{
+  "counterexample_avoidance_explanations": [
+    {
+      "avoidance": "Anchor moved to the [390,474] window (funded without refund: DP(390)=12.0 exact) and route-3's <941 contract is no longer assigned to caper alone: talr+caper cooperation (~641 eDPS) kills route-3 at ~600-660 with >=280 frames of slack; if cooperation is unverifiable, route-3 is a budgeted concession, not a silent miss.",
+      "counterexample": "caper deployed ~450 kills route-1 at 780 but route-3 at 1140, missing 941"
+    },
+    {
+      "avoidance": "250 is rejected as a deadline. The revision shows it is unaffordable under ANY prefix that blocks route-1, and re-derives the deadline from the actual ledger: establishment window [390,474], with route-1 certified caper-only from <=474.",
+      "counterexample": "Frame-250 anchor start is unaffordable (5.333 DP vs 12 cost)"
+    },
+    {
+      "avoidance": "A03 is locked to caper facing DOWN; angel/aprl are explicitly forbidden as anchor substitutes; no other anchor candidate is admitted.",
+      "counterexample": "angel/aprl cannot cover [8,5] from [9,2] in any direction"
+    },
+    {
+      "avoidance": "wscoot is removed from every mandatory 0-941 slot. A02 becomes a block-1 merchant holder whose blocking and basic attacks need no skill; wscoot survives only as an optional post-941 depth piece inside manual skill windows.",
+      "counterexample": "wscoot's trait (no attack, block 0 until skill) contradicts the skill-independent dam role"
+    },
+    {
+      "avoidance": "Merchant concurrency is capped at 2, strong is retreated at job-done (~390-420), talr is the single long-hold, nothin's window is bounded, and COND_UPKEEP pre-commits a degradation order (route-3, then route-7 concessions) if priced upkeep is worst-case; no long-run merchant economy is claimed.",
+      "counterexample": "Merchant deployment cost cannot stand in for upkeep/economy"
+    },
+    {
+      "avoidance": "Distinct-operator invariant is mandatory; A05 is omitted by default (structural route-6 concession) and rebuilt post-941 by redeployed strong, so no combination requires one live operator on two tiles.",
+      "counterexample": "Six of twelve tuples assign one duelist to both A04 and A05"
+    },
+    {
+      "avoidance": "COND_ANCHOR_TILE: if [9,2] cannot take caper on schedule, route-1 is still certified (talr solo ~500 <805), route-3 degrades to the already-budgeted concession, and no destroy-first agent or timing is invented as mandatory.",
+      "counterexample": "[9,2] roadblock legality UNKNOWN"
+    },
+    {
+      "avoidance": "The mandatory ledger uses zero refund and zero upkeep; the hypothetical values are never spent; any realized refund is banked upside.",
+      "counterexample": "Hypothetical +5 refund / +2.3 DP after 729 is not a feasibility certificate"
+    },
+    {
+      "avoidance": "The plan is self-contained on verified route/stats/mechanics facts; every slot's requirements are restated from first principles and the tables are treated as advisory only.",
+      "counterexample": "Selected-usage tables have UNKNOWN generation commit"
+    }
+  ],
+  "deterministic_verifier_questions": [
+    "Is [9,2] deployable while trap_020_roadblock#2 occupies it; if destruction is required first, what is the earliest destruction frame using only supplied operators, and the resulting caper establishment frame?",
+    "What are the exact uoffcr/uterer attack intervals, to convert hit-count buffers (strong ~18, talr ~21, nothin ~13) into survival proofs?",
+    "Under simultaneous pressure on [8,5], does caper stay on route-1 until death and does the holder's melee stay on the blocked enemy, certifying the ~641 eDPS cooperation behind route-3's ~600-660 kill?",
+    "What is caper's deploy-to-first-attack delay, and does establishment within [390, ~420] keep route-1 dead by <=459 for the route-3 handoff?",
+    "What are the exact merchant trait semantics (upkeep ticks, retreat refund) for char_272_strong / char_4155_talr / char_455_nothin, for pricing post-941 economy only?",
+    "What is the full loopshooter range of caper from [9,2] facing DOWN, and does any supplied ranged unit cover [8,5] from [9,5]/[6,5]/[7,5] as optional cooperation insurance?",
+    "What are route-4's exact [8,5] contact frames (spawns 750/1050) to validate block-1 queue depth after 805?",
+    "Do the stage roadblocks divert route-8 through any supplied-coverage cells, and for how long (COND_ROUTE8)?",
+    "What is strong's exact redeploy time under the merchant trait, certifying [6,1] re-establishment before route-14 (~3600)?",
+    "Can the original generation commit of the historical selected-usage tables be recovered; if not, confirm this plan stands alone on the verified facts?"
+  ],
+  "explicit_assumptions": [
+    "DP model: initial 10, +1/s (30 frames/DP); the mandatory ledger assumes NO refund and NO upkeep: 27: 10.9-5=5.9; 191: 16.37-11=5.37; 390: 23.0-11-12=0.0 (zero slack, establishment window opens); 725: 34.17-23-6=5.17; 941: ~12.37 banked.",
+    "caper model (old-assumption arithmetic reused as the contract basis): ATK 344, 1s interval, S1 2.3x every 4th attack, vs 150 DEF => 194/hit normal, 641.2/hit skill, ~305.9 avg; kill of a 3300-HP target = first-attack + 330; second target = first-attack + 690; deploy frame treated as first-attack frame per the simulator model (delay flagged UNKNOWN).",
+    "Cooperation model: talr 335/hit (485-150) and caper ~305.9 avg/hit => ~641 eDPS; used ONLY for route-3's <941 contract and the 431-459 handoff estimate; route-1 never depends on it (caper-only <=804 and talr-solo ~500 both <805).",
+    "Block model: block-1 holders; route-1 must die <=459 for the clean route-3 handoff, else route-3 concession; this is a conditional branch, not a mandatory exact-timing claim.",
+    "Survival claims are hit-count bounds only (strong ~18 hits, talr ~21, nothin ~13) because enemy attack intervals are UNKNOWN.",
+    "[9,2] is assumed deployable despite trap_020_roadblock#2; if false, COND_ANCHOR_TILE governs and nothing mandatory assumes destruction timing or agent.",
+    "Life budget: 5 total; default opening concessions route-6 + route-8 (2); route-3 fallback (3rd); route-7 only under priced worst-case upkeep (4th); margin never below 1.",
+    "Frames 295/431 are contact facts and 805/941 are Plan A queue-contract deadlines; frame 250 is used nowhere as a deadline.",
+    "Unsupported does not mean impossible: refund, upkeep, cooperation and roadblock coexistence may all be favorable in the real game; the plan merely refuses to REQUIRE any of them for mandatory success."
+  ],
+  "lessons_from_infeasibility": [
+    {
+      "detail": "Frame 250 followed from the 13-DP prefix and caper-only fire; changing the prefix (11 DP), the fire allocation (cooperation), and the hold assumption yields the [390,474] window. Re-derive deadlines from the actual ledger each revision.",
+      "lesson": "Deadlines derived from a fixed prefix are not universal constants"
+    },
+    {
+      "detail": "wscoot's block_count 2 hid a trait that zeroes block and attacks until a manual skill; the dam role silently depended on it. The revision writes 'block >= 1 WITHOUT skill' into A02's capability requirements.",
+      "lesson": "Role specifications must be trait-checked, not census-checked"
+    },
+    {
+      "detail": "A05 fails even with infinite DP because only two suitable duelists exist and strong is on cooldown; conceding route-6 by default and rebuilding later converts a hidden impossibility into a budgeted life cost.",
+      "lesson": "Duplicate-operator tuples are structural infeasibility, not economic shortfall"
+    },
+    {
+      "detail": "With upkeep UNKNOWN, mandatory economy must be certifiable at zero refund and zero upkeep; field-time bounding and retreat-on-job-done are the only safe levers.",
+      "lesson": "Merchant rosters carry hidden economy terms"
+    },
+    {
+      "detail": "route-1 is killable by caper-only (<=804) OR talr-solo (~500), so the roadblock UNKNOWN cannot cascade into a route-1 failure; single points of failure should be eliminated where the roster allows.",
+      "lesson": "Redundant certification is cheap insurance"
+    },
+    {
+      "detail": "Budgeting route-6 and route-8 (2 of 5) with fallbacks keeps every branch inside the life total and preserves verifier-checkable invariants.",
+      "lesson": "Concessions stated explicitly are stronger than optimistic zero-leak dogma"
+    }
+  ],
+  "rejected_tactical_assumptions": [
+    {
+      "assumption": "Frame 250 is the anchor FIRE deadline",
+      "evidence": "corrected no-refund ledgers; prompt: do not turn 250 into a universal deadline",
+      "reason": "Artifact of the old 13-DP prefix + caper-only + continuous-hold assumptions; unaffordable under ANY prefix that also blocks route-1 (max 1.33 DP of room beyond stub+blocker by 250). Replaced by window [390,474] plus cooperation."
+    },
+    {
+      "assumption": "wscoot provides block-2 at [8,5] without skill dependence",
+      "evidence": "wscoot GameData description; skill blackboard initial 10 / cost 18, MANUAL, TIME_SP",
+      "reason": "Trait says no attack and block 0 until a manual skill; S1 earliest ready = deploy+240 > route-1 leak 219 even from a frame-0 deploy, so wscoot can never hold route-1."
+    },
+    {
+      "assumption": "The +5 stub refund bridge is load-bearing for the anchor",
+      "evidence": "corrected evidence: refund UNKNOWN, hypothetical full refund diagnostic-only; strong trait blackboard",
+      "reason": "Refund amount/to-account frame UNKNOWN; strong is merchant-class (retreat-refund unverified, plausible zero). Anchor is instead funded by natural regen at 390 with exact 12.0 DP."
+    },
+    {
+      "assumption": "Merchant listed cost = full economic cost",
+      "evidence": "trait blackboard on strong/talr/nothin; prompt instruction",
+      "reason": "Upkeep (interval 3.0 / cost -3.0) is UNKNOWN and could be a -1/s-equivalent drain; plan bounds concurrent merchants to <=2, retreats on job-done, and pre-commits a degradation order instead of claiming long-run merchant economy."
+    },
+    {
+      "assumption": "A04 and A05 can be the same live duelist",
+      "evidence": "12 structural tuples: six reuse one operator; corrected COND_ROUTE6",
+      "reason": "One live operator cannot become two simultaneous deployments; with the supplied roster (strong/talr/nothin, strong on cooldown ~390->~1140, wscoot disqualified) A05 is structurally infeasible in-window, so route-6 is conceded by default rather than by economy alone."
+    },
+    {
+      "assumption": "Block-2 depth at [8,5] underwrites the 805/941 queue contract",
+      "evidence": "verified candidate list: only wscoot has block_count 2 and it is trait-gated",
+      "reason": "No supplied operator gives block-2 without a manual skill inside the window; queue contract rebuilt on block-1 + sequential kills (route-1 dead <=459) + budgeted concession, with route-1 redundantly certified."
+    },
+    {
+      "assumption": "Zero early leaks before 4650",
+      "evidence": "IR_04 legal tiles empty; A05 structural infeasibility; corrected ledger deficits",
+      "reason": "Replaced by budgeted concessions: route-6 + route-8 default (2), route-3 fallback (3rd), route-7 only under priced worst-case upkeep (4th); margin never below 1."
+    }
+  ],
+  "retained_tactical_knowledge": [
+    {
+      "evidence": "supplied stat lines + confirmed damage formula",
+      "knowledge": "strong @ [3,3] by 27 solos route-2 with basic attacks",
+      "why_retained": "291/hit vs 150 DEF => ~12 hits (~360 frames) inside an ~18-hit survival buffer; no skill dependence; matches old EXP-trace timing (~390)"
+    },
+    {
+      "evidence": "verified coverage fact: caper yes, angel/aprl no",
+      "knowledge": "Merged anchor on [9,2] facing DOWN owns the pocket queue",
+      "why_retained": "Concept preserved; operator locked to caper, the only verified coverage of [8,5]; continuity to C07/train post-941 kept"
+    },
+    {
+      "evidence": "route facts + stat lines (old plan's duelist-class thesis)",
+      "knowledge": "6-cost merchant duelist @ [5,1] by 725 solos route-7",
+      "why_retained": "374-385/hit vs 100 DEF (~10 hits) vs ~13-hit buffer; only tile [5,1]; flagged interval-UNKNOWN with medic insurance"
+    },
+    {
+      "evidence": "IR_04 empty; roadblock list",
+      "knowledge": "COND_ROUTE8 triage discipline",
+      "why_retained": "route-8 has zero legal interception tiles; concession-by-default with a diversion-proof upgrade path remains correct"
+    },
+    {
+      "evidence": "old plan constraints; unchanged mechanics",
+      "knowledge": "CMF-2/CMF-3 discipline for the mandatory chain; no pioneer on path tiles; no planned deaths",
+      "why_retained": "Nothing in the revision requires support professions in damage slots, manual skills before 941, path-tile economy, or sacrificial bodies"
+    },
+    {
+      "evidence": "old plan redeploy arithmetic (exact merchant value flagged to verifier)",
+      "knowledge": "Deployment-limit discipline and strong's redeploy return",
+      "why_retained": "Opening peaks at 4 of 8; strong's ~750-frame cooldown from ~400 enables the ~1140 return that rebuilds [6,1] before route-14 (~3600)"
+    },
+    {
+      "evidence": "corrected calculations evidence class CONFIRMED",
+      "knowledge": "Damage formula max(0.05A, A-DEF) and the 805/941 queue-contract deadlines",
+      "why_retained": "Both are carried as contract bases; the revision re-derives HOW they are met rather than denying them"
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "allowed_substitutions": [
+        "A02 <-> A04 mirror swap (talr at [5,1], nothin at [8,5]) permitted; verifier rechecks the route-1 handoff at 324/hit (nothin) instead of 335/hit (talr).",
+        "A01/A02 full mirror (talr stubs [3,3] @27 for 6 DP, strong holds [8,5] @191) permitted; prefix stays 11 DP (caper still @390); verifier rechecks handoff at strong's 291/hit (~450, frames-tight) and route-2 solo at talr's survival.",
+        "A04: nothin <-> talr subject to distinctness mirror rule above."
+      ],
+      "battle_phases": [
+        {
+          "actions": "strong @ [3,3] (27); talr @ [8,5] (~181-191)",
+          "economy_note": "DP: 10.9-5=5.9 at 27; 16.37-11=5.37 at 191; no refund, no upkeep assumed",
+          "phase": "OPENING_W01",
+          "windows": [
+            "W01"
+          ]
+        },
+        {
+          "actions": "retreat strong (~390-420); caper @ [9,2] DOWN (390)",
+          "economy_note": "DP(390)=10+13-11=12.0 exactly funds caper 12; zero slack; any pre-390 upkeep tick slides establishment within [390,474] (COND_UPKEEP)",
+          "phase": "ESTABLISH",
+          "windows": [
+            "W01"
+          ]
+        },
+        {
+          "actions": "route-1 dies ~441-460 (floors: 804 caper-only, ~500 talr-solo); route-3 blocked <=459 or conceded",
+          "economy_note": "no spending",
+          "phase": "HANDOFF",
+          "windows": [
+            "W01",
+            "W02"
+          ]
+        },
+        {
+          "actions": "nothin @ [5,1] (725); route-6 concession (729); route-8 concession default (660+)",
+          "economy_note": "DP(725)=34.17-23=11.17; nothin 6 => 5.17 left; A05 would be -0.7 AND has no operator: omitted",
+          "phase": "W02_CRUNCH",
+          "windows": [
+            "W02"
+          ]
+        },
+        {
+          "actions": "route-3 dead ~600-660; route-4 held/cleared by talr+caper",
+          "economy_note": "no mandatory spending; peak 4/8 deployed; margin preserved for post-941",
+          "phase": "QUEUE",
+          "windows": [
+            "W02"
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "evidence": "corrected ledgers (5.333 DP at 250 vs 12-cost anchor); damage contract kill = F+330 / F+690; prompt instruction that 250 is not universal",
+          "previous": "Anchor must first-attack by frame 250 or both pocket contracts fail",
+          "revised": "250 rejected as a prefix-conditional artifact; establishment window [390,474]; route-1 certified caper-only (kill <=804) AND by talr solo (~500); route-3 carried by cooperation (~600-660) with concession fallback"
+        },
+        {
+          "evidence": "wscoot GameData trait: no attack + block 0 until skill; S1 initial 10 / cost 18 => ready deploy+240 > route-1 leak 219 even at frame-0 deploy",
+          "previous": "wscoot is a skill-independent block-2 dam at [8,5] from ~frame 90/191",
+          "revised": "wscoot removed from the mandatory opening; A02 re-specified as a block-1 merchant holder (talr/nothin) with basic-attack cooperation"
+        },
+        {
+          "evidence": "refund amount/to-account UNKNOWN; strong is merchant-class (trait blackboard interval 3.0 / cost -3.0); hypothetical +5 refund is diagnostic-only per corrected evidence",
+          "previous": "Stub retreat at ~390 banks a +5 refund that funds the anchor",
+          "revised": "anchor funded by natural regen only (DP(390)=23-11=12.0); retreat kept solely for upkeep-bounding and the redeploy timer"
+        },
+        {
+          "evidence": "one live operator cannot become two deployments; no-refund ledger also shows -0.7 DP at 729",
+          "previous": "A04 and A05 may both be talr (6 of 12 tuples)",
+          "revised": "distinct-operator invariant; A05 omitted by default (structural concession of route-6) and rebuilt by redeployed strong before route-14"
+        },
+        {
+          "evidence": "prompt: listed cost cannot stand in for upkeep; IR_04 legal tiles empty for route-8; corrected COND_ROUTE6 branch",
+          "previous": "Merchant deployment cost is their full economy cost; zero-early-leak dogma before 4650",
+          "revised": "merchant concurrency <=2 with retreat-on-job-done and COND_UPKEEP degradation order; budgeted concessions (route-6, route-8 default; route-3 fallback) with life margin >=1"
+        }
+      ],
+      "compiler_slots": [
+        {
+          "candidates": [
+            "char_272_strong",
+            "char_4155_talr (mirror only: then A02=strong, verifier rechecks handoff at 291/hit)"
+          ],
+          "capability_requirements": "cost<=6; def>=240 vs 330-atk; basic-attack self-kill of 3300 HP vs 150 DEF inside hit-count survival bound; NO skill dependence",
+          "corridor": "C03",
+          "deadline_basis": "route-2 latest_safe_blocker_frame 27",
+          "establishment_semantic": "MUST_BE_ACTIVE_BY_27",
+          "may_share_live_operator": false,
+          "retreat_basis": "single retreat after route-2 confirmed dead (~390-420); purpose is upkeep-bounding + redeploy timer; NO refund assumed",
+          "role": "BLOCK+SELF_CLEAR",
+          "slot_id": "A01_C03_STUB"
+        },
+        {
+          "candidates": [
+            "char_4155_talr",
+            "char_455_nothin",
+            "char_272_strong (mirror only)"
+          ],
+          "capability_requirements": "cost<=6; block>=1 WITHOUT skill; def>=250 (72-80/hit taken vs 330-atk); HP>=1500 (~18-21 hit buffer); basic attacks >=291/hit vs 150 DEF; NO skill dependence",
+          "corridor": "C01+C02",
+          "deadline_basis": "route-1 latest_safe_blocker_frame 191 (leak 219); handoff sub-deadline: route-1 dead <=459 to re-block route-3",
+          "establishment_semantic": "MUST_BE_ACTIVE_BY_191",
+          "may_share_live_operator": false,
+          "note": "replaces A02_C01_DAM; wscoot disqualified (trait: no attack + block 0 until manual skill; S1 earliest ready deploy+240 > 219)",
+          "role": "BLOCK+COOP_DAMAGE",
+          "slot_id": "A02_C01_HOLDER"
+        },
+        {
+          "candidates": [
+            "char_4100_caper"
+          ],
+          "capability_requirements": "covers [8,5] from [9,2] facing DOWN (verified: caper yes; angel/aprl NO in any direction); auto attack-SP skill (S1 2.3x every 4th, planner-safe); no manual activation; cost<=12",
+          "corridor": "C01 pocket (continuity: C07/train post-941)",
+          "deadline_basis": "establishment window [390, 474]: 390 = earliest natural-regen affordability after 11-DP prefix (DP(390)=12.0 exact); 474 = latest first attack for caper-only route-1 kill < 805 (kill = first-attack + 330); [390, ~420] sub-window preserves the route-3 block handoff (route-1 dead <=459)",
+          "establishment_semantic": "MUST_BE_ACTIVE_WITHIN_WINDOW",
+          "role": "RANGED_DPS",
+          "shared_responsibilities": [
+            "pocket queue fire on [8,5] (routes 1/3/4; train post-941)",
+            "C07 anchor continuity post-941"
+          ],
+          "slot_id": "A03_MERGED_ANCHOR",
+          "unknown_gating": "[9,2] occupied by trap_020_roadblock#2; deployability UNKNOWN (COND_ANCHOR_TILE)"
+        },
+        {
+          "candidates": [
+            "char_455_nothin",
+            "char_4155_talr"
+          ],
+          "capability_requirements": "cost<=6; HP>=1500; def>=255; >=370/hit vs 100 DEF from basic attacks; distinct live operator from A01/A02",
+          "corridor": "C05",
+          "deadline_basis": "route-7 latest_safe_blocker_frame 725 (only tile [5,1])",
+          "establishment_semantic": "MUST_BE_ACTIVE_BY_725",
+          "may_share_live_operator": false,
+          "role": "DUELIST",
+          "slot_id": "A04_C05_DUELIST"
+        },
+        {
+          "candidates": [],
+          "capability_requirements": "UNFILLED: only strong/talr/nothin supplied; strong on cooldown ~390->~1140; wscoot skill-gated; a live operator cannot fill two slots",
+          "corridor": "C06",
+          "deadline_basis": "route-6 latest_safe_blocker_frame 729 (MISSED BY DEFAULT)",
+          "establishment_semantic": "OMITTED_DEFAULT_CONCESSION",
+          "rebuild_basis": "re-establish [6,1] with redeployed strong before route-14 (~3600); verifier checks merchant redeploy-time exact value",
+          "role": "DUELIST",
+          "slot_id": "A05_C06_DUELIST"
+        },
+        {
+          "candidates": [],
+          "capability_requirements": "deferred beyond 941; off-path tile only (e.g., [9,4]); never mandatory; contingent on refund/upkeep resolution",
+          "establishment_semantic": "OPTIONAL_DEFERRED",
+          "role": "PIONEER",
+          "slot_id": "A06_BATTERY (POST-OPENING, NON-MANDATORY)"
+        },
+        {
+          "candidates": [
+            "char_445_wscoot"
+          ],
+          "capability_requirements": "post-941 only; blocking exists solely inside manual skill windows; never load-bearing before 941",
+          "establishment_semantic": "OPTIONAL_CONDITIONAL",
+          "role": "CONDITIONAL_DEPTH",
+          "slot_id": "A07_WSCOOT_RESERVE (NON-MANDATORY)"
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "verifier/live confirms holder+caper both damage the held target (spawn-order targeting stays on route-1 until dead, then shifts to route-3) AND route-1 dies <=459",
+          "id": "COND_COOP_ROUTE3",
+          "if_false": "concede route-3 (1 life); talr free by ~500-720; queue re-syncs at route-4; total opening leaks <=3",
+          "if_true": "route-3 blocked <=459 and killed ~600-660 (<941, slack >=280)"
+        },
+        {
+          "condition": "DEFAULT FALSE: distinct-operator infeasibility (not economy-dependent)",
+          "id": "COND_ROUTE6",
+          "if_false": "concede route-6 (1 life); rebuild [6,1] with redeployed strong (ready ~1140) before route-14 (~3600)",
+          "if_true": "(upgrade path only) if verifier certifies a third distinct <=6-cost block-capable duelist AND economy pricing (refund/upkeep) funds it by 729, deploy @ [6,1]"
+        },
+        {
+          "condition": "verifier proves roadblock-diverted route-8 path gives supplied coverage enough time for a cheap kill",
+          "id": "COND_ROUTE8",
+          "if_false": "concede route-8 (1 life); no spending",
+          "if_true": "deploy cheap chip per verifier derivation; zero early leaks on this route"
+        },
+        {
+          "condition": "[9,2] is deployable despite trap_020_roadblock#2",
+          "id": "COND_ANCHOR_TILE",
+          "if_false": "route-1 still certified (talr solo ~500 <805); route-3 defaults to concession; destruction-first timing and agent are UNKNOWN and NOT assigned as mandatory; caper re-establishes whenever legal and re-takes the post-941 queue",
+          "if_true": "caper establishment window [390,474] as specified"
+        },
+        {
+          "condition": "merchant trait upkeep (blackboard interval 3.0 / cost -3.0) is real and material",
+          "id": "COND_UPKEEP",
+          "if_false": "base ledger stands; any actual refund/upkeep upside is banked, never pre-spent",
+          "if_true": "caper slides within [390,474] (strong already retreated; talr is the single long-hold merchant); degradation order if worst-case unsustainability is priced: concede route-3 (already fallback), then route-7 instead of deploying nothin (opening leaks <=4, margin >=1); W03+ economy fully re-derived"
+        },
+        {
+          "condition": "enemy attack intervals prove any melee survival race fails (strong 18-hit, talr 21-hit, nothin 13-hit buffers)",
+          "id": "COND_MEDIC",
+          "if_false": "reserve slot stays empty",
+          "if_true": "deploy a cost<=13 medic on a FORM_01-legal high tile covering [5,1]/[8,5] post-725 from the reserve slots (4 of 8 free)"
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction_intent": "toward lane-02 approach (melee facing not load-bearing)",
+          "distinctness": "A01 only",
+          "frame": "<=27, retreat ~390-420",
+          "role": "A01 temporary stub: block + solo-kill route-2 with basic attacks",
+          "tile": [
+            3,
+            3
+          ],
+          "unit": "char_272_strong"
+        },
+        {
+          "direction_intent": "toward lane-01 approach (from [3,5] side)",
+          "distinctness": "A02; mirror-swap with A04 permitted",
+          "frame": "~181-191, holds through 941 (post-941 handoff optional)",
+          "role": "A02 block-1 pocket holder + cooperating basic damage on routes 1/3/4",
+          "tile": [
+            8,
+            5
+          ],
+          "unit": "char_4155_talr"
+        },
+        {
+          "direction_intent": "DOWN (load-bearing: only verified coverage of [8,5])",
+          "distinctness": "A03 locked; no substitute covers [8,5]",
+          "frame": "window [390, 474]; sub-window [390, ~420] preserves the route-3 handoff",
+          "role": "A03 merged anchor: pocket queue fire, S1 auto",
+          "tile": [
+            9,
+            2
+          ],
+          "unit": "char_4100_caper"
+        },
+        {
+          "direction_intent": "toward lane-02 approach",
+          "distinctness": "A04; mirror-swap with A02 permitted",
+          "frame": "by 725",
+          "role": "A04 duelist: solos route-7",
+          "tile": [
+            5,
+            1
+          ],
+          "unit": "char_455_nothin"
+        },
+        {
+          "direction_intent": "n/a",
+          "distinctness": "structural: no distinct third duelist exists in-window",
+          "frame": "729",
+          "role": "A05 omitted by default; route-6 conceded; rebuild by ~3600 with redeployed strong",
+          "tile": [
+            6,
+            1
+          ],
+          "unit": "(omitted)"
+        }
+      ],
+      "economy_model": {
+        "evidence_class": "SIMULATOR_BASE_COST_LEDGER; not a game-economy certificate",
+        "model": "initial DP 10, +1/s (30 frames/DP), NO refund, NO upkeep (mandatory-path certifiable bound)",
+        "rows": [
+          {
+            "cost": 5,
+            "dp_after": 5.9,
+            "event": "A01 strong @ [3,3]",
+            "frame": 27
+          },
+          {
+            "cost": 6,
+            "dp_after": 5.37,
+            "event": "A02 talr @ [8,5]",
+            "frame": 191
+          },
+          {
+            "cost": 12,
+            "dp_after": 0.0,
+            "event": "A03 caper @ [9,2] DOWN",
+            "frame": 390,
+            "note": "zero slack; COND_UPKEEP slides within [390,474]"
+          },
+          {
+            "cost": 6,
+            "dp_after": 5.17,
+            "event": "A04 nothin @ [5,1]",
+            "frame": 725
+          },
+          {
+            "cost": 0,
+            "dp_after": 5.3,
+            "event": "A05 omitted",
+            "frame": 729,
+            "note": "counterfactual A05: -0.7 DP AND no distinct operator"
+          },
+          {
+            "dp_after": 12.37,
+            "event": "end of opening",
+            "frame": 941,
+            "note": "before any post-941 spending; upkeep if real is priced by verifier (COND_UPKEEP)"
+          }
+        ]
+      },
+      "explicit_deadline_basis": [
+        {
+          "basis": "route-2 latest_safe_blocker_frame (route fact)",
+          "item": "A01 establishment <= 27"
+        },
+        {
+          "basis": "route-1 latest_safe_blocker_frame; leak at 219 (route fact)",
+          "item": "A02 establishment <= 191"
+        },
+        {
+          "basis": "390: DP(390) = 10 + 390/30 - (5+6) = 12.0 exactly funds 12-cost caper (CONFIRMED simulator base-cost ledger, zero refund); 474: caper-only kill = first-attack + 330 < 805 (CONFIRMED damage contract formula); sub-window [390, ~420] keeps route-1 dead <=459 for the route-3 handoff (431-459 contact facts)",
+          "item": "A03 establishment window [390, 474]"
+        },
+        {
+          "basis": "Plan A queue contract; certified WITHOUT cooperation: caper-only from <=474 (kill <=804) OR talr solo ~500 (10 hits x 335 from ~191)",
+          "item": "route-1 kill < 805"
+        },
+        {
+          "basis": "Plan A queue contract; certified ONLY under cooperation: combined ~641 eDPS (talr 335/hit + caper ~305.9 avg/hit vs 150 DEF) from block ~445-459 => kill ~600-660, slack >=280; otherwise concession (COND_COOP_ROUTE3)",
+          "item": "route-3 kill < 941"
+        },
+        {
+          "basis": "route-7 latest_safe_blocker_frame; only legal tile [5,1]",
+          "item": "A04 establishment <= 725"
+        },
+        {
+          "basis": "route-6 conceded by default: distinct-operator infeasibility + ledger deficit -0.7 at 729 (no-refund simulator model); rebuild deadline route-14 (~3600)",
+          "item": "A05: none (omitted)"
+        },
+        {
+          "basis": "250 is conditional on the old 13-DP prefix + caper-only + continuous-hold assumptions; any prefix that blocks route-1 (>=5 DP) plus the stub (5 DP) leaves at most 18.33-17 = 1.33 DP of room, so no legal prefix funds a 12-DP anchor by 250; deadline re-derived from the actual ledger and cooperation instead",
+          "item": "frame 250 NOT a deadline"
+        }
+      ],
+      "forbidden_substitutions": [
+        "char_103_angel or char_365_aprl as A03 anchor: cannot cover [8,5] from [9,2] in any direction (verified geometry).",
+        "char_445_wscoot in ANY mandatory 0-941 slot: block 0 and no attacks until a manual skill that cannot be ready before route-1 leaks (S1 earliest = deploy+240 > 219).",
+        "The same live operator across two slots (the A04=A05=talr class of tuple): one live operator cannot become two deployments.",
+        "Any sub-250-def unit as the [8,5] holder; any support/medic in a damage slot (CMF-2).",
+        "Any load-bearing ACTIVATE_SKILL step before 941 (CMF-3).",
+        "Any pioneer deployed on a lane-01/lane-02 path tile.",
+        "Treating retreat refund or merchant upkeep as known in either direction; spending the hypothetical +5 refund or the +2.3 DP after 729.",
+        "Spending any resource on route-8 without the COND_ROUTE8 diversion proof.",
+        "A third concurrent merchant before 941 (upkeep exposure bound).",
+        "Chasing frame 250 by dropping the [8,5] block (route-1 would leak at 219: converting a deadline artifact into a real leak)."
+      ],
+      "formation_structure": {
+        "crunch": "+ [5,1] nothin (6) @725 (4 standing); [6,1] empty by design",
+        "deployment_limit_usage": "peak 4 of 8 in 0-941; four slots of reserve for COND_MEDIC / post-941 battery / wscoot / strong-return",
+        "endgame_continuity": "caper anchor + talr holder + nothin duelist + strong-return + optional wscoot/battery/[6,2] heavy (all post-941 and conditional)",
+        "establishment": "+ [9,2] caper (12) DOWN @390; strong retreated ~390-420 (3 standing)",
+        "opening": "[3,3] strong (5) @27; [8,5] talr (6) @~181-191"
+      },
+      "formation_transitions": [
+        "T1 ADDITIVE: deployments at 27 / ~181-191 / 390 / 725 on distinct legal tiles; no teardown.",
+        "T2 SINGLE_RETREAT: strong retreated once at ~390-420 after route-2 confirmed dead; purpose = bound merchant upkeep + start redeploy timer; NO refund assumed or required.",
+        "T3 HOLD: talr holds [8,5] through 941; conditional post-941 handoff to wscoot (manual-skill windows) is optional and never mandatory before 941.",
+        "T4 REDEPLOY: strong returns after cooldown (~1140) toward [6,1] for route-14 (~3600); distinct legal re-deployment of a retreated unit.",
+        "T5 NO_SAME_TILE: no same-tile replacement anywhere in 0-941."
+      ],
+      "mandatory_tactical_invariants": [
+        "Distinct live operators per simultaneous slot; A04 != A05 structurally (A05 omitted).",
+        "Deployment count <= 8 at all times; opening peak 4.",
+        "caper at [9,2] facing DOWN; anchor has NO substitute (angel/aprl geometrically forbidden).",
+        "No pioneer on any path tile; no battery before 941.",
+        "No planned operator deaths; survival claims expressed only as hit-count buffers pending enemy-interval data.",
+        "No refund in the mandatory ledger; no merchant-upkeep dependence; <= 2 concurrent merchants in the opening (strong until ~400, talr from 191, nothin from 725).",
+        "No load-bearing manual skill before 941.",
+        "Opening planned leaks: route-6 + route-8 by default (2 of 5); route-3 only as fallback (3rd); route-7 only under worst-case upkeep (4th); margin never below 1.",
+        "Frame 250 is never used as an establishment or FIRE deadline.",
+        "All spending frozen after nothin @725 through 941 to protect the zero-slack 390 ledger."
+      ],
+      "opening_responsibilities": [
+        "Frame 0-27: strong @ [3,3] (5 DP, by frame 27, route-2 latest_safe_blocker_frame) solos route-2 with basic attacks only: 291/hit after 150 DEF, ~12 hits ~= 360 frames; survival buffer ~18 hits at 80/hit taken (enemy attack interval UNKNOWN, hit-count bound only). No skill is load-bearing.",
+        "~Frame 181-191: talr @ [8,5] (6 DP) as the block-1 pocket holder, deployed as late as safely possible to bound merchant upkeep ticks if they exist; basic attacks contribute 335/hit vs 150 DEF to route-1 from first contact (191). DEF 258 => 72/hit taken from 330-atk uoffcr; HP 1530 => ~21-hit buffer.",
+        "~Frame 390-420: route-2 confirmed dead => retreat strong once. Purpose: stop any merchant upkeep drain and start the ~750-frame redeploy timer (ready ~1140) for the route-14 rebuild. NO refund is assumed, required, or spent.",
+        "Frame 390 (establishment window [390, 474]; handoff-preserving sub-window [390, ~420]): caper @ [9,2] facing DOWN, 12 DP from natural regen only (DP(390) = 10 + 13 - 11 = 12.0, zero slack, CONFIRMED under simulator base-cost model). Skill S1 auto (attack-SP, planner-safe); no manual activation. Upper bound 474: caper-only route-1 kill = first-attack + 330 < 805.",
+        "Frames 431-459 (route-3 block window; contact facts, not FIRE deadlines): if route-1 is dead (cooperation estimate ~441-460: talr ~8-9 hits by 450 plus caper 3 hits), talr re-blocks route-3 on [8,5] before it leaves at 459; combined ~641 eDPS kills route-3 at ~600-660 << 941 (slack >= 280 frames, no exact timing required). If the handoff or cooperation fails live, concede route-3 (1 life); talr is free by ~500-720 regardless and the queue re-syncs at route-4.",
+        "By frame 725: nothin @ [5,1] (6 DP; DP(725) = 34.17 - 23 = 11.17, no refund needed) solos route-7: 374/hit vs 100 DEF, ~10 hits; takes 118/hit, ~13-hit buffer (enemy interval UNKNOWN; OPT_MEDIC if margins fail verification).",
+        "Frame 729: A05 OMITTED. No distinct third duelist exists (strong on cooldown until ~1140; wscoot block is skill-gated; only talr/nothin supplied). Route-6 conceded (1 life, leak ~790). [6,1] re-established by redeployed strong before route-14 (~3600).",
+        "Frame 660+: route-8 has zero legal interception tiles (IR_04 empty); conceded by default (1 life) unless the verifier proves roadblock-diverted coverage makes it cheaply killable (COND_ROUTE8). No resources spent on it otherwise.",
+        "Frames 750-941: route-4 pocket arrivals (spawn 750/1050) held by talr and killed by talr+caper (~154 frames/kill cooperating; 324 caper-only). wscoot stays in reserve: its blocking is manual-skill-gated and is never load-bearing before 941."
+      ],
+      "operational_plan_id": "R8OP-A1-BLOCK1-COOP-ANCHOR390",
+      "optional_responsibilities": [
+        {
+          "detail": "cost<=13 medic on a FORM_01-legal high tile covering [5,1]/[8,5]; only if enemy attack intervals falsify the hit-count survival buffers; uses a free reserve slot, post-725",
+          "id": "OPT_MEDIC",
+          "role": "SUSTAIN"
+        },
+        {
+          "detail": "post-941 pocket depth inside manual skill windows; never mandatory; deployment timed so a skill window covers train arrivals (timing TBD by verifier)",
+          "id": "OPT_WSCOOT_W03",
+          "role": "CONDITIONAL_DEPTH"
+        },
+        {
+          "detail": "post-941 only, off-path tile ([9,4] class), contingent on refund/upkeep/ammo UNKNOWNs being priced; no path tile, ever",
+          "id": "OPT_BATTERY",
+          "role": "ECONOMY"
+        },
+        {
+          "detail": "strong redeploys ~1140; [6,1] re-established before route-14 (~3600); verifier checks exact merchant redeploy time",
+          "id": "OPT_STRONG_RETURN",
+          "role": "REBUILD"
+        },
+        {
+          "detail": "if the verifier finds a second supplied-coverage tile for [8,5] (e.g., from [9,5] or [6,5] high ground), a cheap ranged unit may add cooperation fire; NOT required by any contract",
+          "id": "OPT_COOP_INSURANCE",
+          "role": "FIRE_INSURANCE"
+        }
+      ],
+      "parent_hypothesis_id": "R8HYP-A-MERGED-ANCHOR",
+      "pressure_window_responsibilities": [
+        "W01 (0-390): strong owns C03/route-2; talr owns C01 pocket block from 191; no pioneer anywhere; no manual skill.",
+        "ESTABLISH (390-474): caper lands on [9,2] DOWN from natural regen; strong retreats once (upkeep bound + redeploy timer, not refund).",
+        "HANDOFF (431-500): route-1 dies (cooperation ~441-460; floors: caper-only <=804, talr-solo ~500); route-3 blocked <=459 or conceded.",
+        "W02_CRUNCH (600-790): nothin @ [5,1] by 725 owns route-7; route-6 conceded (729); route-8 conceded-or-chipped per COND_ROUTE8; route-3 (if held) dies ~600-660.",
+        "QUEUE (750-941): route-4 held and cleared by talr+caper; deployment count peaks at 4 of 8; zero further mandatory spending preserves the zero-slack 390 ledger.",
+        "POST-941 continuity: caper anchors C07/train; strong returns ~1140 for [6,1] by route-14; wscoot optional depth with manual-skill windows (conditional, never mandatory); battery and [6,2] heavy deferred until refund/upkeep semantics are priced."
+      ],
+      "reserve_strategy": {
+        "dp_reserve": "zero discretionary spending after 725; zero-slack at 390 acknowledged; all refund/upkeep upside banked, never pre-spent",
+        "fallback_concessions": [
+          "route-3 (only if cooperation/handoff fails)",
+          "route-7 (only under worst-case priced upkeep)"
+        ],
+        "life_margin": ">=2 certified opening case; >=1 absolute worst case",
+        "lives_total": 5,
+        "planned_concessions": [
+          "route-6 (default, structural)",
+          "route-8 (default unless COND_ROUTE8)"
+        ],
+        "slot_reserve": "4 of 8 deployment slots free through 941"
+      },
+      "route_responsibilities": [
+        "route-1 (spawn 0, [8,5] 191-219): blocked by talr from 191; killed by talr+caper ~441-460 (cooperation), caper-only <= first-attack+330 (<805 from establishment <=474), or talr-solo ~500 (redundant floor if caper is delayed/absent). <805 certified without cooperation.",
+        "route-2 (spawn 0, [3,3] by 27): strong solos with basic attacks, dead ~390-420.",
+        "route-3 (spawn 240, [8,5] 431-459): handoff block by talr after route-1 dies; killed ~600-660 by talr+caper (<941, slack >=280). Cooperation-dependent; fallback = concede 1 life and re-sync at route-4.",
+        "route-4 (spawn 750/1050): held by talr at [8,5], killed by talr+caper, one kill per ~154 frames cooperating; exact contact frames are a verifier question.",
+        "route-6 (spawn 600, leak ~790): CONCEDED by default (structural); [6,1] rebuilt by redeployed strong before route-14 (~3600).",
+        "route-7 (spawn 630, [5,1] at 725, only tile): nothin solos; survival race flagged (enemy interval UNKNOWN; OPT_MEDIC insurance).",
+        "route-8 (spawn 660, no legal tiles): conceded by default unless COND_ROUTE8 diversion proof; zero spending otherwise.",
+        "route-9/18/28 train and C07 (post-941): caper remains the anchor; pacing re-derived after refund/upkeep/targeting UNKNOWNs resolve."
+      ],
+      "selected_affordance_ids": [
+        "IR_01",
+        "IR_03",
+        "IR_05",
+        "IR_06",
+        "SC_01",
+        "OE_02",
+        "FT_01",
+        "FT_02",
+        "IR_04",
+        "FORM_01"
+      ],
+      "skill_intents": [
+        "caper S1 (auto, attack-SP, planner-safe/GENERIC_SUPPORTED): the 2.3x-every-4th cycle is already the 305.9 avg/hit model; NO manual activation load-bearing anywhere in 0-941.",
+        "strong/talr/nothin: BASIC ATTACKS ONLY. Their S1/S2 are UNSUPPORTED fidelity and are not load-bearing; all kill/survival arithmetic above uses base ATK and the confirmed max(0.05A, A-DEF) formula.",
+        "wscoot: excluded from the mandatory 0-941 chain because its blocking and attacking exist only inside manual skill windows (trait: no attack, block 0 until skill); any post-941 use is conditional and manual (CMF-3 relaxed only outside the mandatory chain).",
+        "CMF-3 retained for the mandatory opening: no ACTIVATE_SKILL step is required for any 0-941 responsibility."
+      ],
+      "tactical_thesis": "Plan A's merged-anchor idea survives, but the frame 0-941 opening must be rebuilt on three corrections. (1) The [8,5] pocket holder is a block-1 merchant (talr primary, nothin mirror) whose basic attacks are part of the fire plan, because the only block-2 candidate (wscoot) neither blocks nor attacks without a manual skill it cannot ready before route-1 leaks at 219 (S1 earliest ready = deploy+240 even from a frame-0 deploy). (2) The anchor is caper locked at [9,2] facing DOWN (the only verified coverage of [8,5]; angel/aprl are geometrically excluded), funded by natural regen at frame ~390 (ledger: 10+13-11=12.0 DP, zero refund assumed). Frame 250 is abandoned as a deadline: it was an artifact of the 13-DP prefix plus caper-only plus continuous-hold assumptions, and is unaffordable under ANY prefix that also blocks route-1 (it would allow at most 1.33 DP of pre-anchor spending beyond the stub). Instead, route-1's <805 contract is certified redundantly (caper-only from any establishment <=474 gives kill at first-attack+330; talr solo kills at ~500 regardless), and route-3's <941 contract is certified by holder cooperation (~641 eDPS combined, kill ~600-660) inside the 431-459 block window, with a budgeted concession if cooperation cannot be certified. (3) A05/route-6 is conceded by default: two simultaneous duelist slots cannot be filled by one live talr, strong is on redeploy cooldown (~390 to ~1140), and wscoot is disqualified - the concession is structural, not economic, and does not depend on the refund UNKNOWN. All merchant exposure is bounded (<=2 concurrent, retreat-on-job-done), and every claim depending on refund, upkeep, roadblock legality, target ordering or client timing is quarantined into conditional branches with life-budget fallbacks (default 2 leaks of 5; worst certified case 3; absolute worst under real upkeep 4, margin >=1).",
+      "temporary_roles": [
+        {
+          "exit": "single legal retreat after route-2 confirmed dead; NO refund assumed; redeploy timer ~750 frames => available ~1140",
+          "role": "C03 stub",
+          "unit_class": "char_272_strong",
+          "window": "frame <=27 to ~390-420"
+        },
+        {
+          "exit": "none before 941; bounded upkeep exposure flagged (COND_UPKEEP)",
+          "role": "pocket holder",
+          "unit_class": "char_4155_talr",
+          "window": "~181-191 through 941 (post-941 handoff to wscoot optional/conditional)"
+        },
+        {
+          "exit": "n/a",
+          "role": "W06/route-14 return body",
+          "unit_class": "redeployed strong",
+          "window": "~1140 onward; [6,1] by route-14 (~3600)"
+        }
+      ],
+      "unknown_dependencies": [
+        {
+          "plan_handling": "not assumed anywhere; anchor funded by natural regen (DP(390)=12.0 exact); any refund is banked upside",
+          "unknown": "retreat refund amount and to-account frame"
+        },
+        {
+          "plan_handling": "concurrency <=2; retreat-on-job-done (strong ~400); single long-hold merchant (talr); degradation order pre-committed under COND_UPKEEP; worst-case not certified",
+          "unknown": "merchant upkeep semantics (blackboard interval 3.0 / cost -3.0)"
+        },
+        {
+          "plan_handling": "COND_ANCHOR_TILE: route-1 survives via talr solo ~500; route-3 concession; no destruction agent assigned as mandatory",
+          "unknown": "[9,2] roadblock occupancy legality / destruction timing"
+        },
+        {
+          "plan_handling": "route-3's <941 contract carried by cooperation with >=280 frames of slack; the frames-tight 431-459 handoff is explicitly conditional with a concession fallback, never mandatory",
+          "unknown": "exact target ordering and client attack timing"
+        },
+        {
+          "plan_handling": "survival expressed only as hit-count buffers (strong ~18, talr ~21, nothin ~13); OPT_MEDIC insurance",
+          "unknown": "enemy attack intervals (uoffcr/uterer)"
+        },
+        {
+          "plan_handling": "establishment given as a window [390,474], not a point; sub-window [390,~420] protects the handoff",
+          "unknown": "caper deploy-to-first-attack delay and full loopshooter range shape"
+        },
+        {
+          "plan_handling": "no contract rests on them; caper S1 shows ammo null and is planner-safe",
+          "unknown": "ammo runtime / talents / full damage cooperation"
+        },
+        {
+          "plan_handling": "plan is self-contained on the verified facts above; tables treated as advisory only",
+          "unknown": "historical selected-usage table generation commit"
+        },
+        {
+          "plan_handling": "805/941 respected as queue-contract deadlines; post-805 pacing flagged to verifier",
+          "unknown": "route-4+ exact [8,5] contact frames"
+        }
+      ],
+      "verification_questions": [
+        "Is [9,2] deployable while trap_020_roadblock#2 occupies it; if destroy-first, what is the earliest destruction frame achievable by the supplied roster and the resulting caper establishment?",
+        "Exact enemy attack intervals for uoffcr/uterer, to convert the hit-count buffers (strong 18, talr 21, nothin 13) into survival proofs for the 191-500, 725-1025 windows.",
+        "When two enemies are held on/near [8,5], does caper's targeting stay on route-1 until death and does the holder's melee stay on the blocked enemy (i.e., is the ~641 eDPS cooperation certifiable)?",
+        "caper's deploy-to-first-attack delay in the client: does establishment at 390-420 keep route-1 dead by <=459 for the route-3 block handoff?",
+        "Merchant trait exact semantics: is there a -3 DP / 3 s upkeep while deployed, and is retreat refund zero for strong/talr/nothin? (Needed only to price post-941 economy; the mandatory opening requires neither.)",
+        "Full loopshooter range of caper from [9,2] DOWN (which cells beyond [8,5]) and whether any supplied ranged unit covers [8,5] from another high tile ([9,5]/[6,5]/[7,5]) as cooperation insurance.",
+        "route-4 (spawn 750/1050) exact [8,5] contact frames to validate the post-805 queue under block-1.",
+        "Do the [3,1]/[7,4]/[5,3] roadblocks divert route-8 through any supplied-coverage cells, and with what coverage duration (COND_ROUTE8)?",
+        "Exact merchant redeploy time for strong: is [6,1] re-establishment by ~3600 (route-14) certified?",
+        "Is the selected-usage table's original generation commit recoverable; until then this plan is self-contained."
+      ]
+    }
+  ],
+  "uncertainties": [
+    {
+      "handling": "never assumed; banked if realized",
+      "impact": "could fund faster post-941 build",
+      "name": "retreat refund amount/to-account frame"
+    },
+    {
+      "handling": "<=2 concurrent merchants; strong retreated ~400; COND_UPKEEP degradation order; worst case not certified",
+      "impact": "could make long merchant holds unsustainable (worst case ~-3 DP/3s each)",
+      "name": "merchant upkeep semantics"
+    },
+    {
+      "handling": "COND_ANCHOR_TILE; route-1 certified without caper; route-3 concession budgeted",
+      "impact": "could delay or deny the caper anchor",
+      "name": "[9,2] roadblock occupancy/destruction"
+    },
+    {
+      "handling": "handoff explicitly conditional; route-3's <941 kill itself carries >=280 frames of slack once blocked; concession fallback",
+      "impact": "the 431-459 block handoff is frames-tight (~0-18 frames)",
+      "name": "exact target ordering and client attack timing"
+    },
+    {
+      "handling": "hit-count buffers only (18/21/13); OPT_MEDIC insurance",
+      "impact": "survival races for strong/talr/nothin unproven",
+      "name": "enemy attack intervals"
+    },
+    {
+      "handling": "window-based establishment ([390,474]) rather than a point frame; verifier questions",
+      "impact": "shifts establishment inside the window; train pacing post-941",
+      "name": "caper deploy-to-first-attack delay / loopshooter full range / ammo / talents"
+    },
+    {
+      "handling": "805/941 respected as contract deadlines; pacing flagged to verifier",
+      "impact": "post-805 queue depth under block-1",
+      "name": "route-4+ exact contact frames"
+    },
+    {
+      "handling": "plan self-contained on verified facts",
+      "impact": "historical usage may not reflect current data",
+      "name": "selected-usage table provenance (UNKNOWN commit)"
+    }
+  ]
+}

@@ -93,3 +93,7 @@ NEXT_MILESTONE：审查后确定的唯一下一项有界工作及验收条件。
 ## 十一、当前边界（2026-10-09）
 
 `R8_1_PLAN_A_OPENING_WITNESS_V1` 是有界复验：Plan A qualified opening 组合为 0，stage-prefix 模拟为 0。295 仍是 route-3 最早接敌事实，不是 FIRE establishment deadline。退款与关键 trait 语义保持 UNKNOWN/UNSUPPORTED；结论只约束当前 Plan A 开局 witness，不升格为全战略不可行。
+
+## 十二、当前边界（2026-10-10）
+
+`R8OP-A1-BLOCK1-COOP-ANCHOR390` 是唯一一次授权 Kimi-K3 修订的产物。有界校验只产生条件性动作候选，不产生 faithful witness，不运行阶段模拟。WIN 仍为硬目标；任何局部通过都不等于 WIN。
