@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 import unittest
+from unittest.mock import patch
+import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +80,34 @@ class PlanAOpeningWitnessTests(unittest.TestCase):
         self.assertTrue(conflicts)
         self.assertNotIn("GLOBAL_PLAN_INFEASIBLE", {row["classification"] for row in conflicts})
         self.assertEqual("PASS", self.result["validation"]["status"])
+
+    def test_missing_generator_is_explicit_provenance_unknown(self):
+        module = load_module()
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
+            with patch.object(module, "GENERATION_CODE", Path(folder) / "absent.py"):
+                provenance = module.fidelity_provenance()
+        self.assertEqual("MISSING_FROM_CHECKOUT", provenance["generation_code_provenance"]["current_local_code"]["status"])
+        self.assertFalse(provenance["generation_code_provenance"]["original_version_confirmed"])
+
+    def test_multihit_diagnostic_is_not_a_damage_bound(self):
+        module = load_module()
+        operator = {"attack": 100, "attack_interval_seconds": 1,
+                    "skill_sp_cost": 1, "skill_effect": {
+                        "next_attack_atk_scale": 2, "next_attack_hit_count": 2}}
+        # Simulator cycle: one normal attack gains SP, next skill attack has
+        # two separate hits, each paying DEF. 50 + 2*150 over two seconds.
+        cycle_damage_per_second = (50 + 2 * 150) / 2
+        self.assertNotEqual(cycle_damage_per_second, module.effective_dps(operator, defense=50))
+        for row in self.result["frontier"]["candidates"]:
+            if row["slot_id"] == "A03_MERGED_ANCHOR":
+                self.assertEqual("DIAGNOSTIC_APPROXIMATION_NOT_DAMAGE_BOUND", row["capability_checks"]["evidence_status"])
+                self.assertNotIn("ANCHOR_EFFECTIVE_DPS_BELOW_PLAN_FLOOR", row["qualification_blockers"])
+
+    def test_cost_cap_ledger_does_not_prove_candidate_deficit(self):
+        # Existing tested caper costs 12, rather than the ledger's 15 cap.
+        self.assertAlmostEqual(2.3, 10 + 729 / 30 + 5 - (5 + 8 + 12 + 6 + 6))
+        self.assertEqual("COST_CAP_EXAMPLE_NOT_ECONOMIC_LOWER_BOUND", self.result["ledger"]["evidence_status"])
+        self.assertTrue(any("COND_ROUTE6" in row for row in self.result["ledger"]["limitations"]))
 
 
 if __name__ == "__main__":

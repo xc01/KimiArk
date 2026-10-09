@@ -12,3 +12,5 @@
 8. 2026-10-09 CONFIRMED_FROM_CODE：selected-usage fidelity 仍必须检查实际依赖的 trait；ammo `atk_scale`、“技能未开时 block 0”、merchant cost/interval 都是 decision-critical 时不得因 aggregate selected-skill metadata 一刀切放行。缺表导致的 pool 数量差异不能通过人工增删干员抹平。
 
 7.2026-10-09 CONFIRMED_FROM_CODE：source-reverification的candidate pool须具fidelity/census输入证据；缺失时BLOCKED，测试不得覆盖历史artifact。接敌事实与plan-specific FIRE deadline分离；下一阶段用一个现有计划的有限局部witness推进，不继续增加泛化审查层。
+
+- 23a623a independent review: capability averages and cost caps cannot serve as finite-window damage certificates or economic lower bounds. Preserve conditional concession branches; record missing provenance without inventing files/hash; runtime UNSUPPORTED is an evidence gap, not game impossibility.

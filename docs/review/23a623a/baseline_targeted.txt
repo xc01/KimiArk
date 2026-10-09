@@ -1,0 +1,30 @@
+setUpClass (tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/53d759038d4f/KimiArk/tests/test_r8_1_plan_a_opening_witness_v1.py", line 23, in setUpClass
+    cls.result = load_module().build(write_artifacts=False)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_plan_a_opening_witness_v1.py", line 633, in build
+    "provenance": fidelity_provenance(),
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_plan_a_opening_witness_v1.py", line 116, in fidelity_provenance
+    "current_local_code": file_record(GENERATION_CODE),
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_plan_a_opening_witness_v1.py", line 49, in file_record
+    "sha256": sha256(path),
+              ^^^^^^^^^^^^
+  File "/workspace/scratch/53d759038d4f/KimiArk/scripts/run_r8_1_plan_a_opening_witness_v1.py", line 40, in sha256
+    with path.open("rb") as stream:
+         ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/53d759038d4f/KimiArk/scripts/build_operator_runtime_fidelity.py'
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.440s
+
+FAILED (errors=1)

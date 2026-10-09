@@ -113,7 +113,11 @@ def fidelity_provenance() -> dict[str, Any]:
         "evidence_class": "CONFIRMED_FROM_CODE_FOR_LOCAL_FILES_AND_HASHES",
         "original_generation_commit": "UNKNOWN_ORIGINAL_GENERATION_COMMIT",
         "generation_code_provenance": {
-            "current_local_code": file_record(GENERATION_CODE),
+            "current_local_code": file_record(GENERATION_CODE) if GENERATION_CODE.is_file() else {
+                "path": str(GENERATION_CODE.relative_to(ROOT)),
+                "status": "MISSING_FROM_CHECKOUT",
+                "sha256": None,
+            },
             "current_code_would_emit": "ACTIVE_MECHANICS_VERSION",
             "original_version_confirmed": False,
             "reason": (
@@ -191,11 +195,12 @@ def snhunt_audit(
             "source_file": "output/operator_runtime_fidelity_v1/all_operator_census.json",
         },
         "damage_floor_check": {
+            "evidence_status": "DIAGNOSTIC_APPROXIMATION_NOT_DAMAGE_BOUND",
             "required_effective_dps_vs_def_150": 450.0,
             "skill_effective_dps_without_trait": no_trait,
-            "initial_ammo_skill_effective_dps_lower_bound_with_trait": with_trait,
+            "initial_ammo_skill_effective_dps_approximation_with_trait": with_trait,
             "without_trait_meets_floor": bool(no_trait is not None and no_trait >= 450.0),
-            "with_trait_lower_bound_meets_floor": bool(with_trait is not None and with_trait >= 450.0),
+            "with_trait_approximation_meets_floor": bool(with_trait is not None and with_trait >= 450.0),
         },
         "classification": "REJECTED_BY_SELECTED_USAGE_FIDELITY",
         "policy": "Do not add or remove this operator solely to match the historical count 21.",
@@ -354,6 +359,13 @@ def dp_ledger() -> dict[str, Any]:
             "A05_WITH_FULL_COST_REFUND_DEFICIT": 0.7000000000000028,
             "A05_WITHOUT_REFUND_DEFICIT": 5.700000000000003,
         },
+        "evidence_status": "COST_CAP_EXAMPLE_NOT_ECONOMIC_LOWER_BOUND",
+        "limitations": [
+            "A03 uses its 15-DP cap, not the tested 11/12-DP candidate costs.",
+            "Merchant upkeep is not modeled; these candidates are not qualified.",
+            "COND_ROUTE6 permits omitting A05 before 941 if its refund condition fails.",
+            "Neither branch proves Plan A infeasible or supplies a faithful witness.",
+        ],
         "is_witness": False,
     }
 
@@ -411,6 +423,7 @@ def build(*, write_artifacts: bool = True) -> dict[str, Any]:
         geometry = geometry_check(operator, origin=(9, 2), required_tiles=anchor_required_tiles)
         effective = effective_dps(operator)
         capability = {
+            "evidence_status": "DIAGNOSTIC_APPROXIMATION_NOT_DAMAGE_BOUND",
             "required_effective_dps_vs_def_150": 450.0,
             "calculated_effective_dps_vs_def_150": effective,
             "meets_damage_floor": bool(effective is not None and effective >= 450.0),
@@ -427,7 +440,7 @@ def build(*, write_artifacts: bool = True) -> dict[str, Any]:
         )
         blockers = list(record["qualification_blockers"])
         if not capability["meets_damage_floor"]:
-            blockers.append("ANCHOR_EFFECTIVE_DPS_BELOW_PLAN_FLOOR")
+            blockers.append("ANCHOR_EXACT_DAMAGE_CONTRACT_UNVERIFIED")
         if not geometry["any_direction_satisfies_all_required_tiles"]:
             blockers.append("ANCHOR_GEOMETRY_CANNOT_COVER_REQUIRED_POCKET_TILE_8_5")
         record["qualification_blockers"] = sorted(set(blockers))
@@ -539,8 +552,8 @@ def build(*, write_artifacts: bool = True) -> dict[str, Any]:
                 "slot_id": "A03_MERGED_ANCHOR",
                 "classification": "NO_SOURCE_QUALIFIED_ANCHOR_IN_BUDGET",
                 "evidence": [
-                    "All top-3 auto-skill anchors available under the selected-usage table have effective DPS below the plan's 450 floor vs 150 DEF.",
-                    "The plan exemplar snhunt would meet the skill-only floor, but is excluded because its ammo/trait atk_scale is unsupported and decision-critical.",
+                    "Top-3 anchors have diagnostic average DPS below 450, but the formula is not a verified finite-window damage bound; exact damage remains UNKNOWN.",
+                    "The exemplar snhunt exceeds 450 in the same diagnostic approximation; its ammo/trait remains unsupported and decision-critical.",
                     "Only one of the three tested anchors has a direction that covers [8,5]; the other two also fail the plan's pocket geometry.",
                 ],
             }
@@ -607,10 +620,11 @@ def build(*, write_artifacts: bool = True) -> dict[str, Any]:
         "stage_prefix_simulations": simulations,
         "scoped_conflicts": scoped_conflicts,
         "learned_next_tactical_input": (
-            "Plan A's opening cannot receive a faithful witness under current evidence because the merged "
-            "anchor lacks a supported candidate, its [9,2] geometry does not cover [8,5], and the required "
-            "stub refund remains unconfirmed. This is a scoped revision input for Kimi, not proof that the "
-            "whole strategic concept is impossible."
+            "No faithful witness was constructed in this bounded gate audit. Two tested anchors cannot "
+            "cover [8,5] from [9,2]; caper can. Exact finite-window damage, critical traits and refund "
+            "remain unverified. The cost-cap DP example does not prove an economic lower bound, and "
+            "COND_ROUTE6 must preserve its concession branch. These are scoped facts and system "
+            "limitations, not proof of tactical infeasibility."
         ),
         "kimi_calls": 0,
         "new_operational_plans": 0,

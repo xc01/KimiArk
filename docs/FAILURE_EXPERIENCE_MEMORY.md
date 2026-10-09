@@ -43,3 +43,6 @@ REPORTED_BY_PREVIOUS_WORKER：保留 `output/r8_1_constraint_informed_revision_v
 ## REVIEW-FIDELITY-003：缺表静默扩大候选池
 
 CONFIRMED_FROM_CODE；适用于load_fidelity_tables缺任一表的fresh checkout。证据review/f1a1c7d/：无fidelity/census时已保存21候选变22，新增char_4211_snhunt；原测试仅非空断言仍通过。原因是缺表静默跳过trait/talent检查，不能把其pool当忠实候选。修复本轮reverification缺表BLOCKED并保持候选UNKNOWN。局限：不证明新增干员不合法，也不证明计划不可行；必须恢复原表并逐职责核对selected usage。
+
+## EXP-23A-REVIEW: 限定前轮反例
+CONFIRMED_FROM_CODE: DPS原始平均公式非逐击有限窗口伤害界；账本15为A03成本上限而候选11/12；COND_ROUTE6有让路分支。旧低于450与0.7/5.7缺口仅诊断，不能作为计划不可行。适用范围为该公式与示例成本/退款分支；不证明任何候选可行。wscoot未开技能阻挡0与无技能dam职责冲突仅适用于该实例；merchant运行时未支持是验证缺口，不等于真实战术不可行。

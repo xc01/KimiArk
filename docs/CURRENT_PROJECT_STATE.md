@@ -38,3 +38,11 @@ CONFIRMED_FROM_CODE：remote master 与 HEAD 核实；12 个 manifest 文件 has
 原定向29/29重现，修复后31/31；compileall/diff-check PASS。fresh 基线 unittest Ran67，32 PASS、1 failure、34 errors；除 pytest 外还缺 GameData/fidelity/若干历史 outputs，不把worker87/94认作fresh clone结果。日志及证据见 review/f1a1c7d/。
 
 下一阶段只做现有 Plan A 的0–941开局 witness，预算与验收见 NEXT_MILESTONE。无 Kimi/新增计划/阶段计划模拟/新 WIN。
+
+## 最新独立审查：23a623a（覆盖前述当前决定）
+
+CONFIRMED_FROM_CODE：实际 fetch/ls-remote 核实 master=23a623ae4960c0095d71f1f28ca5d3d782e642c1；两表真实存在、hash 与305项匹配。Plan A 是候选 gate audit，12为数量乘积，未枚举执行；无 witness/模拟。
+
+fresh checkout 缺 build_operator_runtime_fidelity.py，原7项Plan A测试在初始化失败。最小修复为来源缺失显式UNKNOWN；定向41/41通过。DPS公式不是有限窗口伤害上/下界；15-DP账本不是实际候选经济下界；A05条件让路未计算。caper能覆盖[8,5]，不能声称全部几何不覆盖。历史artifacts保持不变，失效结论由本段与review报告约束。
+
+wscoot技能未开阻挡0的description与计划无技能依赖dam矛盾；merchant upkeep/ammo/refund等运行时仍未证实。不能把未支持机制推广成战术失败。先完成NEXT_MILESTONE中的固定候选契约计算，无Kimi/V4/扩搜。worker全量96/103仅REPORTED_BY_PREVIOUS_WORKER；本轮无完整测试通过声明。
