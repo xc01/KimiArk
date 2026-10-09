@@ -134,8 +134,25 @@ def diagnostic_prefix_conflict(
     }
 
 
-def build() -> dict[str, Any]:
-    OUT.mkdir(parents=True, exist_ok=True)
+def fidelity_input_evidence(root: Path = ROOT) -> dict[str, Any]:
+    records = []
+    for name in ("all_operator_fidelity.json", "all_operator_census.json"):
+        path = root / "output/operator_runtime_fidelity_v1" / name
+        present = path.is_file()
+        count = len(load(path).get("operators", [])) if present else 0
+        records.append({
+            "path": str(path.relative_to(root)),
+            "present": present,
+            "operator_count": count,
+            "sha256": sha256(path) if present else None,
+        })
+    return {"complete": all(row["present"] and row["operator_count"] > 0 for row in records),
+            "records": records}
+
+
+def build(*, write_artifacts: bool = True) -> dict[str, Any]:
+    if write_artifacts:
+        OUT.mkdir(parents=True, exist_ok=True)
     context = load(CONTEXT)
     catalog = load(CATALOG)
     plan_payload = load(PLANS)
@@ -147,6 +164,7 @@ def build() -> dict[str, Any]:
     v3_module = import_v3_module()
     repair_module = v3_module.import_repair()
     repair_module.load_fidelity_tables()
+    fidelity_inputs = fidelity_input_evidence()
     operator_costs = {
         row["operator_id"]: float(row["cost"]) for row in context["operators"]
     }
@@ -165,7 +183,7 @@ def build() -> dict[str, Any]:
             repair_module,
             slot,
             [item for other in plan_payload["plans"] for item in other["compiler_slots"]],
-        )
+        ) if fidelity_inputs["complete"] else None
         certificate = next(
             row for row in certificate_payload["records"] if row["operational_plan_id"] == plan_id
         )
@@ -188,8 +206,9 @@ def build() -> dict[str, Any]:
                     and "route-3" in affordance["served_routes"]
                     and set(slot.get("pressure_window", [])) <= set(affordance["pressure_windows"])
                 ),
-                "candidate_pool_size": len(pool),
-                "candidate_pool_ids": [row["operator_id"] for row in pool],
+                "candidate_pool_status": "DIAGNOSTIC_ONLY" if pool is not None else "UNKNOWN_MISSING_FIDELITY_INPUTS",
+                "candidate_pool_size": len(pool) if pool is not None else None,
+                "candidate_pool_ids": [row["operator_id"] for row in pool] if pool is not None else None,
                 "plan_text_timing": narrative_timing(plan),
                 "mandatory_invariants": plan["mandatory_tactical_invariants"],
                 "frame_295_semantics": {
@@ -236,6 +255,7 @@ def build() -> dict[str, Any]:
         "schema_version": "R8_1_V3_SOURCE_EVIDENCE_MANIFEST_V1",
         "mechanics_version": "m18.9-stage-device-runtime-v1",
         "stage_id": "main_08-01",
+        "fidelity_inputs": fidelity_inputs,
         "source_files": {
             key: file_record(ROOT / path)
             for key, path in {
@@ -299,6 +319,7 @@ def build() -> dict[str, Any]:
     validation = {
         "schema_version": "R8_1_V3_SOURCE_EVIDENCE_REVERIFICATION_VALIDATION_V1",
         "checks": {
+            "fidelity_inputs_complete": fidelity_inputs["complete"],
             "route3_contact_evidence_agreement": contact_facts["agreement"],
             "three_target_plans_present": len(records) == 3,
             "affordance_references_valid": all(row["affordance_reference_valid"] for row in records),
@@ -316,7 +337,12 @@ def build() -> dict[str, Any]:
         },
         "status": "PASS",
     }
-    validation["status"] = "PASS" if all(validation["checks"].values()) else "FAIL"
+    validation["status"] = (
+        "PASS" if all(validation["checks"].values()) else
+        ("FAIL" if any(not passed for name, passed in validation["checks"].items()
+                       if name != "fidelity_inputs_complete")
+         else "BLOCKED_MISSING_FIDELITY_INPUTS")
+    )
     final_status = {
         "schema_version": "R8_1_V3_SOURCE_EVIDENCE_REVERIFICATION_FINAL_STATUS_V1",
         "status": validation["status"],
@@ -330,10 +356,11 @@ def build() -> dict[str, Any]:
         "mechanics_changed": False,
         "real_game_validation": "UNTESTED",
     }
-    write("source_evidence_manifest.json", manifest)
-    write("v3_source_evidence_reverification.json", audit)
-    write("validation_results.json", validation)
-    write("final_status.json", final_status)
+    if write_artifacts:
+        write("source_evidence_manifest.json", manifest)
+        write("v3_source_evidence_reverification.json", audit)
+        write("validation_results.json", validation)
+        write("final_status.json", final_status)
     return {"manifest": manifest, "audit": audit, "validation": validation, "final_status": final_status}
 
 
