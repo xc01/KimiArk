@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "caper_finite_damage_route1_only_under_model": true,
+    "cond_route6_preserved": true,
+    "fixed_candidates_only": true,
+    "historical_artifacts_unchanged": true,
+    "no_kimi_call_or_new_plan": true,
+    "no_stage_simulation": true,
+    "no_witness_claimed": true,
+    "structural_combinations_within_budget": true
+  },
+  "schema_version": "R8_1_PLAN_A_FIXED_CONTRACT_VALIDATION_V1",
+  "status": "PASS",
+  "test_results": [
+    {
+      "command": "python3 -m compileall -q scripts src tests",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=src:scripts python3 -m unittest tests.test_r8_1_plan_a_fixed_candidate_contract_v1 tests.test_r8_1_plan_a_opening_witness_v1 tests.test_r8_1_v3_source_evidence_reverification tests.test_v3_frame295_review_regression tests.test_r8_1_constraint_informed_tactical_revision_v3 scripts.test_kimi_responses_transport -v",
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_run": 48
+    },
+    {
+      "command": "historical artifact SHA-256 comparison against docs/review/23a623a/historical_artifact_hashes.json",
+      "exit_code": 0,
+      "files_checked": 6,
+      "status": "PASS"
+    }
+  ]
+}

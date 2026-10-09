@@ -46,3 +46,11 @@ CONFIRMED_FROM_CODE：实际 fetch/ls-remote 核实 master=23a623ae4960c0095d71f
 fresh checkout 缺 build_operator_runtime_fidelity.py，原7项Plan A测试在初始化失败。最小修复为来源缺失显式UNKNOWN；定向41/41通过。DPS公式不是有限窗口伤害上/下界；15-DP账本不是实际候选经济下界；A05条件让路未计算。caper能覆盖[8,5]，不能声称全部几何不覆盖。历史artifacts保持不变，失效结论由本段与review报告约束。
 
 wscoot技能未开阻挡0的description与计划无技能依赖dam矛盾；merchant upkeep/ammo/refund等运行时仍未证实。不能把未支持机制推广成战术失败。先完成NEXT_MILESTONE中的固定候选契约计算，无Kimi/V4/扩搜。worker全量96/103仅REPORTED_BY_PREVIOUS_WORKER；本轮无完整测试通过声明。
+
+## 最新有界计算：Plan A 固定候选开局契约
+
+CONFIRMED_FROM_CODE：审查补丁已合入为 `491a9a0`；真实 `scripts/build_operator_runtime_fidelity.py` 已确认存在，SHA-256 `ab63a4e52f9d5ef3e6bd4c0be53af812eff67dcf9849b8200942adead50b7212`，并随本轮上传。原始表生成 commit 仍为 `UNKNOWN_ORIGINAL_GENERATION_COMMIT`。
+
+CONFIRMED_FROM_CODE（当前模拟器公式与确定性上下文）：只使用旧候选 1/1/3/2/2 并实际枚举 12 个结构组合。caper 从 [9,2] DOWN 可覆盖 [8,5]；angel/aprl 不可覆盖。caper 逐击、attack-SP 计算在 450 帧部署时 route-1 第 12 击于 780 帧完成；随后 route-3 于 810 开火、1140 帧完成，错过 941。若两个目标均被持续挡在 [8,5]，双期限要求 route-1 最晚 250 帧开火，route-3 在 610–940 完成。
+
+CONFIRMED_FROM_CODE（base-cost model）：frame-250 前缀 A01+A02 后可用 DP 5.333；aprl 11 成本缺 5.667，caper/angel 12 成本缺 6.667。无退款、base-cost 分支中 A04 在 725 可支付；A05 在 729 不可支付，因此保留 COND_ROUTE6 false 分支：省略 A05 并让 route-6。退款与 merchant 实际经济仍 UNKNOWN。`trap_020_roadblock#2` 占据 [9,2]，anchor 部署合法性 UNKNOWN。没有 faithful witness，阶段模拟 0 次；这不是全战略不可行。

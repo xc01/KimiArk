@@ -46,3 +46,10 @@ CONFIRMED_FROM_CODE；适用于load_fidelity_tables缺任一表的fresh checkout
 
 ## EXP-23A-REVIEW: 限定前轮反例
 CONFIRMED_FROM_CODE: DPS原始平均公式非逐击有限窗口伤害界；账本15为A03成本上限而候选11/12；COND_ROUTE6有让路分支。旧低于450与0.7/5.7缺口仅诊断，不能作为计划不可行。适用范围为该公式与示例成本/退款分支；不证明任何候选可行。wscoot未开技能阻挡0与无技能dam职责冲突仅适用于该实例；merchant运行时未支持是验证缺口，不等于真实战术不可行。
+
+## PLAN-A-FIXED-CONTRACT-001: 有限窗口与固定候选经济
+
+- 状态：CONFIRMED_FROM_CODE for simulator/base-cost model；真实游戏结果 UNKNOWN。
+- 条件：仅限 Plan A 固定候选、[9,2] origin、[8,5] 目标、route-1/route-3 当前确定性上下文、1 秒攻击、attack-SP cycle、模拟器 target ordering 和 A02 持续阻挡假设。若目标不停留在 [8,5]，caper 也不能同时完成两个 3300 HP 契约。
+- 事实：caper 在 450 帧部署时 route-1 780 帧击杀，但 route-3 810–1140 帧击杀，超过 941。双期限模型要求 A03 最晚 250 帧开火；该前缀可用 DP 5.333，aprl 缺 5.667，caper/angel 缺 6.667。angel/aprl 缺少 [8,5] 覆盖。
+- 限制：[9,2] roadblock 部署、退款、merchant 成本/upkeep、真实 target ordering、技能调度和 Exact GameData timing 未证实；当前 UNSUPPORTED 是证据缺口，不是游戏不可行证明。该经验只用于条件性反馈，不触发无授权 V4。
