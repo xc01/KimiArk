@@ -1,0 +1,49 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_latest_model_interception_considers_the_last_revisit ___________
+
+    def test_latest_model_interception_considers_the_last_revisit():
+        route = Route(
+            "loop", (Waypoint(4, 3), Waypoint(3, 3), Waypoint(4, 3), Waypoint(3, 3), Waypoint(4, 3), Waypoint(9, 1)),
+            tuple(RouteWait(float(d), 4.0) for d in range(5)),
+        )
+        fixture = SimpleNamespace(
+            stage=SimpleNamespace(routes=(route,)),
+            spawn_timeline=(SimpleNamespace(route_id="loop", time=0.0, count=1, interval=0.0, enemy_id="enemy"),),
+            enemies={"enemy": SimpleNamespace(stats=SimpleNamespace(move_speed=known(1.1, "synthetic/review", "$.speed")))},
+            operators={},
+        )
+        understanding = SimpleNamespace(
+            routes=(SimpleNamespace(route_id="loop", exact_cells=((3, 3), (4, 3)), lane_id="lane"),),
+            deployable_ground=((3, 3), (4, 3)), deployable_high_ground=(),
+        )
+        result = build_early_threat_model(SimpleNamespace(fixture=fixture), understanding, early_window=SimpleNamespace(route_ids=("loop",)))
+        row = result.routes[0]
+        assert row.earliest_operator_contact_frame == 0
+>       assert row.latest_interception_tile == (4, 3)
+E       assert (3, 3) == (4, 3)
+E         
+E         At index 0 diff: 3 != 4
+E         Use -v to get more diff
+
+tests/test_route_revisit_review_regressions.py:31: AssertionError
+____ test_late_deployment_can_block_a_revisited_tile_in_the_public_runtime _____
+
+    def test_late_deployment_can_block_a_revisited_tile_in_the_public_runtime():
+        stage = replace(synthetic_stage(), routes=(Route("main", (Waypoint(0, 1), Waypoint(4, 1), Waypoint(0, 1), Waypoint(6, 1))),))
+        state = SimulationState(5.0, 10.0, 3)
+        simulator = Simulator()
+        strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 5.0, "guard", (3, 1)),))
+        simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+        simulator._spawn(state, synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
+        enemy = state.active_enemies["slug#0"]
+        enemy.distance = 5.0
+        simulator._advance_enemies(state, stage, 0.1)
+>       assert enemy.blocked_by == "guard"
+E       AssertionError: assert None == 'guard'
+E        +  where None = RuntimeEnemy(instance_id='slug#0', enemy_id='slug', route_id='main', hp=100.0, speed=1.0, life_point_reduce=1, defense..., attack_stand_until=0.0, attack_windup_started=False, max_hp=100.0, hp_recovery_per_second=0.0, normal_attack_count=0).blocked_by
+
+tests/test_route_revisit_review_regressions.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_route_revisit_review_regressions.py::test_latest_model_interception_considers_the_last_revisit
+FAILED tests/test_route_revisit_review_regressions.py::test_late_deployment_can_block_a_revisited_tile_in_the_public_runtime

@@ -78,3 +78,8 @@ bc14455独立fetch/HEAD及18manifest条目核实，3563事件账本一致。REPO
 ## 2026-10-10 开局路线静态事实实验
 
 CONFIRMED_FROM_CODE：`scripts/build_r8_1_opening_route_spatial_facts_v1.py`从固定GameData重建route-1/2/3/4/6/7/8；输出见`output/r8_1_opening_route_spatial_facts_v1/`。核心结果见CURRENT_PROJECT_STATE。`run_manifest.json`记录11个源/输出文件hash并在本轮复验PASS。compileall PASS；pytest在系统和`.venv`中均UNAVAILABLE_NOT_INSTALLED，因此以只读函数调用执行7项新增断言，并以unittest执行2项既有route-contact/leak回归，全部PASS。真实关卡模拟0。
+
+
+## 2026-10-11 Work审查1223c03（覆盖冲突旧结论）
+
+1223c03独立检出/远端HEAD，11manifest及固定level源hash匹配。route2旧latest147与自己记录589矛盾，两个公共首次访问消费者最小修复；2行为回归旧FAIL后PASS。原7断言复验；修后64定向+5静态adapter共69PASS。本轮真实关卡模拟0/Kimi0。静态确认route2/6/7/8直连段均有FLY_ONLY内部反例，历史outputs不改。

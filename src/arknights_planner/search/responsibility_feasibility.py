@@ -154,7 +154,7 @@ def build_early_threat_model(
         ]
         speed = min(speeds) if speeds else 0.0
         route_cells = sorted(
-            ((cell, route.distance_at(cell)) for cell in exact_cells.get(route_id, ())),
+            ((cell, distance) for cell in exact_cells.get(route_id, ()) for distance in route.distances_at(cell)),
             key=lambda item: (item[1] if item[1] is not None else math.inf, item[0]),
         )
         contact_rows = [

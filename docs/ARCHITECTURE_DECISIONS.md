@@ -48,3 +48,8 @@ CONFIRMED_FROM_CODE：serialized map数组行需翻转；路线和predefines场�
 ## 公共路线与方向契约（2026-10-10）
 
 CONFIRMED_FROM_CODE：`Route.distances_at`保存每个到达同一格的折线距离，仅合并相邻重复；`time_at_distance`只累加严格早于目标距离的WAIT。这避免把一次经过的距离误用于重复阶段，也不把目标处等待当作已到达。`ApproximateRealRangeTransformer`使用bottom-left field坐标；`CanonicalSyntheticRangeTransformer`继续保持自身y-down约定。两套约定分开测试，不互相伪装。
+
+
+## 2026-10-11 Work审查1223c03（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：Route.distances_at不能只用于新目录，公共威胁与模拟器须使用全部访问。旧latest_safe_blocker_frame在本批数据只是条件格中心到达摘要，不是真实部署硬期限。通行检查必须覆盖连续路径，不能以tile中心枚举证明WALK可走；真实阻挡半径未建模时不得认证无拦截。

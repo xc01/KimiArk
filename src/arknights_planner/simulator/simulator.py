@@ -595,9 +595,9 @@ class Simulator:
                     continue
                 if len(operator.blocked_enemy_ids) >= self._effective_block(operator):
                     continue
-                blocking_distance = route.distance_at(operator.tile)
-                if blocking_distance is not None and start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
-                    candidates.append((blocking_distance, operator))
+                for blocking_distance in route.distances_at(operator.tile):
+                    if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
+                        candidates.append((blocking_distance, operator))
             if candidates:
                 blocking_distance, holder = min(candidates, key=lambda item: (item[0], item[1].operator_id))
                 enemy.distance = blocking_distance

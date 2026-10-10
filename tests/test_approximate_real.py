@@ -44,7 +44,7 @@ def test_approximate_mode_requires_explicit_policy(adapter):
 
 @pytest.mark.parametrize(
     ("direction", "expected"),
-    (("RIGHT", {(6, 5)}), ("DOWN", {(5, 6)}), ("LEFT", {(4, 5)}), ("UP", {(5, 4)})),
+    (("RIGHT", {(6, 5)}), ("DOWN", {(5, 4)}), ("LEFT", {(4, 5)}), ("UP", {(5, 6)})),
 )
 def test_approximate_real_range_transform_has_explicit_four_facing_rule(direction, expected):
     # Raw real cell (row=0, col=1) is treated as one forward cell only by this approximation.

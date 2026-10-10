@@ -232,7 +232,7 @@ def early_threat_facts(fixture: Any) -> dict[str, Any]:
     return {
         "frame_clock": model.frame_clock,
         "routes": [vars(item) | {"wait_schedule": list(item.wait_schedule)} for item in model.routes if item.route_id in ROUTE_IDS],
-        "limitation": "Threat frames are unblocked public Route movement with source waits; blocking remains conditional UNKNOWN after contact.",
+        "limitation": "Threat frames, including the legacy latest_safe_blocker_frame field, describe unblocked public polyline point arrivals with source waits. They are not client deployment deadlines or proof that no real interception exists; navigation, non-centre blocking and behavior while waiting remain unverified.",
     }
 
 
@@ -289,7 +289,7 @@ def b2_plan_mismatches(fixture: Any, structure: Any, facts: dict[str, Any]) -> d
         "invalidated_plan_inputs": [
             {
                 "old_input": "route-1 latest_safe_blocker_frame=191 at [8,5]",
-                "new_fact": "route-1 follows y=1 through [3,1]..[8,1]; [8,5] is not on route-1. 191 is instead the unblocked route-3 arrival at [8,1].",
+                "new_fact": "route-1 follows y=1 through [3,1]..[8,1]; [8,5] is not on route-1. 191 is route-3's modeled travel duration to [8,1], not its absolute arrival frame: spawn 240 plus travel gives 431.",
                 "status": "OLD_INPUT_INVALID",
             },
             {
