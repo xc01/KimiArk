@@ -162,13 +162,20 @@ class Simulator:
                 cost = max(0.0, self._number(stats.cost, "deployment cost") + operator.deployment_cost_delta)
                 if state.dp + self._EPSILON < cost: legal, reason = False, "insufficient DP"
         tile_text = "none" if action.tile is None else f"{action.tile[0]},{action.tile[1]}"
-        self._emit(state, EventType.DEPLOY, source=action.operator_id, legal=legal, tile=tile_text)
         if not legal:
+            self._emit(
+                state, EventType.DEPLOY, source=action.operator_id, legal=False,
+                tile=tile_text, reason=reason,
+            )
             state.deployment_errors.append(f"{action.operator_id}@{action.time}: {reason}")
             return
         stats = operator.phases[0].stats_max
         skill = operator.synthetic_skill
         state.dp -= cost
+        self._emit(
+            state, EventType.DEPLOY, source=action.operator_id, legal=True, tile=tile_text,
+            cost=cost, dp_after=state.dp,
+        )
         runtime = RuntimeOperator(
             operator_id=action.operator_id, tile=action.tile, direction=action.direction,
             hp=self._number(stats.max_hp, "operator hp"), max_hp=self._number(stats.max_hp, "operator hp"),

@@ -48,6 +48,8 @@ def test_deployment_legality_and_dp_cost():
     result = run(strategy)
     deployment = events(result, EventType.DEPLOY)[0]
     assert ("legal", True) in deployment.details
+    assert ("cost", 5.0) in deployment.details
+    assert ("dp_after", 5.0) in deployment.details
     assert result.deployment_errors == ()
 
     illegal = run(Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (0, 1), "RIGHT"),)))

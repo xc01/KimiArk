@@ -93,3 +93,9 @@ UNKNOWN/UNVERIFIED：route-1/route-3有限窗口击杀、route-4 handoff和漏�
 ## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
 
 最新独立审查基线1e92747，详review/1e92747/REVIEW.md。CONFIRMED_FROM_CODE：低星34人事实目录含17三星；公共机制尚未全支持。B2六部署局部候选，faithful=0。旧941余额0结论被更正为条件模型10.3667；仍非17。敌人基础间隔2.0/1.5及MELEE有源。下一项仅同一候选一次固定前缀诊断，不再调用Kimi或新增战术。
+
+## 2026-10-10 固定前缀模型诊断
+
+CONFIRMED_FROM_CODE：审查补丁已合入为 `23482f7`。固定GameData中 `enemy_1107_uoffcr` level0基础攻击间隔2.0秒、`enemy_1108_uterer` level0为1.5秒；attackSpeed均为100、applyWay均为MELEE，`level_main_08-01` 两项 `overwrittenData=null`。已保存B2六动作通过公共adapter/runtime运行到941边界：0漏怪、3击杀、生命5、剩余DP约10.3667、4名活跃敌人、0干员死亡。route-2/route-1/route-3分别于576/691/881模型击杀；route-4于887被接敌；route-6/7/8到941未漏但仍在场。
+
+MODEL_LIMITATION：本次只分类为 `DIAGNOSTIC_MODEL_PREFIX`，不是faithful executable timeline，也不是WIN。Friston-3减伤、GALLUS²减抗/优先目标、Kroos概率暴击均省略；客户端攻击前摇和精确取整UNKNOWN。事件时间取1/30秒公共模拟tick，不是客户端观测帧。定向直接函数测试48/48通过；pytest不可用。

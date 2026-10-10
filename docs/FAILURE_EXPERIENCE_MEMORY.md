@@ -83,3 +83,9 @@ CONDITIONAL/UNKNOWN：Friston-3、GALLUS²、Kroos的unsupported天赋不作为�
 ## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
 
 CONFIRMED_FROM_CODE：B2所谓941余额0反例失效，原0属于630；条件模型941为10.3667，成本37而非计划30。不能向Kimi反馈为无法支付新反例。GALLUS²天赋带目标排序，不具备“删天赋自然保守”的证明；效果依赖UNKNOWN。敌人基础间隔2.0/1.5及MELEE已有固定源，本轮输入遗漏不是游戏机制UNKNOWN。
+
+## 2026-10-10 固定前缀执行经验
+
+CONFIRMED_FROM_CODE：在公共近似模型和显式省略指定unsupported天赋下，B2六动作到941没有造成漏怪；route-1/2/3分别于691/576/881击杀，route-4于887接敌，route-6/7/8仍活跃。事件证实芬于570获得6 DP，941剩余约10.3667。
+
+CONDITIONAL/UNKNOWN：以上时刻依赖模型时序、目标选择、instant projectile、zero windup、量化spawn与省略机制，不能当作真实客户端击杀帧。Friston-3减伤、GALLUS²减抗/优先目标和Kroos概率效果省略；客户端前摇与取整仍UNKNOWN。不能把0漏怪/生命5升格为WIN或真实战术证明。
