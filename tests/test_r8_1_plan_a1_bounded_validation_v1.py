@@ -4,6 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import copy
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,6 +80,31 @@ class PlanA1BoundedValidationTests(unittest.TestCase):
         self.assertEqual("NOT_EXECUTED_BY_THIS_VALIDATOR", self.validation["test_execution_status"])
         self.assertEqual("BOUNDED_VALIDATION_COMPLETE_CONDITIONAL_ACTION_CANDIDATE_NO_FULL_WITNESS", self.status["status"])
         self.assertFalse(self.status["faithful_witness"])
+
+    def test_cooperation_keeps_attack_and_sp_sequence_across_handoff(self):
+        module = load_module()
+        trace = module.combined_sequence(module.load(module.CENSUS))
+        caper = [row for route in trace.values() for row in route["events"] if row["source"] == "char_4100_caper"]
+        self.assertEqual(list(range(390, 601, 30)), [row["attack_frame"] for row in caper])
+        self.assertEqual(["NORMAL", "NORMAL", "NORMAL", "SKILL"] * 2, [row["kind"] for row in caper])
+        self.assertEqual(194, trace["route_3"]["events"][0]["damage_after_def"])
+        self.assertEqual(450, trace["route_3"]["events"][0]["attack_frame"])
+
+    def test_changed_plan_tile_cannot_pass_unchanged_hardcoded_actions(self):
+        module = load_module()
+        plan = copy.deepcopy(self.plan)
+        plan["deployment_positions_and_directions"][2]["tile"] = [6, 2]
+        certificate = module.operational_certificate(plan, module.load(module.CENSUS))
+        validation = module.validate(plan, module.candidate_frontier(), certificate)
+        self.assertEqual("FAIL", validation["status"])
+        self.assertFalse(validation["checks"]["selected_actions_match_plan_default_units_and_tiles"])
+
+    def test_conditional_arithmetic_is_not_ready_for_prefix_simulation(self):
+        module = load_module()
+        certificate = module.operational_certificate(self.plan, module.load(module.CENSUS))
+        self.assertFalse(certificate["witness"]["prefix_simulation_ready"])
+        self.assertIn("COND_UPKEEP", certificate["witness"]["unresolved_execution_guards"])
+        self.assertEqual("CONDITIONAL_ARITHMETIC_NOT_STAGE_EXECUTION_CERTIFICATE", certificate["finite_window_damage"]["evidence_status"])
 
 
 if __name__ == "__main__":

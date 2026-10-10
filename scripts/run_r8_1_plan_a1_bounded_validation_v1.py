@@ -93,47 +93,34 @@ def caper_cycle_events(first_attack: int, count: int = 16) -> list[dict[str, Any
 
 
 def combined_sequence(census: dict[str, Any]) -> dict[str, Any]:
+    """Conditional arithmetic: continuous targets, instant hits, fixed cooldowns.
+
+    Retain every actual attack/SP cycle across the target handoff. This is not
+    an execution trace from the stage simulator or proof of blocking legality.
+    """
     talr = census_operator(census, "char_4155_talr")
-    talr_damage = physical_damage(float(talr["base_atk"]), 150.0)
-    caper_events = caper_cycle_events(390, count=16)
-    route_1_events = []
+    damage = physical_damage(float(talr["base_atk"]), 150.0)
+    events = [
+        {"attack_frame": frame, "source": "char_4155_talr", "damage_after_def": round(damage, 6)}
+        for frame in range(191, 942, 30)
+    ] + [dict(event, source="char_4100_caper") for event in caper_cycle_events(390, count=19)]
+    events.sort(key=lambda event: (event["attack_frame"], event["source"]))
+    route_index = 0
     remaining = 3300.0
-    caper_index = 0
-    talr_frame = 191
-    while remaining > 0 and caper_index < len(caper_events):
-        caper = caper_events[caper_index]
-        caper_index += 1
-        damage = caper["damage_after_def"]
-        while talr_frame <= caper["attack_frame"]:
-            remaining -= talr_damage
-            route_1_events.append({"attack_frame": talr_frame, "source": "char_4155_talr", "damage_after_def": round(talr_damage, 6), "remaining_hp": round(max(0, remaining), 6)})
-            talr_frame += 30
-            if remaining <= 0:
-                break
+    traces: list[list[dict[str, Any]]] = [[], []]
+    for event in events:
+        if route_index == 1 and event["attack_frame"] < 431:
+            continue
+        remaining = max(0.0, remaining - event["damage_after_def"])
+        traces[route_index].append(dict(event, remaining_hp=round(remaining, 6)))
         if remaining <= 0:
-            break
-        remaining -= caper["damage_after_def"]
-        route_1_events.append({"attack_frame": caper["attack_frame"], "source": "char_4100_caper", "damage_after_def": caper["damage_after_def"], "kind": caper["kind"], "remaining_hp": round(max(0, remaining), 6)})
-    route_1_kill = max(row["attack_frame"] for row in route_1_events if row["remaining_hp"] == 0)
-    route_3_events = []
-    remaining = 3300.0
-    talr_frame = 461
-    caper_index = 3
-    while remaining > 0:
-        next_talr = talr_frame
-        next_caper = caper_events[caper_index]["attack_frame"] if caper_index < len(caper_events) else 10**12
-        if next_talr <= next_caper:
-            remaining -= talr_damage
-            route_3_events.append({"attack_frame": next_talr, "source": "char_4155_talr", "damage_after_def": round(talr_damage, 6), "remaining_hp": round(max(0, remaining), 6)})
-            talr_frame += 30
-        else:
-            caper = caper_events[caper_index]
-            caper_index += 1
-            remaining -= caper["damage_after_def"]
-            route_3_events.append({"attack_frame": caper["attack_frame"], "source": "char_4100_caper", "damage_after_def": caper["damage_after_def"], "kind": caper["kind"], "remaining_hp": round(max(0, remaining), 6)})
+            route_index += 1
+            if route_index == 2:
+                break
+            remaining = 3300.0
     return {
-        "route_1": {"assumption": "BOTH_TARGETS_HELD_ON_TILE_8_5", "events": route_1_events, "kill_frame": route_1_kill},
-        "route_3": {"assumption": "ROUTE_1_KILLED_BY_450_AND_TALR_REBLOCKS_ROUTE_3_WITHIN_431_459", "events": route_3_events, "kill_frame": max(row["attack_frame"] for row in route_3_events if row["remaining_hp"] == 0)},
+        "route_1": {"assumption": "ROUTE_1_HELD_ON_TILE_8_5", "events": traces[0], "kill_frame": traces[0][-1]["attack_frame"]},
+        "route_3": {"assumption": "ROUTE_1_DEAD_AND_ROUTE_3_REBLOCKED_AT_431; CONTINUOUS_TARGET_HANDOFF", "events": traces[1], "kill_frame": traces[1][-1]["attack_frame"]},
     }
 
 
@@ -254,7 +241,7 @@ def operational_certificate(plan: dict[str, Any], census: dict[str, Any]) -> dic
             "A05": {"branch": "OMITTED_DEFAULT_CONCESSION", "pass": True},
         },
         "finite_window_damage": {
-            "evidence_status": "CONFIRMED_UNDER_CURRENT_SIMULATOR_FORMULAS_WITH_EXPLICIT_CONDITIONS",
+            "evidence_status": "CONDITIONAL_ARITHMETIC_NOT_STAGE_EXECUTION_CERTIFICATE",
             "nothin_route_7_blocked": {"events": nothin_route_7, "kill_frame": nothin_route_7[-1]["attack_frame"]},
             "caper_only_route_1_if_first_attack_474": {"events": caper_only_route_1, "kill_frame": caper_only_route_1[-1]["attack_frame"], "pass_route_1_before_805": caper_only_route_1[-1]["attack_frame"] < 805},
             "strong_route_2_blocked": {"events": strong_route_2, "kill_frame": strong_route_2[-1]["attack_frame"]},
@@ -275,6 +262,8 @@ def operational_certificate(plan: dict[str, Any], census: dict[str, Any]) -> dic
         "schema_version": "R8_1_PLAN_A1_OPERATIONAL_CERTIFICATE_V1",
         "witness": {
             "complete_faithful_witness": False,
+            "prefix_simulation_ready": False,
+            "unresolved_execution_guards": ["COND_ANCHOR_TILE", "COND_UPKEEP", "COND_COOP_ROUTE3", "COND_MEDIC"],
             "conditional_action_candidate": True,
             "reasons_not_full_witness": [
                 "COND_ANCHOR_TILE: [9,2] roadblock deployment legality UNKNOWN",
@@ -289,8 +278,15 @@ def operational_certificate(plan: dict[str, Any], census: dict[str, Any]) -> dic
 def validate(plan: dict[str, Any], frontier: dict[str, Any], certificate: dict[str, Any]) -> dict[str, Any]:
     catalog_ids = {row["affordance_id"] for row in load(CATALOG)["affordances"]}
     known_operators = {row["operator_id"] for row in load(CENSUS)["operators"]}
+    actions = certificate["action_candidate"]["actions"]
+    deployments = [row for row in actions if row["action_type"] == "DEPLOY"]
+    plan_deployments = [row for row in plan["deployment_positions_and_directions"] if row["unit"] != "(omitted)"]
     checks = {
-        "action_candidate_direction_complete": certificate["action_candidate"]["direction_complete"],
+        "selected_actions_match_plan_default_units_and_tiles": [
+            (row["operator"], row["tile"]) for row in deployments
+        ] == [(row["unit"], row["tile"]) for row in plan_deployments],
+        "unresolved_guards_block_prefix_simulation": not certificate["witness"]["prefix_simulation_ready"],
+        "action_candidate_direction_complete": all(row.get("direction") in {"UP", "DOWN", "LEFT", "RIGHT"} for row in deployments),
         "all_plan_operators_known": all(row["unit"] in known_operators for row in plan["deployment_positions_and_directions"] if row["unit"] != "(omitted)"),
         "at_most_one_action_candidate": True,
         "budget_respected": all(count <= 3 for count in frontier["candidate_counts"].values()) and len(frontier["combinations"]) <= 16,

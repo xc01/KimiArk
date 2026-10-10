@@ -1,11 +1,16 @@
-# 当前入口：审查 R8OP-A1 条件动作候选
+# 唯一下一里程碑：A1 固定候选的执行前提核实
 
-基线：d9304bb 审查补丁已合入为 `8a2a0d3`；Kimi-K3 已完成唯一一次 Plan A 开局修订，确定性有界校验完成。
+基线51e0410经Work独立审查；先合入本轮review patch。当前不批准前缀模拟。保留R8OP-A1-BLOCK1-COOP-ANCHOR390，不调用Kimi、不新增计划、不扩大候选或搜索。
 
-目标：外部审查模型核对真实请求/响应、`R8OP-A1-BLOCK1-COOP-ANCHOR390`、2 个 distinct 组合、1 条动作候选、DP/逐击证书与 UNKNOWN。审查通过后可决定是否执行一条固定前缀模拟。
+目标：针对原5个动作，核实直接决定合法性/经济的两项前提，形成可执行候选或有证据的局部阻塞；不新建通用审计框架。
 
-关键证据：`output/r8_1_plan_a_bounded_kimi_revision_v4/llm_request.json`、`llm_raw_response.txt`、`llm_structured_output.json`，以及 `output/r8_1_plan_a1_bounded_validation_v1/`。
+1. 商人经济：strong@27至390、talr@191持续、nothin@725；用固定GameData的trait与可核实机制证据确认维护费用量、首扣帧、扣费周期、DP不足的行为及相关被动。GameData是主事实源，PRTS《游戏数据基础》《作战机制》及具体干员页可补充；记录具体来源、版本、原文/字段及解释，不能只从cost=-3/interval=3猜完整执行语义。明确退款仍不依赖。
+2. Roadblock占格：核实trap_020_roadblock#2与[9,2]是否禁止caper部署、设备存在/销毁状态及其机制依据。检查当前部署合法性函数为何只看干员占格；有明确事实且确认bug时最小修复及小型回归。禁止先让设备消失或猜测可部署来求通过。
+3. 仅对同一固定时间线重算合法性/DP；按Kimi原有COND_UPKEEP/COND_ANCHOR_TILE标明条件真/假/UNKNOWN及对应职责。不能把条件分支仅写在说明里、动作仍无条件部署。此轮不擅自为Kimi新增拆路障或替换干员战术；需要这些改变时保存阻塞待后续Kimi决定。
+4. 协同证据使用修复后连续攻击序列，保留真实targeting/reblock/生存未知。两组合只证明distinct选择，镜像没有单独伤害证书，不能伪称全部已验证。
 
-必须审查的边界：[9,2] roadblock 部署合法性、退款金额与到账帧、merchant cost/upkeep、真实 target ordering、Exact GameData timing、route-3 handoff 和 route-6/route-8 concession 生命周期。这些保持 UNKNOWN；不得升格为战术不可行。
+预算：原主候选1条；关卡模拟0；Kimi0；新计划0；不扫描全干员、不改变部署帧/阵型求解。允许源事实查询、纯账本计算和小型机制回归。
 
-禁止：再次调用 Kimi、新增 OperationalPlans、扩大模拟搜索、修改无证据机制、将本轮条件候选说成 faithful witness 或 WIN。无 WIN 声明。
+验收：每项执行前提有来源与明确状态；真实维护费账本与设备合法性检查可复验；未知明确阻断faithful声明。若固定候选被证据否定，说明哪个假设/帧/职责失效及对战术的影响；不推广为战略不可能。若机制源不足，提交具体缺失证据，不继续堆叠验证器。
+
+历史artifacts保持，新证据独立保存，输入/源码hash、测试日志及六份长期文档上传GitHub。报告实际remote HEAD。完成后由Work判断是否需Kimi消化新反例，或具备执行单条固定前缀的条件。当前无WIN声明。

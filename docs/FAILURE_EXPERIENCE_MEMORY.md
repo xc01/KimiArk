@@ -62,3 +62,6 @@ CONFIRMED_FROM_CODE: 344ATK/1s/3normal+1skill(2.3x), two3300HP/150DEF continuous
 - 状态：Kimi 调用与新计划内容 CONFIRMED_FROM_CODE；战斗结果和真实机制 UNKNOWN。
 - 可复用经验：若 block-2 依赖未开技能，则不能同时承担“无技能阻挡”和“火力合作”。当同一 live duelist 无法占两个槽时，条件让路必须实际省略部署和成本，而不是只改文字。退款金额未确认时，自然 DP 前缀和假设退款账本必须分开。
 - 条件事实：在当前模拟器逐击公式、两目标持续被挡、当前 target ordering 和 talr+caper 同时开火的假设下，route-1 431、route-3 600 完成；这不是通用 FIRE deadline。若 cooperation、roadblock 部署或 merchant upkeep 未证实，计划必须回落到显式 concession。
+
+## EXP-51-A1：条件协同与执行前提
+CONFIRMED_FROM_CODE：连续源攻击流纠正450漏击，理想双目标handoff条件下route1=431/route3=600，非实际runtime证书。390零余量经济为无upkeep模型；任何未补偿的正费用会打破固定候选支付条件。设备占格与费用缺失不能通过当前模拟器结果自行排除。适用范围限该主候选和上述条件；no third duelist只针对prompt提供7干员，不是全游戏结论。新知识应反馈Kimi考虑维护费/合法位置/条件职责，Python不指定新打法。

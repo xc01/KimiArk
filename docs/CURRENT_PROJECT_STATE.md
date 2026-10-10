@@ -63,3 +63,8 @@ CONFIRMED_FROM_CODE（base-cost model）：frame-250 前缀 A01+A02 后可用 DP
 
 ## 最新独立审查：d9304bb
 CONFIRMED_FROM_CODE：实际fetch及remote HEAD核对；生成脚本hash与12个manifest输入一致；原定向48/48复现。780/1140与条件性250推导复算成立，但非通用FIRE期限。确认退款只在一行入账后丢失、A05省略仅文字、测试PASS硬编码三类程序缺陷并最小修复；定向52/52通过。hypothetical5退款在12-cost开局729为+2.3（不含upkeep），仍不是事实可行证书。12结构tuple中6个全部署分支重复duelist。历史artifacts保持，纠正计算在review/d9304bb/。无Kimi/关卡模拟；下一阶段一次Kimi-K3开局修订，详NEXT_MILESTONE。
+
+## 最新独立审查：51e0410
+CONFIRMED_FROM_CODE：remote HEAD核实；14manifest条目匹配；11.13MB SSE重放为kimi-k3 completed，与structured/request/prompt指纹一致。确认保存一份响应，不独立证明不存在其他历史调用。Kimi实际改变block1协同/让路/条件分支，学习进度为计划层进展。
+
+协同算式漏掉caper450攻击但480继续放技能；最小修复保留连续攻击/SP序列，条件性431/600击杀时间不变，伤害trace纠正。定向baseline59、修复62通过。固定动作不落实占格/upkeep/生存分支；添加明确prefix_simulation_ready=false。模拟器未处理active device占格及merchant upkeep，不能以模拟通过消除这些UNKNOWN。原prompt只供应7个干员，“无第三duelist”只对供应集合成立。历史output保持；下一步仅核实A1经济/占格执行前提，无Kimi/新计划/模拟。
