@@ -1,0 +1,451 @@
+{
+  "action_candidate": {
+    "actions": [
+      {
+        "action_type": "DEPLOY",
+        "direction": "LEFT",
+        "frame": 0,
+        "operator_id": "char_123_fang",
+        "tile": [
+          4,
+          3
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "DOWN",
+        "frame": 90,
+        "operator_id": "char_4093_frston",
+        "tile": [
+          8,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "LEFT",
+        "frame": 180,
+        "operator_id": "char_4227_gallus",
+        "tile": [
+          9,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 510,
+        "operator_id": "char_124_kroos",
+        "tile": [
+          7,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 570,
+        "operator_id": "char_285_medic2",
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 630,
+        "operator_id": "char_502_nblade",
+        "tile": [
+          5,
+          1
+        ]
+      }
+    ],
+    "classification": "SEMANTIC_COMPILE_CANDIDATE_WITH_NARRATIVE_DISCREPANCY",
+    "deployment_semantics_preserved": true,
+    "no_stage_simulation": true,
+    "operational_plan_id": "R8OP-B2-FANG43-FRSTON85-CROSSFIRE-OPEN0941",
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_DIRECTION_COMPLETE_ACTION_CANDIDATE_V1"
+  },
+  "budget_usage": {
+    "candidate_slots": [
+      {
+        "candidates": [
+          "char_123_fang",
+          "char_502_nblade",
+          "char_4093_frston"
+        ],
+        "selected": "char_123_fang",
+        "slot_id": "OPEN-1"
+      },
+      {
+        "candidates": [
+          "char_124_kroos",
+          "char_211_adnach"
+        ],
+        "selected": "char_124_kroos",
+        "slot_id": "ANCHOR_HIGH_GROUND_PHYSICAL"
+      },
+      {
+        "candidates": [
+          "char_285_medic2"
+        ],
+        "selected": "char_285_medic2",
+        "slot_id": "SUPPORT-1"
+      },
+      {
+        "candidates": [
+          "char_502_nblade",
+          "NO_DEPLOYMENT"
+        ],
+        "selected": "char_502_nblade",
+        "slot_id": "DOG-DELAY"
+      }
+    ],
+    "complete_combinations_evaluated": 1,
+    "direction_complete_candidates": 1,
+    "maximum_allowed_candidates_per_slot": 3,
+    "maximum_allowed_complete_combinations": 16,
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_BUDGET_USAGE_V1"
+  },
+  "deployment_legality": {
+    "mechanics_version": "m18.9-stage-device-runtime-v1",
+    "method": "Existing Simulator._deploy checked action-by-action; no Simulator.run() and no stage simulation was executed.",
+    "rows": [
+      {
+        "direction": "LEFT",
+        "frame": 0,
+        "legal": true,
+        "operator_id": "char_123_fang",
+        "reason": null,
+        "tile": [
+          4,
+          3
+        ]
+      },
+      {
+        "direction": "DOWN",
+        "frame": 90,
+        "legal": true,
+        "operator_id": "char_4093_frston",
+        "reason": null,
+        "tile": [
+          8,
+          5
+        ]
+      },
+      {
+        "direction": "LEFT",
+        "frame": 180,
+        "legal": true,
+        "operator_id": "char_4227_gallus",
+        "reason": null,
+        "tile": [
+          9,
+          5
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "frame": 510,
+        "legal": true,
+        "operator_id": "char_124_kroos",
+        "reason": null,
+        "tile": [
+          7,
+          5
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "frame": 570,
+        "legal": true,
+        "operator_id": "char_285_medic2",
+        "reason": null,
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "frame": 630,
+        "legal": true,
+        "operator_id": "char_502_nblade",
+        "reason": null,
+        "tile": [
+          5,
+          1
+        ]
+      }
+    ],
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_DEPLOYMENT_LEGALITY_V1"
+  },
+  "dp_ledger": {
+    "frame_clock": {
+      "frames_per_second": 30,
+      "status": "PROJECT_MAPPED_ACTION_CLOCK"
+    },
+    "mechanics_version": "m18.9-stage-device-runtime-v1",
+    "no_refunds_counted": true,
+    "no_upkeep_counted": true,
+    "rows": [
+      {
+        "amount": 10.0,
+        "available_after": 10.0,
+        "available_before": 10.0,
+        "event": "STAGE_INITIAL_DP",
+        "frame": 0,
+        "source": "deterministic_context.stage_facts.initial_cost"
+      },
+      {
+        "amount": 0.0,
+        "available_after": 10.0,
+        "available_before": 10.0,
+        "event": "NATURAL_DP",
+        "frame": 0,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "available_after": 0.0,
+        "available_before": 10.0,
+        "cost": 10.0,
+        "event": "DEPLOY_COST",
+        "frame": 0,
+        "operator_id": "char_123_fang",
+        "status": "PAID"
+      },
+      {
+        "amount": 3.0,
+        "available_after": 3.0,
+        "available_before": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 90,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "available_after": 0.0,
+        "available_before": 3.0,
+        "cost": 3.0,
+        "event": "DEPLOY_COST",
+        "frame": 90,
+        "operator_id": "char_4093_frston",
+        "status": "PAID"
+      },
+      {
+        "amount": 3.0,
+        "available_after": 3.0,
+        "available_before": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 180,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "available_after": 0.0,
+        "available_before": 3.0,
+        "cost": 3.0,
+        "event": "DEPLOY_COST",
+        "frame": 180,
+        "operator_id": "char_4227_gallus",
+        "status": "PAID"
+      },
+      {
+        "amount": 11.0,
+        "available_after": 11.0,
+        "available_before": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 510,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "available_after": 0.0,
+        "available_before": 11.0,
+        "cost": 11.0,
+        "event": "DEPLOY_COST",
+        "frame": 510,
+        "operator_id": "char_124_kroos",
+        "status": "PAID"
+      },
+      {
+        "amount": 2.0,
+        "available_after": 2.0,
+        "available_before": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 570,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "amount": 6.0,
+        "available_after": 8.0,
+        "available_before": 2.0,
+        "event": "AUTO_SKILL_DP",
+        "frame": 570,
+        "operator_id": "char_123_fang",
+        "source": "skcom_charge_cost[1] blackboard cost=6; initial_sp=6; sp_cost=25; ready at frame 570"
+      },
+      {
+        "available_after": 5.0,
+        "available_before": 8.0,
+        "cost": 3.0,
+        "event": "DEPLOY_COST",
+        "frame": 570,
+        "operator_id": "char_285_medic2",
+        "status": "PAID"
+      },
+      {
+        "amount": 2.0,
+        "available_after": 7.0,
+        "available_before": 5.0,
+        "event": "NATURAL_DP",
+        "frame": 630,
+        "source": "stage costIncreaseTime=1 second; explicit 30 FPS action clock"
+      },
+      {
+        "available_after": 0.0,
+        "available_before": 7.0,
+        "cost": 7.0,
+        "event": "DEPLOY_COST",
+        "frame": 630,
+        "operator_id": "char_502_nblade",
+        "status": "PAID"
+      }
+    ],
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_DP_LEDGER_V1"
+  },
+  "operator_checks": {
+    "rows": [
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_123_fang",
+        "overall_runtime_support": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "rarity": 3,
+        "runtime_gaps_excluded_from_load_bearing": []
+      },
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_4093_frston",
+        "overall_runtime_support": "NOT_PLANNER_SAFE",
+        "rarity": 1,
+        "runtime_gaps_excluded_from_load_bearing": [
+          "UNSUPPORTED_ACTIVE_TALENT"
+        ]
+      },
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_4227_gallus",
+        "overall_runtime_support": "NOT_PLANNER_SAFE",
+        "rarity": 1,
+        "runtime_gaps_excluded_from_load_bearing": [
+          "UNSUPPORTED_ACTIVE_TALENT"
+        ]
+      },
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_124_kroos",
+        "overall_runtime_support": "NOT_PLANNER_SAFE",
+        "rarity": 3,
+        "runtime_gaps_excluded_from_load_bearing": [
+          "UNSUPPORTED_ACTIVE_TALENT"
+        ]
+      },
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_285_medic2",
+        "overall_runtime_support": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "rarity": 1,
+        "runtime_gaps_excluded_from_load_bearing": []
+      },
+      {
+        "normal_mode_low_star": true,
+        "operator_id": "char_502_nblade",
+        "overall_runtime_support": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "rarity": 2,
+        "runtime_gaps_excluded_from_load_bearing": []
+      }
+    ],
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_OPERATOR_CHECKS_V1"
+  },
+  "semantic_certificate": {
+    "check_status": {
+      "ACTION_TIMELINE_DIRECTION_COMPLETE": true,
+      "ANCHOR_BLOCK_ESTABLISHED_BY_191": true,
+      "ANCHOR_TILE_LEGAL": true,
+      "DEPLOYMENT_DP_LEDGER_ALL_PAID": true,
+      "DEPLOYMENT_LIMIT": true,
+      "NO_DEPLOYMENT_ON_ACTIVE_ROADBLOCK": true,
+      "NO_MERCHANT_OR_UPKEEP": true,
+      "NO_REFUND_COUNTED": true,
+      "PLAN_NARRATIVE_BANKED_DP_CONSISTENT": false,
+      "ROUTE_2_BLOCK_ESTABLISHED_BY_27": true,
+      "ROUTE_7_DELAY_ESTABLISHED_BY_725": true
+    },
+    "classification": "SEMANTIC_COMPILE_CANDIDATE_WITH_NARRATIVE_DISCREPANCY",
+    "faithful_executable_timeline": false,
+    "ledger_final_dp": 0.0,
+    "narrative_discrepancy": {
+      "computed_final_dp": 0.0,
+      "plan_claim": "10 initial + ~31 natural + ~6 conditional (Fang skill) = ~47 total; 30 spent in-window; ~17 banked at f941",
+      "scope": "The structural actions and deadlines are preserved, but Kimi's banked-DP narrative is not accepted as factual."
+    },
+    "operationally_verified": false,
+    "reason_operationally_unverified": "Finite-window route-1/route-3 kill timing, route-4 handoff, and leak/life accounting were not simulated and remain UNKNOWN.",
+    "route_deadlines": {
+      "route-1": 191,
+      "route-2": 27,
+      "route-3": 431,
+      "route-4": 941,
+      "route-6": 729,
+      "route-7": 725,
+      "route-8": null
+    },
+    "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_SEMANTIC_CERTIFICATE_V1",
+    "stage_simulation": "NOT_RUN"
+  },
+  "source_manifest": {
+    "inputs": {
+      "output/normal_low_star_facts_v1/normal_low_star_facts.json": {
+        "bytes": 422387,
+        "sha256": "968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307"
+      },
+      "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json": {
+        "bytes": 56122,
+        "sha256": "46ffa2c343fb70042e49f88373e74a1c742ce70dfc2b48bdfe97cbf8075cafaf"
+      },
+      "output/r8_1_llm_tactical_context_v1/deterministic_context.json": {
+        "bytes": 462636,
+        "sha256": "d0097fd9b16ff7461feff7b2e973d6bb211b4bfba22717673db73e0ce0578ed1"
+      },
+      "output/r8_1_normal_low_star_tactical_revision_v1/llm_evidence_context.json": {
+        "bytes": 535173,
+        "sha256": "836a6af57a5eb74211b1d131feeca6c958c93c9f8d2f7a7f8ff6f82c859666ac"
+      },
+      "output/r8_1_normal_low_star_tactical_revision_v1/llm_raw_response.txt": {
+        "bytes": 11184448,
+        "sha256": "17366d58b97a240e9aa18eb64fd93ebaea32cf074168b6e5e670c184c7f60c9e"
+      },
+      "output/r8_1_normal_low_star_tactical_revision_v1/llm_structured_output.json": {
+        "bytes": 43985,
+        "sha256": "c99ed680a9c1ea3080bd0a3aacf22e541c1382b29d5a8a14501305cfe08a7a96"
+      },
+      "scripts/build_normal_low_star_facts.py": {
+        "bytes": 17230,
+        "sha256": "ca524f884276a2df5f55e1dec3bd0f680ca47c863ab7a15c06d48fc8bf0a3b1c"
+      },
+      "scripts/compile_r8_1_normal_low_star_plan_v1.py": {
+        "bytes": 17189,
+        "sha256": "51d30a240aa1976d6f492d36bf4b0a9537e124d5ae97d6fb7a775f1889ccbe2c"
+      },
+      "scripts/kimi_responses_transport.py": {
+        "bytes": 5970,
+        "sha256": "976983c8b58d0fb8ab46e7781ccb872f000ed1396435fd8e46df6dfd88003f65"
+      },
+      "scripts/run_r8_1_normal_low_star_kimi_revision_v1.py": {
+        "bytes": 17082,
+        "sha256": "80b950dffa5585782f8c7568b9d3b3bbe8b5ce5862a930144d7a0494e0ff92ec"
+      }
+    },
+    "mechanics_version": "m18.9-stage-device-runtime-v1",
+    "schema_version": "R8_1_NORMAL_LOW_STAR_BOUNDED_COMPILE_MANIFEST_V1"
+  }
+}

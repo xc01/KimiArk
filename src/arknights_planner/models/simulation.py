@@ -104,6 +104,9 @@ class RuntimeOperator:
     blocked_enemy_ids: list[str] = field(default_factory=list)
     damage_type: str = "PHYSICAL"
     attack_speed: float = 100.0
+    deployment_sp_bonus: float = 0.0
+    deployment_heal_all_value: float = 0.0
+    redeploy_time_delta: float = 0.0
     defense_penetration: float = 0.0
     defense_penetration_flat: float = 0.0
     magic_resist_penetration: float = 0.0

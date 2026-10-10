@@ -81,3 +81,10 @@ CONFIRMED_FROM_CODE：实际remote HEAD核实；下载固定character_table，ha
 维护费3秒3DP/不足自动撤退/不返费有源描述；路障格子重写不可部署得到PRTS支持。首扣仍UNKNOWN，207缺0.1及390缺9仅deploy+90假设的模型数字。COND_UPKEEP FALSE不可解读为费用不存在。pytest初始67PASS1FAIL为列表与元组断言，最小测试修正后68PASS，无公共机制改动。历史output保持。本轮无Kimi/关卡模拟；下一阶段为普通模式候选事实下的一次开局修订，无扩搜。
 
 用户追加调试硬约束：普通模式1～3星。A1的孑/跃跃4星、裁度/乌有5星不再合法调试人选。固定GameData资格集合34名，历史305表仅覆盖17名三星，不能把表缺项视为不能上场。事实清单在review/48fa985/normal_debug_1_to_3_star_roster.json；下一阶段一次低星开局修订，无4星以上自动放宽。
+## 2026-10-10：普通模式1～3星事实与一次Kimi修订
+
+CONFIRMED_FROM_CODE：审查补丁已合入为 `8cc612e`。固定GameData `0ef7f952dfd018392200157a5c79a6511ba69122` 下普通模式1～3星为34名（1星12、2星5、3星17），完整目录见 `output/normal_low_star_facts_v1/normal_low_star_facts.json`。3星基准为E1/最高源键、技能7级、潜能1、信赖0；1/2星为phase 0/最高源键。Kimi-K3恰好调用一次并成功返回一个计划 `R8OP-B2-FANG43-FRSTON85-CROSSFIRE-OPEN0941`。
+
+CONFIRMED_FROM_CODE：计划中6个DEPLOY动作在30 FPS映射、真实DP账本和占格检查下均合法：Fang[4,3]@0、Friston-3[8,5]@90、GALLUS²[9,5]@180、Kroos[7,5]@510、Lancet-2[6,5]@570、夜刀[5,1]@630。全部避开活跃roadblock格，无行商/upkeep/退款，账本以0 DP结束。Kimi的“约17 DP banked”叙事与实际0不一致，已单独保留为范围性叙事错误，不修改原计划。
+
+UNKNOWN/UNVERIFIED：route-1/route-3有限窗口击杀、route-4 handoff和漏怪生命账本未模拟；GALLUS²/Friston-3/Kroos的unsupported天赋未计入；AoE splash几何仍缺失。因此没有faithful executable timeline，阶段模拟0次，WIN声明为NOT_RUN。定向直接函数测试47/47通过；pytest不可用。

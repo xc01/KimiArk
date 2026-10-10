@@ -19,3 +19,8 @@
 ## 验收
 
 正常模式资格和1～3星输入/选择/动作检查可复验；测试必须能拒绝预备char_607_cspec及4星char_272_strong等越界实例；原始请求响应、模型调用记录、新计划与旧假设对照、普通可用候选源/hash、编译职责追踪、合法性/真实成本/几何/时序证据和真实测试日志上传GitHub。历史artifacts保持并标明失效范围；六份长期项目文档同步。报告实际远端HEAD、预算、witness与未决机制。Work完成下一轮源码审查后决定单条固定前缀模拟。无WIN声明。
+# 唯一下一里程碑：普通低星B2候选的审查后固定前缀模拟
+
+当前唯一候选是 `R8OP-B2-FANG43-FRSTON85-CROSSFIRE-OPEN0941`。它的6个DEPLOY、DP和占格编译合法，但未运行0–941阶段模拟，route-1/route-3击杀、route-4 handoff和漏怪生命账本未验证。Kimi的“约17 DP banked”与实际0 DP冲突，审查时不得采用。
+
+若Work批准模拟，只允许对已保存的一条方向完整候选运行一次0–941固定前缀验证；不得扩大搜索、新增候选、调用Kimi或修改战术。模拟必须分别记录route-2 arrest、route-1/route-3 kill、route-4 handoff、route-6/route-8 concession、route-7 delay、漏怪和生命。不支持机制保持不计入承重。WIN仍必须与roadblock robustness replay分开验证。

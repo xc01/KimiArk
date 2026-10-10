@@ -57,3 +57,6 @@ class Operator:
     attack_speed: float = 100.0
     maintenance_cost: float = 0.0
     maintenance_interval: float = 0.0
+    deployment_sp_bonus: float = 0.0
+    deployment_heal_all_value: float = 0.0
+    redeploy_time_delta: float = 0.0

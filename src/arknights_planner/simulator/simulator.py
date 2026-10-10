@@ -184,10 +184,21 @@ class Simulator:
             attack_speed=getattr(operator, "attack_speed", 100.0),
             maintenance_cost=operator.maintenance_cost,
             maintenance_interval=operator.maintenance_interval,
+            deployment_sp_bonus=operator.deployment_sp_bonus,
+            deployment_heal_all_value=operator.deployment_heal_all_value,
+            redeploy_time_delta=operator.redeploy_time_delta,
         )
+        if skill:
+            runtime.current_sp = min(skill.sp_cost, runtime.current_sp + runtime.deployment_sp_bonus)
         runtime.skill_ready = bool(skill and runtime.current_sp >= skill.sp_cost)
         runtime.next_maintenance_time = state.time + runtime.maintenance_interval
         state.deployed_operators[action.operator_id] = runtime
+        if runtime.deployment_heal_all_value:
+            for ally in state.deployed_operators.values():
+                healed = min(runtime.deployment_heal_all_value, ally.max_hp - ally.hp)
+                ally.hp += healed
+                self._emit(state, EventType.HEAL, source=runtime.operator_id, target=ally.operator_id,
+                           amount=healed, reason="deployment_heal_all")
         if runtime.skill_ready:
             self._emit(state, EventType.SKILL_READY, source=runtime.operator_id)
             if skill and skill.auto_activate:
@@ -214,7 +225,7 @@ class Simulator:
             if enemy:
                 self._unblock(state, enemy)
         del state.deployed_operators[operator_id]
-        state.redeploy_available_at[operator_id] = state.time + operator.redeploy_time
+        state.redeploy_available_at[operator_id] = state.time + max(0.0, operator.redeploy_time + operator.redeploy_time_delta)
         if death:
             state.operator_deaths += 1
             self._emit(state, EventType.OPERATOR_DEATH, source=operator_id)

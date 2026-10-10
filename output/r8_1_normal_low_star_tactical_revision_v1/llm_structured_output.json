@@ -1,0 +1,662 @@
+{
+  "counterexample_avoidance_explanations": [
+    {
+      "counterexample": "Merchant upkeep (3 DP / 3 s, no confirmed refund, auto-retreat on insufficient DP) invalidated the old zero-slack 390 payment ledger.",
+      "revision": "This opening contains NO merchant/upkeep-bearing unit. The old merchant holders (talr/nothin/wscoot/caper class units) were outside the 1-3 star ordinary domain and are not replaced by any analogous upkeep mechanic. The entire frame 0-941 ledger is funded only by confirmed sources: initial 10 DP, +1/s natural regen, and Fang's AUTO DP skill (EXECUTABLE_APPROXIMATED). No retreat refund is counted anywhere (Yato's expected post-window death and any future swaps assume zero refund). Every action point shows non-negative DP at execution (f0:0, f90:0, f180:0, f510:0, f570:+5, f630:0), so there is no tick at which an unoffset debit can fire and no zero-slack chain of the old type.",
+      "status": "ADDRESSED_BY_STRUCTURE"
+    },
+    {
+      "counterexample": "Active trap_020_roadblock at [9,2] (and [5,3],[7,4],[1,4],[3,1]) makes those tiles non-deployable; old plan locked caper at [9,2].",
+      "revision": "No action in this plan targets any active roadblock tile. The tactical function the old plan sought from [9,2] (fire coverage of the lane-01 interception tile [8,5]) is instead delivered by Kroos at [7,5] facing RIGHT and GALLUS² at [9,5] facing LEFT, both listed in deployable_high_ground_tiles and roadblock-free, while the block itself is performed by Friston-3 on the ground tile [8,5]. No roadblock destruction, release, or occupancy-bypass is assumed or required.",
+      "status": "ADDRESSED_BY_STRUCTURE"
+    },
+    {
+      "counterexample": "Old A1 conceded route-6 (A05) structurally because one duelist could not cover two simultaneous slots.",
+      "revision": "The revision keeps a concession but changes its shape and basis: route-6 (leak ~f768) and route-8 (no legal interception tiles, leak ~f803) are conceded explicitly against the life budget (5 -> 3), while route-7 is actively delayed by Yato at [5,1] (block by its latest_safe_blocker_frame 725) to push its leak toward/past the window edge (~f946-1081 depending on the UNKNOWN uterer attack interval). This is a budgeted, enumerated concession, not an implicit failure.",
+      "status": "ADDRESSED_BY_BUDGET"
+    }
+  ],
+  "deterministic_verifier_questions": [
+    "Slot OPEN-1 (route-2 first block, must execute by route-2 latest_safe_blocker_frame 27, cost <= 10): choose among (a) char_123_fang at [4,3] facing LEFT [PREFERRED: self-cost talent makes it 10 DP, holds and solo-grinds route-2], (b) char_502_nblade at [4,3] facing LEFT [fallback only: cheaper but dies to route-2 before the kill without a healer it cannot afford], (c) char_4093_frston at [4,3] facing LEFT [fallback only: holds ~24 s but never kills, forcing an unaffordable early swap]. Produce exactly one direction-complete candidate.",
+    "Slot ANCHOR-85 (lane-01 [8,5] fire pair, no tile sharing, must both cover [8,5]): choose among (a) char_124_kroos at [7,5] facing RIGHT + char_4227_gallus at [9,5] facing LEFT [PREFERRED], (b) char_211_adnach at [7,5] facing RIGHT + char_4227_gallus at [9,5] facing LEFT [allowed equal-cost variant], (c) char_124_kroos at [9,5] facing LEFT + char_4227_gallus at [7,5] facing RIGHT [geometrically valid but wastes Kroos range; deprioritize]. Verify each candidate's facing covers [8,5] and that neither tile is a roadblock tile.",
+    "Slot SUPPORT-1 (healer placement before route-1+route-3 double-block pressure peaks): choose among (a) char_285_medic2 at [6,5] facing RIGHT [PREFERRED: heals Friston-3 at [8,5] and Kroos at [7,5]], (b) char_285_medic2 at [9,5]... rejected, occupied by GALLUS², (c) char_285_medic2 at [5,5] facing DOWN [rejected as primary: heals Fang instead of Friston-3; Friston-3 is the binding survival constraint]. Confirm the chosen candidate plus the five other deployments keeps counted deployment <= 8 even if 1-star deploy-limit exemption is not modeled.",
+    "Slot DOG-DELAY (route-7, execute by its latest_safe_blocker_frame 725): choose among (a) char_502_nblade at [5,1] facing RIGHT [PREFERRED: block-2, chips toward [6,1], -30 s redeploy supported for post-window reuse], (b) char_502_nblade at [6,1] facing LEFT [delays route-6 instead; leaves route-7 leak at ~781], (c) no deployment [pure concession fallback: within-window leaks become 3 of 5, still <= 4]."
+  ],
+  "explicit_assumptions": [
+    "30 frames = 1 second for converting supplied second-based route timings to frames; all frame numbers tied to supplied route facts retain their supplied values regardless.",
+    "Enemy attack intervals are NOT supplied; all blocker-survival estimates assume ~2.0 s intervals. This is an ASSUMPTION, not evidence; the plan's leak budget (see uncertainties) is sized so that even Friston-3's early collapse stays within 4 leaks unless Fang also collapses.",
+    "Both enemy archetypes have attack_range: null in stage_facts and are treated as melee-only; high-ground units at [7,5],[9,5],[6,5] are therefore exposed only to blocked-adjacent retaliation risk, which is zero on high ground. If either archetype has a ranged attack in the real client, Kroos/GALLUS²/Lancet-2 survivability is UNKNOWN.",
+    "The lane-01 path approaches [8,5] via tiles not fully enumerated in the evidence; the plan's kill math credits DPS only against enemies standing on [8,5] itself, so no approach-path geometry is load-bearing.",
+    "Fang's 冲锋号令·α型 (AUTO, +6 DP, SP 25, initial 6) fires once around frame 570; it is EXECUTABLE_APPROXIMATED and treated as conditional income, never as the basis of a deadline.",
+    "1-star deploy-limit exemption (不受部署数量限制) is taken from gamedata descriptions but is NOT confirmed in the runtime; the formation is valid either way (6 simultaneous units <= 8 limit)."
+  ],
+  "lessons_from_infeasibility": [
+    {
+      "applied_as": "Every deployment here is gated on confirmed available DP at its action frame, with 3-DP robot granularity (Friston-3, GALLUS², Lancet-2) providing slack-free but debit-free steps; the largest single spend is 11 DP (Kroos) against 11 available.",
+      "lesson": "A zero-slack economy ledger is itself a failure mode: any unoffset positive debit before the anchor payment invalidates the whole chain."
+    },
+    {
+      "applied_as": "Roadblock tiles [9,2],[5,3],[7,4],[1,4],[3,1] are excluded from every candidate slot before tactics are considered; the [8,5] coverage the old plan wanted from [9,2] is re-sourced to [7,5]/[9,5].",
+      "lesson": "Device occupancy must be treated as a hard deployment filter, not a combat-trace question."
+    },
+    {
+      "applied_as": "The [8,5] anchor pairs the cheapest legal blocker (Friston-3, 3 DP) with the cheapest legal sustained arts DPS (GALLUS², 3 DP, ~130 DPS vs RES 20) starting at ~f180, then adds Kroos at f510, so route-1 dies ~f590 and route-3 ~f718, inside Friston-3's Lancet-assisted survival window.",
+      "lesson": "A block without a kill plan inside the same economic window is a deferred leak, because double-block pressure (route-1 + route-3 arriving 240 frames apart) multiplies tank damage intake."
+    },
+    {
+      "applied_as": "Within-window leaks are pre-committed: route-6 (~f768) and route-8 (~f803) always; route-7 (~f781-1081) and route-3 (only if Friston-3 collapses) conditionally. Baseline life at f941 is 3; certified worst is 1.",
+      "lesson": "Concessions must be enumerated against life, not discovered."
+    }
+  ],
+  "retained_tactical_knowledge": [
+    {
+      "knowledge": "Merchant upkeep is real (3 DP / 3 s), refunds unconfirmed, insufficient-DP auto-retreat exists; first debit timing UNKNOWN.",
+      "use": "Treated as conditional knowledge only: this plan selects no upkeep unit, so the mechanic cannot fire; no claim is made that all openings must avoid merchants forever."
+    },
+    {
+      "knowledge": "Active roadblocks reject deployment on [9,2],[5,3],[7,4],[1,4],[3,1] in the current runtime (m18.9-stage-device-runtime-v1).",
+      "use": "Hard exclusion list for all candidate slots."
+    },
+    {
+      "knowledge": "Old A1's frame-250 anchor deadline was an artifact of its 13-DP prefix and is unaffordable under any route-1-blocking prefix.",
+      "use": "Deadlines here are re-derived from supplied latest_safe_blocker_frame values (27, 191, 431-ish via spawn+travel, 725, 941) rather than copied."
+    },
+    {
+      "knowledge": "Route-1's kill contract is redundantly certifiable and route-6's old concession was structural, not economic.",
+      "use": "Retained as conditional tactical knowledge: the new concession set (route-6, route-8) is chosen for the same structural reason (no affordable interception+kill package by ~f725-803), independent of the refund UNKNOWN."
+    },
+    {
+      "knowledge": "Only Fang (char_123_fang), Lancet-2 (char_285_medic2) and Yato (char_502_nblade) are PLANNER_SAFE_WITH_KNOWN_LIMITS; 31 of 34 catalog operators carry unsupported branches.",
+      "use": "The primary formation leans on these three plus base-stat-exact, generic-attack units (Friston-3, GALLUS², Kroos); no unsupported talent, splash geometry, probability effect, or summon is load-bearing."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "allowed_substitutions": [
+        {
+          "conditions": "Equal 11 DP cost, same [7,5] facing RIGHT placement; ~215 vs ~225 damage per hit against uoffcr DEF 150 shifts route-1/route-3 kills by only a few frames; schedule unchanged.",
+          "slot": "ANCII-85 physical DPS (Kroos)",
+          "substitute": "char_211_adnach"
+        },
+        {
+          "conditions": "EMERGENCY ONLY if Yato is unavailable at f630: 3 DP block-2 at [5,1]; dies to the uterer roughly twice as fast (DEF 154 vs 192, HP 770 vs 1030), so route-7's leak likely re-enters the window (~f830-890); accepted because total within-window leaks stay <= 3 of 5. Its first-block DP/sleep talent is UNSUPPORTED and must not be credited.",
+          "slot": "DOG-DELAY (Yato)",
+          "substitute": "char_4188_confes"
+        },
+        {
+          "conditions": "ONLY if paired with an explicit acceptance of route-2 leak risk: Yato cannot out-tank route-2 to the solo kill without healing; this variant converts route-2 from 'held and killed ~f627' to 'blocked until Yato falls, then conceded'. Triggers the conditional leak budget; not default.",
+          "slot": "OPEN-1 (Fang)",
+          "substitute": "char_502_nblade"
+        }
+      ],
+      "battle_phases": [
+        {
+          "actions": [
+            "f0: deploy char_123_fang at [4,3] facing LEFT (10 DP after runtime-supported self-cost talent)."
+          ],
+          "exit_state": "route-2 blocked on contact (~f27); DP 0 regenerating.",
+          "frames": "0-27",
+          "objective": "Stop the frame-0 route-2 rush at its only legal interception pair.",
+          "phase_id": "P0-OPEN"
+        },
+        {
+          "actions": [
+            "f90: char_4093_frston at [8,5] facing DOWN (3 DP).",
+            "f180: char_4227_gallus at [9,5] facing LEFT (3 DP)."
+          ],
+          "exit_state": "Friston-3 ready to block route-1 at f191; GALLUS² already grinding it (~130 DPS vs RES 20) plus Friston-3 chip (~40 DPS vs DEF 150).",
+          "frames": "28-190",
+          "objective": "Build the [8,5] two-lane skeleton before route-1 arrives (latest block 191).",
+          "phase_id": "P1-SKELETON"
+        },
+        {
+          "actions": [
+            "f510: char_124_kroos at [7,5] facing RIGHT (11 DP).",
+            "f570: char_285_medic2 at [6,5] facing RIGHT (3 DP; deployment burst 200 heals all — runtime-supported — plus ~24.6 HP/s to Friston-3)."
+          ],
+          "exit_state": "route-1 dead ~f590; route-3 dead ~f718; Friston-3 at ~500 HP under single-attacker pressure, net drain ~-23 HP/s, projected survival past f941. route-2 dies to Fang ~f627.",
+          "frames": "191-718",
+          "objective": "Convert the [8,5] hold into kills before double-block pressure (route-3 arrival ~f431) exhausts Friston-3.",
+          "phase_id": "P2-KILLCHAIN"
+        },
+        {
+          "actions": [
+            "f630: char_502_nblade at [5,1] facing RIGHT (7 DP), blocks route-7 by its latest_safe_blocker_frame 725.",
+            "No action on route-6 (leak ~f768) or route-8 (leak ~f803): conceded."
+          ],
+          "exit_state": "At f941: 6 units deployed (3 counted if robot exemption holds, 6 otherwise — both <= 8), ~17 DP banked, Friston-3 holding route-4's first arrival (~f941) with kill support up; life 3 baseline, 1 worst-certified.",
+          "frames": "600-941",
+          "objective": "Manage the lane-02 uterer triplet within the life budget.",
+          "phase_id": "P3-DOGWATCH"
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "new": "[9,2] is device-locked; [8,5] coverage is re-sourced from [7,5] (Kroos, RIGHT) and [9,5] (GALLUS², LEFT), both legal high ground; the block is on the ground tile itself.",
+          "old": "A merged [9,2] anchor (caper) is required to cover [8,5]."
+        },
+        {
+          "new": "No merchant exists in this domain; the hold is Friston-3 (block-3, 3 DP, upkeep-free) and the kills are on a shot clock driven by route-3's ~f431 arrival doubling tank pressure.",
+          "old": "Route-1 can be held indefinitely by a block-1 merchant whose upkeep is affordable."
+        },
+        {
+          "new": "All deadlines derive from supplied route facts (latest_safe_blocker_frame 27/191/725/941, spawn+travel ~431) and from Friston-3's HP budget under two simultaneous uoffcr attackers.",
+          "old": "Frame 390 / 250 style universal deadlines."
+        },
+        {
+          "new": "Concession set is {route-6, route-8} baseline, {route-7} conditional, {route-3} contingent-on-tank-collapse; life 5 funds all cases.",
+          "old": "A05/route-6 concession is the only concession."
+        },
+        {
+          "new": "Zero refund, zero upkeep, zero unconfirmed income anywhere in the ledger.",
+          "old": "Refunds/merchant economy may subsidize the anchor."
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "IF uterer attack interval is ~2 s (UNKNOWN)",
+          "then": "Yato holds route-7 until ~f1025 and its leak lands ~f1081, OUTSIDE the window; within-window leaks are exactly route-6 + route-8 (life 3 at f941)."
+        },
+        {
+          "condition": "IF uterer attack interval is ~1 s or Yato falls early",
+          "then": "route-7 leaks ~f890-946, inside or at the window edge; within-window leaks become 3 (life 2 at f941). No plan change; do not spend reserves to chase it."
+        },
+        {
+          "condition": "IF route-8's lane-02 path traverses [5,1] (path geometry UNKNOWN)",
+          "then": "Yato's block-2 incidentally delays route-8 as well; treat strictly as upside, never as plan."
+        },
+        {
+          "condition": "IF Friston-3 collapses before route-3 dies (fast enemy interval world)",
+          "then": "route-3 leaks; within-window worst becomes route-1 + route-3 + route-6 + route-8 = 4 leaks, life 1; Lancet-2's deployment burst is the only mitigation and is already scheduled; no further action is affordable and none is mandated."
+        },
+        {
+          "condition": "IF Fang falls before killing route-2 (fast enemy interval world)",
+          "then": "route-2 leaks; this is the single scenario that can reach 5 within-window leaks and fail the stage; flagged as the plan's principal sensitivity, mitigated only by Lancet-2's +200 global burst at f570 (effective HP 1525 vs ~1400 incoming at 1 s intervals over the kill window)."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "corridor": "lane-01 upper interception ([3,3]/[4,3])",
+          "owner": "char_123_fang at [4,3]",
+          "responsibility": "Block route-2 by f27; solo-kill it (~19 own hits, ~f627) while surviving (~10 hits taken at assumed 2 s enemy interval, 700/1325 HP); generate +6 DP ~f570 (conditional income)."
+        },
+        {
+          "corridor": "lane-01 main interception ([8,5])",
+          "owner": "char_4093_frston (block) + char_4227_gallus (arts) + char_124_kroos (physical) + char_285_medic2 (sustain)",
+          "responsibility": "Block route-1 at f191, route-3 at ~f431, route-4 first spawn at ~f941; kill route-1 ~f590 and route-3 ~f718; hold route-4 as the post-window handoff."
+        },
+        {
+          "corridor": "lane-02 dog run ([5,1]/[6,1])",
+          "owner": "char_502_nblade at [5,1] (single deployment, no redeploy inside window)",
+          "responsibility": "Delay route-7 past or to the window edge; incidentally chip/block whatever else traverses [5,1]/[6,1] (upside only). route-6 and route-8 are conceded by design."
+        },
+        {
+          "corridor": "High-ground safe fire (attack_range null => melee-only assumption)",
+          "owner": "[7,5] Kroos RIGHT, [9,5] GALLUS² LEFT, [6,5] Lancet-2 RIGHT",
+          "responsibility": "Provide all ranged damage and healing from tiles no supplied enemy can counter-attack, per the null attack_range evidence; if that evidence is wrong, their survivability is UNKNOWN and unbudgeted."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "facing": "LEFT",
+          "frame": 0,
+          "note": "Faces route-2 approach tile [3,3]; blocked enemy is on own tile regardless.",
+          "operator_id": "char_123_fang",
+          "role": "stable",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "facing": "DOWN",
+          "frame": 90,
+          "note": "Range is self-tile only, so facing is cosmetic; DOWN guesses the [8,4] approach. No roadblock conflict.",
+          "operator_id": "char_4093_frston",
+          "role": "stable",
+          "tile": [
+            8,
+            5
+          ]
+        },
+        {
+          "facing": "LEFT",
+          "frame": 180,
+          "note": "Range 3-6 covers [8,5] at forward-1; arts damage bypasses uoffcr DEF 150. Talent (RES shred) UNSUPPORTED and uncredited.",
+          "operator_id": "char_4227_gallus",
+          "role": "stable",
+          "tile": [
+            9,
+            5
+          ]
+        },
+        {
+          "facing": "RIGHT",
+          "frame": 510,
+          "note": "Marksman range covers [8,5] at forward-1; AUTO double-shot skill needs no scheduling. Crit talent UNSUPPORTED and uncredited.",
+          "operator_id": "char_124_kroos",
+          "role": "stable",
+          "tile": [
+            7,
+            5
+          ]
+        },
+        {
+          "facing": "RIGHT",
+          "frame": 570,
+          "note": "Covers [8,5] (Friston-3) and [7,5] (Kroos); deployment global heal 200 is RUNTIME_SUPPORTED and also reaches Fang.",
+          "operator_id": "char_285_medic2",
+          "role": "stable",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "facing": "RIGHT",
+          "frame": 630,
+          "note": "Faces [6,1] for incidental route-6 chip; expected to fall to route-7 ~f890-1025 (enemy interval UNKNOWN); -30 s redeploy talent is RUNTIME_SUPPORTED but only matters post-window.",
+          "operator_id": "char_502_nblade",
+          "role": "temporary",
+          "tile": [
+            5,
+            1
+          ]
+        }
+      ],
+      "explicit_deadline_basis": [
+        {
+          "basis": "route-2 latest_safe_blocker_frame = 27 (spawn_frames [0]); missing it forfeits the only legal interception pair [3,3]/[4,3] and leaks ~f256.",
+          "deadline": "Fang deployed by f27 (executed f0)"
+        },
+        {
+          "basis": "route-1 latest_safe_blocker_frame = 191; f90 is the earliest the 3 DP exists after Fang; no earlier need exists.",
+          "deadline": "Friston-3 deployed by f191 (executed f90)"
+        },
+        {
+          "basis": "route-1 kill window: 3300 HP must be ground down before route-3 (~f431, spawn 240 + travel) doubles Friston-3's intake; starting at f180 contributes ~1800 damage before Kroos arrives.",
+          "deadline": "GALLUS² deployed by ~f191 (executed f180)"
+        },
+        {
+          "basis": "Combined ~560 DPS (Kroos ~390 effective with AUTO skill + GALLUS² ~130 + Friston-3 ~40) must kill route-1 by ~f590-640, before Friston-3's 1152 HP is exhausted by two uoffcr attackers (~95 damage/hit each, assumed 2 s interval); f510 is the first frame 11 DP exists.",
+          "deadline": "Kroos deployed by ~f560 (executed f510)"
+        },
+        {
+          "basis": "Friston-3's HP floor (~110-250) occurs during the f431-642 double-block window; the runtime-supported +200 burst plus ~24.6 HP/s extends survival past route-3's kill (~f718) and past f941; funded by Fang's conditional +6 at ~f570.",
+          "deadline": "Lancet-2 deployed by ~f600 (executed f570)"
+        },
+        {
+          "basis": "route-7 latest_safe_blocker_frame = 725 at its only legal tile [5,1].",
+          "deadline": "Yato deployed by f725 (executed f630)"
+        },
+        {
+          "basis": "route-6 and route-8 unopposed leak frames (spawn 600/630/660, speed 1.7, route lengths 9.54/8.56/8.08); no affordable interception+kill package exists by these frames, so they are budgeted, not fought.",
+          "deadline": "Concession checkpoints f768 / f803"
+        },
+        {
+          "basis": "route-4 first spawn (750) reaches [8,5] at its latest_safe_blocker_frame 941; Friston-3 must still be standing with a free block slot (route-1/3 already dead) — satisfied by the f718 kill chain.",
+          "deadline": "Handoff state by f941"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "forbidden": "char_240_wyvern (Vanilla)",
+          "reason": "Costs 11 with no self-cost talent; cannot deploy before f30, missing route-2's latest_safe_blocker_frame 27 by ~3 frames. Structurally excluded, not a judgment call.",
+          "slot": "OPEN-1"
+        },
+        {
+          "forbidden": "char_4188_confes / char_286_cast3 as primary",
+          "reason": "CONFESS-47 (DEF 154, 770 HP) and Castle-3 (DEF 90, block-1) take ~176/~240 per uoffcr hit and die inside the f191-431 solo-hold window; block-1 on Castle-3 also cannot hold route-1+route-3 simultaneously. Only Friston-3 combines 3 DP, block-3, DEF 235.",
+          "slot": "ANCHOR-85 blocker"
+        },
+        {
+          "forbidden": "char_501_durin / char_210_stward as GALLUS² replacements",
+          "reason": "Durin (12 DP) cannot deploy before ~f450 and Steward (18 DP) not before ~f570 in this ledger; either delay pushes route-1's kill past Friston-3's double-block survival window (~f690 collapse computed), converting route-3 into a leak. GALLUS²'s 3 DP arts at f180 is the unique fit.",
+          "slot": "ANCHOR-85 arts DPS"
+        },
+        {
+          "forbidden": "char_503_rang",
+          "reason": "269 ATK yields ~119/hit vs DEF 150 (~28 s per uoffcr), slower than the 240-frame arrival spacing; fails the route-3 shot clock.",
+          "slot": "ANCHOR-85 physical DPS"
+        },
+        {
+          "forbidden": "All AoE-branch units (char_009_12fce, char_121_lava, char_282_catap) as mandatory pieces",
+          "reason": "Splash geometry is UNSUPPORTED_AOE_GEOMETRY in the runtime and their 24-30 DP costs break the ledger; Lava's deployment-SP talent is supported but her cost is not payable by any route-relevant deadline.",
+          "slot": "ANY"
+        },
+        {
+          "forbidden": "Roadblock tiles [9,2],[5,3],[7,4],[1,4],[3,1] for any deployment",
+          "reason": "Active trap_020_roadblock occupancy rejects deployment in the current model.",
+          "slot": "ANY"
+        }
+      ],
+      "formation_structure": {
+        "anchor": "[8,5] ground block (Friston-3) with crossfire from [7,5] RIGHT (Kroos) and [9,5] LEFT (GALLUS²), sustained by [6,5] RIGHT (Lancet-2)",
+        "deployment_count_at_941": {
+          "counted_if_not": 6,
+          "counted_if_robot_exemption_holds": 3,
+          "limit": 8,
+          "total_units": 6,
+          "valid_either_way": true
+        },
+        "economy_shape": "10 initial + ~31 natural + ~6 conditional (Fang skill) = ~47 total; 30 spent in-window; ~17 banked at f941",
+        "secondary": "[4,3] self-sufficient Fang hold on the route-2 spur",
+        "squad_size": 12,
+        "tripwire": "[5,1] Yato delay on the lane-02 dog run"
+      },
+      "formation_transitions": [
+        {
+          "change": "Single-holder opening becomes the two-lane skeleton; DP hits 0 twice by design (no debit possible, no upkeep present).",
+          "transition": "T0->T1 at f90-180"
+        },
+        {
+          "change": "Hold converts to kill chain; Kroos and Lancet-2 enter together because route-3's ~f431 arrival is the pressure event that makes both necessary.",
+          "transition": "T1->T2 at f510-570"
+        },
+        {
+          "change": "Final in-window unit (Yato) commits to the dog lane; formation frozen thereafter until f941 to bank ~17 DP.",
+          "transition": "T2->T3 at f630"
+        },
+        {
+          "change": "Recommended next-plan moves, not actions here: swap Friston-3 to char_122_beagle at [8,5] when HP-critical or after route-4 is secured; redeploy Yato (-30 s talent, supported) toward [6,1]/[1,2] for route-22/23 (spawns 3750/4050); add char_210_stward at [6,2] and char_212_ansel as the ~17 DP bank plus regen allows.",
+          "transition": "T3->post-window (NOT executed by this plan)"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "No deployment on any active roadblock tile: [9,2],[5,3],[7,4],[1,4],[3,1]."
+        },
+        {
+          "invariant": "No merchant or upkeep-bearing unit is deployed; no retreat refund is counted in any ledger line."
+        },
+        {
+          "invariant": "route-2 must be blocked on or before f27 at [4,3] or [3,3]; the blocker must be payable from the 10 initial DP."
+        },
+        {
+          "invariant": "[8,5] must be blocked on or before f191 by a unit costing <= 3 DP (the only amount available after the route-2 opener)."
+        },
+        {
+          "invariant": "No unsupported mechanic (splash geometry, probability talents, sluggish/sleep/stun/fragile effects, summons, RES-shred, charger kill-DP) may be load-bearing for any kill, survival, or DP claim."
+        },
+        {
+          "invariant": "Cumulative within-window conceded leaks must remain <= 4 of 5 life under the certified worst case (route-1 + route-3 + route-6 + route-8)."
+        },
+        {
+          "invariant": "Counted simultaneous deployments must satisfy <= 8 even if 1-star deploy-limit exemption is not modeled."
+        }
+      ],
+      "opening_responsibilities": [
+        {
+          "frames": "0-27",
+          "owner": "char_123_fang",
+          "responsibility": "Instant route-2 arrest",
+          "success_signal": "route-2 enemy stationary on [4,3] from ~f27; Fang alive; solo kill lands ~f627."
+        },
+        {
+          "frames": "90-431",
+          "owner": "char_4093_frston + char_4227_gallus",
+          "responsibility": "route-1 arrest and early grind",
+          "success_signal": "route-1 stationary on [8,5] from f191; ~1800 of its 3300 HP removed before f510."
+        },
+        {
+          "frames": "510-718",
+          "owner": "char_124_kroos + char_285_medic2",
+          "responsibility": "Kill conversion under double-block pressure",
+          "success_signal": "route-1 dead ~f590, route-3 dead ~f718, Friston-3 never below ~100 HP after the f570 burst."
+        },
+        {
+          "frames": "630-941",
+          "owner": "char_502_nblade",
+          "responsibility": "Dog-lane delay within budget",
+          "success_signal": "route-7 stationary on [5,1] from f725; its leak pushed to ~f946-1081; no DP spent on route-6/route-8."
+        }
+      ],
+      "operational_plan_id": "R8OP-B2-FANG43-FRSTON85-CROSSFIRE-OPEN0941",
+      "optional_responsibilities": [
+        {
+          "idea": "THRM-EX (char_376_therex, 3 DP) as a burst option on [8,5] or [5,1]",
+          "reason": "Its delayed-AoE talent is UNSUPPORTED_ACTIVE_TALENT; never required by any deadline.",
+          "status": "EXPERIMENTAL_ONLY"
+        },
+        {
+          "idea": "Castle-3 (char_286_cast3, 3 DP) melee buff onto Fang or Friston-3",
+          "reason": "Talent unsupported; also its DEF 90/block-1 body adds no hold capability.",
+          "status": "EXPERIMENTAL_ONLY"
+        },
+        {
+          "idea": "Orchid (char_278_orchid) slow on the dog lane",
+          "reason": "Sluggish trait unsupported and 12 DP is not payable by f725; do not schedule.",
+          "status": "EXPERIMENTAL_ONLY"
+        }
+      ],
+      "parent_hypothesis_id": "R8OP-A1-BLOCK1-COOP-ANCHOR390",
+      "pressure_window_responsibilities": [
+        {
+          "pressure": "One uoffcr on Friston-3 (~95/hit assumed 2 s interval => ~4 hits, 380 damage).",
+          "response": "GALLUS² + Friston-3 chip grind ~1800 HP; no action needed beyond f180 deployment.",
+          "window": "f191-431 (route-1 solo hold)"
+        },
+        {
+          "pressure": "Two uoffcr attackers, ~190 damage per cycle; Friston-3 HP floor ~110-250 near f600-642.",
+          "response": "Kroos enters f510 (~560 combined DPS), Lancet-2 burst+regen enters f570; route-1 dies ~f590-642, halving pressure.",
+          "window": "f431-642 (route-1 + route-3 double block)"
+        },
+        {
+          "pressure": "route-6 unblocked (leak ~f768), route-7 blocked by Yato from f725 (dies ~f890-1025), route-8 unblockable (leak ~f803).",
+          "response": "Pre-committed concession of route-6/route-8; Yato converts route-7 from a f781 leak into a ~f946-1081 leak.",
+          "window": "f625-803 (uterer triplet)"
+        },
+        {
+          "pressure": "route-4 first spawn reaches [8,5] at its latest_safe_blocker_frame 941; Friston-3 at ~230-500 HP under route-3's aftermath.",
+          "response": "Block slots are free (route-1/3 dead); Friston-3 catches the arrival; Kroos + GALLUS² begin the post-window kill; ~17 DP banked for the next plan's Beagle swap.",
+          "window": "f890-941 (window close + route-4 arrival)"
+        }
+      ],
+      "reserve_strategy": [
+        {
+          "reserve": "char_122_beagle",
+          "role": "Post-window [8,5] tank upgrade (DEF 490 reduces uoffcr to ~17/hit chip); funded by the ~17 DP bank + regen; swap only after route-4 is blocked or when Friston-3 is HP-critical."
+        },
+        {
+          "reserve": "char_283_midn",
+          "role": "Post-window block-2 fighter for lane-01 overflow (route-9/18/28 waves); his 16 DP was provably unpayable by f191/f431, so he is excluded from the opening by deadline math, not by preference."
+        },
+        {
+          "reserve": "char_210_stward",
+          "role": "Post-window arts DPS at [6,2] facing DOWN/LEFT for the lane-02 uoffcr/uterer streams (route-15/22/23/24/25 use [5,1]/[6,1]/[1,2])."
+        },
+        {
+          "reserve": "char_212_ansel",
+          "role": "Second medic for post-window two-lane sustain; his range-extend skill is EXECUTABLE_APPROXIMATED if needed."
+        },
+        {
+          "reserve": "char_208_melan",
+          "role": "Duelist body for any post-window single-lane leak interception (e.g., route-7 aftermath near [5,1])."
+        },
+        {
+          "reserve": "char_192_falco",
+          "role": "Flexible 10 DP block-1/chip; his charger kill-DP trait is NOT runtime-confirmed, so he is reserved for bodies, not economy."
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_4227_gallus",
+        "char_124_kroos",
+        "char_502_nblade",
+        "char_285_medic2",
+        "char_122_beagle",
+        "char_283_midn",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_208_melan",
+        "char_192_falco"
+      ],
+      "skill_intents": [
+        {
+          "intent": "Passive DP trickle; first activation ~f570 (+6 DP) funds Lancet-2. Status: EXECUTABLE_APPROXIMATED. No manual input.",
+          "operator_id": "char_123_fang",
+          "skill": "skcom_charge_cost[1] (AUTO)"
+        },
+        {
+          "intent": "Passive double-shot every 4 attacks; folded into the ~390 effective DPS estimate. Status: EXECUTABLE_APPROXIMATED. No manual input; crit talent excluded from math.",
+          "operator_id": "char_124_kroos",
+          "skill": "skchr_kroos_1 (AUTO, attack-sp)"
+        },
+        {
+          "intent": "Base stats only (EXACT_SOURCE_KEYFRAME); damage-reduction talent UNSUPPORTED and uncredited.",
+          "operator_id": "char_4093_frston",
+          "skill": "none"
+        },
+        {
+          "intent": "Base arts attacks only (GENERIC_APPROXIMATION); RES-shred talent UNSUPPORTED and uncredited.",
+          "operator_id": "char_4227_gallus",
+          "skill": "none"
+        },
+        {
+          "intent": "Heal per attack interval + deployment burst 200 (RUNTIME_SUPPORTED_DEPLOYMENT_HEAL_ALL).",
+          "operator_id": "char_285_medic2",
+          "skill": "none"
+        },
+        {
+          "intent": "Body-block only; -30 s redeploy talent RUNTIME_SUPPORTED, relevant only to post-window reuse.",
+          "operator_id": "char_502_nblade",
+          "skill": "none"
+        }
+      ],
+      "tactical_thesis": "Rebuilt opening on three corrections to A1. (1) The route-2 frame-0 rush is answered by the only unit that is simultaneously <=10 DP at f0, block-2, self-cheapened (runtime-supported), a DP engine, and durable enough to solo-hold and solo-kill: Fang at [4,3] facing LEFT — she arrests route-2 by f27 and grinds it out (~f627) with zero ranged support, freeing every other resource. (2) The [8,5] lane-01 anchor is rebuilt device-legally: instead of the roadblock-locked [9,2] caper, the block is Friston-3 (3 DP, block-3, DEF 235) on the ground tile itself by f191, and the fire is a crossfire from two legal high grounds — GALLUS² (3 DP arts, ~130 DPS vs RES 20) at [9,5] LEFT from f180 and Kroos (11 DP, ~390 effective DPS with her AUTO skill) at [7,5] RIGHT from f510 — timed so route-1 dies ~f590 and route-3 ~f718, bracketing the f431 double-block pressure spike that is Friston-3's only lethal window; Lancet-2 at [6,5] RIGHT (f570, runtime-supported +200 global burst) carries Friston-3 through it and leaves it standing at f941 to catch route-4's first arrival. (3) The lane-02 uterer triplet is handled as an explicit, budgeted concession set: route-6 (~f768) and route-8 (~f803, no legal interception tiles) are conceded because no interception+kill package is payable by those frames, while Yato at [5,1] (f630, by route-7's latest block 725) pushes route-7's leak to ~f946-1081. Economy is upkeep-free, refund-free, and slack-audited at every action; within-window life is 3 baseline, 1 in the certified worst case (fast enemy attack intervals collapsing Friston-3 before f718), 5 only if Fang also collapses — the plan's single named sensitivity. No unsupported mechanic is load-bearing; no feasibility is claimed.",
+      "temporary_roles": [
+        {
+          "handoff": "Post-window: redeploy (supported -30 s) toward [6,1]/[1,2] for route-22/23; her [5,1] tile may be reoccupied by reserve Melantha if the next plan needs a continuing block.",
+          "operator_id": "char_502_nblade",
+          "temporary_role": "route-7 sacrificial delay ([5,1], f630 until death ~f890-1025)"
+        },
+        {
+          "handoff": "Post-window swap to char_122_beagle on the same tile once route-4 is blocked or HP drops under ~2 hits; swap must occur while at most one enemy is blocked to avoid the double-block swap-step leak.",
+          "operator_id": "char_4093_frston",
+          "temporary_role": "Expendable-but-surviving [8,5] stopgap for the f191-f941 window"
+        },
+        {
+          "handoff": "After the route-2 kill she idles as [4,3] insurance for later lane-01 spawns using [3,3]/[4,3] (route-2 pattern repeats are not in the supplied window facts; keep her down).",
+          "operator_id": "char_123_fang",
+          "temporary_role": "route-2 executioner (f0-~627)"
+        }
+      ],
+      "unknown_dependencies": [
+        {
+          "dependency": "Enemy attack intervals (both archetypes)",
+          "impact": "All survival math (Fang ~10 hits taken, Friston-3 ~f1240 survival, Yato ~f1025) assumes ~2 s; at ~1 s: Fang is marginal (saved by the +200 burst), Friston-3 can collapse pre-f718 (route-3 leak, still within the 4-leak budget), Yato converts route-7 to a within-window leak.",
+          "status": "UNKNOWN"
+        },
+        {
+          "dependency": "lane-02 exact path geometry for route-8 and route-6 relative to [5,1]/[6,1]",
+          "impact": "Determines whether Yato incidentally delays route-8 and whether facing RIGHT chips route-6; treated strictly as upside.",
+          "status": "UNKNOWN"
+        },
+        {
+          "dependency": "attack_range: null interpretation (melee-only)",
+          "impact": "If either archetype actually has ranged attacks, all three high-ground units' survivability is unbudgeted; no evidence in the facts contradicts melee-only.",
+          "status": "ASSUMED_FROM_NULL_EVIDENCE"
+        },
+        {
+          "dependency": "Exact client frame rounding for spawn/travel (route-3 arrival ~f431, route-4 arrival ~f941)",
+          "impact": "Shifts the double-block window and the handoff edge by tens of frames; the kill chain has ~100-200 frames of DPS slack under the 2 s assumption.",
+          "status": "UNKNOWN"
+        },
+        {
+          "dependency": "1-star deploy-limit exemption modeling",
+          "impact": "Formation is legal either way (6 <= 8).",
+          "status": "RESILIENT"
+        },
+        {
+          "dependency": "Fang skill exact activation tick (~f570)",
+          "impact": "If later, Lancet-2 slides to f600 (its stated deadline basis) with Friston-3 at ~100-250 HP; still inside the survival window under the 2 s assumption.",
+          "status": "EXECUTABLE_APPROXIMATED"
+        }
+      ],
+      "unknowns_acknowledged_but_not_loadbearing": [
+        "Exact first merchant-upkeep timing (no merchant selected).",
+        "Refund mechanics (never counted).",
+        "AoE splash geometry, probability talents, summons, complex statuses (never mandatory)."
+      ],
+      "verification_questions": [
+        {
+          "question": "Confirm char_123_fang's runtime self-cost talent yields a 10-DP deployment at f0 and that [4,3] facing LEFT satisfies route-2's interception before f27."
+        },
+        {
+          "question": "Confirm [8,5],[7,5],[9,5],[6,5],[4,3],[5,1] are all deployment-legal under active roadblocks (none coincide with [9,2],[5,3],[7,4],[1,4],[3,1])."
+        },
+        {
+          "question": "Confirm the f90/f180/f510/f570/f630 action sequence never requires negative DP against initial 10 + 1/s (+ Fang's conditional +6 at ~f570 for the last two actions)."
+        },
+        {
+          "question": "Confirm counted simultaneous deployments <= 8 at f941 under BOTH robot-exemption interpretations."
+        },
+        {
+          "question": "Confirm each selected operator_id appears in normal_low_star_facts with rarity 1-3, normal_mode true, and eligible_for_debug true; confirm no mode-specific reserve or 4★+ ID is present."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "dog_pressure": "lane-02 uterers (spawns 600/630/660, speed 1.7, FAST) arrive ~f625-803; legal interceptions are [6,1]/[1,2] (route-6), [5,1] (route-7), none (route-8). The economy provably cannot field an interception+kill package there by those frames after the lane-01 commitments; they are a budget problem, not a formation problem.",
+    "early_pressure": "Two frame-0 lane-01 spawns force immediate action on two different interception pairs: route-2 must be blocked by f27 at [3,3]/[4,3], route-1 by f191 at [3,5]/[8,5]. Only a <=10 DP unit answers the first; only a <=3 DP unit answers the second after the first is paid.",
+    "enemy_profile": "uoffcr: 3300 HP, 330 ATK, DEF 150, RES 20, melee (attack_range null). uterer: 3500 HP, 380 ATK, DEF 100, RES 20, speed 1.7, melee (attack_range null). Low-star physical DPS is heavily taxed by DEF 150; 3-DP arts robots (GALLUS² ~130 DPS) and DEF-ignoring crossfire are the efficient answers.",
+    "mid_pressure": "route-3 (spawn 240) reaches [8,5] at ~f431, creating a double-block window against route-1's holder; this, not any universal frame, sets the DPS deadlines. route-4 (spawn 750) first arrives at the window edge (~f941) and only needs to be caught, not killed.",
+    "terrain": "Active roadblocks occupy [9,2],[5,3],[7,4],[1,4],[3,1]; all are excluded from deployment candidates. Usable high ground near the action: [7,5],[9,5],[6,5],[6,2],[5,5].",
+    "window": "frames 0-941 (~31.4 s); initial DP 10, +1/s natural, life 5, deployment limit 8, squad 12."
+  },
+  "revised_tactical_requirements": {
+    "budget": {
+      "baseline_life_at_941": 3,
+      "certified_worst_life_at_941": 1,
+      "failure_condition": "5 within-window leaks, reachable only if BOTH Fang (route-2) and Friston-3 (route-1/3) collapse early under fast enemy attack intervals"
+    },
+    "forbidden_foundations": [
+      "Unsupported splash geometry, probability talents, sluggish/sleep/stun/fragile/RES-shred effects, summons, charger kill-DP, merchant refunds, roadblock-tile deployment, universal (route-independent) frame deadlines"
+    ],
+    "may_concede": [
+      "route-6 (baseline, leak ~f768)",
+      "route-8 (baseline, leak ~f803; no legal interception exists)",
+      "route-7 (conditional, if Yato falls early)",
+      "route-3 (contingent, only on Friston-3 collapse)"
+    ],
+    "must_fund": [
+      "All in-window actions from 10 initial + ~31 natural + <=6 conditional (Fang skill) DP; no upkeep, no refunds, no merchant",
+      "Counted simultaneous deployments <= 8 under both robot-exemption interpretations"
+    ],
+    "must_hold": [
+      "route-2 blocked by f27 (only legal pair [3,3]/[4,3])",
+      "route-1 blocked by f191 at [8,5] (chosen over [3,5] to keep one high-ground pair covering one tile and to use the latest arrival)",
+      "route-3 contained at [8,5] from ~f431 with route-1 dead before the holder collapses",
+      "route-4 caught at [8,5] at ~f941 with a free block slot"
+    ]
+  },
+  "uncertainties": [
+    {
+      "note": "Not supplied anywhere in the evidence. The plan's survival margins are computed at an assumed ~2 s. Sensitivity: fast intervals first cost route-7 (Yato), then route-3 (Friston-3), then route-2 (Fang) — the leak budget absorbs the first two; the third is the only stage-losing cascade and has no affordable mitigation inside this domain.",
+      "severity": "HIGH",
+      "topic": "Enemy attack intervals"
+    },
+    {
+      "note": "Only interception tiles are known ([5,1],[6,1],[1,2]); whether route-8 passes [5,1] is unknown and treated as upside only.",
+      "severity": "MEDIUM",
+      "topic": "lane-02 path detail"
+    },
+    {
+      "note": "attack_range null is taken as melee-only; if wrong, high-ground DPS/healer survival is unbudgeted.",
+      "severity": "MEDIUM",
+      "topic": "Ranged-enemy existence"
+    },
+    {
+      "note": "Historical merchant-timing caveats do not apply (no merchant), but general frame rounding can shift arrivals by tens of frames; deadlines carry route-referenced slack, not universal frames.",
+      "severity": "LOW-MEDIUM",
+      "topic": "Client timing vs deploy+interval assumptions"
+    },
+    {
+      "note": "Gamedata descriptions assert exemption; runtime modeling unconfirmed; formation legal under both readings (6 <= 8).",
+      "severity": "LOW",
+      "topic": "Robot deploy-limit exemption"
+    }
+  ]
+}

@@ -24,6 +24,10 @@ from arknights_planner.simulator import ApproximateRealRangeTransformer, Instant
 
 from .real_simulation import AdaptedRealEnemy, AdaptedRealOperator, AdaptedRealStage, RealSimulationAdapter
 from .low_rarity_skill import LowRarityBlackboardEffectInterpreter, RealSkillSupport
+from arknights_planner.adapters.normal_low_star import (
+    deployment_heal_all_value,
+    deployment_sp_bonus,
+)
 from arknights_planner.benchmark.census import low_rarity_census, RuntimeSupportStatus
 
 
@@ -425,8 +429,7 @@ class ApproximateRealSimulationAdapter:
             wave_cursor = fragment_cursor + self._number(wave.post_delay, f"wave {wave.wave_index} postDelay")
         return tuple(timeline)
 
-    @staticmethod
-    def _runtime_operator(adapted: AdaptedRealOperator, *, interpreted_skill=None, deployment_cost_delta: float = 0.0) -> Operator:
+    def _runtime_operator(self, adapted: AdaptedRealOperator, *, interpreted_skill=None, deployment_cost_delta: float = 0.0) -> Operator:
         if adapted.exact_keyframe is None or adapted.attack_range is None:
             raise ApproximateRealExecutionError("operator lacks exact keyframe or real range")
         stats = adapted.exact_keyframe.stats
@@ -447,7 +450,26 @@ class ApproximateRealSimulationAdapter:
             redeploy_time=stats.redeploy_time,
             damage_type=("ARTS" if adapted.operator.profession.value == "CASTER" else "PHYSICAL"),
             deployment_cost_delta=deployment_cost_delta,
+            deployment_sp_bonus=deployment_sp_bonus(self.repository, adapted.operator.operator_id),
+            deployment_heal_all_value=deployment_heal_all_value(self.repository, adapted.operator.operator_id),
+            redeploy_time_delta=self._talent_redeploy_time_delta(adapted),
         )
+
+    def _talent_redeploy_time_delta(self, adapted: AdaptedRealOperator) -> float:
+        from arknights_planner.adapters.normal_low_star import active_talent_candidates
+
+        total = 0.0
+        for candidate in active_talent_candidates(self.repository, adapted.operator.operator_id):
+            blackboard = {
+                item["key"]: item["value"]
+                for item in candidate.get("blackboard", [])
+                if isinstance(item, dict)
+            }
+            if "再部署时间" in (candidate.get("description") or "") and blackboard.get("respawn_time") is not None:
+                total += float(
+                    blackboard["respawn_time"]
+                )
+        return total
 
     def _neutral_self_deployment_cost_delta(self, adapted: AdaptedRealOperator) -> float:
         """Apply only source-explicit, neutral-potential *self* cost talents.

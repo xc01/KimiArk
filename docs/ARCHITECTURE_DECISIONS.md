@@ -27,3 +27,6 @@
 - 48fa985审查：区分源确认的费用量/周期与未确认首扣相位；模型数字不升级为客户端精确观测。优先修正证据说明，禁止再造计划专用计算层。
 
 - 用户约束：当前debug只用普通模式1～3星。资源资格与机制支持独立，资格在输入/显式选择/动作入口均需校验；不擅自放宽星级。旧高星阵型不约束新低星战术结构，战略决策仍属于Kimi。
+## 低星目录与公共运行时边界（2026-10-10）
+
+普通模式资格、1～3星限制、基准配置和运行时支持分别记录。`NormalLowStarQualification`是Kimi显式选择与动作校验共享入口；34名事实由固定GameData重建。只实现了有源且行为测试覆盖的最小通用机制：deployment SP、deployment global heal和redeploy-time delta。AoE splash几何缺失时不能把splashcaster/aoesniper当作已支持，Kimi计划中它们的unsupported天赋只作未计入事实。
