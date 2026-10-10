@@ -74,3 +74,10 @@ CONFIRMED_FROM_CODE：remote HEAD核实；14manifest条目匹配；11.13MB SSE�
 CONFIRMED_FROM_CODE/GAMEDATA：`output/r8_1_plan_a1_execution_prerequisites_v1/execution_prerequisites.json` 将固定候选标记为 `INFEASIBLE_UNDER_CONFIRMED_EXECUTION_PREREQUISITES`。strong、talr、nothin 的 merchant trait 确认为每3秒扣3 DP，DP不足按描述自动撤退；首扣帧仍UNKNOWN。活跃 roadblock 占据部署格，`trap_020_roadblock#2` 在 [9,2] 使 caper@390 非法。
 
 修复后的账本在 frame 207 记录 strong 的3 DP upkeep 只剩2.9 DP（缺口0.1）；frame 390 caper 前余额3.0，部署12 DP缺9 DP，同时 roadblock 非法。关卡模拟0次、Kimi调用0次、新计划0次。这是固定候选局部反例，不是 R8-1 战略不可能，也不是 WIN/失败终局。
+
+## 最新独立审查48fa985及用户修正
+CONFIRMED_FROM_CODE：实际remote HEAD核实；下载固定character_table，hash/bytes与manifest一致。13个模式预备char均isNotObtainable；原census/context305项无重叠；自动池已有可获得过滤。用户禁止普通模式使用模式专属预备干员，所有后续显式选择亦必须满足。A1的孑/裁度/乌有是普通可获得行商。
+
+维护费3秒3DP/不足自动撤退/不返费有源描述；路障格子重写不可部署得到PRTS支持。首扣仍UNKNOWN，207缺0.1及390缺9仅deploy+90假设的模型数字。COND_UPKEEP FALSE不可解读为费用不存在。pytest初始67PASS1FAIL为列表与元组断言，最小测试修正后68PASS，无公共机制改动。历史output保持。本轮无Kimi/关卡模拟；下一阶段为普通模式候选事实下的一次开局修订，无扩搜。
+
+用户追加调试硬约束：普通模式1～3星。A1的孑/跃跃4星、裁度/乌有5星不再合法调试人选。固定GameData资格集合34名，历史305表仅覆盖17名三星，不能把表缺项视为不能上场。事实清单在review/48fa985/normal_debug_1_to_3_star_roster.json；下一阶段一次低星开局修订，无4星以上自动放宽。

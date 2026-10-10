@@ -22,3 +22,8 @@
 - 51e0410 review: continuous SP/attack state must cross target handoffs; per-plan literal certificates do not prove semantic compilation. UNKNOWN execution guards block faithful prefix validation; simulator omissions cannot certify those guards. Candidate-set absence remains scoped to actually supplied roster.
 
 - 2026-10-10 CONFIRMED_FROM_CODE：公共运行时新增 generic merchant upkeep 与 active stage-device occupancy 检查。GameData description/trait blackboard 确认 strong/talr/nothin 每3秒扣3 DP且不足自动撤退；首扣帧仍未独立确认。`trap_020_roadblock#2` 活跃时占据 [9,2]，销毁（`hp <= 0` 后从 `active_devices` 移除）才释放部署格。机制版本不变，但不把这两个修复解释为战术通过。
+
+- 用户2026-10-10：模式专属预备干员不得进入普通模式规划。复用GameData obtainability过滤，在LLM显式指派处也校验；基础事实记录不删除。候选资源范围必须明示，不能用旧7人集合缺项证明全普通 roster缺项。
+- 48fa985审查：区分源确认的费用量/周期与未确认首扣相位；模型数字不升级为客户端精确观测。优先修正证据说明，禁止再造计划专用计算层。
+
+- 用户约束：当前debug只用普通模式1～3星。资源资格与机制支持独立，资格在输入/显式选择/动作入口均需校验；不擅自放宽星级。旧高星阵型不约束新低星战术结构，战略决策仍属于Kimi。

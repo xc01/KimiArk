@@ -68,3 +68,8 @@ CONFIRMED_FROM_CODE：连续源攻击流纠正450漏击，理想双目标handoff
 
 ## EXP-A1-EXEC-BLOCK
 CONFIRMED_FROM_CODE/GAMEDATA：仅限 R8OP-A1 固定 strong@27、talr@191、caper@390 前缀时，confirmed 3 DP/3秒 merchant upkeep 使 zero-slack caper 前缀失败；[9,2] 的活跃 roadblock 也独立拒绝 caper。不使用退款/upkeep收益/未授权拆路障。不可推广为“merchant 不可用”“[9,2] 永不可部署”或 A1 战略概念全局不可能。首扣帧未知，但任何确认的正周期费用都足以否定该固定前缀。
+
+## EXP-48-A1费用与资格范围
+普通模式不可用的模式专属预备干员不是合法战术资源；存在于character_table不代表可选。305原池无13reserve实例，但显式选择仍需资格检查。行商孑/裁度/乌有可用且有3秒3DP维护费、不返费、不足自动撤退描述。207/390失败数字限deploy+90首扣及不足不扣费策略；不能当精确客户端反例。可复用经验是390无余量账本不能承受未补偿的正维护费；活跃路障格不可部署。费用条件为真而支付失败，不把COND_UPKEEP artifact FALSE误解为费用不存在。
+
+当前调试域普通1～3星与历史高星实验隔离：历史A1四名4/5星不是新调试候选，其费用/占格经验可复用。34名资格事实不等于34名已实现runtime；旧表仅覆盖17三星不证明1/2星不可用。

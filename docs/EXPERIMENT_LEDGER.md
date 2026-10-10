@@ -43,3 +43,7 @@
 
 ## EXP-A1-EXEC-PREREQ
 CONFIRMED_FROM_CODE/GAMEDATA：合入 51e0410 review 后，仅复用原5个动作；公共运行时最小修复 merchant upkeep 与 active device occupancy。固定候选在 frame 207 出现0.1 DP upkeep 缺口；frame 390 caper 缺9 DP且被 roadblock 占格拒绝。0 Kimi调用、0新计划、0关卡模拟。证据：`output/r8_1_plan_a1_execution_prerequisites_v1/`。首扣帧和负费边界保持 UNKNOWN/PARTIAL，不影响该候选的局部不可执行结论。
+
+- 48fa985独立审查：固定GameData character_table实际获取并核验；正常候选池305项未含13reserve实例。用户普通模式禁止预备干员约束已持久化。费用/占格源事实可反馈Kimi，精确首扣/207/390仍条件性。独立pytest68项初始1失败，修正测试空列表断言后68通过。无机制改动、无Kimi、无关卡模拟。
+
+- Review期间用户收紧调试域为普通模式1～3星。旧A1全部4/5星，保留其机制反例但停止作为当前候选。固定源资格34、旧census覆盖17，资格与runtime支持分开。

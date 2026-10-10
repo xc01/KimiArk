@@ -1,0 +1,26 @@
+........F...........................................................     [100%]
+=================================== FAILURES ===================================
+______________ test_active_stage_device_blocks_tile_until_removed ______________
+
+    def test_active_stage_device_blocks_tile_until_removed():
+        simulator = Simulator()
+        stage = replace(synthetic_stage(), devices=(
+            BattleDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 200.0, 20.0, -1, True, "ENEMY"),
+        ))
+        state = SimulationState(0.0, 10.0, 1)
+        state.active_devices["roadblock#1"] = RuntimeDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 8000.0, 200.0, 20.0, -1)
+        strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (3, 1), "RIGHT"),))
+        simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+        assert state.deployment_errors == ["guard@0.0: tile is occupied by active stage device"]
+    
+        del state.active_devices["roadblock#1"]
+        state.deployment_errors.clear()
+        simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+>       assert state.deployment_errors == ()
+E       assert [] == ()
+E         
+E         Use -v to get more diff
+
+tests/simulator/test_synthetic_simulator.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED tests/simulator/test_synthetic_simulator.py::test_active_stage_device_blocks_tile_until_removed

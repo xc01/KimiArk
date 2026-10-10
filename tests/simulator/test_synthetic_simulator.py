@@ -82,7 +82,7 @@ def test_active_stage_device_blocks_tile_until_removed():
     del state.active_devices["roadblock#1"]
     state.deployment_errors.clear()
     simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
-    assert state.deployment_errors == ()
+    assert not state.deployment_errors
     assert state.deployed_operators["guard"].tile == (3, 1)
 
 
