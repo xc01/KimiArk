@@ -66,4 +66,6 @@ CONFIRMED_FROM_CODE：1e92747实际检出和远端HEAD核实；34人源ID匹配�
 
 结果：0漏怪、3击杀、生命5、941剩余DP约10.3667、4名活跃敌人、0干员死亡。route-2/route-1/route-3模型击杀帧分别为576/691/881；route-4于887被接敌；route-6/7/8未漏且仍活跃。完整3563事件保存于 `output/r8_1_low_star_fixed_prefix_diagnostic_v1/diagnostic_events.json`。
 
+BUDGET_CORRECTION：实际main_08-01执行共4次，超出“最多一次”限制：1次未保存探查、2次脚本在保存前崩溃、1次最终保存运行。仅最终3563事件用于结论；不能宣称整体预算合规。
+
 边界：公共runtime继续使用ZERO_WINDUP、instant projectile、量化spawn和通用伤害模型；Friston-3减伤、GALLUS²减抗/优先目标、Kroos概率天赋显式省略。结果只可审查模型行为，不认证faithful，也不外推真实游戏上下界。定向直接函数测试48/48；pytest不可用。

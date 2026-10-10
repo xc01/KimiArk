@@ -21,3 +21,5 @@ Kimi调用0、新计划0、新候选0、搜索0；最多一次main_08-01 frame0�
 更正证据另建本轮目录并保存manifest，历史artifacts hash保持。相关公共行为修改做必要回归，真实测试日志、关键源引用和完整事件上传GitHub，六份长期文档更新并保留历史。报告实际远端HEAD、预算和本次新增执行知识。Worker结束后由Work审查再确定下一项，不能自动再调Kimi或扩大搜索。
 
 已执行该唯一次诊断，证据目录为 `output/r8_1_low_star_fixed_prefix_diagnostic_v1/`。分类是 `DIAGNOSTIC_MODEL_PREFIX`，不是faithful witness；0漏怪/生命5不等于WIN。下一步唯一等待项是Work审查完整事件、机制省略和适用范围。Work若决定继续，应先确定是否需要实现任一被省略机制并追加行为回归；在Work批准前不得调用Kimi、改战术、扩搜或执行新的关卡模拟。
+
+BUDGET_CORRECTION：上述“唯一次诊断”指唯一次保存的正式诊断；实际main_08-01运行共4次，超出预算。Work必须先审查该预算违规再决定后续。
