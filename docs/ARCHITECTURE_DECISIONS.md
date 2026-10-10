@@ -30,3 +30,8 @@
 ## 低星目录与公共运行时边界（2026-10-10）
 
 普通模式资格、1～3星限制、基准配置和运行时支持分别记录。`NormalLowStarQualification`是Kimi显式选择与动作校验共享入口；34名事实由固定GameData重建。只实现了有源且行为测试覆盖的最小通用机制：deployment SP、deployment global heal和redeploy-time delta。AoE splash几何缺失时不能把splashcaster/aoesniper当作已支持，Kimi计划中它们的unsupported天赋只作未计入事实。
+
+
+## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：DP叙事比较必须同一时间点；账本以窗口终点输出且注明战斗存活收入条件。未支持机制不承重需要执行依赖证据，catalog存在/模型承诺均不足。允许显式省略机制的固定候选模型诊断，但其结果不得升格faithful。

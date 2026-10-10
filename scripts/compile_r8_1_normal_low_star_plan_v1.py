@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/r8_1_normal_low_star_tactical_revision_v1"
 GAMEDATA = ROOT / "data/ArknightsGameData"
 FRAMES_PER_SECOND = 30
+WINDOW_END_FRAME = 941
 ACTION_FRAMES = (
     (0, "char_123_fang", (4, 3), "LEFT"),
     (90, "char_4093_frston", (8, 5), "DOWN"),
@@ -114,11 +115,14 @@ def dp_ledger() -> dict[str, Any]:
         rows.append({"available_after": dp, "available_before": available, "cost": cost,
                      "event": "DEPLOY_COST", "frame": frame, "operator_id": operator_id,
                      "status": "PAID" if legal else "INSUFFICIENT_DP"})
+    advance(WINDOW_END_FRAME)
     return {
         "frame_clock": {"frames_per_second": FRAMES_PER_SECOND, "status": "PROJECT_MAPPED_ACTION_CLOCK"},
         "mechanics_version": "m18.9-stage-device-runtime-v1",
         "no_refunds_counted": True,
         "no_upkeep_counted": True,
+        "window_end_frame": WINDOW_END_FRAME,
+        "income_condition": "Fang remains deployed and earns the modeled automatic skill income at frame 570; combat survival is not verified.",
         "rows": rows,
         "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_DP_LEDGER_V1",
     }
@@ -215,16 +219,18 @@ def semantic_certificate(ledger: dict[str, Any], legality: dict[str, Any]) -> di
     plan_claimed_banked = "~17 banked" in str(plan_hint["formation_structure"].get("economy_shape", ""))
     checks["DEPLOYMENT_DP_LEDGER_ALL_PAID"] = all(item["status"] == "PAID" for item in ledger["rows"] if item["event"] == "DEPLOY_COST")
     checks["PLAN_NARRATIVE_BANKED_DP_CONSISTENT"] = not plan_claimed_banked or final_dp == 17.0
-    structural_pass = all(checks.values()) and all_legal
+    structural_pass = all(value for key, value in checks.items() if key != "PLAN_NARRATIVE_BANKED_DP_CONSISTENT") and all_legal
     return {
         "check_status": checks,
-        "classification": "SEMANTIC_COMPILE_CANDIDATE_WITH_NARRATIVE_DISCREPANCY" if not checks["PLAN_NARRATIVE_BANKED_DP_CONSISTENT"] else "SEMANTIC_COMPILE_CANDIDATE" if structural_pass else "COMPILE_CONFLICT",
+        "classification": "COMPILE_CONFLICT" if not structural_pass else "SEMANTIC_COMPILE_CANDIDATE_WITH_NARRATIVE_DISCREPANCY" if not checks["PLAN_NARRATIVE_BANKED_DP_CONSISTENT"] else "SEMANTIC_COMPILE_CANDIDATE",
         "faithful_executable_timeline": False,
         "ledger_final_dp": final_dp,
+        "ledger_final_frame": ledger["rows"][-1]["frame"],
         "operationally_verified": False,
         "narrative_discrepancy": None if checks["PLAN_NARRATIVE_BANKED_DP_CONSISTENT"] else {
             "plan_claim": plan_hint["formation_structure"].get("economy_shape"),
             "computed_final_dp": final_dp,
+            "comparison_frame": ledger["rows"][-1]["frame"],
             "scope": "The structural actions and deadlines are preserved, but Kimi's banked-DP narrative is not accepted as factual.",
         },
         "reason_operationally_unverified": "Finite-window route-1/route-3 kill timing, route-4 handoff, and leak/life accounting were not simulated and remain UNKNOWN.",
@@ -256,12 +262,11 @@ def counterexample_avoidance(plan: dict[str, Any], checks: dict[str, Any], opera
         "changed_assumption_count": len(plan.get("changed_conflicting_assumptions", [])),
         "merchant_upkeep_avoided": not any(operator_id.startswith(("char_272_", "char_4155_", "char_455_")) for operator_id in deployment_ids),
         "roadblock_counterexample_avoided": checks["NO_DEPLOYMENT_ON_ACTIVE_ROADBLOCK"],
-        "unsupported_mechanics_are_not_load_bearing": all(
-            item["overall_runtime_support"] != "MISSING"
-            for item in operator_checks["rows"]
-        ) and "No unsupported mechanic" in json.dumps(plan.get("mandatory_tactical_invariants", []), ensure_ascii=False),
+        "unsupported_mechanics_are_not_load_bearing": None,
+        "unsupported_mechanics_dependency_status": "UNKNOWN",
+        "unsupported_mechanics_dependency_reason": "Catalog presence and a plan declaration do not establish independence from unsupported effects or target priorities; execution dependency evidence is required.",
         "schema_version": "R8_1_NORMAL_LOW_STAR_PLAN_B2_COUNTEREXAMPLE_AVOIDANCE_V1",
-        "status": "PRESERVED_AT_COMPILE_LAYER",
+        "status": "PARTIAL_WITH_UNVERIFIED_MECHANIC_DEPENDENCIES",
     }
 
 

@@ -78,3 +78,8 @@ CONFIRMED_FROM_CODE/GAMEDATA：仅限 R8OP-A1 固定 strong@27、talr@191、cape
 CONFIRMED_FROM_CODE：旧A1的4/5星干员不进入当前1～3星域。活跃roadblock占格与merchant upkeep仍是确认机制经验；Kimi的新计划通过改用[8,5]地面阻挡和[7,5]/[9,5]远程火力避免[9,2]，并且不使用行商。编译账本确认该结构在固定动作帧下DP和占格合法。
 
 CONDITIONAL/UNKNOWN：Friston-3、GALLUS²、Kroos的unsupported天赋不作为承重；AoE splash、概率、召唤、状态、目标排序和客户端攻击时序仍不可验证。Kimi声称的约17 DP余量与0 DP账本冲突，不能作为经济余量经验。
+
+
+## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：B2所谓941余额0反例失效，原0属于630；条件模型941为10.3667，成本37而非计划30。不能向Kimi反馈为无法支付新反例。GALLUS²天赋带目标排序，不具备“删天赋自然保守”的证明；效果依赖UNKNOWN。敌人基础间隔2.0/1.5及MELEE已有固定源，本轮输入遗漏不是游戏机制UNKNOWN。

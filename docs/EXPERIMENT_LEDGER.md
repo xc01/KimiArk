@@ -54,3 +54,8 @@ CONFIRMED_FROM_CODE/GAMEDATA：合入 51e0410 review 后，仅复用原5个动�
 结果：Kimi调用1/1成功；新计划1；候选槽4个、完整组合1、方向完整候选1；阶段模拟0。所有6个部署动作合法，DP账本全支付且末值0。计划声称约17 DP banked，但实际0；保存为narrative discrepancy。没有operationally verified witness。
 
 实现：`scripts/build_normal_low_star_facts.py`、`src/arknights_planner/adapters/normal_low_star.py`、`scripts/run_r8_1_normal_low_star_kimi_revision_v1.py`、`scripts/compile_r8_1_normal_low_star_plan_v1.py`。最小公共机制补充为deployment SP bonus、deployment global heal、redeploy-time delta；AoE geometry仍未实现并保持NOT_PLANNER_SAFE。pytest不可用，定向直接函数测试47/47。
+
+
+## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：1e92747实际检出和远端HEAD核实；34人源ID匹配；27 artifact+7输入manifest基线匹配；44724 SSE事件completed且structured一致。原定向集合本环境48通过，3回归后51通过。修复630/941 DP错时比较、声明认证和分类遮盖。历史output原样。本轮Kimi0、关卡模拟0；尚无执行witness。

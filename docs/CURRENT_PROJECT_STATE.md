@@ -88,3 +88,8 @@ CONFIRMED_FROM_CODE：审查补丁已合入为 `8cc612e`。固定GameData `0ef7f
 CONFIRMED_FROM_CODE：计划中6个DEPLOY动作在30 FPS映射、真实DP账本和占格检查下均合法：Fang[4,3]@0、Friston-3[8,5]@90、GALLUS²[9,5]@180、Kroos[7,5]@510、Lancet-2[6,5]@570、夜刀[5,1]@630。全部避开活跃roadblock格，无行商/upkeep/退款，账本以0 DP结束。Kimi的“约17 DP banked”叙事与实际0不一致，已单独保留为范围性叙事错误，不修改原计划。
 
 UNKNOWN/UNVERIFIED：route-1/route-3有限窗口击杀、route-4 handoff和漏怪生命账本未模拟；GALLUS²/Friston-3/Kroos的unsupported天赋未计入；AoE splash几何仍缺失。因此没有faithful executable timeline，阶段模拟0次，WIN声明为NOT_RUN。定向直接函数测试47/47通过；pytest不可用。
+
+
+## 2026-10-10 Work独立审查1e92747（覆盖冲突旧结论）
+
+最新独立审查基线1e92747，详review/1e92747/REVIEW.md。CONFIRMED_FROM_CODE：低星34人事实目录含17三星；公共机制尚未全支持。B2六部署局部候选，faithful=0。旧941余额0结论被更正为条件模型10.3667；仍非17。敌人基础间隔2.0/1.5及MELEE有源。下一项仅同一候选一次固定前缀诊断，不再调用Kimi或新增战术。
