@@ -107,5 +107,36 @@ class PlanA1BoundedValidationTests(unittest.TestCase):
         self.assertEqual("CONDITIONAL_ARITHMETIC_NOT_STAGE_EXECUTION_CERTIFICATE", certificate["finite_window_damage"]["evidence_status"])
 
 
+class PlanA1ExecutionPrerequisiteTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.out = ROOT / "output/r8_1_plan_a1_execution_prerequisites_v1"
+        cls.payload = json.loads((cls.out / "execution_prerequisites.json").read_text())
+
+    def test_fixed_candidate_is_blocked_by_both_prerequisites(self):
+        self.assertEqual("FALSE", self.payload["conditions"]["COND_UPKEEP"]["status"])
+        self.assertEqual("FALSE", self.payload["conditions"]["COND_ANCHOR_TILE"]["status"])
+        self.assertEqual("INFEASIBLE_UNDER_CONFIRMED_EXECUTION_PREREQUISITES", self.payload["fixed_timeline_status"])
+
+    def test_merchant_upkeep_blocks_before_caper_and_keeps_unknown_edges(self):
+        ledger = self.payload["upkeep_ledger"]
+        blocker = ledger["earliest_unaffordable_merchant_tick"]
+        self.assertEqual(207, blocker["frame"])
+        self.assertEqual(0.1, blocker["shortfall"])
+        caper = ledger["rows"][-1]
+        self.assertEqual("DEPLOY_CHAR_4100_CAPER", caper["event"])
+        self.assertAlmostEqual(-9.0, caper["available_dp_after"])
+        self.assertEqual("UNKNOWN", self.payload["merchant_upkeep"]["first_charge_timing"])
+        self.assertEqual(0, self.payload["fixed_action_budget"]["stage_simulations"])
+
+    def test_roadblock_occupancy_rejects_caper_only(self):
+        legality = {row["operator_id"]: row for row in self.payload["deployment_legality"] if row["action_type"] == "DEPLOY"}
+        self.assertTrue(legality["char_272_strong"]["legal"])
+        self.assertTrue(legality["char_4155_talr"]["legal"])
+        self.assertFalse(legality["char_4100_caper"]["legal"])
+        self.assertIn("tile is occupied by active stage device", legality["char_4100_caper"]["reason"])
+        self.assertTrue(legality["char_455_nothin"]["legal"])
+
+
 if __name__ == "__main__":
     unittest.main()

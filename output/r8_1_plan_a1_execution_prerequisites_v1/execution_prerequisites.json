@@ -1,0 +1,229 @@
+{
+  "conditions": {
+    "COND_ANCHOR_TILE": {
+      "basis": "trap_020_roadblock#2 is active at [9,2]; current corrected deployment rule rejects caper before destruction.",
+      "status": "FALSE"
+    },
+    "COND_UPKEEP": {
+      "basis": "Confirmed positive upkeep makes the fixed long-held strong/talr prefix unaffordable before caper deployment; auto-retreat changes the planned timeline.",
+      "status": "FALSE"
+    }
+  },
+  "deployment_legality": [
+    {
+      "action_type": "DEPLOY",
+      "frame": 27,
+      "legal": true,
+      "operator_id": "char_272_strong",
+      "reason": null,
+      "tile": [
+        3,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "frame": 191,
+      "legal": true,
+      "operator_id": "char_4155_talr",
+      "reason": null,
+      "tile": [
+        8,
+        5
+      ]
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 390,
+      "legal": true,
+      "operator_id": "char_272_strong",
+      "reason": null,
+      "tile": null
+    },
+    {
+      "action_type": "DEPLOY",
+      "frame": 390,
+      "legal": false,
+      "operator_id": "char_4100_caper",
+      "reason": "char_4100_caper@13.0: tile is occupied by active stage device",
+      "tile": [
+        9,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "frame": 725,
+      "legal": true,
+      "operator_id": "char_455_nothin",
+      "reason": null,
+      "tile": [
+        5,
+        1
+      ]
+    }
+  ],
+  "evidence_status": {
+    "active_device_occupancy_rule": "CONFIRMED_FROM_CODE_AND_PRTS_DEVICE_DOCUMENTATION",
+    "first_charge_timing": "UNKNOWN; arithmetic uses deploy+interval and infeasibility holds for any positive charge before frame 191",
+    "merchant_cost_and_interval": "CONFIRMED_FROM_GAMEDATA_DESCRIPTION_AND_TRAIT_BLACKBOARD",
+    "merchant_insufficient_dp_auto_retreat": "CONFIRMED_BY_DESCRIPTION; negative-cost edge behavior remains PARTIAL",
+    "stage_simulation": "NOT_RUN"
+  },
+  "fixed_action_budget": {
+    "complete_combinations": 0,
+    "new_operational_plans": 0,
+    "new_operators": 0,
+    "stage_simulations": 0
+  },
+  "fixed_timeline_status": "INFEASIBLE_UNDER_CONFIRMED_EXECUTION_PREREQUISITES",
+  "mechanics_version": "m18.9-stage-device-runtime-v1",
+  "merchant_upkeep": {
+    "cost_per_tick": 3.0,
+    "evidence": [
+      {
+        "maintenance_cost": 3.0,
+        "maintenance_interval": 3.0,
+        "operator_id": "char_272_strong",
+        "source_path": "$.char_272_strong.description and $.char_272_strong.trait.candidates[0].blackboard"
+      },
+      {
+        "maintenance_cost": 3.0,
+        "maintenance_interval": 3.0,
+        "operator_id": "char_4155_talr",
+        "source_path": "$.char_4155_talr.description and $.char_4155_talr.trait.candidates[0].blackboard"
+      },
+      {
+        "maintenance_cost": 3.0,
+        "maintenance_interval": 3.0,
+        "operator_id": "char_455_nothin",
+        "source_path": "$.char_455_nothin.description and $.char_455_nothin.trait.candidates[0].blackboard"
+      }
+    ],
+    "first_charge_timing": "UNKNOWN",
+    "frame_390_caper_deficit_auto_retreat_branch": 9.0,
+    "implementation_policy_for_arithmetic": "deploy_frame + interval; insufficient DP emits no debit and auto-retreats",
+    "interval_seconds": 3.0,
+    "negative_debit_sensitivity_before_caper": -6.0,
+    "negative_debit_sensitivity_caper_deficit": 18.0
+  },
+  "operational_plan_id": "R8OP-A1-BLOCK1-COOP-ANCHOR390",
+  "roadblock": {
+    "caper_legality": {
+      "action_type": "DEPLOY",
+      "frame": 390,
+      "legal": false,
+      "operator_id": "char_4100_caper",
+      "reason": "char_4100_caper@13.0: tile is occupied by active stage device",
+      "tile": [
+        9,
+        2
+      ]
+    },
+    "deployment_position_released_when": "RuntimeDevice is removed from SimulationState.active_devices after hp <= 0",
+    "deployment_rule": "ACTIVE_STAGE_DEVICE_OCCUPIES_TILE",
+    "device_id": "trap_020_roadblock#2",
+    "faction": "ENEMY",
+    "hp": 8000.0,
+    "prts_evidence": "https://prts.wiki/w/道路障碍物 and https://prts.wiki/w/障碍物",
+    "template_id": "trap_020_roadblock",
+    "tile": [
+      9,
+      2
+    ]
+  },
+  "schema_version": "R8_1_PLAN_A1_EXECUTION_PREREQUISITES_V1",
+  "upkeep_ledger": {
+    "earliest_fixed_timeline_divergence": {
+      "available_dp_after": 2.9,
+      "available_dp_before": 2.9,
+      "cost": 0.0,
+      "event": "MERCHANT_UPKEEP_CHAR_272_STRONG",
+      "frame": 207,
+      "required_cost": 3.0,
+      "shortfall": 0.1,
+      "status": "INSUFFICIENT_AUTO_RETREAT_NO_DEBIT"
+    },
+    "earliest_unaffordable_merchant_tick": {
+      "available_dp_after": 2.9,
+      "available_dp_before": 2.9,
+      "cost": 0.0,
+      "event": "MERCHANT_UPKEEP_CHAR_272_STRONG",
+      "frame": 207,
+      "required_cost": 3.0,
+      "shortfall": 0.1,
+      "status": "INSUFFICIENT_AUTO_RETREAT_NO_DEBIT"
+    },
+    "rows": [
+      {
+        "available_dp_after": 10.0,
+        "available_dp_before": 10.0,
+        "cost": 0.0,
+        "event": "STAGE_INITIAL_DP",
+        "frame": 0
+      },
+      {
+        "available_dp_after": 5.9,
+        "available_dp_before": 10.9,
+        "cost": 5.0,
+        "event": "DEPLOY_CHAR_272_STRONG",
+        "frame": 27
+      },
+      {
+        "available_dp_after": 5.9,
+        "available_dp_before": 8.9,
+        "cost": 3.0,
+        "event": "MERCHANT_UPKEEP_CHAR_272_STRONG",
+        "frame": 117
+      },
+      {
+        "available_dp_after": 2.366667,
+        "available_dp_before": 8.366667,
+        "cost": 6.0,
+        "event": "DEPLOY_CHAR_4155_TALR",
+        "frame": 191
+      },
+      {
+        "available_dp_after": 2.9,
+        "available_dp_before": 2.9,
+        "cost": 0.0,
+        "event": "MERCHANT_UPKEEP_CHAR_272_STRONG",
+        "frame": 207,
+        "required_cost": 3.0,
+        "shortfall": 0.1,
+        "status": "INSUFFICIENT_AUTO_RETREAT_NO_DEBIT"
+      },
+      {
+        "available_dp_after": 2.366667,
+        "available_dp_before": 5.366667,
+        "cost": 3.0,
+        "event": "MERCHANT_UPKEEP_CHAR_4155_TALR",
+        "frame": 281
+      },
+      {
+        "available_dp_after": 2.366667,
+        "available_dp_before": 5.366667,
+        "cost": 3.0,
+        "event": "MERCHANT_UPKEEP_CHAR_4155_TALR",
+        "frame": 371
+      },
+      {
+        "available_dp_after": 3.0,
+        "available_dp_before": 3.0,
+        "cost": 0.0,
+        "event": "PLANNED_STRONG_RETREAT_ALREADY_ABSENT_NO_REFUND",
+        "frame": 390
+      },
+      {
+        "available_dp_after": -9.0,
+        "available_dp_before": 3.0,
+        "cost": 12.0,
+        "event": "DEPLOY_CHAR_4100_CAPER",
+        "frame": 390,
+        "roadblock_legality": "REJECTED_ACTIVE_STAGE_DEVICE_OCCUPANCY",
+        "status": "INSUFFICIENT_DP_AND_ACTIVE_ROADBLOCK"
+      }
+    ],
+    "schema_version": "R8_1_PLAN_A1_UPKEEP_LEDGER_V1"
+  }
+}

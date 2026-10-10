@@ -144,6 +144,30 @@ class GameDataRepository:
                 self._field(phase, "rangeId", source, f"$.{match_id}.phases[{index}].rangeId"), keyframes,
             ))
         redeploy_time = phases[-1].stats_max.redeploy_time if phases else unknown()
+        maintenance_cost = 0.0
+        maintenance_interval = 0.0
+        trait_description = str(raw.get("description") or "")
+        for candidate in (raw.get("trait") or {}).get("candidates") or []:
+            values = {
+                str(item.get("key")): item.get("value")
+                for item in candidate.get("blackboard") or []
+                if isinstance(item, dict)
+            }
+            interval = values.get("interval")
+            cost = values.get("cost")
+            if (
+                set(values) == {"interval", "cost"}
+                and isinstance(interval, (int, float))
+                and isinstance(cost, (int, float))
+                and interval > 0
+                and cost < 0
+                and "部署费用" in trait_description
+                and "消耗" in trait_description
+                and "自动撤退" in trait_description
+            ):
+                maintenance_interval = float(interval)
+                maintenance_cost = abs(float(cost))
+                break
         return Operator(
             match_id, self._field(raw, "name", source, f"$.{match_id}.name"),
             self._field(raw, "profession", source, f"$.{match_id}.profession"),
@@ -153,6 +177,8 @@ class GameDataRepository:
             tuple(entry["skillId"] for entry in raw.get("skills", []) if isinstance(entry, dict) and "skillId" in entry),
             redeploy_time=redeploy_time,
             star_rarity=self._star_rarity(raw.get("rarity"), source, f"$.{match_id}.rarity"),
+            maintenance_cost=maintenance_cost,
+            maintenance_interval=maintenance_interval,
         )
 
     def _enemy_database(self) -> dict[str, Any]:

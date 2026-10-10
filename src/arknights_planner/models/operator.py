@@ -55,3 +55,5 @@ class Operator:
     damage_type: str = "PHYSICAL"
     deployment_cost_delta: float = 0.0
     attack_speed: float = 100.0
+    maintenance_cost: float = 0.0
+    maintenance_interval: float = 0.0

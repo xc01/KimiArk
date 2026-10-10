@@ -40,3 +40,6 @@
 结果：Kimi-K3 一次调用完成，返回 `R8OP-A1-BLOCK1-COOP-ANCHOR390`。有界校验保留 2 个 distinct 组合、1 条动作候选和条件 DP/逐击证书；完整 witness 0，阶段模拟 0。新计划吸收了 250 非 deadline、wscoot block0、退款未知、A05 重复干员和 [9,2] roadblock 等证据。
 
 - 51e0410 independent review: realremote/manifests/rawresponse replay confirmed. Tactical revision changes roles and conditions; no faithful witness. Corrected missing450 caper attack; unchanged conditional431/600, changedtrace. baseline59 and corrected62 testsPASS. Existing2combos distinct but only primary has arithmetic. Guards unresolved; next bounded guard-source verification, no stage run.
+
+## EXP-A1-EXEC-PREREQ
+CONFIRMED_FROM_CODE/GAMEDATA：合入 51e0410 review 后，仅复用原5个动作；公共运行时最小修复 merchant upkeep 与 active device occupancy。固定候选在 frame 207 出现0.1 DP upkeep 缺口；frame 390 caper 缺9 DP且被 roadblock 占格拒绝。0 Kimi调用、0新计划、0关卡模拟。证据：`output/r8_1_plan_a1_execution_prerequisites_v1/`。首扣帧和负费边界保持 UNKNOWN/PARTIAL，不影响该候选的局部不可执行结论。

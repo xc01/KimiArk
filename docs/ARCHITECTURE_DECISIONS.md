@@ -20,3 +20,5 @@
 - 2026-10-10 CONFIRMED_FROM_CODE：d9304bb 审查补丁合入后允许唯一 Kimi-K3 修订。模型返回一个 Plan A 开局修订；确定性系统只生成 2 个 distinct opening 组合、1 条动作候选和条件证书，0 次阶段模拟。Python 不替 Kimi 发明新战术，也不把 conditional model conflict 升格为通用期限。
 
 - 51e0410 review: continuous SP/attack state must cross target handoffs; per-plan literal certificates do not prove semantic compilation. UNKNOWN execution guards block faithful prefix validation; simulator omissions cannot certify those guards. Candidate-set absence remains scoped to actually supplied roster.
+
+- 2026-10-10 CONFIRMED_FROM_CODE：公共运行时新增 generic merchant upkeep 与 active stage-device occupancy 检查。GameData description/trait blackboard 确认 strong/talr/nothin 每3秒扣3 DP且不足自动撤退；首扣帧仍未独立确认。`trap_020_roadblock#2` 活跃时占据 [9,2]，销毁（`hp <= 0` 后从 `active_devices` 移除）才释放部署格。机制版本不变，但不把这两个修复解释为战术通过。

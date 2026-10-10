@@ -65,3 +65,6 @@ CONFIRMED_FROM_CODE: 344ATK/1s/3normal+1skill(2.3x), two3300HP/150DEF continuous
 
 ## EXP-51-A1：条件协同与执行前提
 CONFIRMED_FROM_CODE：连续源攻击流纠正450漏击，理想双目标handoff条件下route1=431/route3=600，非实际runtime证书。390零余量经济为无upkeep模型；任何未补偿的正费用会打破固定候选支付条件。设备占格与费用缺失不能通过当前模拟器结果自行排除。适用范围限该主候选和上述条件；no third duelist只针对prompt提供7干员，不是全游戏结论。新知识应反馈Kimi考虑维护费/合法位置/条件职责，Python不指定新打法。
+
+## EXP-A1-EXEC-BLOCK
+CONFIRMED_FROM_CODE/GAMEDATA：仅限 R8OP-A1 固定 strong@27、talr@191、caper@390 前缀时，confirmed 3 DP/3秒 merchant upkeep 使 zero-slack caper 前缀失败；[9,2] 的活跃 roadblock 也独立拒绝 caper。不使用退款/upkeep收益/未授权拆路障。不可推广为“merchant 不可用”“[9,2] 永不可部署”或 A1 战略概念全局不可能。首扣帧未知，但任何确认的正周期费用都足以否定该固定前缀。

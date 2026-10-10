@@ -152,6 +152,7 @@ class Simulator:
         elif state.redeploy_available_at.get(action.operator_id, 0.0) > state.time + self._EPSILON: legal, reason = False, "redeploy cooldown active"
         elif len(state.deployed_operators) >= int(self._number(stage.deployment_limit, "deployment limit")): legal, reason = False, "deployment limit reached"
         elif any(runtime.tile == action.tile for runtime in state.deployed_operators.values()): legal, reason = False, "tile is occupied"
+        elif any(device.tile == action.tile for device in state.active_devices.values()): legal, reason = False, "tile is occupied by active stage device"
         else:
             reason = self._deployment_tile_reason(operator, stage, action.tile)
             if reason:
@@ -181,8 +182,11 @@ class Simulator:
             current_sp=skill.initial_sp if skill else 0.0,
             damage_type=operator.damage_type,
             attack_speed=getattr(operator, "attack_speed", 100.0),
+            maintenance_cost=operator.maintenance_cost,
+            maintenance_interval=operator.maintenance_interval,
         )
         runtime.skill_ready = bool(skill and runtime.current_sp >= skill.sp_cost)
+        runtime.next_maintenance_time = state.time + runtime.maintenance_interval
         state.deployed_operators[action.operator_id] = runtime
         if runtime.skill_ready:
             self._emit(state, EventType.SKILL_READY, source=runtime.operator_id)
@@ -609,6 +613,29 @@ class Simulator:
                     else:
                         self._activate_runtime_skill(state, operator, skill, automatic=True)
 
+    def _apply_maintenance(self, state: SimulationState) -> None:
+        for operator_id in tuple(state.deployed_operators):
+            operator = state.deployed_operators[operator_id]
+            if operator.maintenance_cost <= 0 or operator.maintenance_interval <= 0:
+                continue
+            if state.time + self._EPSILON < operator.next_maintenance_time:
+                continue
+            before = state.dp
+            if state.dp + self._EPSILON < operator.maintenance_cost:
+                self._remove_operator(state, operator_id, death=False)
+                self._emit(
+                    state, EventType.RETREAT, source=operator_id, legal=True,
+                    auto=True, reason="merchant_upkeep_insufficient",
+                )
+                continue
+            state.dp -= operator.maintenance_cost
+            operator.next_maintenance_time = state.time + operator.maintenance_interval
+            self._emit(
+                state, EventType.DP_CHANGE, source=operator_id,
+                amount=-operator.maintenance_cost, before=before, after=state.dp,
+                reason="merchant_upkeep",
+            )
+
     def run(self, *, stage: Stage, operators: dict[str, Operator], enemies: dict[str, Enemy], strategy: Strategy, config: SimulationConfig | None = None) -> SimulationResult:
         if stage.stage_map is None:
             raise ValueError("Simulation requires a StageMap")
@@ -643,6 +670,7 @@ class Simulator:
                 _, enemy_id, route_id = spawns[spawn_index]
                 self._spawn(state, enemies, enemy_id=enemy_id, route_id=route_id, spawn_index=enemy_index)
                 spawn_index += 1; enemy_index += 1
+            self._apply_maintenance(state)
             self._enemy_outputs(state, stage)
             self._operator_outputs(state, stage, pending_hits)
             self._advance_enemy_passives(state, config.dt)

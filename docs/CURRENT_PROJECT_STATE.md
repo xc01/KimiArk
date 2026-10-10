@@ -68,3 +68,9 @@ CONFIRMED_FROM_CODE：实际fetch及remote HEAD核对；生成脚本hash与12个
 CONFIRMED_FROM_CODE：remote HEAD核实；14manifest条目匹配；11.13MB SSE重放为kimi-k3 completed，与structured/request/prompt指纹一致。确认保存一份响应，不独立证明不存在其他历史调用。Kimi实际改变block1协同/让路/条件分支，学习进度为计划层进展。
 
 协同算式漏掉caper450攻击但480继续放技能；最小修复保留连续攻击/SP序列，条件性431/600击杀时间不变，伤害trace纠正。定向baseline59、修复62通过。固定动作不落实占格/upkeep/生存分支；添加明确prefix_simulation_ready=false。模拟器未处理active device占格及merchant upkeep，不能以模拟通过消除这些UNKNOWN。原prompt只供应7个干员，“无第三duelist”只对供应集合成立。历史output保持；下一步仅核实A1经济/占格执行前提，无Kimi/新计划/模拟。
+
+## 最新执行前提结论：A1固定候选
+
+CONFIRMED_FROM_CODE/GAMEDATA：`output/r8_1_plan_a1_execution_prerequisites_v1/execution_prerequisites.json` 将固定候选标记为 `INFEASIBLE_UNDER_CONFIRMED_EXECUTION_PREREQUISITES`。strong、talr、nothin 的 merchant trait 确认为每3秒扣3 DP，DP不足按描述自动撤退；首扣帧仍UNKNOWN。活跃 roadblock 占据部署格，`trap_020_roadblock#2` 在 [9,2] 使 caper@390 非法。
+
+修复后的账本在 frame 207 记录 strong 的3 DP upkeep 只剩2.9 DP（缺口0.1）；frame 390 caper 前余额3.0，部署12 DP缺9 DP，同时 roadblock 非法。关卡模拟0次、Kimi调用0次、新计划0次。这是固定候选局部反例，不是 R8-1 战略不可能，也不是 WIN/失败终局。

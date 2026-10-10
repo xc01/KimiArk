@@ -14,3 +14,11 @@
 验收：每项执行前提有来源与明确状态；真实维护费账本与设备合法性检查可复验；未知明确阻断faithful声明。若固定候选被证据否定，说明哪个假设/帧/职责失效及对战术的影响；不推广为战略不可能。若机制源不足，提交具体缺失证据，不继续堆叠验证器。
 
 历史artifacts保持，新证据独立保存，输入/源码hash、测试日志及六份长期文档上传GitHub。报告实际remote HEAD。完成后由Work判断是否需Kimi消化新反例，或具备执行单条固定前缀的条件。当前无WIN声明。
+
+## 2026-10-10 执行：结论与下一入口
+
+上述里程碑已完成。CONFIRMED_FROM_CODE/GAMEDATA 显示 merchant upkeep 为3 DP/3秒（strong/talr/nothin），首扣帧仍 UNKNOWN；当前公共运行时已实现 deploy+interval 的计费和不足自动撤退。`trap_020_roadblock#2` 在 [9,2] 活跃时拒绝 caper 部署；设备销毁并移出 `active_devices` 才释放格。
+
+同一固定候选因此被阻断：frame 207 strong upkeep 缺0.1 DP；frame 390 caper 前余额3.0但需12 DP（缺9），同时 roadblock 非法。新证据在 `output/r8_1_plan_a1_execution_prerequisites_v1/`。Kimi0次、新计划0次、关卡模拟0次。
+
+下一入口不是执行固定前缀模拟，而是由 Work 审查本轮代码、账本和反例；若批准，后续由一次新的 Kimi-K3 战术修订决定是否改变长期 merchant 依赖、roadblock 处理或 caper 建立结构。当前无 WIN 声明。

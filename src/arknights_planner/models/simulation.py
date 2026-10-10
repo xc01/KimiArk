@@ -110,6 +110,9 @@ class RuntimeOperator:
     magic_resist_penetration_flat: float = 0.0
     attack_speed_status_until: float = 0.0
     attack_speed_status_delta: float = 0.0
+    maintenance_cost: float = 0.0
+    maintenance_interval: float = 0.0
+    next_maintenance_time: float = 0.0
 
 
 @dataclass

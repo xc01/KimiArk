@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import unittest
 
 from arknights_planner.models.provenance import known
 from arknights_planner.models.route import Route, Waypoint
 from arknights_planner.models.simulation import EventType
-from arknights_planner.models.stage import SpawnEvent
+from arknights_planner.models.simulation import RuntimeDevice, SimulationState
+from arknights_planner.models.stage import BattleDevice, SpawnEvent
 from arknights_planner.models.strategy import Action, ActionType, Strategy
 from arknights_planner.simulator import SimulationConfig, Simulator
 from arknights_planner.simulator.synthetic import synthetic_enemies, synthetic_operators, synthetic_stage
@@ -66,6 +68,64 @@ def test_deployment_limit_rejects_third_operator_when_dp_is_available():
     assert any("deployment limit reached" in error for error in result.deployment_errors)
 
 
+def test_active_stage_device_blocks_tile_until_removed():
+    simulator = Simulator()
+    stage = replace(synthetic_stage(), devices=(
+        BattleDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 200.0, 20.0, -1, True, "ENEMY"),
+    ))
+    state = SimulationState(0.0, 10.0, 1)
+    state.active_devices["roadblock#1"] = RuntimeDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 8000.0, 200.0, 20.0, -1)
+    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (3, 1), "RIGHT"),))
+    simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+    assert state.deployment_errors == ["guard@0.0: tile is occupied by active stage device"]
+
+    del state.active_devices["roadblock#1"]
+    state.deployment_errors.clear()
+    simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+    assert state.deployment_errors == ()
+    assert state.deployed_operators["guard"].tile == (3, 1)
+
+
+def test_merchant_maintenance_charges_after_interval_and_stops_on_retreat():
+    operator = replace(synthetic_operators()["guard"], maintenance_cost=3.0, maintenance_interval=3.0)
+    stage = replace(synthetic_stage(), spawn_events=(SpawnEvent(100.0, "slug", "main"),), dp_per_second=0.0)
+    strategy = Strategy(
+        ("guard",),
+        (
+            Action(ActionType.DEPLOY, 0.0, "guard", (3, 1), "RIGHT"),
+            Action(ActionType.RETREAT, 3.5, "guard"),
+        ),
+    )
+    result = Simulator().run(
+        stage=stage, operators={"guard": operator}, enemies=synthetic_enemies(),
+        strategy=strategy, config=SimulationConfig(dt=0.01, max_time=4.0),
+    )
+    charges = [event for event in result.events if event.event_type is EventType.DP_CHANGE]
+    assert [(event.time, event.source_id, dict(event.details)["amount"]) for event in charges] == [(3.0, "guard", -3.0)]
+    assert abs(result.final_dp - 2.0) < 1e-9
+    assert not any(event.event_type is EventType.RETREAT and dict(event.details).get("auto") for event in result.events)
+
+
+def test_merchant_auto_retreats_when_maintenance_cannot_be_paid():
+    guard = synthetic_operators()["guard"]
+    stats = replace(guard.phases[0].stats_max, cost=known(0, "synthetic/test", "$.cost"))
+    phase = replace(guard.phases[0], stats_min=stats, stats_max=stats)
+    operator = replace(guard, phases=(phase,), maintenance_cost=3.0, maintenance_interval=3.0)
+    stage = replace(
+        synthetic_stage(), spawn_events=(SpawnEvent(100.0, "slug", "main"),), dp_per_second=0.0,
+        initial_dp=known(2, "synthetic/test", "$.initialDp"),
+    )
+    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (3, 1), "RIGHT"),))
+    result = Simulator().run(
+        stage=stage, operators={"guard": operator}, enemies=synthetic_enemies(),
+        strategy=strategy, config=SimulationConfig(dt=0.01, max_time=4.0),
+    )
+    retreat = next(event for event in result.events if event.event_type is EventType.RETREAT and dict(event.details).get("auto"))
+    assert dict(retreat.details)["auto"] is True
+    assert dict(retreat.details)["reason"] == "merchant_upkeep_insufficient"
+    assert abs(result.final_dp - 2.0) < 1e-9
+
+
 def test_synthetic_range_transform_and_target_acquisition():
     strategy = Strategy(("archer",), (Action(ActionType.DEPLOY, 0.0, "archer", (1, 2), "UP"),))
     result = run(strategy)
@@ -121,3 +181,22 @@ def test_fixed_hand_authored_synthetic_strategy_produces_deterministic_win():
     assert first.enemies_killed == 4
     assert first.enemies_leaked == 0
     assert first == second
+
+
+class ExecutionPrerequisiteRegressionTests(unittest.TestCase):
+    def test_device_occupancy_and_merchant_maintenance(self):
+        simulator = Simulator()
+        stage = replace(synthetic_stage(), devices=(
+            BattleDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 200.0, 20.0, -1, True, "ENEMY"),
+        ))
+        state = SimulationState(0.0, 10.0, 1)
+        state.active_devices["roadblock#1"] = RuntimeDevice("roadblock#1", "trap_020_roadblock", (3, 1), 8000.0, 8000.0, 200.0, 20.0, -1)
+        strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (3, 1), "RIGHT"),))
+        simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+        self.assertEqual(state.deployment_errors, ["guard@0.0: tile is occupied by active stage device"])
+        del state.active_devices["roadblock#1"]
+        state.deployment_errors.clear()
+        simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
+        self.assertEqual(state.deployment_errors, [])
+        test_merchant_maintenance_charges_after_interval_and_stops_on_retreat()
+        test_merchant_auto_retreats_when_maintenance_cannot_be_paid()

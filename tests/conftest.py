@@ -22,6 +22,17 @@ def gamedata_root(tmp_path: Path) -> Path:
                 {"level": 50, "data": {"maxHp": 1500, "atk": 500, "def": 200, "magicResistance": 0, "cost": 15, "blockCnt": 2, "baseAttackTime": 1.0, "respawnTime": 70}},
             ]}], "skills": [{"skillId": "sk_test", "unlockCond": {"phase": "PHASE_0", "level": 1}}],
         },
+        "char_merchant": {
+            "name": "Test Merchant", "profession": "SPECIAL", "subProfessionId": "merchant", "rarity": 4, "position": "MELEE",
+            "description": "再部署时间减少，撤退时不返还部署费用，在场时每3秒消耗3点部署费用（不足时自动撤退）",
+            "trait": {"candidates": [{"unlockCondition": {"phase": "PHASE_0", "level": 1}, "blackboard": [
+                {"key": "interval", "value": 3, "valueStr": None}, {"key": "cost", "value": -3, "valueStr": None},
+            ]}]},
+            "phases": [{"rangeId": "rng_test", "maxLevel": 45, "attributesKeyFrames": [
+                {"level": 1, "data": {"maxHp": 800, "atk": 200, "def": 150, "magicResistance": 0, "cost": 5, "blockCnt": 1, "baseAttackTime": 1.0, "respawnTime": 40}},
+                {"level": 45, "data": {"maxHp": 1200, "atk": 300, "def": 200, "magicResistance": 0, "cost": 5, "blockCnt": 1, "baseAttackTime": 1.0, "respawnTime": 40}},
+            ]}], "skills": [],
+        },
     }), encoding="utf-8")
     (excel / "skill_table.json").write_text(json.dumps({"sk_test": {"skillId": "sk_test", "hidden": False, "levels": [{
         "name": "Test Skill", "rangeId": None, "skillType": "MANUAL", "durationType": "NONE", "duration": 20.0,

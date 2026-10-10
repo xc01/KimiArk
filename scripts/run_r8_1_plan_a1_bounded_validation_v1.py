@@ -1,17 +1,31 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
+from arknights_planner.adapters.approximate_real import (
+    ApproximateRealSimulationAdapter,
+    RealOperatorConfiguration,
+    RealSimulationApproximationPolicy,
+)
+from arknights_planner.gamedata.repository import GameDataRepository
+from arknights_planner.models.simulation import RuntimeDevice, SimulationState
+from arknights_planner.models.stage import BattleDevice
+from arknights_planner.models.strategy import Action, ActionType, Strategy
+from arknights_planner.simulator import Simulator
+
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/r8_1_plan_a1_bounded_validation_v1"
+PREREQUISITE_OUT = ROOT / "output/r8_1_plan_a1_execution_prerequisites_v1"
 SOURCE = ROOT / "output/r8_1_plan_a_bounded_kimi_revision_v4"
 CONTEXT = ROOT / "output/r8_1_llm_tactical_context_v1/deterministic_context.json"
 CENSUS = ROOT / "output/operator_runtime_fidelity_v1/all_operator_census.json"
 CATALOG = ROOT / "output/r8_1_llm_operationalization_v1/deterministic_affordance_catalog.json"
+GAMEDATA = ROOT / "data/ArknightsGameData"
 PLAN_ID = "R8OP-A1-BLOCK1-COOP-ANCHOR390"
 MECHANICS = "m18.9-stage-device-runtime-v1"
 
@@ -22,6 +36,11 @@ def load(path: Path) -> Any:
 
 def write(name: str, payload: Any) -> None:
     (OUT / name).write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def write_out(directory: Path, name: str, payload: Any) -> None:
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / name).write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def sha256(path: Path) -> str:
@@ -214,6 +233,168 @@ def semantic_traceability(plan: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _frame_ledger_rows() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+
+    def add(frame: int, event: str, cost: float, *, forced_available: float | None = None) -> None:
+        previous = rows[-1]
+        elapsed = frame - previous["frame"]
+        before = forced_available if forced_available is not None else previous["available_dp_after"] + elapsed / 30.0
+        rows.append({
+            "available_dp_after": round(before - cost, 6),
+            "available_dp_before": round(before, 6),
+            "cost": cost,
+            "event": event,
+            "frame": frame,
+        })
+
+    rows.append({"available_dp_after": 10.0, "available_dp_before": 10.0, "cost": 0.0, "event": "STAGE_INITIAL_DP", "frame": 0})
+    add(27, "DEPLOY_CHAR_272_STRONG", 5.0)
+    add(117, "MERCHANT_UPKEEP_CHAR_272_STRONG", 3.0)
+    add(191, "DEPLOY_CHAR_4155_TALR", 6.0)
+    add(207, "MERCHANT_UPKEEP_CHAR_272_STRONG", 0.0, forced_available=2.9)
+    rows[-1].update({
+        "available_dp_after": 2.9,
+        "available_dp_before": 2.9,
+        "required_cost": 3.0,
+        "shortfall": 0.1,
+        "status": "INSUFFICIENT_AUTO_RETREAT_NO_DEBIT",
+    })
+    add(281, "MERCHANT_UPKEEP_CHAR_4155_TALR", 3.0)
+    add(371, "MERCHANT_UPKEEP_CHAR_4155_TALR", 3.0)
+    add(390, "PLANNED_STRONG_RETREAT_ALREADY_ABSENT_NO_REFUND", 0.0)
+    add(390, "DEPLOY_CHAR_4100_CAPER", 12.0)
+    rows[-1].update({
+        "roadblock_legality": "REJECTED_ACTIVE_STAGE_DEVICE_OCCUPANCY",
+        "status": "INSUFFICIENT_DP_AND_ACTIVE_ROADBLOCK",
+    })
+    return rows
+
+
+def _merchant_source_record(repo: GameDataRepository, operator_id: str) -> dict[str, Any]:
+    operator = repo.get_operator(operator_id)
+    return {
+        "maintenance_cost": operator.maintenance_cost,
+        "maintenance_interval": operator.maintenance_interval,
+        "operator_id": operator_id,
+        "source_path": f"$.{operator_id}.description and $.{operator_id}.trait.candidates[0].blackboard",
+    }
+
+
+def execution_prerequisites() -> dict[str, Any]:
+    repository = GameDataRepository(GAMEDATA)
+    adapter = ApproximateRealSimulationAdapter(repository)
+    operators = (
+        ("char_272_strong", 45),
+        ("char_4155_talr", 50),
+        ("char_4100_caper", 45),
+        ("char_455_nothin", 50),
+    )
+    fixture = adapter.build_pool_fixture(
+        stage_id_or_code="main_08-01",
+        configurations=tuple(RealOperatorConfiguration(operator_id, 0, level) for operator_id, level in operators),
+        policy=RealSimulationApproximationPolicy.main_00_01(),
+    )
+    actions = [
+        ("DEPLOY", 27, "char_272_strong", (3, 3), "RIGHT"),
+        ("DEPLOY", 191, "char_4155_talr", (8, 5), "LEFT"),
+        ("RETREAT", 390, "char_272_strong", None, None),
+        ("DEPLOY", 390, "char_4100_caper", (9, 2), "DOWN"),
+        ("DEPLOY", 725, "char_455_nothin", (5, 1), "RIGHT"),
+    ]
+    strategy = Strategy(
+        tuple(operator_id for operator_id, _ in operators),
+        tuple(
+            Action(ActionType(kind), frame / 30.0, operator_id, tile, direction or "RIGHT")
+            for kind, frame, operator_id, tile, direction in actions
+        ),
+    )
+    state = SimulationState(0.0, 1000.0, fixture.stage.initial_life)
+    state.active_devices = {
+        device.device_id: RuntimeDevice(
+            device.device_id, device.template_id, device.tile, device.hp, device.hp,
+            device.defense, device.magic_resistance, device.taunt_level,
+        )
+        for device in fixture.stage.devices
+    }
+    simulator = Simulator()
+    legality: list[dict[str, Any]] = []
+    for action_index, (kind, frame, operator_id, tile, direction) in enumerate(actions):
+        action = strategy.actions[action_index]
+        error_count = len(state.deployment_errors)
+        if kind == "DEPLOY":
+            simulator._deploy(state, fixture.stage, fixture.operators, strategy, action)
+            reason = "; ".join(state.deployment_errors[error_count:]) or None
+            legality.append({"action_type": kind, "frame": frame, "legal": not reason, "operator_id": operator_id, "reason": reason, "tile": tile})
+        else:
+            was_deployed = operator_id in state.deployed_operators
+            simulator._retreat(state, action)
+            reason = "; ".join(state.deployment_errors[error_count:]) or None if was_deployed else None
+            legality.append({"action_type": kind, "frame": frame, "legal": reason is None, "operator_id": operator_id, "reason": reason, "tile": tile})
+        state.deployment_errors.clear()
+    device = next(item for item in fixture.stage.devices if item.device_id == "trap_020_roadblock#2")
+    merchants = [_merchant_source_record(repository, operator_id) for operator_id in ("char_272_strong", "char_4155_talr", "char_455_nothin")]
+    caper_legality = next(row for row in legality if row["operator_id"] == "char_4100_caper")
+    ledger_rows = _frame_ledger_rows()
+    return {
+        "conditions": {
+            "COND_ANCHOR_TILE": {
+                "status": "FALSE",
+                "basis": "trap_020_roadblock#2 is active at [9,2]; current corrected deployment rule rejects caper before destruction.",
+            },
+            "COND_UPKEEP": {
+                "status": "FALSE",
+                "basis": "Confirmed positive upkeep makes the fixed long-held strong/talr prefix unaffordable before caper deployment; auto-retreat changes the planned timeline.",
+            },
+        },
+        "deployment_legality": legality,
+        "evidence_status": {
+            "active_device_occupancy_rule": "CONFIRMED_FROM_CODE_AND_PRTS_DEVICE_DOCUMENTATION",
+            "first_charge_timing": "UNKNOWN; arithmetic uses deploy+interval and infeasibility holds for any positive charge before frame 191",
+            "merchant_cost_and_interval": "CONFIRMED_FROM_GAMEDATA_DESCRIPTION_AND_TRAIT_BLACKBOARD",
+            "merchant_insufficient_dp_auto_retreat": "CONFIRMED_BY_DESCRIPTION; negative-cost edge behavior remains PARTIAL",
+            "stage_simulation": "NOT_RUN",
+        },
+        "fixed_action_budget": {
+            "complete_combinations": 0,
+            "new_operational_plans": 0,
+            "new_operators": 0,
+            "stage_simulations": 0,
+        },
+        "fixed_timeline_status": "INFEASIBLE_UNDER_CONFIRMED_EXECUTION_PREREQUISITES",
+        "mechanics_version": MECHANICS,
+        "merchant_upkeep": {
+            "cost_per_tick": 3.0,
+            "evidence": merchants,
+            "frame_390_caper_deficit_auto_retreat_branch": 9.0,
+            "interval_seconds": 3.0,
+            "negative_debit_sensitivity_before_caper": -6.0,
+            "negative_debit_sensitivity_caper_deficit": 18.0,
+            "first_charge_timing": "UNKNOWN",
+            "implementation_policy_for_arithmetic": "deploy_frame + interval; insufficient DP emits no debit and auto-retreats",
+        },
+        "operational_plan_id": PLAN_ID,
+        "roadblock": {
+            "device_id": device.device_id,
+            "faction": device.faction,
+            "hp": device.hp,
+            "template_id": device.template_id,
+            "tile": device.tile,
+            "deployment_rule": "ACTIVE_STAGE_DEVICE_OCCUPIES_TILE",
+            "deployment_position_released_when": "RuntimeDevice is removed from SimulationState.active_devices after hp <= 0",
+            "caper_legality": caper_legality,
+            "prts_evidence": "https://prts.wiki/w/道路障碍物 and https://prts.wiki/w/障碍物",
+        },
+        "schema_version": "R8_1_PLAN_A1_EXECUTION_PREREQUISITES_V1",
+        "upkeep_ledger": {
+            "rows": ledger_rows,
+            "earliest_fixed_timeline_divergence": ledger_rows[4],
+            "earliest_unaffordable_merchant_tick": ledger_rows[4],
+            "schema_version": "R8_1_PLAN_A1_UPKEEP_LEDGER_V1",
+        },
+    }
+
+
 def operational_certificate(plan: dict[str, Any], census: dict[str, Any]) -> dict[str, Any]:
     strong_route_2 = basic_sequence("char_272_strong", census, first_attack=27, hp=3300.0, defense=150.0)
     talr_route_1_only = basic_sequence("char_4155_talr", census, first_attack=191, hp=3300.0, defense=150.0)
@@ -300,6 +481,47 @@ def validate(plan: dict[str, Any], frontier: dict[str, Any], certificate: dict[s
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--execution-prerequisites-only", action="store_true")
+    args = parser.parse_args()
+    if args.execution_prerequisites_only:
+        payload = execution_prerequisites()
+        write_out(PREREQUISITE_OUT, "execution_prerequisites.json", payload)
+        write_out(PREREQUISITE_OUT, "final_status.json", {
+            "cond_anchor_tile": payload["conditions"]["COND_ANCHOR_TILE"]["status"],
+            "cond_upkeep": payload["conditions"]["COND_UPKEEP"]["status"],
+            "fixed_timeline_status": payload["fixed_timeline_status"],
+            "kimi_calls": 0,
+            "mechanics_version": MECHANICS,
+            "mechanics_version_unchanged": True,
+            "new_operational_plans": 0,
+            "runtime_repairs_applied": ["ACTIVE_STAGE_DEVICE_OCCUPANCY", "MERCHANT_UPKEEP"],
+            "stage_simulations": 0,
+            "status": "FIXED_CANDIDATE_BLOCKED_BY_UPKEEP_AND_ROADBLOCK",
+        })
+        inputs = {
+            "all_operator_census.json": file_record(CENSUS),
+            "character_table.json": file_record(GAMEDATA / "zh_CN/gamedata/excel/character_table.json"),
+            "gamedata_source.json": file_record(ROOT / "docs/review/gamedata_source.json"),
+            "mechanics.py": file_record(ROOT / "src/arknights_planner/mechanics.py"),
+            "level_main_08-01.json": file_record(GAMEDATA / "zh_CN/gamedata/levels/obt/main/level_main_08-01.json"),
+            "llm_structured_output.json": file_record(SOURCE / "llm_structured_output.json"),
+            "run_r8_1_plan_a1_bounded_validation_v1.py": file_record(Path(__file__)),
+            "simulator.py": file_record(ROOT / "src/arknights_planner/simulator/simulator.py"),
+        }
+        write_out(PREREQUISITE_OUT, "source_input_manifest.json", {
+            "external_references": [
+                "https://prts.wiki/w/游戏数据基础",
+                "https://prts.wiki/w/作战机制",
+                "https://prts.wiki/w/部署费用",
+                "https://prts.wiki/w/道路障碍物",
+                "https://prts.wiki/w/障碍物",
+            ],
+            "inputs": inputs,
+            "mechanics_version": MECHANICS,
+            "schema_version": "R8_1_PLAN_A1_EXECUTION_PREREQUISITES_MANIFEST_V1",
+        })
+        return
     OUT.mkdir(parents=True, exist_ok=True)
     source = load(SOURCE / "llm_structured_output.json")
     plan = source["revised_operational_plans"][0]

@@ -19,6 +19,16 @@ def test_operator_reconstruction_retains_factual_paths(gamedata_root):
     assert attack_range.direction.value == 1
 
 
+def test_merchant_trait_is_parsed_from_explicit_description_and_blackboard(gamedata_root):
+    repo = GameDataRepository(gamedata_root)
+    merchant = repo.get_operator("char_merchant")
+    guard = repo.get_operator("Test Guard")
+    assert merchant.maintenance_cost == 3.0
+    assert merchant.maintenance_interval == 3.0
+    assert guard.maintenance_cost == 0.0
+    assert guard.maintenance_interval == 0.0
+
+
 def test_enemy_and_stage_table_joins(gamedata_root):
     repo = GameDataRepository(gamedata_root)
     enemy = repo.get_enemy("enemy_test")

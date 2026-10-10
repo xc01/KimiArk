@@ -97,3 +97,7 @@ NEXT_MILESTONE：审查后确定的唯一下一项有界工作及验收条件。
 ## 十二、当前边界（2026-10-10）
 
 `R8OP-A1-BLOCK1-COOP-ANCHOR390` 是唯一一次授权 Kimi-K3 修订的产物。有界校验只产生条件性动作候选，不产生 faithful witness，不运行阶段模拟。WIN 仍为硬目标；任何局部通过都不等于 WIN。
+
+## 十三、当前边界（2026-10-10 执行前提）
+
+公共 merchant upkeep 与 active stage-device occupancy 已最小实现。原5动作固定候选在 frame 207 出现0.1 DP upkeep 缺口，frame 390 caper 缺9 DP且被 roadblock 占格拒绝。这是局部战术反例；是否修订战术由后续 Kimi 决定，当前不执行前缀模拟、不新增候选、不宣称 WIN。
