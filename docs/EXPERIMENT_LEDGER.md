@@ -74,3 +74,7 @@ BUDGET_CORRECTION：实际main_08-01执行共4次，超出“最多一次”限�
 ## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
 
 bc14455独立fetch/HEAD及18manifest条目核实，3563事件账本一致。REPORTED_BY_PREVIOUS_WORKER运行4次/3次未保存，预算FAIL；仅1份保存可核验。CONFIRMED_FROM_CODE：事件六部署有五个晚1帧、route4被Lancet2高台阻挡；错误坐标源头影响路线/装置和旧事实。四回归旧基线FAIL，最小修复后55PASS。本轮真实关卡模拟0/Kimi0；历史outputs保持。
+
+## 2026-10-10 开局路线静态事实实验
+
+CONFIRMED_FROM_CODE：`scripts/build_r8_1_opening_route_spatial_facts_v1.py`从固定GameData重建route-1/2/3/4/6/7/8；输出见`output/r8_1_opening_route_spatial_facts_v1/`。核心结果见CURRENT_PROJECT_STATE。`run_manifest.json`记录11个源/输出文件hash并在本轮复验PASS。compileall PASS；pytest在系统和`.venv`中均UNAVAILABLE_NOT_INSTALLED，因此以只读函数调用执行7项新增断言，并以unittest执行2项既有route-contact/leak回归，全部PASS。真实关卡模拟0。

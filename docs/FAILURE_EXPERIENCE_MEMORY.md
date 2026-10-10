@@ -94,3 +94,7 @@ CONDITIONAL/UNKNOWN：以上时刻依赖模型时序、目标选择、instant pr
 ## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
 
 CONFIRMED_FROM_CODE：暂停旧翻转坐标及漏WAIT时序衍生的战略/经济截止时间失败经验；适用域仅旧程序条件，不向Kimi反馈为完整GameData约束。正确roadblock位置[5,3],[9,4],[7,2],[1,2],[3,5]；旧[9,2]占路障结论撤销，但活跃装置真实占格规则保留。旧0漏怪不证明route7延迟执行，事件里它没有BLOCK；route4移交主体错误。
+
+## 2026-10-10 B2旧空间输入失效经验
+
+`OLD_INPUT_INVALID`：route-1和route-4不在[8,5]，其可用拦截路径在y=1，且新静态最晚拦截分别是461/941帧@[8,1]。`OLD_DEADLINE_NOT_SOURCE_BACKED`：route-2在frame27逮捕没有源路线时序支持；route-2无阻挡静态拦截为147帧@[3,3]。`OLD_MODEL_VALUE_INVALID`：route-6约768和route-8约803依赖未证的客户端寻路；route-7不在[5,1]上。这些限制只作用于旧B2输入/模型解释，不证明Kimi战略全局不可行，也不替Kimi改动作。

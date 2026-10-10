@@ -70,3 +70,33 @@ class Route:
                 return accumulated + min(max(factor, 0.0), 1.0) * segment
             accumulated += segment
         return None
+
+    def distances_at(self, point: tuple[int, int], *, tolerance: float = 1e-9) -> tuple[float, ...]:
+        """Return every exact traversal distance, preserving repeated visits."""
+        target_x, target_y = point
+        distances: list[float] = []
+        accumulated = 0.0
+        for first, second in zip(self.waypoints, self.waypoints[1:]):
+            dx, dy = second.x - first.x, second.y - first.y
+            segment = hypot(dx, dy)
+            if segment == 0:
+                continue
+            factor = ((target_x - first.x) * dx + (target_y - first.y) * dy) / (segment * segment)
+            projected_x, projected_y = first.x + factor * dx, first.y + factor * dy
+            if -tolerance <= factor <= 1 + tolerance and hypot(target_x - projected_x, target_y - projected_y) <= tolerance:
+                distance = accumulated + min(max(factor, 0.0), 1.0) * segment
+                if not distances or abs(distance - distances[-1]) > tolerance:
+                    distances.append(distance)
+            accumulated += segment
+        return tuple(distances)
+
+    def time_at_distance(self, distance: float, *, speed: float) -> float:
+        """Movement time including source waits strictly before this distance."""
+        if speed <= 0:
+            raise ValueError("route time requires a positive move speed")
+        elapsed = distance / speed
+        return elapsed + sum(wait.duration for wait in self.waits if wait.distance < distance)
+
+    def times_at_point(self, point: tuple[int, int], *, speed: float) -> tuple[float, ...]:
+        """Arrival times for every repeated visit to an exact tile centre."""
+        return tuple(self.time_at_distance(distance, speed=speed) for distance in self.distances_at(point))

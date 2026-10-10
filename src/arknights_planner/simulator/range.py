@@ -41,15 +41,9 @@ class CanonicalSyntheticRangeTransformer:
 
 
 class ApproximateRealRangeTransformer:
-    """Opt-in approximation for real `range_table` row/col cells.
+    """Real raw range cells in the fixture's bottom-left field coordinates."""
 
-    It treats a real raw cell `(row, col)` as the synthetic RIGHT-facing offset
-    `(col, -row)` and then applies the synthetic 90-degree rotation rule. This is
-    deliberately not a recovered Arknights client transform.
-    """
-
-    def __init__(self) -> None:
-        self._synthetic = CanonicalSyntheticRangeTransformer()
+    _directions = {"RIGHT", "DOWN", "LEFT", "UP"}
 
     def covered_tiles(
         self,
@@ -58,5 +52,14 @@ class ApproximateRealRangeTransformer:
         offsets: tuple[tuple[int, int], ...],
         direction: str,
     ) -> set[tuple[int, int]]:
-        converted = tuple((col, -row) for row, col in offsets)
-        return self._synthetic.covered_tiles(origin=origin, offsets=converted, direction=direction)
+        if direction not in self._directions:
+            raise ValueError(f"Unsupported real direction: {direction}")
+        def rotate(row: int, col: int) -> tuple[int, int]:
+            if direction == "RIGHT": return col, row
+            if direction == "DOWN": return row, -col
+            if direction == "LEFT": return -col, -row
+            return -row, col
+        return {
+            (origin[0] + rotate(row, col)[0], origin[1] + rotate(row, col)[1])
+            for row, col in offsets
+        }

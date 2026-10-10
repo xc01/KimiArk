@@ -1,0 +1,19 @@
+PYTHONPATH=src:scripts:. .venv/bin/python -m compileall -q src scripts tests
+COMPILEALL PASS
+PYTEST STATUS=UNAVAILABLE_NOT_INSTALLED
+--- direct function assertions (pytest unavailable) ---
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_b2_spatial_mismatches_are_explicit_without_changing_actions
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_real_range_transformer_uses_bottom_left_field_orientation
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_route_repeated_tile_visits_are_preserved
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_route_time_includes_waits_before_but_not_at_the_target
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_source_endpoints_roadblocks_and_route6_inconsistency_are_recorded
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_synthetic_range_transformer_remains_y_down
+PASS tests.test_r8_1_opening_route_spatial_facts_v1:test_wait_aware_opening_deadline_facts_are_derived_from_public_route
+--- unittest regression ---
+test_early_pressure_uses_route_contact_not_spawn_time_alone (tests.test_temporal_assignment.TemporalAssignmentTests) ... ok
+test_early_threat_model_includes_observed_leak_routes (tests.test_temporal_assignment.TemporalAssignmentTests) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 9.175s
+
+OK

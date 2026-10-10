@@ -30,6 +30,9 @@ class RouteSpawnThreat:
     latest_interception_distance: float | None
     latest_safe_blocker_frame: int | None
     contact_to_leak_seconds: float | None
+    wait_schedule: tuple[dict[str, float], ...] = ()
+    unblocked_route_end_frame: int | None = None
+    blocked_post_contact_timing: str = "UNKNOWN_AFTER_CONTACT"
 
 
 @dataclass(frozen=True)
@@ -162,12 +165,16 @@ def build_early_threat_model(
         contact_distance = min((item[0] for item in contact_rows), default=None)
         latest_distance, latest_tile = max(contact_rows, key=lambda item: item[0]) if contact_rows else (None, None)
         contact_frame = (
-            _frame(first_spawn + contact_distance / speed, fps)
+            _frame(first_spawn + route.time_at_distance(contact_distance, speed=speed), fps)
             if contact_distance is not None and speed > 0 else None
         )
         latest_frame = (
-            _frame(first_spawn + latest_distance / speed, fps)
+            _frame(first_spawn + route.time_at_distance(latest_distance, speed=speed), fps)
             if latest_distance is not None and speed > 0 else None
+        )
+        unblocked_end_frame = (
+            _frame(first_spawn + route.time_at_distance(route.length, speed=speed), fps)
+            if speed > 0 else None
         )
         route_rows.append(RouteSpawnThreat(
             route_id=route_id,
@@ -185,9 +192,12 @@ def build_early_threat_model(
             latest_interception_distance=latest_distance,
             latest_safe_blocker_frame=latest_frame,
             contact_to_leak_seconds=(
-                (route.length - contact_distance) / speed
+                route.time_at_distance(route.length, speed=speed) - route.time_at_distance(contact_distance, speed=speed)
                 if contact_distance is not None and speed > 0 else None
             ),
+            wait_schedule=tuple({"distance": wait.distance, "duration": wait.duration} for wait in route.waits),
+            unblocked_route_end_frame=unblocked_end_frame,
+            blocked_post_contact_timing="CONDITIONAL_UNKNOWN_AFTER_CONTACT",
         ))
 
     transformer = ApproximateRealRangeTransformer()

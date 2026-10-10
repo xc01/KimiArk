@@ -1,0 +1,304 @@
+{
+  "actions": [
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "attack_coverage_route_intersection": [
+        "route-2"
+      ],
+      "direction": "LEFT",
+      "exact_route_path_intersection": [
+        "route-2"
+      ],
+      "frame": 0,
+      "ground_blocking_eligible": true,
+      "operator_id": "char_123_fang",
+      "tile": [
+        4,
+        3
+      ],
+      "tile_kind": "GROUND"
+    },
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          8,
+          5
+        ]
+      ],
+      "attack_coverage_route_intersection": [],
+      "direction": "DOWN",
+      "exact_route_path_intersection": [],
+      "frame": 90,
+      "ground_blocking_eligible": true,
+      "operator_id": "char_4093_frston",
+      "tile": [
+        8,
+        5
+      ],
+      "tile_kind": "GROUND"
+    },
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "attack_coverage_route_intersection": [
+        "route-6",
+        "route-7",
+        "route-8"
+      ],
+      "direction": "LEFT",
+      "exact_route_path_intersection": [],
+      "frame": 180,
+      "ground_blocking_eligible": false,
+      "operator_id": "char_4227_gallus",
+      "tile": [
+        9,
+        5
+      ],
+      "tile_kind": "HIGH_GROUND"
+    },
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          10,
+          5
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "attack_coverage_route_intersection": [
+        "route-6",
+        "route-7",
+        "route-8"
+      ],
+      "direction": "RIGHT",
+      "exact_route_path_intersection": [],
+      "frame": 510,
+      "ground_blocking_eligible": false,
+      "operator_id": "char_124_kroos",
+      "tile": [
+        7,
+        5
+      ],
+      "tile_kind": "HIGH_GROUND"
+    },
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "attack_coverage_route_intersection": [
+        "route-6",
+        "route-7",
+        "route-8"
+      ],
+      "direction": "RIGHT",
+      "exact_route_path_intersection": [
+        "route-6"
+      ],
+      "frame": 570,
+      "ground_blocking_eligible": false,
+      "operator_id": "char_285_medic2",
+      "tile": [
+        6,
+        5
+      ],
+      "tile_kind": "HIGH_GROUND"
+    },
+    {
+      "active_roadblock": false,
+      "attack_coverage": [
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "attack_coverage_route_intersection": [
+        "route-1",
+        "route-3",
+        "route-4"
+      ],
+      "direction": "RIGHT",
+      "exact_route_path_intersection": [
+        "route-1",
+        "route-3",
+        "route-4"
+      ],
+      "frame": 630,
+      "ground_blocking_eligible": true,
+      "operator_id": "char_502_nblade",
+      "tile": [
+        5,
+        1
+      ],
+      "tile_kind": "GROUND"
+    }
+  ],
+  "invalidated_plan_inputs": [
+    {
+      "new_fact": "route-1 follows y=1 through [3,1]..[8,1]; [8,5] is not on route-1. 191 is instead the unblocked route-3 arrival at [8,1].",
+      "old_input": "route-1 latest_safe_blocker_frame=191 at [8,5]",
+      "status": "OLD_INPUT_INVALID"
+    },
+    {
+      "new_fact": "route-2 starts at [4,3]; the public unblocked first arrival is its spawn frame. [4,3] remains spatially valid for Fang.",
+      "old_input": "route-2 arrest required by 27",
+      "status": "OLD_DEADLINE_NOT_SOURCE_BACKED"
+    },
+    {
+      "new_fact": "route-4 follows y=1; its latest deployable path tile is [8,1]. [8,5] is not a route-4 blocker tile.",
+      "old_input": "route-4 handoff at [8,5] by 941",
+      "status": "OLD_INPUT_INVALID"
+    },
+    {
+      "new_fact": "route-6's public straight segment crosses FLY_ONLY candidates; client navigation and true leak timing are UNKNOWN.",
+      "old_input": "route-6 unblocked leak ~768",
+      "status": "OLD_MODEL_VALUE_INVALID"
+    },
+    {
+      "new_fact": "route-7's exact public path does not contain [5,1]; navigation and block timing are UNKNOWN.",
+      "old_input": "route-7 blocked at [5,1] by 725",
+      "status": "OLD_INPUT_INVALID"
+    },
+    {
+      "new_fact": "route-8's exact public path is partially represented by tile centres only; client navigation and true leak timing are UNKNOWN.",
+      "old_input": "route-8 unblocked leak ~803",
+      "status": "OLD_MODEL_VALUE_INVALID"
+    }
+  ],
+  "plan_id": "R8OP-B2-FANG43-FRSTON85-CROSSFIRE-OPEN0941",
+  "preserved_action_policy": "The six saved actions are not moved, retimed, or reclassified as executable by this static audit."
+}

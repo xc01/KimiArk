@@ -44,3 +44,7 @@ CONFIRMED_FROM_CODE：DP叙事比较必须同一时间点；账本以窗口终�
 ## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
 
 CONFIRMED_FROM_CODE：serialized map数组行需翻转；路线和predefines场地row不需翻转。共享adapter分清来源而非统一翻row；runtime普通高台不能承担地面阻挡；固定时钟从整数tick推导。路线压力事实必须包含MOVE/WAIT并与公共runtime同源，不能只用distance/speed。
+
+## 公共路线与方向契约（2026-10-10）
+
+CONFIRMED_FROM_CODE：`Route.distances_at`保存每个到达同一格的折线距离，仅合并相邻重复；`time_at_distance`只累加严格早于目标距离的WAIT。这避免把一次经过的距离误用于重复阶段，也不把目标处等待当作已到达。`ApproximateRealRangeTransformer`使用bottom-left field坐标；`CanonicalSyntheticRangeTransformer`继续保持自身y-down约定。两套约定分开测试，不互相伪装。
