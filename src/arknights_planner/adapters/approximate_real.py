@@ -8,10 +8,11 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, replace
 from enum import Enum
-from math import ceil
+from math import ceil, hypot
 from typing import Any
 
 from arknights_planner.gamedata.repository import GameDataRepository
+from arknights_planner.navigation import WalkNavigationError, WalkNavigator
 from arknights_planner.models.enemy import Enemy
 from arknights_planner.models.operator import Operator, OperatorAttributeKeyframe, OperatorPhase
 from arknights_planner.models.runtime import CombatOutputType
@@ -330,15 +331,41 @@ class ApproximateRealSimulationAdapter:
         if stage.structure is None:
             raise ApproximateRealExecutionError("stage structure is unavailable")
         map_height = len(stage.structure.map_indices)
+        map_width = len(stage.structure.map_indices[0]) if stage.structure.map_indices else 0
+        records = {record.tile_index: record for record in stage.structure.tile_records}
+
+        def tile_at(coordinate: tuple[int, int]):
+            serialized_row = map_height - 1 - coordinate[0]
+            if not (0 <= serialized_row < map_height and 0 <= coordinate[1] < map_width):
+                return None
+            return records.get(stage.structure.map_indices[serialized_row][coordinate[1]])
+
+        def walkable(coordinate: tuple[int, int]) -> bool:
+            record = tile_at(coordinate)
+            return record is not None and record.passable_mask.value == "ALL"
+
+        navigator = WalkNavigator(map_height, map_width, walkable)
         routes: list[Route] = []
         for route in stage.structure.routes:
-            points: list[Waypoint] = [self._coordinate(route.start_position, map_height=map_height)]
+            motion_mode = route.motion_mode.value if route.motion_mode is not None else None
+            allow_diagonal = route.allow_diagonal_move.value if route.allow_diagonal_move is not None else None
+            start_coordinate = self._route_coordinate(route.start_position)
+            points: list[Waypoint] = [Waypoint(float(start_coordinate[1]), float(start_coordinate[0]))]
             waits: list[RouteWait] = []
             for checkpoint in route.checkpoints:
                 if checkpoint.checkpoint_type.value == "MOVE":
                     if checkpoint.position is None:
                         raise ApproximateRealExecutionError("MOVE checkpoint position is UNKNOWN")
-                    points.append(self._coordinate(checkpoint.position, map_height=map_height))
+                    target_coordinate = self._route_coordinate(checkpoint.position)
+                    if motion_mode == "WALK":
+                        try:
+                            leg = navigator.path(start_coordinate, target_coordinate, allow_diagonal=bool(allow_diagonal))
+                        except WalkNavigationError as error:
+                            raise ApproximateRealExecutionError(str(error)) from error
+                        points.extend(Waypoint(float(item[1]), float(item[0])) for item in leg[1:])
+                    else:
+                        points.append(Waypoint(float(target_coordinate[1]), float(target_coordinate[0])))
+                    start_coordinate = target_coordinate
                 elif checkpoint.checkpoint_type.value == "WAIT_FOR_SECONDS":
                     if checkpoint.time.value is None:
                         raise ApproximateRealExecutionError("WAIT_FOR_SECONDS checkpoint time is UNKNOWN")
@@ -346,13 +373,29 @@ class ApproximateRealSimulationAdapter:
                     # as a movement node.  This opt-in policy pauses at the last
                     # reached MOVE node; the source checkpoint type/time stay
                     # preserved in StageLevelStructure for later replacement.
-                    distance = Route(f"route-{route.route_index}-prefix", tuple(points)).length if len(points) > 1 else 0.0
+                    distance = sum(
+                        hypot(second.x - first.x, second.y - first.y)
+                        for first, second in zip(points, points[1:])
+                    )
                     waits.append(RouteWait(distance, float(checkpoint.time.value)))
                 else:
                     raise ApproximateRealExecutionError(f"unsupported route checkpoint type: {checkpoint.checkpoint_type.value!r}")
-            points.append(self._coordinate(route.end_position, map_height=map_height))
+            end_coordinate = self._route_coordinate(route.end_position)
+            if motion_mode == "WALK":
+                try:
+                    leg = navigator.path(start_coordinate, end_coordinate, allow_diagonal=bool(allow_diagonal))
+                except WalkNavigationError as error:
+                    raise ApproximateRealExecutionError(str(error)) from error
+                points.extend(Waypoint(float(item[1]), float(item[0])) for item in leg[1:])
+            else:
+                points.append(Waypoint(float(end_coordinate[1]), float(end_coordinate[0])))
             routes.append(Route(f"route-{route.route_index}", tuple(points), tuple(waits)))
         return tuple(routes)
+
+    def _route_coordinate(self, route_coordinate) -> tuple[int, int]:
+        if route_coordinate is None or route_coordinate.row.value is None or route_coordinate.col.value is None:
+            raise ApproximateRealExecutionError("real route coordinate is UNKNOWN")
+        return int(route_coordinate.row.value), int(route_coordinate.col.value)
 
     def _devices(self, stage: AdaptedRealStage) -> tuple[BattleDevice, ...]:
         stage_id = stage.stage.stage_id

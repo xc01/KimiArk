@@ -1,0 +1,39 @@
+{
+  "client_code_addresses": {
+    "Route.ReconstructRoute": "0x276d548",
+    "SPFA._GenerateNextMapImpl": "0x276b460",
+    "SPFA._PostprocessAndMakeNextMapSmoothly": "0x276ba64",
+    "SPFA._RaycastBresenhamLine": "0x276c500",
+    "SPFA._RaycastSegmentLine": "0x276cc54",
+    "Tile.IsPassable": "0x2782140",
+    "Tile.IsPassableGoTo": "0x27821d0",
+    "Tile.get_passableMask": "0x277f988",
+    "architecture": "arm64-v8a libil2cpp.so in ark build 2771; local sha256=3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259"
+  },
+  "confirmed_semantics": [
+    "MotionMask WALK=0, FLY=1; WALK uses passableMask ALL tiles (MotionMask enum at dump.cs lines 1437952-1437964).",
+    "SPFA seeds the destination, relaxes four orthogonal neighbours with strict improvement and stores the first parent.",
+    "Smoothing advances to the next parent only after a row/column or Bresenham raycast succeeds; a failed raycast does not overwrite the current candidate.",
+    "Bresenham diagonal steps require both orthogonal side tiles clear."
+  ],
+  "external_reference": "external/Stronghold-Protocol/docs/research/08-waves-official.md section 3.1 and server/sim/grid.js bresenhamClear/smoothChains",
+  "fixed_gamedata_level": {
+    "field_paths": [
+      "$.mapData.map",
+      "$.mapData.tiles[*].passableMask",
+      "$.routes[*].motionMode",
+      "$.routes[*].allowDiagonalMove",
+      "$.routes[*].checkpoints",
+      "$.predefines.tokenInsts[*]"
+    ],
+    "path": "output/r8_1_deadline_295_reclassification_v1/gamedata/level_main_08-01.json",
+    "sha256": "8819c9cab57bd85005416d6262f9d52d07237c9b2a1a044d0ca17f8e408881b6"
+  },
+  "open_questions": [
+    "Whether active trap_020_roadblock affects every WALK enemy's SPFA, only listed enemy types, or neither.",
+    "Client exact corner/rounding handling at runtime and enemy collision radius.",
+    "Blocking geometry and target precedence while waiting at a repeated cell."
+  ],
+  "prts_stage_reference": "https://prts.wiki/w/R8-1 describes roadblocks as blockable by Ursa civilians and Talulah and destroyable by player units.",
+  "schema_version": "R8_1_WALK_NAVIGATION_SOURCE_EVIDENCE_V1"
+}

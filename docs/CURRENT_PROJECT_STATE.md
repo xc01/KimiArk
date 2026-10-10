@@ -119,3 +119,8 @@ B2旧输入失效范围：route-1 191@[8,5]与route-4 941@[8,5]空间不成立�
 ## 2026-10-11 Work审查1223c03（覆盖冲突旧结论）
 
 最新独立审查1223c03，详review/1223c03/REVIEW.md。坐标/WAIT事实有所纠正，但公共首次访问bug已确认并修复，route2摘要从147更正为条件到达589。四条直连路route2/6/7/8连续通行失效，导航和真实拦截尚UNKNOWN。无faithful/WIN。本轮真实关卡模拟0/Kimi0，69回归PASS；唯一下一项共享WALK导航事实恢复，不批准新战术或重跑。
+
+
+## 2026-10-11 WALK导航恢复边界
+
+CONFIRMED_FROM_CODE：公共 `WalkNavigator` 恢复地形级客户端 SPFA/Bresenham 语义；adapter 保留 `motionMode`、`allowDiagonalMove`、MOVE/WAIT 顺序和重复经过。route-2/6/7/8 静态路径不穿 `FLY_ONLY` 内部，route-3 控制不变。UNKNOWN：活跃 roadblock 对导航的作用、客户端运行时精确取整、阻挡半径、WAIT 阻挡规则。证据在 `output/r8_1_walk_navigation_facts_v1/`。

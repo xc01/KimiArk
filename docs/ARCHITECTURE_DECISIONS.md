@@ -53,3 +53,7 @@ CONFIRMED_FROM_CODE：`Route.distances_at`保存每个到达同一格的折线�
 ## 2026-10-11 Work审查1223c03（覆盖冲突旧结论）
 
 CONFIRMED_FROM_CODE：Route.distances_at不能只用于新目录，公共威胁与模拟器须使用全部访问。旧latest_safe_blocker_frame在本批数据只是条件格中心到达摘要，不是真实部署硬期限。通行检查必须覆盖连续路径，不能以tile中心枚举证明WALK可走；真实阻挡半径未建模时不得认证无拦截。
+
+
+- 2026-10-11 CONFIRMED_FROM_CODE：新增公共 `WalkNavigator`，在 adapter 中仅对 `motionMode=WALK` 使用四方向 SPFA 和客户端 Bresenham/Segment 平滑；FLY/E_NUM 仍走既有转换。`StageRouteData` 保留源 `motionMode` 与 `allowDiagonalMove`。不建 R8 专用物理模型。
+- UNKNOWN：动态 roadblock 是否参与/如何参与 SPFA、实际碰撞半径和 WAIT 阻挡规则。未实现猜测性 roadblock 导航规则。

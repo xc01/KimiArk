@@ -1,22 +1,15 @@
-# 唯一下一里程碑：route2/6/7/8公共WALK导航事实恢复
+# Work review gate: terrain WALK navigation restored; roadblock navigation UNKNOWN
 
-先合入1223c03审查补丁，阅读review/1223c03/REVIEW.md。Kimi0、真实关卡模拟0、新计划0、新动作候选0、战术搜索扩展0。允许来源核查、公共导航确定性计算、静态fixture及必要合成行为回归。
+CONFIRMED_FROM_CODE：公共共享 `WalkNavigator` 已按客户端语义恢复地形级 WALK 导航：四方向 SPFA、严格改进、UP/RIGHT/DOWN/LEFT 顺序、Bresenham/Segment 平滑和对角侧格检查。adapter 读取 `motionMode` 和 `allowDiagonalMove`，不再把 WALK MOVE 点直连。route-3 控制仍为 `(1,1)→(9,1)`。静态证据显示 route-2/6/7/8 的地形路径不穿 `FLY_ONLY` 格内部，route-2 重复经过仍保留。
 
-## 范围
+UNKNOWN：活跃 `trap_020_roadblock` 对普通 WALK 敌人的 SPFA/移动影响、客户端运行时精确取整、阻挡半径和等待期阻挡规则仍未证明。`conditional_roadblock_as_full_obstacle_routes` 只是没有依据的假设变体，不能反馈 Kimi 为客户端事实。
 
-仅main_08-01的route2/6/7/8地面导航问题，route3作为直线路线控制。不补所有低星机制，不重写战术/经济/伤害，不新增审计平台或验证器层。34人普通1～3星源目录与排除模式预备干员约束继续有效。
+普通模式1～3星、排除模式专属预备干员的约束继续有效。本轮 Kimi 0、真实关卡模拟 0、新 OperationalPlan 0、新动作候选 0、战术搜索扩展 0。原 B2 六动作未修改。
 
-当前公共adapter将MOVE点直连。源passableMask已证明四路线均有FLY_ONLY内部冲突；格中心枚举漏掉连续段，因此“无拦截格”及精确漏怪时刻均不能用于战术拒绝。
+关键证据：
 
-## 执行
+- `output/r8_1_walk_navigation_facts_v1/walk_navigation_facts.json`
+- `output/r8_1_walk_navigation_facts_v1/source_evidence.json`
+- `output/r8_1_walk_navigation_facts_v1/adapter_conversion_check.json`
 
-1. 以固定GameData为主，核对motionMode、allowDiagonalMove、visitEveryTileCenter/NodeCenter/CheckPoint、reachOffset/reachDistance、地块passableMask及活跃roadblock通行/阻挡配置。优先保留源字段到已有共享结构，查PRTS机制或可核实客户端证据补必要导航规则。不凭经验套寻路算法、corner规则、阻挡半径或平局规则并伪称真实。
-2. 若证据足够，在公共Route/adapter内实现来源支持的WALK导航，保留MOVE目标、WAIT所属位置/次序、重复经过及源spawn规则。不能建立另一个R8专用计算模型，不能自动移动原B2六动作。若证据不足，只提交明确阻塞、已有可推导内容与UNKNOWN；不得靠真实关卡模拟试出来。
-3. 做静态通行检查，覆盖经过格内部而非仅格中心；校验WALK不穿FLY_ONLY、端点匹配、活动路障遵循已证规则、WAIT/重复访问未丢失，route3控制未被错误改动。实际阻挡半径/等待期间阻挡规则无证时保持UNKNOWN，不能用“中心不相交”声明无真实拦截。
-4. 输出四路线的可用模型/证据范围及是否已具备供Kimi理解的地面职责机会。所有新时刻区分条件模型到达与真正职责硬期限，禁止把589或其他摘要默认硬化。
-
-## 验收与交付
-
-成功条件是公共导航行为有源依据、通行静态一致且MOVE/WAIT保留，能列职责机会或精准指出剩余缺口；不是报告更多审计指标。未恢复客户端精确导航时明确告诉用户不确定，不能假造完成。
-
-历史artifacts保持，本轮另目录保存源引用/hash、公共实现、必要回归和新事实。六份长期文档维护。上传GitHub并核对实际远端HEAD，报告真实预算、解决哪些旧矛盾及未决项。结束后停止，由Work确认事实充分性，再决定一次Kimi修订；不自动调用Kimi或运行关卡模拟。
+下一步由 Work 审查代码与 artifacts。若确认地形事实充分，再决定是否需要一次有界 Kimi-K3 修订；不要自动启动。

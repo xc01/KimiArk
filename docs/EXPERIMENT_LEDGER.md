@@ -83,3 +83,13 @@ CONFIRMED_FROM_CODE：`scripts/build_r8_1_opening_route_spatial_facts_v1.py`从�
 ## 2026-10-11 Work审查1223c03（覆盖冲突旧结论）
 
 1223c03独立检出/远端HEAD，11manifest及固定level源hash匹配。route2旧latest147与自己记录589矛盾，两个公共首次访问消费者最小修复；2行为回归旧FAIL后PASS。原7断言复验；修后64定向+5静态adapter共69PASS。本轮真实关卡模拟0/Kimi0。静态确认route2/6/7/8直连段均有FLY_ONLY内部反例，历史outputs不改。
+
+
+## R8_1_WALK_NAVIGATION_FACTS_V1
+
+- 实际预算：Kimi 0，真实关卡模拟 0，新 OperationalPlan 0，新动作候选 0，战术搜索扩展 0。
+- 实现：`src/arknights_planner/navigation.py` + 公共 adapter WALK 转换。
+- 证据：`output/r8_1_walk_navigation_facts_v1/`。
+- 验证：`compileall` PASS；`unittest` 导航/事实 8/8 PASS；`pytest` 不可用（本环境无模块）。
+- 结论范围：地形 SPFA/Bresenham 模型与静态通行一致；不是客户端完整运行时导航，也不是战术 deadline。
+- roadblock：普通 WALK 敌人的导航效果 UNKNOWN；“全阻隔代价1000”变体仅为假设对照。

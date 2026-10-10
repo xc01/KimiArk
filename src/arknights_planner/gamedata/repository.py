@@ -348,6 +348,8 @@ class GameDataRepository:
                 route_index,
                 self._coordinate(route.get("startPosition"), source, f"$.routes[{route_index}].startPosition"),
                 self._coordinate(route.get("endPosition"), source, f"$.routes[{route_index}].endPosition"),
+                self._field(route, "motionMode", source, f"$.routes[{route_index}].motionMode"),
+                self._field(route, "allowDiagonalMove", source, f"$.routes[{route_index}].allowDiagonalMove"),
                 tuple(
                     StageRouteCheckpointData(
                         self._field(checkpoint, "type", source, f"$.routes[{route_index}].checkpoints[{checkpoint_index}].type"),

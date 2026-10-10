@@ -41,6 +41,8 @@ class StageRouteData:
     route_index: int
     start_position: StageCoordinate | None
     end_position: StageCoordinate | None
+    motion_mode: ValueWithSource[str | None]
+    allow_diagonal_move: ValueWithSource[bool | None]
     checkpoints: tuple["StageRouteCheckpointData", ...]
     raw_source_file: str
 
