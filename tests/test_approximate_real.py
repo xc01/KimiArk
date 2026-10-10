@@ -61,9 +61,9 @@ def test_real_tile_mapping_and_route_conversion_are_source_derived(adapter):
     assert (tiles[(1, 3)].source_tile_key, tiles[(1, 3)].simulator_category) == ("tile_road", "GROUND")
 
     route = next(item for item in fixture.stage.routes if item.route_id == "route-2")
-    assert [(point.x, point.y) for point in route.waypoints] == [(8.0, 3.0), (3.0, 2.0), (3.0, 3.0), (1.0, 3.0), (1.0, 2.0), (0.0, 2.0)]
+    assert [(point.x, point.y) for point in route.waypoints] == [(8.0, 2.0), (3.0, 3.0), (3.0, 2.0), (1.0, 2.0), (1.0, 3.0), (0.0, 3.0)]
     one_step = route.position_at(1.0)
-    assert one_step[0] < 8.0 and one_step[1] < 3.0
+    assert one_step[0] < 8.0 and one_step[1] > 2.0
 
 
 def test_real_enemy_uses_converted_0_1_route_until_leak(adapter):

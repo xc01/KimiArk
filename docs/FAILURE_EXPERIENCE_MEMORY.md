@@ -89,3 +89,8 @@ CONFIRMED_FROM_CODE：B2所谓941余额0反例失效，原0属于630；条件模
 CONFIRMED_FROM_CODE：在公共近似模型和显式省略指定unsupported天赋下，B2六动作到941没有造成漏怪；route-1/2/3分别于691/576/881击杀，route-4于887接敌，route-6/7/8仍活跃。事件证实芬于570获得6 DP，941剩余约10.3667。
 
 CONDITIONAL/UNKNOWN：以上时刻依赖模型时序、目标选择、instant projectile、zero windup、量化spawn与省略机制，不能当作真实客户端击杀帧。Friston-3减伤、GALLUS²减抗/优先目标和Kroos概率效果省略；客户端前摇与取整仍UNKNOWN。不能把0漏怪/生命5升格为WIN或真实战术证明。
+
+
+## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：暂停旧翻转坐标及漏WAIT时序衍生的战略/经济截止时间失败经验；适用域仅旧程序条件，不向Kimi反馈为完整GameData约束。正确roadblock位置[5,3],[9,4],[7,2],[1,2],[3,5]；旧[9,2]占路障结论撤销，但活跃装置真实占格规则保留。旧0漏怪不证明route7延迟执行，事件里它没有BLOCK；route4移交主体错误。

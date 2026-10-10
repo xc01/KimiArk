@@ -1,0 +1,44 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_thirty_fps_clock_dispatches_action_at_frame_90_not_91 __________
+
+    def test_thirty_fps_clock_dispatches_action_at_frame_90_not_91():
+        stage = replace(synthetic_stage(), spawn_events=(SpawnEvent(100.0, "slug", "main"),))
+        result = Simulator().run(
+            stage=stage, operators=synthetic_operators(), enemies=synthetic_enemies(),
+            strategy=Strategy(("guard",), (Action(ActionType.DEPLOY, 3.0, "guard", (3, 1)),)),
+            config=SimulationConfig(dt=1 / 30, max_time=3.0),
+        )
+        deployments = [event for event in result.events if event.event_type is EventType.DEPLOY]
+>       assert [event.time for event in deployments] == [3.0]
+E       assert [] == [3.0]
+E         
+E         Right contains one more item: 3.0
+E         Use -v to get more diff
+
+tests/simulator/test_fixed_prefix_review_regressions.py:20: AssertionError
+___ test_high_ground_unit_with_nonzero_block_stat_does_not_hold_ground_enemy ___
+
+    def test_high_ground_unit_with_nonzero_block_stat_does_not_hold_ground_enemy():
+        stage = replace(synthetic_stage(), routes=(Route("main", (Waypoint(0, 2), Waypoint(6, 2))),))
+        operators = synthetic_operators()
+        archer = operators["archer"]
+        phase = archer.phases[0]
+        stats = replace(phase.stats_max, block_count=known(1, "synthetic/review", "$.block"))
+        operators["archer"] = replace(archer, phases=(replace(phase, stats_max=stats, stats_min=stats),))
+        state = SimulationState(0, 10, 3)
+        simulator = Simulator()
+        strategy = Strategy(("archer",), (Action(ActionType.DEPLOY, 0, "archer", (3, 2)),))
+        simulator._deploy(state, stage, operators, strategy, strategy.actions[0])
+        assert not state.deployment_errors
+        assert state.deployed_operators["archer"].base_block_count == 1
+        simulator._spawn(state, synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
+        simulator._advance_enemies(state, stage, 4.0)
+>       assert state.active_enemies["slug#0"].blocked_by is None
+E       AssertionError: assert 'archer' is None
+E        +  where 'archer' = RuntimeEnemy(instance_id='slug#0', enemy_id='slug', route_id='main', hp=100.0, speed=1.0, life_point_reduce=1, defense..., attack_stand_until=0.0, attack_windup_started=False, max_hp=100.0, hp_recovery_per_second=0.0, normal_attack_count=0).blocked_by
+
+tests/simulator/test_fixed_prefix_review_regressions.py:38: AssertionError
+=========================== short test summary info ============================
+FAILED tests/simulator/test_fixed_prefix_review_regressions.py::test_thirty_fps_clock_dispatches_action_at_frame_90_not_91
+FAILED tests/simulator/test_fixed_prefix_review_regressions.py::test_high_ground_unit_with_nonzero_block_stat_does_not_hold_ground_enemy

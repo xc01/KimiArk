@@ -287,9 +287,9 @@ class ApproximateRealSimulationAdapter:
     def _coordinate(route_coordinate, *, map_height: int) -> Waypoint:
         if route_coordinate is None or route_coordinate.row.value is None or route_coordinate.col.value is None:
             raise ApproximateRealExecutionError("real route coordinate is UNKNOWN")
-        # `mapData.map` and route positions both use serialized top-row-first
-        # rows.  Planner/simulator coordinates are canonical bottom-left.
-        return Waypoint(float(route_coordinate.col.value), float(map_height - 1 - route_coordinate.row.value))
+        # Route positions already use field (bottom-left) coordinates. Only
+        # serialized map-array row indices need inversion in _map_tiles.
+        return Waypoint(float(route_coordinate.col.value), float(route_coordinate.row.value))
 
     def _map_tiles(self, stage: AdaptedRealStage, policy: RealSimulationApproximationPolicy) -> tuple[Tile, tuple[MappedRealTile, ...]]:
         if stage.structure is None:
@@ -373,7 +373,7 @@ class ApproximateRealSimulationAdapter:
             devices.append(BattleDevice(
                 device_id=token.get("alias") or f"{template_id}#{index}",
                 template_id=template_id,
-                tile=(int(position["col"]), map_height - 1 - int(position["row"])),
+                tile=(int(position["col"]), int(position["row"])),
                 hp=float(attributes["maxHp"]),
                 defense=float(attributes["def"]),
                 magic_resistance=float(attributes["magicResistance"]),

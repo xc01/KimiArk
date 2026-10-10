@@ -587,6 +587,12 @@ class Simulator:
                     continue
             candidates: list[tuple[float, RuntimeOperator]] = []
             for operator in state.deployed_operators.values():
+                # This runtime implements ordinary ground blocking only.
+                # A ranged unit's source block stat does not let it hold a
+                # ground enemy while deployed on a high-ground tile.
+                tile = stage.stage_map.tile_at(operator.tile) if stage.stage_map else None
+                if tile is not None and tile.tile_kind == "HIGH_GROUND":
+                    continue
                 if len(operator.blocked_enemy_ids) >= self._effective_block(operator):
                     continue
                 blocking_distance = route.distance_at(operator.tile)
@@ -669,6 +675,7 @@ class Simulator:
         actions = sorted(enumerate(strategy.actions), key=lambda item: (item[1].time, item[0]))
         spawns = sorted((event.time + repetition * event.interval, event.enemy_id, event.route_id) for event in stage.spawn_events for repetition in range(event.count))
         action_index = spawn_index = enemy_index = 0
+        tick_index = 0
         pending_hits: list[_PendingHit] = []
         last_spawn_time = max((time for time, _, _ in spawns), default=0.0)
         while state.time <= config.max_time + self._EPSILON:
@@ -696,7 +703,10 @@ class Simulator:
                 break
             self._advance_enemies(state, stage, config.dt)
             state.dp += stage.dp_per_second * config.dt
-            state.time = round(state.time + config.dt, 10)
+            # Derive time from the integer tick, rather than accumulating
+            # rounded dt errors that dispatch exact-frame actions one tick late.
+            tick_index += 1
+            state.time = round(tick_index * config.dt, 10)
             self._advance_operator_runtime(state, config.dt)
         win = state.enemies_leaked == 0 and spawn_index == len(spawns) and not state.active_enemies
         score = (1000.0 if win else 0.0) + state.enemies_killed * 10.0 + state.remaining_life * 5.0 - state.enemies_leaked * 100.0

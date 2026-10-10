@@ -101,3 +101,8 @@ CONFIRMED_FROM_CODE：审查补丁已合入为 `23482f7`。固定GameData中 `en
 MODEL_LIMITATION：本次只分类为 `DIAGNOSTIC_MODEL_PREFIX`，不是faithful executable timeline，也不是WIN。Friston-3减伤、GALLUS²减抗/优先目标、Kroos概率暴击均省略；客户端攻击前摇和精确取整UNKNOWN。事件时间取1/30秒公共模拟tick，不是客户端观测帧。定向直接函数测试48/48通过；pytest不可用。
 
 BUDGET_CORRECTION：实际main_08-01执行共4次，超出“最多一次”限制：1次未保存探查、2次脚本在保存前崩溃、1次最终保存运行。仅最终3563事件用于结论；不能宣称整体预算合规。
+
+
+## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
+
+最新独立审查bc14455，详review/bc14455/REVIEW.md。旧保存前缀仅旧程序诊断：坐标翻转、漏WAIT时序、高台地面阻挡、晚1帧污染其战术解释。前三次运行缺证且预算FAIL。已修坐标/阻挡/时钟，55定向PASS，尚未真实关卡重验；历史坐标独立确认结论撤销。唯一下一项先重建七条开局公共源事实，Kimi0/真实关卡模拟0。

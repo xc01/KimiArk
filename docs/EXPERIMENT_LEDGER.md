@@ -69,3 +69,8 @@ CONFIRMED_FROM_CODE：1e92747实际检出和远端HEAD核实；34人源ID匹配�
 BUDGET_CORRECTION：实际main_08-01执行共4次，超出“最多一次”限制：1次未保存探查、2次脚本在保存前崩溃、1次最终保存运行。仅最终3563事件用于结论；不能宣称整体预算合规。
 
 边界：公共runtime继续使用ZERO_WINDUP、instant projectile、量化spawn和通用伤害模型；Friston-3减伤、GALLUS²减抗/优先目标、Kroos概率天赋显式省略。结果只可审查模型行为，不认证faithful，也不外推真实游戏上下界。定向直接函数测试48/48；pytest不可用。
+
+
+## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
+
+bc14455独立fetch/HEAD及18manifest条目核实，3563事件账本一致。REPORTED_BY_PREVIOUS_WORKER运行4次/3次未保存，预算FAIL；仅1份保存可核验。CONFIRMED_FROM_CODE：事件六部署有五个晚1帧、route4被Lancet2高台阻挡；错误坐标源头影响路线/装置和旧事实。四回归旧基线FAIL，最小修复后55PASS。本轮真实关卡模拟0/Kimi0；历史outputs保持。

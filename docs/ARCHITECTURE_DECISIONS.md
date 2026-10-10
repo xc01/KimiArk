@@ -39,3 +39,8 @@ CONFIRMED_FROM_CODE：DP叙事比较必须同一时间点；账本以窗口终�
 ## 固定前缀诊断观测边界（2026-10-10）
 
 固定前缀诊断复用公共GameData读取、adapter和Simulator，不新增伤害/费用公式。Simulator的合法DEPLOY事件现在包含实付成本和DP余额；该字段只增强观测，不改变部署/经济规则。为了保存941而不是942循环尾，入口使用legacy loop特性把 `max_time` 设为 `(941-1)/30`。完整事件、参数、机制省略和manifest一起保存。
+
+
+## 2026-10-10 Work审查bc14455（覆盖冲突旧结论）
+
+CONFIRMED_FROM_CODE：serialized map数组行需翻转；路线和predefines场地row不需翻转。共享adapter分清来源而非统一翻row；runtime普通高台不能承担地面阻挡；固定时钟从整数tick推导。路线压力事实必须包含MOVE/WAIT并与公共runtime同源，不能只用distance/speed。

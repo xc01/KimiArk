@@ -1,0 +1,38 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________ test_source_route_coordinate_is_not_a_serialized_map_array_row ________
+
+    def test_source_route_coordinate_is_not_a_serialized_map_array_row():
+        coordinate = SimpleNamespace(row=known(1, "source/review", "$.row"), col=known(9, "source/review", "$.col"))
+        point = ApproximateRealSimulationAdapter._coordinate(coordinate, map_height=7)
+>       assert (point.x, point.y) == (9, 1)
+E       assert (9.0, 5.0) == (9, 1)
+E         
+E         At index 1 diff: 5.0 != 1
+E         Use -v to get more diff
+
+tests/simulator/test_fixed_prefix_review_regressions.py:18: AssertionError
+___ test_predefined_device_uses_field_coordinates_without_a_second_row_flip ____
+
+    def test_predefined_device_uses_field_coordinates_without_a_second_row_flip():
+        payload = {
+            "mapData": {"map": [[0] * 11 for _ in range(7)]},
+            "predefines": {"tokenInsts": [{"inst": {"characterKey": "trap_020_roadblock"}, "position": {"row": 4, "col": 9}}]},
+        }
+        source_character = {"trap_020_roadblock": {"phases": [{"attributesKeyFrames": [{"data": {"maxHp": 8000, "def": 200, "magicResistance": 20, "tauntLevel": -1}}]}]}}
+        repository = SimpleNamespace(
+            get_stage_level_document=lambda _: (None, None, None, payload),
+            _table=lambda _: source_character,
+        )
+        adapted = SimpleNamespace(stage=SimpleNamespace(stage_id="coordinate-fixture"))
+        devices = ApproximateRealSimulationAdapter(repository)._devices(adapted)
+>       assert devices[0].tile == (9, 4)
+E       assert (9, 2) == (9, 4)
+E         
+E         At index 1 diff: 2 != 4
+E         Use -v to get more diff
+
+tests/simulator/test_fixed_prefix_review_regressions.py:33: AssertionError
+=========================== short test summary info ============================
+FAILED tests/simulator/test_fixed_prefix_review_regressions.py::test_source_route_coordinate_is_not_a_serialized_map_array_row
+FAILED tests/simulator/test_fixed_prefix_review_regressions.py::test_predefined_device_uses_field_coordinates_without_a_second_row_flip
