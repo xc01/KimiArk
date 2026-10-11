@@ -93,3 +93,8 @@ CONFIRMED_FROM_CODE：`scripts/build_r8_1_opening_route_spatial_facts_v1.py`从�
 - 验证：`compileall` PASS；`unittest` 导航/事实 8/8 PASS；`pytest` 不可用（本环境无模块）。
 - 结论范围：地形 SPFA/Bresenham 模型与静态通行一致；不是客户端完整运行时导航，也不是战术 deadline。
 - roadblock：普通 WALK 敌人的导航效果 UNKNOWN；“全阻隔代价1000”变体仅为假设对照。
+
+
+## Work review 2026-10-11 — 4b1b523
+
+CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).

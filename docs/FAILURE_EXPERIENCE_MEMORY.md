@@ -108,3 +108,8 @@ CONFIRMED_FROM_CODE：route2最晚147失效，修后条件公共格中心最后�
 ## 2026-10-11 导航失效知识更新
 
 CONFIRMED_FROM_CODE：旧 route-2/6/7/8 “直连无中心拦截”的结论失效，不能用于真实不可阻挡或必须让路的判断。地形级 SPFA 路径已恢复且不穿 FLY_ONLY 内部；但活跃 roadblock 影响与阻挡半径仍 UNKNOWN，因此所有时间/机会仍为条件模型，不是硬 deadline。
+
+
+## Work review 2026-10-11 — 4b1b523
+
+CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).

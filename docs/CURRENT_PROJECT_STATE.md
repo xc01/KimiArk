@@ -124,3 +124,8 @@ B2旧输入失效范围：route-1 191@[8,5]与route-4 941@[8,5]空间不成立�
 ## 2026-10-11 WALK导航恢复边界
 
 CONFIRMED_FROM_CODE：公共 `WalkNavigator` 恢复地形级客户端 SPFA/Bresenham 语义；adapter 保留 `motionMode`、`allowDiagonalMove`、MOVE/WAIT 顺序和重复经过。route-2/6/7/8 静态路径不穿 `FLY_ONLY` 内部，route-3 控制不变。UNKNOWN：活跃 roadblock 对导航的作用、客户端运行时精确取整、阻挡半径、WAIT 阻挡规则。证据在 `output/r8_1_walk_navigation_facts_v1/`。
+
+
+## Work review 2026-10-11 — 4b1b523
+
+CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).

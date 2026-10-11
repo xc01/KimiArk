@@ -140,3 +140,8 @@ B2六动作已经完成一次公共模型诊断，但结果只属于 `DIAGNOSTIC
 ## 当前边界（2026-10-11 WALK导航）
 
 地形级公共 WALK 导航已按源恢复；客户端精确路径与活跃 roadblock 导航语义保持 UNKNOWN。不得把静态格中心、连续地形交叉或条件模型时间升格为真实战术 deadline。普通模式1～3星约束继续有效。
+
+
+## Work review 2026-10-11 — 4b1b523
+
+CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).

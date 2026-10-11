@@ -57,3 +57,8 @@ CONFIRMED_FROM_CODE：Route.distances_at不能只用于新目录，公共威胁�
 
 - 2026-10-11 CONFIRMED_FROM_CODE：新增公共 `WalkNavigator`，在 adapter 中仅对 `motionMode=WALK` 使用四方向 SPFA 和客户端 Bresenham/Segment 平滑；FLY/E_NUM 仍走既有转换。`StageRouteData` 保留源 `motionMode` 与 `allowDiagonalMove`。不建 R8 专用物理模型。
 - UNKNOWN：动态 roadblock 是否参与/如何参与 SPFA、实际碰撞半径和 WAIT 阻挡规则。未实现猜测性 roadblock 导航规则。
+
+
+## Work review 2026-10-11 — 4b1b523
+
+CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
