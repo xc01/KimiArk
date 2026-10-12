@@ -66,3 +66,7 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 ## 2026-10-12 No guessed roadblock runtime layer
 
 不新增计划专用物理模型或审计框架。已保留公共 `WalkNavigator`，只提交 focused disassembly、hash、claim-to-evidence 映射和 artifact-integrity 回归。因为 roadblock prefab payload 不可解码，不修改导航默认规则；现有 `roadblock_navigation_effect=UNKNOWN` 分类继续生效。
+
+## 2026-10-12 Keep roadblock navigation conditional
+
+V2 提取到确切 payload 后仍不把路障实现为无条件全阻隔。已确认的两个分支是：keep-current passableMask 使 WALK/FLY mask 保持不变；但 `avoidObstacleLike=true` 的 SPFA reachability 检查会把该格视为 obstacle-like。在普通路径请求是否设置该标志得到确认前，公共导航层不改变战术判定。

@@ -137,3 +137,11 @@ CONFIRMED_FROM_CODE：本轮提供可复验反汇编和 hash。客户端通用�
 UNKNOWN：Unity bundle 使用当前 UnityPy 无法处理的 custom/LZHAM 保护，未能提取 `trap_020_roadblock` prefab 的 `_rewriteTileOptions` 或技能 payload；包版本与固定 GameData commit 的对应关系也未证明。因此活跃 roadblock 对普通 WALK 导航、乌萨斯平民与斗士塔露拉的作用仍为 UNKNOWN。不能把部署占格、名称、HP、blockCount 或 PRTS 文本硬化为客户端导航事实。
 
 本轮修正了模块级导航测试矛盾，12/12 targeted unittest PASS。反汇编证据和 claim-to-evidence 映射在 `output/r8_1_roadblock_navigation_evidence_v1/`。预算：Kimi 0、真实关卡模拟 0、新计划 0、新候选 0、扩搜 0。
+
+## 2026-10-12 Work review merge and roadblock prefab payload
+
+Work independently confirmed the V1 focused navigation tests at 12/12 PASS and the two raw disassembly hashes. The generic Token-to-Tile chain is CONFIRMED_FROM_CODE, but it is conditional: only a Token whose `_rewriteTileOptions` is enabled supplies Tile.Options, and WALK/FLY route refresh depends on the changed mask. It is not a universal every-Token refresh.
+
+V2 evidence decodes the exact roadblock prefab. The blocker is `assets/AB/Android/pkgrps/btl_pfb_tokens_0.ab`, container key `dyn/battle/prefabs/[uc]tokens/trap_020_roadblock.prefab`. Its mode has `passableMask=0`, `overrideObstacleLikeMoveCost=1`, and `_keepCurrentPassableMask=1`; the root has `_rewriteTileOptions=1` and filter tag `tap_roadblock`. Therefore the confirmed ordinary-WALK passability mask is unchanged. If `SPFA.CheckReachable` is called with `avoidObstacleLike=true`, the roadblock tile becomes unreachable because `Tile.get_moveCost` is 1000. The actual default route-generation call's obstacle flag remains UNKNOWN.
+
+CONFIRMED_FROM_CODE also shows `Trap.CheckHasFilterTag` reads the prefab filter-tag list, but the binding from `tap_roadblock` to Ursa civilians/Talulah in this client remains UNKNOWN. Metadata decryption provenance and client/GameData version equivalence remain UNKNOWN. Evidence and a reproducible two-method extraction are under `output/r8_1_roadblock_prefab_evidence_v2/`.

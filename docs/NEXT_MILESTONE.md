@@ -1,15 +1,13 @@
-# Next milestone: Work review of roadblock evidence boundary
+# Next milestone: Work review of roadblock prefab payload
 
-The current milestone supplied reproducible client excerpts for the generic
-tile-option, SPFA and special-block-condition chains. It did **not** decrypt the
-serialized roadblock prefab or skill payload. Therefore the active
-`trap_020_roadblock` effect on ordinary WALK navigation, civilians and Talulah
-remains UNKNOWN.
+V2 now extracts the exact `trap_020_roadblock` prefab and connects it to the
+focused Tile/SPFA disassembly. Work should review
+`output/r8_1_roadblock_prefab_evidence_v2/` and
+`scripts/extract_roadblock_prefab_evidence_v2.py`.
 
-Next, Work should review `output/r8_1_roadblock_navigation_evidence_v1/` against
-the pinned APK and GameData hashes. If the raw evidence is accepted, the next
-bounded task is to obtain a reproducible roadblock prefab/skill payload extraction
-or another source that ties the client prefab to `Token._rewriteTileOptions`
-and/or `Enemy.SpecialBlockCondition`. No tactical rule may be hardened from the
-current generic chain. Kimi, real-stage simulation, new plans, new candidates and
-expanded search remain zero.
+If accepted, the next bounded evidence task is to determine whether ordinary
+enemy route generation actually calls `SPFA.CheckReachable` with
+`avoidObstacleLike=true`, and whether `tap_roadblock` is bound to Ursa
+civilians/Talulah in this client. Do not harden a full-obstacle rule, invoke
+Kimi, run real-stage simulation, add OperationalPlans/candidates, or expand
+tactical search in that follow-up.

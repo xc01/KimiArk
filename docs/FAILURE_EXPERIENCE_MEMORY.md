@@ -119,3 +119,9 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 LESSON：不能用客户端 `Token`/`Tile` 的 generic rewrite-and-restore 机制推出 `trap_020_roadblock` 必然重写地块；也不能用部署占格推出普通 WALK 不可通行。当前证据仅支持这些机制存在，roadblock prefab payload 和普通敌人分支仍 UNKNOWN。
 
 适用条件：仅限 build 2771 提取的二进制与固定GameData commit；跨版本适用性 UNKNOWN。后续若得到 roadblock prefab 或 skill payload，必须先关联到 `Tile.Options` 或 `Enemy.SpecialBlockCondition`，再分普通 WALK、乌萨斯平民和塔露拉三类结论。
+
+## 2026-10-12 Roadblock parser failure was not a game-fact proof
+
+前一次 V1 的“prefab 不可解码”只说明当时缺少 Arknights 自定义 LZ4AK 支持，不能推出路障没有导航影响。Work 审查已确认 generic chain 有分支；V2 进一步证明该路障启用 rewrite、保留旧 passableMask，并把 `overrideObstacleLikeMoveCost` 置 1。
+
+可复用教训：容器解析失败只能阻断对应证书，不能把 UNKNOWN 硬化为全阻隔或无影响。新边界是：passability mask 不变；`avoidObstacleLike=true` 时该格不可达；默认路径生成的实际调用仍 UNKNOWN。

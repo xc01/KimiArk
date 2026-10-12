@@ -1,0 +1,18 @@
+Roadblock prefab evidence provenance
+
+Commands:
+1. PYTHONPATH=/tmp/pycapstone python3 scripts/extract_roadblock_prefab_evidence_v2.py arknights-hg-2771.apk data/client/lib/arm64-v8a/libil2cpp.so
+2. PYTHONPATH=src python3 -m unittest -v tests.test_roadblock_prefab_evidence_v2 tests.test_roadblock_navigation_evidence_v1 tests.test_walk_navigation_v1 tests.test_r8_1_walk_navigation_facts_v1
+3. python3 -m compileall -q src scripts tests
+
+Tool versions:
+- Python 3.10.12
+- UnityPy 1.23.0
+- lz4 4.4.5
+- capstone 5.0.7 (installed at /tmp/pycapstone for this run)
+
+Boundary:
+- The extraction script reads the pinned APK and exact bundle member; it does not upload the client package.
+- Method 1 is the default UnityPy loader and fails on unsupported flag 4.
+- Method 2 registers the BSD-3-Clause LZ4AK decoder from isHarryh/Ark-Unpacker and succeeds.
+- Metadata decryption provenance, client/GameData version equivalence, default route generation behavior, and civilian/Talulah filter-tag binding remain UNKNOWN.

@@ -106,3 +106,11 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 结果：通用 SPFA/tile-option/special-block-condition 链已由 focused disassembly 支持；`trap_020_roadblock` prefab/skill payload 因 custom/LZHAM bundle 未解码而保持 UNKNOWN。没有把 generic token 重写推广为该路障规则。证据目录 `output/r8_1_roadblock_navigation_evidence_v1/`，targeted unittest 12/12 PASS。
 
 预算：Kimi 0；真实关卡模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。
+
+## 2026-10-12 Roadblock prefab extraction V2
+
+方法：第一次使用默认 UnityPy，在自定义 flag 4 上失败；第二次注册 isHarryh/Ark-Unpacker 的 BSD-3-Clause LZ4AK 解码器，成功解码 `btl_pfb_tokens_0.ab`。精确资源为 `dyn/battle/prefabs/[uc]tokens/trap_020_roadblock.prefab`，GameObject path ID `1390663109743954708`。
+
+关键值：`_rewriteTileOptions=1`；mode `_tileOptions.passableMask=0`；`overrideObstacleLikeMoveCost=1`；`_keepCurrentPassableMask=1`；filter tag `tap_roadblock`。反汇编确认 TryUpdateOptions 在 keep-current 开启时保留旧 passableMask，SPFA 的 `avoidObstacleLike=true` 检查会因 moveCost 1000 拒绝该格。
+
+分类：普通 WALK 的 passability mask 不变；avoidObstacleLike 可达性为 false。默认路径生成是否使用该标志仍 UNKNOWN；平民/塔露拉的 tag 绑定和跨版本适用性仍 UNKNOWN。脚本/证据：`scripts/extract_roadblock_prefab_evidence_v2.py` 与 `output/r8_1_roadblock_prefab_evidence_v2/`。验证：compileall PASS；定向 unittest 17/17 PASS。预算：Kimi 0；真实关卡模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。

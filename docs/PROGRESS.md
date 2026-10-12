@@ -2371,3 +2371,22 @@ real-stage simulations        = 0
 ```
 
 Artifacts are under `output/r8_1_roadblock_navigation_evidence_v1/`.
+
+## 2026-10-12 Roadblock prefab payload extraction
+
+Work pytest review confirmed the V1 focused tests at 12/12 PASS and matched the
+raw disassembly hashes. V2 used at most two decode methods for the exact bundle:
+default UnityPy FAIL, then the source-backed LZ4AK decoder SUCCESS. Evidence is
+under `output/r8_1_roadblock_prefab_evidence_v2/`.
+
+```text
+prefab rewriteTileOptions       = CONFIRMED_FROM_CODE, true
+ordinary WALK passability mask  = UNCHANGED
+avoidObstacleLike reachable     = FALSE
+default route generation effect = UNKNOWN
+civilian/Talulah blocking       = UNKNOWN
+cross-version applicability      = UNKNOWN
+targeted unit tests             = 17/17 PASS
+Kimi calls                      = 0
+real-stage simulations          = 0
+```
