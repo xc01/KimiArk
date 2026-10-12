@@ -82,3 +82,10 @@ V4 将默认 Capstone 空流分类为 `ENTRY_DECODE_FAILED`，非空前缀分类
 只作为候选线索，不能直接表示真实代码、函数边界或调用边。V4 在创建输出前校验固定
 binary SHA-256，避免错误输入覆盖证据。公共导航层继续没有 `Route -> SPFA` 的
 实现或补写。
+
+## 2026-10-12 Keep LLM input and transport observable
+
+完整战术闭环入口改为在 prepare 阶段保存 `llm_request.json`，并把 compact evidence JSON
+嵌入唯一用户消息；call phase 不再从另一份 prompt 隐式重建请求。SSE 解析在收完原始流后
+执行，避免分块边界切断事件；空 `response.incomplete` 不覆盖 `response.created` envelope。
+响应必须完成且 JSON 可解析后才能进入确定性编译。

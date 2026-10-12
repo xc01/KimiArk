@@ -168,3 +168,16 @@ ELF64 PT_LOAD 核实本例目标 RVA/VA 与文件偏移一一对应；`.eh_frame
 历史 V1/V2/V3 artifacts 原样保留；V3 的 `NO_VALID_A64_INSTRUCTIONS` 分类失效。
 证据：`output/r8_1_route_navigation_decodability_v4/`。定向 unittest 18/18 PASS。
 预算全部为 0。
+
+## 2026-10-12 低星完整闭环被调用缺陷阻断
+
+用户要求暂停 Route 缺口，执行一次普通 1～3 星完整战术闭环。准备阶段已构建紧凑
+证据（34 名普通低星、35 条源路线、完整波次、模型生成时序、地形导航、已知 UNKNOWN），
+但唯一 Kimi-K3 请求返回 `response.incomplete`：32,768 token 输出上限内 JSON 截断。
+事后取证确认当时用户消息只含战术摘要提示，没有嵌入 `llm_evidence_context.json`。
+Kimi 的 40,059 字符部分文本也自述只收到 `PROMPT_SUMMARY_ONLY`。
+
+因此本轮 `valid_operational_plan_count=0`，不进入忠实编译，也不启动任何关卡模拟。
+已保存 8,165,408 字节原始流和部分输出，不将其冒充有效计划。一次调用后未重试。
+已修复未来入口的证据嵌入缺陷，并修复 SSE 空 incomplete 事件覆盖 created envelope 的
+缺陷。预算：Kimi 1、新计划 0、完整动作候选 0、主模拟 0、路障复验 0、扩搜 0。

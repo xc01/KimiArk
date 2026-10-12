@@ -50,7 +50,8 @@ class StreamAccumulator:
                 self.error = f"Multiple terminal SSE events: {self.terminal_event}, {event.event}"
                 return
             self.terminal_event = event.event
-            self.response_envelope = response
+            if response:
+                self.response_envelope = response
             if event.event == "response.failed":
                 self.error = json.dumps(data.get("response", {}).get("error", data.get("error", "")))
 

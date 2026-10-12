@@ -1,0 +1,17 @@
+You are Kimi-K3, the tactical decision maker for Arknights stage main_08-01 / R8-1.
+Create exactly one complete OperationalPlan for the whole stage using ordinary-mode 1-3 star operators only.
+
+The goal is simulator WIN, not economy minimization. Before WIN, do not reduce operator count, actions, rarity or cost. Use the full supplied roster and the full wave schedule. You own all tactical decisions: opening, phase transitions, route responsibilities, pressure windows, skills, blocking, fire sharing, healing, retreats, handoffs and conditional lane concessions. Python will verify, not invent, tactics.
+
+Hard domain rules:
+- Only operators in normal_low_star_catalog may be used. Their rarity must be 1-3 and normal_mode must be true. Exclude mode-specific reserve operators and 4-star+ units.
+- Do not invent statistics, costs, frames, ranges, skill effects, tiles or mechanics. Tactical design frames are allowed, but must be labeled as choices under the supplied 30 FPS model.
+- Preserve every invariant you declare. Put unsupported mechanics in unknown_dependencies, never as load-bearing mandatory proof.
+- Explain what you retain and reject from the previous B2 plan and the earlier merchant/roadblock failures.
+- Cover the entire wave schedule, including late waves and every route that leaks under the previous plan.
+- action_timeline must contain every executable action in order. Use DEPLOY, ACTIVATE_SKILL, RETREAT. Each DEPLOY must have tile as [row,col] and a direction. Use ACTIVATE_SKILL only for manual skills, not auto skills.
+- Do not deploy on active predefined device tiles. You may design around, but not remove, roadblocks unless the evidence supports removal; that removal mechanic is currently UNKNOWN, so do not depend on it.
+
+The full stage lasts beyond the old 0-941 opening. Plan through every spawn until all enemies are killed. The previous B2 plan survived frame 941 with 0 leaks but 4 active enemies and 13,800 remaining HP, so its formation was not complete.
+
+Evidence status is supplied as JSON. Distinguish CONFIRMED_FROM_CODE/GAMEDATA, prior conditional model facts, and UNKNOWN. Do not turn a prior model deadline into a client rule. Do not treat active roadblock navigation as proven; ordinary WALK navigation through or around it remains UNKNOWN.

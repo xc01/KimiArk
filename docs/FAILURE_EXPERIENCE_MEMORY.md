@@ -144,3 +144,12 @@ LESSON：函数入口解码失败不等于整个字节范围没有有效 A64 指
 跨版本适用性 UNKNOWN。禁止把 `Route.ReconstructNextMap -> SPFA`、加密、运行时变换
 或数据误分类写成结论。V3 的 `NO_VALID_A64_INSTRUCTIONS` 分类失效。证据：
 `output/r8_1_route_navigation_decodability_v4/`。
+
+## 2026-10-12 LLM evidence embedding lesson
+
+LESSON：仅把证据保存到 artifact 不等于 Kimi 收到了证据。未来战术调用必须在用户
+消息中嵌入完整 evidence context，并在 response forensics 中检查模型是否能引用关键事实。
+`response.incomplete` 截断不能被解析成计划，也不能让 Python 补写或恢复战术语义。
+
+本轮的 40,059 字符部分输出只保留为失败证据。它包含大量模型自述假设，不能用于
+编译、模拟或反馈为战术事实。一次调用后禁止重试；下一轮由 Work 决定是否允许新调用。

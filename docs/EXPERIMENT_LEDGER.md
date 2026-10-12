@@ -139,3 +139,16 @@ Il2CppDumper `dump.cs`/`script.json` 摘录和 ELF `.eh_frame`。工具为 Capst
 `scripts/diagnose_route_navigation_decodability_v4.py`。验证：compileall PASS；
 定向 unittest 18/18 PASS；V4 与 V3 manifest 哈希校验通过。预算：Kimi 0；真实关卡
 模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。
+
+## 2026-10-12 Low-star full tactical closure V1
+
+输入与准备：`output/r8_1_low_star_full_tactical_closure_v1/llm_evidence_context.json`
+（229KB）覆盖 34 名普通 1～3 星、35 条源路线、完整波次、模型生成时序、route-2/3/6/7/8
+地形事实、设备占格、敌方数值、前次 B2 结果和机制边界。实际 Kimi-K3 调用一次，响应 ID
+`resp_021791801860205137f500080bf18603e76d17d12e7c43e659c8c`，终点
+`response.incomplete`，assistant message status `incomplete`，原始流 8,165,408 字节。
+
+根因：当时提示没有嵌入 evidence JSON；Kimi 部分文本自述 `PROMPT_SUMMARY_ONLY`。
+输出在 32,768 token 上限内截断，40,059 字符 JSON 解析失败。结果：0 个有效
+OperationalPlan、0 条动作候选、0 次关卡模拟。部分输出保留为失效证据，不作为战术。
+已修复 future prompt evidence embedding 和 SSE 空 incomplete envelope 处理。

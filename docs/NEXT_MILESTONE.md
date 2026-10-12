@@ -1,4 +1,4 @@
-# Next milestone: close the Route-to-SPFA static edge
+# Next milestone: review the blocked low-star full closure
 
 Work accepted the focused V2 evidence but corrected two overgeneralizations:
 `NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` and
@@ -13,12 +13,16 @@ replaces the stale V3 classification `NO_VALID_A64_INSTRUCTIONS`; entry failure
 does not prove that the whole range is invalid or encrypted. ELF PT_LOAD and
 `.eh_frame` mapping are in `output/r8_1_route_navigation_decodability_v4/`.
 
-The stored SPFA reference and method signatures are insufficient to prove this
-edge. The next bounded task is to obtain a compatible decrypted/static call body
-or another direct client source for this one edge, then connect it to cost, cache
-and refresh behavior. Do not infer the edge from Python, simulator behavior, or
-method naming. Do not present aligned resynchronization or skipdata candidates as
-real control flow without method-boundary evidence.
+Route static work is paused as an asset, not abandoned. The immediate next step
+is Work review of `output/r8_1_low_star_full_tactical_closure_v1/`: the single
+Kimi-K3 request returned `response.incomplete`, and forensics prove the original
+user prompt omitted the prepared evidence context while output was truncated at
+32,768 tokens.
+
+No valid OperationalPlan exists, so no compile or simulation followed. Do not
+recover tactics from the 40,059-character partial output, and do not retry Kimi
+within the closed budget. A future tactical call requires a new Work-approved
+bounded milestone and must use the fixed evidence-embedding transport.
 
 Do not investigate `tap_roadblock` civilian/Talulah binding in the same step.
 Do not invoke Kimi, run real-stage simulation, add OperationalPlans/candidates,
