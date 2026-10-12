@@ -1,0 +1,255 @@
+=== Enemy.SpecialBlockCondition.SetCondition 0x293bb7c-0x293bbb4 ===
+293bb7c: str	x20, [sp, #-0x20]!
+293bb80: stp	x19, x30, [sp, #0x10]
+293bb84: mov	x20, x0
+293bb88: str	w1, [x0, #0x10]
+293bb8c: str	x2, [x0, #0x18]!
+293bb90: mov	x1, x2
+293bb94: mov	x19, x3
+293bb98: bl	#0x23104e0
+293bb9c: str	x19, [x20, #0x20]!
+293bba0: mov	x1, x19
+293bba4: ldp	x19, x30, [sp, #0x10]
+293bba8: mov	x0, x20
+293bbac: ldr	x20, [sp], #0x20
+293bbb0: b	#0x23104e0
+=== Enemy.SpecialBlockCondition.get_filterBuffKeyPairs 0x293bbb4-0x293bbc8 ===
+293bbb4: ldr	w8, [x0, #0x10]
+293bbb8: sub	w8, w8, #1
+293bbbc: cmp	w8, #2
+293bbc0: cset	w0, lo
+293bbc4: ret	
+=== Enemy.SpecialBlockCondition.get_filterTags 0x293bbc8-0x293bbd8 ===
+293bbc8: ldr	w8, [x0, #0x10]
+293bbcc: cmp	w8, #3
+293bbd0: cset	w0, eq
+293bbd4: ret	
+=== Enemy.SpecialBlockCondition.CheckBlockable 0x293bbd8-0x293bf5c ===
+293bbd8: str	x28, [sp, #-0x60]!
+293bbdc: stp	x27, x26, [sp, #0x10]
+293bbe0: stp	x25, x24, [sp, #0x20]
+293bbe4: stp	x23, x22, [sp, #0x30]
+293bbe8: stp	x21, x20, [sp, #0x40]
+293bbec: stp	x19, x30, [sp, #0x50]
+293bbf0: adrp	x22, #0xc8cc000
+293bbf4: ldrb	w8, [x22, #0x2c7]
+293bbf8: mov	x20, x2
+293bbfc: mov	x19, x1
+293bc00: mov	x21, x0
+293bc04: tbnz	w8, #0, #0x293bc34
+293bc08: adrp	x0, #0xbfdb000
+293bc0c: ldr	x0, [x0, #0x7e8]
+293bc10: bl	#0x231052c
+293bc14: adrp	x0, #0xc0d5000
+293bc18: ldr	x0, [x0, #0x1c8]
+293bc1c: bl	#0x231052c
+293bc20: adrp	x0, #0xc0c1000
+293bc24: ldr	x0, [x0, #0x2a0]
+293bc28: bl	#0x231052c
+293bc2c: mov	w8, #1
+293bc30: strb	w8, [x22, #0x2c7]
+293bc34: ldr	w8, [x21, #0x10]
+293bc38: adrp	x23, #0xc0c1000
+293bc3c: ldr	x23, [x23, #0x2a0]
+293bc40: cmp	w8, #3
+293bc44: b.eq	#0x293be54
+293bc48: adrp	x22, #0xbfdb000
+293bc4c: ldr	x22, [x22, #0x7e8]
+293bc50: cmp	w8, #2
+293bc54: b.eq	#0x293bd8c
+293bc58: cmp	w8, #1
+293bc5c: b.ne	#0x293bf28
+293bc60: ldr	x0, [x23]
+293bc64: ldr	w8, [x0, #0xe0]
+293bc68: cbnz	w8, #0x293bc70
+293bc6c: bl	#0x231062c
+293bc70: mov	x0, x20
+293bc74: mov	x1, xzr
+293bc78: bl	#0x92836c0
+293bc7c: tbz	w0, #0, #0x293bf28
+293bc80: ldr	x0, [x23]
+293bc84: ldr	w8, [x0, #0xe0]
+293bc88: cbnz	w8, #0x293bc90
+293bc8c: bl	#0x231062c
+293bc90: mov	x0, x19
+293bc94: mov	x1, xzr
+293bc98: bl	#0x92836c0
+293bc9c: tbz	w0, #0, #0x293bf28
+293bca0: ldr	x0, [x21, #0x18]
+293bca4: ldr	x1, [x22]
+293bca8: bl	#0x61d1028
+293bcac: tbnz	w0, #0, #0x293bf28
+293bcb0: ldr	x26, [x21, #0x18]
+293bcb4: cbz	x26, #0x293bf54
+293bcb8: ldr	x8, [x26, #0x18]
+293bcbc: cmp	w8, #1
+293bcc0: b.lt	#0x293bf30
+293bcc4: mov	w25, wzr
+293bcc8: mov	x27, xzr
+293bccc: and	x8, x8, #0xffffffff
+293bcd0: add	x28, x26, #0x28
+293bcd4: cmp	x27, w8, uxtw
+293bcd8: b.hs	#0x293bf58
+293bcdc: ldp	x22, x21, [x28, #-8]
+293bce0: mov	x1, xzr
+293bce4: mov	x0, x22
+293bce8: bl	#0x8699318
+293bcec: mov	w24, w0
+293bcf0: mov	x0, x21
+293bcf4: mov	x1, xzr
+293bcf8: bl	#0x8699318
+293bcfc: mov	w23, w0
+293bd00: tbz	w24, #0, #0x293bd20
+293bd04: tbnz	w23, #0, #0x293bf28
+293bd08: cbz	x20, #0x293bf54
+293bd0c: mov	x0, x20
+293bd10: mov	x1, x21
+293bd14: mov	x2, xzr
+293bd18: bl	#0x25e031c
+293bd1c: b	#0x293bd38
+293bd20: cbz	x19, #0x293bf54
+293bd24: mov	x0, x19
+293bd28: mov	x1, x22
+293bd2c: mov	x2, xzr
+293bd30: bl	#0x25e031c
+293bd34: tbz	w23, #0, #0x293bd40
+293bd38: orr	w25, w25, w0
+293bd3c: b	#0x293bd74
+293bd40: tbz	w0, #0, #0x293bd60
+293bd44: cbz	x20, #0x293bf54
+293bd48: mov	x0, x20
+293bd4c: mov	x1, x21
+293bd50: mov	x2, xzr
+293bd54: bl	#0x25e031c
+293bd58: and	w8, w0, #1
+293bd5c: b	#0x293bd64
+293bd60: mov	w8, wzr
+293bd64: and	w9, w25, #1
+293bd68: orr	w8, w8, w9
+293bd6c: cmp	w8, #0
+293bd70: cset	w25, ne
+293bd74: ldr	w8, [x26, #0x18]
+293bd78: add	x27, x27, #1
+293bd7c: add	x28, x28, #0x10
+293bd80: cmp	x27, w8, sxtw
+293bd84: b.lt	#0x293bcd4
+293bd88: b	#0x293bf34
+293bd8c: ldr	x0, [x23]
+293bd90: ldr	w8, [x0, #0xe0]
+293bd94: cbnz	w8, #0x293bd9c
+293bd98: bl	#0x231062c
+293bd9c: mov	x0, x20
+293bda0: mov	x1, xzr
+293bda4: bl	#0x92836c0
+293bda8: tbz	w0, #0, #0x293bf28
+293bdac: ldr	x0, [x23]
+293bdb0: ldr	w8, [x0, #0xe0]
+293bdb4: cbnz	w8, #0x293bdbc
+293bdb8: bl	#0x231062c
+293bdbc: mov	x0, x19
+293bdc0: mov	x1, xzr
+293bdc4: bl	#0x92836c0
+293bdc8: tbz	w0, #0, #0x293bf28
+293bdcc: ldr	x0, [x21, #0x18]
+293bdd0: ldr	x1, [x22]
+293bdd4: bl	#0x61d1028
+293bdd8: tbnz	w0, #0, #0x293bf28
+293bddc: ldr	x23, [x21, #0x18]
+293bde0: cbz	x23, #0x293bf54
+293bde4: ldr	x8, [x23, #0x18]
+293bde8: cmp	w8, #1
+293bdec: b.lt	#0x293bf28
+293bdf0: mov	x24, xzr
+293bdf4: and	x8, x8, #0xffffffff
+293bdf8: add	x26, x23, #0x28
+293bdfc: mov	w25, #1
+293be00: cmp	x24, w8, uxtw
+293be04: b.hs	#0x293bf58
+293be08: cbz	x19, #0x293bf54
+293be0c: ldp	x1, x21, [x26, #-8]
+293be10: mov	x0, x19
+293be14: mov	x2, xzr
+293be18: bl	#0x25e031c
+293be1c: cbz	x20, #0x293bf54
+293be20: mov	w22, w0
+293be24: mov	x0, x20
+293be28: mov	x1, x21
+293be2c: mov	x2, xzr
+293be30: bl	#0x25e031c
+293be34: eor	w8, w22, w0
+293be38: tbnz	w8, #0, #0x293bf30
+293be3c: ldr	w8, [x23, #0x18]
+293be40: add	x24, x24, #1
+293be44: add	x26, x26, #0x10
+293be48: cmp	x24, w8, sxtw
+293be4c: b.lt	#0x293be00
+293be50: b	#0x293bf34
+293be54: ldr	x0, [x23]
+293be58: ldr	w8, [x0, #0xe0]
+293be5c: cbnz	w8, #0x293be64
+293be60: bl	#0x231062c
+293be64: mov	x0, x20
+293be68: mov	x1, xzr
+293be6c: bl	#0x92836c0
+293be70: tbz	w0, #0, #0x293bf30
+293be74: ldr	x0, [x23]
+293be78: ldr	w8, [x0, #0xe0]
+293be7c: cbnz	w8, #0x293be84
+293be80: bl	#0x231062c
+293be84: mov	x0, x19
+293be88: mov	x1, xzr
+293be8c: bl	#0x92836c0
+293be90: tbz	w0, #0, #0x293bf30
+293be94: adrp	x8, #0xc0d5000
+293be98: ldr	x8, [x8, #0x1c8]
+293be9c: ldr	x0, [x21, #0x20]
+293bea0: ldr	x1, [x8]
+293bea4: bl	#0x61ccc38
+293bea8: tbnz	w0, #0, #0x293bf30
+293beac: ldr	x21, [x21, #0x20]
+293beb0: cbz	x21, #0x293bf54
+293beb4: ldr	x8, [x21, #0x18]
+293beb8: cmp	w8, #1
+293bebc: b.lt	#0x293bf30
+293bec0: adrp	x24, #0xc095000
+293bec4: ldr	x24, [x24, #0xb18]
+293bec8: mov	x22, xzr
+293becc: and	x8, x8, #0xffffffff
+293bed0: add	x23, x21, #0x20
+293bed4: cmp	x22, w8, uxtw
+293bed8: b.hs	#0x293bf58
+293bedc: cbz	x19, #0x293bf54
+293bee0: ldrb	w8, [x24]
+293bee4: ldr	x20, [x23, x22, lsl #3]
+293bee8: cbz	w8, #0x293bef4
+293beec: ldr	x0, [x19]
+293bef0: bl	#0x235bd9c
+293bef4: ldr	x8, [x19]
+293bef8: mov	x0, x19
+293befc: mov	x1, x20
+293bf00: ldr	x9, [x8, #0x778]
+293bf04: ldr	x2, [x8, #0x780]
+293bf08: blr	x9
+293bf0c: tbnz	w0, #0, #0x293bf28
+293bf10: ldr	w8, [x21, #0x18]
+293bf14: add	x22, x22, #1
+293bf18: mov	w25, wzr
+293bf1c: cmp	x22, w8, sxtw
+293bf20: b.lt	#0x293bed4
+293bf24: b	#0x293bf34
+293bf28: mov	w25, #1
+293bf2c: b	#0x293bf34
+293bf30: mov	w25, wzr
+293bf34: and	w0, w25, #1
+293bf38: ldp	x19, x30, [sp, #0x50]
+293bf3c: ldp	x21, x20, [sp, #0x40]
+293bf40: ldp	x23, x22, [sp, #0x30]
+293bf44: ldp	x25, x24, [sp, #0x20]
+293bf48: ldp	x27, x26, [sp, #0x10]
+293bf4c: ldr	x28, [sp], #0x60
+293bf50: ret	
+293bf54: bl	#0x2310650
+293bf58: bl	#0x2310658
+=== Enemy.SpecialBlockCondition.ctor 0x293bf5c-0x293bf64 ===
+293bf5c: mov	x1, xzr
+293bf60: b	#0x889fe78

@@ -16,6 +16,10 @@ class WalkNavigationTests(unittest.TestCase):
         self.assertEqual(path, ((2, 0), (0, 2)))
         self.assertAlmostEqual(path_length(path), 2 * 2 ** 0.5)
 
+    def test_bresenham_smoothing_may_omit_collinear_centre_tile(self):
+        path = WalkNavigator(3, 3, full_grid(3, 3).__contains__).path((2, 0), (0, 2))
+        self.assertEqual(path, ((2, 0), (0, 2)))
+
     def test_bresenham_corner_rule_rejects_a_blocked_side_tile(self):
         passable = full_grid(3, 3)
         blocked = {(1, 0)}
@@ -39,35 +43,4 @@ class WalkNavigationTests(unittest.TestCase):
         )
         self.assertEqual(navigator.path((0, 0), (0, 2)), ((0, 0), (0, 1), (0, 2)))
         self.assertEqual(navigator.field_to((0, 2)).distances[(0, 0)], 1001)
-
-
-
-
-def test_bresenham_corner_rule_rejects_a_blocked_side_tile():
-    passable = full_grid(3, 3)
-    blocked = {(1, 0)}
-    path = WalkNavigator(
-        3, 3, lambda coordinate: coordinate in passable and coordinate not in blocked
-    ).field_to((0, 2)).path_from((2, 0))
-    assert (2, 0) in path
-    assert path[-1] == (0, 2)
-    assert (1, 1) in path
-
-
-def test_disabled_diagonal_uses_row_and_column_raycast():
-    path = WalkNavigator(3, 3, full_grid(3, 3).__contains__).path(
-        (2, 0), (0, 2), allow_diagonal=False
-    )
-    assert path == ((2, 0), (1, 0), (0, 0), (0, 1), (0, 2))
-
-
-def test_obstacle_like_tile_has_source_backed_penalty():
-    passable = full_grid(1, 3)
-    path = WalkNavigator(
-        1, 3, passable.__contains__, obstacle_like=lambda coordinate: coordinate == (0, 1)
-    ).path((0, 0), (0, 2))
-    assert path == ((0, 0), (0, 1), (0, 2))
-    field = WalkNavigator(
-        1, 3, passable.__contains__, obstacle_like=lambda coordinate: coordinate == (0, 1)
-    ).field_to((0, 2))
-    assert field.distances[(0, 2)] == 1001
+        self.assertEqual(navigator.field_to((0, 2)).distances[(0, 2)], 0)

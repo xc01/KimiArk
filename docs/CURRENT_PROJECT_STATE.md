@@ -129,3 +129,11 @@ CONFIRMED_FROM_CODE：公共 `WalkNavigator` 恢复地形级客户端 SPFA/Brese
 ## Work review 2026-10-11 — 4b1b523
 
 CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
+
+## 2026-10-12 Roadblock navigation evidence boundary
+
+CONFIRMED_FROM_CODE：本轮提供可复验反汇编和 hash。客户端通用链是 SPFA destination/edge 通过 `Tile.IsPassable` / `Tile.IsPassableGoTo` 判定；`Tile.RefreshTileOptionsViaToken` 在 `Token.get_rewriteTileOptions` 为真时读取 `Tile.Options` 并调用 `Tile.TryUpdateOptions`；后者调用 `Tile.RewriteOptions`、`Map.UpdateRoutes` 与 `Map.UpdatePassableMap`；`Tile.OnCharacterFinished -> OnTokenFinished -> RestoreOptionsOnlyViaToken` 可恢复原选项。`Enemy.SpecialBlockCondition.CheckBlockable` 支持 buff-key 与 filter-tag 条件分支。
+
+UNKNOWN：Unity bundle 使用当前 UnityPy 无法处理的 custom/LZHAM 保护，未能提取 `trap_020_roadblock` prefab 的 `_rewriteTileOptions` 或技能 payload；包版本与固定 GameData commit 的对应关系也未证明。因此活跃 roadblock 对普通 WALK 导航、乌萨斯平民与斗士塔露拉的作用仍为 UNKNOWN。不能把部署占格、名称、HP、blockCount 或 PRTS 文本硬化为客户端导航事实。
+
+本轮修正了模块级导航测试矛盾，12/12 targeted unittest PASS。反汇编证据和 claim-to-evidence 映射在 `output/r8_1_roadblock_navigation_evidence_v1/`。预算：Kimi 0、真实关卡模拟 0、新计划 0、新候选 0、扩搜 0。

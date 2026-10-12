@@ -62,3 +62,7 @@ CONFIRMED_FROM_CODE：Route.distances_at不能只用于新目录，公共威胁�
 ## Work review 2026-10-11 — 4b1b523
 
 CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
+
+## 2026-10-12 No guessed roadblock runtime layer
+
+不新增计划专用物理模型或审计框架。已保留公共 `WalkNavigator`，只提交 focused disassembly、hash、claim-to-evidence 映射和 artifact-integrity 回归。因为 roadblock prefab payload 不可解码，不修改导航默认规则；现有 `roadblock_navigation_effect=UNKNOWN` 分类继续生效。

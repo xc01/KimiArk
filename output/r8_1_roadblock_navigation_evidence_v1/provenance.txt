@@ -1,0 +1,23 @@
+All paths below are relative to /home/bigdata/Desktop/arknights-auto-planner unless marked /tmp.
+
+Inputs:
+- arknights-hg-2771.apk
+- data/client/lib/arm64-v8a/libil2cpp.so
+- /tmp/arknights-global-metadata-full-decrypted.dat
+- /tmp/akdump5/dump.cs
+- fixed GameData commit 0ef7f952dfd018392200157a5c79a6511ba69122
+
+Commands:
+1. file arknights-hg-2771.apk data/client/lib/arm64-v8a/libil2cpp.so /tmp/arknights-global-metadata-full-decrypted.dat
+2. sha256sum arknights-hg-2771.apk data/client/lib/arm64-v8a/libil2cpp.so /tmp/arknights-global-metadata-full-decrypted.dat /tmp/akdump5/dump.cs
+3. /tmp/dotnet-sdk/dotnet /tmp/Il2CppDumper-end/Il2CppDumper/bin/Release/net8.0/Il2CppDumper.dll data/client/lib/arm64-v8a/libil2cpp.so /tmp/arknights-global-metadata-full-decrypted.dat /tmp/akdump5
+4. PYTHONPATH=/tmp/pycapstone python3 with capstone.CS_ARCH_ARM64 / CS_MODE_LITTLE_ENDIAN:
+   - disassemble the address ranges recorded in roadblock_navigation_evidence.json from the .so bytes;
+   - write core_navigation_tile_options_disasm.txt;
+   - disassemble Enemy.SpecialBlockCondition methods and write special_block_condition_disasm.txt.
+5. rg the selected Token/Trap/SpecialBlockCondition declarations from /tmp/akdump5/dump.cs into dump_method_table_excerpt.txt.
+6. sha256sum output/r8_1_roadblock_navigation_evidence_v1/*.txt
+
+Boundary:
+- The bundle files are protected by unsupported custom/LZHAM compression, so the roadblock prefab fields and skill behaviour payload were not extracted.
+- No Python model is claimed equivalent to the client's roadblock behaviour.

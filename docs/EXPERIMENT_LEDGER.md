@@ -98,3 +98,11 @@ CONFIRMED_FROM_CODE：`scripts/build_r8_1_opening_route_spatial_facts_v1.py`从�
 ## Work review 2026-10-11 — 4b1b523
 
 CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
+
+## 2026-10-12 Client roadblock evidence extraction
+
+输入：`arknights-hg-2771.apk`、AArch64 `libil2cpp.so`、解密 global metadata、Il2CppDumper 1.0.0+be9358c77c660e932a683fed7e9c6ea99b2e7034、capstone 5.0.9、固定GameData commit `0ef7f952`。
+
+结果：通用 SPFA/tile-option/special-block-condition 链已由 focused disassembly 支持；`trap_020_roadblock` prefab/skill payload 因 custom/LZHAM bundle 未解码而保持 UNKNOWN。没有把 generic token 重写推广为该路障规则。证据目录 `output/r8_1_roadblock_navigation_evidence_v1/`，targeted unittest 12/12 PASS。
+
+预算：Kimi 0；真实关卡模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。

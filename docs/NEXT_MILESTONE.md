@@ -1,7 +1,15 @@
-# Next milestone: client evidence for roadblock navigation
+# Next milestone: Work review of roadblock evidence boundary
 
-Supply reproducible evidence for already claimed client navigation methods, then trace active trap_020_roadblock creation/removal through tile passability/cost and navigation refresh. Distinguish ordinary WALK enemies from civilians/Talulah. Pin package and tool versions, binary/metadata hashes and RVA/file offsets; upload focused raw excerpts and claim-to-evidence mappings. Version alignment with fixed GameData remains UNKNOWN unless verified. No guessed rules or full client package upload.
+The current milestone supplied reproducible client excerpts for the generic
+tile-option, SPFA and special-block-condition chains. It did **not** decrypt the
+serialized roadblock prefab or skill payload. Therefore the active
+`trap_020_roadblock` effect on ordinary WALK navigation, civilians and Talulah
+remains UNKNOWN.
 
-Correct the three contradictory module-level navigation tests based on explicit model properties. Change runtime code only for a source-confirmed defect and add a regression. Preserve historical artifacts and frozen B2 actions. Kimi, real-stage simulations, new plans/candidates and expanded tactical search: zero.
-
-Accept when another reviewer can reproduce the extraction and check the chain, or when precise missing inputs and unresolved branches are explicitly documented without promoting them to facts. See [Work review](review/4b1b523/REVIEW.md).
+Next, Work should review `output/r8_1_roadblock_navigation_evidence_v1/` against
+the pinned APK and GameData hashes. If the raw evidence is accepted, the next
+bounded task is to obtain a reproducible roadblock prefab/skill payload extraction
+or another source that ties the client prefab to `Token._rewriteTileOptions`
+and/or `Enemy.SpecialBlockCondition`. No tactical rule may be hardened from the
+current generic chain. Kimi, real-stage simulation, new plans, new candidates and
+expanded search remain zero.

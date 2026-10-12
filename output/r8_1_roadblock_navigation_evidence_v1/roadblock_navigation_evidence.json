@@ -1,0 +1,157 @@
+{
+  "schema_version": "R8_1_ROADBLOCK_NAVIGATION_EVIDENCE_V1",
+  "audit_scope": "active trap_020_roadblock -> tile/navigation state -> update/restore; ordinary WALK versus civilian/Talulah",
+  "budget": {
+    "kimi_calls": 0,
+    "real_stage_simulations": 0,
+    "new_operational_plans": 0,
+    "new_action_candidates": 0,
+    "expanded_tactical_search": 0
+  },
+  "client_input_provenance": {
+    "package": {
+      "path": "arknights-hg-2771.apk",
+      "sha256": "0b79b85383e21a6343283bc6bfd7a9d24eb4134abf901115f757da6a5d50f6db",
+      "unity_engine_version": "2021.3.39f1"
+    },
+    "native_library": {
+      "path": "data/client/lib/arm64-v8a/libil2cpp.so",
+      "architecture": "ELF64 AArch64",
+      "build_id": "46adb4651892984ebc18f6af9f0052c125e2ca08",
+      "sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+      "rva_to_file_offset": "identity for inspected methods"
+    },
+    "metadata": {
+      "packed_path": "assets/bin/Data/Managed/Metadata/global-metadata.dat",
+      "packed_sha256": "bf14421bbafe9c71d944ba2fc7b31ecd6466232a03c489ee8879b8715ad7a4c2",
+      "decrypted_path": "/tmp/arknights-global-metadata-full-decrypted.dat",
+      "decrypted_sha256": "d8c531d21cfcc258e5f61895d3d32341230c09ad6d14c3f8de75a6d63acb7fab",
+      "decryption_provenance": "UNKNOWN"
+    },
+    "dumper": {
+      "path": "/tmp/Il2CppDumper-end/Il2CppDumper/bin/Release/net8.0/Il2CppDumper.dll",
+      "sha256": "a27a7cf051f706274bcb0db6a6c19d1032b8b1c86aa6525e31d117e6efd86174",
+      "version_from_assembly": "1.0.0.0+be9358c77c660e932a683fed7e9c6ea99b2e7034",
+      "runtime": ".NET SDK 8.0.412"
+    },
+    "disassembler": {
+      "name": "capstone",
+      "version": "5.0.9",
+      "architecture": "CS_ARCH_ARM64 / CS_MODE_LITTLE_ENDIAN"
+    }
+  },
+  "gamedata_provenance": {
+    "upstream_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+    "level_main_08_01_sha256": "8819c9cab57bd85005416d6262f9d52d07237c9b2a1a044d0ca17f8e408881b6",
+    "character_table_sha256": "42708ca01b1938df4e2c3ed9e9efeadbf0e35533411907dadb37b80315e69ae8",
+    "skill_table_sha256": "161a61c7d1e7e662e7410c241019605b3ce1075079b27042f53d1e08aa2292d1",
+    "trap_020_roadblock_facts": {
+      "profession": "TRAP",
+      "rarity": "TIER_1",
+      "hp": 8000,
+      "defense": 200,
+      "magic_resistance": 20,
+      "block_count": 0,
+      "skill_id": "sktok_roadblock",
+      "skill_text": "可以阻挡乌萨斯平民与斗士塔露拉前进。可被我方单位击毁"
+    },
+    "cross_version_applicability": "UNKNOWN"
+  },
+  "external_reference": {
+    "source": "PRTS /w/道路障碍物, revision 417798",
+    "classification": "REPORTED_EXTERNAL_NOT_CLIENT_CODE",
+    "statement": "道路阻塞 passive 可以阻挡乌萨斯平民与斗士塔露拉前进，可被我方单位击毁。"
+  },
+  "confirmed_from_code": [
+    {
+      "claim_id": "SPFA_READS_TILE_PASSABILITY",
+      "statement": "SPFA._GenerateNextMapImpl gets the tile at the destination via Map.get_Item and calls Tile.IsPassable(MotionMode). A destination tile failing the motion mask is rejected before relaxation.",
+      "addresses": ["0x2752f5c", "0x2782140", "0x276b714", "0x276b72c", "0x276b730"],
+      "evidence_file": "core_navigation_tile_options_disasm.txt"
+    },
+    {
+      "claim_id": "SPFA_EDGES_USE_TILE_PASSABILITY_GOTO",
+      "statement": "SPFA.CheckPassableGoto delegates directly to Tile.IsPassableGoTo(MotionMode, Direction); Bresenham raycasts use the same method.",
+      "addresses": ["0x276bd30", "0x276bdec", "0x27821d0", "0x276cbfc"],
+      "evidence_file": "core_navigation_tile_options_disasm.txt"
+    },
+    {
+      "claim_id": "TOKEN_CAN_PROVIDE_TILE_OPTIONS",
+      "statement": "Tile.RefreshTileOptionsViaToken calls Token.get_rewriteTileOptions and, when true, reads Token.get_tileOptions and the keep-current flags, then calls Tile.TryUpdateOptions.",
+      "addresses": ["0x2783de4", "0x2783e6c", "0x2783e88", "0x2783f10", "0x2783f54"],
+      "evidence_file": "core_navigation_tile_options_disasm.txt"
+    },
+    {
+      "claim_id": "TILE_OPTION_REWRITE_MUTATES_STATE_AND_ROUTES",
+      "statement": "Tile.TryUpdateOptions applies Tile.RewriteOptions, calls Map.UpdateRoutes for WALK and FLY, and calls Map.UpdatePassableMap(Tile) after rewrite. Tile.RestoreOptions follows the same rewrite path with stored options.",
+      "addresses": ["0x2785658", "0x2785748", "0x278578c", "0x27857d0", "0x27857f4", "0x2785a44", "0x2785b34"],
+      "evidence_file": "core_navigation_tile_options_disasm.txt"
+    },
+    {
+      "claim_id": "TOKEN_FINISH_HAS_RESTORE_PATH",
+      "statement": "Tile.OnCharacterFinished can call Tile.OnTokenFinished; OnTokenFinished calls Tile.RestoreOptionsOnlyViaToken. If Token.get_rewriteTileOptions is true, the method rewrites the tile back to stored origin options.",
+      "addresses": ["0x2783844", "0x2783aa8", "0x2783b24", "0x2786f58", "0x2786fd4", "0x2786ffc"],
+      "evidence_file": "core_navigation_tile_options_disasm.txt"
+    },
+    {
+      "claim_id": "ENEMY_SPECIAL_BLOCK_CONDITION_SUPPORTS_CONDITIONAL_BLOCKING",
+      "statement": "Enemy.SpecialBlockCondition supports NONE, BUFF_KEY_PAIR_OR, BUFF_KEY_MATCH_AND and FILTER_TAGS. CheckBlockable tests blocker/blockee buff keys or blocker filter tags, not tile ownership.",
+      "addresses": ["0x293bb7c", "0x293bbb4", "0x293bbc8", "0x293bbd8", "0x293bc34", "0x293bd8c", "0x293be54", "0x293bf28"],
+      "evidence_file": "special_block_condition_disasm.txt"
+    },
+    {
+      "claim_id": "CLIENT_HAS_TRAP_TOKEN_HIERARCHY",
+      "statement": "dump.cs declares Trap : Token and Token : Character; Tile.OnCharacterFinished has a token-specific finish path.",
+      "dump_lines": ["445191", "445594"],
+      "evidence_file": "dump_method_table_excerpt.txt"
+    }
+  ],
+  "unknown_or_unresolved": [
+    {
+      "claim_id": "ROADBLOCK_PREFAB_REWRITE_TILE_OPTIONS",
+      "status": "UNKNOWN",
+      "reason": "The serialized trap_020_roadblock prefab and skill behaviour are not decodable from the encrypted Unity bundles. dump.cs proves the generic Token mechanism, not this prefab's _rewriteTileOptions value or Tile.Options payload."
+    },
+    {
+      "claim_id": "ROADBLOCK_EFFECT_ON_ORDINARY_WALK_NAVIGATION",
+      "status": "UNKNOWN",
+      "reason": "The ordinary-WALK effect depends on the unresolved prefab payload and possible Enemy.SpecialBlockCondition/FILTER_TAGS configuration. It must not be inferred from deployment occupancy, HP, blockCount or the roadblock name."
+    },
+    {
+      "claim_id": "ROADBLOCK_EFFECT_ON_CIVILIAN_TALULAH",
+      "status": "UNKNOWN",
+      "reason": "Enemy.SpecialBlockCondition.CheckBlockable is the plausible conditional-blocking primitive, but no raw evidence ties sktok_roadblock or the R8-1 roadblock instance to a specific condition instance."
+    },
+    {
+      "claim_id": "ROADBLOCK_CREATION_TO_NAV_REFRESH",
+      "status": "UNKNOWN",
+      "reason": "Tile.LocateCharacter -> RefreshTileOptionsViaToken is generic, but the concrete roadblock creation path and payload are not proven."
+    },
+    {
+      "claim_id": "ROADBLOCK_DESTRUCTION_TO_NAV_RESTORE",
+      "status": "UNKNOWN",
+      "reason": "The generic token finish path is confirmed, but the concrete roadblock destroy path and prefab flag/payload are not."
+    },
+    {
+      "claim_id": "PACKAGE_VERSION_ALIGNMENT_WITH_GAMEDATA",
+      "status": "UNKNOWN",
+      "reason": "The APK build label 2771 and pinned GameData commit hashes do not independently prove that the runtime prefab and skill behaviour were built from that GameData commit."
+    }
+  ],
+  "current_model_conclusion": {
+    "roadblock_navigation_effect": "UNKNOWN",
+    "full_obstacle_variant": "HYPOTHESIS_NOT_CLIENT_FACT",
+    "conditional_civilian_talulah_variant": "HYPOTHESIS_NOT_CLIENT_FACT",
+    "faithful_for_r8_1": false
+  },
+  "raw_evidence_files": [
+    {
+      "path": "core_navigation_tile_options_disasm.txt",
+      "sha256": "2d03f06a3c4211ca976e0ed91299e2b2372a4cd5bc985292c461298599888890"
+    },
+    {
+      "path": "special_block_condition_disasm.txt",
+      "sha256": "1aa4cf8cea39244091b11301dd00d7cd29f886bce9fe7b1b66d1d9413a48961d"
+    }
+  ]
+}

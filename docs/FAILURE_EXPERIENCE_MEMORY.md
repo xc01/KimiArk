@@ -113,3 +113,9 @@ CONFIRMED_FROM_CODE：旧 route-2/6/7/8 “直连无中心拦截”的结论失�
 ## Work review 2026-10-11 — 4b1b523
 
 CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
+
+## 2026-10-12 Roadblock inference lesson
+
+LESSON：不能用客户端 `Token`/`Tile` 的 generic rewrite-and-restore 机制推出 `trap_020_roadblock` 必然重写地块；也不能用部署占格推出普通 WALK 不可通行。当前证据仅支持这些机制存在，roadblock prefab payload 和普通敌人分支仍 UNKNOWN。
+
+适用条件：仅限 build 2771 提取的二进制与固定GameData commit；跨版本适用性 UNKNOWN。后续若得到 roadblock prefab 或 skill payload，必须先关联到 `Tile.Options` 或 `Enemy.SpecialBlockCondition`，再分普通 WALK、乌萨斯平民和塔露拉三类结论。
