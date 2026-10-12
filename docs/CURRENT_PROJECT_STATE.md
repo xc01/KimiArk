@@ -211,3 +211,17 @@ Work审查`9890dfd`并批准同一body后，V2入口补上无条件evidence比�
 显式入库。修复后12/12测试两次通过；canonical body仍为112,541字节，SHA-256
 `3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。此时Kimi调用0，
 模拟0，新计划0。Work批准的仅是一次调用；二次尝试在联网前会被拒绝。
+
+## 2026-10-13 V2一次Kimi调用完成
+
+CONFIRMED_FROM_TRANSPORT：按批准的112,541字节body执行了恰好一次Kimi-K3请求，HTTP 200，
+request ID `021791824072792ed0e184fb98d17720dee9f0ee33ee7e169ef96`，终止事件
+`response.completed`。created envelope记录`max_output_tokens=32768`；这是provider创建时
+记录，不是请求显式设置。实际usage为input 29311、output 30806、total 60117，其中reasoning
+23245。
+
+本地JSON、jsonschema和OperationalPlan contract均通过，得到一个完整计划
+`R8_1_LOWSTAR_PLAN_C1`：11名普通模式1～3星干员、21个有序动作。`strategy_handoff.json`
+已保存，但只声明`HANDOFF_READY_NOT_COMPILED`、`certificate NONE`，不是战术保真证书。
+本轮真实关卡模拟0、扩搜0，未判定WIN/LOSS。下一步由Work审查计划语义、几何、技能、经济、
+移交与UNKNOWN，再决定是否编译或模拟。

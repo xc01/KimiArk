@@ -1,16 +1,17 @@
-# Next milestone: Work review of the authorized V2 call
+# Next milestone: Work review of Kimi Plan C1
 
-Work accepted the V2 body and authorized one Kimi call after the pre-call fixes.
-Those fixes now reject empty embedded evidence, declare/import jsonschema before
-network, recover and track the original request JSON/prompt, reject a second attempt
-before network, and save a completed response plus non-tactical
-`strategy_handoff.json`. The canonical body remains
-`3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`.
+The authorized V2 call completed once with HTTP 200 and `response.completed`. The
+approved canonical body was unchanged. The response produced one full OperationalPlan,
+`R8_1_LOWSTAR_PLAN_C1`, with 11 ordinary-mode 1-3 star operators and 21 ordered actions.
+JSON, jsonschema and operational-plan contract validation passed.
 
-The authorized call must use that exact body, count before network, never retry,
-and stop on HTTP failure, timeout, interruption, `response.incomplete`, invalid JSON,
-schema failure, or operational-plan contract failure. Record the created envelope and
-actual usage without claiming that 32,768 was an explicitly requested limit. A valid
-result may save one full OperationalPlan and one direction-complete handoff, but no
-stage simulation or tactical search occurs. Work must then review tactical semantics
-and fidelity.
+`output/r8_1_low_star_full_tactical_closure_v2/strategy_handoff.json` is
+`HANDOFF_READY_NOT_COMPILED` with `certificate: NONE`. It is an action-coordinate
+handoff only, not a tactical-fidelity certificate. No stage simulation, WIN/LOSS claim
+or tactical search ran.
+
+Work must review the complete plan, raw response, assumptions, route responsibilities,
+geometry, skills, economy, retreats/handoffs and UNKNOWN dependencies before deciding
+whether to run faithful compilation or one bounded simulation. The raw response and
+created-envelope usage are retained in
+`output/r8_1_low_star_full_tactical_closure_v2/`.

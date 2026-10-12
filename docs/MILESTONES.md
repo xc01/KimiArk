@@ -282,3 +282,11 @@ tactical search expansions 0. Evidence:
 完成：证据嵌入、固定[col,row]路障、历史B2隔离、canonical body、最终载荷门禁、一次性传输预算、
 HTTP状态/request ID保存、reasoning去重、incomplete拒绝、schema/contract校验和合成Strategy交接。
 测试9/9两次通过，compileall通过；Kimi 0，模拟0，新计划0。Work审查通过前不得发起新Kimi调用。
+
+## 2026-10-13 — Authorized V2 Kimi call
+
+One approved-body request completed with HTTP 200 and `response.completed`. Provider
+usage was 29,311 input / 30,806 output / 60,117 total tokens; 32,768 remains only the
+created-envelope `max_output_tokens`. Local JSON/schema/contract validation passed and
+saved one complete OperationalPlan plus one non-tactical direction-complete handoff.
+No compile certificate, stage simulation, WIN claim, retry or tactical search occurred.

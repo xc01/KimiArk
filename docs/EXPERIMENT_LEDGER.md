@@ -174,3 +174,15 @@ Work批准body后执行离线修复。`llm_request.json`与完整prompt从body�
 
 结果：12/12测试两次通过，`compileall`通过，`jsonschema`导入可用；body不变。Kimi调用0，
 模拟0，新真实计划0。之后才允许Work批准的一次实际Kimi调用。
+
+## 2026-10-13 — 恰好一次Kimi-K3调用
+
+输入：Work批准的`llm_request_body.txt`，SHA-256
+`3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。结果：HTTP 200，
+`response.completed`；request ID
+`021791824072792ed0e184fb98d17720dee9f0ee33ee7e169ef96`。usage：input 29311、output 30806、
+total 60117、reasoning 23245。
+
+输出：`R8_1_LOWSTAR_PLAN_C1`，11名普通模式1～3星干员、21个有序动作；schema/contract通过。
+`strategy_handoff.json`是`HANDOFF_READY_NOT_COMPILED`且certificate为`NONE`。没有编译证书、
+关卡模拟或战术保真声明。预算：Kimi 1、重试0、模拟0、扩搜0。
