@@ -53,7 +53,7 @@ def synthetic_evidence(module):
     return {
         "stage_active_facts": {
             "roadblock_tiles_col_row": module.ROADBLOCK_TILES_COL_ROW,
-            "deployable_ground_tiles_col_row": [[1, 1]],
+            "deployable_ground_tiles_col_row": [[4, 3]],
             "deployable_high_ground_tiles_col_row": [[2, 2]],
         },
         "historical_context_not_active": {
@@ -74,7 +74,7 @@ def synthetic_plan(operator_id="char_123_fang", missing_direction=False):
         "action_type": "DEPLOY",
         "frame": 27,
         "operator_id": operator_id,
-        "tile": [1, 1],
+        "tile": [3, 4],
     }
     if not missing_direction:
         deploy["direction"] = "RIGHT"
@@ -85,7 +85,7 @@ def synthetic_plan(operator_id="char_123_fang", missing_direction=False):
                 "parent_hypothesis_id": "test-hypothesis",
                 "tactical_thesis": "synthetic offline contract sample",
                 "selected_low_star_operator_ids": [operator_id],
-                "deployment_positions_and_directions": [{"operator_id": operator_id, "tile": [1, 1], "direction": "RIGHT"}],
+                "deployment_positions_and_directions": [{"operator_id": operator_id, "tile": [3, 4], "direction": "RIGHT"}],
                 "formation_structure": {"opening": "one melee blocker"},
                 "formation_transitions": [],
                 "corridor_responsibilities": [{"route": "route-1", "responsibility": "block"}],
@@ -136,7 +136,7 @@ class LowStarFullClosureV1Tests(unittest.TestCase):
             module.OUT.joinpath("response.json").write_text(json.dumps(parsed), encoding="utf-8")
             handoff = module.build_strategy_handoff(parsed["revised_operational_plans"][0])
             self.assertEqual(handoff["status"], "HANDOFF_READY_NOT_COMPILED")
-            self.assertEqual(handoff["strategy_actions"][0]["tile_col_row"], [1, 1])
+            self.assertEqual(handoff["strategy_actions"][0]["tile_col_row"], [4, 3])
 
     def test_stale_cache_or_mismatched_body_is_rejected(self) -> None:
         module = load_runner()
@@ -151,6 +151,29 @@ class LowStarFullClosureV1Tests(unittest.TestCase):
             with self.assertRaises(ValueError) as context:
                 module.validate_final_payload(current_payload, evidence_path)
             self.assertIn("does not match saved pending body", str(context.exception))
+
+    def test_empty_embedded_evidence_is_rejected_against_nonempty_prepared(self) -> None:
+        module = load_runner()
+        evidence = synthetic_evidence(module)
+        payload = module.request_payload("EVIDENCE_JSON\n{}")
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(module, "OUT", Path(directory)):
+            module.OUT.mkdir(exist_ok=True)
+            module.OUT.joinpath("llm_request_body.txt").write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+            evidence_path = module.OUT / "llm_evidence_context.json"
+            evidence_path.write_text(json.dumps(evidence, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaises(ValueError) as context:
+                module.validate_final_payload(payload, evidence_path)
+            self.assertIn("does not match current prepared evidence", str(context.exception))
+
+    def test_second_attempt_is_rejected_before_network(self) -> None:
+        module = load_runner()
+        payload = {"model": module.MODEL, "input": [{"role": "user", "content": []}], "stream": True}
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(module, "OUT", Path(directory)):
+            module.OUT.mkdir(exist_ok=True)
+            module.OUT.joinpath("llm_call_attempts.jsonl").write_text("{}\n", encoding="utf-8")
+            with mock.patch.dict(os.environ, {"ARK_API_KEY_agent": "offline-test"}), mock.patch("urllib.request.urlopen", side_effect=AssertionError("network must not be called")):
+                with self.assertRaisesRegex(RuntimeError, "exactly-one-attempt"):
+                    module.stream_once(payload)
 
     def test_schema_rejects_empty_multiple_and_missing_direction(self) -> None:
         module = load_runner()
@@ -261,6 +284,45 @@ class LowStarFullClosureV1Tests(unittest.TestCase):
             self.assertEqual(status["status"], "KIMI_CALL_FAILED_NO_RETRY")
             self.assertEqual(status["http_status"], 200)
             self.assertEqual(status["terminal_event"], "response.incomplete")
+
+    def test_call_saves_completed_response_handoff(self) -> None:
+        module = load_runner()
+        evidence = synthetic_evidence(module)
+        prompt = module.prompt_text(evidence)
+        payload = module.request_payload(prompt)
+        parsed = synthetic_plan()
+        envelope = {
+            "model": module.MODEL,
+            "status": "completed",
+            "output": [{"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": json.dumps(parsed)}]}],
+        }
+        sse = (
+            f"event: response.created\ndata: {json.dumps({'response': envelope})}\n\n"
+            f"event: response.output_text.delta\ndata: {json.dumps({'delta': json.dumps(parsed)})}\n\n"
+            f"event: response.output_text.done\ndata: {json.dumps({'text': json.dumps(parsed)})}\n\n"
+            f"event: response.completed\ndata: {json.dumps({'response': envelope})}\n\n"
+        )
+        captured = {}
+        def fake_urlopen(request, timeout):
+            captured["request"] = request
+            return FakeResponse([sse.encode()])
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(module, "OUT", Path(directory)):
+            module.OUT.mkdir(exist_ok=True)
+            module.OUT.joinpath("llm_request.json").write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            module.OUT.joinpath("llm_evidence_context.json").write_text(json.dumps(evidence, ensure_ascii=False), encoding="utf-8")
+            module.OUT.joinpath("llm_request_body.txt").write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+            with mock.patch.dict(os.environ, {"ARK_API_KEY_agent": "offline-test"}), mock.patch("urllib.request.urlopen", side_effect=fake_urlopen):
+                module.call()
+            expected = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+            self.assertEqual(captured["request"].data, expected)
+            saved = json.loads(module.OUT.joinpath("llm_structured_output.json").read_text())
+            self.assertEqual(saved, parsed)
+            handoff = json.loads(module.OUT.joinpath("strategy_handoff.json").read_text())
+            self.assertEqual(handoff["status"], "HANDOFF_READY_NOT_COMPILED")
+            self.assertEqual(handoff["certificate"], "NONE")
+            self.assertEqual(handoff["strategy_actions"][0]["tile_col_row"], [4, 3])
+            status = json.loads(module.OUT.joinpath("final_status.json").read_text())
+            self.assertEqual(status["status"], "KIMI_CALL_AND_CONTRACT_COMPLETE")
 
 
 if __name__ == "__main__":

@@ -198,3 +198,16 @@ UNKNOWN仍包括精确客户端时序、活跃roadblock对普通WALK导航的作
 incomplete_details、首次merchant维护费时序。本轮预算：Kimi 0、真实关卡模拟0、新计划0、
 新候选0、扩搜0。待发送body为112,541字节，SHA-256
 `3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。
+
+## 2026-10-13 Work批准后的调用前修复
+
+Work审查`9890dfd`并批准同一body后，V2入口补上无条件evidence比较：嵌入空对象也会拒绝。
+`jsonschema>=3.2,<5`进入项目依赖，模块导入即在联网前确认`Draft7Validator`可用。成功响应
+现在自动保存完整OperationalPlan和`strategy_handoff.json`；交接保持
+`HANDOFF_READY_NOT_COMPILED`、`certificate NONE`，不冒充战术保真。坐标回归确认JSON
+`[row,col]=[3,4]`转换为runtime`[col,row]=[4,3]`。
+
+被gitignore排除的`llm_request.json`和`constraint_informed_prompt.txt`已从批准body恢复并
+显式入库。修复后12/12测试两次通过；canonical body仍为112,541字节，SHA-256
+`3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。此时Kimi调用0，
+模拟0，新计划0。Work批准的仅是一次调用；二次尝试在联网前会被拒绝。

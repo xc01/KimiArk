@@ -9,6 +9,7 @@ import socket
 import sys
 import urllib.error
 import urllib.request
+from jsonschema import Draft7Validator
 from pathlib import Path
 from typing import Any
 
@@ -531,10 +532,10 @@ def validate_final_payload(payload: dict[str, Any], evidence_path: Path) -> dict
     try:
         embedded = parse_embedded_evidence(payload)
     except ValueError as exc:
-        embedded = {}
+        embedded = None
         errors.append(str(exc))
     current = load(evidence_path)
-    if embedded and embedded != current:
+    if embedded != current:
         errors.append("embedded evidence does not match current prepared evidence")
     if payload.get("text", {}).get("format", {}).get("schema") != output_schema():
         errors.append("payload schema does not match current output schema")
@@ -863,7 +864,6 @@ def call() -> None:
     evidence = load(evidence_path)
     contract_errors = validate_operational_plan_output(parsed, evidence)
     try:
-        from jsonschema import Draft7Validator
         schema_errors = sorted(
             Draft7Validator(output_schema()).iter_errors(parsed),
             key=lambda error: list(error.path),
@@ -891,6 +891,7 @@ def call() -> None:
         raise SystemExit("Kimi response failed contract validation without retry")
     write("llm_structured_output.json", parsed)
     plans = parsed.get("revised_operational_plans") or []
+    write("strategy_handoff.json", build_strategy_handoff(plans[0]))
     write(
         "response_completion_validation.json",
         {
@@ -903,6 +904,7 @@ def call() -> None:
         },
     )
     write("grounding_validation.json", {"kimi_call_count": 1, "revised_operational_plan_count": len(plans), "status": "STRUCTURAL_PARSE_PASS"})
+    write("final_status.json", {"kimi_call_count": 1, "status": "KIMI_CALL_AND_CONTRACT_COMPLETE", "operational_plan_count": len(plans)})
 
 
 def main() -> None:

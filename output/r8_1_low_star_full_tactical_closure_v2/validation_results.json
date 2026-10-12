@@ -1,4 +1,6 @@
 {
+  "actual_body_sha256": "3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac",
+  "approved_body_sha256": "3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac",
   "artifact_records": {
     "constraint_informed_prompt.txt": {
       "bytes": 97987,
@@ -11,9 +13,9 @@
       "sha256": "03e2865bf7c0b131670e086c3992a1bf3e93c216703fa938f51e93efb6394b8d"
     },
     "llm_final_payload_validation.json": {
-      "bytes": 794,
+      "bytes": 649,
       "path": "output/r8_1_low_star_full_tactical_closure_v2/llm_final_payload_validation.json",
-      "sha256": "0a2f84b7d048372293060382f39f64669f223da65faec747dc7ed130598c8805"
+      "sha256": "92d4e8033fd53445f80da559d919196843edd02a05d1443e01ad874514a935ca"
     },
     "llm_request.json": {
       "bytes": 118204,
@@ -43,76 +45,64 @@
     "source_manifest.json": {
       "bytes": 3557,
       "path": "output/r8_1_low_star_full_tactical_closure_v2/source_manifest.json",
-      "sha256": "0c6ba72d935364f66ec2af4d11e2b18f0ad8b65e7c858d1ee9aec573abfa63d8"
+      "sha256": "2c2b0c1bae67997d9bd64d1065b7a852189d2ed7cfe406ea281fe45b282c6b20"
     }
   },
+  "artifact_records_note": "validation_results.json is not self-hashed",
+  "body_bytes": 112541,
+  "body_unchanged_from_work_approval": true,
   "budget": {
-    "kimi_actual_request_count": 0,
+    "approved_kimi_actual_request_count": 1,
+    "kimi_actual_request_count_so_far": 0,
     "new_action_candidate_count": 0,
     "new_operational_plan_count": 0,
     "real_stage_simulation_count": 0,
     "tactical_search_expansion_count": 0
   },
   "compileall": "PASS",
-  "next_gate": "WORK_REVIEW_REQUIRED_BEFORE_ANY_NEW_KIMI_CALL",
-  "offline_checks": {
-    "deploy_tile_and_direction_required": true,
-    "evidence_embedded_and_matches_prepared_file": true,
-    "final_payload_validation": "PASS",
-    "fixed_roadblocks_col_row": [
-      [
-        5,
-        3
-      ],
-      [
-        9,
+  "fixes": {
+    "asymmetric_coordinate_conversion_test": {
+      "json_row_col": [
+        3,
         4
       ],
-      [
-        7,
-        2
+      "runtime_col_row": [
+        4,
+        3
       ],
-      [
-        1,
-        2
-      ],
-      [
-        3,
-        5
-      ]
-    ],
-    "http_401_timeout_interrupt_counted_before_or_after_failure_without_retry": true,
-    "incomplete_response_rejected": true,
+      "status": "PASS"
+    },
+    "empty_embedded_evidence_unconditionally_compared": true,
+    "jsonschema_declared_and_import_available": true,
+    "second_attempt_rejected_before_network": true,
+    "successful_response_saves_strategy_handoff": true
+  },
+  "next_gate": "AUTHORIZED_SINGLE_KIMI_CALL",
+  "offline_checks": {
+    "evidence_matches_body": true,
+    "git_diff_check": "PASS",
     "mock_urlopen_inspected_request_data": true,
-    "old_b2_context_historical_only": true,
-    "output_schema_required_root_and_plan_fields": true,
-    "synthetic_contract_to_public_strategy_handoff": true
+    "prompt_matches_body": true,
+    "schema_matches_body": true,
+    "secret_scan": "PASS"
   },
-  "remaining_unknown": [
-    "exact client attack windup and integer rounding",
-    "active roadblock ordinary-WALK navigation effect",
-    "termination usage and incomplete details",
-    "precise first merchant-upkeep debit timing"
+  "recovered_files_from_approved_body": [
+    "llm_request.json",
+    "constraint_informed_prompt.txt"
   ],
-  "request_fingerprint": {
-    "body_bytes": 112541,
-    "body_sha256": "3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac",
-    "prompt_sha256": "28fbf200bddc2040c771d65d1e1d0de2a1a0ecd9b9097b750cf4fa42441dab44",
-    "request_sha256": "3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac"
-  },
-  "schema_version": "R8_1_LOW_STAR_FULL_TACTICAL_CLOSURE_V2_OFFLINE_ACCEPTANCE",
+  "schema_version": "R8_1_LOW_STAR_FULL_TACTICAL_CLOSURE_V2_PRE_CALL_ACCEPTANCE",
   "status": "PASS",
   "test_results": [
     {
       "command": "PYTHONPATH=scripts python3 -m unittest -v tests.test_r8_1_low_star_full_tactical_closure_v1",
       "failed": 0,
-      "passed": 9,
+      "passed": 12,
       "status": "PASS"
     },
     {
       "command": "PYTHONPATH=src python3 -m unittest -v tests.test_r8_1_low_star_full_tactical_closure_v1",
       "failed": 0,
-      "passed": 9,
+      "passed": 12,
       "status": "PASS"
     }
   ]

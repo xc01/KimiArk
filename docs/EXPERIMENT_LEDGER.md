@@ -164,3 +164,13 @@ OperationalPlan、0 条动作候选、0 次关卡模拟。部分输出保留为�
 拒绝；合成合法计划能转换到公共`Strategy/Action`，状态是`HANDOFF_READY_NOT_COMPILED`，没有
 战术保真声明。待发送body：112,541字节，SHA-256
 `3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。
+
+## 2026-10-13 — 调用前V2修复验收
+
+Work批准body后执行离线修复。`llm_request.json`与完整prompt从body恢复入库，不重生成事实。
+空evidence、body mismatch、旧缓存、截断响应、空/多计划、缺方向DEPLOY均被拒绝；401、超时、
+流中断保存预算记录；二次尝试在联网前拒绝。完成响应mock验证`Request.data`、schema、evidence、
+完整计划、非对称坐标交接和`strategy_handoff.json`。
+
+结果：12/12测试两次通过，`compileall`通过，`jsonschema`导入可用；body不变。Kimi调用0，
+模拟0，新真实计划0。之后才允许Work批准的一次实际Kimi调用。
