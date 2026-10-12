@@ -145,3 +145,7 @@ B2六动作已经完成一次公共模型诊断，但结果只属于 `DIAGNOSTIC
 ## Work review 2026-10-11 — 4b1b523
 
 CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; review pytest 8 PASS / 3 FAIL (contradictory tests). Client algorithm equivalence is UNKNOWN; binary addresses/hash and extraction conclusions remain REPORTED_BY_PREVIOUS_WORKER until reproducible excerpts are supplied. This qualification supersedes earlier wording that independently confirmed client semantics. No new runtime bug or tactical impossibility is established. Next bounded task: reproducible active-roadblock navigation evidence; Kimi and real-stage simulations remain zero. See [review](review/4b1b523/REVIEW.md).
+
+## Work review 2026-10-12 — b60c48c and V3 correction
+
+CONFIRMED_FROM_CODE: Work verified b60c48cd28383d3058f290ee2d0b434086b8c6da with 12/12 targeted PASS and matching raw-disassembly hashes; this reviewed saved evidence, not a fresh APK extraction. V3 supersedes the two V2 hardening labels. A moveCost-only change participates in refresh signal construction, and avoidObstacleLike is the conditional arithmetic `cached_distance - tile_moveCost < 1000`, not a universal per-tile rule. `Route.ReconstructNextMap -> SPFA` remains UNKNOWN because the supplied Route method bytes are not statically decodable. Cross-version applicability remains UNKNOWN.

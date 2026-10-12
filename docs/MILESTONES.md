@@ -1,0 +1,257 @@
+# Milestones
+
+## M15.2 status
+
+Quantified frontier-requirement repair for stage 6-8 is complete. It used no
+LLM calls or mechanics expansion, retained K<=7, and used current PRTS-backed
+semantics. The preserved frame-564 route-2 enemy received six physical hits
+(2031 damage) and leaked with 1119 HP; that value remains candidate-specific.
+Fifty-one local candidates were analyzed, 37 rejected by DP/legality, and 37
+unique full simulations (10 cache hits) ran. Three solved route-2 locally but
+reintroduced an earlier route-0/route-3 frontier. The best stayed LOSS 24/36,
+12 leaks, life -9 at frame 564, so
+`FRONTIER_REQUIREMENT_SOLVING=INCONCLUSIVE`; no WIN or minimality claim was
+made. Artifacts: `output/m15/main_06-07/m15_2_*.json`.
+
+## M15.3 status
+
+Multi-frontier/resource conflict analysis for 6-8 is complete. The run used
+zero LLM calls, no mechanics expansion, K<=7, and no minimization. It preserved
+the M15.2 parent plus three route-2-success counterexamples, generated
+provenance-bearing route constraints and a resource conflict graph, and tested
+71 local repairs in 72 unique simulations (77 cache hits). Route-2-success
+variants changed Falco's opening placement/facing and exposed route-0/route-3
+or route-4 failures. The best remained LOSS 25/36 kills, 11 leaks, life -8,
+with route-2 frame 564 damage insufficiency. Both
+`MULTI_FRONTIER_CONSTRAINT_SOLVING` and `RESOURCE_CONFLICT_ANALYSIS` are
+`INCONCLUSIVE`; no WIN, infeasibility proof, or minimum claim was made.
+Artifacts: `output/m15/main_06-07/m15_3_*.json`.
+
+Completed:
+
+1. Real GameData archaeology: traced canonical operator, enemy, and stage sources.
+1.5. Client mechanics archaeology: bounded static evidence for event phases and known unknowns.
+2. Synthetic simulator foundation: movement, deployment, blocking, damage, and explicit events.
+3. Synthetic search: deterministic score/evaluate/search loop.
+4. Synthetic combat runtime: SP, skills, healing, enemy attacks, death, retreat, and redeploy.
+5. Real GameData simulation adapter: strict provenance-aware structural loading with execution refusal.
+6. Explicit approximate-real 0-1 loop: opt-in policy, source-backed fixture conversion, and a fixed calibration run.
+7. Minimal approximate-real 0-1 search: deterministic deployment-only beam search over a fixed four-operator pool.
+8. Real-game execution/calibration scaffold: guarded ADB interface, coordinate template, dry-run traces, and evidence-aware comparison.
+9. Integer-frame action timeline and bounded client timing archaeology: frame-aware 0-1 search, timeline export, and explicit unknown frame-clock evidence.
+10. Minimum-squad/minimum-rarity benchmark foundation: GameData rarity and low-rarity censuses, reusable bounded manual-skill interpreter, lexicographic optimizer, benchmark compatibility matrix, and human validation records.
+11. First meaningful Chapter 6–11 benchmark: canonical bottom-left stage mapping, explicit route waits/second-quantized spawning, a MID-stage 6-8 approximate fixture with bounded enemy range, and cardinality-first `NO_WIN_FOUND` diagnostics.
+12. Full eligible 1–3★ census and runtime coverage boundary: 34 operators censused, 22 executable under the bounded basic-combat policy, reusable Arts tagging, and deterministic full-pool 6-8 search (currently `NO_WIN_FOUND`).
+13. Full-pool low-rarity audit and layered small-team search: concrete blockers for all 34 records, high-progression exact-keyframe loadouts, 100% K1/K2 composition coverage, and bounded 6-8 tactical evaluation (`BEST_FOUND_UNDER_BUDGET`, no win).
+14. Real LLM tactical-hypothesis pilot scaffold: deterministic StageAnalysis/requirements, strict hypothesis schema, MockLLM default, and opt-in bounded provider runtime.
+
+M14.1 initial real pilot completed on the host terminal: six schema-valid
+hypotheses were returned and evaluated deterministically. M14.2 corrected a
+best-LOSS aggregation bug, establishing real attack/damage/death evidence but
+no 6-8 win. M14.3 made one successful host-terminal revision call (four
+schema-valid K=6/7 hypotheses); the normal K<=3 grounder correctly rejects
+them rather than truncating them. M14.4 separately validated that cardinality
+signal with zero LLM calls: only each exact-K structure plus one K-1 ablation
+were tested (eight teams, 352 simulations, budget 500). R1 K6 and R4 K7
+reached 19 kills/17 leaks versus the initial K<=3 best's 7 kills/29 leaks, but
+no candidate won. This supports a current-planner K<=3 constraint as a search
+limitation; it does not claim that 6-8 requires >3 operators, nor a minimum
+squad/rarity. M14 stops here; no further LLM call is authorized.
+
+M14.5 performed a separately requested feasibility-first local repair with
+zero LLM calls and without adding an eighth operator. It used R1 K6/R4 K7 as
+fixed tactical priors, diagnosed early leaks before frontline deployment, and
+mutated only their local team/position/facing/order/timing/available-skill
+neighborhood (407 simulations, budget 1500). R4 improved from 19 kills/17
+leaks to 26/10 but remained LOSS; frame-336 first leakage persisted. The local
+neighborhood plateaued, no timeline or minimality claim was produced, and M14
+remains stopped.
+
+M14.6 then isolated only R4's K7 opening (zero LLM calls; frame 0--900).
+Source-backed DP timing showed why it is constrained: the two 18-DP defenders
+can first deploy at frames 240 and 780, while distinct route-0/2 wolves reach
+defense tiles at frames 244 and 274. Correcting Beagle from route-2 row 4 to
+route-0 row 3 moves the earliest leak 336→366, proving the first leak is
+preventable but not yielding a zero-leak fixed-R4 opening (best 3 leaks, 2
+kills). A justified one-for-one Stward→Noir Corne K7 ablation improves that
+opening to 2 leaks but still loses. The best promoted full battle is below the
+preserved 26/10 baseline, so no WIN, timeline, minimisation claim, or further
+LLM call was produced. The bounded opening result supports current
+`opening_capability_pressure`, not a stage minimum-cardinality conclusion.
+
+M14.7 performed only constrained R4 K7 roster repair (again zero LLM calls).
+All 22 executable operators received source-backed opening signatures; no
+currently supported runtime mechanism accelerates DP. Event attribution marked
+Steward as the sole evidence-directed replaceable R4 slot. Eight lower-cost
+ground replacements were re-scheduled from the opening and then selectively
+promoted. Replacing Steward with Plume retained K7/20★ and improved the full
+LOSS from 26 kills/10 leaks/life -7 to 27/9/-6, with first leak delayed to 366,
+but its opening still leaked twice. Because that is a credible one-slot
+improvement, the requested condition for a two-slot phase was not met. This is
+`OPENING_ECONOMY_REPAIR=INCONCLUSIVE`, not a WIN/minimality conclusion; M14
+remains stopped with no further LLM call authorized.
+
+M14.8 tested the distinct opening-geometry question without LLM calls or
+roster/cardinality changes. Route-0 and route-2 are adjacent parallel rows,
+not convergent paths: they have no common tiles but exact rotated ranges do
+allow one unit to interact with both. All 152 meaningful earliest-legal
+single-deployment openings and 317 bounded shared/mixed structures were
+evaluated; none beat 3 opening leaks or pushed the first leak later than frame
+366. Six were promoted to full battle; the best was LOSS 24/36 kills, 12
+leaks, life -9, below the preserved M14.7 27/9/-6 frontier. The result is
+`SHARED_OPENING_GEOMETRY=NOT_SUPPORTED` for preventing the early leaks under
+this fixed K7 roster, not a claim that shared coverage does not exist. There
+is no verified opening prefix, simulator WIN, timeline, or minimality claim.
+
+M14.9 was a fidelity audit rather than a strategy search. It audited all 34
+eligible low-rarity records and added only source-explicit reusable opening
+economy support: automatic/manual time-SP DP grants and self deployment-cost
+modifiers. Fang can now deploy at frame 0 via its phase-1 -1 cost talent, while
+its automatic +6 DP occurs at frame 570; Vanilla's manual +6 DP occurs at frame
+450. Coupled blocked DP talents remain unsupported. Fixed causal checks confirm
+the new effects change their legal deployment/DP state, but no new DP gain
+arrives before the 6-8 frame-244/274 deadlines; two 18-DP blockers remain frame
+240 then 780. Therefore `OPENING_ECONOMY_FIDELITY_GAP=FOUND_BUT_NOT_MATERIAL`.
+No LLM call, broad search, roster expansion, WIN, or minimality claim occurred.
+
+15. Constraint-guided feasibility planner: a bounded no-LLM 6-8 search over
+the 22 executable low-rarity operators. It introduces provenance-bearing
+`TacticalConstraint` and `FailureFrontier` records, partial strategies,
+exact-DP prechecks, constraint-aware legal spatial grounding, and recorded
+successful-prefix freezing/invalidation. With beam 16, K<=7, and a 2,000
+simulation cap, it independently matched the preserved M14 frontier at LOSS
+27/36 kills, nine leaks, first leak frame 366, life -6 after 110 unique
+simulations. `CONSTRAINT_GUIDED_SEARCH=MATCHED`; no WIN, timeline,
+minimality claim, mechanics expansion, or LLM call occurred.
+
+15.1. Closed-loop FailureFrontier repair: preserved the exact M15 27/9 parent,
+derived a frame-366 route-2 `INTERACTION_TOO_LATE` constraint from simulation
+events, and applied bounded dependency-local timing, spatial, order, and
+operator reassignment repairs. Guided repair used 600 unique simulations and
+the same-primitives unguided control used 200; both reached the identical
+frame-564 route-2 `DAMAGE_INSUFFICIENT` frontier at LOSS 24/36 kills and 12
+leaks. `FAILURE_FRONTIER_REPAIR=NOT_SUPPORTED` for this bounded efficiency
+comparison. No LLM call, mechanics expansion, WIN, timeline, or minimization
+occurred.
+
+19. Uncertainty-guarded causal repair search: bounded no-LLM pilot using
+preserved M15 seeds and causal Falco interventions. Three targeting-sensitive
+interventions were classified UNKNOWN and simulated; four unique simulations
+ran. Best LOSS was K7, 25 kills/11 leaks at route-2 frame 564, matching the
+prior frontier. Guard routing is supported; no WIN, infeasibility, mechanics,
+cardinality, or minimization claim was made.
+
+18.1. Targeting uncertainty boundary: retained a causal slice of 50 M16
+target decisions, with 45 classified unresolved/decision-sensitive. M17
+constraints and interference relations now carry targeting sensitivity where
+causally connected. Readiness is `READY_WITH_UNCERTAINTY_GUARD`; analytic
+monotonic-damage repairs are forbidden and UNKNOWN interventions require
+simulation. No search, network, LLM, or mechanics expansion was performed.
+
+18. Targeting mechanics fidelity closure: audited the PRTS targeting/aggro
+snapshot and added runtime `TARGET_SELECTION` diagnostics without strategy
+search. Current covered-enemy selection (route progress then spawn index) is
+only partially aligned with the broader PRTS aggro/filter model; retention and
+exact filter semantics remain unresolved. M16's Falco non-monotonic result was
+replayed and preserved (24/12 versus 26/10), and M17 remains supported with
+explicit mechanics sensitivity. No unrelated mechanics, K, or optimization
+changes were made.
+
+17. Causal-temporal constraint representation: added deterministic
+`CausalTemporalConstraint`, interference relations, M16 evidence conversion,
+and a SAFE/UNKNOWN/UNSAFE local-intervention boundary. Twenty changed enemy
+outcomes and 19 interference relations were represented. The old
+`DAMAGE_BEFORE(route2, 564)` requirement now preserves target-allocation and
+downstream context; restoring Falco damage is correctly classified UNSAFE.
+No search, LLM call, mechanics expansion, K change, minimization, or WIN
+attempt occurred.
+
+15.4. Falco critical-resource decoupling audit: preserved the M15.2 parent and
+three route-2-success counterexamples under the current PRTS-backed runtime.
+Falco route contributions, remove-Falco controls, and the required A/B/C
+comparison were recorded in seven bounded simulations. The original A case
+remained best (LOSS 24/36 kills, 12 leaks); specialized and decoupled cases
+regressed earlier route frontiers. `CRITICAL_RESOURCE_DECOUPLING`,
+`CRITICAL_RESOURCE_OVERLOAD`, and `K7_CARDINALITY_PRESSURE` remain
+`INCONCLUSIVE`. No LLM call, mechanics expansion, WIN, timeline, or
+minimization occurred.
+
+16. Causal combat / non-monotonicity audit: paired replay of the M15.2 parent
+with only Falco damage disabled. Intervention isolation was verified. Falco
+enabled produced LOSS 24 kills/12 leaks/life -9; disabled produced LOSS 26
+kills/10 leaks/life -7. The first divergence was the expected Falco attack at
+frame 210, followed by changed target/attack allocation and kill timing. Three
+leaks were prevented and an A-only kill was exchanged for three B-only kills,
+yielding the net +2. `NON_MONOTONICITY_CAUSE` is
+TARGET_SELECTION_NON_MONOTONICITY plus ATTACK_ALLOCATION_NON_MONOTONICITY;
+the local damage monotonicity assumption is UNSAFE. No search, LLM,
+mechanics expansion, cardinality change, minimization, or WIN claim occurred.
+
+20. Constraint-to-capability intervention synthesis: derived two route-2
+capability requirements, matched 12 executable operators, and generated 10
+semantically distinct interventions across five templates. Candidates remained
+UNKNOWN under the targeting guard; no broad search or validation campaign ran.
+`CONSTRAINT_TO_CAPABILITY=SUPPORTED`, `CAPABILITY_TO_INTERVENTION=SUPPORTED`,
+`INTERVENTION_DIVERSITY=SUFFICIENT`.
+
+21. Information-efficient causal search: evaluated eight unique simulations
+from a five-family M20 intervention queue under the M18.1 uncertainty guard.
+Targeting-sensitive interventions remained UNKNOWN and were simulated; no
+frontier advance or WIN occurred. Best LOSS remained 25/36 kills, 11 leaks at
+route-2 frame 564. The guarded information-routing pipeline is supported, but
+the causal frontier did not improve.
+
+Next major milestones, only when separately requested:
+
+23. Target-allocation black-box calibration Phase A: generated three minimal
+human observation questions for Falco first target, Noir Blade first target,
+and Falco retargeting. No real observations, simulator changes, search, LLM,
+or mechanics expansion were performed. Status is
+`WAITING_FOR_REAL_GAME_OBSERVATION`.
+
+18.2. Targeting PRTS path-distance correction rebaseline: cached the local
+仇恨 source and changed ordinary target ordering to remaining route/path
+distance with creation-order ties. The paired replay became A 15/21 and B
+19/17; historical M16 is `CHANGED`, while non-monotonicity remains. Full aggro,
+special filters, and retarget timing stay unresolved, so M23 Q1–Q3 remain
+real-game calibration questions.
+
+- establish specific real-mechanic evidence or clearly opt-in approximations;
+- evaluate and refine one documented approximation at a time before extending real-stage coverage;
+- compare the same bounded real-stage search as individual approximations are replaced or validated;
+- if separately requested, perform one manually calibrated bounded real run and compare its trace without auto-fitting;
+- recover or validate one client timing boundary before treating configured frame frequency as real-client timing;
+- establish one explicit per-stage Chapter 6–11 approximation policy before any low-rarity real-stage search claim;
+- investigate target-driven low-rarity mechanics (notably Arts/skill/DP coverage) before revisiting 6-8; do not claim a minimum squad from the bounded result;
+- keep Agent integration and game execution separate from simulator-fidelity work.
+- extend only target-driven mechanics or tactical coverage before making any M14 claim; current K2 timing coverage is intentionally incomplete.
+
+## Architecture restoration status
+
+Completed as a non-strategy architecture task:
+
+- restored a reusable top-down planner orchestration with deterministic,
+  no-LLM hypothesis generation;
+- repositioned M15-M22 frontier/causal tools as downstream repair layers;
+- introduced explicit `ExperimentScope` so 6-8, K<=7, and the 1-3 star pool are
+  benchmark bounds rather than global planner properties;
+- strengthened mechanics evidence retrieval, UNKNOWN, mechanics-work, and
+  human-calibration gates with machine-readable reason trails;
+- resolved Q2 from cached PRTS evidence and implemented ordinary melee
+  self-blocked target priority;
+- preserved remaining-path targeting and stable creation-order tie breaking;
+- marked all M14-M23 numerical artifacts stale under
+  `m18.2-blocked-target-v1`;
+- ran a tiny stage 0-1 top-down smoke (WIN, 19/24 simulations, no LLM, no
+  broad search), without claiming real-game validity or minimality.
+
+Next major work, only when separately requested: deterministic 6-8 rebaseline,
+then top-down first-WIN pursuit.
+
+## 2026-10-12 R8-1 roadblock WALK navigation V3
+
+Completed a bounded static correction without tactical search: corrected two
+V2 overgeneralizations, recorded Tile refresh scheduling and ordinary-WALK SPFA
+cost/cache edges, and preserved the missing Route-to-SPFA edge as UNKNOWN.
+Budget: Kimi 0, real-stage simulations 0, new plans/candidates 0, tactical
+search expansions 0. Evidence: `output/r8_1_roadblock_walk_navigation_v3/`.

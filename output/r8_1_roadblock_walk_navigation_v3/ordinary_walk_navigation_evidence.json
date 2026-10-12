@@ -1,0 +1,919 @@
+{
+  "schema_version": "R8_1_ROADBLOCK_WALK_NAVIGATION_V3",
+  "budget": {
+    "kimi_calls": 0,
+    "real_stage_simulations": 0,
+    "new_operational_plans": 0,
+    "new_action_candidates": 0,
+    "expanded_tactical_search": 0
+  },
+  "inputs": {
+    "native_library_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+    "expected_native_library_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+    "gamedata_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+    "level_sha256": "8819c9cab57bd85005416d6262f9d52d07237c9b2a1a044d0ca17f8e408881b6",
+    "prior_prefab_evidence": {
+      "path": "output/r8_1_roadblock_prefab_evidence_v2/roadblock_prefab_extraction.json",
+      "sha256": "053f91d29e0e6ba9c36ecb7bb25439b53c4395760dbd2110af6bee4540143345"
+    }
+  },
+  "corrections": [
+    {
+      "old_label": "NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK",
+      "validity": "FALSE",
+      "corrected": "A moveCost-only change produces a change bit; Tile.RewriteOptions compares virtual get_moveCost before and after and ORs that bit with the passable-mask XOR.",
+      "scope": "Static call in build 2771. Does not imply immediate refresh in every runtime state.",
+      "evidence": [
+        "0x2785908..0x2785914",
+        "0x278593c..0x2785948"
+      ]
+    },
+    {
+      "old_label": "FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE",
+      "validity": "OVERGENERALIZED",
+      "corrected": "SPFA._CheckCachedMapReachable returns cached_node.distance - queried_tile.get_moveCost() < 1000. Example cached=1000,tile=1000 returns true; cached=1001,tile=1 returns false.",
+      "scope": "This is CheckReachable arithmetic, not ordinary path generation, and no R8-1 reachable scenario is proven here.",
+      "evidence": [
+        "0x276c374..0x276c380"
+      ]
+    }
+  ],
+  "ordinary_walk_navigation": {
+    "passability": "Tile.IsPassableGoto checks Tile.IsPassable(tile, motionMode) and the tile's per-mode block-edge bits.",
+    "path_generation_cost": "SPFA._GenerateNextMapImpl adds each accepted neighbor's virtual Tile.get_moveCost to the candidate node distance.",
+    "route_refresh_signal": "moveCost change and passableMask XOR are combined into dirty bits.",
+    "route_refresh_scheduling": {
+      "map_is_batching_tile_update_false": "Tile.RewriteOptions loops WALK and FLY and calls Map.UpdateRoutes(mode).",
+      "map_is_batching_tile_update_true": "Tile.RewriteOptions calls Map.AccumulateDirtyRoutes(mask); Map.EndBatchTileUpdate later calls Map.UpdateRoutes for accumulated bits."
+    },
+    "avoid_obstacle_like": "CheckReachable/_CheckCachedMapReachable evaluates cached_node.distance - queried_tile.get_moveCost() < 1000; its R8-1 ordinary-route applicability is UNKNOWN.",
+    "destruction_restore": "Tile.RestoreOptionsOnlyViaToken calls Tile.RewriteOptions with saved original Tile.Options and conditionally restores individual fields.",
+    "chain": [
+      {
+        "edge": "LevelData.routes -> Map.InitRouteAndPassableMap -> Map._InitRoutesAndPassableMaps",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x27552cc..0x27552e0",
+          "0x2753d58"
+        ]
+      },
+      {
+        "edge": "Map._InitRoutesAndPassableMaps -> Tile.IsPassable(tile, WALK_ONLY)",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x2753ed0",
+          "0x2782140"
+        ],
+        "argument_flow": "the loop stores bit 0 of Tile.IsPassable(tile, 0), and MotionMask.WALK_ONLY == 1"
+      },
+      {
+        "edge": "Map._InitRoutesAndPassableMaps -> SPFA..ctor(map)",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x2753f88",
+          "0x276ae38"
+        ]
+      },
+      {
+        "edge": "Map._InitRoutesAndPassableMaps -> Route..ctor(RouteData, Map, SPFA) for main and extra routes",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x275402c",
+          "0x2754138",
+          "0x276d2e4"
+        ]
+      },
+      {
+        "edge": "Map._InitRoutesAndPassableMaps -> Map.UpdateAllRoutes",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x275419c",
+          "0x2755774"
+        ]
+      },
+      {
+        "edge": "Map.UpdateAllRoutes -> Route.ReconstructNextMap",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x275592c",
+          "0x2755980",
+          "0x2755a58",
+          "0x2755ac4"
+        ]
+      },
+      {
+        "edge": "Route.ReconstructNextMap -> SPFA path generation",
+        "status": "UNKNOWN_MISSING_STATIC_EDGE",
+        "reason": "Route..ctor, ReconstructRoute and ReconstructNextMap contain no valid A64 instructions in the supplied static binary; method signatures and stored SPFA reference are not enough to prove the call.",
+        "evidence": [
+          "0x276d2e4",
+          "0x276d548",
+          "0x276d6ec"
+        ]
+      },
+      {
+        "edge": "SPFA.GenerateNextMap -> cached-map load or SPFA._GenerateNextMapImpl + postprocess",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x276b0b4",
+          "0x276b0c8",
+          "0x276b11c",
+          "0x276b130"
+        ]
+      },
+      {
+        "edge": "SPFA._GenerateNextMapImpl -> Tile.IsPassable / SPFA.CheckPassableGoto / Tile.get_moveCost",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x276b72c",
+          "0x276b8e0",
+          "0x276b940"
+        ],
+        "argument_flow": "request.motionMode selects the passable bit; each neighbor's Tile.get_moveCost is added to candidate distance."
+      },
+      {
+        "edge": "Tile.RewriteOptions -> change bits and Map.UpdateRoutes/AccumulateDirtyRoutes",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x2785910",
+          "0x278593c",
+          "0x278594c",
+          "0x2785968",
+          "0x2785998"
+        ]
+      },
+      {
+        "edge": "Tile.RestoreOptionsOnlyViaToken -> Tile.RewriteOptions with saved options",
+        "status": "CONFIRMED_FROM_CODE",
+        "evidence": [
+          "0x2786ffc",
+          "0x2787024",
+          "0x2787038",
+          "0x2787054"
+        ]
+      }
+    ],
+    "route_decodability": {
+      "Map.InitRouteAndPassableMap": "VALID_A64_INSTRUCTIONS",
+      "Map._InitRoutesAndPassableMaps": "VALID_A64_INSTRUCTIONS",
+      "Map.ReplaceAllRoutes": "VALID_A64_INSTRUCTIONS",
+      "Map.UpdateAllRoutes": "VALID_A64_INSTRUCTIONS",
+      "Map.get_isBatchingTileUpdate": "VALID_A64_INSTRUCTIONS",
+      "Map.AccumulateDirtyRoutes": "VALID_A64_INSTRUCTIONS",
+      "Map.UpdateRoutes": "VALID_A64_INSTRUCTIONS",
+      "Map.EndBatchTileUpdate": "VALID_A64_INSTRUCTIONS",
+      "SPFA.GenerateNextMap": "VALID_A64_INSTRUCTIONS",
+      "SPFA._GenerateNextMapImpl": "VALID_A64_INSTRUCTIONS",
+      "SPFA.GenerateNextMapWithoutCaching": "VALID_A64_INSTRUCTIONS",
+      "SPFA.CheckPassableGoto": "VALID_A64_INSTRUCTIONS",
+      "SPFA.CheckReachable": "VALID_A64_INSTRUCTIONS",
+      "SPFA._CheckCachedMapReachable": "VALID_A64_INSTRUCTIONS",
+      "SPFA.ClearCache": "VALID_A64_INSTRUCTIONS",
+      "SPFA.ClearAllCaches": "VALID_A64_INSTRUCTIONS",
+      "Route..ctor": "NO_VALID_A64_INSTRUCTIONS",
+      "Route.ReconstructRoute": "NO_VALID_A64_INSTRUCTIONS",
+      "Route.ReconstructNextMap": "NO_VALID_A64_INSTRUCTIONS",
+      "Tile.Options": "VALID_A64_INSTRUCTIONS",
+      "Tile.IsPassable": "VALID_A64_INSTRUCTIONS",
+      "Tile.IsPassableGoto": "VALID_A64_INSTRUCTIONS",
+      "Tile.get_moveCost": "VALID_A64_INSTRUCTIONS",
+      "Tile.get_isObstacleLike": "VALID_A64_INSTRUCTIONS",
+      "Tile.OverwriteObstacleLikeMoveCost": "VALID_A64_INSTRUCTIONS",
+      "Tile.RefreshTileOptionsViaToken": "VALID_A64_INSTRUCTIONS",
+      "Tile.TryUpdateOptions": "VALID_A64_INSTRUCTIONS",
+      "Tile.RewriteOptions": "VALID_A64_INSTRUCTIONS",
+      "Tile.RestoreOptionsOnlyViaToken": "VALID_A64_INSTRUCTIONS"
+    }
+  },
+  "r8_1_route_scope": {
+    "level_path": "data/ArknightsGameData/zh_CN/gamedata/levels/obt/main/level_main_08-01.json",
+    "gamedata_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+    "source_route_count": 35,
+    "source_motion_mode_counts": {
+      "WALK": 33,
+      "E_NUM": 2
+    },
+    "walk_routes": [
+      {
+        "source_route_index": 1,
+        "start_row_col": [
+          1,
+          3
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": [
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 3.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              1,
+              4
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 3.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              1,
+              3
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 3.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 2,
+        "start_row_col": [
+          3,
+          4
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": [
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 4.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              3
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 4.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              4
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 4.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              3
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 4.0
+          },
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              4
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 4.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 3,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 4,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 6,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 10.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 7,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              4,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 19.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 8,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              5,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 28.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 9,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 10,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 11,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 12,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 13,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 14,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 10.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 15,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              4,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 19.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 16,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              5,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 28.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 17,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 18,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 19,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 20,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 21,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 22,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 5.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 23,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              3,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 5.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 24,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              4,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 9.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 25,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              4,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 9.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 26,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              5,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 13.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 27,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": [
+          {
+            "type": "MOVE",
+            "position_row_col": [
+              5,
+              2
+            ],
+            "time": 0.0
+          },
+          {
+            "type": "WAIT_FOR_SECONDS",
+            "position_row_col": [
+              0,
+              0
+            ],
+            "time": 13.0
+          }
+        ]
+      },
+      {
+        "source_route_index": 28,
+        "start_row_col": [
+          1,
+          1
+        ],
+        "end_row_col": [
+          1,
+          9
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 29,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 30,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 31,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 32,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 33,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      },
+      {
+        "source_route_index": 34,
+        "start_row_col": [
+          5,
+          0
+        ],
+        "end_row_col": [
+          6,
+          8
+        ],
+        "checkpoints": []
+      }
+    ]
+  },
+  "limitations": [
+    "The supplied client binary cannot be independently aligned to the pinned GameData commit beyond fixed source hashes and method address evidence.",
+    "Route method bodies are not statically decodable; the missing Route-to-SPFA edge remains UNKNOWN.",
+    "No active roadblock state transition or tap_roadblock binding is proven in this artifact."
+  ],
+  "conclusion_scope": "PARTIAL_STATIC_EVIDENCE; no faithful R8-1 navigation or tactical feasibility claim."
+}

@@ -1,13 +1,20 @@
-# Next milestone: Work review of roadblock prefab payload
+# Next milestone: close the Route-to-SPFA static edge
 
-V2 now extracts the exact `trap_020_roadblock` prefab and connects it to the
-focused Tile/SPFA disassembly. Work should review
-`output/r8_1_roadblock_prefab_evidence_v2/` and
-`scripts/extract_roadblock_prefab_evidence_v2.py`.
+Work accepted the focused V2 evidence but corrected two overgeneralizations:
+`NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` and
+`FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE`. The corrected V3 evidence is in
+`output/r8_1_roadblock_walk_navigation_v3/`.
 
-If accepted, the next bounded evidence task is to determine whether ordinary
-enemy route generation actually calls `SPFA.CheckReachable` with
-`avoidObstacleLike=true`, and whether `tap_roadblock` is bound to Ursa
-civilians/Talulah in this client. Do not harden a full-obstacle rule, invoke
-Kimi, run real-stage simulation, add OperationalPlans/candidates, or expand
-tactical search in that follow-up.
+The remaining navigation-chain gap is exact:
+`Route.ReconstructNextMap -> SPFA path generation`. In build 2771, the supplied
+static bytes for `Route..ctor`, `Route.ReconstructRoute`, and
+`Route.ReconstructNextMap` contain no valid A64 instructions. The stored SPFA
+reference and method signatures are insufficient to prove this edge. The next
+bounded task is to obtain a compatible decrypted/static call body or another
+direct client source for this one edge, then connect it to cost, cache and
+refresh behavior. Do not infer the edge from Python, simulator behavior, or
+method naming.
+
+Do not investigate `tap_roadblock` civilian/Talulah binding in the same step.
+Do not invoke Kimi, run real-stage simulation, add OperationalPlans/candidates,
+or expand tactical search.

@@ -145,3 +145,11 @@ Work independently confirmed the V1 focused navigation tests at 12/12 PASS and t
 V2 evidence decodes the exact roadblock prefab. The blocker is `assets/AB/Android/pkgrps/btl_pfb_tokens_0.ab`, container key `dyn/battle/prefabs/[uc]tokens/trap_020_roadblock.prefab`. Its mode has `passableMask=0`, `overrideObstacleLikeMoveCost=1`, and `_keepCurrentPassableMask=1`; the root has `_rewriteTileOptions=1` and filter tag `tap_roadblock`. Therefore the confirmed ordinary-WALK passability mask is unchanged. If `SPFA.CheckReachable` is called with `avoidObstacleLike=true`, the roadblock tile becomes unreachable because `Tile.get_moveCost` is 1000. The actual default route-generation call's obstacle flag remains UNKNOWN.
 
 CONFIRMED_FROM_CODE also shows `Trap.CheckHasFilterTag` reads the prefab filter-tag list, but the binding from `tap_roadblock` to Ursa civilians/Talulah in this client remains UNKNOWN. Metadata decryption provenance and client/GameData version equivalence remain UNKNOWN. Evidence and a reproducible two-method extraction are under `output/r8_1_roadblock_prefab_evidence_v2/`.
+
+## 2026-10-12 Work review of b60c48c and V3 correction
+
+CONFIRMED_FROM_CODE：Work 实际核对 b60c48cd28383d3058f290ee2d0b434086b8c6da；三个定向测试 12/12 PASS，两份反汇编文本 hash 匹配。该检查读取已保存材料，不等于重新执行 APK 提取。prefab 字段是有效证据，但具体运行路径与跨版本适用性仍是 UNKNOWN。custom/LZHAM 只保持 REPORTED_BY_PREVIOUS_WORKER。
+
+V3 更正两条旧标签：`NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` 不成立；`Tile.RewriteOptions` 会比较前后 moveCost，并与 passableMask XOR 合成变化位。`FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE` 过度概括；`SPFA._CheckCachedMapReachable` 的算式是 `cached_node.distance - queried_tile.get_moveCost() < 1000`。批量标志为 false 时调用 `Map.UpdateRoutes`；为 true 时先 `AccumulateDirtyRoutes`，`EndBatchTileUpdate` 再消费。普通 WALK 生成侧已确认先按运动掩码过滤、再调用 `CheckPassableGoto`，并把邻居 `Tile.get_moveCost` 加入候选距离。
+
+限制：`Route..ctor`、`ReconstructRoute`、`ReconstructNextMap` 的静态字节无有效 A64 指令，因此 `Route.ReconstructNextMap -> SPFA path generation` 保持 `UNKNOWN_MISSING_STATIC_EDGE`。不能把 SPFA 函数语义外推为客户端普通路线已闭合，也不能把路障写成已确认的全阻隔。证据：`output/r8_1_roadblock_walk_navigation_v3/`。定向 unittest 12/12 PASS；compileall PASS。预算全部为 0。

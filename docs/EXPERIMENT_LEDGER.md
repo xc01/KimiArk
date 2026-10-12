@@ -114,3 +114,9 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 关键值：`_rewriteTileOptions=1`；mode `_tileOptions.passableMask=0`；`overrideObstacleLikeMoveCost=1`；`_keepCurrentPassableMask=1`；filter tag `tap_roadblock`。反汇编确认 TryUpdateOptions 在 keep-current 开启时保留旧 passableMask，SPFA 的 `avoidObstacleLike=true` 检查会因 moveCost 1000 拒绝该格。
 
 分类：普通 WALK 的 passability mask 不变；avoidObstacleLike 可达性为 false。默认路径生成是否使用该标志仍 UNKNOWN；平民/塔露拉的 tag 绑定和跨版本适用性仍 UNKNOWN。脚本/证据：`scripts/extract_roadblock_prefab_evidence_v2.py` 与 `output/r8_1_roadblock_prefab_evidence_v2/`。验证：compileall PASS；定向 unittest 17/17 PASS。预算：Kimi 0；真实关卡模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。
+
+## 2026-10-12 Roadblock ordinary WALK navigation V3
+
+输入：已固定 build 2771 的 `libil2cpp.so`（SHA-256 `3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259`）、固定 GameData commit `0ef7f952` 与 V2 prefab artifact。生成器：`scripts/extract_roadblock_walk_navigation_v3.py`；证据：`output/r8_1_roadblock_walk_navigation_v3/`。
+
+结果：两条 V2 硬化结论标记失效并给出精确算术/调用边界；新增 `Map.InitRouteAndPassableMap -> Route..ctor(SPFA)`、`Map.UpdateAllRoutes -> Route.ReconstructNextMap`、Tile 更新/恢复、SPFA 缓存与成本计算的反汇编边。`Route.ReconstructNextMap -> SPFA` 因 Route 方法体不可静态解码保持 UNKNOWN。R8-1 源路线范围记录为 35 项（33 WALK、2 E_NUM），不引入战术期限。预算全部为 0；定向 unittest 12/12 PASS；compileall PASS。

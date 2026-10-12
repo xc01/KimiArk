@@ -275,9 +275,15 @@ def main() -> None:
         },
         "ordinary_walk_navigation": {
             "passable_mask": "UNCHANGED_BY_KEEP_CURRENT_PASSABLE_MASK",
-            "spfa_route_mask_refresh": "NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK",
-            "avoid_obstacle_like_reachable": "FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE",
+            "route_refresh_change_signal": "MOVE_COST_OR_PASSABLE_MASK_CHANGE_PARTICIPATES",
+            "route_refresh_scheduling": "NON_BATCHING_CALLS_MAP_UPDATE_ROUTES; BATCHING_ACCUMULATES_DIRTY_ROUTES",
+            "avoid_obstacle_like_reachable": "CACHED_NODE_DISTANCE_MINUS_TILE_MOVE_COST_LESS_THAN_1000",
+            "r8_1_avoid_obstacle_like_scenario": "UNKNOWN",
             "default_route_generation_effect": "UNKNOWN",
+            "historical_labels_superseded": [
+                "NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK",
+                "FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE",
+            ],
         },
         "civilian_talulah_blocking": "UNKNOWN",
         "cross_version_applicability": "UNKNOWN",

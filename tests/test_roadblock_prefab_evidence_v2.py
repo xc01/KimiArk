@@ -52,10 +52,16 @@ class RoadblockPrefabEvidenceTests(unittest.TestCase):
     def test_ordinary_walk_is_not_hardened_to_a_full_obstacle(self) -> None:
         ordinary_walk = self.evidence["ordinary_walk_navigation"]
         self.assertEqual(ordinary_walk["passable_mask"], "UNCHANGED_BY_KEEP_CURRENT_PASSABLE_MASK")
-        self.assertEqual(
-            ordinary_walk["avoid_obstacle_like_reachable"],
-            "FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE",
-        )
+        if "historical_labels_superseded" in ordinary_walk:
+            self.assertNotIn(
+                "FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE",
+                ordinary_walk["avoid_obstacle_like_reachable"],
+            )
+        else:
+            self.assertIn(
+                ordinary_walk["avoid_obstacle_like_reachable"],
+                {"FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE"},
+            )
         self.assertEqual(ordinary_walk["default_route_generation_effect"], "UNKNOWN")
 
     def test_unresolved_semantics_remain_unknown(self) -> None:

@@ -70,3 +70,7 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 ## 2026-10-12 Keep roadblock navigation conditional
 
 V2 提取到确切 payload 后仍不把路障实现为无条件全阻隔。已确认的两个分支是：keep-current passableMask 使 WALK/FLY mask 保持不变；但 `avoidObstacleLike=true` 的 SPFA reachability 检查会把该格视为 obstacle-like。在普通路径请求是否设置该标志得到确认前，公共导航层不改变战术判定。
+
+## 2026-10-12 Preserve the missing Route-to-SPFA boundary
+
+V3 保留 SPFA/Tile 的静态语义，但不在公共导航层补写 `Route.ReconstructNextMap -> SPFA`。Route 方法体在当前静态字节中不可解码；该边保持 `UNKNOWN_MISSING_STATIC_EDGE`。V2 的两条概括分别由 moveCost 变化位和 `cached_distance - tile_moveCost < 1000` 的条件算式取代。下一步只允许针对这一条边获取可复核客户端证据。

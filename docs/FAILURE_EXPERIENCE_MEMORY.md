@@ -125,3 +125,9 @@ LESSON：不能用客户端 `Token`/`Tile` 的 generic rewrite-and-restore 机�
 前一次 V1 的“prefab 不可解码”只说明当时缺少 Arknights 自定义 LZ4AK 支持，不能推出路障没有导航影响。Work 审查已确认 generic chain 有分支；V2 进一步证明该路障启用 rewrite、保留旧 passableMask，并把 `overrideObstacleLikeMoveCost` 置 1。
 
 可复用教训：容器解析失败只能阻断对应证书，不能把 UNKNOWN 硬化为全阻隔或无影响。新边界是：passability mask 不变；`avoidObstacleLike=true` 时该格不可达；默认路径生成的实际调用仍 UNKNOWN。
+
+V3 更正（覆盖上一段两条硬化分类）：
+
+- `NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` 不再作为可复用失败经验。moveCost-only 变化也会产生 dirty bit。
+- `FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE` 只能保留为算术条件，不是逐格规则，也不是 R8-1 普通路线证明。
+- 不得把这些条件推给 Kimi 作为已证战术失败；仍缺少 `Route.ReconstructNextMap -> SPFA` 的直接客户端证据。
