@@ -181,3 +181,20 @@ Kimi 的 40,059 字符部分文本也自述只收到 `PROMPT_SUMMARY_ONLY`。
 已保存 8,165,408 字节原始流和部分输出，不将其冒充有效计划。一次调用后未重试。
 已修复未来入口的证据嵌入缺陷，并修复 SSE 空 incomplete 事件覆盖 created envelope 的
 缺陷。预算：Kimi 1、新计划 0、完整动作候选 0、主模拟 0、路障复验 0、扩搜 0。
+
+## 2026-10-12 V2离线入口修复
+
+CONFIRMED_FROM_CODE：V2把完整evidence JSON嵌入唯一user消息；准备阶段固化canonical
+request body并保存SHA-256/字节数；call入口先校验body、schema、模型、路障坐标和历史边界，
+再允许POST。固定路障为[col,row]`[[5,3],[9,4],[7,2],[1,2],[3,5]]`。旧B2压力结论和941零漏
+诊断只作为HISTORICAL_ONLY，不进入活跃事实或prompt。
+
+CONFIRMED_FROM_CODE：HTTP 401、超时、URL错误、流中断和KeyboardInterrupt都保存真实HTTP状态/
+request ID并计入一次性预算；网络开始前写入`ATTEMPT_STARTED`，禁止重试。reasoning done不再
+追加重复文本，空terminal不覆盖created envelope。`response.incomplete`、JSON/schema/contract
+失败不会产生OperationalPlan或交接。
+
+UNKNOWN仍包括精确客户端时序、活跃roadblock对普通WALK导航的作用、终止usage/
+incomplete_details、首次merchant维护费时序。本轮预算：Kimi 0、真实关卡模拟0、新计划0、
+新候选0、扩搜0。待发送body为112,541字节，SHA-256
+`3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。

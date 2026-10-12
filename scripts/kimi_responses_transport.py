@@ -22,6 +22,8 @@ class StreamAccumulator:
     response_envelope: dict[str, Any] | None = None
     error: str | None = None
     malformed_events: list[str] = field(default_factory=list)
+    http_status: int | None = None
+    request_id: str | None = None
 
     def observe(self, event: SSEEvent) -> None:
         self.events.append(event)
@@ -37,14 +39,18 @@ class StreamAccumulator:
         elif event.event == "response.output_text.delta":
             self.output_text += data.get("delta", "")
         elif event.event == "response.output_text.done":
-            self.output_text = data.get("text", self.output_text)
+            if "text" in data:
+                self.output_text = data["text"]
         elif event.event in {
             "response.reasoning_summary_text.delta",
             "response.reasoning_summary_text.done",
             "response.reasoning_text.delta",
             "response.reasoning_text.done",
         }:
-            self.reasoning_text += data.get("delta", data.get("text", ""))
+            if "delta" in data:
+                self.reasoning_text += data["delta"]
+            elif "text" in data:
+                self.reasoning_text = data["text"]
         elif event.event in {"response.completed", "response.incomplete", "response.failed"}:
             if self.terminal_event is not None:
                 self.error = f"Multiple terminal SSE events: {self.terminal_event}, {event.event}"

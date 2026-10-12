@@ -276,3 +276,9 @@ user prompt. No valid OperationalPlan, action timeline, or simulation followed.
 Budget: Kimi 1, new plans/candidates 0, stage starts 0, robust replays 0,
 tactical search expansions 0. Evidence:
 `output/r8_1_low_star_full_tactical_closure_v1/`.
+
+## 2026-10-12 — V2 offline request-entry milestone
+
+完成：证据嵌入、固定[col,row]路障、历史B2隔离、canonical body、最终载荷门禁、一次性传输预算、
+HTTP状态/request ID保存、reasoning去重、incomplete拒绝、schema/contract校验和合成Strategy交接。
+测试9/9两次通过，compileall通过；Kimi 0，模拟0，新计划0。Work审查通过前不得发起新Kimi调用。

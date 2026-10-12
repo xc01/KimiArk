@@ -152,3 +152,15 @@ Il2CppDumper `dump.cs`/`script.json` 摘录和 ELF `.eh_frame`。工具为 Capst
 输出在 32,768 token 上限内截断，40,059 字符 JSON 解析失败。结果：0 个有效
 OperationalPlan、0 条动作候选、0 次关卡模拟。部分输出保留为失效证据，不作为战术。
 已修复 future prompt evidence embedding 和 SSE 空 incomplete envelope 处理。
+
+## 2026-10-12 — V2离线验收
+
+实验：`r8_1_low_star_full_tactical_closure_v2`。只执行prepare和mock验收；Kimi 0，真实关卡
+模拟0，新真实OperationalPlan/候选0，扩搜0。
+
+结果：9/9 runner离线unittest两次通过（`PYTHONPATH=scripts`和`PYTHONPATH=src`）；
+`compileall`通过。mock urlopen检查到实际`Request.data`与固化body完全一致；401、超时、流中断
+均保存失败记录且不重试；`response.incomplete`被拒绝；空/多计划、缺方向DEPLOY被schema/contract
+拒绝；合成合法计划能转换到公共`Strategy/Action`，状态是`HANDOFF_READY_NOT_COMPILED`，没有
+战术保真声明。待发送body：112,541字节，SHA-256
+`3749ad4ded4bc9dfbcc142cba21cc60ba717ad1a780d61ef9da75a897a80dbac`。

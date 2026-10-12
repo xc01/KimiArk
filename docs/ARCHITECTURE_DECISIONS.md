@@ -89,3 +89,15 @@ binary SHA-256，避免错误输入覆盖证据。公共导航层继续没有 `R
 嵌入唯一用户消息；call phase 不再从另一份 prompt 隐式重建请求。SSE 解析在收完原始流后
 执行，避免分块边界切断事件；空 `response.incomplete` 不覆盖 `response.created` envelope。
 响应必须完成且 JSON 可解析后才能进入确定性编译。
+
+## 2026-10-12 — 最终请求门禁与传输预算
+
+决策：最终POST必须使用已固化的canonical body；`llm_request.json`只是结构化缓存，不能在call
+时从旧prompt重建。固化和stream序列化统一使用
+`ensure_ascii=False, sort_keys=True, separators=(',',':')`，避免写入key顺序差异。
+`validate_final_payload`检查嵌入evidence与prepared evidence相等、schema相等、模型/流、固定
+路障、历史B2边界和body哈希。
+
+决策：`start_attempt`必须在`urlopen`之前落盘；HTTPError保留状态和request ID，超时/中断保留
+已收字节；`finish_attempt`后返回统一失败。不存在terminal事件时补`NO_TERMINAL_EVENT`，不把
+`response.completed`当作HTTP 200反推。本地验收用mock urlopen检查`Request.data`。
