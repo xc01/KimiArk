@@ -120,3 +120,22 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 输入：已固定 build 2771 的 `libil2cpp.so`（SHA-256 `3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259`）、固定 GameData commit `0ef7f952` 与 V2 prefab artifact。生成器：`scripts/extract_roadblock_walk_navigation_v3.py`；证据：`output/r8_1_roadblock_walk_navigation_v3/`。
 
 结果：两条 V2 硬化结论标记失效并给出精确算术/调用边界；新增 `Map.InitRouteAndPassableMap -> Route..ctor(SPFA)`、`Map.UpdateAllRoutes -> Route.ReconstructNextMap`、Tile 更新/恢复、SPFA 缓存与成本计算的反汇编边。`Route.ReconstructNextMap -> SPFA` 因 Route 方法体不可静态解码保持 UNKNOWN。R8-1 源路线范围记录为 35 项（33 WALK、2 E_NUM），不引入战术期限。预算全部为 0；定向 unittest 12/12 PASS；compileall PASS。
+
+## 2026-10-12 Route navigation decodability V4
+
+输入：固定 `libil2cpp.so`（SHA-256
+`3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259`）、本地
+Il2CppDumper `dump.cs`/`script.json` 摘录和 ELF `.eh_frame`。工具为 Capstone
+5.0.7 AArch64 little-endian；环境没有第二静态 A64 解码器，因此没有声称交叉验证。
+
+结果：`Route..ctor`、`Route.ReconstructRoute` 和 `Route.ReconstructNextMap` 默认
+入口解码失败，均为 0 条指令、0 字节消费。`.eh_frame` 确认各自边界。四字节对齐重
+同步分别得到 40/117、22/105、34/107 个可解码词，但只保留为
+`CANDIDATE_CLUES_ONLY`。没有恢复 `Route.ReconstructNextMap -> SPFA` 调用体；原因
+保持 UNKNOWN，加密、运行时变换和数据误分类均未证明。V3 旧
+`NO_VALID_A64_INSTRUCTIONS` 分类失效，V1/V2/V3 artifacts 原样保留。
+
+证据与脚本：`output/r8_1_route_navigation_decodability_v4/` 和
+`scripts/diagnose_route_navigation_decodability_v4.py`。验证：compileall PASS；
+定向 unittest 18/18 PASS；V4 与 V3 manifest 哈希校验通过。预算：Kimi 0；真实关卡
+模拟 0；新 OperationalPlan 0；新动作候选 0；战术扩搜 0。无 WIN 声明。

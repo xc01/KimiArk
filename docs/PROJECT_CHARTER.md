@@ -149,3 +149,12 @@ CONFIRMED_FROM_CODE: terrain navigation model exists; manifest 11/11 matches; re
 ## Work review 2026-10-12 — b60c48c and V3 correction
 
 CONFIRMED_FROM_CODE: Work verified b60c48cd28383d3058f290ee2d0b434086b8c6da with 12/12 targeted PASS and matching raw-disassembly hashes; this reviewed saved evidence, not a fresh APK extraction. V3 supersedes the two V2 hardening labels. A moveCost-only change participates in refresh signal construction, and avoidObstacleLike is the conditional arithmetic `cached_distance - tile_moveCost < 1000`, not a universal per-tile rule. `Route.ReconstructNextMap -> SPFA` remains UNKNOWN because the supplied Route method bytes are not statically decodable. Cross-version applicability remains UNKNOWN.
+
+## 当前边界（2026-10-12 Route解码诊断）
+
+CONFIRMED_FROM_CODE：V4 核实固定 binary 的 ELF PT_LOAD 映射、`.eh_frame` 方法边界、
+metadata 地址和原始字节。三个 Route 方法默认 Capstone 入口解码失败；对齐重同步只
+能提供候选线索。UNKNOWN：`Route.ReconstructNextMap -> SPFA`、入口失败的真实原因、
+跨版本适用性和兼容的完整调用体。历史 V1/V2/V3 artifacts 原样保留；V3 的
+`NO_VALID_A64_INSTRUCTIONS` 分类失效。普通 1～3 星约束、Kimi 0、真实关卡模拟 0、
+新计划/候选 0、战术扩搜 0 继续有效。

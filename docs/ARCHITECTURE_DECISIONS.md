@@ -74,3 +74,11 @@ V2 提取到确切 payload 后仍不把路障实现为无条件全阻隔。已�
 ## 2026-10-12 Preserve the missing Route-to-SPFA boundary
 
 V3 保留 SPFA/Tile 的静态语义，但不在公共导航层补写 `Route.ReconstructNextMap -> SPFA`。Route 方法体在当前静态字节中不可解码；该边保持 `UNKNOWN_MISSING_STATIC_EDGE`。V2 的两条概括分别由 moveCost 变化位和 `cached_distance - tile_moveCost < 1000` 的条件算式取代。下一步只允许针对这一条边获取可复核客户端证据。
+
+## 2026-10-12 Keep decoder failures narrowly scoped
+
+V4 将默认 Capstone 空流分类为 `ENTRY_DECODE_FAILED`，非空前缀分类为
+`PARTIAL_DECODE`，完整消费分类为 `COMPLETE_DECODE`。四字节重同步与 skipdata 结果
+只作为候选线索，不能直接表示真实代码、函数边界或调用边。V4 在创建输出前校验固定
+binary SHA-256，避免错误输入覆盖证据。公共导航层继续没有 `Route -> SPFA` 的
+实现或补写。

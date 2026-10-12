@@ -30,7 +30,8 @@ METHODS: dict[str, tuple[int, int]] = {
     "SPFA._CheckCachedMapReachable": (0x276C224, 0x276C3A8),
     "SPFA.ClearCache": (0x276C3A8, 0x276C470),
     "SPFA.ClearAllCaches": (0x276C470, 0x276C500),
-    "Route..ctor": (0x276D2E4, 0x276D548),
+    "Route..ctor": (0x276D2E4, 0x276D4B8),
+    "Route._CreateNextMap": (0x276D4B8, 0x276D548),
     "Route.ReconstructRoute": (0x276D548, 0x276D6EC),
     "Route.ReconstructNextMap": (0x276D6EC, 0x276D898),
     "Tile.Options": (0x27820D8, 0x2782140),
@@ -110,7 +111,28 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def disassemble(native_library: Path, output_dir: Path) -> dict[str, Any]:
+def classify_decodability(instruction_count: int, consumed_bytes: int, total_bytes: int) -> dict[str, Any]:
+    if total_bytes <= 0:
+        raise ValueError("total_bytes must be positive")
+    if instruction_count == 0:
+        classification = "ENTRY_DECODE_FAILED"
+        reason = "The default Capstone stream stopped at the first instruction without decoding any instruction."
+    elif consumed_bytes < total_bytes:
+        classification = "PARTIAL_DECODE"
+        reason = "The default Capstone stream decoded a prefix and stopped before the requested end address."
+    else:
+        classification = "COMPLETE_DECODE"
+        reason = "The default Capstone stream consumed the requested range."
+    return {
+        "classification": classification,
+        "instruction_count": instruction_count,
+        "consumed_bytes": consumed_bytes,
+        "unconsumed_bytes": total_bytes - consumed_bytes,
+        "reason": reason,
+    }
+
+
+def disassemble(native_library: Path, output_dir: Path) -> dict[str, dict[str, Any]]:
     try:
         import capstone
     except ImportError as exc:
@@ -119,16 +141,18 @@ def disassemble(native_library: Path, output_dir: Path) -> dict[str, Any]:
     raw = native_library.read_bytes()
     decoder = capstone.Cs(capstone.CS_ARCH_ARM64, capstone.CS_MODE_LITTLE_ENDIAN)
     lines: list[str] = []
-    decodability: dict[str, str] = {}
+    decodability: dict[str, dict[str, Any]] = {}
     for name, (start, end) in METHODS.items():
-        instructions = list(decoder.disasm(raw[start:end], start))
+        data = raw[start:end]
+        instructions = list(decoder.disasm(data, start))
         lines.append(f"=== {name} 0x{start:x}-0x{end:x} ===")
         lines.extend(
             f"{item.address:x}:\t{item.mnemonic}\t{item.op_str}".rstrip()
             for item in instructions
         )
         lines.append("")
-        decodability[name] = "VALID_A64_INSTRUCTIONS" if instructions else "NO_VALID_A64_INSTRUCTIONS"
+        consumed_bytes = 0 if not instructions else instructions[-1].address + instructions[-1].size - start
+        decodability[name] = classify_decodability(len(instructions), consumed_bytes, len(data))
     (output_dir / "ordinary_walk_navigation_disasm.txt").write_text("\n".join(lines), encoding="utf-8")
     return decodability
 
@@ -204,7 +228,7 @@ def build_evidence(native_library: Path, output_dir: Path, decodability: dict[st
         {
             "edge": "Route.ReconstructNextMap -> SPFA path generation",
             "status": "UNKNOWN_MISSING_STATIC_EDGE",
-            "reason": "Route..ctor, ReconstructRoute and ReconstructNextMap contain no valid A64 instructions in the supplied static binary; method signatures and stored SPFA reference are not enough to prove the call.",
+            "reason": "Default Capstone entry decoding fails at the start of Route..ctor, ReconstructRoute and ReconstructNextMap; method signatures and stored SPFA reference are not enough to prove the call. This does not prove that every aligned word in the ranges is invalid.",
             "evidence": ["0x276d2e4", "0x276d548", "0x276d6ec"],
         },
         {
@@ -280,7 +304,7 @@ def build_evidence(native_library: Path, output_dir: Path, decodability: dict[st
         "r8_1_route_scope": r8_routes,
         "limitations": [
             "The supplied client binary cannot be independently aligned to the pinned GameData commit beyond fixed source hashes and method address evidence.",
-            "Route method bodies are not statically decodable; the missing Route-to-SPFA edge remains UNKNOWN.",
+            "Default Capstone entry decoding fails for the Route methods; the missing Route-to-SPFA edge remains UNKNOWN and the cause is not established.",
             "No active roadblock state transition or tap_roadblock binding is proven in this artifact.",
         ],
         "conclusion_scope": "PARTIAL_STATIC_EVIDENCE; no faithful R8-1 navigation or tactical feasibility claim.",
@@ -293,11 +317,12 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
 
+    if sha256(args.native_library) != NATIVE_LIBRARY_SHA256:
+        raise RuntimeError("native library hash does not match the pinned build")
+
     args.output_dir.mkdir(parents=True, exist_ok=True)
     decodability = disassemble(args.native_library, args.output_dir)
     evidence = build_evidence(args.native_library, args.output_dir, decodability)
-    if evidence["inputs"]["native_library_sha256"] != NATIVE_LIBRARY_SHA256:
-        raise RuntimeError("native library hash does not match the pinned build")
     (args.output_dir / "ordinary_walk_navigation_evidence.json").write_text(
         json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

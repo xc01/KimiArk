@@ -131,3 +131,16 @@ V3 更正（覆盖上一段两条硬化分类）：
 - `NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` 不再作为可复用失败经验。moveCost-only 变化也会产生 dirty bit。
 - `FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE` 只能保留为算术条件，不是逐格规则，也不是 R8-1 普通路线证明。
 - 不得把这些条件推给 Kimi 作为已证战术失败；仍缺少 `Route.ReconstructNextMap -> SPFA` 的直接客户端证据。
+
+## 2026-10-12 Route decoder failure lesson
+
+LESSON：函数入口解码失败不等于整个字节范围没有有效 A64 指令，也不等于加密。
+可复用边界只是 `ENTRY_DECODE_FAILED`：默认 Capstone 在固定静态二进制的
+`Route..ctor`、`Route.ReconstructRoute` 和 `Route.ReconstructNextMap` 入口未消费字节。
+四字节重同步找到的候选词没有函数边界/控制流证明，不能作为调用边。
+
+适用条件：仅限固定 `libil2cpp.so`
+（SHA-256 `3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259`）；
+跨版本适用性 UNKNOWN。禁止把 `Route.ReconstructNextMap -> SPFA`、加密、运行时变换
+或数据误分类写成结论。V3 的 `NO_VALID_A64_INSTRUCTIONS` 分类失效。证据：
+`output/r8_1_route_navigation_decodability_v4/`。

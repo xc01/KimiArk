@@ -153,3 +153,18 @@ CONFIRMED_FROM_CODE：Work 实际核对 b60c48cd28383d3058f290ee2d0b434086b8c6da
 V3 更正两条旧标签：`NOT_TRIGGERED_FOR_UNCHANGED_WALK_FLY_MASK` 不成立；`Tile.RewriteOptions` 会比较前后 moveCost，并与 passableMask XOR 合成变化位。`FALSE_IF_AVOID_OBSTACLE_LIKE_IS_TRUE` 过度概括；`SPFA._CheckCachedMapReachable` 的算式是 `cached_node.distance - queried_tile.get_moveCost() < 1000`。批量标志为 false 时调用 `Map.UpdateRoutes`；为 true 时先 `AccumulateDirtyRoutes`，`EndBatchTileUpdate` 再消费。普通 WALK 生成侧已确认先按运动掩码过滤、再调用 `CheckPassableGoto`，并把邻居 `Tile.get_moveCost` 加入候选距离。
 
 限制：`Route..ctor`、`ReconstructRoute`、`ReconstructNextMap` 的静态字节无有效 A64 指令，因此 `Route.ReconstructNextMap -> SPFA path generation` 保持 `UNKNOWN_MISSING_STATIC_EDGE`。不能把 SPFA 函数语义外推为客户端普通路线已闭合，也不能把路障写成已确认的全阻隔。证据：`output/r8_1_roadblock_walk_navigation_v3/`。定向 unittest 12/12 PASS；compileall PASS。预算全部为 0。
+
+## 2026-10-12 Route decodability V4 correction
+
+CONFIRMED_FROM_CODE：默认 Capstone 在三个 Route 方法入口失败只能证明
+`ENTRY_DECODE_FAILED`，不能证明整个范围没有有效 A64 指令，也不能据此认定加密。
+ELF64 PT_LOAD 核实本例目标 RVA/VA 与文件偏移一一对应；`.eh_frame` 独立给出
+`Route..ctor` `0x276d2e4..0x276d4b8`、`Route.ReconstructRoute`
+`0x276d548..0x276d6ec`、`Route.ReconstructNextMap` `0x276d6ec..0x276d898`。
+
+三个方法入口解码仍失败；四字节重同步分别有 40/117、22/105、34/107 个对齐词可解，
+但只保留为 `CANDIDATE_CLUES_ONLY`。UNKNOWN：调用体、
+`Route.ReconstructNextMap -> SPFA`、失败原因、加密/运行时变换/数据误分类。
+历史 V1/V2/V3 artifacts 原样保留；V3 的 `NO_VALID_A64_INSTRUCTIONS` 分类失效。
+证据：`output/r8_1_route_navigation_decodability_v4/`。定向 unittest 18/18 PASS。
+预算全部为 0。

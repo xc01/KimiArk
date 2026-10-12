@@ -1,0 +1,688 @@
+{
+  "schema_version": "R8_1_ROUTE_NAVIGATION_DECODABILITY_V4",
+  "budget": {
+    "kimi_calls": 0,
+    "real_stage_simulations": 0,
+    "new_operational_plans": 0,
+    "new_action_candidates": 0,
+    "expanded_tactical_search": 0
+  },
+  "inputs": {
+    "native_library_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+    "expected_native_library_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+    "gamedata_commit": "0ef7f952dfd018392200157a5c79a6511ba69122"
+  },
+  "method_source": {
+    "metadata": "dump.cs RVA records and script.json ScriptMethod records",
+    "call_frame_records": "ELF .eh_frame FDE pc ranges",
+    "call_sites": {
+      "Route..ctor": [
+        {
+          "method": "Map._InitRoutesAndPassableMaps",
+          "instruction": "0x275402c",
+          "target": "0x276d2e4"
+        },
+        {
+          "method": "Map._InitRoutesAndPassableMaps",
+          "instruction": "0x2754138",
+          "target": "0x276d2e4"
+        }
+      ],
+      "Route.ReconstructRoute": [
+        {
+          "method": "Map.GenerateRuntimeRoute",
+          "instruction": "0x275a600",
+          "target": "0x276d548"
+        },
+        {
+          "method": "Map.GenerateRuntimeExtraRoute",
+          "instruction": "0x275ac54",
+          "target": "0x276d548"
+        }
+      ],
+      "Route.ReconstructNextMap": [
+        {
+          "method": "Map.UpdateAllRoutes",
+          "instruction": "0x275592c",
+          "target": "0x276d6ec"
+        },
+        {
+          "method": "Map.UpdateAllRoutes",
+          "instruction": "0x2755980",
+          "target": "0x276d6ec"
+        },
+        {
+          "method": "Map.UpdateAllRoutes",
+          "instruction": "0x2755a58",
+          "target": "0x276d6ec"
+        },
+        {
+          "method": "Map.UpdateAllRoutes",
+          "instruction": "0x2755ac4",
+          "target": "0x276d6ec"
+        }
+      ],
+      "Route._CreateNextMap": []
+    }
+  },
+  "diagnostics": {
+    "Route..ctor": {
+      "default": {
+        "classification": "ENTRY_DECODE_FAILED",
+        "instruction_count": 0,
+        "consumed_bytes": 0,
+        "unconsumed_bytes": 468,
+        "first_failure_address": 41341668,
+        "last_instruction": null,
+        "reason": "Default Capstone stopped at the first instruction without decoding any instruction.",
+        "capability": "Entry/prefix decode diagnosis only; a partial stream must not be treated as the complete function."
+      },
+      "aligned_resync": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "aligned_word_count": 117,
+        "aligned_valid_count": 40,
+        "aligned_invalid_count": 77,
+        "first_valid_candidate": {
+          "offset": 16,
+          "address": 41341684,
+          "bytes_hex": "446064d0",
+          "mnemonic": "adrp",
+          "operands": "x4, #0xcb377000"
+        },
+        "candidate_clues": [
+          {
+            "offset": 16,
+            "address": 41341684,
+            "bytes_hex": "446064d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb377000"
+          },
+          {
+            "offset": 48,
+            "address": 41341716,
+            "bytes_hex": "0c646450",
+            "mnemonic": "adr",
+            "operands": "x12, #0x2835f96"
+          },
+          {
+            "offset": 64,
+            "address": 41341732,
+            "bytes_hex": "4c6564d0",
+            "mnemonic": "adrp",
+            "operands": "x12, #0xcb417000"
+          },
+          {
+            "offset": 76,
+            "address": 41341744,
+            "bytes_hex": "4ee53b9c",
+            "mnemonic": "ldr",
+            "operands": "q14, #0x27e4fd8"
+          },
+          {
+            "offset": 84,
+            "address": 41341752,
+            "bytes_hex": "44656430",
+            "mnemonic": "adr",
+            "operands": "x4, #0x2835fe1"
+          },
+          {
+            "offset": 88,
+            "address": 41341756,
+            "bytes_hex": "6c616495",
+            "mnemonic": "bl",
+            "operands": "#0x80858ec"
+          },
+          {
+            "offset": 96,
+            "address": 41341764,
+            "bytes_hex": "059b9b30",
+            "mnemonic": "adr",
+            "operands": "x5, #0x26a46a5"
+          },
+          {
+            "offset": 108,
+            "address": 41341776,
+            "bytes_hex": "86677b4e",
+            "mnemonic": "smax",
+            "operands": "v6.8h, v28.8h, v27.8h"
+          },
+          {
+            "offset": 116,
+            "address": 41341784,
+            "bytes_hex": "60646470",
+            "mnemonic": "adr",
+            "operands": "x0, #0x2835fe7"
+          },
+          {
+            "offset": 144,
+            "address": 41341812,
+            "bytes_hex": "64655bb2",
+            "mnemonic": "orr",
+            "operands": "x4, x11, #0x7fffffe000000000"
+          },
+          {
+            "offset": 160,
+            "address": 41341828,
+            "bytes_hex": "247264d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb5b3000"
+          },
+          {
+            "offset": 164,
+            "address": 41341832,
+            "bytes_hex": "f8a86094",
+            "mnemonic": "bl",
+            "operands": "#0x3f97768"
+          },
+          {
+            "offset": 168,
+            "address": 41341836,
+            "bytes_hex": "feac6094",
+            "mnemonic": "bl",
+            "operands": "#0x3f98784"
+          },
+          {
+            "offset": 172,
+            "address": 41341840,
+            "bytes_hex": "9da360b4",
+            "mnemonic": "cbz",
+            "operands": "x29, #0x282e800"
+          },
+          {
+            "offset": 176,
+            "address": 41341844,
+            "bytes_hex": "7fa26094",
+            "mnemonic": "bl",
+            "operands": "#0x3f95d90"
+          },
+          {
+            "offset": 196,
+            "address": 41341864,
+            "bytes_hex": "90677b4e",
+            "mnemonic": "smax",
+            "operands": "v16.8h, v28.8h, v27.8h"
+          }
+        ],
+        "candidate_clue_limit": 16,
+        "capability": "Independent four-byte resynchronization is not a decoded function body and does not prove control flow or call targets."
+      },
+      "skipdata": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "entry_count": 117,
+        "first_entry": {
+          "address": 41341668,
+          "size": 4,
+          "mnemonic": ".byte",
+          "operands": "0x85, 0x67, 0x7b, 0xce"
+        },
+        "capability": "Skipdata entries can be synthetic byte entries and do not prove real instructions or control flow."
+      }
+    },
+    "Route.ReconstructRoute": {
+      "default": {
+        "classification": "ENTRY_DECODE_FAILED",
+        "instruction_count": 0,
+        "consumed_bytes": 0,
+        "unconsumed_bytes": 420,
+        "first_failure_address": 41342280,
+        "last_instruction": null,
+        "reason": "Default Capstone stopped at the first instruction without decoding any instruction.",
+        "capability": "Entry/prefix decode diagnosis only; a partial stream must not be treated as the complete function."
+      },
+      "aligned_resync": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "aligned_word_count": 105,
+        "aligned_valid_count": 22,
+        "aligned_invalid_count": 83,
+        "first_valid_candidate": {
+          "offset": 8,
+          "address": 41342288,
+          "bytes_hex": "2c646451",
+          "mnemonic": "sub",
+          "operands": "w12, w1, #0x919, lsl #12"
+        },
+        "candidate_clues": [
+          {
+            "offset": 8,
+            "address": 41342288,
+            "bytes_hex": "2c646451",
+            "mnemonic": "sub",
+            "operands": "w12, w1, #0x919, lsl #12"
+          },
+          {
+            "offset": 28,
+            "address": 41342308,
+            "bytes_hex": "f4c13bf0",
+            "mnemonic": "adrp",
+            "operands": "x20, #0x79fac000"
+          },
+          {
+            "offset": 48,
+            "address": 41342328,
+            "bytes_hex": "c46264d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb3c7000"
+          },
+          {
+            "offset": 56,
+            "address": 41342336,
+            "bytes_hex": "fc6464f0",
+            "mnemonic": "adrp",
+            "operands": "x28, #0xcb40c000"
+          },
+          {
+            "offset": 84,
+            "address": 41342364,
+            "bytes_hex": "e46164d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb3ab000"
+          },
+          {
+            "offset": 108,
+            "address": 41342388,
+            "bytes_hex": "b36064d0",
+            "mnemonic": "adrp",
+            "operands": "x19, #0xcb383000"
+          },
+          {
+            "offset": 128,
+            "address": 41342408,
+            "bytes_hex": "acb76af1",
+            "mnemonic": "subs",
+            "operands": "x12, x29, #0xaad, lsl #12"
+          },
+          {
+            "offset": 144,
+            "address": 41342424,
+            "bytes_hex": "6f9f9b30",
+            "mnemonic": "adr",
+            "operands": "x15, #0x26a49c5"
+          },
+          {
+            "offset": 164,
+            "address": 41342444,
+            "bytes_hex": "90677e4e",
+            "mnemonic": "smax",
+            "operands": "v16.8h, v28.8h, v30.8h"
+          },
+          {
+            "offset": 172,
+            "address": 41342452,
+            "bytes_hex": "72646470",
+            "mnemonic": "adr",
+            "operands": "x18, #0x2836283"
+          },
+          {
+            "offset": 196,
+            "address": 41342476,
+            "bytes_hex": "74646470",
+            "mnemonic": "adr",
+            "operands": "x20, #0x283629b"
+          },
+          {
+            "offset": 204,
+            "address": 41342484,
+            "bytes_hex": "a46564d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb423000"
+          },
+          {
+            "offset": 208,
+            "address": 41342488,
+            "bytes_hex": "7768659c",
+            "mnemonic": "ldr",
+            "operands": "q23, #0x2838324"
+          },
+          {
+            "offset": 224,
+            "address": 41342504,
+            "bytes_hex": "c56464f0",
+            "mnemonic": "adrp",
+            "operands": "x5, #0xcb408000"
+          },
+          {
+            "offset": 256,
+            "address": 41342536,
+            "bytes_hex": "a4673bb2",
+            "mnemonic": "orr",
+            "operands": "x4, x29, #0x7fffffe07fffffe0"
+          },
+          {
+            "offset": 268,
+            "address": 41342548,
+            "bytes_hex": "926b799c",
+            "mnemonic": "ldr",
+            "operands": "q18, #0x28603c4"
+          }
+        ],
+        "candidate_clue_limit": 16,
+        "capability": "Independent four-byte resynchronization is not a decoded function body and does not prove control flow or call targets."
+      },
+      "skipdata": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "entry_count": 105,
+        "first_entry": {
+          "address": 41342280,
+          "size": 4,
+          "mnemonic": ".byte",
+          "operands": "0x93, 0x77, 0x24, 0x9d"
+        },
+        "capability": "Skipdata entries can be synthetic byte entries and do not prove real instructions or control flow."
+      }
+    },
+    "Route.ReconstructNextMap": {
+      "default": {
+        "classification": "ENTRY_DECODE_FAILED",
+        "instruction_count": 0,
+        "consumed_bytes": 0,
+        "unconsumed_bytes": 428,
+        "first_failure_address": 41342700,
+        "last_instruction": null,
+        "reason": "Default Capstone stopped at the first instruction without decoding any instruction.",
+        "capability": "Entry/prefix decode diagnosis only; a partial stream must not be treated as the complete function."
+      },
+      "aligned_resync": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "aligned_word_count": 107,
+        "aligned_valid_count": 34,
+        "aligned_invalid_count": 73,
+        "first_valid_candidate": {
+          "offset": 4,
+          "address": 41342704,
+          "bytes_hex": "77e8659c",
+          "mnemonic": "ldr",
+          "operands": "q23, #0x28393fc"
+        },
+        "candidate_clues": [
+          {
+            "offset": 4,
+            "address": 41342704,
+            "bytes_hex": "77e8659c",
+            "mnemonic": "ldr",
+            "operands": "q23, #0x28393fc"
+          },
+          {
+            "offset": 28,
+            "address": 41342728,
+            "bytes_hex": "646564d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb41b000"
+          },
+          {
+            "offset": 52,
+            "address": 41342752,
+            "bytes_hex": "9263279c",
+            "mnemonic": "ldr",
+            "operands": "q18, #0x27bc390"
+          },
+          {
+            "offset": 56,
+            "address": 41342756,
+            "bytes_hex": "6708fc70",
+            "mnemonic": "adr",
+            "operands": "x7, #0x2765833"
+          },
+          {
+            "offset": 68,
+            "address": 41342768,
+            "bytes_hex": "9263279c",
+            "mnemonic": "ldr",
+            "operands": "q18, #0x27bc3a0"
+          },
+          {
+            "offset": 72,
+            "address": 41342772,
+            "bytes_hex": "a4673bb2",
+            "mnemonic": "orr",
+            "operands": "x4, x29, #0x7fffffe07fffffe0"
+          },
+          {
+            "offset": 96,
+            "address": 41342796,
+            "bytes_hex": "52ac6094",
+            "mnemonic": "bl",
+            "operands": "#0x3f98894"
+          },
+          {
+            "offset": 108,
+            "address": 41342808,
+            "bytes_hex": "9767664e",
+            "mnemonic": "smax",
+            "operands": "v23.8h, v28.8h, v6.8h"
+          },
+          {
+            "offset": 112,
+            "address": 41342812,
+            "bytes_hex": "9067654e",
+            "mnemonic": "smax",
+            "operands": "v16.8h, v28.8h, v5.8h"
+          },
+          {
+            "offset": 124,
+            "address": 41342824,
+            "bytes_hex": "44ac6094",
+            "mnemonic": "bl",
+            "operands": "#0x3f98878"
+          },
+          {
+            "offset": 136,
+            "address": 41342836,
+            "bytes_hex": "4c64e436",
+            "mnemonic": "tbz",
+            "operands": "w12, #0x1c, #0x27663fc"
+          },
+          {
+            "offset": 152,
+            "address": 41342852,
+            "bytes_hex": "0c646451",
+            "mnemonic": "sub",
+            "operands": "w12, w0, #0x919, lsl #12"
+          },
+          {
+            "offset": 172,
+            "address": 41342872,
+            "bytes_hex": "446564d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb417000"
+          },
+          {
+            "offset": 180,
+            "address": 41342880,
+            "bytes_hex": "8667704e",
+            "mnemonic": "smax",
+            "operands": "v6.8h, v28.8h, v16.8h"
+          },
+          {
+            "offset": 184,
+            "address": 41342884,
+            "bytes_hex": "8767774e",
+            "mnemonic": "smax",
+            "operands": "v7.8h, v28.8h, v23.8h"
+          },
+          {
+            "offset": 204,
+            "address": 41342904,
+            "bytes_hex": "e45afb70",
+            "mnemonic": "adr",
+            "operands": "x4, #0x2764317"
+          }
+        ],
+        "candidate_clue_limit": 16,
+        "capability": "Independent four-byte resynchronization is not a decoded function body and does not prove control flow or call targets."
+      },
+      "skipdata": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "entry_count": 107,
+        "first_entry": {
+          "address": 41342700,
+          "size": 4,
+          "mnemonic": ".byte",
+          "operands": "0x84, 0x67, 0x70, 0xce"
+        },
+        "capability": "Skipdata entries can be synthetic byte entries and do not prove real instructions or control flow."
+      }
+    },
+    "Route._CreateNextMap": {
+      "default": {
+        "classification": "PARTIAL_DECODE",
+        "instruction_count": 1,
+        "consumed_bytes": 4,
+        "unconsumed_bytes": 140,
+        "first_failure_address": 41342140,
+        "last_instruction": {
+          "address": 41342136,
+          "size": 4,
+          "mnemonic": "smax",
+          "operands": "v16.8h, v28.8h, v27.8h"
+        },
+        "reason": "Default Capstone decoded a prefix and stopped before the requested end address.",
+        "capability": "Entry/prefix decode diagnosis only; a partial stream must not be treated as the complete function."
+      },
+      "aligned_resync": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "aligned_word_count": 36,
+        "aligned_valid_count": 15,
+        "aligned_invalid_count": 21,
+        "first_valid_candidate": {
+          "offset": 0,
+          "address": 41342136,
+          "bytes_hex": "90677b4e",
+          "mnemonic": "smax",
+          "operands": "v16.8h, v28.8h, v27.8h"
+        },
+        "candidate_clues": [
+          {
+            "offset": 0,
+            "address": 41342136,
+            "bytes_hex": "90677b4e",
+            "mnemonic": "smax",
+            "operands": "v16.8h, v28.8h, v27.8h"
+          },
+          {
+            "offset": 12,
+            "address": 41342148,
+            "bytes_hex": "0e6e6430",
+            "mnemonic": "adr",
+            "operands": "x14, #0x2836285"
+          },
+          {
+            "offset": 28,
+            "address": 41342164,
+            "bytes_hex": "a46f64d0",
+            "mnemonic": "adrp",
+            "operands": "x4, #0xcb563000"
+          },
+          {
+            "offset": 32,
+            "address": 41342168,
+            "bytes_hex": "91677b4e",
+            "mnemonic": "smax",
+            "operands": "v17.8h, v28.8h, v27.8h"
+          },
+          {
+            "offset": 44,
+            "address": 41342180,
+            "bytes_hex": "ce6c6430",
+            "mnemonic": "adr",
+            "operands": "x14, #0x283627d"
+          },
+          {
+            "offset": 56,
+            "address": 41342192,
+            "bytes_hex": "2c646451",
+            "mnemonic": "sub",
+            "operands": "w12, w1, #0x919, lsl #12"
+          },
+          {
+            "offset": 68,
+            "address": 41342204,
+            "bytes_hex": "8567704e",
+            "mnemonic": "smax",
+            "operands": "v5.8h, v28.8h, v16.8h"
+          },
+          {
+            "offset": 72,
+            "address": 41342208,
+            "bytes_hex": "8667714e",
+            "mnemonic": "smax",
+            "operands": "v6.8h, v28.8h, v17.8h"
+          },
+          {
+            "offset": 80,
+            "address": 41342216,
+            "bytes_hex": "9e67704e",
+            "mnemonic": "smax",
+            "operands": "v30.8h, v28.8h, v16.8h"
+          },
+          {
+            "offset": 84,
+            "address": 41342220,
+            "bytes_hex": "cac03bf0",
+            "mnemonic": "adrp",
+            "operands": "x10, #0x79f88000"
+          },
+          {
+            "offset": 100,
+            "address": 41342236,
+            "bytes_hex": "f86d64d0",
+            "mnemonic": "adrp",
+            "operands": "x24, #0xcb52b000"
+          },
+          {
+            "offset": 108,
+            "address": 41342244,
+            "bytes_hex": "7b616415",
+            "mnemonic": "b",
+            "operands": "#0x8085b10"
+          },
+          {
+            "offset": 112,
+            "address": 41342248,
+            "bytes_hex": "cf616430",
+            "mnemonic": "adr",
+            "operands": "x15, #0x2836161"
+          },
+          {
+            "offset": 132,
+            "address": 41342268,
+            "bytes_hex": "c66c6430",
+            "mnemonic": "adr",
+            "operands": "x6, #0x28362d5"
+          },
+          {
+            "offset": 140,
+            "address": 41342276,
+            "bytes_hex": "f21e199c",
+            "mnemonic": "ldr",
+            "operands": "q18, #0x279f920"
+          }
+        ],
+        "candidate_clue_limit": 16,
+        "capability": "Independent four-byte resynchronization is not a decoded function body and does not prove control flow or call targets."
+      },
+      "skipdata": {
+        "classification": "CANDIDATE_CLUES_ONLY",
+        "entry_count": 36,
+        "first_entry": {
+          "address": 41342136,
+          "size": 4,
+          "mnemonic": "smax",
+          "operands": "v16.8h, v28.8h, v27.8h"
+        },
+        "capability": "Skipdata entries can be synthetic byte entries and do not prove real instructions or control flow."
+      }
+    }
+  },
+  "conclusions": {
+    "route_to_spfa": "UNKNOWN_MISSING_STATIC_EDGE",
+    "default_decoder": "Entry decoding fails for the three requested Route methods in this static binary.",
+    "aligned_decoder": "Some independently aligned words resemble A64 instructions, but are candidate clues only; no method body or call edge is recovered.",
+    "cause": "UNKNOWN; encryption, runtime transformation and data misclassification are not established by this evidence.",
+    "route_boundary": "ELF .eh_frame independently records the same start/end ranges for the three requested methods."
+  },
+  "limitations": [
+    "No AArch64 second decoder was available in this environment; no alternate-decoder cross-check is claimed.",
+    "No runtime memory dump or unpacked body is available, so Route.ReconstructNextMap -> SPFA cannot be proven.",
+    "Candidate instructions from skipdata or four-byte resynchronization are not accepted as real control flow."
+  ]
+}

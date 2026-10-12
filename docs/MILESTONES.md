@@ -255,3 +255,14 @@ V2 overgeneralizations, recorded Tile refresh scheduling and ordinary-WALK SPFA
 cost/cache edges, and preserved the missing Route-to-SPFA edge as UNKNOWN.
 Budget: Kimi 0, real-stage simulations 0, new plans/candidates 0, tactical
 search expansions 0. Evidence: `output/r8_1_roadblock_walk_navigation_v3/`.
+
+## 2026-10-12 Route navigation decodability V4
+
+Completed a bounded static diagnosis without tactical search. ELF PT_LOAD
+mapping, metadata excerpts, `.eh_frame` boundaries, raw bytes, and Capstone
+diagnostics were preserved. The three requested Route methods are
+`ENTRY_DECODE_FAILED`; aligned resynchronization produced
+`CANDIDATE_CLUES_ONLY`. The call body was not recovered, the cause remains
+UNKNOWN, and Route-to-SPFA remains UNKNOWN. Budget: Kimi 0, real-stage
+simulations 0, new plans/candidates 0, tactical search expansions 0.
+Evidence: `output/r8_1_route_navigation_decodability_v4/`.
