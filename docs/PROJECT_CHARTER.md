@@ -177,3 +177,10 @@ Kimi只能在Work批准的新预算内重新调用。任何POST前必须保存�
 确定性工具只做白名单事实、几何和条件约束计算；不得推荐位置、改朝向、生成战术、运行模拟或开放
 shell/文件写入。工具轮、续接请求和失败都计入预算。UNKNOWN必须保留；mock成功不能冒充当前
 kimi-k3 endpoint兼容性。
+
+## 2026-10-13 只读工具执行边界
+
+工具续接必须包含原user上下文、对应`function_call`和`function_call_output`；不使用
+`previous_response_id`或assistant prefill。重复call_id、非法参数、超预算和参数未完成的
+工具批次不得执行。最终计划必须强制通过现有schema/contract；外部回调不能替代校验。
+同帧DP扣款未显式关联或顺序不明时必须UNKNOWN。

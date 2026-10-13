@@ -1,0 +1,212 @@
+[
+  {
+    "description": "Read one whitelisted mechanic or runtime rule. Returns UNKNOWN instead of guessing.",
+    "name": "query_mechanic",
+    "parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "type": "object"
+    },
+    "type": "function"
+  },
+  {
+    "description": "Compute the configured range at one declared position and direction. Does not optimize positions or change directions.",
+    "name": "query_range_coverage",
+    "parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "configuration": {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        "direction": {
+          "type": "string"
+        },
+        "operator_id": {
+          "type": "string"
+        },
+        "targets": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "tile": {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "label",
+              "tile"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "tile": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "operator_id",
+        "configuration",
+        "tile",
+        "direction",
+        "targets"
+      ],
+      "type": "object"
+    },
+    "type": "function"
+  },
+  {
+    "description": "Check declared SP, DP and deployment assumptions. It does not simulate battle or propose tactics.",
+    "name": "check_timing_constraints",
+    "parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "deployment_conditions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "declared_cost": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "frame": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "operator_id": {
+                "type": "string"
+              },
+              "payment_entry_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "tile": {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "operator_id",
+              "frame",
+              "tile",
+              "declared_cost"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "dp_ledger": {
+          "additionalProperties": false,
+          "properties": {
+            "entries": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "delta": {
+                    "type": "number"
+                  },
+                  "entry_id": {
+                    "type": "string"
+                  },
+                  "evidence_status": {
+                    "type": "string"
+                  },
+                  "frame": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "frame",
+                  "delta",
+                  "label",
+                  "evidence_status"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "initial_dp": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "same_frame_order": {
+              "enum": [
+                "UNKNOWN",
+                "DECLARED_LEDGER_ORDER"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "initial_dp",
+            "entries"
+          ],
+          "type": "object"
+        },
+        "skill_activations": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "assume_ready": {
+                "type": "boolean"
+              },
+              "frame": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "operator_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "operator_id",
+              "frame",
+              "assume_ready"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "skill_activations",
+        "dp_ledger",
+        "deployment_conditions"
+      ],
+      "type": "object"
+    },
+    "type": "function"
+  }
+]

@@ -20,11 +20,13 @@ from kimi_readonly_tools import (  # noqa: E402
     source_mapping,
 )
 from kimi_tool_loop import (  # noqa: E402
+    ToolLoopError,
     ToolLoopBudget,
     build_tool_continuation_payload,
     build_tool_enabled_request,
     execute_tool_calls,
     run_mock_tool_session,
+    validate_final_operational_plan,
     validate_tool_request,
 )
 from kimi_responses_transport import StreamAccumulator  # noqa: E402
@@ -125,6 +127,32 @@ class ToolLoopTests(unittest.TestCase):
         self.assertEqual({tool["name"] for tool in self.payload["tools"]}, {"query_mechanic", "query_range_coverage", "check_timing_constraints"})
         self.assertIn("TOOLS_AND_BASE_RULES_JSON", self.payload["input"][0]["content"][0]["text"])
 
+    def test_function_call_item_and_argument_done_are_correlated(self):
+        arguments = json.dumps({"topic": "coordinates_and_direction"})
+        events = [
+            ("response.output_item.added", {"item": {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": ""}}),
+            ("response.function_call_arguments.delta", {"item_id": "item-1", "delta": arguments}),
+            ("response.function_call_arguments.done", {"item_id": "item-1", "arguments": arguments}),
+        ]
+        accumulator = StreamAccumulator()
+        for event_name, data in events:
+            accumulator.observe(mock.Mock(event=event_name, data=data, sequence=len(accumulator.events) + 1))
+        classification = accumulator.classify()
+        self.assertEqual(classification["function_calls"][0]["item_id"], "item-1")
+        self.assertEqual(classification["function_calls"][0]["arguments"], arguments)
+        self.assertEqual(classification["malformed_events"], [])
+
+    def test_argument_done_mismatch_is_malformed(self):
+        events = [
+            ("response.output_item.added", {"item": {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": ""}}),
+            ("response.function_call_arguments.delta", {"item_id": "item-1", "delta": '{"topic":"x"}'}),
+            ("response.function_call_arguments.done", {"item_id": "item-1", "arguments": '{"topic":"y"}'}),
+        ]
+        accumulator = StreamAccumulator()
+        for event_name, data in events:
+            accumulator.observe(mock.Mock(event=event_name, data=data, sequence=len(accumulator.events) + 1))
+        self.assertTrue(any("does not match accumulated arguments" in row for row in accumulator.classify()["malformed_events"]))
+
     def test_end_to_end_mock_queries_and_returns_valid_plan(self):
         arguments = coverage_call("char_120_hibisc", [5, 7], "UP", [("char_122_beagle", [4, 6])])
         call = {"call_id": "call-1", "name": "query_range_coverage", "arguments": json.dumps(arguments, separators=(",", ":"))}
@@ -158,10 +186,18 @@ class ToolLoopTests(unittest.TestCase):
         self.assertEqual(result["budget"]["model_requests_started"], 2)
         self.assertEqual(result["budget"]["tool_calls_executed"], 1)
         self.assertEqual(result["trajectories"][0]["tool_results"][0]["result"]["covered_tiles_json_row_col"][0], [5, 6])
-        continuation = result["trajectories"][1]["request"]
-        self.assertEqual(continuation["input_roles_types"][0], {"role": "user", "type": None})
-        self.assertEqual(continuation["input_roles_types"][1], {"role": None, "type": "function_call_output"})
-        self.assertIsNone(continuation["previous_response_id"])
+        self.assertEqual(result["trajectories"][1]["request"]["input_item_count"], 3)
+        continuation = result["trajectories"][1]["request_payload"]
+        self.assertEqual(result["trajectories"][1]["request"]["input_roles_types"][0], {"role": "user", "type": None})
+        self.assertEqual(result["trajectories"][1]["request"]["input_roles_types"][1], {"role": None, "type": "function_call"})
+        self.assertEqual(result["trajectories"][1]["request"]["input_roles_types"][2], {"role": None, "type": "function_call_output"})
+        self.assertEqual(continuation["input"][1], {
+            "type": "function_call",
+            "call_id": "call-1",
+            "name": "query_range_coverage",
+            "arguments": call["arguments"],
+        })
+        self.assertNotIn("previous_response_id", continuation)
 
     def test_incomplete_tool_response_is_not_executed(self):
         def fake_stream(payload):
@@ -224,6 +260,129 @@ class ToolLoopTests(unittest.TestCase):
         result = run_mock_tool_session(self.payload, self.engine, fake_stream, lambda parsed: ["invalid synthetic plan"])
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["errors"], ["invalid synthetic plan"])
+
+    def test_empty_final_plan_cannot_bypass_contract_validation(self):
+        events = [
+            ("response.created", {"response": {"id": "resp-bypass", "status": "in_progress", "output": []}}),
+            ("response.completed", {"response": {"id": "resp-bypass", "status": "completed", "output": [{"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "{}"}]}]}}),
+        ]
+        def fake_stream(payload):
+            raw = sse(events)
+            accumulator = StreamAccumulator()
+            from kimi_responses_transport import parse_sse
+            for event in parse_sse(raw):
+                accumulator.observe(event)
+            return accumulator.response_envelope, accumulator, raw
+        result = run_mock_tool_session(self.payload, self.engine, fake_stream, lambda parsed: [])
+        self.assertEqual(result["status"], "FAILED")
+        self.assertTrue(result["errors"])
+        self.assertEqual(validate_final_operational_plan(self.plan), [])
+
+    def test_invalid_arguments_are_schema_rejected_before_execution(self):
+        call = {"call_id": "call-schema", "name": "query_mechanic", "arguments": json.dumps({"topic": 3})}
+        engine_mock = mock.Mock()
+        budget = ToolLoopBudget()
+        results = execute_tool_calls([call], engine_mock, budget)
+        self.assertEqual(results[0]["status"], "INVALID_NOT_EXECUTED")
+        self.assertIn("invalid function arguments", results[0]["result"]["error"])
+        engine_mock.execute.assert_not_called()
+        self.assertEqual(budget.tool_calls_executed, 0)
+
+    def test_duplicate_call_ids_are_rejected_before_execution(self):
+        arguments = json.dumps({"topic": "coordinates_and_direction"})
+        calls = [
+            {"call_id": "same", "name": "query_mechanic", "arguments": arguments},
+            {"call_id": "same", "name": "query_mechanic", "arguments": arguments},
+        ]
+        engine_mock = mock.Mock()
+        budget = ToolLoopBudget()
+        with self.assertRaisesRegex(ToolLoopError, "duplicate function call_id"):
+            execute_tool_calls(calls, engine_mock, budget)
+        engine_mock.execute.assert_not_called()
+        self.assertEqual(budget.tool_calls_seen, 0)
+
+    def test_seventh_tool_call_is_rejected_before_any_execution(self):
+        arguments = json.dumps({"topic": "coordinates_and_direction"})
+        calls = [
+            {"call_id": f"call-{index}", "name": "query_mechanic", "arguments": arguments}
+            for index in range(7)
+        ]
+        engine_mock = mock.Mock()
+        budget = ToolLoopBudget()
+        with self.assertRaisesRegex(ToolLoopError, "tool call budget exhausted"):
+            execute_tool_calls(calls, engine_mock, budget)
+        engine_mock.execute.assert_not_called()
+        self.assertEqual(budget.tool_calls_seen, 0)
+
+    def test_linked_same_frame_deployment_payment_is_not_double_charged(self):
+        result = engine().check_timing_constraints({
+            "skill_activations": [],
+            "dp_ledger": {
+                "initial_dp": 17,
+                "same_frame_order": "DECLARED_LEDGER_ORDER",
+                "entries": [{
+                    "entry_id": "hibisc-deploy",
+                    "frame": 1800,
+                    "delta": -17,
+                    "label": "deploy char_120_hibisc",
+                    "evidence_status": "DECLARED",
+                }],
+            },
+            "deployment_conditions": [{
+                "operator_id": "char_120_hibisc",
+                "frame": 1800,
+                "tile": [5, 7],
+                "declared_cost": 17,
+                "payment_entry_ids": ["hibisc-deploy"],
+            }],
+        })
+        self.assertEqual(result["conflicts"], [])
+        self.assertEqual(result["deployment_checks"][0]["status"], "PASS_WITH_CONDITIONS")
+        self.assertEqual(result["deployment_checks"][0]["dp_balance_before_cost"], 17)
+        self.assertEqual(result["deployment_checks"][0]["dp_balance_after_cost"], 0)
+
+    def test_ambiguous_same_frame_deployment_is_unknown_not_conflict(self):
+        result = engine().check_timing_constraints({
+            "skill_activations": [],
+            "dp_ledger": {
+                "initial_dp": 17,
+                "same_frame_order": "UNKNOWN",
+                "entries": [{
+                    "frame": 1800,
+                    "delta": -17,
+                    "label": "payment",
+                    "evidence_status": "DECLARED",
+                }],
+            },
+            "deployment_conditions": [{
+                "operator_id": "char_120_hibisc",
+                "frame": 1800,
+                "tile": [5, 7],
+                "declared_cost": 17,
+            }],
+        })
+        self.assertFalse(any(row["conflict"] == "DECLARED_LEDGER_CANNOT_PAY_COST" for row in result["conflicts"]))
+        self.assertEqual(result["deployment_checks"][0]["status"], "UNKNOWN")
+        self.assertEqual(result["deployment_checks"][0]["payment_link"], "UNKNOWN")
+
+    def test_linked_payment_with_unordered_same_frame_entries_is_unknown(self):
+        result = engine().check_timing_constraints({
+            "skill_activations": [],
+            "dp_ledger": {
+                "initial_dp": 20,
+                "same_frame_order": "UNKNOWN",
+                "entries": [
+                    {"entry_id": "income", "frame": 1800, "delta": 3, "label": "income", "evidence_status": "DECLARED"},
+                    {"entry_id": "hibisc-deploy", "frame": 1800, "delta": -17, "label": "deploy char_120_hibisc", "evidence_status": "DECLARED"},
+                ],
+            },
+            "deployment_conditions": [{
+                "operator_id": "char_120_hibisc", "frame": 1800, "tile": [5, 7],
+                "declared_cost": 17, "payment_entry_ids": ["hibisc-deploy"],
+            }],
+        })
+        self.assertEqual(result["deployment_checks"][0]["status"], "UNKNOWN")
+        self.assertFalse(any(row["conflict"] == "DECLARED_LEDGER_CANNOT_PAY_COST" for row in result["conflicts"]))
 
 
 if __name__ == "__main__":

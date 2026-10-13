@@ -195,3 +195,17 @@ mock模型请求2次、只读工具调用4次；两条SSE均为synthetic。
 结果：C1范围和SP反例通过公共接口复现；完整工具轨迹、call_id、工具结果、mock initial/
 continuation request和最终计划交接已保存。回归：transport 10/10、C1入口 12/12、只读工具闭环
 12/12。`compileall`、manifest哈希和secret scan通过。provider tool兼容性保持UNVERIFIED。
+
+## 2026-10-13 — 只读工具V2修复
+
+基线更正：`1714eb8fb2137037e6d8511ee803f84a616134ea`。证据：
+`output/r8_1_readonly_tool_loop_fix_v2/`。实际Kimi 0、真实关卡模拟0、新真实计划/候选0、
+扩搜0；C1复用只算协议测试。
+
+结果：mock闭环2次请求、4次工具调用完成；续接包含9项（1 user + 4 function_call +
+4 function_call_output）。非法参数、重复call_id、第七次调用、arguments done不一致、
+incomplete和空计划绕过均被拒绝。已关联同帧17DP部署账本显示扣款前17、扣款后0；
+未关联歧义账本返回UNKNOWN且无“付不起”冲突。
+
+测试：定向pytest 46/46 PASS（借用本地pytest 9.1.1环境；项目venv当前缺pytest，
+DNS阻断无法安装声明的pytest<9）。`compileall`、V2 manifest哈希、`git diff --check`通过。

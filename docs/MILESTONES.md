@@ -299,3 +299,19 @@ counterexamples were replayed through the common interface. Offline tests passed
 transport 10/10, C1 entry 12/12, tool loop 12/12. No real Kimi call, stage simulation,
 new tactical plan, or search expansion occurred. Provider compatibility remains
 UNVERIFIED.
+
+## 2026-10-13 — Readonly tool loop V2 fix
+
+The baseline SHA record is corrected to
+`1714eb8fb2137037e6d8511ee803f84a616134ea`. The transport now registers function
+calls on `output_item.added`, validates argument completion, and sends a full
+continuation containing the original user context plus matching
+`function_call`/`function_call_output` pairs. Tool schema, duplicate IDs, budget,
+and argument completion are checked before execution. The final plan must pass the
+existing schema/contract validator. Same-frame DP payments require an explicit link
+or order; ambiguity stays UNKNOWN.
+
+Evidence is saved under `output/r8_1_readonly_tool_loop_fix_v2/`. Directed pytest
+was 46/46 PASS using a borrowed local pytest 9.1.1 environment because DNS failure
+prevented installing the declared pytest in the project venv. Real Kimi requests,
+stage simulations, new tactical plans, and search expansion all remained zero.

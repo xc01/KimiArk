@@ -243,3 +243,22 @@ frame4200冲突。这些是模型反例，不是实机观测，也不否定双�
 prefill、无自动重试；call_id必须一一对应；工具轮与最终OperationalPlan轮区分。mock闭环使用2次
 模型请求、4次工具调用并复用C1计划；错误参数、错误call_id、incomplete、超请求预算和无效最终计划
 都拒绝。当前kimi-k3 + `/api/plan/v3/responses` 的tool兼容性仍是UNVERIFIED。
+
+## 2026-10-13 只读工具闭环V2修复
+
+记录更正：本轮基线完整SHA是`1714eb8fb2137037e6d8511ee803f84a616134ea`；此前短SHA/尾部
+不一致的报告不作为记录来源。
+
+CONFIRMED_FROM_CODE：`response.output_item.added`的function_call分支已并入主分支，保留
+`item_id/call_id/name/arguments`；arguments done与增量不一致会标malformed且不执行。续接
+现在是“原user上下文 + 每个function_call + 对应function_call_output”，不再只有输出项；
+`previous_response_id`和assistant prefill仍禁止。当前model+endpoint兼容性仍是UNVERIFIED。
+
+CONFIRMED_FROM_CODE：工具参数按声明JSON Schema在执行前校验；批次内重复call_id和第七个工具
+调用在执行任何调用前拒绝。最终计划强制走现有jsonschema和OperationalPlan contract，不允许
+回调返回空错误绕过。条件账本区分扣款前后余额：已关联的同帧-17部署扣款不会再重复造成
+“付不起17”；关联或同帧顺序不明时返回UNKNOWN，不制造冲突。
+
+V2证据在`output/r8_1_readonly_tool_loop_fix_v2/`，V1 artifacts未重写。定向pytest 46/46
+PASS（pytest 9.1.1，借用本地环境；当前网络DNS阻断，无法在项目venv安装声明pytest<9）。
+预算：真实Kimi 0、真实关卡模拟0、新真实计划/候选0、扩搜0；C1复用只是协议测试。

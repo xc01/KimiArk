@@ -100,6 +100,7 @@ TOOLS_SCHEMA = [
                             "items": {
                                 "type": "object",
                                 "properties": {
+                                    "entry_id": {"type": "string"},
                                     "frame": {"type": "integer", "minimum": 0},
                                     "delta": {"type": "number"},
                                     "label": {"type": "string"},
@@ -109,6 +110,7 @@ TOOLS_SCHEMA = [
                                 "additionalProperties": False,
                             },
                         },
+                        "same_frame_order": {"type": "string", "enum": ["UNKNOWN", "DECLARED_LEDGER_ORDER"]},
                     },
                     "required": ["initial_dp", "entries"],
                     "additionalProperties": False,
@@ -122,6 +124,7 @@ TOOLS_SCHEMA = [
                             "frame": {"type": "integer", "minimum": 0},
                             "tile": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2},
                             "declared_cost": {"type": "number", "minimum": 0},
+                            "payment_entry_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
                         },
                         "required": ["operator_id", "frame", "tile", "declared_cost"],
                         "additionalProperties": False,
@@ -330,7 +333,11 @@ class ReadOnlyQueryEngine:
                     result["skill_checks"].append(check)
                 previous_until = frame + duration_frames if frame >= earliest_ready else previous_until
         ledger = arguments.get("dp_ledger") or {}
+        same_frame_order = ledger.get("same_frame_order", "UNKNOWN")
         ledger_entries = sorted(ledger.get("entries") or [], key=lambda item: int(item.get("frame", 0)))
+        for index, entry in enumerate(ledger_entries):
+            if isinstance(entry, dict) and entry.get("entry_id") is None:
+                entry["entry_id"] = f"entry-{index}"
         balance = float(ledger.get("initial_dp") or 0.0)
         for entry in ledger_entries:
             balance += float(entry.get("delta"))
@@ -351,13 +358,51 @@ class ReadOnlyQueryEngine:
             frame = int(condition.get("frame"))
             declared_cost = float(condition.get("declared_cost"))
             source_cost = float(operator.get("stats", {}).get("cost"))
-            frame_balance = float(ledger.get("initial_dp") or 0.0) + sum(float(entry.get("delta")) for entry in ledger_entries if int(entry.get("frame", 0)) <= frame)
+            entries_at_or_before = [entry for entry in ledger_entries if int(entry.get("frame", 0)) <= frame]
+            entries_at_frame = [entry for entry in entries_at_or_before if int(entry.get("frame", 0)) == frame]
+            payment_entry_ids = condition.get("payment_entry_ids") or []
+            amount_matching_entries = [
+                entry for entry in entries_at_frame
+                if abs(float(entry.get("delta", 0.0)) + declared_cost) <= 1e-9
+            ]
+            matching_entries = [
+                entry for entry in entries_at_frame
+                if entry in amount_matching_entries and operator["operator_id"] in str(entry.get("label", ""))
+            ]
+            if payment_entry_ids:
+                linked_entries = [entry for entry in entries_at_frame if entry.get("entry_id") in payment_entry_ids]
+                payment_link = "LINKED_BY_ENTRY_ID" if len(linked_entries) == len(payment_entry_ids) else "UNKNOWN"
+                if any(abs(float(entry.get("delta", 0.0)) + declared_cost) > 1e-9 for entry in linked_entries):
+                    payment_link = "UNKNOWN"
+            elif len(matching_entries) == 1:
+                linked_entries = matching_entries
+                payment_link = "MATCHING_OPERATOR_LABEL_AND_AMOUNT"
+            elif amount_matching_entries:
+                linked_entries = []
+                payment_link = "UNKNOWN"
+            else:
+                linked_entries = []
+                payment_link = "DEPLOYMENT_CHECK_APPLIES_COST"
+            unlinked_same_frame_entries = [entry for entry in entries_at_frame if entry not in linked_entries]
+            if payment_link not in {"LINKED_BY_ENTRY_ID", "MATCHING_OPERATOR_LABEL_AND_AMOUNT", "DEPLOYMENT_CHECK_APPLIES_COST"} or (
+                same_frame_order != "DECLARED_LEDGER_ORDER" and unlinked_same_frame_entries
+            ):
+                pre_payment_balance = "UNKNOWN"
+                post_payment_balance = "UNKNOWN"
+            else:
+                pre_payment_balance = float(ledger.get("initial_dp") or 0.0) + sum(
+                    float(entry.get("delta", 0.0)) for entry in entries_at_or_before if entry not in linked_entries
+                )
+                post_payment_balance = pre_payment_balance - declared_cost
             check = {
                 "operator_id": operator["operator_id"], "frame": frame,
                 "tile_json_row_col": runtime_tile_to_json(tile), "tile_runtime_col_row": list(tile),
                 "position": position, "tile_legal_for_position": legal,
                 "declared_cost": declared_cost, "fact_cost": source_cost,
-                "dp_balance_at_or_before_frame": frame_balance,
+                "same_frame_order": same_frame_order,
+                "payment_link": payment_link,
+                "dp_balance_before_cost": pre_payment_balance,
+                "dp_balance_after_cost": post_payment_balance,
             }
             if tile in roadblocks:
                 check["status"] = "CONFLICT"
@@ -372,7 +417,12 @@ class ReadOnlyQueryEngine:
             else:
                 check["status"] = "PASS_WITH_CONDITIONS"
                 result["deployment_checks"].append(check)
-                if frame_balance + 1e-9 < declared_cost:
+                if pre_payment_balance == "UNKNOWN":
+                    check["status"] = "UNKNOWN"
+                    result["unknowns"].append(
+                        f"same-frame DP deduction order is UNKNOWN for {operator['operator_id']} at frame {frame}"
+                    )
+                elif pre_payment_balance + 1e-9 < declared_cost:
                     result["conflicts"].append({**check, "conflict": "DECLARED_LEDGER_CANNOT_PAY_COST"})
         result["proof_status"] = "NOT_A_BATTLE_FEASIBILITY_PROOF"
         result["limitations"] = ["Survival, auto-trigger, refund, skill income and enemy interactions are only as valid as the supplied assumptions."]

@@ -17,3 +17,10 @@ compatibility for kimi-k3 at `/api/plan/v3/responses` remains UNVERIFIED. The ne
 real experiment, only after Work approval, may use at most 3 actual model requests,
 6 read-only tool calls, and 1 final OperationalPlan; every continuation and failure
 counts as a request. No automatic retry or stage simulation is authorized.
+
+Before any real tool session, Work must review the V2 continuation fix in
+`output/r8_1_readonly_tool_loop_fix_v2/`. Current kimi-k3 compatibility at
+`/api/plan/v3/responses` is still UNVERIFIED, so the first real request must be
+treated as a protocol probe and must not be retried. The same budget remains:
+at most 3 model requests including continuations, 6 read-only tool calls, and
+1 final OperationalPlan.

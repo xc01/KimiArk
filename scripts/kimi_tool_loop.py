@@ -6,6 +6,14 @@ import traceback
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
+from jsonschema import Draft7Validator
+from run_r8_1_low_star_full_tactical_closure_v1 import (
+    OUT,
+    load,
+    output_schema,
+    validate_operational_plan_output,
+)
+EVIDENCE_CONTEXT = OUT / "llm_evidence_context.json"
 from kimi_responses_transport import StreamAccumulator, validate_tactical_request
 from kimi_readonly_tools import BASE_RULE_CARD, TOOLS_SCHEMA, TOOL_NAMES, ReadOnlyQueryEngine
 
@@ -36,6 +44,13 @@ class ToolLoopBudget:
         if self.tool_calls_seen >= self.max_tool_calls:
             raise BudgetExceededError("tool call budget exhausted")
         self.tool_calls_seen += 1
+
+    def check_tool_batch(self, count: int) -> None:
+        if self.tool_calls_seen + count > self.max_tool_calls:
+            raise BudgetExceededError(
+                f"tool call budget exhausted; batch would use {count} but only "
+                f"{self.max_tool_calls - self.tool_calls_seen} remain"
+            )
 
 
 def validate_tool_request(payload: dict[str, Any]) -> list[str]:
@@ -87,12 +102,31 @@ def parse_tool_arguments(call: dict[str, Any]) -> dict[str, Any]:
 
 
 def execute_tool_calls(calls: list[dict[str, Any]], engine: ReadOnlyQueryEngine, budget: ToolLoopBudget) -> list[dict[str, Any]]:
+    call_ids = [call.get("call_id") for call in calls]
+    if len(call_ids) != len(set(call_ids)):
+        raise ToolLoopError("duplicate function call_id")
+    budget.check_tool_batch(len(calls))
     results = []
     for call in calls:
         budget.start_tool_call()
         record = {"call_id": call.get("call_id"), "name": call.get("name"), "arguments": call.get("arguments")}
         try:
             arguments = parse_tool_arguments(call)
+            schema = next(
+                tool.get("parameters") for tool in TOOLS_SCHEMA if tool.get("name") == call["name"]
+            )
+            schema_errors = sorted(
+                Draft7Validator(schema).iter_errors(arguments),
+                key=lambda error: list(error.path),
+            )
+            if schema_errors:
+                raise ToolLoopError(
+                    "invalid function arguments: "
+                    + "; ".join(
+                        f"{'/'.join(map(str, error.path)) or '<root>'}: {error.message}"
+                        for error in schema_errors
+                    )
+                )
             result = engine.execute(call["name"], arguments)
             record.update({"status": "EXECUTED", "result": result})
             budget.tool_calls_executed += 1
@@ -111,18 +145,28 @@ def build_tool_continuation_payload(
     tool_results: list[dict[str, Any]],
 ) -> dict[str, Any]:
     payload = copy.deepcopy(base_payload)
+    if len({call.get("call_id") for call in calls}) != len(calls):
+        raise ToolLoopError("duplicate function call_id")
     result_by_call = {row.get("call_id"): row for row in tool_results}
     if {call.get("call_id") for call in calls} != set(result_by_call):
         raise ToolLoopError("tool result call_ids do not exactly match function calls")
-    outputs = []
+    input_items = []
     for call in calls:
         result = result_by_call[call["call_id"]]
-        outputs.append({
-            "type": "function_call_output",
-            "call_id": call["call_id"],
-            "output": json.dumps(result.get("result"), ensure_ascii=False, separators=(",", ":")),
-        })
-    payload["input"] = payload.get("input", []) + outputs
+        input_items.extend((
+            {
+                "type": "function_call",
+                "call_id": call["call_id"],
+                "name": call["name"],
+                "arguments": call["arguments"],
+            },
+            {
+                "type": "function_call_output",
+                "call_id": call["call_id"],
+                "output": json.dumps(result.get("result"), ensure_ascii=False, separators=(",", ":")),
+            },
+        ))
+    payload["input"] = payload.get("input", []) + input_items
     errors = validate_tool_request(payload)
     if errors:
         raise ToolLoopError("invalid tool continuation: " + ", ".join(errors))
@@ -143,6 +187,19 @@ def request_summary(payload: dict[str, Any], phase: str) -> dict[str, Any]:
         "model": payload.get("model"),
         "endpoint_field": "unchanged",
     }
+
+
+def validate_final_operational_plan(parsed: Any) -> list[str]:
+    schema_errors = sorted(
+        Draft7Validator(output_schema()).iter_errors(parsed),
+        key=lambda error: list(error.path),
+    )
+    errors = [
+        f"schema: {'/'.join(map(str, error.path)) or '<root>'}: {error.message}"
+        for error in schema_errors
+    ]
+    errors.extend(validate_operational_plan_output(parsed, load(EVIDENCE_CONTEXT)))
+    return errors
 
 
 def run_mock_tool_session(
@@ -197,10 +254,11 @@ def run_mock_tool_session(
                 parsed = json.loads(text)
             except json.JSONDecodeError as exc:
                 return {"status": "FAILED", "error": f"invalid final JSON: {exc}", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
-            plan_errors = validate_plan(parsed) if validate_plan else []
+            plan_errors = validate_final_operational_plan(parsed)
+            plan_errors.extend(validate_plan(parsed) if validate_plan else [])
             if plan_errors:
                 return {"status": "FAILED", "error": "invalid final plan", "errors": plan_errors, "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
-            trajectories.append({"request": request_summary(current_payload, "FINAL_PLAN"), "function_calls": calls})
+            trajectories.append({"request": request_summary(current_payload, "FINAL_PLAN"), "request_payload": current_payload, "function_calls": calls})
             return {
                 "status": "COMPLETE",
                 "operational_plan": parsed,

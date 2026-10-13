@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "coordinates": "OperationalPlan/action JSON tile is [row,col]. Runtime tile is (x=col,y=row), converted as (col,row).",
+    "damage": "Current formula layer: physical max(0.05A,A-D); arts max(0.05A,0.01A*(100-RES)); attack interval T0/(clamp(S,10,600)/100).",
+    "economy": "Natural DP and provided ledger deltas are model calculations. Refunds, skill DP and merchant upkeep are only valid with their stated evidence and conditions.",
+    "range_orientation": "GameData range offsets are stored for RIGHT. ApproximateRealRangeTransformer rotates them in bottom-left field coordinates.",
+    "simulator_win": "Current Simulator wins when no enemy leaks, the spawn schedule is exhausted, and no active enemies remain.",
+    "time_sp_recovery": "Current public low-rarity runtime advances time-SP by 1.0 SP/s only while inactive. SP is paused while a skill is active.",
+    "unknown": "Exact client timing, active roadblock ordinary-WALK navigation, target priority and unsupported effects remain UNKNOWN unless supplied evidence says otherwise."
+  },
+  "schema_version": "R8_1_READONLY_BASE_RULE_CARD_V1",
+  "sources": [
+    "scripts/kimi_readonly_tools.py",
+    "scripts/kimi_responses_transport.py",
+    "src/arknights_planner/simulator/range.py",
+    "src/arknights_planner/simulator/combat_rules.py",
+    "src/arknights_planner/simulator/simulator.py"
+  ]
+}

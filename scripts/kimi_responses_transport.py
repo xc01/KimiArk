@@ -37,6 +37,16 @@ class StreamAccumulator:
             item_type = item.get("type")
             if item_type and item_type not in self.output_item_types:
                 self.output_item_types.append(item_type)
+            if item_type == "function_call":
+                call = {
+                    "call_id": item.get("call_id"),
+                    "name": item.get("name"),
+                    "arguments": item.get("arguments", ""),
+                }
+                item_id = item.get("item_id", item.get("id"))
+                if item_id is not None:
+                    call["item_id"] = item_id
+                self.function_calls.append(call)
         elif event.event == "response.output_text.delta":
             self.output_text += data.get("delta", "")
         elif event.event == "response.output_text.done":
@@ -61,14 +71,6 @@ class StreamAccumulator:
                 self.response_envelope = response
             if event.event == "response.failed":
                 self.error = json.dumps(data.get("response", {}).get("error", data.get("error", "")))
-        elif event.event == "response.output_item.added":
-            item = data.get("item") or {}
-            if item.get("type") == "function_call":
-                self.function_calls.append({
-                    "call_id": item.get("call_id"),
-                    "name": item.get("name"),
-                    "arguments": item.get("arguments", ""),
-                })
         elif event.event == "response.function_call_arguments.delta":
             call_id = data.get("call_id") or data.get("item_id")
             calls = [call for call in self.function_calls if call.get("call_id") == call_id or call.get("item_id") == call_id]
@@ -82,7 +84,13 @@ class StreamAccumulator:
             if not calls:
                 self.malformed_events.append(f"function argument done without call {call_id}")
             elif "arguments" in data:
-                calls[-1]["arguments"] = data["arguments"]
+                final_arguments = data["arguments"]
+                accumulated = calls[-1]["arguments"]
+                if isinstance(accumulated, str) and accumulated and accumulated != final_arguments:
+                    self.malformed_events.append(
+                        f"function arguments done does not match accumulated arguments for {call_id}"
+                    )
+                calls[-1]["arguments"] = final_arguments
 
     def classify(self) -> dict[str, Any]:
         envelope = self.response_envelope or {}
@@ -94,10 +102,26 @@ class StreamAccumulator:
         calls = list(self.function_calls)
         if not calls:
             calls = [
-                {"call_id": item.get("call_id"), "name": item.get("name"), "arguments": item.get("arguments", "")}
+                {
+                    **({"item_id": item["item_id"]} if item.get("item_id") is not None else {}),
+                    "call_id": item.get("call_id"),
+                    "name": item.get("name"),
+                    "arguments": item.get("arguments", ""),
+                }
                 for item in envelope.get("output", [])
                 if item.get("type") == "function_call"
             ]
+            self.function_calls = calls
+        call_ids = [call.get("call_id") for call in calls]
+        if len(call_ids) != len(set(call_ids)):
+            self.malformed_events.append("duplicate function call_id")
+        for call in calls:
+            if not isinstance(call.get("call_id"), str) or not call["call_id"]:
+                self.malformed_events.append("function call lacks call_id")
+            if call.get("name") not in {"query_mechanic", "query_range_coverage", "check_timing_constraints"}:
+                self.malformed_events.append(f"function call has non-whitelisted name {call.get('name')!r}")
+            if not isinstance(call.get("arguments"), str) or not call["arguments"]:
+                self.malformed_events.append("function call lacks arguments string")
         return {
             "terminal_event": self.terminal_event,
             "complete": self.terminal_event == "response.completed"
@@ -164,6 +188,14 @@ def validate_tactical_request(payload: dict[str, Any]) -> list[str]:
     for index, item in enumerate(payload.get("input", [])):
         if not isinstance(item, dict):
             errors.append(f"INPUT_{index}_NOT_OBJECT")
+            continue
+        if tools and item.get("type") == "function_call":
+            if not item.get("call_id"):
+                errors.append(f"INPUT_{index}_FUNCTION_CALL_ID_REQUIRED")
+            if not item.get("name"):
+                errors.append(f"INPUT_{index}_FUNCTION_CALL_NAME_REQUIRED")
+            if not isinstance(item.get("arguments"), str):
+                errors.append(f"INPUT_{index}_FUNCTION_CALL_ARGUMENTS_REQUIRED")
             continue
         if tools and item.get("type") == "function_call_output":
             if not item.get("call_id"):

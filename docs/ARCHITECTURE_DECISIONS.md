@@ -112,3 +112,13 @@ binary SHA-256，避免错误输入覆盖证据。公共导航层继续没有 `R
 决策：每轮模型请求和每个工具调用都先预算计数；结果必须与call_id一一对应。工具轮没有最终文本
 不算战术输出失败；incomplete/failed/JSON截断/参数不完整不执行或终止。`text.format`的最终计划
 schema保留。当前provider组合的tool兼容性保持UNVERIFIED，不能由离线mock证明。
+
+## 2026-10-13 — 只读工具续接与预算修复
+
+决策：Responses式续接保留完整上下文：原user input，随后每个`function_call`及其对应
+`function_call_output`。`item_id`只用于SSE内部关联；不发送`previous_response_id`，也不把
+assistant prefill伪装成续接。模型+endpoint兼容性保持UNVERIFIED。
+
+决策：工具批次先做重复call_id、剩余预算和JSON Schema预检，预检失败不执行任何工具。最终计划
+必须经过现有jsonschema与OperationalPlan contract；外部验证回调只能追加错误，不能替代或绕过。
+同帧部署扣款必须显式关联或顺序明确；否则DP结果是UNKNOWN，不允许同一检查同时PASS和冲突。
