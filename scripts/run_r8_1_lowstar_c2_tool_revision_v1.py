@@ -35,7 +35,7 @@ from kimi_tool_loop import (
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v1"
+OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2"
 C1_PLAN = ROOT / "output/r8_1_low_star_full_tactical_closure_v2/llm_structured_output.json"
 FACTS = ROOT / "output/normal_low_star_facts_v1/normal_low_star_facts.json"
 SUPPORT = ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json"
@@ -43,7 +43,7 @@ BASE_URL = "https://ark.cn-beijing.volces.com/api/plan/v3/responses"
 MODEL = "kimi-k3"
 MECHANICS = "m18.9-stage-device-runtime-v1"
 TIMEOUT_SECONDS = 900
-QUERY_TOKEN_LIMIT = 4096
+QUERY_TOKEN_LIMIT = 32768
 FINAL_TOKEN_LIMIT = 32768
 MAX_REQUEST_BODY_BYTES = 140_000
 MAX_MODEL_REQUESTS = 3
@@ -135,7 +135,7 @@ def c1_counterexamples() -> list[dict[str, Any]]:
 def evidence_context() -> dict[str, Any]:
     base = closure_evidence_context()
     return {
-        "milestone": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1",
+        "milestone": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2",
         "stage_id": base["stage_id"],
         "mechanics_version": MECHANICS,
         "gamedata_commit": base["gamedata_commit"],
@@ -237,7 +237,7 @@ def finalize_plan_payload(payload: dict[str, Any], schema: dict[str, Any]) -> di
     finalized["max_output_tokens"] = FINAL_TOKEN_LIMIT
     finalized["text"] = {
         "format": {
-            "name": "r8_1_lowstar_c2_compact_tool_revision_v1",
+            "name": "r8_1_lowstar_c2_compact_tool_revision_v2",
             "schema": schema,
             "strict": False,
             "type": "json_schema",
@@ -263,7 +263,7 @@ def finalize_plan_payload(payload: dict[str, Any], schema: dict[str, Any]) -> di
 def source_manifest(evidence_path: Path) -> dict[str, Any]:
     paths = [FACTS, SUPPORT, C1_PLAN, ROOT / "scripts/kimi_readonly_tools.py", ROOT / "scripts/kimi_responses_transport.py", ROOT / "scripts/kimi_tool_loop.py", Path(__file__)]
     return {
-        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_SOURCE_MANIFEST",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_SOURCE_MANIFEST",
         "inputs": {path.name: file_record(path) for path in paths},
         "prepared_evidence": file_record(evidence_path),
         "mechanics_version": MECHANICS,
@@ -277,7 +277,7 @@ def prepare() -> dict[str, Any]:
         raise RuntimeError("budgeted attempt log already contains calls; refusing to reset or rerun")
     attempt_path.write_text("", encoding="utf-8")
     write_json("budget_usage.json", {
-        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_BUDGET",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_BUDGET",
         "max_model_requests": MAX_MODEL_REQUESTS,
         "max_readonly_tool_calls": MAX_TOOL_CALLS,
         "model_requests_started": 0,
@@ -312,7 +312,7 @@ def prepare() -> dict[str, Any]:
         "body_bytes": len(body.encode()),
     })
     write_json("source_manifest.json", source_manifest(evidence_path))
-    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_lowstar_c2_compact_tool_revision_v1"})
+    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_lowstar_c2_compact_tool_revision_v2"})
     return payload
 
 
@@ -436,7 +436,7 @@ def call() -> dict[str, Any]:
     write_json("tool_loop_budget.json", session.get("budget", budget.__dict__))
     if session.get("status") != "COMPLETE":
         write_json("final_status.json", {
-            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_FINAL_STATUS",
+            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_FINAL_STATUS",
             "status": "FAILED_NO_RETRY",
             "failure": session,
             "budget_usage": load(OUT / "budget_usage.json"),
@@ -445,8 +445,8 @@ def call() -> dict[str, Any]:
     parsed = session["operational_plan"]
     write_json("llm_structured_output.json", parsed)
     validation = {
-        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_PLAN_VALIDATION",
-        "schema": "r8_1_lowstar_c2_compact_tool_revision_v1",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_PLAN_VALIDATION",
+        "schema": "r8_1_lowstar_c2_compact_tool_revision_v2",
         "evidence_path": str(evidence_path.relative_to(ROOT)),
         "schema_errors": sorted(Draft7Validator(schema).iter_errors(parsed), key=lambda error: list(error.path)),
         "status": "PASS",
@@ -471,7 +471,7 @@ def call() -> dict[str, Any]:
         "status": "PASS" if len(plans) == 1 else "FAIL",
     })
     write_json("final_status.json", {
-        "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_FINAL_STATUS",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_FINAL_STATUS",
         "status": "C2_RECEIVED_AND_CONTRACT_VALID",
         "interface_status": session.get("status"),
         "actual_model_requests": budget.model_requests_started,

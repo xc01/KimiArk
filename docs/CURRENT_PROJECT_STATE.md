@@ -316,6 +316,23 @@ CONFIRMED_FROM_RUNTIME：会话1/3次请求失败后停止，0/6次工具执行�
 静态编译0次、模拟0次。旧范围/SP/WIN反例是否被消化保持UNKNOWN。证据在
 `output/r8_1_lowstar_c2_compact_tool_revision_v1/post_call_evidence_analysis.json`。
 
+## 2026-10-13 C2 V2原生工具轮后失败
+
+CONFIRMED_FROM_CODE：V2将查询与最终输出预算均设为32768，仍保留紧凑目录、34名资格、17名三星、
+查询阶段无schema绑定和140KB预检。V2请求127,263字节，SHA-256
+`f05de590bafa6d852ff7554ce8367c138271902fe2cb74c744dbbc42afd028c3`。
+
+CONFIRMED_FROM_RUNTIME：第一次HTTP请求完成，request ID
+`0217918832342107d6713dc852f73f0cf900d2fbe3d4488912748`，usage input 33,097、output 26,430
+（reasoning 24,332）、total 59,527。响应含6个原生完成function_call；本地执行1个时序约束查询，
+5个范围查询因声明的configuration缺少`skill_rank`/`required_potential_rank`等字段而
+`INVALID_NOT_EXECUTED`。
+
+第二个预算化请求在HTTP开始前被本地门禁阻断：绑定最终schema和新增用户指令后的续接体为
+148,762字节，超过140,000字节8,762字节。未联网、未重试。没有最终C2、静态编译或模拟。
+旧反例吸收和战术可行性保持UNKNOWN。证据在
+`output/r8_1_lowstar_c2_compact_tool_revision_v2/post_call_evidence_analysis.json`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

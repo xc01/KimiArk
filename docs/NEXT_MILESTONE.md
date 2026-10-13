@@ -46,3 +46,11 @@ incomplete with 4,093 reasoning tokens, no assistant message, and no native func
 call. No C2, compile, or simulation is authorized from this evidence. Work must review
 the raw response and budget shape before another bounded session; this failed session
 remains 1/3 requests and 0/6 tools.
+
+V2 reached a native tool round at 32768 output tokens, but stopped before its final
+continuation because that payload was 148,762 bytes against the 140,000-byte gate.
+Five range queries were invalid for incomplete configuration objects; one timing query
+executed. No C2, static compile, or simulation is authorized. Work must review the
+blocked continuation and decide whether a later bounded session may compress tool-result
+context, provide a stricter configuration template, or adjust the transport limit; this
+session remains 2/3 counted requests and 1/6 executed tools.

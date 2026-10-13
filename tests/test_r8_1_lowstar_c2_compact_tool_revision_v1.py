@@ -23,6 +23,7 @@ class CompactC2Tests(unittest.TestCase):
     def test_query_phase_is_compact_and_not_schema_bound(self):
         self.assertLessEqual(len(self.body), MAX_REQUEST_BODY_BYTES)
         self.assertEqual(QUERY_TOKEN_LIMIT, self.payload["max_output_tokens"])
+        self.assertEqual(32768, self.payload["max_output_tokens"])
         self.assertNotIn("text", self.payload)
         self.assertEqual(34, len(self.evidence["normal_low_star_catalog"]))
         self.assertEqual(

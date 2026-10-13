@@ -256,3 +256,13 @@ SHA-256 `89e5d5c685d47a1aa8232368675f244f72c01accce4b786b4d47b38a88ffe643`。
 
 修正：transport loop在`response.incomplete`时原先误标`NO_TERMINAL_EVENT`，已改为
 `RESPONSE_INCOMPLETE`并加回归；本轮结果不重试。调用前54/54定向pytest PASS。
+
+## 2026-10-13 — C2 V2输出预算与工具轮
+
+V2将查询和最终输出均设为32768。首次请求127,263字节，HTTP 200且`response.completed`；usage为
+input 33,097、output 26,430（reasoning 24,332）、total 59,527。模型发出6个原生完成function_call。
+其中`check_timing_constraints_5_96e88269`执行成功；5个范围查询因configuration不完整未执行。
+
+第二次请求未发送：最终续接体148,762字节，超过140,000上限8,762字节。预检阻断体SHA-256
+`7346cce32d6d6bc63d9bec87961991f93af9ad9cf81acebb0b13aa829e7fda8d`。计入2/3请求、工具执行1/6、
+无效调用5；无C2、静态编译或模拟。调用前54/54定向pytest PASS。

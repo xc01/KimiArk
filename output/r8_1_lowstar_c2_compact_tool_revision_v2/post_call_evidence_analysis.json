@@ -1,0 +1,92 @@
+{
+  "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_POST_CALL_ANALYSIS",
+  "outcome": "FAILED_NO_RETRY",
+  "budget": {
+    "model_request_attempts_counted": 2,
+    "http_requests_started": 1,
+    "readonly_tool_call_attempts": 6,
+    "readonly_tool_calls_executed": 1,
+    "readonly_tool_calls_invalid_not_executed": 5,
+    "new_operational_plans": 0,
+    "direction_complete_action_candidates": 0,
+    "static_compile_runs": 0,
+    "stage_simulations": 0,
+    "tactical_search_expansions": 0
+  },
+  "request_1": {
+    "body_sha256": "f05de590bafa6d852ff7554ce8367c138271902fe2cb74c744dbbc42afd028c3",
+    "body_bytes": 127263,
+    "body_limit": 140000,
+    "model": "kimi-k3",
+    "max_output_tokens": 32768,
+    "text_format_during_query_phase": null,
+    "continuation": false,
+    "request_id": "0217918832342107d6713dc852f73f0cf900d2fbe3d4488912748",
+    "http_status": 200,
+    "terminal_event": "response.completed",
+    "response_sha256": "917d4fc4d6146a351b53e5c398f5d38453fd98b8f453080e13180cdeefbe2670",
+    "response_bytes": 6549524,
+    "usage": {
+      "input_tokens": 33097,
+      "output_tokens": 26430,
+      "reasoning_tokens": 24332,
+      "total_tokens": 59527
+    }
+  },
+  "native_tool_round": {
+    "response_completed": true,
+    "native_function_call_items": 6,
+    "native_calls_completed": 6,
+    "executed": [
+      {
+        "call_id": "check_timing_constraints_5_96e88269",
+        "name": "check_timing_constraints",
+        "status": "EXECUTED"
+      }
+    ],
+    "invalid_not_executed": [
+      "query_range_coverage_0_0ff1149c",
+      "query_range_coverage_1_c52de48c",
+      "query_range_coverage_2_bda3c72b",
+      "query_range_coverage_3_6aa5a52f",
+      "query_range_coverage_4_dd721621"
+    ],
+    "invalid_reason": "declared configuration does not match the selected debug configuration"
+  },
+  "request_2": {
+    "classification": "BLOCKED_LOCALLY_BEFORE_HTTP",
+    "counted_as_model_request": true,
+    "final_max_output_tokens": 32768,
+    "final_text_format": "json_schema",
+    "previous_response_id": null,
+    "blocked_body_bytes": 148762,
+    "body_limit": 140000,
+    "over_limit_bytes": 8762,
+    "blocked_body_sha256": "7346cce32d6d6bc63d9bec87961991f93af9ad9cf81acebb0b13aa829e7fda8d",
+    "evidence": "attempt_2_blocked_request_body.txt",
+    "evidence_reconstruction": "Deterministically reconstructed offline from attempt_1_request.json, completed function_calls and returned tool_results; runtime did not write attempt_2 before the size gate."
+  },
+  "direct_failure": {
+    "error": "REQUEST_BODY_SIZE_LIMIT",
+    "detail": "The final continuation payload was 148762 bytes, exceeding the declared 140000-byte preflight limit. No HTTP request was started for it.",
+    "transport_session_error": "model request failed"
+  },
+  "final_plan_validation": {
+    "interface": "NO_FINAL_MODEL_RESPONSE",
+    "operational_plan_valid": false,
+    "static_compile_check": "NOT_RUN_NO_VALID_C2_PLAN",
+    "faithful_certificate": "NONE"
+  },
+  "scope_boundaries": {
+    "counterexamples_absorbed": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "tactical_decision_quality": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "battle_feasibility": "UNKNOWN_NOT_SIMULATED",
+    "win_loss": "NOT_APPLICABLE_NO_STAGE_SIMULATION"
+  },
+  "offline_tests_before_call": {
+    "command": "PYTHONPATH=src:scripts:/usr/lib/python3/dist-packages /home/bigdata/Desktop/cybergym-main/.venv/bin/pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_lowstar_c2_compact_tool_revision_v1.py tests/test_r8_1_low_star_full_tactical_closure_v1.py tests/test_r8_1_low_star_review_regressions.py",
+    "result": "PASS",
+    "passing_tests": 54,
+    "log": "offline_tests.log"
+  }
+}

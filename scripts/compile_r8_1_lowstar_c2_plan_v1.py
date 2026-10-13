@@ -9,7 +9,7 @@ from kimi_readonly_tools import ReadOnlyQueryEngine, json_tile_to_runtime
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v1"
+OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2"
 FRAMES_PER_SECOND = 30.0
 
 
