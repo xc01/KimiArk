@@ -1,0 +1,153 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-01",
+    "revision_source": "R8_1_LOWSTAR_PLAN_C4",
+    "status": "UNSIMULATED_CONDITIONAL_CURRENT_MODEL_CANDIDATE",
+    "decision": "Advance bottom damage and establish independent lower-exit blocking; retain simultaneous ownership through cleanup."
+  },
+  "revised_tactical_requirements": {
+    "win": "Zero leaks, exhausted spawn schedule, and no active enemies.",
+    "leak_routes_to_address": [10, 11, 12, 13, 23, 33],
+    "verification_boundary": "Range and conditional funding checks do not establish combat success."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "C5_EARLY_ARTS_EXIT_BACKSTOP",
+      "thesis": "Lancet replaces expensive top healing, funding Steward before the early accumulation. Midnight intercepts both exit branches while Cardigan independently holds the lower exit."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_1_LOWSTAR_PLAN_C5",
+      "parent_hypothesis_id": "C5_EARLY_ARTS_EXIT_BACKSTOP",
+      "tactical_thesis": "Keep Fang's opening economy, move Kroos to cover Fang from the right, and sustain the top with Lancet. Deploy Steward at f1350, Cardigan at the lower exit at f1710, and Midnight before the first C4 leak. Preserve Beagle's existing ownership, then heal all bottom blockers with Hibiscus. Use Midnight's damage boost across the final waves.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_124_kroos",
+        "char_122_beagle",
+        "char_285_medic2",
+        "char_210_stward",
+        "char_209_ardign",
+        "char_283_midn",
+        "char_120_hibisc"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[1,6],"direction":"LEFT","role":"Permanent top block2, damage and automatic DP."},
+        {"operator_id":"char_124_kroos","tile":[2,9],"direction":"LEFT","role":"Top fire covering Fang; no claimed bottom approach coverage."},
+        {"operator_id":"char_122_beagle","tile":[4,6],"direction":"LEFT","role":"Primary bottom block3; retain route-2 ownership."},
+        {"operator_id":"char_285_medic2","tile":[2,6],"direction":"RIGHT","role":"Permanent top healing covering Fang; supported deployment heal."},
+        {"operator_id":"char_210_stward","tile":[5,6],"direction":"DOWN","role":"Early arts fire covering [3,5] and Beagle; does not cover Cardigan."},
+        {"operator_id":"char_209_ardign","tile":[5,8],"direction":"UP","role":"Independent lower-exit block3; normal attacks only."},
+        {"operator_id":"char_283_midn","tile":[4,8],"direction":"LEFT","role":"Block2 before the route split; damage covering Beagle and Cardigan."},
+        {"operator_id":"char_120_hibisc","tile":[5,7],"direction":"DOWN","role":"Heal Beagle, Midnight and Cardigan."}
+      ],
+      "formation_structure": {
+        "top": "Fang [1,6], Kroos [2,9] LEFT, Lancet [2,6] RIGHT.",
+        "bottom": "Beagle [4,6] primary ownership; Midnight [4,8] intercepts before either exit branch; Cardigan [5,8] independently catches lower-exit overflow.",
+        "support": "Steward [5,6] DOWN and Hibiscus [5,7] DOWN.",
+        "deployment_limit": 8,
+        "economy": {
+          "status": "CONDITIONAL_MODEL_CALCULATION",
+          "effective_fang_cost": 10,
+          "fang_income_frames_used": [570,1321,2072],
+          "condition": "Fang survives and receives uninterrupted automatic time-SP recovery.",
+          "deployment_dp_after": [
+            {"frame":0,"dp":0},
+            {"frame":360,"dp":1},
+            {"frame":750,"dp":2},
+            {"frame":870,"dp":3},
+            {"frame":1350,"dp":7},
+            {"frame":1710,"dp":1},
+            {"frame":2100,"dp":4},
+            {"frame":2520,"dp":1}
+          ],
+          "refund_income_used": 0
+        }
+      },
+      "formation_transitions": [
+        {"window":"f0-870","transition":"Establish Fang, top fire, Beagle and cheap top healing."},
+        {"window":"f1350-2100","transition":"Add early arts, an independent lower-exit defender and Midnight without retreating any owner."},
+        {"window":"f2520 onward","transition":"Complete bottom healing; retain all eight operators through terminal result."}
+      ],
+      "corridor_responsibilities": [
+        {"corridor":"Top","routes":[1,3,4,9,17,18,28],"owner":"Fang blocks, Kroos damages and Lancet heals."},
+        {"corridor":"Upward route-2 transit","routes":[2],"owner":"Beagle retains ownership; Steward and Midnight add damage. Midnight provides interception before the upward branch; Cardigan is not its backstop."},
+        {"corridor":"Bottom routes","routes":[6,7,8,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,29,30,31,32,33,34],"owner":"Beagle, Midnight and Cardigan supply simultaneous ownership. Steward fires upstream, Midnight supports both defenders, and Hibiscus heals all three."},
+        {"corridor":"Early C4 leaks","routes":[10,11,12,13],"owner":"Steward starts at f1350, Cardigan holds the lower exit from f1710, and Midnight adds blocking and damage at f2100, before the f2179/f2184 failures and later f2629/f2634 failures."},
+        {"corridor":"Late C4 leaks","routes":[23,33],"owner":"Retain all three bottom blockers; Midnight's f3900 boost remains active through f5100, spanning the prior f4555 and f4879/f4903 leaks. Cardigan remains a separate lower-exit owner."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window":"f0-1350","owner":"Fang and Kroos handle top contacts. Lancet joins at f870; Beagle holds initial bottom enemies."},
+        {"window":"f1350-2520","owner":"Steward accelerates clearance; Cardigan and then Midnight add independent interception. Bottom holding temporarily precedes Hibiscus."},
+        {"window":"f2520-3900","owner":"Hibiscus sustains the completed formation; Steward and Midnight clear delayed and paired arrivals. Hibiscus boost f3450."},
+        {"window":"f3900-5100","owner":"Midnight damage boost, Beagle defense f4110, and Hibiscus boost f4980 support final-wave clearance. Keep every blocking position."},
+        {"window":"After f5100 until terminal WIN or LOSS","owner":"Keep the formation and execute scheduled cleanup skills while active. Normal attacks and healing continue beyond the last scheduled action."}
+      ],
+      "temporary_roles": [
+        {"operator_id":"char_123_fang","role":"Opening combat and income before Lancet arrives; thereafter remains the top blocker."},
+        {"operator_id":"char_122_beagle / char_209_ardign / char_283_midn","role":"Hold bottom contacts before Hibiscus deployment; survival remains conditional."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_122_beagle","frames":[1980,4110,6240,8370],"intent":"Defense during early accumulation, final pressure and extended cleanup."},
+        {"operator_id":"char_120_hibisc","frames":[3450,4980,6510,8040],"intent":"Bottom healing boosts; first activation has deployment-relative readiness margin, and repeats include active-duration SP pauses."},
+        {"operator_id":"char_283_midn","frames":[3900,7230],"intent":"Supported ATK boost across final arrivals and extended cleanup; do not credit unsupported damage conversion."},
+        {"operator_id":"char_123_fang / char_124_kroos / char_210_stward","intent":"Runtime-managed automatic skills; no prescribed target ordering or fixed attack-SP activation frames."},
+        {"operator_id":"char_209_ardign","intent":"No unsupported self-heal activation."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"invariant":"Use only the eight selected normal_low_star_catalog operators, rarity 1-3, normal_mode true, with supplied debug configurations."},
+        {"invariant":"Zero leaks; life points are never a tactical budget."},
+        {"invariant":"Never deploy on active device tiles [3,5], [4,9], [2,7], [2,1], [5,3]."},
+        {"invariant":"Eight distinct legal tiles and at most eight deployed operators."},
+        {"invariant":"No planned retreats or replacement handovers; preserve existing blocking ownership through cleanup."},
+        {"invariant":"Cardigan's lower-exit ownership cannot substitute for route-2 interception before its upward branch."},
+        {"invariant":"Credit no refunds, unsupported talents, AoE, target priorities, roadblock rerouting or unsupported skill effects."},
+        {"invariant":"Execute actions only while the stage remains active; spawn exhaustion alone is not WIN."}
+      ],
+      "action_timeline": [
+        {"action_type":"DEPLOY","frame":0,"operator_id":"char_123_fang","tile":[1,6],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":360,"operator_id":"char_124_kroos","tile":[2,9],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":750,"operator_id":"char_122_beagle","tile":[4,6],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":870,"operator_id":"char_285_medic2","tile":[2,6],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":1350,"operator_id":"char_210_stward","tile":[5,6],"direction":"DOWN"},
+        {"action_type":"DEPLOY","frame":1710,"operator_id":"char_209_ardign","tile":[5,8],"direction":"UP"},
+        {"action_type":"ACTIVATE_SKILL","frame":1980,"operator_id":"char_122_beagle"},
+        {"action_type":"DEPLOY","frame":2100,"operator_id":"char_283_midn","tile":[4,8],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":2520,"operator_id":"char_120_hibisc","tile":[5,7],"direction":"DOWN"},
+        {"action_type":"ACTIVATE_SKILL","frame":3450,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":3900,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":4110,"operator_id":"char_122_beagle"},
+        {"action_type":"ACTIVATE_SKILL","frame":4980,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":6240,"operator_id":"char_122_beagle"},
+        {"action_type":"ACTIVATE_SKILL","frame":6510,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":7230,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":8040,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":8370,"operator_id":"char_122_beagle"}
+      ],
+      "unknown_dependencies": [
+        {"topic":"Top opening and economy","unknown_reason":"Moving Kroos removes earlier approach fire; Fang survival with the new engagement geometry and Lancet healing is unverified."},
+        {"topic":"Bottom survival and saturation","unknown_reason":"Earlier damage and separate exit ownership do not prove survival before f2520, acquisition of overflow, or sufficient final throughput."},
+        {"topic":"Client mechanics","unknown_reason":"Exact client timing, target ordering and ordinary-WALK roadblock navigation remain UNKNOWN."}
+      ]
+    }
+  ],
+  "counterexample_avoidance_explanations": [
+    {"change":"Read-only range queries confirmed Lancet RIGHT covers Fang, Midnight LEFT covers Beagle and Cardigan, and Hibiscus DOWN covers all bottom blockers."},
+    {"change":"Steward does not cover Cardigan and relocated Kroos does not cover [3,5]; those damage responsibilities belong to Midnight and Steward respectively."},
+    {"change":"Conditional ledger is nonnegative without refunds. Fang's supported cost reduction explains the helper's raw-cost UNKNOWN; no unconditional funding claim is made."},
+    {"change":"Manual repeat intervals were helper-checked with active-duration SP pauses; first readiness is calculated from deployment and initial SP."}
+  ],
+  "explicit_assumptions": [
+    "GameData establishes supplied stats, ranges and skill parameters; timing, damage, economy and route geometry use current-model rules.",
+    "Fang's survival and automatic income remain conditions of the economic order.",
+    "C4 diagnostics are conditional runtime evidence, not client proof or an infeasibility result."
+  ],
+  "deterministic_verifier_questions": [
+    "Does the revised top formation preserve Fang and all income payments required before f2520?",
+    "Do bottom operators survive until Hibiscus arrives and intercept every enemy on routes 10,11,12,13,23,33?",
+    "Does sustained clearance achieve zero leaks through exhausted spawns and an empty active-enemy set?"
+  ],
+  "uncertainties": [
+    {"topic":"Outcome","status":"UNKNOWN","detail":"No stage simulation was run; C5 is not a certified WIN."}
+  ]
+}
