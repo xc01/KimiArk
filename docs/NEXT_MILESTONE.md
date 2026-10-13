@@ -85,3 +85,12 @@ spent. Work must review
 and the raw SSE records before authorizing another protocol shape, a smaller query-only step, or a
 different output/reasoning configuration. No C3 compile or simulation is authorized from the saved
 reasoning.
+
+## Next bounded GPT execution
+
+The prepared GPT request is frozen in
+`output/r8_1_gpt_tactical_revision_v1/llm_request_body.txt`. The next run must set `SUB2API_API_KEY`
+externally, execute the existing bounded call at most three requests / six readonly tools, and stop on
+the first failure without retry. If a final C3 passes schema and contract checks, compile the original
+fixed actions only; no simulation is authorized in this milestone. Provider compatibility remains
+UNVERIFIED until a native tool round and successful continuation are observed.

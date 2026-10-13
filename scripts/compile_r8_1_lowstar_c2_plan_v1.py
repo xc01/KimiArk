@@ -152,7 +152,12 @@ def structured_range_checks(plan: dict[str, Any], action: dict[str, Any]) -> lis
     ]
 
 
-def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], supports: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def build_dp_ledger(
+    plan: dict[str, Any],
+    catalog: dict[str, dict[str, Any]],
+    supports: dict[str, dict[str, Any]],
+    input_dir: Path,
+) -> dict[str, Any]:
     evidence_status_by_operator: dict[str, str] = {}
     readiness: dict[str, Any] = {}
     deployed_at: dict[str, int] = {}
@@ -203,7 +208,7 @@ def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], su
             "next_model_ready_frame": previous_ready[operator_id],
         }
 
-    dp = float(evidence_stage_initial_dp())
+    dp = float(evidence_stage_initial_dp(input_dir))
     rows = [{
         "frame": 0, "event": "STAGE_INITIAL_DP", "delta": dp,
         "balance_before": 0.0, "balance_after": dp,
@@ -278,7 +283,7 @@ def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], su
                          "source": "initial-SP auto trigger immediately after deploy; public adapter timing model"})
     return {
         "schema_version": "R8_1_LOWSTAR_C2_STATIC_DP_LEDGER_V1",
-        "initial_dp": evidence_stage_initial_dp(),
+        "initial_dp": evidence_stage_initial_dp(input_dir),
         "natural_dp_per_second": 1.0,
         "automatic_skill_income_model": {
             "trigger_rule": "Initial trigger after (sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)) seconds; recurrence after sp_cost seconds for duration=0 AUTO TIME skills.",
@@ -295,15 +300,14 @@ def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], su
     }
 
 
-def evidence_stage_initial_dp() -> float:
-    # The compiler is invoked only after the prepared evidence exists.
-    stage_options = load(OUT / "llm_evidence_context.json")["stage_options"]
+def evidence_stage_initial_dp(input_dir: Path) -> float:
+    stage_options = load(input_dir / "llm_evidence_context.json")["stage_options"]
     return float(stage_options["initial_cost"])
 
 
-def compile_plan() -> dict[str, Any]:
-    evidence = load(OUT / "llm_evidence_context.json")
-    parsed = load(OUT / "llm_structured_output.json")
+def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
+    evidence = load(input_dir / "llm_evidence_context.json")
+    parsed = load(input_dir / "llm_structured_output.json")
     plans = parsed.get("revised_operational_plans", [])
     plan = plans[0]
     catalog = operator_map(evidence)
@@ -459,7 +463,7 @@ def compile_plan() -> dict[str, Any]:
                 deployed.pop(operator_id, None)
                 redeploy_available[operator_id] = frame + round(redeploy_time * FRAMES_PER_SECOND)
 
-    ledger = build_dp_ledger(plan, catalog, supports)
+    ledger = build_dp_ledger(plan, catalog, supports, input_dir)
     skill_conflicts = [
         {"operator_id": key.split("@")[0], "frame": int(key.split("@")[1]), **row}
         for key, row in ledger["skill_readiness"].items() if row.get("status") == "CONFLICT"
@@ -511,8 +515,8 @@ def compile_plan() -> dict[str, Any]:
             ],
         },
         "source_manifest": {
-            "evidence": file_record(OUT / "llm_evidence_context.json"),
-            "plan": file_record(OUT / "llm_structured_output.json"),
+            "evidence": file_record(input_dir / "llm_evidence_context.json"),
+            "plan": file_record(input_dir / "llm_structured_output.json"),
             "compiler": file_record(Path(__file__)),
         },
     }
@@ -524,9 +528,9 @@ def compile_plan() -> dict[str, Any]:
         "operationally_verified": False,
         "no_stage_simulation": True,
     }
-    write_json("static_compile_results.json", certificate)
-    write_json("direction_complete_action_candidate.json", action_candidate)
-    write_json("static_compile_final_status.json", {
+    write_json(input_dir / "static_compile_results.json", certificate)
+    write_json(input_dir / "direction_complete_action_candidate.json", action_candidate)
+    write_json(input_dir / "static_compile_final_status.json", {
         "schema_version": "R8_1_LOWSTAR_C2_COMPACT_STATIC_COMPILE_FINAL_STATUS_V1",
         "plan_id": plan.get("operational_plan_id"),
         "classification": classification,

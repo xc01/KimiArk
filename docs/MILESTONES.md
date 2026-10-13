@@ -366,3 +366,11 @@ added `tool_choice=required` as an explicit protocol adjustment, not an automati
 
 The session stopped at 2/3 model requests and 0/6 tools. The final request was deliberately not
 spent. There is no C3, no static compile, no diagnostic simulation, and no feasibility claim.
+
+## 2026-10-13 — GPT tactical provider entry
+
+Milestone status: prepared, not verified. The project entry can select provider/model and shares the
+readonly-tool loop, C3 evidence and static compiler. The Sub2API request is bounded at 138,127 bytes
+with 32,768 output tokens, `gpt-6.1-sol` and medium reasoning. No HTTP request has run because
+`SUB2API_API_KEY` is absent; provider compatibility, tool continuation and GPT-C3 validity remain
+UNKNOWN.

@@ -299,6 +299,14 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+## 2026-10-13 GPT战术入口准备
+
+CONFIRMED_FROM_CODE_AND_OFFLINE_PREPARE：新增通用入口`run_r8_1_gpt_tactical_revision_v1.py`，
+保留Kimi选项；新GPT准备载荷为138,127字节，model为`gpt-6.1-sol`，reasoning effort为`medium`，
+输出上限32768，包含完整34名普通低星/17名三星与C2条件失败证据。`SUB2API_API_KEY`在准备时缺失，
+离线preflight在HTTP前停止，实际模型请求0、工具0、新计划0。项目API兼容性和最终GPT-C3计划均
+尚未验证。
+
 ## 2026-10-13 C2紧凑两阶段会话失败
 
 CONFIRMED_FROM_CODE：V2准备使用`compact_operator_catalog()`，请求从372,545字节压缩到

@@ -188,3 +188,12 @@ function_call、function_call_output和新的显式最终指令；此后才绑�
 不改operator、位置、方向、目标或call_id。已保存的失败结果保留，新结果另存并标明是确定性系统
 修复后的重验。初始140,000字节预检不变；最终续接上限为200,000字节。第三次模型请求是唯一
 HTTP续接，失败后不自动重试。
+
+## 2026-10-13 — 战术模型入口可替换
+
+决策：战术provider与model通过启动参数选择，当前支持已验证的Kimi入口和未验证的Sub2API
+GPT入口；GLM只负责研发实现与确定性校验。用户授权的GPT请求使用
+`https://sub2api.amox.cc:18443/v1/responses`、`gpt-6.1-sol`和`reasoning={"effort":"medium"}`。
+凭据只读`SUB2API_API_KEY`，缺失在联网前停止；不读取Codex配置，不回退Kimi，不切换endpoint或
+推理强度。当前Responses兼容性保持`UNVERIFIED_BEFORE_PROJECT_REQUEST`，直到项目入口观察到原生
+function_call和成功续接。

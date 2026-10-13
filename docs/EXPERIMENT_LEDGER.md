@@ -309,3 +309,10 @@ FAILED_NO_C3：第1次请求`response.incomplete`，output 32,768全部为reason
 assistant文本或原生function_call。第2次显式`tool_choice=required`请求HTTP 200，仍
 `response.incomplete`且reasoning 32,765，无工具调用。预算2/3请求、0/6工具；第3次不消耗。
 没有C3、静态编译、模拟或战术不可行证明。
+
+## 2026-10-13 GPT战术入口
+
+已准备`r8_1_gpt_tactical_revision_v1`：请求138,127字节、`gpt-6.1-sol`、medium reasoning、
+输出上限32768；34名普通低星和17名三星完整。因`SUB2API_API_KEY`缺失，preflight在HTTP前停止。
+实际记录：0/3模型请求、0/6只读工具、0个OperationalPlan。Codex本地可用不能证明项目Responses
+续接兼容。
