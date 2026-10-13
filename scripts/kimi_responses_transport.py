@@ -22,6 +22,7 @@ class StreamAccumulator:
     response_envelope: dict[str, Any] | None = None
     error: str | None = None
     malformed_events: list[str] = field(default_factory=list)
+    function_calls: list[dict[str, Any]] = field(default_factory=list)
     http_status: int | None = None
     request_id: str | None = None
 
@@ -60,6 +61,28 @@ class StreamAccumulator:
                 self.response_envelope = response
             if event.event == "response.failed":
                 self.error = json.dumps(data.get("response", {}).get("error", data.get("error", "")))
+        elif event.event == "response.output_item.added":
+            item = data.get("item") or {}
+            if item.get("type") == "function_call":
+                self.function_calls.append({
+                    "call_id": item.get("call_id"),
+                    "name": item.get("name"),
+                    "arguments": item.get("arguments", ""),
+                })
+        elif event.event == "response.function_call_arguments.delta":
+            call_id = data.get("call_id") or data.get("item_id")
+            calls = [call for call in self.function_calls if call.get("call_id") == call_id or call.get("item_id") == call_id]
+            if not calls:
+                self.malformed_events.append(f"function argument delta without call {call_id}")
+            else:
+                calls[-1]["arguments"] += data.get("delta", "")
+        elif event.event == "response.function_call_arguments.done":
+            call_id = data.get("call_id") or data.get("item_id")
+            calls = [call for call in self.function_calls if call.get("call_id") == call_id or call.get("item_id") == call_id]
+            if not calls:
+                self.malformed_events.append(f"function argument done without call {call_id}")
+            elif "arguments" in data:
+                calls[-1]["arguments"] = data["arguments"]
 
     def classify(self) -> dict[str, Any]:
         envelope = self.response_envelope or {}
@@ -68,6 +91,13 @@ class StreamAccumulator:
             for item in envelope.get("output", [])
             if item.get("type") == "message" and item.get("role") == "assistant"
         ]
+        calls = list(self.function_calls)
+        if not calls:
+            calls = [
+                {"call_id": item.get("call_id"), "name": item.get("name"), "arguments": item.get("arguments", "")}
+                for item in envelope.get("output", [])
+                if item.get("type") == "function_call"
+            ]
         return {
             "terminal_event": self.terminal_event,
             "complete": self.terminal_event == "response.completed"
@@ -80,11 +110,18 @@ class StreamAccumulator:
             "response_status": envelope.get("status"),
             "errors": [self.error] if self.error else [],
             "malformed_events": self.malformed_events,
+            "function_calls": calls,
+            "tool_round_complete": self.terminal_event == "response.completed" and bool(calls) and not self.error,
+            "requires_tool_execution": self.terminal_event == "response.completed" and bool(calls) and not any(
+                item.get("type") == "message" and item.get("role") == "assistant" for item in envelope.get("output", [])
+            ),
         }
 
 
 def parse_sse(payload: str) -> list[SSEEvent]:
     events: list[SSEEvent] = []
+    if isinstance(payload, bytes):
+        payload = payload.decode("utf-8", errors="replace")
     event_name = ""
     data_lines: list[str] = []
     sequence = 0
@@ -123,9 +160,16 @@ def validate_tactical_request(payload: dict[str, Any]) -> list[str]:
         errors.append("PREVIOUS_RESPONSE_ID_FORBIDDEN")
     if payload.get("stream") is not True:
         errors.append("STREAM_TRUE_REQUIRED")
+    tools = payload.get("tools") or []
     for index, item in enumerate(payload.get("input", [])):
         if not isinstance(item, dict):
             errors.append(f"INPUT_{index}_NOT_OBJECT")
+            continue
+        if tools and item.get("type") == "function_call_output":
+            if not item.get("call_id"):
+                errors.append(f"INPUT_{index}_FUNCTION_OUTPUT_CALL_ID_REQUIRED")
+            if "output" not in item:
+                errors.append(f"INPUT_{index}_FUNCTION_OUTPUT_REQUIRED")
             continue
         if item.get("role") != "user":
             errors.append(f"INPUT_{index}_ROLE_NOT_USER")

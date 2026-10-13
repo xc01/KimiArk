@@ -290,3 +290,12 @@ usage was 29,311 input / 30,806 output / 60,117 total tokens; 32,768 remains onl
 created-envelope `max_output_tokens`. Local JSON/schema/contract validation passed and
 saved one complete OperationalPlan plus one non-tactical direction-complete handoff.
 No compile certificate, stage simulation, WIN claim, retry or tactical search occurred.
+
+## 2026-10-13 — Readonly tool loop
+
+Added three whitelisted read-only tools, a visible base rule card, source/provenance
+mapping, and a mock Responses tool continuation loop. C1 range and conditional SP
+counterexamples were replayed through the common interface. Offline tests passed:
+transport 10/10, C1 entry 12/12, tool loop 12/12. No real Kimi call, stage simulation,
+new tactical plan, or search expansion occurred. Provider compatibility remains
+UNVERIFIED.

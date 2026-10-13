@@ -186,3 +186,12 @@ total 60117、reasoning 23245。
 输出：`R8_1_LOWSTAR_PLAN_C1`，11名普通模式1～3星干员、21个有序动作；schema/contract通过。
 `strategy_handoff.json`是`HANDOFF_READY_NOT_COMPILED`且certificate为`NONE`。没有编译证书、
 关卡模拟或战术保真声明。预算：Kimi 1、重试0、模拟0、扩搜0。
+
+## 2026-10-13 — 只读工具mock闭环
+
+实验：`output/r8_1_readonly_tool_loop_v1/`。实际Kimi 0、真实关卡模拟0、新真实计划/候选0、扩搜0。
+mock模型请求2次、只读工具调用4次；两条SSE均为synthetic。
+
+结果：C1范围和SP反例通过公共接口复现；完整工具轨迹、call_id、工具结果、mock initial/
+continuation request和最终计划交接已保存。回归：transport 10/10、C1入口 12/12、只读工具闭环
+12/12。`compileall`、manifest哈希和secret scan通过。provider tool兼容性保持UNVERIFIED。

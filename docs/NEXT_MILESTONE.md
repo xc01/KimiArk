@@ -1,17 +1,19 @@
-# Next milestone: Work review of Kimi Plan C1
+# Next milestone: Work review, then one tool-enabled bounded revision
 
-The authorized V2 call completed once with HTTP 200 and `response.completed`. The
-approved canonical body was unchanged. The response produced one full OperationalPlan,
-`R8_1_LOWSTAR_PLAN_C1`, with 11 ordinary-mode 1-3 star operators and 21 ordered actions.
-JSON, jsonschema and operational-plan contract validation passed.
+The read-only tool loop is now offline-complete. Three whitelisted tools cover
+mechanics/stage-fact summaries, configured range coverage, and conditional
+SP/DP/deployment checks. A visible base rule card and source/provenance mapping are
+stored in `output/r8_1_readonly_tool_loop_v1/`.
 
-`output/r8_1_low_star_full_tactical_closure_v2/strategy_handoff.json` is
-`HANDOFF_READY_NOT_COMPILED` with `certificate: NONE`. It is an action-coordinate
-handoff only, not a tactical-fidelity certificate. No stage simulation, WIN/LOSS claim
-or tactical search ran.
+The C1 conditional counterexamples were replayed through the common interface:
+Hibiscus and Steward do not cover the declared blocking tiles with UP; Lancet-2 at
+[2,9] LEFT covers Melantha [1,7] but not Noirc [1,6]; and, under the stated SP
+assumptions, Hibiscus is not ready again at frame 4200 because the model-derived
+earliest ready frame is about 4500.
 
-Work must review the complete plan, raw response, assumptions, route responsibilities,
-geometry, skills, economy, retreats/handoffs and UNKNOWN dependencies before deciding
-whether to run faithful compilation or one bounded simulation. The raw response and
-created-envelope usage are retained in
-`output/r8_1_low_star_full_tactical_closure_v2/`.
+The mock trajectory uses two model requests and four tool calls, reuses the preserved
+C1 plan as its synthetic final output, and does not create C2. Provider tool
+compatibility for kimi-k3 at `/api/plan/v3/responses` remains UNVERIFIED. The next
+real experiment, only after Work approval, may use at most 3 actual model requests,
+6 read-only tool calls, and 1 final OperationalPlan; every continuation and failure
+counts as a request. No automatic retry or stage simulation is authorized.

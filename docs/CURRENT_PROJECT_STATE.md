@@ -225,3 +225,21 @@ request ID `021791824072792ed0e184fb98d17720dee9f0ee33ee7e169ef96`，终止事�
 已保存，但只声明`HANDOFF_READY_NOT_COMPILED`、`certificate NONE`，不是战术保真证书。
 本轮真实关卡模拟0、扩搜0，未判定WIN/LOSS。下一步由Work审查计划语义、几何、技能、经济、
 移交与UNKNOWN，再决定是否编译或模拟。
+
+## 2026-10-13 只读工具闭环
+
+CONFIRMED_FROM_CODE：新增三个白名单只读工具：`query_mechanic`、`query_range_coverage`、
+`check_timing_constraints`。返回GameData/当前运行时的来源、机制版本、适用条件和UNKNOWN；
+不推荐位置、不改朝向、不生成替代战术、不运行模拟。`query_mechanic`初始覆盖坐标方向、范围
+模板、技能期间SP暂停、当前伤害公式、Simulator WIN规则、R8-1 stage事实摘要和低星affordance
+摘要。基础规则卡始终可见。
+
+工具按C1复现四个条件反例：芙蓉[5,7]UP覆盖不到米格鲁[4,6]/泡普卡[4,7]；史都华德[5,6]UP同样
+覆盖不到主阻挡格；Lancet-2[2,9]LEFT覆盖玫兰莎[1,7]但不覆盖黑角[1,6]；若芙蓉frame3000首次
+技能成功且duration20s、SP cost30、时间回复1/s、生效期间暂停，则第二次最早约frame4500，
+frame4200冲突。这些是模型反例，不是实机观测，也不否定双线战略。
+
+传输层解析`function_call`和`function_call_output`；续接仍无`previous_response_id`、无assistant
+prefill、无自动重试；call_id必须一一对应；工具轮与最终OperationalPlan轮区分。mock闭环使用2次
+模型请求、4次工具调用并复用C1计划；错误参数、错误call_id、incomplete、超请求预算和无效最终计划
+都拒绝。当前kimi-k3 + `/api/plan/v3/responses` 的tool兼容性仍是UNVERIFIED。

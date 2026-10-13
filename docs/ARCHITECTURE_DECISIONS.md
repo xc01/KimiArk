@@ -101,3 +101,14 @@ binary SHA-256，避免错误输入覆盖证据。公共导航层继续没有 `R
 决策：`start_attempt`必须在`urlopen`之前落盘；HTTPError保留状态和request ID，超时/中断保留
 已收字节；`finish_attempt`后返回统一失败。不存在terminal事件时补`NO_TERMINAL_EVENT`，不把
 `response.completed`当作HTTP 200反推。本地验收用mock urlopen检查`Request.data`。
+
+## 2026-10-13 — 有界Responses工具循环
+
+决策：工具白名单只含三个只读查询。SSE accumulator保留`function_call`的call_id/name/arguments；
+`requires_tool_execution`用于工具轮，`complete`仍要求assistant final text。工具续接通过把
+`function_call_output`追加到初始user input实现；不使用`previous_response_id`，不伪造assistant
+消息，不自动重试。
+
+决策：每轮模型请求和每个工具调用都先预算计数；结果必须与call_id一一对应。工具轮没有最终文本
+不算战术输出失败；incomplete/failed/JSON截断/参数不完整不执行或终止。`text.format`的最终计划
+schema保留。当前provider组合的tool兼容性保持UNVERIFIED，不能由离线mock证明。
