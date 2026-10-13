@@ -313,12 +313,12 @@ route-23/33在末段漏出。第一决策信号是早期阻挡容量与击杀转
 | 关卡 | 事实/机制支持 | 当前最佳 | 结果 | 漏怪/死亡 | 人数/星级 | 复验 | 实机 | 下一直接瓶颈 |
 |---|---|---|---|---:|---:|---|---|---|
 | R8-1 | 地图/路线/敌人/装置可解析；客户端roadblock导航UNKNOWN | C7 | roadblock-targeting robust simulator WIN | 0/0 | 8/22 | both variants WIN | UNKNOWN | 第一阶段继续；减员等待全部七关WIN |
-| R8-2 | `main_08-02`可解析；通用池被civilian缺RES/baseAttackTime阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | source-backed non-attacking/undefined-field rule |
+| R8-2 | 事实/adapter可运行；NO_DAMAGE字段已修复；civilian死亡扣生命为lifePointReduce=0，客户端机制UNKNOWN | NONE | BLOCKED_BEFORE_STATIC | 0 plans / 0 simulations | 0/0 | NA | UNKNOWN | GPT三次计划仍部署在已声明路障格 |
 | R8-3 | `main_08-03`可解析；DISAPPEAR/APPEAR_AT_POS/WAIT_CURRENT_FRAGMENT_TIME未支持 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | route lifecycle semantics |
-| R8-4 | `main_08-04`可解析；civilian字段阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-2 |
+| R8-4 | 事实/adapter可运行；NO_DAMAGE字段已修复 | NONE | BLOCKED_BEFORE_STATIC | 0 plans / 0 simulations | 0/0 | NA | UNKNOWN | V1 ID错误；V2仍部署在路障 |
 | R8-5 | `main_08-05`可解析；route lifecycle阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-3 |
 | R8-6 | `main_08-06`可解析；WAIT_CURRENT_WAVE_TIME未支持 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | wave-synchronized route wait |
-| R8-7 | `main_08-07`可解析；civilian字段阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-2 |
+| R8-7 | 事实/adapter可运行；NO_DAMAGE字段已修复 | NONE | BLOCKED_BEFORE_STATIC | 0 plans / 0 simulations | 0/0 | NA | UNKNOWN | V1路障与ID错误；未消耗V2 |
 
 The second authorized Codex CLI C4 start reused the saved C4 prompt/evidence and reached OpenAI, but was
 rejected because the root JSON schema did not satisfy `additionalProperties=false`. It remains 0 C4,
@@ -491,3 +491,15 @@ terminal事件`response.completed`，request ID
 按预算规则未自动重试或续接。不能把模型自述的6次调用、18,523输出token或完整长期推理当作
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
+
+## 2026-10-14 七关批次R8-2/R8-4/R8-7入口状态
+
+CONFIRMED_FROM_CODE_AND_EVIDENCE：通用事实提取器和Codex CLI战术入口已覆盖`main_08-02`、
+`main_08-04`、`main_08-07`。R8-3/R8-5仍因`DISAPPEAR`阻断，R8-6因`WAIT_CURRENT_WAVE_TIME`阻断。
+R8-1 C7结论不变。
+
+R8-2消耗三次CLI启动：V1两处路障冲突加ID错误；V2一处路障冲突；V3显式说明
+`[col,row]->[row,col]`反转后仍有两处路障冲突。R8-4消耗两次：V1仅ID错误，V2一处路障冲突。
+R8-7消耗一次：路障与ID错误。九次新CLI启动全部计入本批次；0个有效计划、0次模拟。因此
+R8-2/R8-4/R8-7都按NO_RETRY停止，不能把失败输入当作战术计划。R8-2的乌萨斯平民
+`lifePointReduce=0`是GameData事实；客户端平民特殊胜负机制仍UNKNOWN。

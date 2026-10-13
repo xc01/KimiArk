@@ -237,3 +237,10 @@ schema参数。任务文本仍要求完整OperationalPlan JSON；接收后必须
 决策：R8-1 WIN后的robust检查必须使用同一C7快照与原始30FPS/600秒配置，只切换两种既有roadblock
 targeting解释：A非普通目标；B仅无普通敌人候选时可选中。不得额外发明rerouting、civilian blocking、
 aggressive roadblock或AOE目标。双变体均WIN才可标roadblock-targeting robust simulator WIN。
+
+## 2026-10-14 通用七关入口
+
+新增`build_gpt_tactical_stage_facts_v1.py`、`run_gpt_tactical_stage_session_v1.py`和
+`run_gpt_tactical_stage_diagnostic_v1.py`。事实提取保留34名普通低星和17名三星，显式区分
+`[row,col]`计划坐标与`[col,row]`运行时/装置坐标；编译与模拟仍读取同一本地输出目录。R8-3/R8-5
+的route lifecycle与R8-6的wave wait保持BLOCKED，不伪装完整模拟。

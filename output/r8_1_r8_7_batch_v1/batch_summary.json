@@ -1,0 +1,53 @@
+{
+  "schema_version": "R8_1_R8_7_GPT_TACTICAL_BATCH_V1_SUMMARY",
+  "stage_ids_supported": [
+    "main_08-02",
+    "main_08-04",
+    "main_08-07"
+  ],
+  "blocked_stage_ids": {
+    "main_08-03": "UNSUPPORTED_ROUTE_CHECKPOINT_DISAPPEAR",
+    "main_08-05": "UNSUPPORTED_ROUTE_CHECKPOINT_DISAPPEAR",
+    "main_08-06": "UNSUPPORTED_ROUTE_CHECKPOINT_WAIT_CURRENT_WAVE_TIME"
+  },
+  "budget": {
+    "cli_process_starts_in_continuation": 6,
+    "cumulative_cli_process_starts_in_reported_batch": 9,
+    "valid_operational_plans": 0,
+    "static_checks_started": 0,
+    "stage_simulations_started": 0,
+    "automatic_retries": 0
+  },
+  "results": {
+    "main_08-02": {
+      "attempts": 3,
+      "status": "BLOCKED_INVALID_PLAN_NO_RETRY",
+      "direct_failures": [
+        "V1 deploys converted roadblocks [row,col]=[3,5] and [2,1] and uses wrong plan ID",
+        "V2 deploys converted roadblock [row,col]=[3,5]",
+        "V3 deploys converted roadblocks [row,col]=[3,5] and [2,1]"
+      ]
+    },
+    "main_08-04": {
+      "attempts": 2,
+      "status": "BLOCKED_INVALID_PLAN_NO_RETRY",
+      "direct_failures": [
+        "V1 uses wrong plan ID",
+        "V2 deploys converted roadblock [row,col]=[3,5]"
+      ]
+    },
+    "main_08-07": {
+      "attempts": 1,
+      "status": "BLOCKED_INVALID_PLAN_NO_RETRY",
+      "direct_failures": [
+        "V1 deploys converted roadblock [row,col]=[3,5] and uses wrong plan ID"
+      ]
+    }
+  },
+  "unknowns": [
+    "CLI internal model request count",
+    "client roadblock navigation semantics",
+    "client-specific Ursa civilian mechanism beyond enemy lifePointReduce",
+    "combat feasibility because no valid plan was simulated"
+  ]
+}

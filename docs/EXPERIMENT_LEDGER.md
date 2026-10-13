@@ -395,3 +395,12 @@ C7 reasoning 499。新增固定模拟3次。C7是条件模型WIN，不是实机�
 C7同一动作时间线完成两种roadblock targeting复验：A_NOT_ORDINARILY_TARGETABLE和
 B_LOW_PRIORITY_NO_ENEMY_ONLY均WIN（56/56、0漏、0死、剩余生命5）。policy、dt、max_time与C7基线一致。
 因此R8-1在这个双变体范围内为robust roadblock-targeting simulator WIN；客户端导航/真实游戏仍UNKNOWN。
+
+## 2026-10-14 — Seven-stage batch blocked before static checks
+
+The generic stage extractor and CLI runner covered R8-2, R8-4, and R8-7. R8-3/R8-5 remained blocked by
+`DISAPPEAR`; R8-6 remained blocked by `WAIT_CURRENT_WAVE_TIME`. This continuation consumed six new CLI
+starts: R8-2 V1/V2/V3 = 3, R8-4 V1/V2 = 2, R8-7 V1 = 1. Combined with the prior R8-1 batch, the seven
+stage report now totals nine CLI starts. All six continuation plans failed schema/contract validation
+before static compile and simulation: 0 valid plans and 0 simulations. Evidence is under
+`output/r8_1_r8_7_batch_v1/`.

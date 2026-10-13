@@ -1,0 +1,323 @@
+from __future__ import annotations
+
+import argparse
+import copy
+import json
+import os
+from pathlib import Path
+from typing import Any, Callable
+
+from jsonschema import Draft7Validator
+
+import run_r8_1_gpt_c4_codex_cli_v1 as codex_runner
+from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
+from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
+
+
+ROOT = Path(__file__).resolve().parents[1]
+BODY_LIMIT = 140_000
+OUT = ROOT / "output/r8_1_r8_7_batch_v1/main_08-02/cli"
+DIAGNOSTIC_OUT = ROOT / "output/r8_1_r8_7_batch_v1/main_08-02/diagnostic"
+SOURCE = ROOT / "output/r8_1_r8_7_batch_v1/main_08-02/facts"
+STAGE_ID = "main_08-02"
+PLAN_ID = "R8_2_GPT_V3"
+PLAN_PREFIX = "R8_2_GPT_V3"
+PLAN_LABEL = "R8-2-V3"
+
+
+def load(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, payload: Any, *, exclusive: bool = False) -> None:
+    text = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    if exclusive:
+        with path.open("x", encoding="utf-8") as handle:
+            handle.write(text)
+    else:
+        path.write_text(text, encoding="utf-8")
+
+
+def sha256(path: Path) -> str:
+    import hashlib
+
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def configure(arguments: argparse.Namespace) -> None:
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL
+    OUT = ROOT / arguments.output_dir
+    DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
+    SOURCE = ROOT / arguments.facts_dir
+    STAGE_ID = arguments.stage_id
+    PLAN_ID = arguments.plan_id
+    PLAN_PREFIX = arguments.plan_id_prefix
+    PLAN_LABEL = arguments.plan_label
+    codex_runner.configure_run(
+        arguments.output_dir,
+        arguments.diagnostic_output_dir,
+        cli_attempt=arguments.cli_attempt,
+        prior_cli_starts=arguments.prior_cli_starts,
+        reuse_saved_cli_input=False,
+        source_dir=arguments.facts_dir,
+        plan_id=PLAN_ID,
+        plan_label=PLAN_LABEL,
+        plan_id_prefix=PLAN_PREFIX,
+        revision_source_plan_id="NONE_INITIAL_STAGE",
+        revision_source_path="NONE",
+        feedback_summary="NONE",
+        feedback_events="NONE",
+    )
+def prepare() -> dict[str, Any]:
+    codex_runner.assert_run_lock()
+    budget = {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_BUDGET",
+        "provider": "codex-cli-openai",
+        "model": codex_runner.MODEL,
+        "reasoning_effort": codex_runner.REASONING_EFFORT,
+        "max_cli_process_starts": 1,
+        "cli_process_starts_in_experiment": 0,
+        "prior_cli_process_starts": codex_runner.PRIOR_CLI_STARTS,
+        "cumulative_cli_process_starts_after_this_attempt": codex_runner.PRIOR_CLI_STARTS + 1,
+        "max_operational_plans": 1,
+        "new_operational_plans": 0,
+        "max_stage_simulations": 1,
+        "stage_simulations_started": 0,
+        "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+        "automatic_retry": False,
+        "automatic_resume": False,
+    }
+    write_json(codex_runner.OUT / "budget_usage.json", budget)
+    evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
+    evidence = copy.deepcopy(evidence)
+    schema = evidence["output_schema"]
+    evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
+    evidence["tactical_provider"] = {
+        "provider": "codex-cli", "model": codex_runner.MODEL,
+        "reasoning_effort": codex_runner.REASONING_EFFORT,
+        "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
+    }
+    evidence["codex_cli_run_policy"] = {
+        "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
+        "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
+        "readonly_query_helpers": True,
+    }
+    evidence.pop("output_schema", None)
+    write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
+    write_json(codex_runner.OUT / "revision_output_schema.json", schema)
+    prompt = build_prompt(evidence)
+    prompt_bytes = len(prompt.encode("utf-8"))
+    if prompt_bytes > BODY_LIMIT:
+        raise RuntimeError(f"Codex prompt exceeds {BODY_LIMIT} bytes: {prompt_bytes}")
+    (codex_runner.OUT / "codex_prompt.txt").write_text(prompt, encoding="utf-8")
+    completeness = {
+        "stage_id": evidence["stage_id"] == STAGE_ID,
+        "all_34_low_stars_present": len(evidence["normal_low_star_catalog"]) == 34,
+        "all_17_three_stars_present": sum(
+            item["identity"]["rarity"] == 3 for item in evidence["normal_low_star_catalog"]
+        ) == 17,
+        "routes_present": bool(evidence["source_routes"]),
+        "wave_schedule_present": bool(evidence["source_wave_schedule"]),
+        "runtime_status": evidence["stage_mechanism_support"]["runtime_adapter_status"],
+        "prompt_bytes": prompt_bytes,
+        "prompt_bytes_at_or_below_limit": prompt_bytes <= BODY_LIMIT,
+    }
+    if not all(completeness.values()):
+        raise RuntimeError("stage evidence completeness check failed: " + json.dumps(completeness, sort_keys=True))
+    write_json(codex_runner.OUT / "evidence_completeness.json", completeness)
+    write_json(codex_runner.OUT / "codex_command.json", {
+        "argv": codex_runner.build_command(codex_runner.OUT / "codex_final_message.txt"),
+        "stdin": "prompt", "shell": False,
+        "prompt_sha256": sha256(codex_runner.OUT / "codex_prompt.txt"),
+        "prompt_bytes": prompt_bytes,
+        "timeout_seconds": codex_runner.CLI_TIMEOUT_SECONDS,
+    })
+    return {"prompt": prompt, "schema": schema, "budget": budget}
+
+
+def build_prompt(evidence: dict[str, Any]) -> str:
+    evidence_json = json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))
+    return f"""You are {codex_runner.MODEL} via the local Codex CLI, the tactical decision maker for {STAGE_ID} / {STAGE_ID.replace('main_0', 'R8-')}.
+Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operational_plan_id": "{PLAN_ID}"` exactly. The final assistant message must be exactly one JSON object matching the supplied output schema; no markdown wrapper or commentary.
+
+You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
+
+Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; reverse it to [row,col] before checking DEPLOY. For example, active roadblock [col,row]=[5,3] forbids DEPLOY [row,col]=[3,5]. Never deploy on any converted roadblock tile. WIN is zero leaks, exhausted spawns and no active enemies.
+
+This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you.
+
+Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
+
+EVIDENCE_JSON
+{evidence_json}
+"""
+
+
+def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
+    evidence = load(codex_runner.OUT / "llm_evidence_context.json")
+    schema = load(codex_runner.OUT / "revision_output_schema.json")
+    errors: list[str] = []
+    try:
+        schema_errors = sorted(Draft7Validator(schema).iter_errors(parsed), key=lambda item: list(item.path))
+        errors.extend(f"schema: {'/'.join(map(str, item.path)) or '<root>'}: {item.message}" for item in schema_errors)
+    except Exception as exc:
+        errors.append(f"schema validation unavailable: {exc}")
+    errors.extend(validate_operational_plan_output(parsed, evidence))
+    if isinstance(parsed, dict):
+        plans = parsed.get("revised_operational_plans")
+        plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
+        hypothesis_ids = {
+            row.get("hypothesis_id")
+            for row in parsed.get("revised_strategic_hypotheses") or []
+            if isinstance(row, dict) and row.get("hypothesis_id")
+        }
+        if plan.get("parent_hypothesis_id") not in hypothesis_ids:
+            errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
+        if not str(plan.get("operational_plan_id", "")).startswith(PLAN_PREFIX):
+            errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
+    validation = {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
+        "status": "PASS" if not errors else "FAIL",
+        "errors": errors,
+    }
+    write_json(codex_runner.OUT / "llm_plan_validation.json", validation)
+    if errors:
+        write_json(codex_runner.OUT / "invalid_final_plan.json.parsed", parsed, exclusive=True)
+        write_json(codex_runner.OUT / "final_status.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+            "status": "FAILED_INVALID_PLAN_NO_RETRY", "errors": errors,
+            "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
+        })
+        raise SystemExit(f"Codex {PLAN_LABEL} failed schema/contract validation: {errors}")
+    write_json(codex_runner.OUT / "llm_structured_output.json", parsed)
+    write_json(codex_runner.OUT / "final_status.json", {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+        "status": f"GPT_{PLAN_LABEL}_RECEIVED_AND_CONTRACT_VALID",
+        "cli_process_starts_in_experiment": 1,
+        "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+        "new_operational_plans": 1, "stage_simulations_started": 0,
+        "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+        "session_ids": execution["trajectory"]["session_ids"],
+        "thread_ids": execution["trajectory"]["thread_ids"],
+        "usage_records": execution["trajectory"]["usage_records"],
+    })
+    return validation
+
+
+def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = codex_runner.run_codex_once) -> dict[str, Any]:
+    prepared = prepare()
+    last_message_path = codex_runner.OUT / "codex_final_message.txt"
+    command = codex_runner.build_command(last_message_path)
+    try:
+        execution = runner(prepared["prompt"], command, codex_runner.CLI_TIMEOUT_SECONDS)
+    except Exception as exc:
+        write_json(codex_runner.OUT / "final_status.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+            "status": "CLI_FAILED_NO_RETRY", "error": f"{type(exc).__name__}: {exc}",
+            "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
+        })
+        raise
+    if execution["process"]["exit_code"] != 0:
+        write_json(codex_runner.OUT / "final_status.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+            "status": "CLI_FAILED_NO_RETRY", "failure": execution["process"],
+            "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
+        })
+        raise SystemExit("Codex CLI failed without retry")
+    if not last_message_path.is_file():
+        write_json(codex_runner.OUT / "final_status.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+            "status": "CLI_FAILED_NO_RETRY", "error": "Codex CLI did not save --output-last-message",
+            "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
+        })
+        raise SystemExit("Codex CLI final message missing")
+    final_text = last_message_path.read_text(encoding="utf-8").strip()
+    last_message_path.write_text(final_text + "\n", encoding="utf-8")
+    try:
+        parsed = json.loads(final_text)
+    except json.JSONDecodeError as exc:
+        write_json(codex_runner.OUT / "llm_plan_validation.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
+            "status": "FAIL", "error": f"final message is not JSON: {exc}",
+        })
+        write_json(codex_runner.OUT / "final_status.json", {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
+            "status": "FAILED_INVALID_PLAN_NO_RETRY", "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
+        })
+        raise SystemExit("Codex final message is not JSON")
+    validate_final(parsed, execution)
+    return parsed
+
+
+def static_check() -> dict[str, Any]:
+    if load(codex_runner.OUT / "llm_plan_validation.json").get("status") != "PASS":
+        raise RuntimeError(f"static check requires locally validated {PLAN_LABEL}")
+    return compile_plan(codex_runner.OUT)
+
+
+def simulate() -> dict[str, Any]:
+    from run_gpt_tactical_stage_diagnostic_v1 import run_full_diagnostic
+
+    static = load(codex_runner.OUT / "static_compile_results.json")
+    if static["conflicts"]:
+        write_json(codex_runner.OUT / "static_compile_execution_gate.json", {
+            "status": "BLOCKED_STATIC_CONFLICT", "conflicts": static["conflicts"],
+        })
+        raise SystemExit(f"{PLAN_LABEL} static conflicts block diagnostic simulation")
+    budget = load(codex_runner.OUT / "budget_usage.json")
+    if budget["stage_simulations_started"]:
+        raise RuntimeError("stage simulation budget already consumed")
+    budget["stage_simulations_started"] = 1
+    write_json(codex_runner.OUT / "budget_usage.json", budget)
+    run_full_diagnostic(
+        source=codex_runner.OUT, out=codex_runner.DIAGNOSTIC_OUT,
+        stage_id=STAGE_ID, plan_id=PLAN_ID,
+    )
+    summary = load(codex_runner.DIAGNOSTIC_OUT / "diagnostic_summary.json")
+    write_json(codex_runner.OUT / "simulation_gate.json", {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_SIMULATION_GATE",
+        "status": "COMPLETED", "result_classification": summary["classification"],
+        "faithful_certificate": summary["faithful_certificate"],
+        "simulator_win": summary["result"]["win"],
+        "real_game_win_claim": False,
+    })
+    return summary
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("phase", choices=["prepare", "session", "static_check", "simulate"])
+    parser.add_argument("--stage-id", required=True)
+    parser.add_argument("--facts-dir", required=True)
+    parser.add_argument("--output-dir", required=True)
+    parser.add_argument("--diagnostic-output-dir", required=True)
+    parser.add_argument("--plan-id", required=True)
+    parser.add_argument("--plan-label", required=True)
+    parser.add_argument("--plan-id-prefix", required=True)
+    parser.add_argument("--cli-attempt", type=int, default=1)
+    parser.add_argument("--prior-cli-starts", type=int, default=0)
+    arguments = parser.parse_args()
+    configure(arguments)
+    if arguments.phase == "session":
+        run_session()
+    elif arguments.phase == "prepare":
+        prepared = prepare()
+        print(json.dumps({"prompt_bytes": len(prepared["prompt"].encode()), "budget": prepared["budget"]}, sort_keys=True))
+    elif arguments.phase == "static_check":
+        static_check()
+    else:
+        simulate()
+
+
+if __name__ == "__main__":
+    main()

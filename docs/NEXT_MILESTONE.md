@@ -172,4 +172,7 @@ them targetable only when no ordinary enemy candidate existed. Both used the exa
 `m11_second_quantized` policy, 30 FPS, and 600-second limit. Both returned 56/56 kills, zero leaks, zero
 operator deaths, and remaining life 5. Therefore R8-1 now has a robust roadblock-targeting simulator WIN
 within these two variants. This is not a deterministic client claim or real-game win. The next actionable
-work is R8-2 source-backed civilian field support.
+work is no longer the old civilian field blocker. The NO_DAMAGE attributes are fixed. The direct
+blocker is tactical output discipline: GPT repeatedly selects converted roadblock tiles even after
+explicit coordinate instructions. Do not rerun without a prompt/contract design that can reject those
+choices before another model request.

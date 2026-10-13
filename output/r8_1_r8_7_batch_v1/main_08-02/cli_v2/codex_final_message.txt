@@ -1,0 +1,303 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-02",
+    "scope": "First spawn through final WIN; initial stage plan.",
+    "GameData": {
+      "exits_row_col": [[1, 0], [4, 0]],
+      "deployment_limit": 8,
+      "ordinary_three_star_catalog_count": 17
+    },
+    "current_model": {
+      "expanded_final_spawn_seconds": 171,
+      "schedule_correction": "The supplied 163-second value is the final group onset; its count=2 and interval=8 expand through 171 seconds.",
+      "zero_leaks": "Intercept every spawned entity, including enemy_3001_upeopl: life_point_reduce=0 does not exempt an entity from the simulator leak counter.",
+      "validation": "Range and economic arithmetic checked read-only; no battle simulation performed."
+    },
+    "UNKNOWN": [
+      "Active roadblock effects on ordinary WALK navigation.",
+      "Exact client timing, target ordering and civilian behavior beyond the supplied model."
+    ]
+  },
+  "revised_tactical_requirements": {
+    "blocking": "Maintain independent exit defenses on rows 1 and 4; reinforce both without transferring their essential fire support.",
+    "damage": "Upper: Cardigan, Midnight and Adnachiel. Lower: Beagle, Melantha and Kroos.",
+    "healing": "Ansel covers both upper melee units; Hibiscus covers both lower melee units.",
+    "completion": "Zero leaks, exhausted expanded spawn schedule and no active enemies.",
+    "verification_status": "Executable tactical proposal with checked geometry and conditional economy; WIN remains unverified."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_2_H_V2",
+      "claim": "Early interception of both exits followed by two sustained blocking formations can absorb the staggered and paired waves without relying on roadblock navigation or unsupported talents."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_2_GPT_V2",
+      "parent_hypothesis_id": "R8_2_H_V2",
+      "tactical_thesis": "Open with Fang protecting the upper civilian exit and Friston-3 holding the lower combat exit under Kroos. Build independent healing and melee fire support, then replace the temporary blockers while preserving continuous interception.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_208_melan",
+        "char_211_adnach",
+        "char_209_ardign",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_122_beagle"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id": "char_123_fang", "tile": [1, 2], "direction": "RIGHT", "role": "Temporary upper interception and DP"},
+        {"operator_id": "char_4093_frston", "tile": [4, 3], "direction": "LEFT", "role": "Temporary lower three-block defense"},
+        {"operator_id": "char_124_kroos", "tile": [5, 3], "direction": "DOWN", "role": "Lower fire support"},
+        {"operator_id": "char_120_hibisc", "tile": [5, 2], "direction": "RIGHT", "role": "Lower healing"},
+        {"operator_id": "char_208_melan", "tile": [4, 4], "direction": "LEFT", "role": "Lower forward damage and one-block interception"},
+        {"operator_id": "char_211_adnach", "tile": [3, 2], "direction": "DOWN", "role": "Upper fire support"},
+        {"operator_id": "char_209_ardign", "tile": [1, 3], "direction": "RIGHT", "role": "Upper permanent three-block defense"},
+        {"operator_id": "char_212_ansel", "tile": [2, 2], "direction": "RIGHT", "role": "Upper healing"},
+        {"operator_id": "char_283_midn", "tile": [1, 2], "direction": "RIGHT", "role": "Upper ranged melee support and two-block rear reserve"},
+        {"operator_id": "char_122_beagle", "tile": [4, 3], "direction": "RIGHT", "role": "Permanent lower three-block defense"}
+      ],
+      "formation_structure": {
+        "opening": {
+          "upper": "Fang at [1,2] intercepts routes 1 and 3.",
+          "lower": "Friston-3 at [4,3], covered by Kroos, intercepts routes 2 and 4."
+        },
+        "stable": {
+          "upper": "Cardigan [1,3] fronts Midnight [1,2]; Adnachiel and Ansel support both.",
+          "lower": "Melantha [4,4] intercepts one entity; Beagle [4,3] catches overflow; Kroos and Hibiscus cover both."
+        },
+        "range_checks": {
+          "kroos_and_hibiscus": [[4, 3], [4, 4]],
+          "adnachiel_and_ansel": [[1, 2], [1, 3]],
+          "midnight": [[1, 3], [1, 4], [1, 5]],
+          "basis": "GameData offsets transformed by ApproximateRealRangeTransformer."
+        },
+        "maximum_occupied_operator_slots": 8,
+        "cross_lane_fire_credit": "None"
+      },
+      "formation_transitions": [
+        {
+          "time_seconds": 40,
+          "transition": "Add Melantha upstream of Friston-3; keep the rear blocker and existing healer."
+        },
+        {
+          "time_seconds": 63,
+          "transition": "Deploy Cardigan ahead of Fang before the first upper fast-enemy contact."
+        },
+        {
+          "time_seconds": 70,
+          "transition": "Retreat Fang after Cardigan is established and Fang's modeled 69-second DP trigger has occurred; reserve the vacated tile for Midnight."
+        },
+        {
+          "time_seconds": 90,
+          "transition": "Deploy Midnight on Fang's vacated tile, completing upper damage and rear interception."
+        },
+        {
+          "time_seconds": 108,
+          "transition": "Retreat Friston-3 and deploy Beagle one frame later on the same tile; Melantha and Kroos maintain upstream interception."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "route_ids": ["route-1", "route-3"],
+          "owner": "Fang, then Cardigan with Midnight rear support",
+          "instruction": "Intercept and clear these entities under current-model zero-leak semantics; do not permit an exit merely because their life-point reduction is zero."
+        },
+        {
+          "route_ids": ["route-2", "route-4", "route-11"],
+          "owner": "Friston-3, then Melantha plus Beagle",
+          "support": "Kroos attacks; Hibiscus heals both lower melee positions."
+        },
+        {
+          "route_ids": ["route-5", "route-6", "route-9", "route-10", "route-18", "route-19", "route-20", "route-21", "route-22"],
+          "owner": "Lower formation",
+          "instruction": "Absorb arrivals at the row-4 exit approach regardless of unresolved device navigation upstream."
+        },
+        {
+          "route_ids": ["route-7", "route-8", "route-12", "route-13", "route-14", "route-15", "route-16", "route-17"],
+          "owner": "Cardigan",
+          "support": "Adnachiel attacks the blocking tile; Midnight attacks through Cardigan and catches overflow; Ansel heals both melee units."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        {
+          "model_spawn_window_seconds": [3, 45],
+          "task": "Cover the first civilian immediately; establish lower blocking before the first officer reaches [4,3]; add lower healing and Melantha."
+        },
+        {
+          "model_spawn_window_seconds": [50, 105],
+          "task": "Handle lower civilians and the five-officer route-11 stream while establishing Cardigan before 65 seconds; strengthen upper clearing with Adnachiel's first skill and Midnight."
+        },
+        {
+          "model_spawn_window_seconds": [120, 151],
+          "task": "Keep both three-block defenders deployed. Use upper healing from 124 seconds, Midnight from 134 seconds, and lower burst and defense from 147–148 seconds."
+        },
+        {
+          "model_spawn_window_seconds": [160, 171],
+          "task": "Hold both formations through the final paired groups. Adnachiel's second skill and Midnight cover upper pressure; lower burst overlaps early final arrivals and Beagle's defense remains active through 178 seconds."
+        },
+        {
+          "model_spawn_window_seconds": [171, null],
+          "task": "Continue attacks, blocking and healing until the full WIN predicate holds; 171 seconds is not a retreat deadline."
+        }
+      ],
+      "skill_intents": [
+        {
+          "operator_id": "char_123_fang",
+          "mode": "AUTO",
+          "modeled_trigger_seconds": [19, 44, 69],
+          "effect": "+6 DP per supported trigger; Fang remains deployed through all three.",
+          "economic_dependency": "Fang's supported self-cost talent makes the initial deployment cost 10."
+        },
+        {
+          "operator_id": "char_211_adnach",
+          "activation_seconds": [91, 151],
+          "purpose": "Clear initial upper accumulation, then reinforce the final paired fast-enemy waves.",
+          "sp_basis": "Deployed at 51; 40 inactive seconds per charge; 20-second active intervals."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "activation_seconds": [80, 147],
+          "purpose": "Increase lower single-target clearing during the officer stream and paired late arrivals.",
+          "sp_basis": "Deployed at 40; 40 inactive seconds per charge; 20-second duration."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "activation_seconds": [80, 147],
+          "purpose": "Increase lower healing during concurrent frontline and overflow blocking.",
+          "sp_basis": "Deployed at 25; 30 inactive seconds per charge; 20-second duration."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "activation_seconds": [124, 184],
+          "purpose": "Support upper paired waves and prolonged cleanup.",
+          "sp_basis": "Deployed at 74 with 10 initial SP; 35 SP cost; 25-second active intervals.",
+          "range_dependency": "Both upper melee units are already in base range."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "activation_seconds": [134],
+          "purpose": "Boost upper fire through the central and final paired waves.",
+          "sp_basis": "Deployed at 90 with 30 initial SP; 70 SP cost; 40-second duration.",
+          "credited_effect": "Supported ATK modifier only; no additional unverified damage-type effect is required."
+        },
+        {
+          "operator_id": "char_122_beagle",
+          "activation_seconds": [148],
+          "purpose": "Protect lower overflow blocking through 178 seconds.",
+          "sp_basis": "Deployed at 108 plus one frame; 40 inactive seconds available by 148; 30-second duration."
+        },
+        {
+          "operator_id": "char_124_kroos",
+          "mode": "AUTO",
+          "purpose": "Use supported attack-SP double-shot execution; do not credit probability talent."
+        },
+        {
+          "operator_id": "char_209_ardign",
+          "mode": "NO_MANUAL_ACTIVATION",
+          "reason": "Self-heal skill is unsupported; use baseline durability and Ansel."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {"rule": "Use only listed normal-mode rarity-1–3 catalog operators; no mode-specific reserves."},
+        {"rule": "Every deployment uses integer [row,col] and a legal facing; never deploy at [2,5] or [4,7]."},
+        {"rule": "Keep upper and lower interception active simultaneously."},
+        {"rule": "Preserve each lane's sniper and medic through cleanup; no economic retreats after the two specified handoffs."},
+        {"rule": "Never exceed eight occupied operator slots; assume no robot slot exemption."},
+        {"rule": "Do not credit unsupported talents, Cardigan self-heal, robot buffs, refunds or roadblock-induced detours."},
+        {"rule": "All action frames are tactical choices under the 30-FPS model, not exact client deadlines."},
+        {"rule": "Accept WIN only with zero leaks, all expanded spawns consumed and no active enemies."}
+      ],
+      "explicit_deadline_basis": [
+        {
+          "event": "First upper civilian interception",
+          "model_calculation": "Route-1 distance to [1,2] is 12; 3 + 12/0.65 = approximately 21.46 seconds.",
+          "choice": "Deploy Fang at frame 0.",
+          "limitation": "Adapter geometry excludes unresolved active-device navigation."
+        },
+        {
+          "event": "First lower officer interception",
+          "model_calculation": "Route-2 distance to [4,3] is 8; 12 + 8/1.1 = approximately 19.27 seconds.",
+          "choice": "Deploy Friston-3 at 14 seconds."
+        },
+        {
+          "event": "First upper fast-enemy interception",
+          "model_calculation": "Route-7 distance to [1,3] is 6; 65 + 6/1.7 = approximately 68.53 seconds.",
+          "choice": "Deploy Cardigan at 63 seconds."
+        }
+      ],
+      "economic_order": {
+        "basis": "Initial DP 10, natural +1/s, Fang +6 at 19/44/69; zero refund credit.",
+        "deployments_time_cost_balance_after": [
+          [0, 10, 0],
+          [11, 11, 0],
+          [14, 3, 0],
+          [25, 17, 0],
+          [40, 15, 0],
+          [51, 11, 6],
+          [63, 18, 0],
+          [74, 17, 0],
+          [90, 16, 0],
+          [108.0333333333, 18, 0]
+        ],
+        "condition": "Balances assume completed natural-DP ticks and supported Fang AUTO triggers; no same-frame refund is needed."
+      },
+      "reserve_strategy": [
+        {
+          "upper": "Midnight supplies two rear block slots behind Cardigan.",
+          "lower": "The three-block rear defender catches entities passing Melantha's one-block frontline.",
+          "policy": "Keep reserves deployed; no unbudgeted emergency redeployment."
+        }
+      ],
+      "unknown_dependencies": [
+        {
+          "mechanic": "Roadblock navigation and target ordering",
+          "status": "UNKNOWN",
+          "treatment": "No redirect, device destruction, targeting preference or delay is assumed."
+        },
+        {
+          "mechanic": "Exact attack timing, discrete kill order and aggregate survival",
+          "status": "UNKNOWN",
+          "treatment": "Geometry and DP checks do not establish battle feasibility."
+        },
+        {
+          "mechanic": "Client civilian handling",
+          "status": "UNKNOWN",
+          "treatment": "This plan follows the supplied simulator's all-entity zero-leak requirement."
+        }
+      ],
+      "verification_questions": [
+        {"question": "Do both defenses clear paired arrivals before their frontline and rear blocking capacities are exceeded?"},
+        {"question": "Does Friston-3 survive lower overflow until the 108-second handoff with Hibiscus healing?"},
+        {"question": "Do device interactions alter arrival geometry or divert fire enough to invalidate the declared defenses?"}
+      ],
+      "action_timeline": [
+        {"action_type": "DEPLOY", "frame": 0, "operator_id": "char_123_fang", "tile": [1, 2], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 330, "operator_id": "char_124_kroos", "tile": [5, 3], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 420, "operator_id": "char_4093_frston", "tile": [4, 3], "direction": "LEFT"},
+        {"action_type": "DEPLOY", "frame": 750, "operator_id": "char_120_hibisc", "tile": [5, 2], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 1200, "operator_id": "char_208_melan", "tile": [4, 4], "direction": "LEFT"},
+        {"action_type": "DEPLOY", "frame": 1530, "operator_id": "char_211_adnach", "tile": [3, 2], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 1890, "operator_id": "char_209_ardign", "tile": [1, 3], "direction": "RIGHT"},
+        {"action_type": "RETREAT", "frame": 2100, "operator_id": "char_123_fang"},
+        {"action_type": "DEPLOY", "frame": 2220, "operator_id": "char_212_ansel", "tile": [2, 2], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2400, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2400, "operator_id": "char_120_hibisc"},
+        {"action_type": "DEPLOY", "frame": 2700, "operator_id": "char_283_midn", "tile": [1, 2], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2730, "operator_id": "char_211_adnach"},
+        {"action_type": "RETREAT", "frame": 3240, "operator_id": "char_4093_frston"},
+        {"action_type": "DEPLOY", "frame": 3241, "operator_id": "char_122_beagle", "tile": [4, 3], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3720, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4020, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4410, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4410, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4440, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4530, "operator_id": "char_211_adnach"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5520, "operator_id": "char_212_ansel", "condition": "Battle still active"}
+      ]
+    }
+  ]
+}

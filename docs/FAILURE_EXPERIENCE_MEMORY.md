@@ -302,3 +302,10 @@ assistant文本或原生function_call。上限不足导致的`response.incomplet
 若最终文本被当成计划，普通JSON对象可以完全不符合根schema并缺少核心战术字段。应保存原始
 响应、最终文本、usage、request ID、工具计数和精确schema错误；不要把失败压缩成“调用失败”。
 本例中的失败占1次模型请求，0次工具执行，不能重试或让Python补写C2。
+
+## 2026-10-14 七关GPT计划失败经验
+
+GPT能读取事实，但三次R8-2计划在显式路障数组后仍选择`[row,col]=[5,3]`或`[2,1]`；第三次已明确
+解释`[col,row]`到`[row,col]`的反转，仍不改。R8-4 V2同样选择路障。这不是坐标格式解析缺陷的唯一
+假设；更像模型把roadblock tile当作可部署/支援位。Python不得替它挪格或删干员。必须把这类计划拒在
+静态前，并保留invalid plan、prompt版本与usage。
