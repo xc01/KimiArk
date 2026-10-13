@@ -192,6 +192,12 @@ Provider兼容性未实测时，mock成功不能升格为真实协议兼容。�
 响应、最终文本、usage、request ID、工具计数和精确schema错误；不要把失败压缩成“调用失败”。
 本例中的失败占1次模型请求，0次工具执行，不能重试或让Python补写C2。
 
+## 2026-10-14 Codex CLI环境继承经验
+
+交互shell的`~/.bashrc`代理导出不会自动进入Python subprocess。CLI进程必须在启动前显式记录并提供
+`HTTP_PROXY`、`HTTPS_PROXY`、`ALL_PROXY`和`NO_PROXY`；否则即使mihomo节点是新加坡，Codex仍可能直连并
+在网络路由阶段失败。失败一次就停止；不能把环境修复后的新启动伪装成同一进程的续接。
+
 ## 2026-10-13 C4服务失败经验
 
 HTTP 503是provider可用性失败，不是计划失败、工具失败或战术不可行证明；但它确实消耗请求预算。

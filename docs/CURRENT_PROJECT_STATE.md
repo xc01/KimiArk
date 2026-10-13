@@ -299,6 +299,11 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+The local Codex CLI C4 entry now exists and is bounded to one process, one plan and one diagnostic
+simulation. Its first authorized process failed before producing tactical output: workspace routing
+discovery timed out because subprocess proxy variables were absent. The runner has since gained explicit
+mihomo proxy defaults, but the consumed CLI attempt remains 0 plans / 0 simulations and is not resumed.
+
 ## 2026-10-13 — GPT-C4 blocked by provider 503
 
 The C4 request was prepared compactly without the full C2 plan while retaining C2 failure evidence,

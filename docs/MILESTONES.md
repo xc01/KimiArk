@@ -397,3 +397,9 @@ plans and 0 simulations. The remaining two requests require an explicit Work dec
 
 An explicitly authorized attempt-2 recovery reused the same frozen body and returned a second HTTP 503.
 The session is 2/3 requests, 0/6 tools, 0 plans and 0 simulations; no third request is automatic.
+
+## 2026-10-14 — Codex CLI C4 entry blocked before model turn
+
+The local Codex CLI entry passed 58/58 targeted tests, launched its single authorized process, then
+failed on workspace routing discovery because proxy variables were not inherited. The runner now sets
+explicit local mihomo defaults, but the failed session remains 0 plans / 0 simulations and is not resumed.

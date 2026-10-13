@@ -116,3 +116,9 @@ The explicitly authorized attempt-2 recovery reused the same 138,957-byte body a
 (`47cd2c69-13aa-4a90-b824-4938ae83aadb`). The session is now 2/3 requests, 0/6 tools, 0 plans and 0
 simulations. The remaining request is not authorized automatically after this second failure; Work
 must review whether the service outage has cleared before spending it.
+
+The separately authorized Codex CLI C4 experiment consumed its one process but did not reach a tactical
+turn: workspace routing discovery timed out (`01a13607-f3d3-7ee2-9ccf-751acb5a2dd0`) because the
+automation shell did not inherit interactive proxy exports. The runner now supplies explicit local
+mihomo proxy defaults, but this consumed session cannot be resumed or retried. Work must authorize a
+new CLI directory/budget after reviewing `output/r8_1_gpt_c4_codex_cli_v1/`.

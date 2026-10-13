@@ -221,7 +221,7 @@ DNS阻断无法安装声明的pytest<9）。`compileall`、V2 manifest哈希、`
 `021791876941005b531818cd979bd70c39b690ac6f23902ffe415`、usage 1105 tokens，成功返回坐标
 约定确认。provider兼容性升格为“非战术工具轮CONFIRMED”；真实C2仍待Work批准。
 
-测试：原43项（deselect本轮4项新回归）43/43 PASS；当前合计50/50 PASS。compileall、
+测试：原43项（deselect本轮4项新回归）58/58 PASS；当前合计50/50 PASS。compileall、
 diff check、secret scan、evidence manifest均通过。三次probe本地启动错误都未发起HTTP请求。
 
 ## 2026-10-13 — C2有界真实工具会话
@@ -345,3 +345,12 @@ effort一致，且`llm_request.json`与attempt请求和body哈希完全一致；
 第2次请求原样重放同一body，仍HTTP 503，request ID
 `47cd2c69-13aa-4a90-b824-4938ae83aadb`。预算更新为2/3请求、0/6工具、0计划、0模拟；已按授权停止，
 不自动使用第3次请求。
+
+## 2026-10-14 Codex CLI C4入口失败
+
+新增只读Codex CLI入口，参数数组调用`codex exec --json --sandbox read-only`，使用OpenAI provider、
+`gpt-6.1-sol`、medium reasoning和现有schema。复用C4紧凑证据，不读取auth token。相关pytest 58/58 PASS。
+
+唯一CLI进程启动后因workspace routing discovery timed out失败；thread
+`01a13607-f3d3-7ee2-9ccf-751acb5a2dd0`，退出码1，无usage记录，0计划，0模拟。根因观察是自动化子进程
+未继承交互shell的本地代理变量；事后runner已加mihomo代理默认值并保留本次失败，不重跑。

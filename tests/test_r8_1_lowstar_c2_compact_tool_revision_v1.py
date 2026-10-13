@@ -184,7 +184,7 @@ class CompactC2Tests(unittest.TestCase):
         plan = json.loads((OUT / "llm_structured_output.json").read_text(encoding="utf-8"))["revised_operational_plans"][0]
         catalog = {row["operator_id"]: row for row in evidence["normal_low_star_catalog"]}
         supports = {row["operator_id"]: row.get("runtime_support") or {} for row in evidence["normal_low_star_catalog"]}
-        ledger = build_dp_ledger(plan, catalog, supports)
+        ledger = build_dp_ledger(plan, catalog, supports, OUT)
         by_key = {(row["frame"], row["event"], row.get("operator_id")): row for row in ledger["entries"]}
         auto = by_key[(570, "AUTO_SKILL_DP_INCOME", "char_123_fang")]
         deploy = by_key[(600, "DEPLOY_COST", "char_500_noirc")]

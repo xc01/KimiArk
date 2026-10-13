@@ -1,0 +1,33 @@
+{
+  "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_POSTMORTEM",
+  "status": "CLI_FAILED_NO_RETRY",
+  "root_cause_observation": "The automated subprocess did not inherit interactive-shell proxy exports; workspace routing discovery timed out before any tactical output.",
+  "network_observations": {
+    "direct_egress": {
+      "city": "Shanghai",
+      "country_code": "CN",
+      "ip": "202.120.234.196"
+    },
+    "mihomo_egress": {
+      "city": "Singapore",
+      "country_code": "SG",
+      "ip": "172.236.135.17"
+    },
+    "openai_via_mihomo": "Reached api.openai.com; unauthenticated request returned MISSING_BEARER_AUTH, not region 403."
+  },
+  "runner_correction_after_failure": {
+    "applies_to_future_runs": true,
+    "this_session_restarted": false,
+    "proxy_defaults": {
+      "HTTP_PROXY": "http://127.0.0.1:7890",
+      "HTTPS_PROXY": "http://127.0.0.1:7890",
+      "ALL_PROXY": "socks5://127.0.0.1:7890",
+      "NO_PROXY": "localhost,127.0.0.1,::1"
+    }
+  },
+  "cli_thread_id": "01a13607-f3d3-7ee2-9ccf-751acb5a2dd0",
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "usage_records": [],
+  "new_operational_plans": 0,
+  "stage_simulations_started": 0
+}

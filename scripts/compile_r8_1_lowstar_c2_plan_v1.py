@@ -21,6 +21,10 @@ def write_json(name: str, payload: Any) -> None:
     (OUT / name).write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def write_json_at(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -312,7 +316,7 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
     plan = plans[0]
     catalog = operator_map(evidence)
     supports = support_map(evidence)
-    engine = ReadOnlyQueryEngine(evidence_path=OUT / "llm_evidence_context.json")
+    engine = ReadOnlyQueryEngine(evidence_path=input_dir / "llm_evidence_context.json")
     active = evidence["stage_active_facts"]
     roadblocks = {tuple(item) for item in active["roadblock_tiles_col_row"]}
     ground = {tuple(item) for item in active["deployable_ground_tiles_col_row"]}
@@ -528,9 +532,9 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
         "operationally_verified": False,
         "no_stage_simulation": True,
     }
-    write_json(input_dir / "static_compile_results.json", certificate)
-    write_json(input_dir / "direction_complete_action_candidate.json", action_candidate)
-    write_json(input_dir / "static_compile_final_status.json", {
+    write_json_at(input_dir / "static_compile_results.json", certificate)
+    write_json_at(input_dir / "direction_complete_action_candidate.json", action_candidate)
+    write_json_at(input_dir / "static_compile_final_status.json", {
         "schema_version": "R8_1_LOWSTAR_C2_COMPACT_STATIC_COMPILE_FINAL_STATUS_V1",
         "plan_id": plan.get("operational_plan_id"),
         "classification": classification,
