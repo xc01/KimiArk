@@ -312,7 +312,7 @@ route-23/33在末段漏出。第一决策信号是早期阻挡容量与击杀转
 
 | 关卡 | 事实/机制支持 | 当前最佳 | 结果 | 漏怪/死亡 | 人数/星级 | 复验 | 实机 | 下一直接瓶颈 |
 |---|---|---|---|---:|---:|---|---|---|
-| R8-1 | 地图/路线/敌人/装置可解析；客户端roadblock导航UNKNOWN | C7 | 固定模拟WIN | 0/0 | 8/22 | roadblock targeting NOT_EVALUATED | UNKNOWN | 两种targeting复验后减员 |
+| R8-1 | 地图/路线/敌人/装置可解析；客户端roadblock导航UNKNOWN | C7 | roadblock-targeting robust simulator WIN | 0/0 | 8/22 | both variants WIN | UNKNOWN | 第一阶段继续；减员等待全部七关WIN |
 | R8-2 | `main_08-02`可解析；通用池被civilian缺RES/baseAttackTime阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | source-backed non-attacking/undefined-field rule |
 | R8-3 | `main_08-03`可解析；DISAPPEAR/APPEAR_AT_POS/WAIT_CURRENT_FRAGMENT_TIME未支持 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | route lifecycle semantics |
 | R8-4 | `main_08-04`可解析；civilian字段阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-2 |

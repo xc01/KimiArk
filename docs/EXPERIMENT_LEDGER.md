@@ -391,3 +391,7 @@ C5输入120,270字节，输出缺少provenance被本地契约拒绝；离线无�
 output usage分别为C5 4,828、C6 5,117、C7 4,406；C5还消耗reasoning 2,582，C6 reasoning 977，
 C7 reasoning 499。新增固定模拟3次。C7是条件模型WIN，不是实机结论；roadblock targeting复验尚未执行，
 不称robust WIN。
+
+C7同一动作时间线完成两种roadblock targeting复验：A_NOT_ORDINARILY_TARGETABLE和
+B_LOW_PRIORITY_NO_ENEMY_ONLY均WIN（56/56、0漏、0死、剩余生命5）。policy、dt、max_time与C7基线一致。
+因此R8-1在这个双变体范围内为robust roadblock-targeting simulator WIN；客户端导航/真实游戏仍UNKNOWN。

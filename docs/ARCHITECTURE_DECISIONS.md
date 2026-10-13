@@ -233,3 +233,7 @@ schema参数。任务文本仍要求完整OperationalPlan JSON；接收后必须
 为每个revision复制脚本。每次会话仍是一个CLI进程、一个计划、一个模拟；prompt发送前检查140KB上限。
 契约要求provenance.revision_source指向旧计划；纯metadata缺失可无损规范化并保存diff，动作/干员/
 帧/位置/方向改变禁止。七关必须使用实际解析的`main_08-01`到`main_08-07`，不可复制R8-1事实。
+
+决策：R8-1 WIN后的robust检查必须使用同一C7快照与原始30FPS/600秒配置，只切换两种既有roadblock
+targeting解释：A非普通目标；B仅无普通敌人候选时可选中。不得额外发明rerouting、civilian blocking、
+aggressive roadblock或AOE目标。双变体均WIN才可标roadblock-targeting robust simulator WIN。

@@ -431,3 +431,10 @@ with 56/56 kills, zero leaks, zero operator deaths, and remaining life 5. The sq
 The result is classified as conditional current-model WIN. R8-1 roadblock-targeting replay remains
 NOT_EVALUATED and real-game verification is UNKNOWN. New batch totals are 3 CLI process starts and
 3 fixed simulations.
+
+## 2026-10-14 — R8-1 robust roadblock-targeting replay
+
+The exact C7 action timeline was replayed under A_NOT_ORDINARILY_TARGETABLE and
+B_LOW_PRIORITY_NO_ENEMY_ONLY. Both variants WIN with 56/56 kills, zero leaks, zero operator deaths, and
+remaining life 5. This establishes a robust roadblock-targeting simulator WIN within the two evidenced
+variants only; client navigation and real-game status remain UNKNOWN.

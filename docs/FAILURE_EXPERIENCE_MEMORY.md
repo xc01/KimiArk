@@ -212,6 +212,10 @@ route-8 frame-1730决定性缺口得到0漏。失败反馈的价值不是“继�
 WIN不自动等于robust：R8-1 C7仍需同时间线在两种roadblock targeting解释下复验。通用runner后续必须
 把provenance要求写入prompt，避免同类可预防格式消耗。
 
+复验必须保持C7的policy、dt、max_time、动作契约与快照哈希。旧robust脚本中的m11 policy没有问题，但
+不能混用0.1秒/240秒配置；R8-1 C7 replay明确复用30FPS/600秒。只有双变体都WIN时才允许roadblock
+targeting robust声明，不能外推到客户端导航或实机。
+
 ## 2026-10-14 Codex CLI输出schema经验
 
 Codex `--output-schema`使用OpenAI strict response format，不只是本地JSON Schema。根对象必须显式

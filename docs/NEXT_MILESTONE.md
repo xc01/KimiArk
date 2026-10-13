@@ -166,3 +166,10 @@ This is a conditional current-model WIN only. The same C7 action timeline has no
 the two historically evidenced R8-1 roadblock targeting interpretations, so robust status remains
 NOT_EVALUATED. Real-game status remains UNKNOWN. The next direct step is that bounded replay; if both
 replays WIN, then Work/GPT optimization may reduce operator count while preserving the saved baseline.
+
+The bounded replay is complete. Variant A made roadblocks not ordinarily targetable; variant B made
+them targetable only when no ordinary enemy candidate existed. Both used the exact C7 action contract,
+`m11_second_quantized` policy, 30 FPS, and 600-second limit. Both returned 56/56 kills, zero leaks, zero
+operator deaths, and remaining life 5. Therefore R8-1 now has a robust roadblock-targeting simulator WIN
+within these two variants. This is not a deterministic client claim or real-game win. The next actionable
+work is R8-2 source-backed civilian field support.
