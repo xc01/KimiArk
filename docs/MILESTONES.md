@@ -420,3 +420,14 @@ then produced conditional-model LOSS with 49 kills, 7 leaks, no operator deaths,
 The first leak was route-10 `enemy_1108_uterer#15` at frame 2179 without recorded damage or blocking.
 All leak inventory is saved with full events. Cumulative CLI starts are 3/4, final plans 1/1, and
 diagnostic simulations 1/1. Roadblock-targeting robustness was not evaluated.
+
+## 2026-10-14 — R8-1 batch first conditional WIN
+
+The generalized tactical batch runner produced C5, C6, and C7. C5 improved the C4 result from 49/7 to
+51/5 after lossless provenance-only recovery; C6 improved to 55/1; C7 completed a fixed full-stage WIN
+with 56/56 kills, zero leaks, zero operator deaths, and remaining life 5. The squad uses eight ordinary
+1-3 star operators with star total 22.
+
+The result is classified as conditional current-model WIN. R8-1 roadblock-targeting replay remains
+NOT_EVALUATED and real-game verification is UNKNOWN. New batch totals are 3 CLI process starts and
+3 fixed simulations.

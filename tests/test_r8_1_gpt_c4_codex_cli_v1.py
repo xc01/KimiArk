@@ -84,8 +84,12 @@ class GptC4CodexCliTests(unittest.TestCase):
             temporary_dir = Path(temporary)
             original_out = runner.OUT
             original_source = runner.SOURCE
+            original_feedback_summary = runner.FEEDBACK_SUMMARY_PATH
+            original_feedback_events = runner.FEEDBACK_EVENTS_PATH
             runner.OUT = temporary_dir
-            runner.SOURCE = ROOT / "output/r8_1_gpt_c4_tactical_revision_v1"
+            runner.SOURCE = ROOT / "output/r8_1_gpt_c4_codex_cli_v3"
+            runner.FEEDBACK_SUMMARY_PATH = ROOT / "output/r8_1_gpt_c4_codex_cli_diagnostic_v3/diagnostic_summary.json"
+            runner.FEEDBACK_EVENTS_PATH = ROOT / "output/r8_1_gpt_c4_codex_cli_diagnostic_v3/diagnostic_events.json"
             try:
                 (temporary_dir / "codex_final_message.txt").write_text("not-json", encoding="utf-8")
                 completed = mock.Mock(returncode=0, stdout="", stderr="")
@@ -104,6 +108,8 @@ class GptC4CodexCliTests(unittest.TestCase):
             finally:
                 runner.OUT = original_out
                 runner.SOURCE = original_source
+                runner.FEEDBACK_SUMMARY_PATH = original_feedback_summary
+                runner.FEEDBACK_EVENTS_PATH = original_feedback_events
 
 
 if __name__ == "__main__":

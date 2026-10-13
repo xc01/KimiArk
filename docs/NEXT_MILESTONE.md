@@ -153,3 +153,16 @@ plan-file hash than the current normalized plan (`cd04...` versus `bf3d...`). Th
 reproducible as raw output plus provenance-only normalization, and its 24-action contract matches the
 saved direction-complete candidate; however, byte identity with the simulation-loaded plan is UNPROVEN.
 No simulation rerun is authorized or claimed.
+
+## 2026-10-14 — R8-1 batch reached a conditional WIN
+
+The tactical batch runner now accepts source/feedback paths and plan identity as parameters, checks the
+prompt body limit, and includes provenance instructions. C5 was recovered offline by adding only the
+missing provenance object; C6 and C7 passed without lossless repair. C5 improved 49/7 to 51/5, C6 to
+55/1, and C7 to the first fixed full-stage WIN: 56/56 kills, zero leaks, zero operator deaths, and
+remaining life 5. The winning squad has 8 operators and star total 22.
+
+This is a conditional current-model WIN only. The same C7 action timeline has not yet been replayed under
+the two historically evidenced R8-1 roadblock targeting interpretations, so robust status remains
+NOT_EVALUATED. Real-game status remains UNKNOWN. The next direct step is that bounded replay; if both
+replays WIN, then Work/GPT optimization may reduce operator count while preserving the saved baseline.

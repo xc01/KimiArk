@@ -204,3 +204,13 @@ GPT只通过普通模式1–3星资格、只读工具和C2失败证据决定战�
 恢复历史输出必须保持来源边界：`parent_hypothesis_id`是模型假说谱系，旧计划谱系保存在provenance。
 无损整理只允许显式规范化并保存diff；未通过contract的输出不能进入模拟。模拟结果必须保留完整事件
 和参数，manifest或后处理故障不得自动重跑，也不能将diagnostic LOSS升级为实机结论。
+
+## 2026-10-14 七关连续批次边界
+
+用户授权第一阶段推进R8-1至R8-7普通模式。WIN是硬目标；只能使用实际解析为`main_08-01`到
+`main_08-07`的固定GameData事实，普通1–3星资格不变。每个DEPLOY必须有[行,列]和方向。GPT决定
+战术；Python执行事实、合法性和模拟。WIN先于减员；减员先从人数开始，只在第一阶段全部WIN后启动。
+
+条件模型WIN、PROBABILISTIC_WIN、robust WIN和实机通关是不同声明。R8-1需要同一动作时间线在
+两种roadblock targeting解释下复验才能称robust。概率依赖必须来自GameData，联合概率不得低于0.0001；
+依赖不独立或无法证明时保持UNKNOWN。

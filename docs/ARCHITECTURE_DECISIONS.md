@@ -228,3 +228,8 @@ attempt文件编号必须继承持久预算计数，禁止每个进程从1重写
 schema参数。任务文本仍要求完整OperationalPlan JSON；接收后必须继续执行本地Draft 7 schema、contract、
 部署/经济/技能/范围检查。`--json`、`--output-last-message`、`read-only`、参数数组、显式代理环境和
 不自动重启约束保持不变。
+
+决策：连续战术批次复用同一runner，以CLI参数选择source/feedback目录、plan ID和revision谱系，而不是
+为每个revision复制脚本。每次会话仍是一个CLI进程、一个计划、一个模拟；prompt发送前检查140KB上限。
+契约要求provenance.revision_source指向旧计划；纯metadata缺失可无损规范化并保存diff，动作/干员/
+帧/位置/方向改变禁止。七关必须使用实际解析的`main_08-01`到`main_08-07`，不可复制R8-1事实。

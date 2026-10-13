@@ -379,3 +379,15 @@ route-11 2629、route-13 2634、route-23 4555、route-33 4879/4903。累计3/4 C
 证据完整性告警：当前规范化计划哈希为`bf3d...`，静态/模拟manifest记录为`cd04...`。当前文件可由
 原始输出加provenance规范化复现，24项动作契约与direction-complete候选一致；但不能证明模拟加载的
 序列化字节与当前文件逐字节一致。未重跑模拟，未扩搜。
+
+## 2026-10-14 R8-1连续批次C5-C7
+
+通用Codex CLI入口参数化source/feedback与plan identity，加入140KB prompt限制和provenance要求。
+C5输入120,270字节，输出缺少provenance被本地契约拒绝；离线无损补加该项后静态检查0冲突，模拟为
+51杀/5漏/0死。C6直接通过，静态0冲突，模拟55杀/1漏/0死。C7直接通过，静态0冲突，模拟
+**WIN**：56/56杀、0漏、0死、剩余生命5；队伍8人、星级总和22。
+
+本轮新增CLI启动3次（累计4、5、6），每次internal model request为UNKNOWN_CLI_INTERNAL。可观测
+output usage分别为C5 4,828、C6 5,117、C7 4,406；C5还消耗reasoning 2,582，C6 reasoning 977，
+C7 reasoning 499。新增固定模拟3次。C7是条件模型WIN，不是实机结论；roadblock targeting复验尚未执行，
+不称robust WIN。

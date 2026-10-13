@@ -202,6 +202,16 @@ route-10第15个敌人，1950帧出生后229帧内无受伤或阻挡事件；rou
 下一次战术反馈应保留完整路线漏怪清单，避免只修最早一条路线。不得把该条件模型LOSS外推为实机
 机制或整个低星战略不可行；也不能因未做两种路障targeting重验而称robust WIN。
 
+## 2026-10-14 C5-C7批次经验
+
+C5输出战术内容完整但漏provenance，被本地contract正确拒绝；不要把这个当作战术失败，也不要跳过
+contract。离线只补一个metadata对象后获得51/5。C6把C5的末段5漏收敛到route-8单漏；C7再针对
+route-8 frame-1730决定性缺口得到0漏。失败反馈的价值不是“继续重试”，而是把完整路线漏怪状态和
+唯一新瓶颈逐轮压缩成GPT可直接修订的因果输入。
+
+WIN不自动等于robust：R8-1 C7仍需同时间线在两种roadblock targeting解释下复验。通用runner后续必须
+把provenance要求写入prompt，避免同类可预防格式消耗。
+
 ## 2026-10-14 Codex CLI输出schema经验
 
 Codex `--output-schema`使用OpenAI strict response format，不只是本地JSON Schema。根对象必须显式

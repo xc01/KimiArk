@@ -308,6 +308,18 @@ route-23/33在末段漏出。第一决策信号是早期阻挡容量与击杀转
 当前文件来自raw输出加provenance-only normalization，但字节级模拟输入同一性仍UNPROVEN。该告警
 保留在`output/r8_1_gpt_c4_codex_cli_v3/post_simulation_integrity_audit.json`；模拟未重跑。
 
+## 七关状态表（2026-10-14）
+
+| 关卡 | 事实/机制支持 | 当前最佳 | 结果 | 漏怪/死亡 | 人数/星级 | 复验 | 实机 | 下一直接瓶颈 |
+|---|---|---|---|---:|---:|---|---|---|
+| R8-1 | 地图/路线/敌人/装置可解析；客户端roadblock导航UNKNOWN | C7 | 固定模拟WIN | 0/0 | 8/22 | roadblock targeting NOT_EVALUATED | UNKNOWN | 两种targeting复验后减员 |
+| R8-2 | `main_08-02`可解析；通用池被civilian缺RES/baseAttackTime阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | source-backed non-attacking/undefined-field rule |
+| R8-3 | `main_08-03`可解析；DISAPPEAR/APPEAR_AT_POS/WAIT_CURRENT_FRAGMENT_TIME未支持 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | route lifecycle semantics |
+| R8-4 | `main_08-04`可解析；civilian字段阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-2 |
+| R8-5 | `main_08-05`可解析；route lifecycle阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-3 |
+| R8-6 | `main_08-06`可解析；WAIT_CURRENT_WAVE_TIME未支持 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | wave-synchronized route wait |
+| R8-7 | `main_08-07`可解析；civilian字段阻断 | NONE | BLOCKED | NA | NA | NA | UNKNOWN | same as R8-2 |
+
 The second authorized Codex CLI C4 start reused the saved C4 prompt/evidence and reached OpenAI, but was
 rejected because the root JSON schema did not satisfy `additionalProperties=false`. It remains 0 C4,
 0 static checks and 0 simulations, with cumulative CLI starts 2/2.
