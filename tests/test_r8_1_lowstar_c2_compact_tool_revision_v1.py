@@ -4,9 +4,12 @@ from pathlib import Path
 
 from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
 from compile_r8_1_lowstar_c2_plan_v1 import (
+    automatic_dp_skill_events,
     declared_target_objects,
+    build_dp_ledger,
     file_record,
     first_skill,
+    supported_auto_dp_skill,
     structured_range_checks,
     uncovered_declared_targets,
 )
@@ -150,3 +153,41 @@ class CompactC2Tests(unittest.TestCase):
         record = file_record(OUT / "llm_evidence_context.json")
         self.assertEqual(64, len(record["sha256"]))
         self.assertGreater(record["bytes"], 0)
+
+    def test_auto_dp_skill_timing_cycles_and_retreat_stop(self):
+        skill = {
+            "skill_id": "fang", "skill_type": "AUTO", "sp_type": "INCREASE_WITH_TIME",
+            "duration": 0, "initial_sp": 6, "sp_cost": 25, "blackboard": {"cost": 6},
+        }
+        operator = {
+            "selected_skills": [skill],
+            "runtime_support": {"skills": [{"skill_id": "fang", "status": "EXECUTABLE_APPROXIMATED"}]},
+        }
+        catalog = {"fang": operator}
+        supports = {"fang": {"deployment_sp_bonus": 0}}
+        self.assertIs(skill, supported_auto_dp_skill(operator))
+        active_plan = {
+            "action_timeline": [
+                {"action_type": "DEPLOY", "operator_id": "fang", "frame": 0},
+                {"action_type": "DEPLOY", "operator_id": "other", "frame": 1500},
+            ],
+        }
+        active_events = automatic_dp_skill_events(active_plan, catalog, supports)
+        self.assertEqual([570, 1320], [row["frame"] for row in active_events])
+        self.assertEqual([6, 6], [row["amount"] for row in active_events])
+        retreat_plan = {"action_timeline": active_plan["action_timeline"][:1] + [{"action_type": "RETREAT", "operator_id": "fang", "frame": 700}]}
+        retreated_events = automatic_dp_skill_events(retreat_plan, catalog, supports)
+        self.assertEqual([570], [row["frame"] for row in retreated_events])
+
+    def test_c2_auto_income_restores_frame_600_payment(self):
+        evidence = json.loads((OUT / "llm_evidence_context.json").read_text(encoding="utf-8"))
+        plan = json.loads((OUT / "llm_structured_output.json").read_text(encoding="utf-8"))["revised_operational_plans"][0]
+        catalog = {row["operator_id"]: row for row in evidence["normal_low_star_catalog"]}
+        supports = {row["operator_id"]: row.get("runtime_support") or {} for row in evidence["normal_low_star_catalog"]}
+        ledger = build_dp_ledger(plan, catalog, supports)
+        by_key = {(row["frame"], row["event"], row.get("operator_id")): row for row in ledger["entries"]}
+        auto = by_key[(570, "AUTO_SKILL_DP_INCOME", "char_123_fang")]
+        deploy = by_key[(600, "DEPLOY_COST", "char_500_noirc")]
+        self.assertEqual((8, 8, 14), (auto["balance_before"], ledger["entries"][ledger["entries"].index(auto) - 1]["balance_after"], auto["balance_after"]))
+        self.assertEqual((15, 1), (deploy["balance_before"], deploy["balance_after"]))
+        self.assertEqual([], ledger["conflicts"])

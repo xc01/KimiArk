@@ -288,3 +288,14 @@ STATIC_CONFLICT：修复`selected_skills`读取和`tile_json_row_col`比较后�
 适配为只读工具对象。静态结果为1个冲突、7个UNKNOWN。frame600 Noirc部署费用14而前余额9，
 原样动作无法通过模拟前提；0/1次关卡模拟启动，没有改动作、没有扩搜、没有WIN/LOSS。
 定向pytest 61/61 PASS。
+
+## 2026-10-13 — 自动收入修复与原样模拟LOSS
+
+FIX_CONFIRMED_FROM_CODE：补充AUTO TIME即时DP收入模型，并在回归中验证570帧首次触发、
+后续周期、撤退停止和C2 frame600支付。重放静态检查后C2为0冲突、7个UNKNOWN；旧frame600
+冲突因遗漏自动收入而失效。
+
+SIMULATION_LOSS_DIAGNOSTIC_ONLY：使用原样22个动作启动1/1次全关模拟。结果LOSS：
+击杀27、漏怪29、剩余生命-24、4名干员死亡。frame570芬自动收入6 DP，frame890死亡；
+frame1243 Vanilla死亡导致route-6敌人解除阻挡，frame1295首次漏怪；frame1680 Hibiscus
+部署不足。没有改动作、没有第二次模拟、没有WIN/实机/robust WIN声明。定向pytest 63/63 PASS。

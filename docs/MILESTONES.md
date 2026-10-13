@@ -342,3 +342,16 @@ Static compilation then found one real blocker and seven declared-responsibility
 frame 600, Noirc costs 14 DP but the ordered model ledger has 9 DP. Therefore the authorized
 0/1 full-stage diagnostic simulation did not start. Directed pytest was 61/61 PASS. No Kimi
 request, tactical search, action repair, WIN, or real-game claim was made.
+
+## 2026-10-13 — Auto income corrected; fixed C2 simulated LOSS
+
+The compiler now derives AUTO TIME instant-DP timing from the public adapter pattern instead of
+hardcoding a frame. The normalized C2's static ledger receives Fang's 6 DP at frame 570, pays
+Noirc's 14 DP at frame 600, and has no static conflicts; seven declared-responsibility UNKNOWNs
+remain.
+
+The one authorized full-stage diagnostic run used the original 22 actions and returned LOSS:
+27 kills, 29 leaks, life -24, and four operator deaths. Fang triggered once at frame 570 but died
+at frame 890. Vanilla died at frame 1243, unblocking route-6 `enemy_1108_uterer#3`, which leaked
+at frame 1295. Hibiscus' frame-1680 deployment then failed for insufficient DP. No action repair,
+second run, robust roadblock recheck, real-game WIN, or faithful certificate was claimed.

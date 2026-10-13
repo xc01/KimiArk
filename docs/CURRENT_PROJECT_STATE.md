@@ -367,6 +367,20 @@ UNKNOWN_NO_SIMULATION。定向pytest为61/61 PASS，日志在
 `output/r8_1_lowstar_c2_compact_tool_revision_v2/static_compile_tests.log`；门禁与真实阻塞在
 `static_compile_execution_gate.json`。
 
+## 2026-10-13 修复自动收入后的一次原样诊断模拟
+
+CONFIRMED_FROM_CODE_AND_EVIDENCE：编译器已按公共adapter规则记录芬的自动即时DP技能。
+静态C2账本在frame570从8到14收到6 DP；frame600 Noirc支付14后余1。该修复使旧的
+frame600 DP冲突失效。当前静态结果为0冲突、7个UNKNOWN。定向pytest为63/63 PASS。
+
+CONFIRMED_FROM_SIMULATION：授权的1/1次原样全关诊断模拟已完成，结果为LOSS，不是faithful或
+实机结论。终局击杀27、漏怪29、剩余生命-24、4名干员死亡。芬在frame570实际触发一次自动收入
+（DP 8→14），frame890死亡，因此后续自动收入停止。frame1680 Hibiscus部署付不起；同帧
+Vanilla第二次技能也因frame1243已死亡而失败。最早实际漏怪是route-6的
+`enemy_1108_uterer#3`：frame1076被Vanilla阻挡，frame1243因Vanilla死亡解除阻挡，
+frame1295漏怪。没有第二次模拟、动作修复、扩搜或robust targeting复验。
+事件与参数在`output/r8_1_lowstar_c2_full_diagnostic_v1/`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

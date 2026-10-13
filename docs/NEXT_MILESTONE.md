@@ -68,3 +68,12 @@ timeline remains unchanged, so the 0/1 diagnostic simulation is blocked. The bud
 exhausted; a future tactical decision belongs to Work/Kimi and must address this conflict or
 approve a bounded revision only after reviewing
 `output/r8_1_lowstar_c2_compact_tool_revision_v2/static_compile_execution_gate.json`.
+
+Further correction: adding the missed AUTO income removes the static frame-600 blocker. The
+authorized 1/1 diagnostic simulation then answered the survival/economy question: LOSS. Fang's
+first auto proc occurs at frame 570, but Fang dies at frame 890; route-6 leaks at frame 1295 after
+Vanilla dies at frame 1243, and Hibiscus cannot pay at frame 1680. The simulation budget is used.
+Future revision decisions must preserve route-6 blocking and account for operator survival; Work
+must review
+`output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_summary.json`
+before any next bounded tactical request.

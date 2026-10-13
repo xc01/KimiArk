@@ -167,6 +167,14 @@ function_call、function_call_output和新的显式最终指令；此后才绑�
 坐标列表目标在编译时只转换为只读工具需要的`{label,tile}`对象，不改变目标、位置、方向
 或动作。静态DP冲突仍然阻断模拟，不用改动作换取运行。
 
+## 2026-10-13 — 自动技能收入与一次原样模拟
+
+决策：静态账本对`AUTO + INCREASE_WITH_TIME + duration=0 + cost`按公共adapter规则推导触发：
+首次延迟为`sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)`秒，后续为
+`sp_cost`秒。这不硬编码帧，不给C2补`ACTIVATE_SKILL`，并且要求干员存活、保持部署和正常
+回SP；同帧撤退触发不计数。静态条件账本不证明战斗生存。只有没有确定执行冲突时才启动授权
+的原样全关模拟。
+
 ## 2026-10-13 — C2保存调用恢复
 
 决策：修复配置校验后，只重验已保存的原生function_call；不重放第一轮推理，不重复执行时序查询，

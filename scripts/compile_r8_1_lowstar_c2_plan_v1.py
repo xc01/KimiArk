@@ -75,6 +75,73 @@ def declared_target_objects(declared: dict[str, Any]) -> list[dict[str, Any]]:
     return objects
 
 
+def supported_auto_dp_skill(operator: dict[str, Any]) -> dict[str, Any] | None:
+    skill = first_skill(operator)
+    support = next((
+        row for row in (operator.get("runtime_support", {}).get("skills") or [])
+        if skill is not None and row.get("skill_id") == skill.get("skill_id")
+    ), None)
+    values = (skill or {}).get("blackboard") or {}
+    if (
+        skill is not None
+        and skill.get("skill_type") == "AUTO"
+        and skill.get("sp_type") == "INCREASE_WITH_TIME"
+        and float(skill.get("duration") or 0.0) == 0.0
+        and isinstance(values.get("cost"), (int, float))
+        and support is not None and support.get("status") == "EXECUTABLE_APPROXIMATED"
+    ):
+        return skill
+    return None
+
+
+def automatic_dp_skill_events(
+    plan: dict[str, Any],
+    catalog: dict[str, dict[str, Any]],
+    supports: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    active: dict[str, dict[str, Any]] = {}
+    events: list[dict[str, Any]] = []
+    for action_index, action in enumerate(plan["action_timeline"]):
+        frame = int(action["frame"])
+        operator_id = action.get("operator_id")
+        action_type = action.get("action_type")
+        for skill_state in active.values():
+            while skill_state["next_frame"] < frame:
+                trigger_frame = skill_state["next_frame"]
+                skill = skill_state["skill"]
+                events.append({
+                    "action_index": action_index, "frame": trigger_frame,
+                    "operator_id": skill_state["operator_id"],
+                    "amount": float(skill["blackboard"]["cost"]),
+                    "ordering": "BEFORE_ACTIONS",
+                    "cycle": skill_state["cycle"],
+                })
+                skill_state["next_frame"] = trigger_frame + round(float(skill["sp_cost"]) * FRAMES_PER_SECOND)
+                skill_state["cycle"] += 1
+        if action_type == "DEPLOY":
+            skill = supported_auto_dp_skill(catalog.get(operator_id, {}))
+            if skill is None:
+                continue
+            deployment_bonus = float(supports[operator_id].get("deployment_sp_bonus") or 0.0)
+            initial_sp = float(skill.get("initial_sp") or 0.0)
+            sp_cost = float(skill["sp_cost"])
+            ready_delta = max(0.0, sp_cost - min(initial_sp + deployment_bonus, sp_cost))
+            next_frame = frame + round(ready_delta * FRAMES_PER_SECOND)
+            state = {"operator_id": operator_id, "skill": skill, "next_frame": next_frame, "cycle": 0}
+            active[operator_id] = state
+            if next_frame <= frame:
+                events.append({
+                    "action_index": action_index, "frame": frame,
+                    "operator_id": operator_id, "amount": float(skill["blackboard"]["cost"]),
+                    "ordering": "AFTER_DEPLOY_SAME_FRAME", "cycle": 0,
+                })
+                state["next_frame"] = frame + round(sp_cost * FRAMES_PER_SECOND)
+                state["cycle"] = 1
+        elif action_type == "RETREAT":
+            active.pop(operator_id, None)
+    return events
+
+
 def structured_range_checks(plan: dict[str, Any], action: dict[str, Any]) -> list[dict[str, Any]]:
     rows = plan.get("declared_range_checks") or []
     return [
@@ -144,11 +211,22 @@ def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], su
     }]
     previous_frame = 0
     conflicts: list[dict[str, Any]] = []
-    for action in plan["action_timeline"]:
-        frame = int(action["frame"])
+    auto_events = automatic_dp_skill_events(plan, catalog, supports)
+    auto_before: dict[int, list[dict[str, Any]]] = {}
+    auto_after: dict[int, list[dict[str, Any]]] = {}
+    for row in auto_events:
+        target = auto_before if row["ordering"] == "BEFORE_ACTIONS" else auto_after
+        target.setdefault(int(row["frame"]), []).append(row)
+    scheduled_frames = sorted(
+        {int(action["frame"]) for action in plan["action_timeline"]}
+        | set(auto_before) | set(auto_after)
+    )
+    actions_by_frame: dict[int, list[tuple[int, dict[str, Any]]]] = {}
+    for index, action in enumerate(plan["action_timeline"]):
+        actions_by_frame.setdefault(int(action["frame"]), []).append((index, action))
+    for frame in scheduled_frames:
         if frame < previous_frame:
             conflicts.append({"frame": frame, "conflict": "ACTION_FRAME_OUT_OF_ORDER"})
-            continue
         if frame > previous_frame:
             before = dp
             dp = min(999.0, dp + (frame - previous_frame) / FRAMES_PER_SECOND)
@@ -156,37 +234,58 @@ def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], su
                          "balance_before": before, "balance_after": dp,
                          "source": "stage costIncreaseTime=1 second; 30 FPS action clock"})
             previous_frame = frame
-        action_type = action.get("action_type")
-        operator_id = action.get("operator_id")
-        if action_type == "ACTIVATE_SKILL":
-            key = f"{operator_id}@{frame}"
-            check = readiness.get(key, {"status": "UNKNOWN", "reason": "READINESS_CHECK_MISSING"})
-            skill = first_skill(catalog[operator_id]) if operator_id in catalog else None
-            skill_dp = float((skill or {}).get("blackboard", {}).get("cost", 0.0) or 0.0)
-            if check.get("status") == "PASS_WITH_CONDITIONS" and skill_dp:
-                before = dp
-                dp = min(999.0, dp + skill_dp)
-                rows.append({"frame": frame, "event": "SKILL_DP_INCOME", "operator_id": operator_id,
-                             "delta": dp - before, "balance_before": before, "balance_after": dp,
-                             "source": "skill blackboard cost; readiness is conditional on current model"})
-        elif action_type == "DEPLOY":
-            cost = actual_cost(catalog[operator_id], supports[operator_id])
+        for event in auto_before.get(frame, []):
             before = dp
-            if dp + 1e-9 < cost:
-                conflicts.append({"frame": frame, "operator_id": operator_id, "conflict": "INSUFFICIENT_DP",
-                                  "balance_before": before, "cost": cost})
-                rows.append({"frame": frame, "event": "DEPLOY_COST_REJECTED", "operator_id": operator_id,
-                             "cost": cost, "balance_before": before, "balance_after": before,
-                             "status": "CONFLICT"})
-            else:
-                dp -= cost
-                rows.append({"frame": frame, "event": "DEPLOY_COST", "operator_id": operator_id,
-                             "cost": cost, "balance_before": before, "balance_after": dp,
-                             "status": "PAID"})
+            dp = min(999.0, dp + float(event["amount"]))
+            rows.append({"frame": frame, "event": "AUTO_SKILL_DP_INCOME", "operator_id": event["operator_id"],
+                         "cycle": event["cycle"], "delta": dp - before, "balance_before": before,
+                         "balance_after": dp, "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT",
+                         "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model"})
+        for _, action in actions_by_frame.get(frame, []):
+            action_type = action.get("action_type")
+            operator_id = action.get("operator_id")
+            if action_type == "ACTIVATE_SKILL":
+                key = f"{operator_id}@{frame}"
+                check = readiness.get(key, {"status": "UNKNOWN", "reason": "READINESS_CHECK_MISSING"})
+                skill = first_skill(catalog[operator_id]) if operator_id in catalog else None
+                skill_dp = float((skill or {}).get("blackboard", {}).get("cost", 0.0) or 0.0)
+                if check.get("status") == "PASS_WITH_CONDITIONS" and skill_dp:
+                    before = dp
+                    dp = min(999.0, dp + skill_dp)
+                    rows.append({"frame": frame, "event": "SKILL_DP_INCOME", "operator_id": operator_id,
+                                 "delta": dp - before, "balance_before": before, "balance_after": dp,
+                                 "source": "skill blackboard cost; readiness is conditional on current model"})
+            elif action_type == "DEPLOY":
+                cost = actual_cost(catalog[operator_id], supports[operator_id])
+                before = dp
+                if dp + 1e-9 < cost:
+                    conflicts.append({"frame": frame, "operator_id": operator_id, "conflict": "INSUFFICIENT_DP",
+                                      "balance_before": before, "cost": cost})
+                    rows.append({"frame": frame, "event": "DEPLOY_COST_REJECTED", "operator_id": operator_id,
+                                 "cost": cost, "balance_before": before, "balance_after": before,
+                                 "status": "CONFLICT"})
+                else:
+                    dp -= cost
+                    rows.append({"frame": frame, "event": "DEPLOY_COST", "operator_id": operator_id,
+                                 "cost": cost, "balance_before": before, "balance_after": dp,
+                                 "status": "PAID"})
+        for event in auto_after.get(frame, []):
+            before = dp
+            dp = min(999.0, dp + float(event["amount"]))
+            rows.append({"frame": frame, "event": "AUTO_SKILL_DP_INCOME", "operator_id": event["operator_id"],
+                         "cycle": event["cycle"], "delta": dp - before, "balance_before": before,
+                         "balance_after": dp, "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT",
+                         "source": "initial-SP auto trigger immediately after deploy; public adapter timing model"})
     return {
         "schema_version": "R8_1_LOWSTAR_C2_STATIC_DP_LEDGER_V1",
         "initial_dp": evidence_stage_initial_dp(),
         "natural_dp_per_second": 1.0,
+        "automatic_skill_income_model": {
+            "trigger_rule": "Initial trigger after (sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)) seconds; recurrence after sp_cost seconds for duration=0 AUTO TIME skills.",
+            "conditions": ["operator survives", "operator remains deployed", "normal time-SP recovery", "same retreat-frame trigger is not counted"],
+            "evidence_status": "CONFIRMED_FROM_CURRENT_PUBLIC_RUNTIME_PATTERN_AND_FIXED_GAME_DATA",
+            "events": auto_events,
+        },
         "retreat_refund": "UNKNOWN_NOT_COUNTED",
         "merchant_upkeep": "NOT_APPLICABLE_UNLESS_MERCHANT_DEPLOYED",
         "skill_readiness": readiness,

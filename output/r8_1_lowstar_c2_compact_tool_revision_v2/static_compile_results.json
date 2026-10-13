@@ -961,26 +961,54 @@
       "redeploy_cooldown_model": "redeploy_time * 30 frames; refund UNKNOWN and not counted"
     }
   },
-  "classification": "STATIC_CONFLICT",
-  "conflicts": [
-    {
-      "balance_before": 9.0,
-      "conflict": "INSUFFICIENT_DP",
-      "cost": 14.0,
-      "frame": 600,
-      "operator_id": "char_500_noirc"
-    }
-  ],
+  "classification": "STATIC_CONTRACT_CHECKED_CONDITIONAL",
+  "conflicts": [],
   "dp_ledger": {
-    "conflicts": [
-      {
-        "balance_before": 9.0,
-        "conflict": "INSUFFICIENT_DP",
-        "cost": 14.0,
-        "frame": 600,
-        "operator_id": "char_500_noirc"
-      }
-    ],
+    "automatic_skill_income_model": {
+      "conditions": [
+        "operator survives",
+        "operator remains deployed",
+        "normal time-SP recovery",
+        "same retreat-frame trigger is not counted"
+      ],
+      "events": [
+        {
+          "action_index": 2,
+          "amount": 6.0,
+          "cycle": 0,
+          "frame": 570,
+          "operator_id": "char_123_fang",
+          "ordering": "BEFORE_ACTIONS"
+        },
+        {
+          "action_index": 6,
+          "amount": 6.0,
+          "cycle": 1,
+          "frame": 1320,
+          "operator_id": "char_123_fang",
+          "ordering": "BEFORE_ACTIONS"
+        },
+        {
+          "action_index": 8,
+          "amount": 6.0,
+          "cycle": 2,
+          "frame": 2070,
+          "operator_id": "char_123_fang",
+          "ordering": "BEFORE_ACTIONS"
+        },
+        {
+          "action_index": 11,
+          "amount": 6.0,
+          "cycle": 3,
+          "frame": 2820,
+          "operator_id": "char_123_fang",
+          "ordering": "BEFORE_ACTIONS"
+        }
+      ],
+      "evidence_status": "CONFIRMED_FROM_CURRENT_PUBLIC_RUNTIME_PATTERN_AND_FIXED_GAME_DATA",
+      "trigger_rule": "Initial trigger after (sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)) seconds; recurrence after sp_cost seconds for duration=0 AUTO TIME skills."
+    },
+    "conflicts": [],
     "entries": [
       {
         "balance_after": 10.0,
@@ -1017,33 +1045,52 @@
         "status": "PAID"
       },
       {
-        "balance_after": 9.0,
+        "balance_after": 8.0,
         "balance_before": 0.0,
-        "delta": 9.0,
+        "delta": 8.0,
+        "event": "NATURAL_DP",
+        "frame": 570,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 14.0,
+        "balance_before": 8.0,
+        "cycle": 0,
+        "delta": 6.0,
+        "event": "AUTO_SKILL_DP_INCOME",
+        "frame": 570,
+        "operator_id": "char_123_fang",
+        "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model",
+        "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT"
+      },
+      {
+        "balance_after": 15.0,
+        "balance_before": 14.0,
+        "delta": 1.0,
         "event": "NATURAL_DP",
         "frame": 600,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 9.0,
-        "balance_before": 9.0,
+        "balance_after": 1.0,
+        "balance_before": 15.0,
         "cost": 14.0,
-        "event": "DEPLOY_COST_REJECTED",
+        "event": "DEPLOY_COST",
         "frame": 600,
         "operator_id": "char_500_noirc",
-        "status": "CONFLICT"
+        "status": "PAID"
       },
       {
-        "balance_after": 14.0,
-        "balance_before": 9.0,
+        "balance_after": 6.0,
+        "balance_before": 1.0,
         "delta": 5.0,
         "event": "NATURAL_DP",
         "frame": 750,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 20.0,
-        "balance_before": 14.0,
+        "balance_after": 12.0,
+        "balance_before": 6.0,
         "delta": 6.0,
         "event": "SKILL_DP_INCOME",
         "frame": 750,
@@ -1051,16 +1098,16 @@
         "source": "skill blackboard cost; readiness is conditional on current model"
       },
       {
-        "balance_after": 21.0,
-        "balance_before": 20.0,
+        "balance_after": 13.0,
+        "balance_before": 12.0,
         "delta": 1.0,
         "event": "NATURAL_DP",
         "frame": 780,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 10.0,
-        "balance_before": 21.0,
+        "balance_after": 2.0,
+        "balance_before": 13.0,
         "cost": 11.0,
         "event": "DEPLOY_COST",
         "frame": 780,
@@ -1068,16 +1115,16 @@
         "status": "PAID"
       },
       {
-        "balance_after": 27.0,
-        "balance_before": 10.0,
+        "balance_after": 19.0,
+        "balance_before": 2.0,
         "delta": 17.0,
         "event": "NATURAL_DP",
         "frame": 1290,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 9.0,
-        "balance_before": 27.0,
+        "balance_after": 1.0,
+        "balance_before": 19.0,
         "cost": 18.0,
         "event": "DEPLOY_COST",
         "frame": 1290,
@@ -1085,16 +1132,35 @@
         "status": "PAID"
       },
       {
-        "balance_after": 21.0,
-        "balance_before": 9.0,
-        "delta": 12.0,
+        "balance_after": 2.0,
+        "balance_before": 1.0,
+        "delta": 1.0,
+        "event": "NATURAL_DP",
+        "frame": 1320,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 8.0,
+        "balance_before": 2.0,
+        "cycle": 1,
+        "delta": 6.0,
+        "event": "AUTO_SKILL_DP_INCOME",
+        "frame": 1320,
+        "operator_id": "char_123_fang",
+        "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model",
+        "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT"
+      },
+      {
+        "balance_after": 19.0,
+        "balance_before": 8.0,
+        "delta": 11.0,
         "event": "NATURAL_DP",
         "frame": 1650,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 27.0,
-        "balance_before": 21.0,
+        "balance_after": 25.0,
+        "balance_before": 19.0,
         "delta": 6.0,
         "event": "SKILL_DP_INCOME",
         "frame": 1650,
@@ -1102,16 +1168,16 @@
         "source": "skill blackboard cost; readiness is conditional on current model"
       },
       {
-        "balance_after": 28.0,
-        "balance_before": 27.0,
+        "balance_after": 26.0,
+        "balance_before": 25.0,
         "delta": 1.0,
         "event": "NATURAL_DP",
         "frame": 1680,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 11.0,
-        "balance_before": 28.0,
+        "balance_after": 9.0,
+        "balance_before": 26.0,
         "cost": 17.0,
         "event": "DEPLOY_COST",
         "frame": 1680,
@@ -1119,16 +1185,35 @@
         "status": "PAID"
       },
       {
+        "balance_after": 22.0,
+        "balance_before": 9.0,
+        "delta": 13.0,
+        "event": "NATURAL_DP",
+        "frame": 2070,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
         "balance_after": 28.0,
-        "balance_before": 11.0,
-        "delta": 17.0,
+        "balance_before": 22.0,
+        "cycle": 2,
+        "delta": 6.0,
+        "event": "AUTO_SKILL_DP_INCOME",
+        "frame": 2070,
+        "operator_id": "char_123_fang",
+        "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model",
+        "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT"
+      },
+      {
+        "balance_after": 32.0,
+        "balance_before": 28.0,
+        "delta": 4.0,
         "event": "NATURAL_DP",
         "frame": 2190,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 10.0,
-        "balance_before": 28.0,
+        "balance_after": 14.0,
+        "balance_before": 32.0,
         "cost": 18.0,
         "event": "DEPLOY_COST",
         "frame": 2190,
@@ -1136,24 +1221,24 @@
         "status": "PAID"
       },
       {
-        "balance_after": 17.0,
-        "balance_before": 10.0,
+        "balance_after": 21.0,
+        "balance_before": 14.0,
         "delta": 7.0,
         "event": "NATURAL_DP",
         "frame": 2400,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 28.0,
-        "balance_before": 17.0,
+        "balance_after": 32.0,
+        "balance_before": 21.0,
         "delta": 11.0,
         "event": "NATURAL_DP",
         "frame": 2730,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 9.0,
-        "balance_before": 28.0,
+        "balance_after": 13.0,
+        "balance_before": 32.0,
         "cost": 19.0,
         "event": "DEPLOY_COST",
         "frame": 2730,
@@ -1161,24 +1246,43 @@
         "status": "PAID"
       },
       {
-        "balance_after": 18.0,
-        "balance_before": 9.0,
-        "delta": 9.0,
+        "balance_after": 16.0,
+        "balance_before": 13.0,
+        "delta": 3.0,
+        "event": "NATURAL_DP",
+        "frame": 2820,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 22.0,
+        "balance_before": 16.0,
+        "cycle": 3,
+        "delta": 6.0,
+        "event": "AUTO_SKILL_DP_INCOME",
+        "frame": 2820,
+        "operator_id": "char_123_fang",
+        "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model",
+        "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT"
+      },
+      {
+        "balance_after": 28.0,
+        "balance_before": 22.0,
+        "delta": 6.0,
         "event": "NATURAL_DP",
         "frame": 3000,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 25.0,
-        "balance_before": 18.0,
+        "balance_after": 35.0,
+        "balance_before": 28.0,
         "delta": 7.0,
         "event": "NATURAL_DP",
         "frame": 3210,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 10.0,
-        "balance_before": 25.0,
+        "balance_after": 20.0,
+        "balance_before": 35.0,
         "cost": 15.0,
         "event": "DEPLOY_COST",
         "frame": 3210,
@@ -1186,16 +1290,16 @@
         "status": "PAID"
       },
       {
-        "balance_after": 25.0,
-        "balance_before": 10.0,
+        "balance_after": 35.0,
+        "balance_before": 20.0,
         "delta": 15.0,
         "event": "NATURAL_DP",
         "frame": 3660,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 8.0,
-        "balance_before": 25.0,
+        "balance_after": 18.0,
+        "balance_before": 35.0,
         "cost": 17.0,
         "event": "DEPLOY_COST",
         "frame": 3660,
@@ -1203,56 +1307,56 @@
         "status": "PAID"
       },
       {
-        "balance_after": 26.0,
-        "balance_before": 8.0,
+        "balance_after": 36.0,
+        "balance_before": 18.0,
         "delta": 18.0,
         "event": "NATURAL_DP",
         "frame": 4200,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 33.0,
-        "balance_before": 26.0,
+        "balance_after": 43.0,
+        "balance_before": 36.0,
         "delta": 7.0,
         "event": "NATURAL_DP",
         "frame": 4410,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 36.0,
-        "balance_before": 33.0,
+        "balance_after": 46.0,
+        "balance_before": 43.0,
         "delta": 3.0,
         "event": "NATURAL_DP",
         "frame": 4500,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 41.0,
-        "balance_before": 36.0,
+        "balance_after": 51.0,
+        "balance_before": 46.0,
         "delta": 5.0,
         "event": "NATURAL_DP",
         "frame": 4650,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 63.0,
-        "balance_before": 41.0,
+        "balance_after": 73.0,
+        "balance_before": 51.0,
         "delta": 22.0,
         "event": "NATURAL_DP",
         "frame": 5310,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 64.0,
-        "balance_before": 63.0,
+        "balance_after": 74.0,
+        "balance_before": 73.0,
         "delta": 1.0,
         "event": "NATURAL_DP",
         "frame": 5340,
         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
       },
       {
-        "balance_after": 46.0,
-        "balance_before": 64.0,
+        "balance_after": 56.0,
+        "balance_before": 74.0,
         "cost": 18.0,
         "event": "DEPLOY_COST",
         "frame": 5340,
@@ -1260,7 +1364,7 @@
         "status": "PAID"
       }
     ],
-    "final_balance": 46.0,
+    "final_balance": 56.0,
     "initial_dp": 10.0,
     "merchant_upkeep": "NOT_APPLICABLE_UNLESS_MERCHANT_DEPLOYED",
     "natural_dp_per_second": 1.0,
@@ -1338,9 +1442,9 @@
   "scope": "Original fixed actions only; no automatic action repair, search or simulation.",
   "source_manifest": {
     "compiler": {
-      "bytes": 22009,
+      "bytes": 27589,
       "path": "scripts/compile_r8_1_lowstar_c2_plan_v1.py",
-      "sha256": "c66a17226edf8cd23f5e8e533514adcbbfd46e39a8369d84f59134262a48a70c"
+      "sha256": "d6cb56543a48307eb3d211e7bc812604f5639c9e05fdeb3538a096e4b94e352b"
     },
     "evidence": {
       "bytes": 192230,
