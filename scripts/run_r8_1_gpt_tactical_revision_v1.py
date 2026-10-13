@@ -309,7 +309,7 @@ def validate_revision_contract(parsed: dict[str, Any], evidence: dict[str, Any])
     return errors
 
 
-def assert_run_lock() -> None:
+def assert_run_lock(allow_counted_503_recovery: bool = False) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     global RUN_LOCK_HANDLE
     if RUN_LOCK_HANDLE is not None:
@@ -330,7 +330,7 @@ def assert_run_lock() -> None:
         and any('"phase": "STARTED"' in line or '"phase":"STARTED"' in line
                 for line in attempt_log_path.read_text(encoding="utf-8").splitlines())
     ) or (budget_path.exists() and int(load(budget_path).get("model_requests_started", 0)) > 0)
-    if lock_was_consumed and has_started_request:
+    if lock_was_consumed and has_started_request and not allow_counted_503_recovery:
         handle.close()
         raise RuntimeError("GPT budget lock already consumed; restart cannot reset the session")
     handle.seek(0)
@@ -607,6 +607,103 @@ def static_check() -> dict[str, Any]:
     return compile_plan(OUT)
 
 
+def assert_503_recovery_state(provider: str, model: str, reasoning_effort: str | None) -> dict[str, Any]:
+    for path in (OUT / "llm_evidence_context.json", OUT / "revision_output_schema.json", OUT / "llm_request.json", OUT / "attempt_1_request.json", OUT / "attempt_1_classification.json"):
+        if not path.is_file():
+            raise RuntimeError(f"missing saved 503-recovery input: {path.name}")
+    state = load(OUT / "budget_usage.json")
+    if state.get("model_requests_started") != 1 or state.get("readonly_tool_calls_executed") != 0:
+        raise RuntimeError("503 recovery requires exactly one counted request and zero executed tools")
+    if (state.get("provider"), state.get("model"), state.get("reasoning_effort")) != (provider, model, reasoning_effort):
+        raise RuntimeError("503 recovery may not change provider, model or reasoning effort")
+    request = load(OUT / "llm_request.json")
+    resumed_request = load(OUT / "attempt_1_request.json")
+    if request != resumed_request:
+        raise RuntimeError("saved 503-recovery request differs from the prepared request")
+    body = json.dumps(request, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    expected_body_sha256 = load(OUT / "llm_request_fingerprint.json").get("body_sha256")
+    if hashlib.sha256(body).hexdigest() != expected_body_sha256:
+        raise RuntimeError("prepared request body hash changed")
+    attempt_log = [json.loads(row) for row in (OUT / "llm_call_attempts.jsonl").read_text(encoding="utf-8").splitlines() if row.strip()]
+    started = [row for row in attempt_log if row.get("attempt") == 1 and row.get("phase") == "STARTED"]
+    finished = [row for row in attempt_log if row.get("attempt") == 1 and row.get("phase") == "FINISHED"]
+    if len(started) != 1 or len(finished) != 1 or started[0].get("request_body_sha256") != expected_body_sha256:
+        raise RuntimeError("attempt 1 request accounting is incomplete or mismatched")
+    classification = load(OUT / "attempt_1_classification.json")
+    first_finished = finished[0]
+    if first_finished.get("http_status") != 503 or not str(first_finished.get("error", "")).startswith("HTTP 503"):
+        raise RuntimeError("attempt 1 is not the authorized counted HTTP 503 failure")
+    if classification.get("terminal_event") is not None or classification.get("function_calls"):
+        raise RuntimeError("attempt 1 response is not an empty HTTP 503 failure")
+    return state
+
+
+def resume_after_503(provider: str, model: str, reasoning_effort: str | None) -> dict[str, Any]:
+    state = assert_503_recovery_state(provider, model, reasoning_effort)
+    assert_run_lock(allow_counted_503_recovery=True)
+    config = provider_config(provider)
+    if not os.environ.get(config["credential_env"]):
+        raise RuntimeError(f"{config['credential_env']} is not set")
+    payload = load(OUT / "llm_request.json")
+    evidence = load(OUT / "llm_evidence_context.json")
+    schema = load(OUT / "revision_output_schema.json")
+    remaining_model_requests = MAX_MODEL_REQUESTS - int(state["model_requests_started"])
+    budget = ToolLoopBudget(max_model_requests=remaining_model_requests, max_tool_calls=MAX_TOOL_CALLS)
+    engine = ReadOnlyQueryEngine(evidence_path=OUT / "llm_evidence_context.json")
+    session = run_mock_tool_session(
+        payload, engine, make_stream_once(provider, model, reasoning_effort),
+        evidence=evidence, plan_schema=schema, budget=budget,
+        finalize_payload=lambda item: finalize_plan_payload(item, schema),
+        validate_plan=lambda parsed: validate_revision_contract(parsed, evidence),
+    )
+    session["provider_compatibility"] = "PROJECT_HTTP_TOOL_LOOP_RECOVERED_AFTER_COUNTED_503"
+    update_budget(
+        model_requests=int(state["model_requests_started"]) + budget.model_requests_started,
+        tool_calls=budget.tool_calls_executed,
+    )
+    write_json("resume_503_session.json", session)
+    write_json("tool_loop_budget.json", load(OUT / "budget_usage.json"))
+    if session.get("status") != "COMPLETE":
+        write_json("final_status.json", {
+            "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
+            "status": "FAILED_NO_RETRY_AFTER_503_RECOVERY", "failure": session,
+            "budget_usage": load(OUT / "budget_usage.json"),
+        })
+        raise SystemExit("GPT 503 recovery failed without retry")
+    parsed = session["operational_plan"]
+    plan_errors = validate_revision_contract(parsed, evidence)
+    if plan_errors:
+        write_json("llm_plan_validation.json", {
+            "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
+            "status": "FAIL", "errors": plan_errors,
+        })
+        raise RuntimeError(f"GPT-{REVISION_CONFIG['plan_label']} failed local contract validation")
+    write_json("llm_structured_output.json", parsed)
+    write_json("llm_plan_validation.json", {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
+        "status": "PASS", "evidence_path": "llm_evidence_context.json",
+    })
+    plans = parsed.get("revised_operational_plans", [])
+    write_json("grounding_validation.json", {
+        "one_operational_plan": len(plans) == 1,
+        "selected_operator_ids": plans[0].get("selected_low_star_operator_ids", []) if plans else [],
+        "direction_complete_deploys": all(
+            action.get("action_type") != "DEPLOY" or (action.get("tile") and action.get("direction"))
+            for action in (plans[0].get("action_timeline", []) if plans else [])
+        ),
+        "status": "PASS" if len(plans) == 1 else "FAIL",
+    })
+    write_json("final_status.json", {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
+        "status": f"GPT_{REVISION_CONFIG['plan_label']}_RECEIVED_AND_CONTRACT_VALID",
+        "actual_model_requests": int(state["model_requests_started"]) + budget.model_requests_started,
+        "actual_readonly_tool_calls": budget.tool_calls_executed,
+        "new_operational_plans": len(plans), "stage_simulations": 0,
+        "tactical_search_expansions": 0, "static_compile_check": "PENDING",
+    })
+    return parsed
+
+
 def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str | None) -> dict[str, Any]:
     evidence_path = OUT / "llm_evidence_context.json"
     schema_path = OUT / "revision_output_schema.json"
@@ -714,7 +811,7 @@ def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=["prepare", "call", "resume_after_transport_fix", "static_check"])
+    parser.add_argument("phase", choices=["prepare", "call", "resume_after_503", "resume_after_transport_fix", "static_check"])
     parser.add_argument("--provider", choices=sorted(PROVIDERS), default="sub2api")
     parser.add_argument("--model")
     parser.add_argument("--reasoning-effort")
@@ -746,6 +843,9 @@ def main() -> None:
         return
     if arguments.phase == "resume_after_transport_fix":
         resume_after_transport_fix(arguments.provider, model, reasoning_effort)
+        return
+    if arguments.phase == "resume_after_503":
+        resume_after_503(arguments.provider, model, reasoning_effort)
         return
     call(arguments.provider, model, reasoning_effort)
 

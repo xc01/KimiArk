@@ -207,6 +207,46 @@ class GptTacticalRevisionTests(unittest.TestCase):
                 runner.RUN_LOCK_HANDLE = original_handle
                 runner.OUT = original_out
 
+    def test_503_recovery_requires_matching_counted_empty_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_dir = Path(temporary)
+            request = json.loads((OUT / "llm_request.json").read_text(encoding="utf-8"))
+            body = json.dumps(request, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+            body_sha256 = __import__("hashlib").sha256(body).hexdigest()
+            for name in ("llm_evidence_context.json", "revision_output_schema.json"):
+                (temporary_dir / name).write_text("{}", encoding="utf-8")
+            for name in ("llm_request.json", "attempt_1_request.json"):
+                (temporary_dir / name).write_text(json.dumps(request), encoding="utf-8")
+            (temporary_dir / "llm_request_fingerprint.json").write_text(json.dumps({
+                "body_sha256": body_sha256,
+            }), encoding="utf-8")
+            (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                "provider": "sub2api", "model": "gpt-6.1-sol", "reasoning_effort": "medium",
+                "model_requests_started": 1, "readonly_tool_calls_executed": 0,
+            }), encoding="utf-8")
+            (temporary_dir / "llm_call_attempts.jsonl").write_text("\n".join([
+                json.dumps({"attempt": 1, "phase": "STARTED", "request_body_sha256": body_sha256}),
+                json.dumps({"attempt": 1, "phase": "FINISHED", "http_status": 503, "error": "HTTP 503"}),
+            ]) + "\n", encoding="utf-8")
+            (temporary_dir / "attempt_1_classification.json").write_text(json.dumps({
+                "http_status": 503, "terminal_event": None, "function_calls": [],
+            }), encoding="utf-8")
+            original_out = runner.OUT
+            original_config = runner.REVISION_CONFIG
+            original_handle = runner.RUN_LOCK_HANDLE
+            runner.OUT = temporary_dir
+            runner.REVISION_CONFIG = {"plan_label": "C4"}
+            runner.RUN_LOCK_HANDLE = None
+            try:
+                runner.assert_503_recovery_state("sub2api", "gpt-6.1-sol", "medium")
+                (temporary_dir / "attempt_1_request.json").write_text("{}", encoding="utf-8")
+                with self.assertRaisesRegex(RuntimeError, "differs from the prepared request"):
+                    runner.assert_503_recovery_state("sub2api", "gpt-6.1-sol", "medium")
+            finally:
+                runner.RUN_LOCK_HANDLE = original_handle
+                runner.OUT = original_out
+                runner.REVISION_CONFIG = original_config
+
 
 if __name__ == "__main__":
     unittest.main()

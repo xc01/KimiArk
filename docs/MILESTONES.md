@@ -394,3 +394,6 @@ This is conditional model evidence only.
 Parameterized GPT-C4 preparation passed 38/38 targeted tests with a 138,957-byte frozen request.
 The first real request returned HTTP 503 and stopped without retry at 1/3 requests, 0/6 tools, 0
 plans and 0 simulations. The remaining two requests require an explicit Work decision.
+
+An explicitly authorized attempt-2 recovery reused the same frozen body and returned a second HTTP 503.
+The session is 2/3 requests, 0/6 tools, 0 plans and 0 simulations; no third request is automatic.

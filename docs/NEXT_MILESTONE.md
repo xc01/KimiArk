@@ -111,3 +111,8 @@ bytes, then the first HTTP request returned 503 (`43346c70-1bc4-4376-bcf3-212e09
 is 1/3 requests, 0/6 tools, 0 plans, and 0 simulations. There was no automatic retry. Work must decide
 whether to manually spend one of the two remaining requests in this session or leave it blocked; no
 action repair, second plan, search expansion, or simulation is authorized from this failure.
+
+The explicitly authorized attempt-2 recovery reused the same 138,957-byte body and returned HTTP 503
+(`47cd2c69-13aa-4a90-b824-4938ae83aadb`). The session is now 2/3 requests, 0/6 tools, 0 plans and 0
+simulations. The remaining request is not authorized automatically after this second failure; Work
+must review whether the service outage has cleared before spending it.

@@ -307,6 +307,11 @@ all 34 ordinary low-star facts, 17 three-stars and complete route-leak summaries
 `43346c70-1bc4-4376-bcf3-212e096dd1a4`; the session remains 1/3 requests, 0/6 tools, 0 plans and
 0 simulations. No C4 or tactical-feasibility conclusion exists.
 
+After the explicitly authorized retry, attempt 2 reused the identical request body and again returned
+HTTP 503 with request ID `47cd2c69-13aa-4a90-b824-4938ae83aadb`. The session remains blocked at 2/3
+requests, 0/6 tools, 0 plans and 0 simulations. There is no C4 and no tactical conclusion; the last
+request requires a new explicit decision.
+
 ## 2026-10-13 GPT战术入口准备
 
 CONFIRMED_FROM_CODE_AND_OFFLINE_PREPARE：新增通用入口`run_r8_1_gpt_tactical_revision_v1.py`，

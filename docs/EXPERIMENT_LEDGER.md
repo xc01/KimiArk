@@ -335,3 +335,13 @@ C4使用同一GPT入口并参数化C3来源、C3诊断摘要和事件。移除�
 
 第1次实际请求HTTP 503，request ID `43346c70-1bc4-4376-bcf3-212e096dd1a4`。持久预算为1/3请求、
 0/6工具、0计划、0模拟；无自动重试，未生成C4，未执行静态检查，未运行关卡模拟。
+
+## 2026-10-13 GPT-C4授权503恢复
+
+新增`resume_after_503`最小恢复入口。它校验attempt1精确为已计数空HTTP 503、0工具、provider/model/
+effort一致，且`llm_request.json`与attempt请求和body哈希完全一致；不重跑prepare，不新建实验。
+定向pytest 38/38 PASS。
+
+第2次请求原样重放同一body，仍HTTP 503，request ID
+`47cd2c69-13aa-4a90-b824-4938ae83aadb`。预算更新为2/3请求、0/6工具、0计划、0模拟；已按授权停止，
+不自动使用第3次请求。
