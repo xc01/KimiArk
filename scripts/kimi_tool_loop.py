@@ -210,6 +210,7 @@ def run_mock_tool_session(
     *,
     evidence: dict[str, Any],
     plan_schema: dict[str, Any],
+    finalize_payload: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     budget: ToolLoopBudget | None = None,
 ) -> dict[str, Any]:
     budget = budget or ToolLoopBudget()
@@ -238,7 +239,15 @@ def run_mock_tool_session(
             "response_bytes": len(raw),
         })
         if accumulator.error or accumulator.terminal_event != "response.completed":
-            return {"status": "FAILED", "error": accumulator.error or "NO_TERMINAL_EVENT", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
+            if accumulator.error:
+                error = accumulator.error
+            elif accumulator.terminal_event == "response.incomplete":
+                error = "RESPONSE_INCOMPLETE"
+            elif accumulator.terminal_event == "response.failed":
+                error = "RESPONSE_FAILED"
+            else:
+                error = "NO_TERMINAL_EVENT"
+            return {"status": "FAILED", "error": error, "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
         if classification.get("malformed_events"):
             return {
                 "status": "FAILED", "error": "malformed function call events",
@@ -257,6 +266,8 @@ def run_mock_tool_session(
             try:
                 tool_results = execute_tool_calls(calls, engine, budget)
                 continuation = build_tool_continuation_payload(current_payload, calls, tool_results)
+                if finalize_payload is not None:
+                    continuation = finalize_payload(continuation)
             except Exception as exc:
                 return {"status": "FAILED", "error": str(exc), "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
             trajectories.append({"request": request_summary(current_payload, "TOOL_QUERY"), "calls": calls, "tool_results": tool_results})

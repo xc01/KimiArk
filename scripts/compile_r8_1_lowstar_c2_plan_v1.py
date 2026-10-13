@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from pathlib import Path
 from typing import Any
 
@@ -10,7 +9,7 @@ from kimi_readonly_tools import ReadOnlyQueryEngine, json_tile_to_runtime
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "output/r8_1_lowstar_c2_tool_revision_v1"
+OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v1"
 FRAMES_PER_SECOND = 30.0
 
 
@@ -31,7 +30,10 @@ def operator_map(evidence: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def support_map(evidence: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    return {row["operator_id"]: row for row in evidence["normal_low_star_mechanism_support"]}
+    return {
+        row["operator_id"]: row.get("runtime_support") or {}
+        for row in evidence["normal_low_star_catalog"]
+    }
 
 
 def actual_cost(operator: dict[str, Any], support: dict[str, Any]) -> float:
@@ -49,26 +51,14 @@ def first_skill(operator: dict[str, Any]) -> dict[str, Any] | None:
     return (operator.get("skills") or [None])[0]
 
 
-def extract_declared_targets(plan: dict[str, Any], operator_id: str) -> list[list[int]]:
-    rows: list[list[int]] = []
-    seen: set[tuple[int, int]] = set()
-    keys = (
-        "deployment_positions_and_directions", "corridor_responsibilities",
-        "pressure_window_responsibilities", "opening_responsibilities",
-        "optional_responsibilities", "conditional_responsibilities", "skill_intents",
-    )
-    for key in keys:
-        for item in plan.get(key) or []:
-            text = json.dumps(item, ensure_ascii=False)
-            if operator_id not in text:
-                continue
-            for row, col in re.findall(r"\[(\d+),\s*(\d+)\]", text):
-                coordinate = [int(row), int(col)]
-                marker = (int(row), int(col))
-                if marker not in seen:
-                    rows.append(coordinate)
-                    seen.add(marker)
-    return rows
+def structured_range_checks(plan: dict[str, Any], action: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = plan.get("declared_range_checks") or []
+    return [
+        row for row in rows
+        if row.get("operator_id") == action.get("operator_id")
+        and list(row.get("tile") or []) == list(action.get("tile") or [])
+        and row.get("direction") == action.get("direction")
+    ]
 
 
 def build_dp_ledger(plan: dict[str, Any], catalog: dict[str, dict[str, Any]], supports: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -280,35 +270,59 @@ def compile_plan() -> dict[str, Any]:
             if legal_tile and not roadblock and not occupied and not_already_deployed and redeploy_ready:
                 deployed[operator_id] = frame
                 tile_occupancy[runtime_tile] = operator_id
-            declared_targets = extract_declared_targets(plan, operator_id)
-            query = {
-                "operator_id": operator_id,
-                "configuration": support.get("debug_configuration"),
-                "tile": tile_json,
-                "direction": direction,
-                "targets": [{"label": f"declared_{index}", "tile": target} for index, target in enumerate(declared_targets)],
-            }
-            try:
-                result = engine.query_range_coverage(query)
-                uncovered = [row["tile"] for row in result["targets"] if not row["covered"]]
-                range_status = "PASS_WITH_CONDITIONS" if not uncovered else "CONFLICT"
-                if not declared_targets:
-                    range_status = "UNKNOWN_NO_DECLARED_TARGET_TILES"
+            declared_rows = structured_range_checks(plan, action)
+            if not declared_rows:
                 range_checks.append({
                     "action_index": index, "operator_id": operator_id, "frame": frame,
                     "tile_json_row_col": tile_json, "direction": direction,
-                    "range_id": result.get("range_id"),
-                    "covered_tiles_json_row_col": result.get("covered_tiles_json_row_col"),
-                    "declared_targets_json_row_col": declared_targets,
-                    "uncovered_declared_targets": uncovered,
-                    "status": range_status,
-                    "evidence_status": "CONDITIONAL_RANGE_MODEL_NOT_CLIENT_GEOMETRY_PROOF",
+                    "status": "UNKNOWN_NO_STRUCTURED_RANGE_RESPONSIBILITY",
+                    "evidence_status": "UNKNOWN",
                 })
-            except Exception as exc:
-                range_checks.append({
-                    "action_index": index, "operator_id": operator_id, "frame": frame,
-                    "status": "UNKNOWN", "error": str(exc),
-                })
+            for declared_index, declared in enumerate(declared_rows):
+                unknown_reason = declared.get("unknown_reason")
+                targets = declared.get("targets") or []
+                if unknown_reason or not targets:
+                    range_checks.append({
+                        "action_index": index, "declared_index": declared_index,
+                        "operator_id": operator_id, "frame": frame,
+                        "tile_json_row_col": tile_json, "direction": direction,
+                        "responsibility_kind": declared.get("responsibility_kind"),
+                        "unknown_reason": unknown_reason or "NO_TARGETS",
+                        "status": "UNKNOWN",
+                        "evidence_status": "UNKNOWN",
+                    })
+                    continue
+                query = {
+                    "operator_id": operator_id,
+                    "configuration": operator.get("debug_configuration"),
+                    "tile": tile_json,
+                    "direction": direction,
+                    "targets": targets,
+                }
+                try:
+                    result = engine.query_range_coverage(query)
+                    uncovered = [row["tile"] for row in result["targets"] if not row["covered"]]
+                    range_status = "PASS_WITH_CONDITIONS" if not uncovered else "CONFLICT"
+                    range_checks.append({
+                        "action_index": index, "declared_index": declared_index,
+                        "operator_id": operator_id, "frame": frame,
+                        "tile_json_row_col": tile_json, "direction": direction,
+                        "responsibility_kind": declared.get("responsibility_kind"),
+                        "range_id": result.get("range_id"),
+                        "covered_tiles_json_row_col": result.get("covered_tiles_json_row_col"),
+                        "declared_targets_json_row_col": [row.get("tile") for row in targets],
+                        "uncovered_declared_targets": uncovered,
+                        "status": range_status,
+                        "evidence_status": "CONDITIONAL_RANGE_MODEL_NOT_CLIENT_GEOMETRY_PROOF",
+                    })
+                except Exception as exc:
+                    range_checks.append({
+                        "action_index": index, "declared_index": declared_index,
+                        "operator_id": operator_id, "frame": frame,
+                        "tile_json_row_col": tile_json, "direction": direction,
+                        "status": "UNKNOWN", "error": str(exc),
+                        "evidence_status": "UNKNOWN",
+                    })
         elif action_type == "RETREAT":
             if operator_id in deployed:
                 redeploy_time = float(catalog[operator_id]["stats"]["redeploy_time"])
@@ -340,7 +354,7 @@ def compile_plan() -> dict[str, Any]:
     )
     operational_verified = not conflicts and not unknowns
     certificate = {
-        "schema_version": "R8_1_LOWSTAR_C2_STATIC_FIDELITY_CHECK_V1",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_STATIC_FIDELITY_CHECK_V1",
         "classification": classification,
         "operationally_verified": False,
         "faithful_certificate": None,
@@ -363,12 +377,11 @@ def compile_plan() -> dict[str, Any]:
         "conflicts": conflicts,
         "unknowns": unknowns,
         "phase_semantics": {
-            "status": "STRUCTURAL_DECLARATION_CHECK_ONLY",
-            "battle_phase_objects": len(plan.get("battle_phases") or []),
-            "formation_transitions": len(plan.get("formation_transitions") or []),
-            "corridor_responsibilities": len(plan.get("corridor_responsibilities") or []),
-            "pressure_window_responsibilities": len(plan.get("pressure_window_responsibilities") or []),
-            "limitations": ["This check cannot prove enemy survival, damage cooperation, pathing or handover timing."],
+            "status": "UNKNOWN_NOT_PROVEN_FROM_ACTIONS",
+            "limitations": [
+                "Phase handover, route ownership, damage cooperation, pathing, blocking duration and healing timing are not proven by this static check.",
+                "Structured range checks cover only explicit declared target tiles; absent or conditional declarations remain UNKNOWN.",
+            ],
         },
         "source_manifest": {
             "evidence": file_record(OUT / "llm_evidence_context.json"),
@@ -377,7 +390,7 @@ def compile_plan() -> dict[str, Any]:
         },
     }
     action_candidate = {
-        "schema_version": "R8_1_LOWSTAR_C2_DIRECTION_COMPLETE_ACTION_CANDIDATE_V1",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_DIRECTION_COMPLETE_ACTION_CANDIDATE_V1",
         "operational_plan_id": plan.get("operational_plan_id"),
         "actions": actions,
         "classification": classification,
@@ -387,7 +400,7 @@ def compile_plan() -> dict[str, Any]:
     write_json("static_compile_results.json", certificate)
     write_json("direction_complete_action_candidate.json", action_candidate)
     write_json("static_compile_final_status.json", {
-        "schema_version": "R8_1_LOWSTAR_C2_STATIC_COMPILE_FINAL_STATUS_V1",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_STATIC_COMPILE_FINAL_STATUS_V1",
         "plan_id": plan.get("operational_plan_id"),
         "classification": classification,
         "conflict_count": len(conflicts),

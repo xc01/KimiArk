@@ -39,3 +39,10 @@ schema. No C2, static compile, simulation, or tactical-feasibility conclusion ex
 Work must review the raw response and decide whether to authorize a new bounded
 attempt with changed instructions or provider/tool handling; this session must not
 be retried.
+
+The compact V2 attempt also stopped after one request. It reduced the body to 127,262
+bytes and removed the stale 0-941 window, but the 4096-token query response ended
+incomplete with 4,093 reasoning tokens, no assistant message, and no native function
+call. No C2, compile, or simulation is authorized from this evidence. Work must review
+the raw response and budget shape before another bounded session; this failed session
+remains 1/3 requests and 0/6 tools.

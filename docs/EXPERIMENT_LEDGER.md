@@ -241,3 +241,18 @@ diff check、secret scan、evidence manifest均通过。三次probe本地启动�
 
 调用前51/51定向pytest PASS。调用后未重试；manifest旧记录先于门禁修改生成，已在post-call
 分析中补充实际调用的`kimi_tool_loop.py` SHA-256。
+
+## 2026-10-13 — C2紧凑两阶段会话
+
+V2准备：`compact_operator_catalog()`覆盖34名普通1–3星，其中17名三星；删除完整原始facts目录与
+重复机制支持表，但保留来源、每个operator的`runtime_support`和UNKNOWN。删除
+`action_window_frames=[0,941]`，win scope改为全关模拟器判定。查询请求127,262字节，
+SHA-256 `89e5d5c685d47a1aa8232368675f244f72c01accce4b786b4d47b38a88ffe643`。
+
+结果：1/3次真实请求，0/6次工具。HTTP 200但`response.incomplete`，request ID
+`021791880929074b9f489096afc36acf45c00ec3935d23a8cad89`。usage input 33,101、output 4,096
+（reasoning 4,093）、total 37,197。输出只有reasoning，没有assistant文本或原生function_call，
+因此没有工具结果，也没有最终C2。静态编译、动作候选和模拟均为0。
+
+修正：transport loop在`response.incomplete`时原先误标`NO_TERMINAL_EVENT`，已改为
+`RESPONSE_INCOMPLETE`并加回归；本轮结果不重试。调用前54/54定向pytest PASS。

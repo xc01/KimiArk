@@ -1,0 +1,77 @@
+{
+  "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_POST_CALL_ANALYSIS",
+  "outcome": "FAILED_NO_RETRY",
+  "budget": {
+    "actual_model_requests": 1,
+    "actual_readonly_tool_calls": 0,
+    "new_operational_plans": 0,
+    "direction_complete_action_candidates": 0,
+    "static_compile_runs": 0,
+    "stage_simulations": 0,
+    "tactical_search_expansions": 0
+  },
+  "request": {
+    "body_sha256": "89e5d5c685d47a1aa8232368675f244f72c01accce4b786b4d47b38a88ffe643",
+    "body_bytes": 127262,
+    "body_limit": 140000,
+    "model": "kimi-k3",
+    "query_max_output_tokens": 4096,
+    "final_max_output_tokens": 32768,
+    "text_format_during_query_phase": null,
+    "continuation": false,
+    "request_id": "021791880929074b9f489096afc36acf45c00ec3935d23a8cad89",
+    "http_status": 200,
+    "terminal_event": "response.incomplete",
+    "response_sha256": "6d0b57e2c8864e0afde1ab0d52a76bfc93160a3c0952e65c32beee2c290097e2",
+    "response_bytes": 1043361
+  },
+  "usage": {
+    "input_tokens": 33101,
+    "output_tokens": 4096,
+    "reasoning_tokens": 4093,
+    "total_tokens": 37197
+  },
+  "observed_model_behavior": {
+    "output_item_types": [
+      "reasoning"
+    ],
+    "assistant_message_present": false,
+    "native_function_call_items": 0,
+    "native_function_calls_executed": 0,
+    "final_plan_text_present": false
+  },
+  "classification_correction": {
+    "runtime_error_recorded_by_called_code": "NO_TERMINAL_EVENT",
+    "corrected_semantic_classification": "RESPONSE_INCOMPLETE",
+    "reason": "A response.incomplete terminal event exists; NO_TERMINAL_EVENT was an existing transport-loop labeling defect.",
+    "runtime_fix_added_after_call": true
+  },
+  "final_plan_validation": {
+    "interface": "response.incomplete",
+    "operational_plan_valid": false,
+    "static_compile_check": "NOT_RUN_NO_VALID_C2_PLAN",
+    "faithful_certificate": "NONE"
+  },
+  "scope_boundaries": {
+    "counterexamples_absorbed": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "tactical_decision_quality": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "battle_feasibility": "UNKNOWN_NOT_SIMULATED",
+    "win_loss": "NOT_APPLICABLE_NO_STAGE_SIMULATION"
+  },
+  "manifest_correction": {
+    "reason": "source_manifest.json was prepared before the post-call response-classification fix to scripts/kimi_tool_loop.py",
+    "prepared_and_called_sha256": "2299bf7194676ea8d56e1a1f4813d5f30594b69913366de737d9ddc5ac1540a2",
+    "post_fix_sha256": "c32c03f61124a08e2ca87d4e14341afd1837ef3230b5662b5b75f396956dfd56"
+  },
+  "offline_tests_before_call": {
+    "command": "PYTHONPATH=src:scripts:/usr/lib/python3/dist-packages /home/bigdata/Desktop/cybergym-main/.venv/bin/pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_lowstar_c2_compact_tool_revision_v1.py tests/test_r8_1_low_star_full_tactical_closure_v1.py tests/test_r8_1_low_star_review_regressions.py",
+    "result": "PASS",
+    "passing_tests": 54,
+    "log": "offline_tests.log"
+  },
+  "post_fix_tests": {
+    "result": "PASS",
+    "passing_tests": 54,
+    "log": "post_fix_tests.log"
+  }
+}

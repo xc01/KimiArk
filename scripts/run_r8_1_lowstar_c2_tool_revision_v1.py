@@ -18,6 +18,7 @@ from typing import Any
 from jsonschema import Draft7Validator
 
 from run_r8_1_low_star_full_tactical_closure_v1 import (
+    compact_operator_catalog,
     evidence_context as closure_evidence_context,
     output_schema,
 )
@@ -34,7 +35,7 @@ from kimi_tool_loop import (
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "src"))
-OUT = ROOT / "output/r8_1_lowstar_c2_tool_revision_v1"
+OUT = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v1"
 C1_PLAN = ROOT / "output/r8_1_low_star_full_tactical_closure_v2/llm_structured_output.json"
 FACTS = ROOT / "output/normal_low_star_facts_v1/normal_low_star_facts.json"
 SUPPORT = ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json"
@@ -42,7 +43,9 @@ BASE_URL = "https://ark.cn-beijing.volces.com/api/plan/v3/responses"
 MODEL = "kimi-k3"
 MECHANICS = "m18.9-stage-device-runtime-v1"
 TIMEOUT_SECONDS = 900
-OUTPUT_TOKEN_LIMIT = 20480
+QUERY_TOKEN_LIMIT = 4096
+FINAL_TOKEN_LIMIT = 32768
+MAX_REQUEST_BODY_BYTES = 140_000
 MAX_MODEL_REQUESTS = 3
 MAX_TOOL_CALLS = 6
 
@@ -131,9 +134,8 @@ def c1_counterexamples() -> list[dict[str, Any]]:
 
 def evidence_context() -> dict[str, Any]:
     base = closure_evidence_context()
-    support = load(SUPPORT)
     return {
-        "milestone": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1",
+        "milestone": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1",
         "stage_id": base["stage_id"],
         "mechanics_version": MECHANICS,
         "gamedata_commit": base["gamedata_commit"],
@@ -152,15 +154,14 @@ def evidence_context() -> dict[str, Any]:
         "stage_active_facts": base["stage_active_facts"],
         "roadblock_evidence": base["roadblock_evidence"],
         "simulation_domain": base["simulation_domain"],
-        "normal_low_star_catalog": load(FACTS)["operators"],
-        "normal_low_star_mechanism_support": support["operators"],
-        "normal_low_star_support_counts": support["counts"],
+        "normal_low_star_catalog": compact_operator_catalog(),
+        "normal_low_star_support_counts": load(SUPPORT)["counts"],
         "base_rule_card": BASE_RULE_CARD,
         "c1_conditioned_counterexamples": c1_counterexamples(),
         "previous_c1_plan_to_revise": previous_plan_summary(),
         "decision_task": {
             "full_stage_scope": True,
-            "action_window_frames": [0, 941],
+            "win_scope": "full_stage_until_simulator_WIN_or_LOSS_after_all_spawn_events",
             "one_operational_plan": True,
             "readonly_tool_call_limit": MAX_TOOL_CALLS,
             "model_request_limit_including_continuations": MAX_MODEL_REQUESTS,
@@ -175,15 +176,38 @@ def evidence_context() -> dict[str, Any]:
     }
 
 
+def compactness_check(evidence: dict[str, Any], payload: dict[str, Any], body: str) -> dict[str, Any]:
+    catalog = evidence.get("normal_low_star_catalog") or []
+    three_stars = [row for row in catalog if row.get("identity", {}).get("rarity") == 3]
+    checks = {
+        "body_bytes_at_or_below_limit": len(body.encode()) <= MAX_REQUEST_BODY_BYTES,
+        "all_34_low_stars_present": len(catalog) == 34,
+        "all_17_three_stars_present": len(three_stars) == 17,
+        "compact_rows_have_runtime_support": all("runtime_support" in row for row in catalog),
+        "duplicate_full_support_table_absent": "normal_low_star_mechanism_support" not in evidence,
+        "action_window_frames_absent": "action_window_frames" not in evidence.get("decision_task", {}),
+        "c1_counterexamples_present": len(evidence.get("c1_conditioned_counterexamples") or []) == 5,
+        "stage_routes_present": len(evidence.get("source_routes") or []) >= 30,
+        "stage_wave_schedule_present": bool(evidence.get("source_wave_schedule")),
+        "roadblocks_present": len((evidence.get("stage_active_facts") or {}).get("roadblock_tiles_col_row") or []) == 5,
+        "query_protocol_unbound_from_final_schema": payload.get("text") is None and payload.get("max_output_tokens") == QUERY_TOKEN_LIMIT,
+        "tools_whitelisted": {row.get("name") for row in payload.get("tools") or []} == {"query_mechanic", "query_range_coverage", "check_timing_constraints"},
+    }
+    if not all(checks.values()):
+        raise RuntimeError("compact evidence or query payload completeness check failed: " + json.dumps(checks, ensure_ascii=False, sort_keys=True))
+    return checks
+
+
 def prompt_text(evidence: dict[str, Any]) -> str:
     return f"""You are Kimi-K3, the tactical decision maker for Arknights main_08-01 / R8-1.
-Produce exactly one compact full-stage OperationalPlan C2 using only ordinary-mode 1-3 star operators.
+This is the QUERY PHASE for one compact full-stage OperationalPlan C2 using only ordinary-mode 1-3 star operators.
 
 Use the supplied C1 conditioned counterexamples as tactical feedback, then actively verify candidate assumptions with the read-only tools:
 - query range coverage for any deployment responsibility you intend to rely on.
 - query timing constraints for skill readiness, DP payments and same-frame deployment economy.
 - query mechanics/stage facts when unsure about coordinates, SP, damage, WIN rule, roadblocks or affordance support.
 Do not merely describe a tool call. The deterministic loop must execute a native tool call and return its result.
+In this response, return only native tool calls (up to six). Do not return the final OperationalPlan JSON.
 
 You must revise C1 yourself. Do not copy it unchanged. Explicitly absorb these points:
 1. Hibiscus at [5,7] UP does not cover [4,6]/[4,7] in the current range model.
@@ -201,17 +225,45 @@ Hard rules:
 - Be compact, but do not omit tactical semantics required by the schema.
 - State which C1 assumptions changed, which counterexamples were absorbed, and what remains UNKNOWN.
 
-The complete evidence JSON follows:
+The compact evidence JSON follows:
 
 EVIDENCE_JSON
 {json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))}
 """
 
 
+def finalize_plan_payload(payload: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
+    finalized = copy.deepcopy(payload)
+    finalized["max_output_tokens"] = FINAL_TOKEN_LIMIT
+    finalized["text"] = {
+        "format": {
+            "name": "r8_1_lowstar_c2_compact_tool_revision_v1",
+            "schema": schema,
+            "strict": False,
+            "type": "json_schema",
+        }
+    }
+    finalized["input"] = list(finalized.get("input") or []) + [{
+        "role": "user",
+        "content": [{"type": "input_text", "text": (
+            "All readonly tool calls have now been executed and returned above. "
+            "Return exactly one compact OperationalPlan C2 as final JSON. "
+            "Use only ordinary-mode 1-3 star operators; every DEPLOY must have tile and direction. "
+            "Include declared_range_checks for each explicit deployment responsibility. Each row needs operator_id, tile, direction, responsibility_kind and exact targets; use unknown_reason instead of guessing when no concrete target is known. "
+            "Explain absorbed C1 counterexamples, changed assumptions, conditional semantics and UNKNOWNs. "
+            "Do not emit another tool call, reasoning-only response, or non-JSON wrapper."
+        )}],
+    }]
+    errors = validate_tool_request(finalized)
+    if errors:
+        raise RuntimeError("invalid final continuation: " + ", ".join(errors))
+    return finalized
+
+
 def source_manifest(evidence_path: Path) -> dict[str, Any]:
     paths = [FACTS, SUPPORT, C1_PLAN, ROOT / "scripts/kimi_readonly_tools.py", ROOT / "scripts/kimi_responses_transport.py", ROOT / "scripts/kimi_tool_loop.py", Path(__file__)]
     return {
-        "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_SOURCE_MANIFEST",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_SOURCE_MANIFEST",
         "inputs": {path.name: file_record(path) for path in paths},
         "prepared_evidence": file_record(evidence_path),
         "mechanics_version": MECHANICS,
@@ -225,7 +277,7 @@ def prepare() -> dict[str, Any]:
         raise RuntimeError("budgeted attempt log already contains calls; refusing to reset or rerun")
     attempt_path.write_text("", encoding="utf-8")
     write_json("budget_usage.json", {
-        "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_BUDGET",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_BUDGET",
         "max_model_requests": MAX_MODEL_REQUESTS,
         "max_readonly_tool_calls": MAX_TOOL_CALLS,
         "model_requests_started": 0,
@@ -243,15 +295,15 @@ def prepare() -> dict[str, Any]:
     base_payload = {
         "model": MODEL,
         "stream": True,
-        "max_output_tokens": OUTPUT_TOKEN_LIMIT,
         "input": [{"role": "user", "content": [{"type": "input_text", "text": prompt}]}],
-        "text": {"format": {"name": "r8_1_lowstar_c2_tool_revision_v1", "schema": schema, "strict": False, "type": "json_schema"}},
+        "max_output_tokens": QUERY_TOKEN_LIMIT,
     }
     payload = build_tool_enabled_request(base_payload)
     errors = validate_tool_request(payload)
     if errors:
         raise RuntimeError("invalid prepared tool request: " + ", ".join(errors))
     body = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    write_json("compactness_check.json", compactness_check(evidence, payload, body))
     write_text("llm_request_body.txt", body)
     write_json("llm_request.json", payload)
     write_json("llm_request_fingerprint.json", {
@@ -260,7 +312,7 @@ def prepare() -> dict[str, Any]:
         "body_bytes": len(body.encode()),
     })
     write_json("source_manifest.json", source_manifest(evidence_path))
-    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_lowstar_c2_tool_revision_v1"})
+    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_lowstar_c2_compact_tool_revision_v1"})
     return payload
 
 
@@ -284,9 +336,11 @@ def make_stream_once() -> Any:
 
     def stream_once(payload: dict[str, Any]) -> tuple[dict[str, Any], StreamAccumulator, bytes]:
         nonlocal attempts
+        body = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+        if len(body) > MAX_REQUEST_BODY_BYTES:
+            raise RuntimeError(f"request body exceeds {MAX_REQUEST_BODY_BYTES} bytes before network: {len(body)}")
         attempts += 1
         update_budget(model_requests=attempts)
-        body = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
         request_path = OUT / f"attempt_{attempts}_request.json"
         request_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         (OUT / f"attempt_{attempts}_request_body.txt").write_bytes(body)
@@ -375,13 +429,14 @@ def call() -> dict[str, Any]:
         evidence=evidence,
         plan_schema=schema,
         budget=budget,
+        finalize_payload=lambda payload: finalize_plan_payload(payload, schema),
     )
     update_budget(model_requests=budget.model_requests_started, tool_calls=budget.tool_calls_executed)
     write_json("tool_loop_session.json", session)
     write_json("tool_loop_budget.json", session.get("budget", budget.__dict__))
     if session.get("status") != "COMPLETE":
         write_json("final_status.json", {
-            "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_FINAL_STATUS",
+            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_FINAL_STATUS",
             "status": "FAILED_NO_RETRY",
             "failure": session,
             "budget_usage": load(OUT / "budget_usage.json"),
@@ -390,8 +445,8 @@ def call() -> dict[str, Any]:
     parsed = session["operational_plan"]
     write_json("llm_structured_output.json", parsed)
     validation = {
-        "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_PLAN_VALIDATION",
-        "schema": "r8_1_lowstar_c2_tool_revision_v1",
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V1_PLAN_VALIDATION",
+        "schema": "r8_1_lowstar_c2_compact_tool_revision_v1",
         "evidence_path": str(evidence_path.relative_to(ROOT)),
         "schema_errors": sorted(Draft7Validator(schema).iter_errors(parsed), key=lambda error: list(error.path)),
         "status": "PASS",

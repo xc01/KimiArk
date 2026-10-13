@@ -139,3 +139,13 @@ previous_response_id或assistant prefill。探测成功只确认非战术工具�
 决策：即使最终文本是合法JSON，若整个会话没有至少一个已执行的原生只读工具调用，也不返回
 `COMPLETE`。文字声称调用工具、计划JSON有效或schema通过都不能替代Kimi主动查询；这防止模型
 用普通文本冒充工具轮并直接交出战术计划。真实C2会话中的每个请求、续接和失败仍计数。
+
+## 2026-10-13 — C2紧凑两阶段修订
+
+决策：查询阶段复用已验证的原生function工具协议，不绑定最终OperationalPlan的`text.format`，
+`max_output_tokens`上限4096。收到真实工具结果后，续接同时保留原user上下文、
+function_call、function_call_output和新的显式最终指令；此后才绑定32768上限的最终JSON schema。
+普通文本声称调用工具不等于工具结果。每个请求正文在联网前不得高于140,000字节。
+
+决策：响应terminal分类必须准确。`response.incomplete`不能写成`NO_TERMINAL_EVENT`；它会占用
+请求预算并终止会话，但缺少工具调用或最终计划时也不能被修补或续接为战术成功。

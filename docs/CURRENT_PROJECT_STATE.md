@@ -299,6 +299,23 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+## 2026-10-13 C2紧凑两阶段会话失败
+
+CONFIRMED_FROM_CODE：V2准备使用`compact_operator_catalog()`，请求从372,545字节压缩到
+127,262字节；仍覆盖34名普通1–3星（17名三星）的配置、数值、范围、技能、天赋与运行时支持。
+删除重复完整机制支持表和`decision_task.action_window_frames=[0,941]`。查询阶段不绑定最终
+schema，显式上限4096；收到真实工具结果后才绑定最终32768 JSON schema。
+
+CONFIRMED_FROM_RUNTIME：会话1/3次请求失败后停止，0/6次工具执行，无C2。request ID
+`021791880929074b9f489096afc36acf45c00ec3935d23a8cad89`，HTTP 200，terminal
+`response.incomplete`；usage input 33,101、output 4,096（reasoning 4,093）、total 37,197。
+响应只有`reasoning`输出项，没有assistant消息或原生`function_call`。因此没有Python工具结果，
+也没有进入最终计划轮。已把旧代码的`NO_TERMINAL_EVENT`标签修正为`RESPONSE_INCOMPLETE`，
+但没有重试或重启预算。
+
+静态编译0次、模拟0次。旧范围/SP/WIN反例是否被消化保持UNKNOWN。证据在
+`output/r8_1_lowstar_c2_compact_tool_revision_v1/post_call_evidence_analysis.json`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

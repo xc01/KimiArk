@@ -225,7 +225,7 @@ class ToolLoopTests(unittest.TestCase):
         with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
             result = run_mock_tool_session(self.payload, self.engine, fake_stream, evidence=self.evidence, plan_schema=self.plan_schema)
         self.assertEqual(result["status"], "FAILED")
-        self.assertEqual(result["error"], "NO_TERMINAL_EVENT")
+        self.assertEqual(result["error"], "RESPONSE_INCOMPLETE")
         executed.assert_not_called()
 
     def test_invalid_call_and_wrong_result_ids_are_rejected(self):
