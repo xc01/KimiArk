@@ -219,3 +219,7 @@ attempt文件编号必须继承持久预算计数，禁止每个进程从1重写
 决策：Codex CLI入口必须用参数数组调用，进程超时、stdin、stdout/stderr、退出码和JSONL完整保存；
 内部模型请求数无法观测时记UNKNOWN。自动化环境必须在HTTP前显式设置本地代理变量，并在attempt记录
 中保存这些标志；CLI失败后不自动重启或resume。
+
+决策：CLI response_format schema必须在HTTP前按OpenAI strict规则准备，根对象显式
+`additionalProperties=false`；本地Draft 7验证不能替代这个检查。二次实验输出目录、attempt序号、
+累计启动数和复用prompt/evidence哈希必须显式记录，旧失败文件不覆盖。

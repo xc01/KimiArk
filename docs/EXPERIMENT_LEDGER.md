@@ -354,3 +354,11 @@ effort一致，且`llm_request.json`与attempt请求和body哈希完全一致；
 唯一CLI进程启动后因workspace routing discovery timed out失败；thread
 `01a13607-f3d3-7ee2-9ccf-751acb5a2dd0`，退出码1，无usage记录，0计划，0模拟。根因观察是自动化子进程
 未继承交互shell的本地代理变量；事后runner已加mihomo代理默认值并保留本次失败，不重跑。
+
+## 2026-10-14 Codex CLI第二次启动
+
+新目录`r8_1_gpt_c4_codex_cli_v2`复用v1 prompt/evidence。预检记录全部大小写代理变量、mihomo Singapore-02
+监听与出口。相关pytest 59/59 PASS。
+
+第2次CLI进程到达OpenAI但被400拒绝：response_format要求根schema`additionalProperties=false`，当前根为
+true。thread `01a13615-a7e7-7c60-b818-39f5eea76eb7`，无usage记录；累计2/2 CLI启动、0计划、0模拟。

@@ -22,6 +22,7 @@ from run_r8_1_lowstar_c2_full_diagnostic_v1 import run_full_diagnostic
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "output/r8_1_gpt_c4_tactical_revision_v1"
+SAVED_CLI_INPUT_DIR = ROOT / "output/r8_1_gpt_c4_codex_cli_v1"
 OUT = ROOT / "output/r8_1_gpt_c4_codex_cli_v1"
 DIAGNOSTIC_OUT = ROOT / "output/r8_1_gpt_c4_codex_cli_diagnostic_v1"
 PLAN_ID = "R8_1_LOWSTAR_PLAN_C4"
@@ -30,6 +31,9 @@ PLAN_PREFIX = "R8_1_LOWSTAR_PLAN_C4"
 MODEL = "gpt-6.1-sol"
 REASONING_EFFORT = "medium"
 CLI_TIMEOUT_SECONDS = 3600
+PRIOR_CLI_STARTS = 0
+CLI_ATTEMPT_NUMBER = 1
+REUSE_SAVED_CLI_INPUT = False
 
 
 def load(path: Path) -> Any:
@@ -53,6 +57,22 @@ def file_record(path: Path) -> dict[str, Any]:
     return {"bytes": path.stat().st_size, "path": os.path.relpath(path, ROOT), "sha256": sha256(path)}
 
 
+def configure_run(
+    output_dir: str,
+    diagnostic_output_dir: str,
+    *,
+    cli_attempt: int,
+    prior_cli_starts: int,
+    reuse_saved_cli_input: bool = False,
+) -> None:
+    global OUT, DIAGNOSTIC_OUT, CLI_ATTEMPT_NUMBER, PRIOR_CLI_STARTS, REUSE_SAVED_CLI_INPUT
+    OUT = ROOT / output_dir
+    DIAGNOSTIC_OUT = ROOT / diagnostic_output_dir
+    CLI_ATTEMPT_NUMBER = cli_attempt
+    PRIOR_CLI_STARTS = prior_cli_starts
+    REUSE_SAVED_CLI_INPUT = reuse_saved_cli_input
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -68,8 +88,11 @@ def assert_run_lock() -> None:
         raise RuntimeError("another Codex CLI tactical session is running") from exc
     handle.seek(0)
     if handle.read():
-        handle.close()
-        raise RuntimeError("Codex CLI tactical session lock already consumed")
+        if (OUT / "cli_process_attempt.json").is_file():
+            handle.close()
+            raise RuntimeError("Codex CLI tactical session lock already consumed")
+        handle.seek(0)
+        handle.truncate()
     handle.seek(0)
     handle.write(json.dumps({
         "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_RUN_LOCK",
@@ -83,7 +106,7 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
     environment = codex_environment()
     record = {
         "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_PROCESS_ATTEMPT",
-        "attempt": 1,
+        "attempt": CLI_ATTEMPT_NUMBER,
         "status": "STARTED",
         "started_at": utc_now(),
         "automatic_retry": False,
@@ -95,6 +118,10 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
             "HTTPS_PROXY": environment.get("HTTPS_PROXY"),
             "ALL_PROXY": environment.get("ALL_PROXY"),
             "NO_PROXY": environment.get("NO_PROXY"),
+            "http_proxy": environment.get("http_proxy"),
+            "https_proxy": environment.get("https_proxy"),
+            "all_proxy": environment.get("all_proxy"),
+            "no_proxy": environment.get("no_proxy"),
         },
         "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
     }
@@ -113,11 +140,27 @@ def build_command(schema_path: Path, last_message_path: Path) -> list[str]:
 
 
 def codex_environment() -> dict[str, str]:
-    environment = os.environ.copy()
-    environment.setdefault("HTTP_PROXY", "http://127.0.0.1:7890")
-    environment.setdefault("HTTPS_PROXY", "http://127.0.0.1:7890")
-    environment.setdefault("ALL_PROXY", "socks5://127.0.0.1:7890")
-    environment.setdefault("NO_PROXY", "localhost,127.0.0.1,::1")
+    environment = dict(os.environ)
+    expected = {
+        "HTTP_PROXY": "http://127.0.0.1:7890",
+        "HTTPS_PROXY": "http://127.0.0.1:7890",
+        "ALL_PROXY": "socks5://127.0.0.1:7890",
+        "NO_PROXY": "localhost,127.0.0.1,::1",
+    }
+    for upper, value in expected.items():
+        lower = upper.lower()
+        inherited = environment.get(upper)
+        if inherited is not None and not inherited:
+            raise RuntimeError(f"empty proxy environment variable is forbidden: {upper}")
+        inherited_lower = environment.get(lower)
+        if inherited_lower is not None and not inherited_lower:
+            raise RuntimeError(f"empty proxy environment variable is forbidden: {lower}")
+        if inherited is not None and inherited != value:
+            raise RuntimeError(f"inherited {upper} conflicts with required local proxy: {inherited!r}")
+        if inherited_lower is not None and inherited_lower != value:
+            raise RuntimeError(f"inherited {lower} conflicts with required local proxy: {inherited_lower!r}")
+        environment[upper] = value
+        environment[lower] = value
     return environment
 
 
@@ -141,13 +184,16 @@ EVIDENCE_JSON
 
 def prepare() -> dict[str, Any]:
     assert_run_lock()
+    cumulative_cli_starts = PRIOR_CLI_STARTS + 1
     budget = {
         "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_BUDGET",
         "provider": "codex-cli-openai",
         "model": MODEL,
         "reasoning_effort": REASONING_EFFORT,
         "max_cli_process_starts": 1,
-        "cli_process_starts": 0,
+        "cli_process_starts_in_experiment": 0,
+        "prior_cli_process_starts": PRIOR_CLI_STARTS,
+        "cumulative_cli_process_starts_after_this_attempt": cumulative_cli_starts,
         "max_operational_plans": 1,
         "new_operational_plans": 0,
         "max_stage_simulations": 1,
@@ -158,23 +204,34 @@ def prepare() -> dict[str, Any]:
     }
     write_json(OUT / "budget_usage.json", budget)
 
-    old_evidence = load(SOURCE / "llm_evidence_context.json")
-    evidence = copy.deepcopy(old_evidence)
-    evidence["milestone"] = "R8_1_GPT_C4_CODEX_CLI_V1"
-    evidence["tactical_provider"] = {
-        "provider": "codex-cli", "model": MODEL, "reasoning_effort": REASONING_EFFORT,
-        "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
-    }
-    evidence["codex_cli_run_policy"] = {
-        "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
-        "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
-        "readonly_query_helpers": True,
-    }
-    write_json(OUT / "llm_evidence_context.json", evidence)
+    if REUSE_SAVED_CLI_INPUT:
+        evidence_path = SAVED_CLI_INPUT_DIR / "llm_evidence_context.json"
+        prompt_path = SAVED_CLI_INPUT_DIR / "codex_prompt.txt"
+        (OUT / "llm_evidence_context.json").write_bytes(evidence_path.read_bytes())
+        (OUT / "codex_prompt.txt").write_bytes(prompt_path.read_bytes())
+        evidence = load(evidence_path)
+    else:
+        old_evidence = load(SOURCE / "llm_evidence_context.json")
+        evidence = copy.deepcopy(old_evidence)
+        evidence["milestone"] = "R8_1_GPT_C4_CODEX_CLI_V1"
+        evidence["tactical_provider"] = {
+            "provider": "codex-cli", "model": MODEL, "reasoning_effort": REASONING_EFFORT,
+            "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
+        }
+        evidence["codex_cli_run_policy"] = {
+            "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
+            "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
+            "readonly_query_helpers": True,
+        }
+        write_json(OUT / "llm_evidence_context.json", evidence)
+        prompt_path = None
     schema = output_schema()
     write_json(OUT / "revision_output_schema.json", schema)
-    prompt = build_prompt(evidence)
-    (OUT / "codex_prompt.txt").write_text(prompt, encoding="utf-8")
+    if REUSE_SAVED_CLI_INPUT:
+        prompt = (OUT / "codex_prompt.txt").read_text(encoding="utf-8")
+    else:
+        prompt = build_prompt(evidence)
+        (OUT / "codex_prompt.txt").write_text(prompt, encoding="utf-8")
     source_paths = [
         SOURCE / "llm_evidence_context.json", SOURCE / "constraint_informed_prompt.txt",
         ROOT / "output/r8_1_gpt_tactical_revision_v1/recovered_gpt_c3.json",
@@ -190,6 +247,12 @@ def prepare() -> dict[str, Any]:
         "inputs": {path.name: file_record(path) for path in source_paths},
         "prepared_evidence": file_record(OUT / "llm_evidence_context.json"),
         "prompt": file_record(OUT / "codex_prompt.txt"),
+        "saved_input_reused": REUSE_SAVED_CLI_INPUT,
+        "saved_input_sources": {
+            "evidence": file_record(SOURCE / "llm_evidence_context.json"),
+            "cli_evidence": file_record(SAVED_CLI_INPUT_DIR / "llm_evidence_context.json"),
+            "cli_prompt": file_record(SAVED_CLI_INPUT_DIR / "codex_prompt.txt"),
+        } if REUSE_SAVED_CLI_INPUT else None,
     })
     return {"prompt": prompt, "schema": schema, "budget": budget}
 
@@ -244,7 +307,7 @@ def extract_events_summary(raw: str) -> dict[str, Any]:
 def run_codex_once(prompt: str, command: list[str], timeout_seconds: int) -> dict[str, Any]:
     claim_cli_start(command)
     budget = load(OUT / "budget_usage.json")
-    budget["cli_process_starts"] = 1
+    budget["cli_process_starts_in_experiment"] = 1
     write_json(OUT / "budget_usage.json", budget)
     try:
         result = subprocess.run(
@@ -299,7 +362,8 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
     except Exception as exc:
         write_json(OUT / "final_status.json", {
             "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_FINAL_STATUS", "status": "CLI_FAILED_NO_RETRY",
-            "error": f"{type(exc).__name__}: {exc}", "cli_process_starts": 1,
+            "error": f"{type(exc).__name__}: {exc}", "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1,
             "new_operational_plans": 0, "stage_simulations_started": 0,
         })
         raise
@@ -310,14 +374,16 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
             "failure": execution["process"], "trajectory_summary": {
                 "event_count": execution["trajectory"]["event_count"],
                 "usage_records": execution["trajectory"]["usage_records"],
-            }, "cli_process_starts": 1, "new_operational_plans": 0,
+            }, "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1, "new_operational_plans": 0,
             "stage_simulations_started": 0,
         })
         raise SystemExit("Codex CLI failed without retry")
     if not last_message_path.is_file():
         write_json(OUT / "final_status.json", {
             "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_FINAL_STATUS", "status": "CLI_FAILED_NO_RETRY",
-            "error": "Codex CLI did not save --output-last-message", "cli_process_starts": 1,
+            "error": "Codex CLI did not save --output-last-message", "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1,
             "new_operational_plans": 0, "stage_simulations_started": 0,
         })
         raise SystemExit("Codex CLI final message missing")
@@ -333,7 +399,8 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
         })
         write_json(OUT / "final_status.json", {
             "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_FINAL_STATUS", "status": "FAILED_INVALID_PLAN_NO_RETRY",
-            "cli_process_starts": 1, "new_operational_plans": 0, "stage_simulations_started": 0,
+            "cli_process_starts_in_experiment": 1, "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1,
+            "new_operational_plans": 0, "stage_simulations_started": 0,
         })
         raise SystemExit("Codex final message is not JSON")
 
@@ -359,7 +426,8 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
     if validation_errors:
         write_json(OUT / "final_status.json", {
             "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_FINAL_STATUS", "status": "FAILED_INVALID_PLAN_NO_RETRY",
-            "errors": validation_errors, "cli_process_starts": 1,
+            "errors": validation_errors, "cli_process_starts_in_experiment": 1,
+            "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1,
             "new_operational_plans": 0, "stage_simulations_started": 0,
         })
         raise SystemExit(f"Codex C4 failed schema/contract validation: {validation_errors}")
@@ -367,7 +435,8 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
     write_json(OUT / "llm_structured_output.json", parsed)
     write_json(OUT / "final_status.json", {
         "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_FINAL_STATUS",
-        "status": "GPT_C4_RECEIVED_AND_CONTRACT_VALID", "cli_process_starts": 1,
+        "status": "GPT_C4_RECEIVED_AND_CONTRACT_VALID", "cli_process_starts_in_experiment": 1,
+        "cumulative_cli_process_starts": PRIOR_CLI_STARTS + 1,
         "new_operational_plans": 1, "stage_simulations_started": 0,
         "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
         "session_ids": execution["trajectory"]["session_ids"],
@@ -407,7 +476,17 @@ def simulate() -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("phase", choices=["session", "static_check", "simulate"])
+    parser.add_argument("--output-dir", default="output/r8_1_gpt_c4_codex_cli_v1")
+    parser.add_argument("--diagnostic-output-dir", default="output/r8_1_gpt_c4_codex_cli_diagnostic_v1")
+    parser.add_argument("--cli-attempt", type=int, default=1)
+    parser.add_argument("--prior-cli-starts", type=int, default=0)
+    parser.add_argument("--reuse-saved-input", action="store_true")
     arguments = parser.parse_args()
+    configure_run(
+        arguments.output_dir, arguments.diagnostic_output_dir,
+        cli_attempt=arguments.cli_attempt, prior_cli_starts=arguments.prior_cli_starts,
+        reuse_saved_cli_input=arguments.reuse_saved_input,
+    )
     if arguments.phase == "session":
         run_session()
     elif arguments.phase == "static_check":

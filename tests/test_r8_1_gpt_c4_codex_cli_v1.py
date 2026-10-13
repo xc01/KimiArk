@@ -27,6 +27,19 @@ class GptC4CodexCliTests(unittest.TestCase):
         self.assertEqual(environment["HTTP_PROXY"], "http://127.0.0.1:7890")
         self.assertEqual(environment["HTTPS_PROXY"], "http://127.0.0.1:7890")
         self.assertEqual(environment["ALL_PROXY"], "socks5://127.0.0.1:7890")
+        self.assertEqual(environment["http_proxy"], environment["HTTP_PROXY"])
+        self.assertEqual(environment["https_proxy"], environment["HTTPS_PROXY"])
+        self.assertEqual(environment["all_proxy"], environment["ALL_PROXY"])
+        self.assertEqual(environment["NO_PROXY"], "localhost,127.0.0.1,::1")
+        self.assertEqual(environment["no_proxy"], environment["NO_PROXY"])
+
+    def test_empty_or_conflicting_proxy_variables_are_rejected(self):
+        with mock.patch.dict(runner.os.environ, {"HTTPS_PROXY": ""}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "empty proxy"):
+                runner.codex_environment()
+        with mock.patch.dict(runner.os.environ, {"https_proxy": "http://127.0.0.1:9999"}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "conflicts"):
+                runner.codex_environment()
 
     def test_jsonl_trajectory_extracts_ids_and_usage(self):
         raw = "\n".join([
@@ -58,7 +71,7 @@ class GptC4CodexCliTests(unittest.TestCase):
                         runner.run_codex_once("prompt", ["codex", "exec"], 1)
                     self.assertEqual(run.call_count, 1)
                 state = json.loads((temporary_dir / "budget_usage.json").read_text())
-                self.assertEqual(state["cli_process_starts"], 1)
+                self.assertEqual(state["cli_process_starts_in_experiment"], 1)
                 self.assertEqual(
                     json.loads((temporary_dir / "cli_process_result.json").read_text())["exit_code"], 3,
                 )

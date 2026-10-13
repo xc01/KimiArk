@@ -299,6 +299,10 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+The second authorized Codex CLI C4 start reused the saved C4 prompt/evidence and reached OpenAI, but was
+rejected because the root JSON schema did not satisfy `additionalProperties=false`. It remains 0 C4,
+0 static checks and 0 simulations, with cumulative CLI starts 2/2.
+
 The local Codex CLI C4 entry now exists and is bounded to one process, one plan and one diagnostic
 simulation. Its first authorized process failed before producing tactical output: workspace routing
 discovery timed out because subprocess proxy variables were absent. The runner has since gained explicit

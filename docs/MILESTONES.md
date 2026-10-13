@@ -403,3 +403,9 @@ The session is 2/3 requests, 0/6 tools, 0 plans and 0 simulations; no third requ
 The local Codex CLI entry passed 58/58 targeted tests, launched its single authorized process, then
 failed on workspace routing discovery because proxy variables were not inherited. The runner now sets
 explicit local mihomo defaults, but the failed session remains 0 plans / 0 simulations and is not resumed.
+
+## 2026-10-14 — Second Codex CLI attempt reached schema rejection
+
+After proxy preflight, the second CLI start reused the saved C4 prompt/evidence and reached OpenAI. It
+stopped at HTTP 400 because the root output schema used `additionalProperties=true`. Cumulative starts
+are 2/2 with 0 plans and 0 simulations.

@@ -192,6 +192,12 @@ Provider兼容性未实测时，mock成功不能升格为真实协议兼容。�
 响应、最终文本、usage、request ID、工具计数和精确schema错误；不要把失败压缩成“调用失败”。
 本例中的失败占1次模型请求，0次工具执行，不能重试或让Python补写C2。
 
+## 2026-10-14 Codex CLI输出schema经验
+
+Codex `--output-schema`使用OpenAI strict response format，不只是本地JSON Schema。根对象必须显式
+`additionalProperties=false`。OpenAI的400 schema错误已经是网络越过路由的强信号，但不等于模型turn完成
+或战术计划有效。此时不得重跑，也不能把本地Draft 7通过当作response_format通过。
+
 ## 2026-10-14 Codex CLI环境继承经验
 
 交互shell的`~/.bashrc`代理导出不会自动进入Python subprocess。CLI进程必须在启动前显式记录并提供

@@ -122,3 +122,8 @@ turn: workspace routing discovery timed out (`01a13607-f3d3-7ee2-9ccf-751acb5a2d
 automation shell did not inherit interactive proxy exports. The runner now supplies explicit local
 mihomo proxy defaults, but this consumed session cannot be resumed or retried. Work must authorize a
 new CLI directory/budget after reviewing `output/r8_1_gpt_c4_codex_cli_v1/`.
+
+The second authorized CLI attempt reused the same C4 prompt/evidence and confirmed the proxy path
+reached OpenAI, but was rejected by `invalid_request_error.invalid_json_schema`: the root output schema
+had `additionalProperties=true`, while `--output-schema` requires false. Thread
+`01a13615-a7e7-7c60-b818-39f5eea76eb7`; cumulative CLI starts are 2/2. There is no C4 and no simulation.
