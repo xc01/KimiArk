@@ -94,3 +94,9 @@ externally, execute the existing bounded call at most three requests / six reado
 the first failure without retry. If a final C3 passes schema and contract checks, compile the original
 fixed actions only; no simulation is authorized in this milestone. Provider compatibility remains
 UNVERIFIED until a native tool round and successful continuation are observed.
+
+No further GPT call may run from this directory: the persisted STARTED count is 4/3. Work must review
+`output/r8_1_gpt_tactical_revision_v1/resume_session.json`,
+`invalid_final_plan.json`, and `evidence_numbering_incident.json`. Any later tactical revision needs a
+new authorized directory and must explicitly handle the rejected plan's late frame-6090 ordering and
+wrong parent identity; it must not repair or replay the invalid output as a valid C3.

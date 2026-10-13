@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 import run_r8_1_gpt_tactical_revision_v1 as runner
+from kimi_responses_transport import StreamAccumulator, parse_sse
 from kimi_tool_loop import build_tool_continuation_payload
 
 
@@ -81,6 +82,54 @@ class GptTacticalRevisionTests(unittest.TestCase):
             self.assertEqual(
                 json.loads((temporary_dir / "final_status.json").read_text())["actual_model_requests"], 0,
             )
+
+    def test_gpt_completed_commentary_with_native_call_executes_tool(self):
+        message = {
+            "type": "message", "id": "msg-1", "role": "assistant", "status": "completed",
+            "content": [{"type": "output_text", "text": "I’ll verify economy before planning."}],
+        }
+        call = {
+            "type": "function_call", "id": "fc-1", "item_id": "fc-1",
+            "call_id": "call-1", "name": "query_mechanic",
+            "arguments": '{"topic":"economy"}', "status": "completed",
+        }
+        raw = "\n".join([
+            "event: response.created",
+            "data: " + json.dumps({"response": {"id": "resp-1", "status": "in_progress", "output": []}}),
+            "",
+            "event: response.completed",
+            "data: " + json.dumps({"response": {"id": "resp-1", "status": "completed", "output": [message, call]}}),
+            "",
+        ])
+        accumulator = StreamAccumulator()
+        for event in parse_sse(raw):
+            accumulator.observe(event)
+        classification = accumulator.classify()
+        self.assertTrue(classification["requires_tool_execution"])
+        self.assertTrue(classification["assistant_message_present"])
+        self.assertEqual(classification["function_call_completion_statuses"], ["completed"])
+        self.assertEqual(classification["function_calls"][0]["name"], "query_mechanic")
+        self.assertEqual(classification["function_calls"][0]["arguments"], '{"topic":"economy"}')
+
+    def test_stream_attempt_files_continue_persisted_budget_sequence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_dir = Path(temporary)
+            (temporary_dir / "llm_call_attempts.jsonl").write_text("", encoding="utf-8")
+            (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                "model_requests_started": 1, "readonly_tool_calls_executed": 0,
+            }), encoding="utf-8")
+            original_out = runner.OUT
+            runner.OUT = temporary_dir
+            try:
+                stream_once = runner.make_stream_once("sub2api", "gpt-6.1-sol", "medium")
+                with unittest.mock.patch.dict("os.environ", {"SUB2API_API_KEY": "offline-test"}, clear=False):
+                    with unittest.mock.patch.object(runner.urllib.request, "urlopen", side_effect=RuntimeError("offline")):
+                        with self.assertRaises(RuntimeError):
+                            stream_once({"stream": True, "input": []})
+            finally:
+                runner.OUT = original_out
+            self.assertTrue((temporary_dir / "attempt_2_request.json").is_file())
+            self.assertTrue((temporary_dir / "attempt_2_request_body.txt").is_file())
 
 
 if __name__ == "__main__":

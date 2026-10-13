@@ -1,0 +1,95 @@
+{
+  "budget": {
+    "history": [],
+    "max_model_requests": 3,
+    "max_tool_calls": 6,
+    "model_requests_started": 1,
+    "tool_calls_executed": 0,
+    "tool_calls_seen": 0
+  },
+  "error": "completed response mixed final message and tool calls",
+  "model_requests": [
+    {
+      "function_calls": [
+        {
+          "arguments": "{\"topic\":\"economy\"}",
+          "call_id": "call_3bc0d61933314ad3a0fd191ef0d3078d",
+          "item_id": "fc_07706a7f43867c33016ace262630cc819085c608530b8de344",
+          "name": "query_mechanic",
+          "status": "completed"
+        }
+      ],
+      "http_status": 200,
+      "phase": "FINAL_RESPONSE",
+      "request_id": "a6812b88-981c-4390-92ac-834c9d48c93b",
+      "response_bytes": 92051,
+      "terminal_event": "response.completed",
+      "usage": {
+        "attribution": {
+          "items": {
+            "fc_07706a7f43867c33016ace262630cc819085c608530b8de344": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "input_tokens": 0,
+              "output_tokens": 23
+            },
+            "msg_07706a7f43867c33016ace2621f98c8190b03b5c457b2ef188": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "content": [
+                {
+                  "cache_write_tokens": 0,
+                  "cached_tokens": 0,
+                  "input_tokens": 35833,
+                  "output_tokens": 0
+                }
+              ],
+              "input_tokens": 35833,
+              "output_tokens": 0
+            },
+            "msg_07706a7f43867c33016ace2624bc4c819096cd40b10f162f08": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "content": [
+                {
+                  "cache_write_tokens": 0,
+                  "cached_tokens": 0,
+                  "input_tokens": 2,
+                  "output_tokens": 34
+                }
+              ],
+              "input_tokens": 2,
+              "output_tokens": 34
+            }
+          },
+          "request_fields": {
+            "instructions": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "input_tokens": 4216,
+              "output_tokens": 0
+            },
+            "tools": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0,
+              "input_tokens": 340,
+              "output_tokens": 0
+            }
+          }
+        },
+        "input_tokens": 40391,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 57,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 40448
+      }
+    }
+  ],
+  "status": "FAILED",
+  "trajectories": []
+}

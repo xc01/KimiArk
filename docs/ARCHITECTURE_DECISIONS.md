@@ -197,3 +197,7 @@ GPT入口；GLM只负责研发实现与确定性校验。用户授权的GPT请�
 凭据只读`SUB2API_API_KEY`，缺失在联网前停止；不读取Codex配置，不回退Kimi，不切换endpoint或
 推理强度。当前Responses兼容性保持`UNVERIFIED_BEFORE_PROJECT_REQUEST`，直到项目入口观察到原生
 function_call和成功续接。
+
+决策：provider工具轮不得因为同一输出包含assistant commentary和completed function_call而判为最终计划。
+只要整体response完成、function_call完成且流式/最终形状一致，就必须执行原生工具并重建完整续接。
+attempt文件编号必须继承持久预算计数，禁止每个进程从1重写，避免覆盖请求/响应取证材料。

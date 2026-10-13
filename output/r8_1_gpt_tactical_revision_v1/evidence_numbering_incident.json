@@ -1,0 +1,29 @@
+{
+  "actual_budget_accounting": "Started network requests count; persisted budget was reconciled to 4/3.",
+  "lost_or_unmatched_response_hashes": [
+    "a533161f1d6a75f42539247177fe2387e0f223eebb29f73f3bcab8106911ab55",
+    "8fb2540ad1dfc11ff198bc13ce657a397ffa9ef1989c02f7dca9c0bb4e9d197f"
+  ],
+  "note": "The initial raw response content is lost; its request and response hashes remain in llm_call_attempts.jsonl. No reconstruction is claimed.",
+  "preserved_current_response_sha256": "771c3d332fb5634e6c4e7714b7e82c32ad89533929fb18053647d508b81db6ff",
+  "renamed_files": [
+    "resume_attempt_2_request_due_numbering_bug.json",
+    "resume_attempt_2_request_body_due_numbering_bug.txt",
+    "resume_attempt_2_raw_response.txt",
+    "resume_attempt_2_classification.json"
+  ],
+  "request_log_counts": {
+    "FINISHED": 3,
+    "STARTED": 4,
+    "UNFINISHED_STARTS": 1
+  },
+  "root_cause": "make_stream_once reset its local attempt counter for every process and overwrote attempt_1 files.",
+  "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_EVIDENCE_NUMBERING_INCIDENT",
+  "started_body_sha256": [
+    "226644cbf31df8ff5f9b7eafe58d2631cb45b93c957a2813c97c49daa89c9b1c",
+    "3f46e1f305eb3943fec0116c31b3f9b2b54306d3f9df2a69ca0690e3d0c864cc",
+    "b7f1bc6fd6c76aa6bfc312fbe845cb8031bbf84c3608970e597bdd216e0019c2",
+    "f505156d05f5ae64b60df2b34957fc32f9a4c4c29ddd865247e59101a1916401"
+  ],
+  "status": "CONFIRMED_EVIDENCE_LOSS_AND_RENUMBERED_PRESERVATION"
+}

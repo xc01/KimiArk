@@ -316,3 +316,7 @@ assistant文本或原生function_call。第2次显式`tool_choice=required`请�
 输出上限32768；34名普通低星和17名三星完整。因`SUB2API_API_KEY`缺失，preflight在HTTP前停止。
 实际记录：0/3模型请求、0/6只读工具、0个OperationalPlan。Codex本地可用不能证明项目Responses
 续接兼容。
+
+更新：项目会话实际日志4 STARTED / 3 FINISHED，按STARTED计为4/3（超出授权）；1/6只读工具；
+0个通过契约的OperationalPlan。原生function_call和续接成功；唯一最终JSON因parent错误和
+frame乱序被拒绝。attempt编号缺陷覆盖原始响应，已保存缺失记录并修复未来行为。

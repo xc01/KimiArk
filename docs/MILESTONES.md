@@ -374,3 +374,9 @@ readonly-tool loop, C3 evidence and static compiler. The Sub2API request is boun
 with 32,768 output tokens, `gpt-6.1-sol` and medium reasoning. No HTTP request has run because
 `SUB2API_API_KEY` is absent; provider compatibility, tool continuation and GPT-C3 validity remain
 UNKNOWN.
+
+Update: provider compatibility is partially confirmed: the project API emitted a completed native
+`query_mechanic` call and accepted the full tool-result continuation. The session remains a failure:
+the only final JSON violated C2 parent identity and frame ordering. Persistent evidence records 4
+STARTED / 3 FINISHED requests, exceeding the 3-request cap; no further call is permitted. A numbering
+bug overwrote some raw response files and is documented without reconstruction.

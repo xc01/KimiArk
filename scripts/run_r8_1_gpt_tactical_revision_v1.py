@@ -15,7 +15,10 @@ from typing import Any
 from kimi_readonly_tools import ReadOnlyQueryEngine
 from kimi_responses_transport import StreamAccumulator, parse_sse
 from kimi_tool_loop import (
+    ToolLoopError,
     ToolLoopBudget,
+    build_tool_continuation_payload,
+    execute_tool_calls,
     build_tool_enabled_request,
     run_mock_tool_session,
     validate_tool_request,
@@ -201,7 +204,7 @@ def update_budget(model_requests: int | None = None, tool_calls: int | None = No
 def make_stream_once(provider: str, model: str, reasoning_effort: str | None) -> Any:
     config = provider_config(provider)
     base_url = config["base_url"]
-    attempts = 0
+    attempts = load(OUT / "budget_usage.json").get("model_requests_started", 0)
 
     def stream_once(payload: dict[str, Any]) -> tuple[dict[str, Any], StreamAccumulator, bytes]:
         nonlocal attempts
@@ -404,9 +407,114 @@ def static_check() -> dict[str, Any]:
     return compile_plan(OUT)
 
 
+def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str | None) -> dict[str, Any]:
+    evidence_path = OUT / "llm_evidence_context.json"
+    schema_path = OUT / "revision_output_schema.json"
+    request_path = OUT / "attempt_1_request.json"
+    raw_path = OUT / "attempt_1_raw_response.txt"
+    for path in (evidence_path, schema_path, request_path, raw_path):
+        if not path.is_file():
+            raise RuntimeError(f"missing saved transport-fix input: {path}")
+    state = load(OUT / "budget_usage.json")
+    if state.get("model_requests_started") != 1 or state.get("readonly_tool_calls_executed") != 0:
+        raise RuntimeError("transport-fix resume requires exactly one counted request and zero executed tools")
+    schema = load(schema_path)
+    evidence = load(evidence_path)
+    saved_request = load(request_path)
+    accumulator = StreamAccumulator()
+    for event in parse_sse(raw_path.read_text(encoding="utf-8")):
+        accumulator.observe(event)
+    classification = accumulator.classify()
+    write_json("saved_tool_round_classification.json", classification)
+    calls = classification.get("function_calls") or []
+    if accumulator.error or accumulator.terminal_event != "response.completed":
+        raise RuntimeError("saved response is not a completed tool round")
+    if classification.get("malformed_events"):
+        raise ToolLoopError("saved tool round is malformed: " + ", ".join(classification["malformed_events"]))
+    if not calls or not classification.get("requires_tool_execution"):
+        raise ToolLoopError("saved response does not contain a completed native tool call")
+    replay_budget = ToolLoopBudget(max_model_requests=0, max_tool_calls=MAX_TOOL_CALLS)
+    engine = ReadOnlyQueryEngine(evidence_path=evidence_path)
+    tool_results = execute_tool_calls(calls, engine, replay_budget)
+    write_json("saved_tool_round_results.json", {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_SAVED_TOOL_REPLAY",
+        "budget": replay_budget.__dict__,
+        "results": tool_results,
+    })
+    if any(row.get("status") != "EXECUTED" for row in tool_results):
+        raise RuntimeError("saved native tool call could not be executed")
+    continuation = build_tool_continuation_payload(saved_request, calls, tool_results)
+    continuation = finalize_plan_payload(continuation, schema)
+    errors = validate_tool_request(continuation)
+    if errors:
+        raise RuntimeError("invalid resumed final continuation: " + ", ".join(errors))
+    body = json.dumps(continuation, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    if len(body) > CONTINUATION_BODY_LIMIT:
+        raise RuntimeError(f"resumed request body exceeds {CONTINUATION_BODY_LIMIT} bytes before network: {len(body)}")
+    write_json("resume_continuation_request.json", continuation)
+    write_text("resume_continuation_request_body.txt", body.decode())
+    write_json("resume_request_fingerprint.json", {
+        "request_sha256": hashlib.sha256(json.dumps(continuation, ensure_ascii=False, sort_keys=True).encode()).hexdigest(),
+        "body_sha256": hashlib.sha256(body).hexdigest(), "body_bytes": len(body), "body_limit": CONTINUATION_BODY_LIMIT,
+    })
+    budget = ToolLoopBudget(max_model_requests=MAX_MODEL_REQUESTS - 1, max_tool_calls=0)
+    session = run_mock_tool_session(
+        continuation, engine, make_stream_once(provider, model, reasoning_effort),
+        evidence=evidence, plan_schema=schema, budget=budget,
+        finalize_payload=lambda item: finalize_plan_payload(item, schema),
+        validate_plan=lambda parsed: validate_c3_contract(parsed, evidence),
+    )
+    update_budget(
+        model_requests=1 + budget.model_requests_started,
+        tool_calls=replay_budget.tool_calls_executed + budget.tool_calls_executed,
+    )
+    write_json("resume_session.json", session)
+    write_json("tool_loop_budget.json", load(OUT / "budget_usage.json"))
+    if session.get("status") != "COMPLETE":
+        write_json("final_status.json", {
+            "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
+            "status": "FAILED_NO_RETRY_AFTER_TRANSPORT_FIX",
+            "prior_transport_failure": "COMPLETED_RESPONSE_MIXED_COMMENTARY_AND_NATIVE_TOOL_CALL",
+            "failure": session, "budget_usage": load(OUT / "budget_usage.json"),
+        })
+        raise SystemExit("GPT resumed tool session failed without retry")
+    parsed = session["operational_plan"]
+    plan_errors = validate_c3_contract(parsed, evidence)
+    if plan_errors:
+        write_json("llm_plan_validation.json", {
+            "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
+            "status": "FAIL", "errors": plan_errors,
+        })
+        raise RuntimeError("GPT-C3 failed local contract validation")
+    write_json("llm_structured_output.json", parsed)
+    write_json("llm_plan_validation.json", {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
+        "status": "PASS", "evidence_path": str(evidence_path.relative_to(ROOT)),
+    })
+    plans = parsed.get("revised_operational_plans", [])
+    write_json("grounding_validation.json", {
+        "one_operational_plan": len(plans) == 1,
+        "selected_operator_ids": plans[0].get("selected_low_star_operator_ids", []) if plans else [],
+        "direction_complete_deploys": all(
+            action.get("action_type") != "DEPLOY" or (action.get("tile") and action.get("direction"))
+            for action in (plans[0].get("action_timeline", []) if plans else [])
+        ),
+        "status": "PASS" if len(plans) == 1 else "FAIL",
+    })
+    write_json("final_status.json", {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
+        "status": "GPT_C3_RECEIVED_AND_CONTRACT_VALID",
+        "actual_model_requests": 1 + budget.model_requests_started,
+        "actual_readonly_tool_calls": replay_budget.tool_calls_executed + budget.tool_calls_executed,
+        "new_operational_plans": len(plans), "stage_simulations": 0,
+        "tactical_search_expansions": 0, "static_compile_check": "PENDING",
+    })
+    return parsed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=["prepare", "call", "static_check"])
+    parser.add_argument("phase", choices=["prepare", "call", "resume_after_transport_fix", "static_check"])
     parser.add_argument("--provider", choices=sorted(PROVIDERS), default="sub2api")
     parser.add_argument("--model")
     parser.add_argument("--reasoning-effort")
@@ -423,6 +531,9 @@ def main() -> None:
         return
     if arguments.phase == "static_check":
         static_check()
+        return
+    if arguments.phase == "resume_after_transport_fix":
+        resume_after_transport_fix(arguments.provider, model, reasoning_effort)
         return
     call(arguments.provider, model, reasoning_effort)
 

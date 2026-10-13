@@ -307,6 +307,20 @@ CONFIRMED_FROM_CODE_AND_OFFLINE_PREPARE：新增通用入口`run_r8_1_gpt_tactic
 离线preflight在HTTP前停止，实际模型请求0、工具0、新计划0。项目API兼容性和最终GPT-C3计划均
 尚未验证。
 
+## 2026-10-13 GPT有界会话失败
+
+CONFIRMED_FROM_RUNTIME：项目GPT入口观察到原生`query_mechanic` function_call，call_id
+`call_3bc0d61933314ad3a0fd191ef0d3078d`；确定性工具执行1次并成功续接。第一个HTTP完成响应同时
+含commentary message和function_call，暴露transport缺陷；已修复并有回归。请求日志有4次STARTED、
+3次FINISHED；按STARTED对账为4/3，超出原定3次上限，禁止再调用。本地attempt编号缺陷曾覆盖原始
+响应，缺失内容已明确记录，不重建。
+
+CONFIRMED_FROM_VALIDATION：最后一次响应是HTTP 200 / response.completed，usage input 41,729、
+output 7,529（reasoning 955）。最终文本是合法JSON，但不是有效GPT-C3：`parent_hypothesis_id`
+为`R8_1_C3_NATURAL_DP_DEFENDER_OPEN`而非C2，且action 17的frame 6090早于action 16的frame 6180。
+没有静态编译、模拟或WIN/LOSS。Sub2API/GPT的“原生工具+完整续接”兼容性已从项目入口观察到；
+最终计划契约兼容性失败。
+
 ## 2026-10-13 C2紧凑两阶段会话失败
 
 CONFIRMED_FROM_CODE：V2准备使用`compact_operator_catalog()`，请求从372,545字节压缩到

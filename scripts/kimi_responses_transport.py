@@ -173,6 +173,7 @@ class StreamAccumulator:
                         )
                 if len(matched_final_indexes) != len(final_items):
                     self.malformed_events.append("final response contains function calls not present in stream")
+        completed_calls = bool(calls) and all(call.get("status") == "completed" for call in calls)
         call_ids = [call.get("call_id") for call in calls]
         if len(call_ids) != len(set(call_ids)):
             self.malformed_events.append("duplicate function call_id")
@@ -185,9 +186,12 @@ class StreamAccumulator:
                 self.malformed_events.append("function call lacks arguments string")
         return {
             "terminal_event": self.terminal_event,
-            "complete": self.terminal_event == "response.completed"
-            and bool(assistant_items)
-            and bool(self.output_text.strip()),
+            "complete": (
+                self.terminal_event == "response.completed"
+                and bool(assistant_items)
+                and bool(self.output_text.strip())
+                and not completed_calls
+            ),
             "assistant_message_present": bool(assistant_items),
             "final_output_text": self.output_text,
             "reasoning_text": self.reasoning_text,
@@ -198,9 +202,17 @@ class StreamAccumulator:
             "errors": [self.error] if self.error else [],
             "malformed_events": self.malformed_events,
             "function_calls": calls,
-            "tool_round_complete": self.terminal_event == "response.completed" and envelope.get("status") == "completed" and bool(calls) and all(call.get("status") == "completed" for call in calls) and not self.error,
-            "requires_tool_execution": self.terminal_event == "response.completed" and envelope.get("status") == "completed" and bool(calls) and all(call.get("status") == "completed" for call in calls) and not any(
-                item.get("type") == "message" and item.get("role") == "assistant" for item in envelope.get("output", [])
+            "tool_round_complete": (
+                self.terminal_event == "response.completed"
+                and envelope.get("status") == "completed"
+                and completed_calls
+                and not self.error
+            ),
+            "requires_tool_execution": (
+                self.terminal_event == "response.completed"
+                and envelope.get("status") == "completed"
+                and completed_calls
+                and not self.error
             ),
         }
 
