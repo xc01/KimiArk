@@ -133,3 +133,9 @@ assistant prefill伪装成续接。模型+endpoint兼容性保持UNVERIFIED。
 请求、1次工具；第一次原生调用，本地执行一次，第二次携带匹配`function_call_output`。不使用
 previous_response_id或assistant prefill。探测成功只确认非战术工具轮，不授权真实C2或放宽战术
 入口schema/contract。
+
+## 2026-10-13 — C2工具使用门禁
+
+决策：即使最终文本是合法JSON，若整个会话没有至少一个已执行的原生只读工具调用，也不返回
+`COMPLETE`。文字声称调用工具、计划JSON有效或schema通过都不能替代Kimi主动查询；这防止模型
+用普通文本冒充工具轮并直接交出战术计划。真实C2会话中的每个请求、续接和失败仍计数。

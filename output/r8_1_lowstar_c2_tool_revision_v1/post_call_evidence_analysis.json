@@ -1,0 +1,61 @@
+{
+  "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_POST_CALL_ANALYSIS",
+  "outcome": "FAILED_NO_RETRY",
+  "budget": {
+    "actual_model_requests": 1,
+    "actual_readonly_tool_calls": 0,
+    "new_operational_plans": 0,
+    "direction_complete_action_candidates": 0,
+    "stage_simulations": 0,
+    "tactical_search_expansions": 0
+  },
+  "request": {
+    "body_sha256": "6fa2f6ded0b4e8f386d3d9f677194870638a75a6c79a4e8ba091052aa4e6deaf",
+    "body_bytes": 372545,
+    "model": "kimi-k3",
+    "max_output_tokens": 20480,
+    "continuation": false,
+    "request_id": "021791878824511534779bc6a83ab3f36a7a90c1e71ba351808b5",
+    "http_status": 200,
+    "terminal_event": "response.completed",
+    "response_sha256": "fd843768b51f1f3742296f39d82e2fe35db76fb2010b835b78001bc47f29bd3e",
+    "response_bytes": 4675016
+  },
+  "observed_model_behavior": {
+    "assistant_final_text": "{\"tool_calls\":\"initiated\",\"calls\":6,\"note\":\"Verifying revised LEFT-facing coverage for the four repositioned ranged/operators plus retained Kroos crossfire, and the full DP/SP/same-frame ledger including Hibiscus second activation at f4500.\"}",
+    "native_function_call_items": 0,
+    "native_function_calls_executed": 0,
+    "text_claimed_tool_calls": 6,
+    "interpretation": "The model only described tool calls in text. The provider response contained no native function_call output item, so the read-only tool gate correctly blocked execution."
+  },
+  "final_plan_validation": {
+    "interface": "response.completed",
+    "operational_plan_valid": false,
+    "errors": [
+      "schema: <root>: 'revised_operational_plans' is a required property",
+      "schema: <root>: 'revised_stage_understanding' is a required property",
+      "schema: <root>: 'revised_tactical_requirements' is a required property",
+      "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+      "exactly one revised_operational_plans item is required, got non-list"
+    ],
+    "static_compile_check": "NOT_RUN_NO_VALID_C2_PLAN",
+    "faithful_certificate": "NONE"
+  },
+  "scope_boundaries": {
+    "counterexamples_absorbed": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "tactical_decision_quality": "UNKNOWN_NOT_EVALUATED_WITHOUT_C2",
+    "battle_feasibility": "UNKNOWN_NOT_SIMULATED",
+    "win_loss": "NOT_APPLICABLE_NO_STAGE_SIMULATION"
+  },
+  "manifest_correction": {
+    "reason": "source_manifest.json was prepared before the final native-tool-use gate edit to scripts/kimi_tool_loop.py",
+    "prepared_recorded_sha256": "ac2c9b2f3c0649819c1cc30756f0f11f3682e80294750b3c2e31cdac26cc6f27",
+    "actual_called_sha256": "fcbe5adaab0a178bba8349e784e8b01c0da59edea56c9dfad0c1a1b6dc3c6b53"
+  },
+  "tests_before_call": {
+    "command": "PYTHONPATH=src:scripts:/usr/lib/python3/dist-packages /home/bigdata/Desktop/cybergym-main/.venv/bin/pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_low_star_full_tactical_closure_v1.py tests/test_r8_1_low_star_review_regressions.py",
+    "result": "PASS",
+    "passing_tests": 51,
+    "log": "offline_tests.log"
+  }
+}

@@ -143,7 +143,11 @@ def main() -> None:
             local_accumulator.observe(event)
         return local_accumulator.response_envelope or {}, local_accumulator, raw
 
-    session = run_mock_tool_session(initial_request, engine, stream)
+    evidence = json.loads((C1 / "llm_evidence_context.json").read_text(encoding="utf-8"))
+    plan_schema = output_schema()
+    session = run_mock_tool_session(
+        initial_request, engine, stream, evidence=evidence, plan_schema=plan_schema,
+    )
     if session.get("status") != "COMPLETE":
         raise RuntimeError(f"mock session failed: {session}")
     if session.get("operational_plan") != c1_plan:
@@ -231,7 +235,7 @@ def main() -> None:
         "seventh_budget_consumed_before_preflight": budget_budget.tool_calls_seen,
         "linked_same_frame_dp": dp_result,
         "ambiguous_same_frame_dp": dp_ambiguous,
-        "mandatory_final_plan_validation_passed_for_c1_replay": validate_final_operational_plan(c1_plan) == [],
+        "mandatory_final_plan_validation_passed_for_c1_replay": validate_final_operational_plan(c1_plan, evidence, plan_schema) == [],
     })
     write_json("provider_compatibility.json", {
         "schema_version": "R8_1_READONLY_TOOL_LOOP_FIX_V2_PROVIDER_COMPATIBILITY",

@@ -1,0 +1,54 @@
+{
+  "budget_usage": {
+    "automatic_retry": false,
+    "continuation_counts_as_model_request": true,
+    "max_model_requests": 3,
+    "max_readonly_tool_calls": 6,
+    "model_requests_started": 1,
+    "readonly_tool_calls_executed": 0,
+    "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_BUDGET"
+  },
+  "failure": {
+    "budget": {
+      "history": [],
+      "max_model_requests": 3,
+      "max_tool_calls": 6,
+      "model_requests_started": 1,
+      "tool_calls_executed": 0,
+      "tool_calls_seen": 0
+    },
+    "error": "invalid final plan",
+    "errors": [
+      "schema: <root>: 'revised_operational_plans' is a required property",
+      "schema: <root>: 'revised_stage_understanding' is a required property",
+      "schema: <root>: 'revised_tactical_requirements' is a required property",
+      "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+      "exactly one revised_operational_plans item is required, got non-list"
+    ],
+    "model_requests": [
+      {
+        "function_calls": [],
+        "http_status": 200,
+        "phase": "FINAL_RESPONSE",
+        "request_id": "021791878824511534779bc6a83ab3f36a7a90c1e71ba351808b5",
+        "response_bytes": 4675016,
+        "terminal_event": "response.completed",
+        "usage": {
+          "input_tokens": 101086,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 18523,
+          "output_tokens_details": {
+            "reasoning_tokens": 18453
+          },
+          "total_tokens": 119609
+        }
+      }
+    ],
+    "status": "FAILED",
+    "trajectories": []
+  },
+  "schema_version": "R8_1_LOWSTAR_C2_TOOL_REVISION_V1_FINAL_STATUS",
+  "status": "FAILED_NO_RETRY"
+}

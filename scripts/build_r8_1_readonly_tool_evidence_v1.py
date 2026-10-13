@@ -12,6 +12,7 @@ from kimi_readonly_tools import (
 )
 from kimi_responses_transport import StreamAccumulator, parse_sse
 from kimi_tool_loop import build_tool_continuation_payload, build_tool_enabled_request, run_mock_tool_session
+from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -143,7 +144,11 @@ def main() -> None:
     def validate_plan(parsed: object) -> list[str]:
         return [] if parsed == c1_plan else ["mock final output must exactly reuse the preserved C1 plan"]
 
-    session = run_mock_tool_session(tool_request, engine, fake_stream, validate_plan)
+    evidence = json.loads((C1 / "llm_evidence_context.json").read_text(encoding="utf-8"))
+    session = run_mock_tool_session(
+        tool_request, engine, fake_stream, validate_plan,
+        evidence=evidence, plan_schema=output_schema(),
+    )
     if session.get("status") != "COMPLETE":
         raise RuntimeError(session)
     continuation_payload = build_tool_continuation_payload(tool_request, session["trajectories"][0]["calls"], session["trajectories"][0]["tool_results"])

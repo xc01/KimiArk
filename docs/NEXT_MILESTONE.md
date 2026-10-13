@@ -31,3 +31,11 @@ budget and DP/test fixes before approving a bounded tactical tool session. That
 session remains at most 3 model requests including continuations, 6 read-only tool
 calls, 1 final OperationalPlan, no automatic retry, and full tactical schema/contract
 validation.
+
+The first bounded C2 session has failed and stopped at one model request and zero
+executed tools. The assistant text claimed six tool calls, but the response contained
+no native `function_call` items; its text also failed the root operational-plan
+schema. No C2, static compile, simulation, or tactical-feasibility conclusion exists.
+Work must review the raw response and decide whether to authorize a new bounded
+attempt with changed instructions or provider/tool handling; this session must not
+be retried.

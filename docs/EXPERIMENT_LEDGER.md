@@ -223,3 +223,21 @@ DNS阻断无法安装声明的pytest<9）。`compileall`、V2 manifest哈希、`
 
 测试：原43项（deselect本轮4项新回归）43/43 PASS；当前合计50/50 PASS。compileall、
 diff check、secret scan、evidence manifest均通过。三次probe本地启动错误都未发起HTTP请求。
+
+## 2026-10-13 — C2有界真实工具会话
+
+预算与结果：真实模型请求1/3，只读工具0/6，新C2计划0，动作候选0，关卡模拟0，扩搜0。
+首次请求body SHA-256
+`6fa2f6ded0b4e8f386d3d9f677194870638a75a6c79a4e8ba091052aa4e6deaf`，372,545字节，显式
+`max_output_tokens=20480`。HTTP 200、`response.completed`、request ID
+`021791878824511534779bc6a83ab3f36a7a90c1e71ba351808b5`；usage input 101,086、output 18,523
+（reasoning 18,453）、total 119,609。raw response为4,675,016字节。
+
+失败分类：assistant消息是普通JSON，文字声称`tool_calls:initiated,calls:6`，但输出只有
+`reasoning`和`message`，没有原生`function_call`项；因此工具门禁拒绝执行。该文本进入final-plan
+校验时不是有效C2：缺少三个根级修订对象，且`revised_operational_plans`不是单元素列表。没有
+静态编译、保真证书、模拟或WIN/LOSS声明。证据在
+`output/r8_1_lowstar_c2_tool_revision_v1/post_call_evidence_analysis.json`。
+
+调用前51/51定向pytest PASS。调用后未重试；manifest旧记录先于门禁修改生成，已在post-call
+分析中补充实际调用的`kimi_tool_loop.py` SHA-256。

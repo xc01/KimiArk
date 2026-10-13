@@ -280,3 +280,39 @@ CONFIRMED_FROM_PROVIDER：一次非战术协议探测完成。`kimi-k3` + plan e
 测试口径：原43项是transport 10 + readonly tools 21 + C1 entry 12；本轮4项新回归后，
 同组为47，全部通过。加3项review回归合计50/50 PASS。三次本地启动错误均未发起HTTP请求，
 已记录在probe的`pre_network_startup_error.json`。
+
+## 2026-10-13 C2有界真实工具会话失败
+
+CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，
+terminal事件`response.completed`，request ID
+`021791878824511534779bc6a83ab3f36a7a90c1e71ba351808b5`。usage为input 101,086、output
+18,523（reasoning 18,453）、total 119,609。输出预算是请求显式的20,480；服务器只报告usage，
+未提供截断原因。
+
+失败证据在`output/r8_1_lowstar_c2_tool_revision_v1/`。assistant最终文本只有一段普通JSON，声称
+“initiated”6个tool calls；响应没有任何原生`function_call`输出项。按新增门禁，文字声称不等于
+工具调用，所以0次工具执行。该文本随后作为final plan进入schema/contract校验，缺少
+`revised_operational_plans`、stage understanding、tactical requirements和strategic hypotheses，
+且`revised_operational_plans`不是单元素列表。因此没有C2、没有可编译动作、没有局部保真证书。
+
+按预算规则未自动重试或续接。不能把模型自述的6次调用、18,523输出token或完整长期推理当作
+工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
+封装或provider兼容性，由Work审查原始响应后决定。
+
+## 2026-10-13 C2有界真实工具会话失败
+
+CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，
+terminal事件`response.completed`，request ID
+`021791878824511534779bc6a83ab3f36a7a90c1e71ba351808b5`。usage为input 101,086、output
+18,523（reasoning 18,453）、total 119,609。输出预算是请求显式的20,480；服务器在completed内
+只报告usage，未提供截断原因。
+
+失败证据在`output/r8_1_lowstar_c2_tool_revision_v1/`。assistant最终文本只有一段普通JSON，声称
+“initiated”6个tool calls；响应没有任何原生`function_call`输出项。按新增门禁，文字声称不等于
+工具调用，所以0次工具执行。该文本随后作为final plan进入schema/contract校验，缺少
+`revised_operational_plans`、stage understanding、tactical requirements和strategic hypotheses，
+且`revised_operational_plans`不是单元素列表。因此没有C2、没有可编译动作、没有局部保真证书。
+
+按预算规则未自动重试或续接。不能把模型自述的6次调用、18,523输出token或完整长期推理当作
+工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
+封装或provider兼容性，由Work审查原始响应后决定。

@@ -189,16 +189,16 @@ def request_summary(payload: dict[str, Any], phase: str) -> dict[str, Any]:
     }
 
 
-def validate_final_operational_plan(parsed: Any) -> list[str]:
+def validate_final_operational_plan(parsed: Any, evidence: dict[str, Any], plan_schema: dict[str, Any]) -> list[str]:
     schema_errors = sorted(
-        Draft7Validator(output_schema()).iter_errors(parsed),
+        Draft7Validator(plan_schema).iter_errors(parsed),
         key=lambda error: list(error.path),
     )
     errors = [
         f"schema: {'/'.join(map(str, error.path)) or '<root>'}: {error.message}"
         for error in schema_errors
     ]
-    errors.extend(validate_operational_plan_output(parsed, load(EVIDENCE_CONTEXT)))
+    errors.extend(validate_operational_plan_output(parsed, evidence))
     return errors
 
 
@@ -207,8 +207,12 @@ def run_mock_tool_session(
     engine: ReadOnlyQueryEngine,
     stream_once: Callable[[dict[str, Any]], tuple[dict[str, Any], StreamAccumulator, bytes]],
     validate_plan: Callable[[Any], list[str]] | None = None,
+    *,
+    evidence: dict[str, Any],
+    plan_schema: dict[str, Any],
+    budget: ToolLoopBudget | None = None,
 ) -> dict[str, Any]:
-    budget = ToolLoopBudget()
+    budget = budget or ToolLoopBudget()
     current_payload = copy.deepcopy(payload)
     model_results = []
     trajectories = []
@@ -268,10 +272,18 @@ def run_mock_tool_session(
                 parsed = json.loads(text)
             except json.JSONDecodeError as exc:
                 return {"status": "FAILED", "error": f"invalid final JSON: {exc}", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
-            plan_errors = validate_final_operational_plan(parsed)
+            plan_errors = validate_final_operational_plan(parsed, evidence, plan_schema)
             plan_errors.extend(validate_plan(parsed) if validate_plan else [])
             if plan_errors:
                 return {"status": "FAILED", "error": "invalid final plan", "errors": plan_errors, "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
+            if budget.tool_calls_executed < 1:
+                return {
+                    "status": "FAILED",
+                    "error": "native readonly tool call required before final plan",
+                    "model_requests": model_results,
+                    "budget": budget.__dict__,
+                    "trajectories": trajectories,
+                }
             trajectories.append({"request": request_summary(current_payload, "FINAL_PLAN"), "request_payload": current_payload, "function_calls": calls})
             return {
                 "status": "COMPLETE",

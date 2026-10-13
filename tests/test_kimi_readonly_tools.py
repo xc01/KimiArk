@@ -30,6 +30,10 @@ from kimi_tool_loop import (  # noqa: E402
     validate_tool_request,
 )
 from kimi_responses_transport import StreamAccumulator  # noqa: E402
+from run_r8_1_low_star_full_tactical_closure_v1 import (  # noqa: E402
+    output_schema,
+    OUT,
+)
 
 
 def engine() -> ReadOnlyQueryEngine:
@@ -120,6 +124,8 @@ class ToolLoopTests(unittest.TestCase):
         base = json.loads((ROOT / "output/r8_1_low_star_full_tactical_closure_v2/llm_request.json").read_text())
         self.payload = build_tool_enabled_request(base)
         self.plan = json.loads((ROOT / "output/r8_1_low_star_full_tactical_closure_v2/llm_structured_output.json").read_text())
+        self.evidence = json.loads((OUT / "llm_evidence_context.json").read_text())
+        self.plan_schema = output_schema()
 
     def test_tool_enabled_request_preserves_user_start_and_forbids_previous_response(self):
         self.assertEqual(self.payload["input"][0]["role"], "user")
@@ -185,7 +191,10 @@ class ToolLoopTests(unittest.TestCase):
                 accumulator.observe(event)
             return envelope, accumulator, sse(events)
 
-        result = run_mock_tool_session(self.payload, self.engine, fake_stream, lambda parsed: [] if parsed == self.plan else ["plan mismatch"])
+        result = run_mock_tool_session(
+            self.payload, self.engine, fake_stream, lambda parsed: [] if parsed == self.plan else ["plan mismatch"],
+            evidence=self.evidence, plan_schema=self.plan_schema,
+        )
         self.assertEqual(result["status"], "COMPLETE")
         self.assertEqual(result["budget"]["model_requests_started"], 2)
         self.assertEqual(result["budget"]["tool_calls_executed"], 1)
@@ -214,7 +223,7 @@ class ToolLoopTests(unittest.TestCase):
             return envelope, accumulator, payload_text.encode()
         executed = mock.Mock()
         with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
-            result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+            result = run_mock_tool_session(self.payload, self.engine, fake_stream, evidence=self.evidence, plan_schema=self.plan_schema)
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["error"], "NO_TERMINAL_EVENT")
         executed.assert_not_called()
@@ -243,7 +252,7 @@ class ToolLoopTests(unittest.TestCase):
             for event in parse_sse(sse(events)):
                 accumulator.observe(event)
             return envelope, accumulator, sse(events)
-        result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+        result = run_mock_tool_session(self.payload, self.engine, fake_stream, evidence=self.evidence, plan_schema=self.plan_schema)
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["error"], "request budget exhausted before final plan")
         self.assertEqual(result["budget"]["model_requests_started"], 3)
@@ -261,7 +270,10 @@ class ToolLoopTests(unittest.TestCase):
             for event in parse_sse(sse(events)):
                 accumulator.observe(event)
             return envelope, accumulator, sse(events)
-        result = run_mock_tool_session(self.payload, self.engine, fake_stream, lambda parsed: ["invalid synthetic plan"])
+        result = run_mock_tool_session(
+            self.payload, self.engine, fake_stream, lambda parsed: ["invalid synthetic plan"],
+            evidence=self.evidence, plan_schema=self.plan_schema,
+        )
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["errors"], ["invalid synthetic plan"])
 
@@ -277,10 +289,35 @@ class ToolLoopTests(unittest.TestCase):
             for event in parse_sse(raw):
                 accumulator.observe(event)
             return accumulator.response_envelope, accumulator, raw
-        result = run_mock_tool_session(self.payload, self.engine, fake_stream, lambda parsed: [])
+        result = run_mock_tool_session(
+            self.payload, self.engine, fake_stream, lambda parsed: [],
+            evidence=self.evidence, plan_schema=self.plan_schema,
+        )
         self.assertEqual(result["status"], "FAILED")
         self.assertTrue(result["errors"])
-        self.assertEqual(validate_final_operational_plan(self.plan), [])
+        self.assertEqual(validate_final_operational_plan(self.plan, self.evidence, self.plan_schema), [])
+
+    def test_valid_final_plan_without_native_tool_call_is_rejected(self):
+        terminal_plan = {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": json.dumps(self.plan)}]}
+        events = [
+            ("response.created", {"response": {"id": "resp-no-tool", "status": "in_progress", "output": []}}),
+            ("response.completed", {"response": {"id": "resp-no-tool", "status": "completed", "output": [terminal_plan]}}),
+        ]
+        def fake_stream(payload):
+            raw = sse(events)
+            accumulator = StreamAccumulator()
+            from kimi_responses_transport import parse_sse
+            for event in parse_sse(raw):
+                accumulator.observe(event)
+            return accumulator.response_envelope, accumulator, raw
+        result = run_mock_tool_session(
+            self.payload, self.engine, fake_stream, lambda parsed: [],
+            evidence=self.evidence, plan_schema=self.plan_schema,
+        )
+        self.assertEqual(result["status"], "FAILED")
+        self.assertEqual(result["error"], "native readonly tool call required before final plan")
+        self.assertEqual(result["budget"]["model_requests_started"], 1)
+        self.assertEqual(result["budget"]["tool_calls_executed"], 0)
 
     def test_invalid_arguments_are_schema_rejected_before_execution(self):
         call = {"call_id": "call-schema", "name": "query_mechanic", "arguments": json.dumps({"topic": 3})}
@@ -446,7 +483,7 @@ class ToolLoopTests(unittest.TestCase):
             return accumulator.response_envelope or {}, accumulator, raw
         executed = mock.Mock()
         with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
-            result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+            result = run_mock_tool_session(self.payload, self.engine, fake_stream, evidence=self.evidence, plan_schema=self.plan_schema)
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["error"], "function calls are not complete")
         executed.assert_not_called()
@@ -470,7 +507,7 @@ class ToolLoopTests(unittest.TestCase):
             return accumulator.response_envelope or {}, accumulator, raw
         executed = mock.Mock()
         with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
-            result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+            result = run_mock_tool_session(self.payload, self.engine, fake_stream, evidence=self.evidence, plan_schema=self.plan_schema)
         self.assertEqual(result["status"], "FAILED")
         self.assertEqual(result["error"], "malformed function call events")
         self.assertTrue(any("arguments" in row for row in result["errors"]))
