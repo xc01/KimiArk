@@ -299,6 +299,15 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+GPT-C4当前条件模型状态：第3次Codex CLI启动产生了唯一的schema/contract有效C4；本地静态检查为
+0冲突/0未知。固定全关诊断为LOSS（49杀、7漏、0干员死亡、剩余生命-2）。开局支持已不再出现
+C2/C3的死亡—断供链，但route-10在2179帧无阻挡漏出，route-12几乎同时漏出；route-11/13在中期漏出，
+route-23/33在末段漏出。第一决策信号是早期阻挡容量与击杀转移，而不是单一终点补防。
+
+当前证据边界：静态/模拟manifest中的计划哈希与当前规范化计划文件不一致。24项动作契约一致且
+当前文件来自raw输出加provenance-only normalization，但字节级模拟输入同一性仍UNPROVEN。该告警
+保留在`output/r8_1_gpt_c4_codex_cli_v3/post_simulation_integrity_audit.json`；模拟未重跑。
+
 The second authorized Codex CLI C4 start reused the saved C4 prompt/evidence and reached OpenAI, but was
 rejected because the root JSON schema did not satisfy `additionalProperties=false`. It remains 0 C4,
 0 static checks and 0 simulations, with cumulative CLI starts 2/2.

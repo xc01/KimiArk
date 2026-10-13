@@ -127,3 +127,29 @@ The second authorized CLI attempt reused the same C4 prompt/evidence and confirm
 reached OpenAI, but was rejected by `invalid_request_error.invalid_json_schema`: the root output schema
 had `additionalProperties=true`, while `--output-schema` requires false. Thread
 `01a13615-a7e7-7c60-b818-39f5eea76eb7`; cumulative CLI starts are 2/2. There is no C4 and no simulation.
+
+## 2026-10-14 — Third Codex CLI attempt closed the C4 diagnostic loop
+
+The runner no longer sends `--output-schema`; it preserves `--json`, `--output-last-message`,
+`read-only`, explicit proxy variables, and mandatory local schema/contract validation. Targeted pytest
+is 17/17 PASS. The third CLI process produced one final C4. Lossless normalization only added
+`provenance.revision_source`; no operator, action, frame, tile, direction, or tactical statement changed.
+Static checks were 0 conflicts / 0 UNKNOWN.
+
+The one authorized full-stage diagnostic simulation completed as conditional-model LOSS: 49 kills,
+7 leaks, 0 operator deaths, and remaining life -2. The first leak is route-10
+`enemy_1108_uterer#15`, spawned at frame 1950 and leaked at frame 2179 with no recorded block or damage.
+The full leak routes/frames are route-10 2179, route-12 2184, route-11 2629, route-13 2634,
+route-23 4555, and route-33 4879/4903. Roadblock-targeting robustness was not evaluated.
+
+Cumulative CLI process starts are now 3/4, final C4 acceptance is 1/1, and the diagnostic simulation
+budget is exhausted 1/1. The only remaining CLI startup may not be used to rerun simulation or expand
+search. If Work authorizes it, GPT may receive the saved route-10/route-12 opening capacity evidence and
+the later leak inventory, then revise the opening blocking/kill-transfer chain once. There is no claim of
+real-game outcome or whole-strategy infeasibility.
+
+Evidence integrity caveat: the completed simulation manifest and static certificate record a different
+plan-file hash than the current normalized plan (`cd04...` versus `bf3d...`). The current file is
+reproducible as raw output plus provenance-only normalization, and its 24-action contract matches the
+saved direction-complete candidate; however, byte identity with the simulation-loaded plan is UNPROVEN.
+No simulation rerun is authorized or claimed.

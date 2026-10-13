@@ -129,12 +129,11 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
     return record
 
 
-def build_command(schema_path: Path, last_message_path: Path) -> list[str]:
+def build_command(last_message_path: Path) -> list[str]:
     return [
         "codex", "exec", "--json", "--sandbox", "read-only", "--cd", str(ROOT),
         "-c", 'model_provider="openai"', "-m", MODEL,
         "-c", 'model_reasoning_effort="medium"',
-        "--output-schema", str(schema_path),
         "-o", str(last_message_path), "-",
     ]
 
@@ -350,7 +349,7 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = run_co
     evidence_path = OUT / "llm_evidence_context.json"
     schema_path = OUT / "revision_output_schema.json"
     last_message_path = OUT / "codex_final_message.txt"
-    command = build_command(schema_path, last_message_path)
+    command = build_command(last_message_path)
     write_json(OUT / "codex_command.json", {
         "schema_version": "R8_1_GPT_C4_CODEX_CLI_V1_COMMAND",
         "argv": command, "stdin": "prompt_file", "shell": False,

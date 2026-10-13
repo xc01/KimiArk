@@ -12,13 +12,14 @@ ROOT = Path(__file__).parents[1]
 
 class GptC4CodexCliTests(unittest.TestCase):
     def test_codex_command_is_argument_array_without_shell_bypass(self):
-        command = runner.build_command(Path("schema.json"), Path("final.txt"))
+        command = runner.build_command(Path("final.txt"))
         self.assertEqual(command[:2], ["codex", "exec"])
         self.assertIn("--json", command)
         self.assertIn("--sandbox", command)
         self.assertEqual(command[command.index("--sandbox") + 1], "read-only")
         self.assertIn('model_provider="openai"', command)
         self.assertIn('model_reasoning_effort="medium"', command)
+        self.assertNotIn("--output-schema", command)
         self.assertNotIn("--dangerously-bypass-approvals-and-sandbox", command)
 
     def test_codex_process_receives_local_proxy_defaults(self):

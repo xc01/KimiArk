@@ -362,3 +362,20 @@ effort一致，且`llm_request.json`与attempt请求和body哈希完全一致；
 
 第2次CLI进程到达OpenAI但被400拒绝：response_format要求根schema`additionalProperties=false`，当前根为
 true。thread `01a13615-a7e7-7c60-b818-39f5eea76eb7`，无usage记录；累计2/2 CLI启动、0计划、0模拟。
+
+## 2026-10-14 Codex CLI第三次启动并完成C4诊断
+
+新目录`r8_1_gpt_c4_codex_cli_v3`删除CLI `--output-schema`参数；保留JSONL、最终消息、read-only和显式
+本地代理。相关pytest 17/17 PASS。第3次CLI启动成功，thread
+`01a1361f-377b-70d3-9371-9a19f379f8d6`；内部模型请求数为UNKNOWN_CLI_INTERNAL。可观测usage：
+input 410,911（cached 355,072）、output 6,856（reasoning 2,721）。
+
+最终消息JSON通过本地schema/contract。无损规范化只新增`provenance.revision_source`，未改动作或
+战术内容；静态检查0冲突/0未知。一次固定全关诊断模拟为LOSS：49杀、7漏、0干员死亡、剩余生命-2。
+首漏route-10 `enemy_1108_uterer#15`在1950帧出生、2179帧无伤漏出；其余漏怪为route-12 2184、
+route-11 2629、route-13 2634、route-23 4555、route-33 4879/4903。累计3/4 CLI启动、1/1计划、
+1/1模拟；未做两种路障targeting重验，不称robust或实机结论。
+
+证据完整性告警：当前规范化计划哈希为`bf3d...`，静态/模拟manifest记录为`cd04...`。当前文件可由
+原始输出加provenance规范化复现，24项动作契约与direction-complete候选一致；但不能证明模拟加载的
+序列化字节与当前文件逐字节一致。未重跑模拟，未扩搜。

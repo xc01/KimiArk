@@ -409,3 +409,14 @@ explicit local mihomo defaults, but the failed session remains 0 plans / 0 simul
 After proxy preflight, the second CLI start reused the saved C4 prompt/evidence and reached OpenAI. It
 stopped at HTTP 400 because the root output schema used `additionalProperties=true`. Cumulative starts
 are 2/2 with 0 plans and 0 simulations.
+
+## 2026-10-14 — Third Codex CLI attempt produced C4 and diagnostic LOSS
+
+The `--output-schema` argument was removed while local schema/contract validation remained mandatory;
+targeted tests passed 17/17. The third CLI process completed one C4 after lossless provenance-only
+normalization, and static checks reported 0 conflicts / 0 UNKNOWN. One full-stage diagnostic simulation
+then produced conditional-model LOSS with 49 kills, 7 leaks, no operator deaths, and remaining life -2.
+
+The first leak was route-10 `enemy_1108_uterer#15` at frame 2179 without recorded damage or blocking.
+All leak inventory is saved with full events. Cumulative CLI starts are 3/4, final plans 1/1, and
+diagnostic simulations 1/1. Roadblock-targeting robustness was not evaluated.

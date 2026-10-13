@@ -223,3 +223,8 @@ attempt文件编号必须继承持久预算计数，禁止每个进程从1重写
 决策：CLI response_format schema必须在HTTP前按OpenAI strict规则准备，根对象显式
 `additionalProperties=false`；本地Draft 7验证不能替代这个检查。二次实验输出目录、attempt序号、
 累计启动数和复用prompt/evidence哈希必须显式记录，旧失败文件不覆盖。
+
+决策更新：本机Codex CLI版本不接受上述C4请求的`--output-schema`入口，因此第三次启动删除CLI侧
+schema参数。任务文本仍要求完整OperationalPlan JSON；接收后必须继续执行本地Draft 7 schema、contract、
+部署/经济/技能/范围检查。`--json`、`--output-last-message`、`read-only`、参数数组、显式代理环境和
+不自动重启约束保持不变。
