@@ -333,6 +333,25 @@ CONFIRMED_FROM_RUNTIME：第一次HTTP请求完成，request ID
 旧反例吸收和战术可行性保持UNKNOWN。证据在
 `output/r8_1_lowstar_c2_compact_tool_revision_v2/post_call_evidence_analysis.json`。
 
+## 2026-10-13 C2 V2保存调用恢复
+
+CONFIRMED_FROM_CODE：范围查询现在检查实际`rarity/phase_index/level/skill_level_index/
+potential_level/trust`，从固定目录核对资格元数据，按`skill_level_index`推导skill_rank；
+不再要求模型复述`legal_for_debug`等内部字段。实际等级、潜能、信赖或技能不匹配仍拒绝。
+最终续接预检上限改为200,000字节，初始请求仍140,000。
+
+CONFIRMED_FROM_RUNTIME：5个已保存范围调用原样重验并全部执行成功。Hibiscus[5,7]DOWN覆盖
+[4,6]/[4,7]/[5,8]/[4,8]；Stward[5,6]DOWN覆盖[4,5]/[4,6]/[4,7]/[3,5]；Ansel[2,9]LEFT覆盖
+[1,6]/[1,7]/[1,8]；Kroos[2,6]LEFT覆盖[1,6]/[1,3]/[3,5]/[3,6]；Lancet-2[2,9]LEFT覆盖
+[1,7]但不覆盖[1,6]。时序查询未重复执行。一次预HTTP NameError未计入模型请求，已保留记录。
+
+CONFIRMED_FROM_RUNTIME：第3次续接HTTP 200且`response.completed`，request ID
+`021791884974558640844006c495b97e3327b5d9afec85673843d`；请求155,456字节、响应3,882,464字节。
+usage input 40,811、output 15,862（reasoning 6,304）、total 56,673。最终文本不是有效C2：
+`verification_questions`三项是字符串，schema要求object。因此静态编译和模拟均未运行。
+预算3/3请求、6/6工具执行，未重试。证据在
+`output/r8_1_lowstar_c2_compact_tool_revision_v2/resume_evidence_analysis.json`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

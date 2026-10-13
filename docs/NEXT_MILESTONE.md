@@ -54,3 +54,10 @@ executed. No C2, static compile, or simulation is authorized. Work must review t
 blocked continuation and decide whether a later bounded session may compress tool-result
 context, provide a stricter configuration template, or adjust the transport limit; this
 session remains 2/3 counted requests and 1/6 executed tools.
+
+The saved-call resume completed five range revalidations and one final HTTP continuation,
+but the returned JSON failed only the declared `verification_questions` object schema. The
+budget is now exhausted at 3/3 counted requests and 6/6 executed tools; no retry, compile,
+or simulation is authorized. Work must review `resume_evidence_analysis.json` and the raw
+final response before deciding whether a future session may reuse the verified tool facts
+under a corrected output contract.

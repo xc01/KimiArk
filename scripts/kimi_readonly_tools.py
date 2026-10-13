@@ -195,6 +195,35 @@ class ReadOnlyQueryEngine:
             raise ValueError(f"operator is outside ordinary 1-3 star domain: {operator_id}")
         return row
 
+    def _declared_configuration_matches(self, row: dict[str, Any], declared: Any) -> bool:
+        expected = row.get("debug_configuration")
+        if not isinstance(expected, dict) or not isinstance(declared, dict):
+            return False
+        if row.get("qualification", {}).get("eligible_for_debug") is not True:
+            return False
+        if expected.get("legal_for_debug") is not True:
+            return False
+        required_keys = ["rarity", "phase_index", "level", "potential_level", "trust"]
+        if expected.get("skill_level_index") is not None:
+            required_keys.append("skill_level_index")
+        if any(key not in declared for key in required_keys):
+            return False
+        if any(declared.get(key) != expected.get(key) for key in required_keys):
+            return False
+        derived_skill_rank = (
+            None
+            if expected.get("skill_level_index") is None
+            else int(expected["skill_level_index"]) + 1
+        )
+        for key, value in (
+            ("skill_level_index", expected.get("skill_level_index")),
+            ("skill_rank", derived_skill_rank),
+            ("required_potential_rank", expected.get("required_potential_rank")),
+        ):
+            if key in declared and declared.get(key) != value:
+                return False
+        return True
+
     def _skill(self, row: dict[str, Any]) -> dict[str, Any] | None:
         return (row.get("skills") or [None])[0]
 
@@ -255,7 +284,7 @@ class ReadOnlyQueryEngine:
 
     def query_range_coverage(self, arguments: dict[str, Any]) -> dict[str, Any]:
         row = self._operator(arguments.get("operator_id"))
-        if arguments.get("configuration") != row.get("debug_configuration"):
+        if not self._declared_configuration_matches(row, arguments.get("configuration")):
             raise ValueError("declared configuration does not match the selected debug configuration")
         origin = json_tile_to_runtime(arguments.get("tile"), "tile")
         direction = arguments.get("direction")

@@ -5,6 +5,7 @@ from pathlib import Path
 from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
 from compile_r8_1_lowstar_c2_plan_v1 import structured_range_checks
 from kimi_readonly_tools import TOOLS_SCHEMA
+from kimi_readonly_tools import ReadOnlyQueryEngine
 from run_r8_1_lowstar_c2_tool_revision_v1 import (
     FINAL_TOKEN_LIMIT,
     MAX_REQUEST_BODY_BYTES,
@@ -64,3 +65,59 @@ class CompactC2Tests(unittest.TestCase):
             {"operator_id": "other", "tile": [4, 6], "direction": "UP", "targets": [{"label": "wrong", "tile": [4, 6]}]},
         ]
         self.assertEqual([rows[0]], structured_range_checks({"declared_range_checks": rows}, action))
+
+    def test_declared_configuration_omits_derived_internal_fields(self):
+        engine = ReadOnlyQueryEngine(evidence_path=OUT / "llm_evidence_context.json")
+        arguments = {
+            "operator_id": "char_120_hibisc",
+            "configuration": {
+                "rarity": 3,
+                "phase_index": 1,
+                "level": 55,
+                "skill_level_index": 6,
+                "potential_level": 1,
+                "trust": 0,
+            },
+            "tile": [5, 7],
+            "direction": "DOWN",
+            "targets": [{"label": "beagle", "tile": [4, 6]}],
+        }
+        result = engine.query_range_coverage(arguments)
+        self.assertIn("covered_tiles_json_row_col", result)
+
+    def test_declared_configuration_rejects_actual_mismatch(self):
+        engine = ReadOnlyQueryEngine(evidence_path=OUT / "llm_evidence_context.json")
+        arguments = {
+            "operator_id": "char_120_hibisc",
+            "configuration": {
+                "rarity": 3,
+                "phase_index": 1,
+                "level": 54,
+                "skill_level_index": 6,
+                "potential_level": 1,
+                "trust": 0,
+            },
+            "tile": [5, 7],
+            "direction": "DOWN",
+            "targets": [{"label": "beagle", "tile": [4, 6]}],
+        }
+        with self.assertRaisesRegex(ValueError, "declared configuration"):
+            engine.query_range_coverage(arguments)
+
+    def test_no_skill_operator_omits_skill_fields(self):
+        engine = ReadOnlyQueryEngine(evidence_path=OUT / "llm_evidence_context.json")
+        arguments = {
+            "operator_id": "char_285_medic2",
+            "configuration": {
+                "rarity": 1,
+                "phase_index": 0,
+                "level": 30,
+                "potential_level": 1,
+                "trust": 0,
+            },
+            "tile": [2, 9],
+            "direction": "LEFT",
+            "targets": [{"label": "melantha", "tile": [1, 7]}],
+        }
+        result = engine.query_range_coverage(arguments)
+        self.assertEqual("3-1", result["range_id"])

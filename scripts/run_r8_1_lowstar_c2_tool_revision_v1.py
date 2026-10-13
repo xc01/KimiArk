@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 import os
+import shutil
 import socket
 import sys
 import time
@@ -26,8 +27,11 @@ from kimi_readonly_tools import BASE_RULE_CARD, ReadOnlyQueryEngine
 from kimi_responses_transport import StreamAccumulator, parse_sse
 from kimi_tool_loop import (
     ToolLoopBudget,
+    execute_tool_calls,
+    build_tool_continuation_payload,
     build_tool_enabled_request,
     run_mock_tool_session,
+    validate_final_operational_plan,
     validate_tool_request,
 )
 
@@ -46,6 +50,7 @@ TIMEOUT_SECONDS = 900
 QUERY_TOKEN_LIMIT = 32768
 FINAL_TOKEN_LIMIT = 32768
 MAX_REQUEST_BODY_BYTES = 140_000
+CONTINUATION_BODY_LIMIT = 200_000
 MAX_MODEL_REQUESTS = 3
 MAX_TOOL_CALLS = 6
 
@@ -331,14 +336,14 @@ def update_budget(model_requests: int | None = None, tool_calls: int | None = No
     write_json("budget_usage.json", state)
 
 
-def make_stream_once() -> Any:
-    attempts = 0
+def make_stream_once(body_limit: int = MAX_REQUEST_BODY_BYTES, start_attempt: int = 0) -> Any:
+    attempts = start_attempt
 
     def stream_once(payload: dict[str, Any]) -> tuple[dict[str, Any], StreamAccumulator, bytes]:
         nonlocal attempts
         body = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
-        if len(body) > MAX_REQUEST_BODY_BYTES:
-            raise RuntimeError(f"request body exceeds {MAX_REQUEST_BODY_BYTES} bytes before network: {len(body)}")
+        if len(body) > body_limit:
+            raise RuntimeError(f"request body exceeds {body_limit} bytes before network: {len(body)}")
         attempts += 1
         update_budget(model_requests=attempts)
         request_path = OUT / f"attempt_{attempts}_request.json"
@@ -484,12 +489,230 @@ def call() -> dict[str, Any]:
     return parsed
 
 
+def resume() -> dict[str, Any]:
+    budget_state = load(OUT / "budget_usage.json")
+    if budget_state.get("model_requests_started") != 2:
+        raise RuntimeError("resume requires the saved V2 state: 2 counted requests")
+    if (OUT / "attempt_3_request_body.txt").exists():
+        raise RuntimeError("resume already ran; refusing to reset, retry, or re-execute saved calls")
+    saved_session_path = OUT / "tool_loop_session.json"
+    saved_session = load(saved_session_path)
+    if saved_session.get("status") != "FAILED" or saved_session.get("error") != "model request failed":
+        raise RuntimeError("saved V2 session does not match the blocked final-continuation state")
+    trajectories = saved_session.get("trajectories") or []
+    if len(trajectories) != 1:
+        raise RuntimeError("expected exactly one saved native tool trajectory")
+    calls = trajectories[0].get("calls") or []
+    original_results = trajectories[0].get("tool_results") or []
+    if len(calls) != 6 or len(original_results) != 6:
+        raise RuntimeError("expected exactly six saved native function calls and results")
+
+    evidence_path = OUT / "llm_evidence_context.json"
+    schema_path = OUT / "revision_output_schema.json"
+    request_path = OUT / "attempt_1_request.json"
+    for name in ("llm_evidence_context.json", "revision_output_schema.json", "attempt_1_request.json"):
+        if not (OUT / name).is_file():
+            raise RuntimeError(f"missing resume input: {OUT / name}")
+    evidence = load(evidence_path)
+    schema = load(schema_path)
+    request = load(request_path)
+    range_calls = [row for row in calls if row.get("name") == "query_range_coverage"]
+    timing_calls = [row for row in calls if row.get("name") == "check_timing_constraints"]
+    if len(range_calls) != 5 or len(timing_calls) != 1:
+        raise RuntimeError("expected five saved range calls and one timing call")
+    if any(row.get("name") != "check_timing_constraints" or row.get("status") != "EXECUTED" for row in original_results if row.get("call_id") == timing_calls[0].get("call_id")):
+        raise RuntimeError("saved timing call result was not executed")
+
+    for source, target in (
+        ("final_status.json", "final_status_pre_resume.json"),
+        ("budget_usage.json", "budget_usage_pre_resume.json"),
+        ("source_manifest.json", "source_manifest_pre_resume.json"),
+    ):
+        if (OUT / source).is_file() and not (OUT / target).exists():
+            shutil.copy2(OUT / source, OUT / target)
+
+    engine = ReadOnlyQueryEngine(evidence_path=evidence_path)
+    if (OUT / "revalidated_range_tool_calls.json").is_file():
+        saved_revalidation = load(OUT / "revalidated_range_tool_calls.json")
+        if saved_revalidation.get("status") != "PASS" or len(saved_revalidation.get("rows") or []) != 5:
+            raise RuntimeError("saved range revalidation is not a complete five-call PASS record")
+        if budget_state.get("readonly_tool_calls_executed") != 6:
+            raise RuntimeError("saved revalidation requires 6 total executed tools")
+        revalidated_rows = saved_revalidation["rows"]
+        expected_ids = {call.get("call_id") for call in range_calls}
+        if {row.get("call_id") for row in revalidated_rows} != expected_ids:
+            raise RuntimeError("saved range revalidation call_ids do not match saved calls")
+    else:
+        if budget_state.get("readonly_tool_calls_executed") != 1:
+            raise RuntimeError("fresh revalidation requires the saved state: 1 executed tool")
+        revalidation_budget = ToolLoopBudget(max_model_requests=0, max_tool_calls=MAX_TOOL_CALLS)
+        revalidated_rows = []
+        for call in range_calls:
+            row = execute_tool_calls([call], engine, revalidation_budget)[0]
+            revalidated_rows.append({
+                "call_id": call.get("call_id"),
+                "original_result": next(item for item in original_results if item.get("call_id") == call.get("call_id")),
+                "revalidated_result": row,
+            })
+        if revalidation_budget.tool_calls_executed != 5 or any(row["revalidated_result"].get("status") != "EXECUTED" for row in revalidated_rows):
+            update_budget(tool_calls=revalidation_budget.tool_calls_executed)
+            write_json("revalidated_range_tool_calls.json", {
+                "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_RANGE_REVALIDATION",
+                "status": "FAILED_NO_RETRY",
+                "rows": revalidated_rows,
+            })
+            raise SystemExit("saved range-call revalidation failed without retry")
+        update_budget(tool_calls=6)
+        write_json("revalidated_range_tool_calls.json", {
+            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_RANGE_REVALIDATION",
+            "status": "PASS",
+            "scope": "Saved completed function_calls only; the existing timing result was preserved and not re-executed.",
+            "rows": revalidated_rows,
+        })
+
+    revalidated_by_call = {row["revalidated_result"].get("call_id"): row["revalidated_result"] for row in revalidated_rows}
+    combined_results = []
+    for call, original in zip(calls, original_results):
+        combined_results.append(revalidated_by_call.get(call.get("call_id"), original))
+    continuation = build_tool_continuation_payload(request, calls, combined_results)
+    final_payload = finalize_plan_payload(continuation, schema)
+    final_body = json.dumps(final_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    resume_manifest = {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_RESUME_MANIFEST",
+        "original_request_body": file_record(OUT / "attempt_1_request_body.txt"),
+        "revalidated_results": file_record(OUT / "revalidated_range_tool_calls.json"),
+        "final_request_body": {
+            "bytes": len(final_body),
+            "body_limit": CONTINUATION_BODY_LIMIT,
+            "sha256": hashlib.sha256(final_body).hexdigest(),
+        },
+        "code": {
+            "kimi_readonly_tools": file_record(ROOT / "scripts/kimi_readonly_tools.py"),
+            "runner": file_record(Path(__file__)),
+        },
+    }
+    write_json("resume_continuation_manifest.json", resume_manifest)
+    if len(final_body) > CONTINUATION_BODY_LIMIT:
+        (OUT / "attempt_3_blocked_request_body.txt").write_bytes(final_body)
+        write_json("final_status.json", {
+            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_FINAL_STATUS",
+            "status": "FAILED_NO_RETRY",
+            "failure": {"error": "CONTINUATION_BODY_SIZE_LIMIT", "body_bytes": len(final_body), "body_limit": CONTINUATION_BODY_LIMIT},
+            "budget_usage": load(OUT / "budget_usage.json"),
+        })
+        raise SystemExit("resumed continuation exceeds 200000 bytes before network")
+
+    envelope, accumulator, raw = make_stream_once(
+        body_limit=CONTINUATION_BODY_LIMIT,
+        start_attempt=2,
+    )(final_payload)
+    classification = accumulator.classify()
+    model_result = {
+        "phase": "FINAL_RESPONSE",
+        "terminal_event": accumulator.terminal_event,
+        "http_status": accumulator.http_status,
+        "request_id": accumulator.request_id,
+        "usage": (envelope or {}).get("usage"),
+        "function_calls": classification.get("function_calls"),
+        "response_bytes": len(raw),
+    }
+    error = accumulator.error
+    if error is None and accumulator.terminal_event == "response.incomplete":
+        error = "RESPONSE_INCOMPLETE"
+    elif error is None and accumulator.terminal_event != "response.completed":
+        error = "NO_TERMINAL_EVENT"
+    if error is None and classification.get("malformed_events"):
+        error = "malformed function call events"
+    if error is None and (envelope or {}).get("status") != "completed":
+        error = "RESPONSE_STATUS_NOT_COMPLETED"
+    if error is None and classification.get("function_calls"):
+        error = "FINAL_RESPONSE_CONTAINS_TOOL_CALL"
+    if error is None:
+        text_parts = []
+        for item in (envelope or {}).get("output", []):
+            if item.get("type") == "message" and item.get("role") == "assistant":
+                text_parts.extend(content.get("text", "") for content in item.get("content", []) if content.get("type") == "output_text")
+        text = "".join(text_parts)
+        try:
+            parsed = json.loads(text)
+        except json.JSONDecodeError as exc:
+            error = f"invalid final JSON: {exc}"
+        else:
+            plan_errors = validate_final_operational_plan(parsed, evidence, schema)
+            if plan_errors:
+                write_json("llm_plan_validation.json", {
+                    "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_PLAN_VALIDATION",
+                    "schema": "r8_1_lowstar_c2_compact_tool_revision_v2",
+                    "status": "FAIL",
+                    "errors": plan_errors,
+                })
+                error = "invalid final plan"
+                failure_payload = {"plan_errors": plan_errors}
+            else:
+                failure_payload = None
+    else:
+        failure_payload = None
+
+    write_json("tool_loop_resume_session.json", {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_RESUME_SESSION",
+        "status": "COMPLETE" if error is None else "FAILED",
+        "error": error,
+        "model_requests": [model_result],
+        "revalidated_tool_count": 5,
+        "preserved_timing_tool_count": 1,
+    })
+    update_budget(model_requests=3, tool_calls=6)
+    write_json("tool_loop_budget.json", load(OUT / "budget_usage.json"))
+    if error is not None:
+        write_json("final_status.json", {
+            "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_FINAL_STATUS",
+            "status": "FAILED_NO_RETRY",
+            "failure": {"error": error, **(failure_payload or {})},
+            "classification": classification,
+            "budget_usage": load(OUT / "budget_usage.json"),
+        })
+        raise SystemExit("C2 resumed final continuation failed without retry")
+
+    write_json("llm_structured_output.json", parsed)
+    write_json("llm_plan_validation.json", {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_PLAN_VALIDATION",
+        "schema": "r8_1_lowstar_c2_compact_tool_revision_v2",
+        "evidence_path": str(evidence_path.relative_to(ROOT)),
+        "status": "PASS",
+    })
+    plans = parsed.get("revised_operational_plans", [])
+    write_json("grounding_validation.json", {
+        "one_operational_plan": len(plans) == 1,
+        "selected_operator_ids": plans[0].get("selected_low_star_operator_ids", []) if plans else [],
+        "direction_complete_deploys": all(
+            action.get("action_type") != "DEPLOY" or (action.get("tile") and action.get("direction"))
+            for action in (plans[0].get("action_timeline", []) if plans else [])
+        ),
+        "status": "PASS" if len(plans) == 1 else "FAIL",
+    })
+    write_json("final_status.json", {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_FINAL_STATUS",
+        "status": "C2_RECEIVED_AND_CONTRACT_VALID",
+        "interface_status": "RESUMED_FINAL_RESPONSE_COMPLETE",
+        "actual_model_requests": 3,
+        "actual_readonly_tool_calls": 6,
+        "new_operational_plans": len(plans),
+        "stage_simulations": 0,
+        "tactical_search_expansions": 0,
+        "static_compile_check": "PENDING",
+    })
+    return parsed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=["prepare", "call"])
+    parser.add_argument("phase", choices=["prepare", "call", "resume"])
     arguments = parser.parse_args()
     if arguments.phase == "prepare":
         prepare()
+        return
+    if arguments.phase == "resume":
+        resume()
         return
     call()
 

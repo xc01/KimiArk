@@ -266,3 +266,14 @@ input 33,097、output 26,430（reasoning 24,332）、total 59,527。模型发出
 第二次请求未发送：最终续接体148,762字节，超过140,000上限8,762字节。预检阻断体SHA-256
 `7346cce32d6d6bc63d9bec87961991f93af9ad9cf81acebb0b13aa829e7fda8d`。计入2/3请求、工具执行1/6、
 无效调用5；无C2、静态编译或模拟。调用前54/54定向pytest PASS。
+
+## 2026-10-13 — C2 V2保存调用恢复
+
+配置校验修复后重验5个保存调用：全部EXECUTED。Hibiscus DOWN、Stward DOWN、Ansel LEFT和Kroos LEFT
+的声名目标全部覆盖；Lancet-2 LEFT确认[1,7]覆盖、[1,6]不覆盖。原始拒绝记录保留，时序查询未重跑。
+
+第3次唯一HTTP续接体155,456字节，上限200,000；HTTP 200、`response.completed`，request ID
+`021791884974558640844006c495b97e3327b5d9afec85673843d`。usage input 40,811、output 15,862
+（reasoning 6,304）、total 56,673。最终JSON契约失败：`verification_questions`三项是字符串，
+schema要求object。无有效C2、静态编译或模拟。预算3/3请求、6/6工具执行。修复后专项与定向
+pytest 57/57 PASS。一次预HTTP NameError未计入请求。
