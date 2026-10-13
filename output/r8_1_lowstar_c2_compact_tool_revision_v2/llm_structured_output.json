@@ -1,0 +1,959 @@
+{
+  "counterexample_avoidance_explanations": [
+    {
+      "absorption": "direction changed UP->DOWN at the same tile; query_range_coverage confirmed DOWN covers [4,6],[4,7],[5,8],[4,8]",
+      "counterexample_id": "C1_RANGE_HIBISCUS_UP"
+    },
+    {
+      "absorption": "direction changed UP->DOWN at the same tile; query confirmed DOWN covers [4,5],[4,6],[4,7],[3,5]",
+      "counterexample_id": "C1_RANGE_STWARD_UP"
+    },
+    {
+      "absorption": "Lancet-2 confirmed to miss Noirc[1,6]; operator replaced with Ansel at the same tile/direction, query-confirmed to cover [1,6],[1,7],[1,8]; loss of the 200 deployment heal is now an explicit assumption (H2)",
+      "counterexample_id": "C1_RANGE_LANCET_LEFT"
+    },
+    {
+      "absorption": "second activation moved f4200->f4500; check_timing_constraints returned earliest_ready_frame 4500 PASS_WITH_CONDITIONS",
+      "counterexample_id": "C1_HIBISCUS_SECOND_SKILL"
+    },
+    {
+      "absorption": "all 'leaks absorbed by max_life 5' language deleted; zero-leak invariant added; backstop reframed as a kill position; WIN condition restated as zero leaks + exhausted spawns + no active enemies",
+      "counterexample_id": "C1_WIN_RULE"
+    }
+  ],
+  "deterministic_verifier_questions": [
+    "Confirm zero-leak survival of the bottom choke during t150-170 with the declared skill frames f4200/f4410/f4500/f4650.",
+    "Confirm Noirc HP never reaches 0 before Ansel's first heal lands (~t122+).",
+    "Confirm the deployment count stays <=8 across the f5310/f5340 retreat-deploy pair.",
+    "Confirm Fang's AUTO DP payout frame matches the ledger entry used for Noirc's f600 deploy."
+  ],
+  "explicit_assumptions": [
+    "First-activation SP readiness for fang f570, vanilla f750, hibiscus f3000, beagle f4200, melan f4410, popka f4650, ansel f4650 is declared from deploy_frame + initial_SP + 1 SP/s inactive recovery; the tool flagged these as NOT_DECLARED_READY, so they stand as assumptions.",
+    "Net DP is sufficient at every deploy frame under the declared ledger; payment_link and same-frame deduction order returned UNKNOWN, so this is a model calculation, not a proof.",
+    "Fang's effective cost is 10 via the runtime-supported -1 self-cost talent (fact cost 11).",
+    "Noirc survives unhealed until Ansel lands (H2); unsupported +12% hp/def talent is not counted.",
+    "Diagnostic spawn times may drift; all blockers are placed 1-2 wave-intervals early to absorb drift.",
+    "Generic single-target attack behavior with no target-order deviations is assumed for pile-kill claims.",
+    "Route-2 is blocked at the bottom choke; if it ever passes, its top exit segment is unopposed (accepted design constraint, not a leak buffer)."
+  ],
+  "lessons_from_infeasibility": [
+    {
+      "applied_to": "Hibiscus, Stward, Ansel, Kroos verified this revision",
+      "lesson": "Direction is load-bearing for range claims; every medic/DPS posture must be tool-verified at its exact tile+direction before the plan may rely on it."
+    },
+    {
+      "applied_to": "Ansel substitution",
+      "lesson": "1-star utility (Lancet-2's deployment heal) cannot compensate for a range gap on the main tank; a 17-cost 3-star with verified coverage beats a 3-cost 1-star with a hole."
+    },
+    {
+      "applied_to": "Hibiscus f4500; Vanilla f1650",
+      "lesson": "SP pauses during skill effect; chained activations of the same operator must add the active duration to the recharge time."
+    },
+    {
+      "applied_to": "zero-leak invariant and Cardigan backstop reframing",
+      "lesson": "The WIN rule forbids treating max_life_point as a resource; capacity margins must come from blocking and kill rate, not from leak tolerance."
+    }
+  ],
+  "rejected_tactical_assumptions": [
+    {
+      "assumption": "Hibiscus UP / Stward UP postures from C1",
+      "reason": "disproven by C1 counterexamples and by this revision's tool queries"
+    },
+    {
+      "assumption": "Lancet-2 as sole top medic",
+      "reason": "cannot heal Noirc[1,6]; replaced by Ansel"
+    },
+    {
+      "assumption": "life points as a flood buffer",
+      "reason": "WIN rule requires zero leaks"
+    },
+    {
+      "assumption": "Hibiscus second charge by f4200",
+      "reason": "SP model earliest is f4500"
+    },
+    {
+      "assumption": "deploying on or relying upon roadblock tiles/navigation",
+      "reason": "navigation effect UNKNOWN; occupancy only confirmed against deployment"
+    }
+  ],
+  "retained_tactical_knowledge": [
+    {
+      "item": "Fang+Vanilla opening DP engine (auto +6, manual +12) funds the two-anchor build",
+      "status": "kept; skill timing tool-checked"
+    },
+    {
+      "item": "Kroos[2,6] LEFT dual-lane crossfire",
+      "status": "kept and now tool-verified"
+    },
+    {
+      "item": "Noirc[1,6] / Beagle[4,6] block3 anchors with Popka[4,7] overflow on Vanilla's reused tile",
+      "status": "kept; retreat resequenced to f2400 so the tile handoff is legal"
+    },
+    {
+      "item": "wait-pocket staggers (routes 6-8, 14-16, 22-27) prevent any sub-window from exceeding block 3+2",
+      "status": "kept"
+    },
+    {
+      "item": "banking all manual skills for the t130-175 flood",
+      "status": "kept; frames re-derived under the SP model"
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "rationale": "open DP gen + hold route-1/3 top; declared cost 10 via runtime-supported -1 self-cost talent",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 330,
+          "operator_id": "char_240_wyvern",
+          "rationale": "bottom early block + DP gen before route-2 arrives ~t26",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 600,
+          "operator_id": "char_500_noirc",
+          "rationale": "top main block3 after Fang auto skill (~f570) funds the gap",
+          "tile": [
+            1,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 750,
+          "operator_id": "char_240_wyvern",
+          "rationale": "manual +6 DP #1 (deploy t11 + 14 SP = ready t25)"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 780,
+          "operator_id": "char_124_kroos",
+          "rationale": "verified dual-lane DPS online before route-4 arrivals ~t32",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 1290,
+          "operator_id": "char_122_beagle",
+          "rationale": "bottom main block before the route-10 train",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1650,
+          "operator_id": "char_240_wyvern",
+          "rationale": "manual +6 DP #2 (tool PASS: active t25-35, then 20s recharge = ready t55)"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1680,
+          "operator_id": "char_120_hibisc",
+          "rationale": "REVISED direction: DOWN verified to heal [4,6],[4,7],[5,8]",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2190,
+          "operator_id": "char_210_stward",
+          "rationale": "REVISED direction: DOWN verified to hit [4,5],[4,6],[4,7],[3,5]; clears uterer backlog",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2400,
+          "operator_id": "char_240_wyvern",
+          "rationale": "free tile [4,7] for Popka after second DP payout; Beagle block3 covers t80-91 alone"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2730,
+          "operator_id": "char_281_popka",
+          "rationale": "permanent bottom overflow block2 + pile DPS before frag3",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 3000,
+          "operator_id": "char_123_fang",
+          "rationale": "free slot; top quiet until route-17 ~t97; Melantha lands f3210"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3000,
+          "operator_id": "char_120_hibisc",
+          "rationale": "heal skill #1 covers t100-120 double-lane pressure (deploy t56 + 30 SP = ready t86, banked)"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 3210,
+          "operator_id": "char_208_melan",
+          "rationale": "top burst before route-17 second arrival ~t107",
+          "tile": [
+            1,
+            7
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 3660,
+          "operator_id": "char_212_ansel",
+          "rationale": "REPLACES Lancet-2: verified heals both Noirc[1,6] and Melantha[1,7]; online before route-28 flood",
+          "tile": [
+            2,
+            9
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4200,
+          "operator_id": "char_122_beagle",
+          "rationale": "flood def insurance (ready ~t83, banked)"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4410,
+          "operator_id": "char_208_melan",
+          "rationale": "atk skill vs route-28 x5 tail (ready ~t147)"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4500,
+          "operator_id": "char_120_hibisc",
+          "rationale": "REVISED from f4200: tool-confirmed earliest second ready is f4500; covers t150-170 flood peak"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4650,
+          "operator_id": "char_281_popka",
+          "rationale": "flood overflow kill speed"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4650,
+          "operator_id": "char_212_ansel",
+          "rationale": "OPTIONAL: top flood sustain; plan does not depend on it"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 5310,
+          "operator_id": "char_208_melan",
+          "rationale": "top clear; frees the 8th slot one second before backstop deploy to avoid same-frame retreat/deploy ordering UNKNOWN"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 5340,
+          "operator_id": "char_209_ardign",
+          "rationale": "zero-leak backstop block3 on col8 exit for the t175-210 kill tail; skill UNSUPPORTED, never activated",
+          "tile": [
+            5,
+            8
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "c1_assumption": "Hibiscus [5,7] UP heals [4,6],[4,7],[5,8]",
+          "c2_revision": "direction DOWN; tool-verified DOWN covers [4,6],[4,7],[5,8],[4,8]; UP does not (C1_RANGE_HIBISCUS_UP absorbed)"
+        },
+        {
+          "c1_assumption": "Stward [5,6] UP covers (4,5),(4,6),(4,7),(3,5)",
+          "c2_revision": "direction DOWN; tool-verified DOWN covers [4,5],[4,6],[4,7],[3,5]; UP does not (C1_RANGE_STWARD_UP absorbed)"
+        },
+        {
+          "c1_assumption": "Lancet-2 [2,9] LEFT heals the top pair",
+          "c2_revision": "tool-verified Lancet-2 covers [1,7] but NOT [1,6] (C1_RANGE_LANCET_LEFT absorbed); replaced with Ansel [2,9] LEFT, tool-verified to cover both; 200 AoE deployment heal given up; Ansel costs 17 vs 3, pushing top-medic deploy to f3660"
+        },
+        {
+          "c1_assumption": "Hibiscus second skill at f4200",
+          "c2_revision": "moved to f4500; tool-confirmed earliest ready 4500 under 1 SP/s-inactive + 20s active pause (C1_HIBISCUS_SECOND_SKILL absorbed)"
+        },
+        {
+          "c1_assumption": "max_life 5 absorbs 1-4 marginal leaks as fallback",
+          "c2_revision": "deleted; WIN requires zero leaks + exhausted spawns + no active enemies (C1_WIN_RULE absorbed); Cardigan backstop reframed as a kill position, not a leak sponge"
+        },
+        {
+          "c1_assumption": "Melantha deploy f2790 / skill f4110; Vanilla retreat f3000",
+          "c2_revision": "sequencing re-derived for DP and slot discipline: Vanilla retreat f2400 (frees [4,7] for Popka f2730), Fang retreat f3000, Melantha f3210 / skill f4410, Ansel f3660, Melantha retreat f5310, Cardigan f5340"
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "If bottom pile at [4,6]+[4,7] reaches 5 blocked during t150-170",
+          "response": "no further action available by design; Hibiscus skill #2 (f4500) + Popka skill (f4650) are timed exactly here; kill rate must exceed arrival rate after t175 because leaking is LOSS, not buffer"
+        },
+        {
+          "condition": "If Noirc drops low before Ansel lands f3660 (only plausible vs route-9 cluster t45-75)",
+          "response": "accept the HP dip: under the subtraction model Noirc takes ~16.5/2s from uoffcr and ~65/1.5s from uterers through 315 def, which is chip-level vs 1670 HP; Lancet-2's 200 deployment heal is no longer available (roster change), so this is now a stated assumption, not a covered contingency"
+        },
+        {
+          "condition": "If model spawn times drift earlier than the diagnostic schedule",
+          "response": "all blockers land 1-2 wave-intervals before their lane's heavy fragments; Fang/Vanilla cover any earlier trickle"
+        },
+        {
+          "condition": "If Fang AUTO skill does not pay out ~f570 as modeled",
+          "response": "Noirc deploy f600 slips by up to 6s; top lane t19-26 is still covered by Fang block2; no other deploy is on the critical path"
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "capacity": "block 3+1, chip-level damage intake vs 330/380 atk under the subtraction model",
+          "corridor": "row1 cols1-9 top lane (routes 1,3,4,9,17,18,28)",
+          "owner": "Noirc block @1,6; Kroos + Melantha kill; Ansel[2,9] LEFT sustains both (verified coverage)"
+        },
+        {
+          "corridor": "row3 cols2-5 bottom approach (all bottom routes)",
+          "owner": "Kroos crossfire chip (verified [3,3]-[3,6]); Stward DOWN verified on [3,5]; no block here by design; roadblock tile (col5,row3)=[3,5] never deployed on"
+        },
+        {
+          "corridor": "row4 cols5-8 bottom choke (all bottom routes + route-2 transit)",
+          "owner": "Beagle @4,6 primary block3, Popka @4,7 overflow block2, Stward+Popka+Beagle kill, Hibiscus DOWN sustain (verified on both pile tiles)"
+        },
+        {
+          "corridor": "col8 rows4-6 exit to base [6,8]",
+          "fallback": "NONE - any leak is a LOSS under the confirmed WIN rule; the backstop exists so the flood tail is ground out, not leaked",
+          "owner": "Cardigan @5,8 backstop from f5340; before that Popka @4,7 is the last block"
+        },
+        {
+          "corridor": "route-2 special: exits at TOP [1,9] via row4 cols5-8 then col8 to row1",
+          "owner": "must be stopped at the bottom choke (Beagle/Popka); tiles [1,8]/[1,9] of its exit segment are outside all verified ranges, so a route-2 leaker past the bottom choke is unopposed - zero-leak invariant depends on the bottom block holding"
+        },
+        {
+          "corridor": "col2 wait pockets (routes 6-8,14-16,22-27 wait 5-28s)",
+          "owner": "nobody (out of range by terrain); waits are free setup time, enemies are killed at the choke on arrival"
+        }
+      ],
+      "declared_range_checks": [
+        {
+          "direction": "LEFT",
+          "evidence_status": "TOOL_VERIFIED_THIS_REVISION (covered_tiles include [1,3]-[1,6])",
+          "operator_id": "char_124_kroos",
+          "responsibility_kind": "top_lane_dps",
+          "targets": [
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "evidence_status": "TOOL_VERIFIED_THIS_REVISION",
+          "operator_id": "char_124_kroos",
+          "responsibility_kind": "bottom_approach_chip",
+          "targets": [
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "evidence_status": "TOOL_VERIFIED_THIS_REVISION (also covers [4,8])",
+          "operator_id": "char_120_hibisc",
+          "responsibility_kind": "bottom_heal",
+          "targets": [
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              5,
+              8
+            ]
+          ],
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "evidence_status": "TOOL_VERIFIED_THIS_REVISION",
+          "operator_id": "char_210_stward",
+          "responsibility_kind": "bottom_pile_arts_dps",
+          "targets": [
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              3,
+              5
+            ]
+          ],
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "evidence_status": "TOOL_VERIFIED_THIS_REVISION (also covers [1,8])",
+          "operator_id": "char_212_ansel",
+          "responsibility_kind": "top_heal",
+          "targets": [
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ]
+          ],
+          "tile": [
+            2,
+            9
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_208_melan",
+          "responsibility_kind": "top_burst_into_noirc_pile",
+          "targets": [
+            [
+              1,
+              6
+            ]
+          ],
+          "tile": [
+            1,
+            7
+          ],
+          "unknown_reason": "range 1-1 LEFT rotation not independently re-queried in this revision (6-call budget spent); model-derived forward tile [1,6], consistent with the tool-verified LEFT rotation at the same-origin Lancet-2 check; blocking on own tile [1,7] is direction-independent and needs no range proof"
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_500_noirc",
+          "responsibility_kind": "top_block3",
+          "targets": [],
+          "tile": [
+            1,
+            6
+          ],
+          "unknown_reason": "blocking-only responsibility on own tile; range 0-1 covers self; no concrete range target required"
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_122_beagle",
+          "responsibility_kind": "bottom_block3",
+          "targets": [],
+          "tile": [
+            4,
+            6
+          ],
+          "unknown_reason": "blocking-only responsibility on own tile; range 0-1 covers self"
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_281_popka",
+          "responsibility_kind": "overflow_block2_plus_pile_dps",
+          "targets": [
+            [
+              4,
+              6
+            ]
+          ],
+          "tile": [
+            4,
+            7
+          ],
+          "unknown_reason": "range 1-1 LEFT forward tile [4,6] not independently re-queried this revision; blocking on own tile [4,7] is direction-independent"
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_123_fang",
+          "responsibility_kind": "opening_block2_dp",
+          "targets": [
+            [
+              1,
+              4
+            ]
+          ],
+          "tile": [
+            1,
+            5
+          ],
+          "unknown_reason": "range 1-1 LEFT forward tile not re-queried; blocking on own tile is direction-independent"
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_240_wyvern",
+          "responsibility_kind": "opening_block2_dp",
+          "targets": [
+            [
+              4,
+              6
+            ]
+          ],
+          "tile": [
+            4,
+            7
+          ],
+          "unknown_reason": "range 1-1 LEFT forward tile not re-queried; blocking on own tile is direction-independent"
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_209_ardign",
+          "responsibility_kind": "exit_backstop_block3",
+          "targets": [],
+          "tile": [
+            5,
+            8
+          ],
+          "unknown_reason": "blocking-only responsibility on own tile; range 0-1 covers self"
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "LEFT",
+          "operator_id": "char_123_fang",
+          "role": "opening DP gen + top early block2; retreat f3000",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_240_wyvern",
+          "role": "opening DP gen + bottom early block2 (holds route-2 ~t26, route-6 ~t36); retreat f2400 to free tile for Popka",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_500_noirc",
+          "role": "top main block3 tank",
+          "tile": [
+            1,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_124_kroos",
+          "role": "dual-lane physical DPS (tool-verified coverage of [1,3]-[1,6] and [3,3]-[3,6])",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_122_beagle",
+          "role": "bottom main block3, 490 def anchor",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_120_hibisc",
+          "role": "bottom medic; CHANGED from C1's UP - tool-verified DOWN covers [4,6],[4,7],[5,8],[4,8]",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_210_stward",
+          "role": "bottom arts DPS; CHANGED from C1's UP - tool-verified DOWN covers [4,5],[4,6],[4,7],[3,5]",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_281_popka",
+          "role": "bottom overflow block2 + pile DPS (reuses Vanilla tile after f2400 retreat)",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_208_melan",
+          "role": "top burst DPS onto Noirc pile + block1 leak catcher; retreat f5310 for backstop slot",
+          "tile": [
+            1,
+            7
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_212_ansel",
+          "role": "top medic; REPLACES C1's Lancet-2 - tool-verified to heal both [1,6] and [1,7]",
+          "tile": [
+            2,
+            9
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_209_ardign",
+          "role": "zero-leak backstop block3 on the col8 exit path from f5340; skill UNSUPPORTED, never activated",
+          "tile": [
+            5,
+            8
+          ]
+        }
+      ],
+      "formation_structure": {
+        "endgame": "Melantha retreated f5310; Cardigan[5,8] deployed f5340 as col8-exit backstop; kill tail to ~t200 with zero leaks required",
+        "late_cell_8man": "Noirc, Melantha, Kroos, Ansel top; Beagle, Popka, Hibiscus, Stward bottom (Fang and Vanilla retreated)",
+        "midgame_cell": "Noirc[1,6] / Beagle[4,6] block3 anchors; Kroos[2,6]L crossfire; Hibiscus[5,7]DOWN bottom heal; Stward[5,6]DOWN bottom arts",
+        "opening_cell": "Fang[1,5]L + Vanilla[4,7]L generate DP and hold both lanes until t~43"
+      },
+      "formation_transitions": [
+        {
+          "frame": 600,
+          "transition": "Fang hands top block to Noirc[1,6]"
+        },
+        {
+          "frame": 1290,
+          "transition": "Vanilla hands bottom primary block to Beagle[4,6]; Vanilla stays as overflow at [4,7] until f2400"
+        },
+        {
+          "frame": 2400,
+          "transition": "Vanilla retreated after second DP skill; tile [4,7] freed"
+        },
+        {
+          "frame": 2730,
+          "transition": "Popka takes [4,7] as permanent bottom overflow block2"
+        },
+        {
+          "frame": 3000,
+          "transition": "Fang retreated; top capacity 3 (Noirc) suffices until Melantha f3210"
+        },
+        {
+          "frame": 5310,
+          "transition": "Melantha retreated one second before Cardigan deploy (avoids same-frame retreat/deploy ordering UNKNOWN)"
+        },
+        {
+          "frame": 5340,
+          "transition": "Cardigan[5,8] backstop online for the t175+ kill tail"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "ZERO LEAKS. max_life_point 5 is not a resource. WIN = zero leaks + exhausted spawns + no active enemies (confirmed current runtime rule); C1's 'at most 4 leaks' fallback is removed"
+        },
+        {
+          "invariant": "No deployment on any roadblock/device tile: json tiles [3,5],[4,9],[2,7],[2,1],[5,3] (from col_row [5,3],[9,4],[7,2],[1,2],[3,5]) are never used"
+        },
+        {
+          "invariant": "Hibiscus direction is DOWN, never UP (UP fails to cover [4,6]/[4,7] per C1 counterexample)"
+        },
+        {
+          "invariant": "Stward direction is DOWN, never UP (same C1 counterexample)"
+        },
+        {
+          "invariant": "Top healing must come from Ansel[2,9] LEFT (verified [1,6]+[1,7]); Lancet-2 at that tile cannot heal Noirc[1,6] and is removed from the roster"
+        },
+        {
+          "invariant": "Hibiscus second activation no earlier than f4500 (time-SP model: 1 SP/s while inactive, paused during 20s effect)"
+        },
+        {
+          "invariant": "Deployment limit 8 respected at every frame; retreats (Vanilla f2400, Fang f3000, Melantha f5310) precede each slot-adding deploy"
+        },
+        {
+          "invariant": "Route-2 (exits top [1,9]) must be blocked at the bottom choke; its exit segment [1,8]->[1,9] is outside all verified ranges"
+        }
+      ],
+      "operational_plan_id": "R8_1_LOWSTAR_PLAN_C2",
+      "parent_hypothesis_id": "R8_1_LOWSTAR_PLAN_C1",
+      "pressure_window_responsibilities": [
+        {
+          "owner": "Noirc+Kroos top; Vanilla then Beagle bottom",
+          "window": "t25-45 (frag1: route-4 x2 top, route-6/7/8 bottom; route-7/8 self-delay 19/28s at col2)"
+        },
+        {
+          "owner": "Noirc block3 + Kroos top; Beagle block3 bottom with Vanilla overflow until f2400, Stward online from f2190",
+          "risk": "bottom stack peaks ~3 exactly at block3 during the t53-73 gap before Stward; covered by overflow",
+          "window": "t45-90 (frag2: route-9 x4 top, route-10 x4 + route-11 bottom, routes 12/13)"
+        },
+        {
+          "owner": "full kill cell from f2730; Hibiscus skill #1 at f3000 covers the double-lane coincidence; wait-pockets stagger arrivals so no sub-window exceeds block 3+2",
+          "window": "t85-125 (frag3+4: routes 14-18, 19-21)"
+        },
+        {
+          "owner": "ALL banked skills fire f4200-f4860: Beagle def f4200, Melantha atk f4410, Hibiscus heal #2 at f4500 (REVISED from f4200 per SP model), Popka atk f4650; Beagle+Popka layered block; Cardigan backstop from f5340",
+          "risk": "transient pile 4-5 at the bottom cell; overflow caught at [4,7]; any enemy past both is a LOSS, so kill rate must exceed arrival rate after t175 - this is asserted, not leak-buffered",
+          "window": "t130-175 (frag5 flood: routes 22-27 uoffcr with waits, route-28 x5 top, routes 29-34 uterer pairs bottom)"
+        },
+        {
+          "owner": "Cardigan[5,8] grinds any tail stragglers; Stward/Hibiscus still online; no new spawns after t160; WIN only when the last enemy dies",
+          "window": "t175-210 (tail)"
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_240_wyvern",
+        "char_500_noirc",
+        "char_124_kroos",
+        "char_122_beagle",
+        "char_120_hibisc",
+        "char_210_stward",
+        "char_281_popka",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_209_ardign"
+      ],
+      "skill_intents": [
+        {
+          "frames": [
+            750,
+            1650
+          ],
+          "intent": "manual +6 DP twice (tool: second activation f1650 PASS_WITH_CONDITIONS); retreat f2400 after second payout",
+          "operator_id": "char_240_wyvern",
+          "skill": "skchr_wyvern_1"
+        },
+        {
+          "frames": [
+            3000,
+            4500
+          ],
+          "intent": "f3000 covers t100 double-lane pressure; SECOND CHARGE MOVED f4200->f4500 (tool-confirmed earliest ready 4500: 20s active pause + 30s recharge)",
+          "operator_id": "char_120_hibisc",
+          "skill": "skcom_heal_up[1]"
+        },
+        {
+          "frames": [
+            4200
+          ],
+          "intent": "flood insurance; deployed f1290, 40 SP ready ~t83, banked",
+          "operator_id": "char_122_beagle",
+          "skill": "skcom_def_up[1]"
+        },
+        {
+          "frames": [
+            4410
+          ],
+          "intent": "route-28 x5 tail burst; deployed f3210 (t107), 40 SP ready ~t147, covers arrivals ~t147-167",
+          "operator_id": "char_208_melan",
+          "skill": "skcom_atk_up[1]"
+        },
+        {
+          "frames": [
+            4650
+          ],
+          "intent": "flood overflow kill speed; deployed f2730, ready ~t131, banked",
+          "operator_id": "char_281_popka",
+          "skill": "skcom_atk_up[1]"
+        },
+        {
+          "frames": [
+            4650
+          ],
+          "intent": "OPTIONAL flood sustain on Noirc+Melantha (runtime EXECUTABLE_APPROXIMATED; initial 10 + 35 SP ready ~t147 if deployed f3660); plan does not depend on it",
+          "operator_id": "char_212_ansel",
+          "skill": "skcom_range_extend"
+        },
+        {
+          "frames": [],
+          "intent": "no ACTIVATE_SKILL actions; runtime handles automatically. Fang auto +6 DP modeled at ~f570 (initial 6, cost 25, t19)",
+          "operator_id": "char_123_fang / char_124_kroos / char_210_stward",
+          "skill": "AUTO skills"
+        },
+        {
+          "frames": [],
+          "intent": "NOT USED - skill runtime UNSUPPORTED, never activated",
+          "operator_id": "char_209_ardign",
+          "skill": "skcom_heal_self[1]"
+        }
+      ],
+      "tactical_thesis": "Two-medic two-chokepoint crossfire, revised under tool verification. Fang+Vanilla open for DP and early block; Noirc[1,6] anchors top, Beagle[4,6]+Popka[4,7] anchor bottom. Kroos[2,6] LEFT (verified) fires on top cols3-6 and bottom row3 approach cols3-6. C1's direction errors are corrected: Hibiscus[5,7] DOWN (tool-verified to cover [4,6],[4,7],[5,8]) and Stward[5,6] DOWN (tool-verified to cover [4,5],[4,6],[4,7],[3,5]). C1's Lancet-2 gap is corrected by replacing Lancet-2 with Ansel[2,9] LEFT (tool-verified to cover both Noirc[1,6] and Melantha[1,7]); the 200 AoE deployment heal is given up. Hibiscus second skill moved from f4200 to f4500 per the time-SP model (1 SP/s only while inactive, paused during the 20s effect). The 'max_life 5 absorbs leaks' fallback is deleted: WIN requires zero leaks, exhausted spawns, no active enemies, so every pressure window must hold at the block lines with Cardigan[5,8] as the zero-leak backstop, not as a leak sponge. No roadblock tile is deployed on; no unsupported mechanic is load-bearing.",
+      "unknown_dependencies": [
+        {
+          "status": "CONDITIONAL_MODEL_CALCULATION: ledger income (natural +1/s, Fang auto +6 ~f570, Vanilla manual +12) covers every declared cost with margin under the m18.9 model, but the tool returned payment_link UNKNOWN for most deploys and same-frame DP deduction order UNKNOWN; net-DP feasibility is an assumption, not a proof",
+          "topic": "DP feasibility"
+        },
+        {
+          "status": "tool flagged FIRST_ACTIVATION_NOT_DECLARED_READY for fang f570 / vanilla f750 / hibiscus f3000 / beagle f4200 / melan f4410 / popka f4650; each is declared ready by deploy_frame + initial_SP + 1 SP/s arithmetic and stated here as an explicit assumption",
+          "topic": "first-activation SP readiness"
+        },
+        {
+          "status": "justified by runtime-supported RUNTIME_SUPPORTED_SELF_COST talent (-1); tool still marks the mismatch UNKNOWN pending potential/talent evidence",
+          "topic": "Fang declared cost 10 vs fact cost 11"
+        },
+        {
+          "status": "UNKNOWN per evidence; runtime adapter routes already thread through device tile (col5,row3), and the plan never deploys on any device tile, so nothing load-bearing rests on this",
+          "topic": "roadblock effect on ordinary WALK navigation"
+        },
+        {
+          "status": "runtime EXECUTABLE_APPROXIMATED; exact client windup/rounding UNKNOWN",
+          "topic": "auto-skill trigger timing (Fang, Kroos, Stward)"
+        },
+        {
+          "status": "UNSUPPORTED_ACTIVE_TALENT; not counted in any survival or kill estimate; their absence is the conservative case",
+          "topic": "unsupported talents (Noirc def/hp, Melantha atk, Beagle def, Kroos crit, Stward targeting, Ansel extra heal)"
+        },
+        {
+          "status": "UNKNOWN; pile-kill claims assume generic single-target attacks only",
+          "topic": "target ordering among stacked blocked enemies"
+        }
+      ],
+      "verification_questions": [
+        {
+          "question": "Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?"
+        },
+        {
+          "question": "With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?"
+        },
+        {
+          "question": "Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?"
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "device_tiles": "Five roadblocks at col_row [5,3],[9,4],[7,2],[1,2],[3,5]; deployment-occupancy blocking CONFIRMED, WALK-navigation effect UNKNOWN; plan deploys on none of them.",
+    "enemy_profile": "uoffcr 330 atk / 150 def / 20 res; uterer 380 atk / 100 def / 20 res / 1.7 speed. Under the subtraction model, Noirc (315 def) and Beagle (490 def) take chip-level physical damage; Stward's arts (vs 20 res) is the bottom kill engine, Kroos/Melantha the top.",
+    "map_geometry": "11x7; bottom routes (route-2 excepted) exit at [6,8] via col8; route-2 uniquely exits at TOP [1,9] after transiting the row4 choke, so it must be blocked at Beagle/Popka - its exit segment [1,8]-[1,9] is outside all verified ranges. Top straight lanes exit [1,9] through Noirc's tile.",
+    "sp_model": "Time-SP recovers 1.0 SP/s only while inactive and pauses during skill effect; this drives Hibiscus #2 to f4500 and all declared first-activation readiness frames.",
+    "spawn_envelope": "diagnostic schedule, last spawn t160 (f4800); flood window t130-175; kill tail to ~t200; model schedule is DIAGNOSTIC, not client fact - all blockers are placed 1-2 intervals early.",
+    "win_rule": "CONFIRMED from current runtime: zero leaks, spawn schedule exhausted, no active enemies. 'At most 4 leaks' is a LOSS. All C1 leak-buffer language is removed."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "basis": "verified ranges + subtraction-model damage; kill-rate proof remains a simulator question, not asserted as fact",
+      "id": "H1",
+      "statement": "The bottom row4 choke (Beagle[4,6] + Popka[4,7], Hibiscus DOWN sustain, Stward DOWN arts) holds the t130-175 flood with zero leaks given the banked skill sequence f4200/f4500/f4650."
+    },
+    {
+      "basis": "enemy atk 330/380 vs def 315 under physical max(0.05A, A-D); unsupported Noirc talent excluded (conservative)",
+      "id": "H2",
+      "statement": "Noirc survives t20-122 unhealed because all top-lane attackers deal chip-level damage through 315 def; Ansel f3660 then covers the route-28 flood."
+    },
+    {
+      "basis": "check_timing_constraints ledger balances",
+      "id": "H3",
+      "statement": "The DP ledger (initial 10, +1/s, Fang auto +6, Vanilla manual +12) funds the 11-deploy sequence with margin; flagged CONDITIONAL because payment_link and same-frame deduction order returned UNKNOWN."
+    },
+    {
+      "basis": "no spawns after t160; block3 + 442 def vs 330/380 atk",
+      "id": "H4",
+      "statement": "Cardigan[5,8] from f5340 plus the still-online bottom cell grinds the post-t175 tail to zero active enemies, satisfying the true WIN rule without life-point spending."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "r0": "Zero leaks is mandatory; no fallback may consume life points.",
+    "r1": "Bottom choke [4,6]+[4,7] must never be simultaneously broken during t130-175; layered block3+block2 plus banked skills are the mechanism.",
+    "r2": "Hibiscus DOWN and Stward DOWN from [5,7]/[5,6] are the only verified postures for the bottom medic/arts roles.",
+    "r3": "Top healing requires Ansel[2,9] LEFT (verified); Lancet-2 cannot cover Noirc and is removed.",
+    "r4": "Hibiscus second activation at f4500 or later; f4200 is provably too early under the current SP model.",
+    "r5": "Deployment limit 8 at every frame; each slot-adding deploy is preceded by a retreat (f2400 Vanilla, f3000 Fang, f5310 Melantha).",
+    "r6": "Every DEPLOY carries tile + direction; every range-based responsibility is either tool-verified this revision or explicitly marked with unknown_reason (blocking-only roles need no range proof).",
+    "r7": "Only ordinary-mode rarity 1-3 catalog operators; all 11 selected ids are in normal_low_star_catalog; no mode-specific reserve operators; no unsupported mechanic is load-bearing (Cardigan's unsupported heal skill is never activated; unsupported talents are excluded from all estimates)."
+  },
+  "uncertainties": [
+    {
+      "handling": "treated as UNKNOWN; plan margins (1-2 intervals early, banked skills) absorb them",
+      "topic": "exact client windup, integer rounding, AUTO trigger frames"
+    },
+    {
+      "handling": "UNKNOWN; plan never deploys on device tiles and relies only on the supplied runtime adapter routes",
+      "topic": "roadblock effect on ordinary WALK navigation"
+    },
+    {
+      "handling": "excluded from all estimates; Cardigan skill never activated; Ansel skill marked OPTIONAL",
+      "topic": "unsupported talents and Cardigan/Ansel-adjacent unsupported skills"
+    },
+    {
+      "handling": "asserted as hypothesis H1; flagged for deterministic verification rather than claimed as fact",
+      "topic": "simulator kill-rate proof for the t150-175 bottom pile"
+    }
+  ]
+}

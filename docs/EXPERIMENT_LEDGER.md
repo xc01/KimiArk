@@ -277,3 +277,14 @@ input 33,097、output 26,430（reasoning 24,332）、total 59,527。模型发出
 （reasoning 6,304）、total 56,673。最终JSON契约失败：`verification_questions`三项是字符串，
 schema要求object。无有效C2、静态编译或模拟。预算3/3请求、6/6工具执行。修复后专项与定向
 pytest 57/57 PASS。一次预HTTP NameError未计入请求。
+
+## 2026-10-13 — 保存C2规范化与静态编译
+
+RESULT_NORMALIZED：保存响应中只有三个`verification_questions`字符串被无损包装成对象；
+规范化副本通过schema/contract。该结果从“没有有效C2”更正为“已得到可执行检查的C2”，但仍不是
+战术成功。
+
+STATIC_CONFLICT：修复`selected_skills`读取和`tile_json_row_col`比较后，又把C2的坐标列表目标
+适配为只读工具对象。静态结果为1个冲突、7个UNKNOWN。frame600 Noirc部署费用14而前余额9，
+原样动作无法通过模拟前提；0/1次关卡模拟启动，没有改动作、没有扩搜、没有WIN/LOSS。
+定向pytest 61/61 PASS。

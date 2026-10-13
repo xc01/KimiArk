@@ -1,0 +1,51 @@
+{
+  "schema_version": "R8_1_LOWSTAR_C2_STATIC_EXECUTION_GATE_V1",
+  "plan_normalization": {
+    "normalized_plan": "llm_structured_output.json",
+    "original_final_output": "llm_raw_final_output.json",
+    "normalization_evidence": "c2_normalization.json",
+    "changes_beyond_three_verification_question_wrappers": 0,
+    "schema_and_contract_status": "PASS"
+  },
+  "compiler_input_adaptation": {
+    "status": "APPLIED_WITHOUT_TACTICAL_CHANGE",
+    "reason": "The saved C2 declared targets as JSON coordinate lists; the public range tool accepts {label,tile}. The compiler now converts these declarations for query-only execution.",
+    "regression": "test_declared_coordinate_list_targets_are_preserved_as_tool_objects"
+  },
+  "static_check": {
+    "results": "static_compile_results.json",
+    "classification": "STATIC_CONFLICT",
+    "conflict_count": 1,
+    "unknown_count": 7,
+    "blocking_conflict": {
+      "frame": 600,
+      "operator_id": "char_500_noirc",
+      "conflict": "INSUFFICIENT_DP",
+      "balance_before": 9,
+      "cost": 14
+    }
+  },
+  "simulation_gate": {
+    "authorized_stage_simulations": 1,
+    "started_stage_simulations": 0,
+    "precondition_met": false,
+    "reason": "The original fixed timeline has a static DP conflict before frame 600. Actions were not changed to clear it."
+  },
+  "tests": {
+    "command": "PYTHONPATH=src:scripts:/usr/lib/python3/dist-packages /home/bigdata/Desktop/cybergym-main/.venv/bin/pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_lowstar_c2_compact_tool_revision_v1.py tests/test_r8_1_low_star_full_tactical_closure_v1.py tests/test_r8_1_low_star_review_regressions.py",
+    "collected_tests": 61,
+    "status": "PASS",
+    "log": "static_compile_tests.log"
+  },
+  "budget": {
+    "kimi_requests": "3/3",
+    "readonly_tool_executions": "6/6",
+    "new_operational_plans": 0,
+    "tactical_search_expansions": 0
+  },
+  "boundary": {
+    "combat_feasibility": "UNKNOWN_NO_SIMULATION",
+    "faithful_certificate": "NOT_ISSUED",
+    "simulation_result_claim": "NONE"
+  }
+}

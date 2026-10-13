@@ -352,6 +352,21 @@ usage input 40,811、output 15,862（reasoning 6,304）、total 56,673。最终�
 预算3/3请求、6/6工具执行，未重试。证据在
 `output/r8_1_lowstar_c2_compact_tool_revision_v2/resume_evidence_analysis.json`。
 
+## 2026-10-13 保存C2规范化后的执行门禁
+
+CONFIRMED_FROM_CODE_AND_EVIDENCE：第3次输出的C2可无损规范化。只有三个字符串
+`verification_questions`被包装为对象，深度差异数为3；规范化副本通过现有schema和contract，
+保存于`llm_structured_output.json`与`c2_normalization.json`。这确认模型输出一份有效契约计划，
+不确认战术成功或实机通关。
+
+CONFIRMED_FROM_CODE：编译器接口已最小修复为读取`selected_skills`、比较范围工具的
+`tile_json_row_col`，并把C2原生坐标列表目标转换成工具对象。列表形态适配不改变任何战术语义。
+静态编译消除了四条字段形态错误后仍有1个冲突和7个UNKNOWN。唯一阻断模拟的冲突是frame600
+`char_500_noirc`部署需要14 DP而账本余额9 DP。因此授权的0/1次全关模拟未启动，战果保持
+UNKNOWN_NO_SIMULATION。定向pytest为61/61 PASS，日志在
+`output/r8_1_lowstar_c2_compact_tool_revision_v2/static_compile_tests.log`；门禁与真实阻塞在
+`static_compile_execution_gate.json`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

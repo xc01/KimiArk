@@ -1,0 +1,78 @@
+{
+  "changes": [
+    {
+      "after": {
+        "question": "Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?"
+      },
+      "before": "Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?",
+      "json_path": "$.revised_operational_plans[0].verification_questions[0]"
+    },
+    {
+      "after": {
+        "question": "With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?"
+      },
+      "before": "With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?",
+      "json_path": "$.revised_operational_plans[0].verification_questions[1]"
+    },
+    {
+      "after": {
+        "question": "Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?"
+      },
+      "before": "Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?",
+      "json_path": "$.revised_operational_plans[0].verification_questions[2]"
+    }
+  ],
+  "deep_diff": [
+    {
+      "after": {
+        "question": "Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?"
+      },
+      "before": "Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?",
+      "path": "$.revised_operational_plans[0].verification_questions[0]"
+    },
+    {
+      "after": {
+        "question": "With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?"
+      },
+      "before": "With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?",
+      "path": "$.revised_operational_plans[0].verification_questions[1]"
+    },
+    {
+      "after": {
+        "question": "Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?"
+      },
+      "before": "Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?",
+      "path": "$.revised_operational_plans[0].verification_questions[2]"
+    }
+  ],
+  "deep_diff_count": 3,
+  "normalized_output": {
+    "bytes": 40216,
+    "path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_structured_output.json",
+    "sha256": "1a083038099bdd2a945cb66592cb0867b3bc5f8b7aa2bb67426e1fa6e0030eb9"
+  },
+  "normalized_validation_errors": [],
+  "original_validation_errors": [
+    "schema: revised_operational_plans/0/verification_questions/0: \"Does the simulator's AUTO-skill payout for Fang at ~f570 match the declared ledger entry exactly?\" is not of type 'object'",
+    "schema: revised_operational_plans/0/verification_questions/1: \"With Ansel at f3660 instead of Lancet-2 at f1380, does Noirc's t20-122 unhealed window stay above zero HP in the real combat layer?\" is not of type 'object'",
+    "schema: revised_operational_plans/0/verification_questions/2: 'Is the f5310-retreat / f5340-deploy sequencing sufficient to keep the deployment count at 8 at every frame?' is not of type 'object'"
+  ],
+  "raw_final_output": {
+    "bytes": 40114,
+    "path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_raw_final_output.json",
+    "sha256": "2d56250cef9591db89d49c04ed4a650f162092e98f778d13faa3afcaf4484a78"
+  },
+  "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_NORMALIZATION",
+  "source_classification": {
+    "bytes": 55085,
+    "path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/attempt_3_classification.json",
+    "sha256": "1903a2fee6f7e0bfb8aedc64b0f39a05363ea5a21b5324aa7bef383fd60fdd81"
+  },
+  "source_response": {
+    "bytes": 3882464,
+    "path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/attempt_3_raw_response.txt",
+    "sha256": "005a81f9e1ad79b3eb37b71603e6927b5a5ed0a3b56ce6be64a5bbf9c0fa101c"
+  },
+  "status": "PASS",
+  "transformation": "Wrap only string verification_questions as {question:<original string>}; preserve the original string unchanged."
+}

@@ -3,7 +3,13 @@ import unittest
 from pathlib import Path
 
 from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
-from compile_r8_1_lowstar_c2_plan_v1 import structured_range_checks
+from compile_r8_1_lowstar_c2_plan_v1 import (
+    declared_target_objects,
+    file_record,
+    first_skill,
+    structured_range_checks,
+    uncovered_declared_targets,
+)
 from kimi_readonly_tools import TOOLS_SCHEMA
 from kimi_readonly_tools import ReadOnlyQueryEngine
 from run_r8_1_lowstar_c2_tool_revision_v1 import (
@@ -121,3 +127,26 @@ class CompactC2Tests(unittest.TestCase):
         }
         result = engine.query_range_coverage(arguments)
         self.assertEqual("3-1", result["range_id"])
+
+    def test_compiler_reads_selected_skills_not_legacy_skills(self):
+        operator = {"selected_skills": [{"skill_id": "skill"}], "skills": []}
+        self.assertEqual({"skill_id": "skill"}, first_skill(operator))
+
+    def test_uncovered_targets_preserve_conflict_field_name(self):
+        result = {"targets": [
+            {"tile_json_row_col": [4, 6], "covered": True},
+            {"tile_json_row_col": [1, 6], "covered": False},
+        ]}
+        self.assertEqual([[1, 6]], uncovered_declared_targets(result))
+
+    def test_declared_coordinate_list_targets_are_preserved_as_tool_objects(self):
+        targets = declared_target_objects({"targets": [[1, 6], {"label": "x", "tile": [4, 7]}]})
+        self.assertEqual([
+            {"label": "declared_0", "tile": [1, 6]},
+            {"label": "x", "tile": [4, 7]},
+        ], targets)
+
+    def test_compiler_file_record_contains_hash_and_size(self):
+        record = file_record(OUT / "llm_evidence_context.json")
+        self.assertEqual(64, len(record["sha256"]))
+        self.assertGreater(record["bytes"], 0)

@@ -329,3 +329,16 @@ Evidence is under `output/r8_1_kimi_tool_protocol_probe_v1/`. Actual requests we
 2/2 and read-only tool executions 1/1; usage was 834 and 1105 tokens. The 43-test
 pre-existing subset passed 43/43, and all 50 directed tests passed after four new
 regressions. No C2, tactical plan, action candidate, simulation, or search occurred.
+
+## 2026-10-13 — Saved C2 normalized, static gate blocked
+
+The saved final response was normalized without tactical modification: only three string
+`verification_questions` entries were wrapped as objects, the deep-diff count is three, and the
+normalized C2 passes the existing schema/contract validators. The compiler now reads
+`selected_skills`, preserves uncovered-target conflicts with `tile_json_row_col`, and converts the
+saved C2's coordinate-list declared targets to tool objects without changing semantics.
+
+Static compilation then found one real blocker and seven declared-responsibility unknowns. At
+frame 600, Noirc costs 14 DP but the ordered model ledger has 9 DP. Therefore the authorized
+0/1 full-stage diagnostic simulation did not start. Directed pytest was 61/61 PASS. No Kimi
+request, tactical search, action repair, WIN, or real-game claim was made.

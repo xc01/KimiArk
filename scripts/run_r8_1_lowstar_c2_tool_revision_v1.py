@@ -704,15 +704,96 @@ def resume() -> dict[str, Any]:
     return parsed
 
 
+def deep_diff(left: Any, right: Any, path: str = "$") -> list[dict[str, Any]]:
+    if type(left) is not type(right):
+        return [{"path": path, "before": left, "after": right}]
+    if isinstance(left, dict):
+        differences: list[dict[str, Any]] = []
+        for key in sorted(set(left) | set(right)):
+            if key not in left or key not in right:
+                differences.append({"path": f"{path}.{key}", "before": left.get(key), "after": right.get(key)})
+            else:
+                differences.extend(deep_diff(left[key], right[key], f"{path}.{key}"))
+        return differences
+    if isinstance(left, list):
+        differences = []
+        for index in range(max(len(left), len(right))):
+            before = left[index] if index < len(left) else None
+            after = right[index] if index < len(right) else None
+            if index >= len(left) or index >= len(right):
+                differences.append({"path": f"{path}[{index}]", "before": before, "after": after})
+            else:
+                differences.extend(deep_diff(before, after, f"{path}[{index}]"))
+        return differences
+    return [] if left == right else [{"path": path, "before": left, "after": right}]
+
+
+def normalize_c2() -> dict[str, Any]:
+    classification_path = OUT / "attempt_3_classification.json"
+    classification = load(classification_path)
+    if classification.get("terminal_event") != "response.completed" or classification.get("assistant_message_present") is not True:
+        raise RuntimeError("saved C2 final response is not a completed assistant response")
+    original = json.loads(classification.get("final_output_text") or "")
+    normalized = copy.deepcopy(original)
+    changes: list[dict[str, Any]] = []
+    for plan_index, plan in enumerate(original.get("revised_operational_plans") or []):
+        for question_index, question in enumerate(plan.get("verification_questions") or []):
+            if isinstance(question, str):
+                normalized["revised_operational_plans"][plan_index]["verification_questions"][question_index] = {"question": question}
+                changes.append({
+                    "json_path": f"$.revised_operational_plans[{plan_index}].verification_questions[{question_index}]",
+                    "before": question,
+                    "after": {"question": question},
+                })
+    if len(changes) != 3:
+        raise RuntimeError(f"expected exactly three string verification questions, got {len(changes)}")
+    differences = deep_diff(original, normalized)
+    if len(differences) != len(changes):
+        raise RuntimeError("normalization produced changes beyond the three verification_questions wrappers")
+    evidence = load(OUT / "llm_evidence_context.json")
+    schema = load(OUT / "revision_output_schema.json")
+    original_errors = validate_final_operational_plan(original, evidence, schema)
+    normalized_errors = validate_final_operational_plan(normalized, evidence, schema)
+    write_json("llm_raw_final_output.json", original)
+    write_json("llm_structured_output.json", normalized)
+    write_json("c2_normalization.json", {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_NORMALIZATION",
+        "source_response": file_record(OUT / "attempt_3_raw_response.txt"),
+        "source_classification": file_record(classification_path),
+        "raw_final_output": file_record(OUT / "llm_raw_final_output.json"),
+        "normalized_output": file_record(OUT / "llm_structured_output.json"),
+        "transformation": "Wrap only string verification_questions as {question:<original string>}; preserve the original string unchanged.",
+        "changes": changes,
+        "deep_diff_count": len(differences),
+        "deep_diff": differences,
+        "original_validation_errors": original_errors,
+        "normalized_validation_errors": normalized_errors,
+        "status": "PASS" if not normalized_errors and len(differences) == 3 else "FAIL",
+    })
+    write_json("llm_plan_validation.json", {
+        "schema_version": "R8_1_LOWSTAR_C2_COMPACT_TOOL_REVISION_V2_PLAN_VALIDATION",
+        "schema": "r8_1_lowstar_c2_compact_tool_revision_v2",
+        "status": "PASS" if not normalized_errors else "FAIL",
+        "errors": normalized_errors,
+        "normalization_evidence": "c2_normalization.json",
+    })
+    if normalized_errors:
+        raise SystemExit("normalized C2 failed schema/contract validation")
+    return normalized
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=["prepare", "call", "resume"])
+    parser.add_argument("phase", choices=["prepare", "call", "resume", "normalize"])
     arguments = parser.parse_args()
     if arguments.phase == "prepare":
         prepare()
         return
     if arguments.phase == "resume":
         resume()
+        return
+    if arguments.phase == "normalize":
+        normalize_c2()
         return
     call()
 

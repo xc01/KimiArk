@@ -25,6 +25,10 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def file_record(path: Path) -> dict[str, Any]:
+    return {"bytes": path.stat().st_size, "path": str(path.relative_to(ROOT)), "sha256": sha256(path)}
+
+
 def operator_map(evidence: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {row["operator_id"]: row for row in evidence["normal_low_star_catalog"]}
 
@@ -48,7 +52,27 @@ def actual_cost(operator: dict[str, Any], support: dict[str, Any]) -> float:
 
 
 def first_skill(operator: dict[str, Any]) -> dict[str, Any] | None:
-    return (operator.get("skills") or [None])[0]
+    return (operator.get("selected_skills") or [None])[0]
+
+
+def uncovered_declared_targets(range_result: dict[str, Any]) -> list[Any]:
+    return [
+        row["tile_json_row_col"]
+        for row in range_result.get("targets") or []
+        if row.get("covered") is False
+    ]
+
+
+def declared_target_objects(declared: dict[str, Any]) -> list[dict[str, Any]]:
+    objects: list[dict[str, Any]] = []
+    for index, target in enumerate(declared.get("targets") or []):
+        if isinstance(target, list):
+            objects.append({"label": f"declared_{index}", "tile": target})
+        elif isinstance(target, dict) and isinstance(target.get("tile"), list):
+            objects.append(target)
+        else:
+            raise ValueError("declared target must be [row,col] or {label,tile}")
+    return objects
 
 
 def structured_range_checks(plan: dict[str, Any], action: dict[str, Any]) -> list[dict[str, Any]]:
@@ -280,7 +304,11 @@ def compile_plan() -> dict[str, Any]:
                 })
             for declared_index, declared in enumerate(declared_rows):
                 unknown_reason = declared.get("unknown_reason")
-                targets = declared.get("targets") or []
+                try:
+                    targets = declared_target_objects(declared)
+                except ValueError as exc:
+                    targets = []
+                    unknown_reason = str(exc)
                 if unknown_reason or not targets:
                     range_checks.append({
                         "action_index": index, "declared_index": declared_index,
@@ -301,7 +329,7 @@ def compile_plan() -> dict[str, Any]:
                 }
                 try:
                     result = engine.query_range_coverage(query)
-                    uncovered = [row["tile"] for row in result["targets"] if not row["covered"]]
+                    uncovered = uncovered_declared_targets(result)
                     range_status = "PASS_WITH_CONDITIONS" if not uncovered else "CONFLICT"
                     range_checks.append({
                         "action_index": index, "declared_index": declared_index,

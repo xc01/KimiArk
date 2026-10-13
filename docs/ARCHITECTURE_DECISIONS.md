@@ -159,6 +159,14 @@ function_call、function_call_output和新的显式最终指令；此后才绑�
 决策：原生function_call完成且参数Schema有效才计入工具执行。参数不完整的调用必须标
 `INVALID_NOT_EXECUTED`，不能在文档中概括成“6个工具全部使用”。
 
+## 2026-10-13 — 保存C2无损规范化与执行门禁
+
+决策：保存最终响应中的字符串`verification_questions`可以无损包装成`{"question":...}`，
+但除这三个包装位置外必须与原文逐项一致；规范化不提升为战术成功。公共编译器读
+`selected_skills`，范围比较使用`tile_json_row_col`，未覆盖目标保持CONFLICT。保存C2的
+坐标列表目标在编译时只转换为只读工具需要的`{label,tile}`对象，不改变目标、位置、方向
+或动作。静态DP冲突仍然阻断模拟，不用改动作换取运行。
+
 ## 2026-10-13 — C2保存调用恢复
 
 决策：修复配置校验后，只重验已保存的原生function_call；不重放第一轮推理，不重复执行时序查询，

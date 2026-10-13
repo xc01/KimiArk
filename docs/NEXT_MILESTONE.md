@@ -61,3 +61,10 @@ budget is now exhausted at 3/3 counted requests and 6/6 executed tools; no retry
 or simulation is authorized. Work must review `resume_evidence_analysis.json` and the raw
 final response before deciding whether a future session may reuse the verified tool facts
 under a corrected output contract.
+
+Correction: losslessly wrapping those three strings produced a valid C2. Static compilation now
+identifies the concrete blocker: frame 600 Noirc costs 14 DP against a balance of 9. The fixed
+timeline remains unchanged, so the 0/1 diagnostic simulation is blocked. The budget remains
+exhausted; a future tactical decision belongs to Work/Kimi and must address this conflict or
+approve a bounded revision only after reviewing
+`output/r8_1_lowstar_c2_compact_tool_revision_v2/static_compile_execution_gate.json`.
