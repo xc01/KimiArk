@@ -262,3 +262,21 @@ CONFIRMED_FROM_CODE：工具参数按声明JSON Schema在执行前校验；批�
 V2证据在`output/r8_1_readonly_tool_loop_fix_v2/`，V1 artifacts未重写。定向pytest 46/46
 PASS（pytest 9.1.1，借用本地环境；当前网络DNS阻断，无法在项目venv安装声明pytest<9）。
 预算：真实Kimi 0、真实关卡模拟0、新真实计划/候选0、扩搜0；C1复用只是协议测试。
+
+## 2026-10-13 工具执行检查与最小真实续接
+
+CONFIRMED_FROM_CODE：流式function_call现在与terminal envelope最终项比对；arguments done、
+最终arguments或status不一致会标malformed并在执行前停止。`response.completed`还要求response
+status为completed，且每个function_call status为completed；incomplete/failed调用不执行。
+DP不足时deployment check是CONFLICT；`DECLARED_LEDGER_ORDER`按关联扣款条目实际位置计算
+扣款前后余额，无关联或同帧顺序未知返回UNKNOWN。
+
+CONFIRMED_FROM_PROVIDER：一次非战术协议探测完成。`kimi-k3` + plan endpoint接受
+`max_output_tokens=1024`，第一次请求返回原生`function_call`，本地执行
+`query_mechanic(coordinates_and_direction)`，第二次用匹配call_id续接并返回简短文字确认。
+实际模型请求2/2、只读工具1/1；usage分别为834和1105 tokens，request ID保存在
+`output/r8_1_kimi_tool_protocol_probe_v1/call_attempts.jsonl`。没有战术上下文、C2、模拟或扩搜。
+
+测试口径：原43项是transport 10 + readonly tools 21 + C1 entry 12；本轮4项新回归后，
+同组为47，全部通过。加3项review回归合计50/50 PASS。三次本地启动错误均未发起HTTP请求，
+已记录在probe的`pre_network_startup_error.json`。

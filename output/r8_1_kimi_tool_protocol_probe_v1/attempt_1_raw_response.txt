@@ -1,0 +1,209 @@
+event: response.created
+data: {"type":"response.created","response":{"created_at":1791876937,"id":"resp_021791876935200a77e5a4c9aa25c0e7eca6d226bba90a0c1a19a","max_output_tokens":1024,"model":"kimi-k3","object":"response","output":[],"thinking":{"type":"enabled"},"service_tier":"default","status":"in_progress","tools":[{"name":"query_mechanic","type":"function","description":"Read one whitelisted mechanic or runtime rule. Returns UNKNOWN instead of guessing.","parameters":{"additionalProperties":false,"properties":{"topic":{"type":"string"}},"required":["topic"],"type":"object"}},{"name":"query_range_coverage","type":"function","description":"Compute the configured range at one declared position and direction. Does not optimize positions or change directions.","parameters":{"additionalProperties":false,"properties":{"configuration":{"additionalProperties":true,"type":"object"},"direction":{"type":"string"},"operator_id":{"type":"string"},"targets":{"items":{"additionalProperties":false,"properties":{"label":{"type":"string"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["label","tile"],"type":"object"},"type":"array"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","configuration","tile","direction","targets"],"type":"object"}},{"name":"check_timing_constraints","type":"function","description":"Check declared SP, DP and deployment assumptions. It does not simulate battle or propose tactics.","parameters":{"additionalProperties":false,"properties":{"deployment_conditions":{"items":{"additionalProperties":false,"properties":{"declared_cost":{"minimum":0,"type":"number"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"},"payment_entry_ids":{"items":{"type":"string"},"type":"array","uniqueItems":true},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","frame","tile","declared_cost"],"type":"object"},"type":"array"},"dp_ledger":{"additionalProperties":false,"properties":{"entries":{"items":{"additionalProperties":false,"properties":{"delta":{"type":"number"},"entry_id":{"type":"string"},"evidence_status":{"type":"string"},"frame":{"minimum":0,"type":"integer"},"label":{"type":"string"}},"required":["frame","delta","label","evidence_status"],"type":"object"},"type":"array"},"initial_dp":{"minimum":0,"type":"number"},"same_frame_order":{"enum":["UNKNOWN","DECLARED_LEDGER_ORDER"],"type":"string"}},"required":["initial_dp","entries"],"type":"object"},"skill_activations":{"items":{"additionalProperties":false,"properties":{"assume_ready":{"type":"boolean"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"}},"required":["operator_id","frame","assume_ready"],"type":"object"},"type":"array"}},"required":["skill_activations","dp_ledger","deployment_conditions"],"type":"object"}}],"caching":{"type":"disabled"},"store":false},"sequence_number":0}
+
+event: response.in_progress
+data: {"type":"response.in_progress","response":{"created_at":1791876937,"id":"resp_021791876935200a77e5a4c9aa25c0e7eca6d226bba90a0c1a19a","max_output_tokens":1024,"model":"kimi-k3","object":"response","output":[],"thinking":{"type":"enabled"},"service_tier":"default","status":"in_progress","tools":[{"name":"query_mechanic","type":"function","description":"Read one whitelisted mechanic or runtime rule. Returns UNKNOWN instead of guessing.","parameters":{"additionalProperties":false,"properties":{"topic":{"type":"string"}},"required":["topic"],"type":"object"}},{"name":"query_range_coverage","type":"function","description":"Compute the configured range at one declared position and direction. Does not optimize positions or change directions.","parameters":{"additionalProperties":false,"properties":{"configuration":{"additionalProperties":true,"type":"object"},"direction":{"type":"string"},"operator_id":{"type":"string"},"targets":{"items":{"additionalProperties":false,"properties":{"label":{"type":"string"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["label","tile"],"type":"object"},"type":"array"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","configuration","tile","direction","targets"],"type":"object"}},{"name":"check_timing_constraints","type":"function","description":"Check declared SP, DP and deployment assumptions. It does not simulate battle or propose tactics.","parameters":{"additionalProperties":false,"properties":{"deployment_conditions":{"items":{"additionalProperties":false,"properties":{"declared_cost":{"minimum":0,"type":"number"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"},"payment_entry_ids":{"items":{"type":"string"},"type":"array","uniqueItems":true},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","frame","tile","declared_cost"],"type":"object"},"type":"array"},"dp_ledger":{"additionalProperties":false,"properties":{"entries":{"items":{"additionalProperties":false,"properties":{"delta":{"type":"number"},"entry_id":{"type":"string"},"evidence_status":{"type":"string"},"frame":{"minimum":0,"type":"integer"},"label":{"type":"string"}},"required":["frame","delta","label","evidence_status"],"type":"object"},"type":"array"},"initial_dp":{"minimum":0,"type":"number"},"same_frame_order":{"enum":["UNKNOWN","DECLARED_LEDGER_ORDER"],"type":"string"}},"required":["initial_dp","entries"],"type":"object"},"skill_activations":{"items":{"additionalProperties":false,"properties":{"assume_ready":{"type":"boolean"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"}},"required":["operator_id","frame","assume_ready"],"type":"object"},"type":"array"}},"required":["skill_activations","dp_ledger","deployment_conditions"],"type":"object"}}],"caching":{"type":"disabled"},"store":false},"sequence_number":1}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":0,"item":{"id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","type":"reasoning","summary":[],"status":"in_progress"},"sequence_number":2}
+
+event: response.reasoning_summary_part.added
+data: {"type":"response.reasoning_summary_part.added","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"summary_index":0,"part":{"type":"summary_text"},"sequence_number":3}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"The","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":4}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" user","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":5}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" wants","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":6}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" a","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":7}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" protocol","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":8}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" compatibility","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":9}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" probe","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":10}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":":","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":11}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" call","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":12}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" query","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":13}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"_me","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":14}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"chan","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":15}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"ic","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":16}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" once","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":17}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" with","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":18}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" topic","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":19}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" coordinates","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":20}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"_and","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":21}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"_direction","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":22}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":",","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":23}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" then","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":24}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" after","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":25}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" result","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":26}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" reply","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":27}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" with","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":28}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" one","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":29}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" short","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":30}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" sentence","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":31}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" confirming","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":32}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" coordinate","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":33}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" convention","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":34}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":".","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":35}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" Need","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":36}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" call","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":37}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" function","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":38}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":".","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":39}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" Then","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":40}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" final","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":41}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" one","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":42}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" short","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":43}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" sentence","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":44}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":".","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":45}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" Need","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":46}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" not","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":47}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" generate","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":48}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" Operational","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":49}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":"Plan","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":50}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":".","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":51}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" Let's","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":52}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":" call","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":53}
+
+event: response.reasoning_summary_text.delta
+data: {"type":"response.reasoning_summary_text.delta","summary_index":0,"delta":".","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"sequence_number":54}
+
+event: response.reasoning_summary_text.done
+data: {"type":"response.reasoning_summary_text.done","summary_index":0,"item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"text":"The user wants a protocol compatibility probe: call query_mechanic once with topic coordinates_and_direction, then after result reply with one short sentence confirming coordinate convention. Need call function. Then final one short sentence. Need not generate OperationalPlan. Let's call.","sequence_number":55}
+
+event: response.reasoning_summary_part.done
+data: {"type":"response.reasoning_summary_part.done","item_id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","output_index":0,"summary_index":0,"part":{"type":"summary_text","text":"The user wants a protocol compatibility probe: call query_mechanic once with topic coordinates_and_direction, then after result reply with one short sentence confirming coordinate convention. Need call function. Then final one short sentence. Need not generate OperationalPlan. Let's call."},"sequence_number":56}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","output_index":0,"item":{"id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","type":"reasoning","summary":[{"type":"summary_text","text":"The user wants a protocol compatibility probe: call query_mechanic once with topic coordinates_and_direction, then after result reply with one short sentence confirming coordinate convention. Need call function. Then final one short sentence. Need not generate OperationalPlan. Let's call."}],"status":"completed"},"sequence_number":57}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":1,"item":{"call_id":"query_mechanic_0_38eb0904","name":"query_mechanic","type":"function_call","id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","status":"in_progress"},"sequence_number":58}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":59}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"{\"topic\":\"","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":60}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"coordinates","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":61}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"_and","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":62}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"_direction","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":63}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"\"","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":64}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","delta":"}","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"sequence_number":65}
+
+event: response.function_call_arguments.done
+data: {"type":"response.function_call_arguments.done","item_id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","output_index":1,"arguments":"{\"topic\":\"coordinates_and_direction\"}","sequence_number":66}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","output_index":1,"item":{"arguments":"{\"topic\":\"coordinates_and_direction\"}","call_id":"query_mechanic_0_38eb0904","name":"query_mechanic","type":"function_call","id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","status":"completed"},"sequence_number":67}
+
+event: response.completed
+data: {"type":"response.completed","response":{"created_at":1791876937,"id":"resp_021791876935200a77e5a4c9aa25c0e7eca6d226bba90a0c1a19a","max_output_tokens":1024,"model":"kimi-k3","object":"response","output":[{"id":"rs_02179187693783900000000000000000000ffffac15b50caa1ba7","type":"reasoning","summary":[{"type":"summary_text","text":"The user wants a protocol compatibility probe: call query_mechanic once with topic coordinates_and_direction, then after result reply with one short sentence confirming coordinate convention. Need call function. Then final one short sentence. Need not generate OperationalPlan. Let's call."}],"status":"completed"},{"arguments":"{\"topic\":\"coordinates_and_direction\"}","call_id":"query_mechanic_0_38eb0904","name":"query_mechanic","type":"function_call","id":"fc_02179187694092700000000000000000000ffffac15b50cec27a5","status":"completed"}],"thinking":{"type":"enabled"},"service_tier":"default","status":"completed","tools":[{"name":"query_mechanic","type":"function","description":"Read one whitelisted mechanic or runtime rule. Returns UNKNOWN instead of guessing.","parameters":{"additionalProperties":false,"properties":{"topic":{"type":"string"}},"required":["topic"],"type":"object"}},{"name":"query_range_coverage","type":"function","description":"Compute the configured range at one declared position and direction. Does not optimize positions or change directions.","parameters":{"additionalProperties":false,"properties":{"configuration":{"additionalProperties":true,"type":"object"},"direction":{"type":"string"},"operator_id":{"type":"string"},"targets":{"items":{"additionalProperties":false,"properties":{"label":{"type":"string"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["label","tile"],"type":"object"},"type":"array"},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","configuration","tile","direction","targets"],"type":"object"}},{"name":"check_timing_constraints","type":"function","description":"Check declared SP, DP and deployment assumptions. It does not simulate battle or propose tactics.","parameters":{"additionalProperties":false,"properties":{"deployment_conditions":{"items":{"additionalProperties":false,"properties":{"declared_cost":{"minimum":0,"type":"number"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"},"payment_entry_ids":{"items":{"type":"string"},"type":"array","uniqueItems":true},"tile":{"items":{"type":"integer"},"maxItems":2,"minItems":2,"type":"array"}},"required":["operator_id","frame","tile","declared_cost"],"type":"object"},"type":"array"},"dp_ledger":{"additionalProperties":false,"properties":{"entries":{"items":{"additionalProperties":false,"properties":{"delta":{"type":"number"},"entry_id":{"type":"string"},"evidence_status":{"type":"string"},"frame":{"minimum":0,"type":"integer"},"label":{"type":"string"}},"required":["frame","delta","label","evidence_status"],"type":"object"},"type":"array"},"initial_dp":{"minimum":0,"type":"number"},"same_frame_order":{"enum":["UNKNOWN","DECLARED_LEDGER_ORDER"],"type":"string"}},"required":["initial_dp","entries"],"type":"object"},"skill_activations":{"items":{"additionalProperties":false,"properties":{"assume_ready":{"type":"boolean"},"frame":{"minimum":0,"type":"integer"},"operator_id":{"type":"string"}},"required":["operator_id","frame","assume_ready"],"type":"object"},"type":"array"}},"required":["skill_activations","dp_ledger","deployment_conditions"],"type":"object"}}],"usage":{"input_tokens":727,"output_tokens":107,"total_tokens":834,"input_tokens_details":{"cached_tokens":0},"output_tokens_details":{"reasoning_tokens":52}},"caching":{"type":"disabled"},"store":false},"sequence_number":68}
+
+data: [DONE]
+

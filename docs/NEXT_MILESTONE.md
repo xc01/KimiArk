@@ -24,3 +24,10 @@ Before any real tool session, Work must review the V2 continuation fix in
 treated as a protocol probe and must not be retried. The same budget remains:
 at most 3 model requests including continuations, 6 read-only tool calls, and
 1 final OperationalPlan.
+
+The non-tactical protocol probe has now succeeded, but it does not authorize C2.
+Work should review the real request/response pair, call_id association, output
+budget and DP/test fixes before approving a bounded tactical tool session. That
+session remains at most 3 model requests including continuations, 6 read-only tool
+calls, 1 final OperationalPlan, no automatic retry, and full tactical schema/contract
+validation.

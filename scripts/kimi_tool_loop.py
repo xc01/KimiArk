@@ -223,6 +223,7 @@ def run_mock_tool_session(
             model_results.append({"phase": "NETWORK_OR_TRANSPORT", "error": str(exc), "traceback": traceback.format_exc()})
             return {"status": "FAILED", "error": "model request failed", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
         classification = accumulator.classify()
+        calls = classification.get("function_calls") or []
         model_results.append({
             "phase": "TOOL_CALL" if classification.get("requires_tool_execution") else "FINAL_RESPONSE",
             "terminal_event": accumulator.terminal_event,
@@ -234,7 +235,20 @@ def run_mock_tool_session(
         })
         if accumulator.error or accumulator.terminal_event != "response.completed":
             return {"status": "FAILED", "error": accumulator.error or "NO_TERMINAL_EVENT", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
-        calls = classification.get("function_calls") or []
+        if classification.get("malformed_events"):
+            return {
+                "status": "FAILED", "error": "malformed function call events",
+                "errors": classification.get("malformed_events"), "model_requests": model_results,
+                "budget": budget.__dict__, "trajectories": trajectories,
+            }
+        if envelope.get("status") != "completed":
+            return {"status": "FAILED", "error": "RESPONSE_STATUS_NOT_COMPLETED", "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories}
+        if calls and not classification.get("function_calls_complete"):
+            return {
+                "status": "FAILED", "error": "function calls are not complete",
+                "errors": classification.get("function_call_completion_statuses"),
+                "model_requests": model_results, "budget": budget.__dict__, "trajectories": trajectories,
+            }
         if calls and classification.get("requires_tool_execution"):
             try:
                 tool_results = execute_tool_calls(calls, engine, budget)

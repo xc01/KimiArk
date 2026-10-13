@@ -1,0 +1,20 @@
+{
+  "schema_version": "R8_1_KIMI_TOOL_PROTOCOL_PROBE_V1_PRE_NETWORK_STARTUP_ERRORS",
+  "network_request_started": false,
+  "model_requests": 0,
+  "attempts": [
+    {
+      "error": "ModuleNotFoundError: arknights_planner because script did not add src before imports",
+      "fixed_by": "script-local sys.path setup"
+    },
+    {
+      "error": "ModuleNotFoundError: arknights_planner because ROOT/sys.path were still after imports",
+      "fixed_by": "moved ROOT/sys.path before project imports"
+    },
+    {
+      "error": "ModuleNotFoundError: jsonschema in project venv",
+      "fixed_by": "included /usr/lib/python3/dist-packages in PYTHONPATH"
+    }
+  ],
+  "note": "All three were local startup failures before any HTTP request; the authorized protocol probe then ran once to completion."
+}

@@ -1,0 +1,63 @@
+{
+  "action_candidates": 0,
+  "actual_model_requests": 2,
+  "actual_readonly_tool_executions": 1,
+  "attempt_1": {
+    "call_id": "query_mechanic_0_38eb0904",
+    "function_call": {
+      "arguments": "{\"topic\":\"coordinates_and_direction\"}",
+      "call_id": "query_mechanic_0_38eb0904",
+      "item_id": "fc_02179187694092700000000000000000000ffffac15b50cec27a5",
+      "name": "query_mechanic",
+      "status": "completed"
+    },
+    "http_status": 200,
+    "request_id": "021791876935200a77e5a4c9aa25c0e7eca6d226bba90a0c1a19a",
+    "terminal_event": "response.completed",
+    "usage": {
+      "input_tokens": 727,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 107,
+      "output_tokens_details": {
+        "reasoning_tokens": 52
+      },
+      "total_tokens": 834
+    }
+  },
+  "attempt_2": {
+    "final_output_text": "Confirmed: JSON tiles are given as [row, col], which map to runtime coordinates (x=col, y=row), with legal facing directions UP, DOWN, LEFT, and RIGHT.",
+    "http_status": 200,
+    "request_id": "021791876941005b531818cd979bd70c39b690ac6f23902ffe415",
+    "terminal_event": "response.completed",
+    "usage": {
+      "input_tokens": 976,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 129,
+      "output_tokens_details": {
+        "reasoning_tokens": 75
+      },
+      "total_tokens": 1105
+    }
+  },
+  "compatibility_status": "CONFIRMED_NON_TACTICAL_TOOL_ROUND",
+  "continuation_input_types": [
+    null,
+    "function_call",
+    "function_call_output"
+  ],
+  "endpoint": "https://ark.cn-beijing.volces.com/api/plan/v3/responses",
+  "local_tool_result_call_id": "query_mechanic_0_38eb0904",
+  "model": "kimi-k3",
+  "native_function_call_observed": true,
+  "new_tactical_plans": 0,
+  "requested_output_budget_tokens": 1024,
+  "schema_version": "R8_1_KIMI_TOOL_PROTOCOL_PROBE_V1",
+  "scope": "PROTOCOL_PROBE_ONLY_NO_TACTICAL_CONTEXT_NO_C2",
+  "stage_simulations": 0,
+  "status": "COMPLETE",
+  "tactical_search_expansions": 0
+}

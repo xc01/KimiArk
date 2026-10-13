@@ -130,9 +130,12 @@ class ToolLoopTests(unittest.TestCase):
     def test_function_call_item_and_argument_done_are_correlated(self):
         arguments = json.dumps({"topic": "coordinates_and_direction"})
         events = [
+            ("response.created", {"response": {"id": "resp-item", "status": "in_progress", "output": []}}),
             ("response.output_item.added", {"item": {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": ""}}),
             ("response.function_call_arguments.delta", {"item_id": "item-1", "delta": arguments}),
             ("response.function_call_arguments.done", {"item_id": "item-1", "arguments": arguments}),
+            ("response.output_item.done", {"item": {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": arguments, "status": "completed"}}),
+            ("response.completed", {"response": {"id": "resp-item", "status": "completed", "output": [{"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": arguments, "status": "completed"}]}}),
         ]
         accumulator = StreamAccumulator()
         for event_name, data in events:
@@ -156,7 +159,7 @@ class ToolLoopTests(unittest.TestCase):
     def test_end_to_end_mock_queries_and_returns_valid_plan(self):
         arguments = coverage_call("char_120_hibisc", [5, 7], "UP", [("char_122_beagle", [4, 6])])
         call = {"call_id": "call-1", "name": "query_range_coverage", "arguments": json.dumps(arguments, separators=(",", ":"))}
-        terminal_call = {"type": "function_call", "call_id": "call-1", "name": "query_range_coverage", "arguments": call["arguments"]}
+        terminal_call = {"type": "function_call", "item_id": "item-call-1", "call_id": "call-1", "name": "query_range_coverage", "arguments": call["arguments"], "status": "completed"}
         terminal_plan = {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": json.dumps(self.plan)}]}
 
         def fake_stream(payload):
@@ -164,9 +167,10 @@ class ToolLoopTests(unittest.TestCase):
                 envelope = {"id": "resp-tool", "status": "completed", "output": [terminal_call]}
                 events = [
                     ("response.created", {"response": {"id": "resp-tool", "status": "in_progress", "output": []}}),
-                    ("response.output_item.added", {"item": terminal_call}),
+                    ("response.output_item.added", {"item": {**terminal_call, "arguments": "", "status": "in_progress"}}),
                     ("response.function_call_arguments.delta", {"call_id": "call-1", "delta": call["arguments"]}),
                     ("response.function_call_arguments.done", {"call_id": "call-1", "arguments": call["arguments"]}),
+                    ("response.output_item.done", {"item": terminal_call}),
                     ("response.completed", {"response": envelope}),
                 ]
             else:
@@ -227,7 +231,7 @@ class ToolLoopTests(unittest.TestCase):
 
     def test_request_budget_exhausts_before_fourth_model_request(self):
         call = {"call_id": "call-loop", "name": "query_mechanic", "arguments": json.dumps({"topic": "coordinates_and_direction"})}
-        terminal_call = {"type": "function_call", **{key: value for key, value in call.items() if key != "name"}, "name": "query_mechanic"}
+        terminal_call = {"type": "function_call", **{key: value for key, value in call.items() if key != "name"}, "name": "query_mechanic", "status": "completed"}
         def fake_stream(payload):
             envelope = {"id": "resp-loop", "status": "completed", "output": [terminal_call]}
             accumulator = StreamAccumulator()
@@ -383,6 +387,94 @@ class ToolLoopTests(unittest.TestCase):
         })
         self.assertEqual(result["deployment_checks"][0]["status"], "UNKNOWN")
         self.assertFalse(any(row["conflict"] == "DECLARED_LEDGER_CANNOT_PAY_COST" for row in result["conflicts"]))
+
+    def test_insufficient_linked_deployment_is_conflict_without_pass(self):
+        result = engine().check_timing_constraints({
+            "skill_activations": [],
+            "dp_ledger": {
+                "initial_dp": 10,
+                "same_frame_order": "DECLARED_LEDGER_ORDER",
+                "entries": [{
+                    "entry_id": "hibisc-deploy", "frame": 1800, "delta": -17,
+                    "label": "deploy char_120_hibisc", "evidence_status": "DECLARED",
+                }],
+            },
+            "deployment_conditions": [{
+                "operator_id": "char_120_hibisc", "frame": 1800, "tile": [5, 7],
+                "declared_cost": 17, "payment_entry_ids": ["hibisc-deploy"],
+            }],
+        })
+        self.assertEqual(result["deployment_checks"][0]["status"], "CONFLICT")
+        self.assertEqual(result["deployment_checks"][0]["dp_balance_before_cost"], 10)
+        self.assertEqual(result["conflicts"][-1]["conflict"], "DECLARED_LEDGER_CANNOT_PAY_COST")
+
+    def test_declared_order_uses_linked_entry_position(self):
+        result = engine().check_timing_constraints({
+            "skill_activations": [],
+            "dp_ledger": {
+                "initial_dp": 10,
+                "same_frame_order": "DECLARED_LEDGER_ORDER",
+                "entries": [
+                    {"entry_id": "income", "frame": 1800, "delta": 7, "label": "income", "evidence_status": "DECLARED"},
+                    {"entry_id": "hibisc-deploy", "frame": 1800, "delta": -17, "label": "deploy char_120_hibisc", "evidence_status": "DECLARED"},
+                    {"entry_id": "later-income", "frame": 1800, "delta": 5, "label": "later income", "evidence_status": "DECLARED"},
+                ],
+            },
+            "deployment_conditions": [{
+                "operator_id": "char_120_hibisc", "frame": 1800, "tile": [5, 7],
+                "declared_cost": 17, "payment_entry_ids": ["hibisc-deploy"],
+            }],
+        })
+        self.assertEqual(result["deployment_checks"][0]["dp_balance_before_cost"], 17)
+        self.assertEqual(result["deployment_checks"][0]["dp_balance_after_cost"], 0)
+        self.assertEqual(result["deployment_checks"][0]["status"], "PASS_WITH_CONDITIONS")
+
+    def test_incomplete_function_call_is_not_executed_even_if_response_completed(self):
+        arguments = json.dumps({"topic": "coordinates_and_direction"})
+        call = {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": arguments, "status": "incomplete"}
+        events = [
+            ("response.created", {"response": {"id": "resp-call", "status": "in_progress", "output": []}}),
+            ("response.output_item.added", {"item": call}),
+            ("response.completed", {"response": {"id": "resp-call", "status": "completed", "output": [call]}}),
+        ]
+        def fake_stream(payload):
+            raw = sse(events)
+            accumulator = StreamAccumulator()
+            from kimi_responses_transport import parse_sse
+            for event in parse_sse(raw.decode()):
+                accumulator.observe(event)
+            return accumulator.response_envelope or {}, accumulator, raw
+        executed = mock.Mock()
+        with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
+            result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+        self.assertEqual(result["status"], "FAILED")
+        self.assertEqual(result["error"], "function calls are not complete")
+        executed.assert_not_called()
+
+    def test_stream_and_final_call_mismatch_is_malformed(self):
+        arguments = json.dumps({"topic": "coordinates_and_direction"})
+        stream_call = {"type": "function_call", "item_id": "item-1", "call_id": "call-1", "name": "query_mechanic", "arguments": arguments, "status": "completed"}
+        final_call = {**stream_call, "arguments": '{"topic":"range_template"}'}
+        events = [
+            ("response.created", {"response": {"id": "resp-call", "status": "in_progress", "output": []}}),
+            ("response.output_item.added", {"item": stream_call}),
+            ("response.output_item.done", {"item": stream_call}),
+            ("response.completed", {"response": {"id": "resp-call", "status": "completed", "output": [final_call]}}),
+        ]
+        def fake_stream(payload):
+            raw = sse(events)
+            accumulator = StreamAccumulator()
+            from kimi_responses_transport import parse_sse
+            for event in parse_sse(raw.decode()):
+                accumulator.observe(event)
+            return accumulator.response_envelope or {}, accumulator, raw
+        executed = mock.Mock()
+        with mock.patch("kimi_tool_loop.execute_tool_calls", executed):
+            result = run_mock_tool_session(self.payload, self.engine, fake_stream)
+        self.assertEqual(result["status"], "FAILED")
+        self.assertEqual(result["error"], "malformed function call events")
+        self.assertTrue(any("arguments" in row for row in result["errors"]))
+        executed.assert_not_called()
 
 
 if __name__ == "__main__":

@@ -122,3 +122,14 @@ assistant prefill伪装成续接。模型+endpoint兼容性保持UNVERIFIED。
 决策：工具批次先做重复call_id、剩余预算和JSON Schema预检，预检失败不执行任何工具。最终计划
 必须经过现有jsonschema与OperationalPlan contract；外部验证回调只能追加错误，不能替代或绕过。
 同帧部署扣款必须显式关联或顺序明确；否则DP结果是UNKNOWN，不允许同一检查同时PASS和冲突。
+
+## 2026-10-13 — 最小真实工具续接
+
+决策：先比较流式function_call与terminal envelope最终function_call的call_id、name、arguments
+和status，再检查response与每个调用是否completed；malformed或未完成的调用绝不执行。DP账本
+按关联扣款条目在声明顺序中的实际位置计算前后余额，不足是CONFLICT，顺序未知是UNKNOWN。
+
+决策：真实协议探测只发送非战术提示、全部白名单工具和显式`max_output_tokens=1024`。最多2次
+请求、1次工具；第一次原生调用，本地执行一次，第二次携带匹配`function_call_output`。不使用
+previous_response_id或assistant prefill。探测成功只确认非战术工具轮，不授权真实C2或放宽战术
+入口schema/contract。

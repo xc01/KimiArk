@@ -112,14 +112,15 @@ def main() -> None:
         for index, (name, arguments) in enumerate(queries)
     ]
     output_items = [
-        {"type": "function_call", **call, "item_id": f"item-{index}"}
+        {"type": "function_call", **call, "item_id": f"item-{index}", "status": "completed"}
         for index, call in enumerate(calls)
     ]
     tool_events = [("response.created", {"response": {"id": "resp-v2-tool", "status": "in_progress", "output": []}})]
     for item in output_items:
-        tool_events.append(("response.output_item.added", {"item": item}))
+        tool_events.append(("response.output_item.added", {"item": {**item, "arguments": "", "status": "in_progress"}}))
         tool_events.append(("response.function_call_arguments.delta", {"item_id": item["item_id"], "delta": item["arguments"]}))
         tool_events.append(("response.function_call_arguments.done", {"item_id": item["item_id"], "arguments": item["arguments"]}))
+        tool_events.append(("response.output_item.done", {"item": item}))
     terminal_tool_response = {"response": {"id": "resp-v2-tool", "status": "completed", "output": output_items}}
     tool_events.append(("response.completed", terminal_tool_response))
     accumulator = observe(tool_events)

@@ -209,3 +209,17 @@ incomplete和空计划绕过均被拒绝。已关联同帧17DP部署账本显示
 
 测试：定向pytest 46/46 PASS（借用本地pytest 9.1.1环境；项目venv当前缺pytest，
 DNS阻断无法安装声明的pytest<9）。`compileall`、V2 manifest哈希、`git diff --check`通过。
+
+## 2026-10-13 — 工具检查修复与最小真实续接
+
+实验：`output/r8_1_kimi_tool_protocol_probe_v1/`。实际模型请求2/2、只读工具1/1、
+新战术计划0、动作候选0、模拟0、扩搜0。
+
+结果：第一次HTTP 200、request ID
+`021791876935200a77e5a4c9aa25c0e7eca6d226bba90a0c1a19a`、usage 834 tokens，返回原生
+`function_call(query_mechanic_0_38eb0904)`；本地查询执行一次；第二次HTTP 200、request ID
+`021791876941005b531818cd979bd70c39b690ac6f23902ffe415`、usage 1105 tokens，成功返回坐标
+约定确认。provider兼容性升格为“非战术工具轮CONFIRMED”；真实C2仍待Work批准。
+
+测试：原43项（deselect本轮4项新回归）43/43 PASS；当前合计50/50 PASS。compileall、
+diff check、secret scan、evidence manifest均通过。三次probe本地启动错误都未发起HTTP请求。

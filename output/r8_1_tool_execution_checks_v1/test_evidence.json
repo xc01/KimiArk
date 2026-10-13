@@ -1,0 +1,22 @@
+{
+  "PYTHONPATH": "src:scripts:/usr/lib/python3/dist-packages",
+  "compileall": "PASS",
+  "counting_note": "The prior 46 was the four files with 21 readonly-tool tests before this turn; the requested 43 is transport + readonly tools + C1 entry with the four new tests deselected. No tests were counted twice.",
+  "counts": {
+    "scripts/test_kimi_responses_transport.py": 10,
+    "tests/test_kimi_readonly_tools.py": 25,
+    "tests/test_r8_1_low_star_full_tactical_closure_v1.py": 12,
+    "tests/test_r8_1_low_star_review_regressions.py": 3
+  },
+  "current_50_command": "pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_low_star_full_tactical_closure_v1.py tests/test_r8_1_low_star_review_regressions.py",
+  "current_50_result": "50/50 PASS",
+  "existing_43_command": "pytest -q scripts/test_kimi_responses_transport.py tests/test_kimi_readonly_tools.py tests/test_r8_1_low_star_full_tactical_closure_v1.py --deselect tests/test_kimi_readonly_tools.py::ToolLoopTests::test_insufficient_linked_deployment_is_conflict_without_pass --deselect tests/test_kimi_readonly_tools.py::ToolLoopTests::test_declared_order_uses_linked_entry_position --deselect tests/test_kimi_readonly_tools.py::ToolLoopTests::test_incomplete_function_call_is_not_executed_even_if_response_completed --deselect tests/test_kimi_readonly_tools.py::ToolLoopTests::test_stream_and_final_call_mismatch_is_malformed",
+  "existing_43_result": "43/43 PASS",
+  "git_diff_check": "PASS",
+  "pytest_version": "9.1.1",
+  "python_version": "3.10.12",
+  "runner": "/home/bigdata/Desktop/cybergym-main/.venv/bin/pytest",
+  "schema_version": "R8_1_TOOL_EXECUTION_CHECKS_V1_TEST_EVIDENCE",
+  "secret_scan": "PASS",
+  "status": "PASS"
+}

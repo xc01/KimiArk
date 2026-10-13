@@ -371,8 +371,8 @@ class ReadOnlyQueryEngine:
             ]
             if payment_entry_ids:
                 linked_entries = [entry for entry in entries_at_frame if entry.get("entry_id") in payment_entry_ids]
-                payment_link = "LINKED_BY_ENTRY_ID" if len(linked_entries) == len(payment_entry_ids) else "UNKNOWN"
-                if any(abs(float(entry.get("delta", 0.0)) + declared_cost) > 1e-9 for entry in linked_entries):
+                payment_link = "LINKED_BY_ENTRY_ID" if len(linked_entries) == 1 and len(payment_entry_ids) == 1 else "UNKNOWN"
+                if linked_entries and any(abs(float(entry.get("delta", 0.0)) + declared_cost) > 1e-9 for entry in linked_entries):
                     payment_link = "UNKNOWN"
             elif len(matching_entries) == 1:
                 linked_entries = matching_entries
@@ -385,8 +385,17 @@ class ReadOnlyQueryEngine:
                 payment_link = "DEPLOYMENT_CHECK_APPLIES_COST"
             unlinked_same_frame_entries = [entry for entry in entries_at_frame if entry not in linked_entries]
             if payment_link not in {"LINKED_BY_ENTRY_ID", "MATCHING_OPERATOR_LABEL_AND_AMOUNT", "DEPLOYMENT_CHECK_APPLIES_COST"} or (
-                same_frame_order != "DECLARED_LEDGER_ORDER" and unlinked_same_frame_entries
+                linked_entries and same_frame_order != "DECLARED_LEDGER_ORDER"
             ):
+                pre_payment_balance = "UNKNOWN"
+                post_payment_balance = "UNKNOWN"
+            elif linked_entries:
+                linked_index = ledger_entries.index(linked_entries[0])
+                pre_payment_balance = float(ledger.get("initial_dp") or 0.0) + sum(
+                    float(entry.get("delta", 0.0)) for entry in ledger_entries[:linked_index]
+                )
+                post_payment_balance = pre_payment_balance - declared_cost
+            elif unlinked_same_frame_entries:
                 pre_payment_balance = "UNKNOWN"
                 post_payment_balance = "UNKNOWN"
             else:
@@ -415,15 +424,19 @@ class ReadOnlyQueryEngine:
                 result["unknowns"].append(f"declared cost differs from fact cost for {operator['operator_id']}; potential/talent effects require explicit evidence")
                 result["deployment_checks"].append(check)
             else:
-                check["status"] = "PASS_WITH_CONDITIONS"
-                result["deployment_checks"].append(check)
                 if pre_payment_balance == "UNKNOWN":
                     check["status"] = "UNKNOWN"
                     result["unknowns"].append(
                         f"same-frame DP deduction order is UNKNOWN for {operator['operator_id']} at frame {frame}"
                     )
+                    result["deployment_checks"].append(check)
                 elif pre_payment_balance + 1e-9 < declared_cost:
                     result["conflicts"].append({**check, "conflict": "DECLARED_LEDGER_CANNOT_PAY_COST"})
+                    check["status"] = "CONFLICT"
+                    result["deployment_checks"].append(check)
+                else:
+                    check["status"] = "PASS_WITH_CONDITIONS"
+                    result["deployment_checks"].append(check)
         result["proof_status"] = "NOT_A_BATTLE_FEASIBILITY_PROOF"
         result["limitations"] = ["Survival, auto-trigger, refund, skill income and enemy interactions are only as valid as the supplied assumptions."]
         return result

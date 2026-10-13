@@ -315,3 +315,17 @@ Evidence is saved under `output/r8_1_readonly_tool_loop_fix_v2/`. Directed pytes
 was 46/46 PASS using a borrowed local pytest 9.1.1 environment because DNS failure
 prevented installing the declared pytest in the project venv. Real Kimi requests,
 stage simulations, new tactical plans, and search expansion all remained zero.
+
+## 2026-10-13 — Minimal real tool continuation
+
+Streaming function calls are now reconciled with the final response, and incomplete
+or failed calls never execute. DP conflicts are reported as CONFLICT without PASS,
+while unknown same-frame order remains UNKNOWN. A non-tactical probe confirmed the
+existing kimi-k3 plan endpoint can execute one native query_mechanic call and accept
+one matching function_call_output continuation within two requests and a requested
+1024-token output budget.
+
+Evidence is under `output/r8_1_kimi_tool_protocol_probe_v1/`. Actual requests were
+2/2 and read-only tool executions 1/1; usage was 834 and 1105 tokens. The 43-test
+pre-existing subset passed 43/43, and all 50 directed tests passed after four new
+regressions. No C2, tactical plan, action candidate, simulation, or search occurred.
