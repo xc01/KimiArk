@@ -388,3 +388,9 @@ semantics and preserving one stable action-order correction, the recovery passed
 static checks with 0 conflicts / 0 UNKNOWNs. The authorized single full-stage diagnostic simulation
 completed as LOSS: 46 kills, 10 leaks, remaining life -5, zero operator deaths; first leak frame 1579.
 This is conditional model evidence only.
+
+## 2026-10-13 — GPT-C4 request blocked
+
+Parameterized GPT-C4 preparation passed 38/38 targeted tests with a 138,957-byte frozen request.
+The first real request returned HTTP 503 and stopped without retry at 1/3 requests, 0/6 tools, 0
+plans and 0 simulations. The remaining two requests require an explicit Work decision.

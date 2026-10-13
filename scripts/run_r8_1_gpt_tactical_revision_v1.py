@@ -24,8 +24,9 @@ from kimi_tool_loop import (
     run_mock_tool_session,
     validate_tool_request,
 )
+from jsonschema import Draft7Validator
 from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
-from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
+from run_r8_1_low_star_full_tactical_closure_v1 import output_schema, validate_operational_plan_output
 from run_r8_1_lowstar_c3_failure_revision_v1 import (
     CONTINUATION_BODY_LIMIT,
     INITIAL_BODY_LIMIT,
@@ -44,6 +45,15 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/r8_1_gpt_tactical_revision_v1"
 MECHANICS = "m18.9-stage-device-runtime-v1"
 TIMEOUT_SECONDS = 900
+REVISION_CONFIG: dict[str, Any] = {
+    "plan_label": "C3",
+    "plan_id_prefix": PLAN_ID_PREFIX,
+    "revision_source_plan_id": PARENT_PLAN_ID,
+    "revision_source_path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_structured_output.json",
+    "feedback_summary_path": "output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_summary.json",
+    "feedback_events_path": "output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_events.json",
+}
+RUN_LOCK_HANDLE: Any | None = None
 
 PROVIDERS = {
     "sub2api": {
@@ -84,12 +94,91 @@ def provider_config(provider: str) -> dict[str, Any]:
     return PROVIDERS[provider]
 
 
-def prompt_text(evidence: dict[str, Any], model: str) -> str:
-    return f"""You are {model}, the tactical decision maker for Arknights main_08-01 / R8-1.
-This is the QUERY PHASE for one compact full-stage OperationalPlan C3 using only ordinary-mode 1-3 star operators.
+def configure_revision(
+    output_dir: str,
+    plan_label: str,
+    plan_id_prefix: str,
+    revision_source_plan_id: str,
+    revision_source_path: str,
+    feedback_summary_path: str,
+    feedback_events_path: str,
+) -> None:
+    global OUT, REVISION_CONFIG
+    OUT = ROOT / output_dir
+    REVISION_CONFIG = {
+        "plan_label": plan_label,
+        "plan_id_prefix": plan_id_prefix,
+        "revision_source_plan_id": revision_source_plan_id,
+        "revision_source_path": revision_source_path,
+        "feedback_summary_path": feedback_summary_path,
+        "feedback_events_path": feedback_events_path,
+    }
 
-You are revising C2 after its conditional current-runtime LOSS. The decisive model sequence was not merely late damage:
-Fang produced 6 DP at frame 570 and enabled Noirc at 600, but died at 890; Vanilla blocked route-2 at 822 and route-6 at 1076, then died at 1243 and released both; Beagle deployed at 1290, so route-6 leaked at 1295 and route-2 leaked at 1394; Vanilla's frame-1650 DP skill and Hibiscus' frame-1680 deployment then failed. Later Beagle and Popka deaths extended the failure chain. This is conditional model evidence, not a real-game result or proof of strategic infeasibility.
+
+def previous_plan_summary(path: Path) -> dict[str, Any]:
+    parsed = load(path)
+    plan = parsed["revised_operational_plans"][0]
+    return {key: plan.get(key) for key in (
+        "operational_plan_id", "tactical_thesis", "selected_low_star_operator_ids",
+        "deployment_positions_and_directions", "action_timeline", "corridor_responsibilities",
+        "pressure_window_responsibilities", "skill_intents", "mandatory_tactical_invariants",
+        "unknown_dependencies",
+    )}
+
+
+def prior_diagnostic_feedback(summary_path: Path, events_path: Path) -> dict[str, Any]:
+    summary = load(summary_path)
+    events = load(events_path)["events"]
+    route_summaries = sorted(
+        (
+            {
+                "route": route,
+                "spawn_count": row["spawn_count"],
+                "blocks": row["blocks"],
+                "kills": row["kills"],
+                "leaks": [leak["frame"] for leak in row["leaks"]],
+            }
+            for route, row in summary["event_summaries"]["route_summaries"].items()
+        ),
+        key=lambda row: int(row["route"].split("-")[1]),
+    )
+    all_block_events = [
+        {"frame": row["frame"], "event_type": row["event_type"], "operator_id": row["source_id"], "enemy_id": row["target_id"]}
+        for row in events if row["event_type"] in {"BLOCK", "UNBLOCK"}
+    ]
+    block_events = [row for row in all_block_events if row["frame"] <= 2070]
+    route_10_enemy_9 = [
+        {key: row.get(key) for key in ("frame", "event_type", "source_id", "target_id", "details")}
+        for row in events
+        if (row.get("source_id") == "enemy_1108_uterer#9" or row.get("target_id") == "enemy_1108_uterer#9")
+        and row["event_type"] != "ATTACK_WINDUP"
+    ]
+    return {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PRIOR_DIAGNOSTIC_FEEDBACK",
+        "result": {key: value for key, value in summary["result"].items() if key != "events"},
+        "first_failure": summary["first_failure"],
+        "route_summaries": route_summaries,
+        "deployment_events": summary["event_summaries"]["deployment_events"],
+        "operator_death_events": summary["event_summaries"]["operator_death_events"],
+        "automatic_skill_dp_income": summary["event_summaries"]["automatic_skill_dp_income"],
+        "block_events": block_events,
+        "block_event_selection": "All BLOCK/UNBLOCK through frame 2070 (through the first leak and pre-Steward pressure); source events retain the full timeline.",
+        "route_10_enemy_9_non_windup_events": route_10_enemy_9,
+        "boundary": "Conditional current-runtime evidence; not real-game proof or strategic infeasibility.",
+        "sources": {
+            "summary": str(summary_path.relative_to(ROOT)),
+            "events": str(events_path.relative_to(ROOT)),
+        },
+    }
+
+
+def prompt_text(evidence: dict[str, Any], model: str) -> str:
+    plan_label = REVISION_CONFIG["plan_label"]
+    source_plan_id = REVISION_CONFIG["revision_source_plan_id"]
+    return f"""You are {model}, the tactical decision maker for Arknights main_08-01 / R8-1.
+This is the QUERY PHASE for one compact full-stage OperationalPlan {plan_label} using only ordinary-mode 1-3 star operators.
+
+You are revising {source_plan_id} after its conditional current-runtime LOSS. The prior plan kept every operator alive and had no deployment rejection, but still leaked 10 enemies. The first route-10 enemy `enemy_1108_uterer#9` spawned at frame 1350 and leaked at 1579 with no injury or block. Noirc blocked route-2/6/7 at frames 794/1059/1358, and one blocker was not released until frame 1682; the first two leaks at 1579 and 1730 occurred before Steward deployed at 2070. Other leaks and every route summary are in `prior_diagnostic_feedback`. This supports a capacity/kill-throughput bottleneck under the current model; it is not real-game proof or strategic infeasibility.
 
 Use the read-only tools to verify assumptions before committing:
 - range coverage for explicit deployment responsibilities;
@@ -97,12 +186,12 @@ Use the read-only tools to verify assumptions before committing:
 - mechanics/stage facts for coordinates, SP, WIN, roadblocks or support boundaries.
 Return only native tool calls in this response (up to six). Do not return final JSON yet.
 
-You decide the opening structure and support pattern. Python will not choose replacements or move actions. You may preserve useful C2 ideas, but must explain:
-1. how the opener and early support survive or transfer blocking ownership before death;
-2. how DP income and payments remain valid if an opener dies;
-3. how route-2 and route-6 handover avoids the 1243->1295/1394 leak chain;
-4. how later healing and blocking survive Beagle/Popka deaths;
-5. which C2 assumptions changed and which UNKNOWNs remain.
+You decide the opening structure, early-fire timing, simultaneous blocking ownership, temporary roles and economic order. Python will not choose replacements or move actions. You may preserve useful surviving-life ideas, but must explain:
+1. how each early leak window gains enough blocking or killing throughput;
+2. how all listed route leaks, not only the first, are handled;
+3. how simultaneous blockers, damage sharing and handovers work under the deployment limit;
+4. how natural DP and manual skills support the revised timeline;
+5. which {source_plan_id} assumptions changed and which UNKNOWNs remain.
 
 Hard rules:
 - Only normal_low_star_catalog operators are legal; rarity 1-3; ordinary_mode true; no mode-specific reserve units.
@@ -133,10 +222,10 @@ def finalize_plan_payload(payload: dict[str, Any], schema: dict[str, Any]) -> di
         "role": "user",
         "content": [{"type": "input_text", "text": (
             "All readonly tool calls have now been executed and returned above. "
-            "Return exactly one compact full-stage OperationalPlan C3 as final JSON. "
+            f"Return exactly one compact full-stage OperationalPlan {REVISION_CONFIG['plan_label']} as final JSON. "
             "Use only ordinary-mode 1-3 star operators; every DEPLOY must have tile and direction. "
             "Include declared_range_checks for explicit deployment responsibilities; use unknown_reason instead of guessing. "
-            "Explain how C2's opener-death, income, blocking-ownership and handover failures are handled. "
+            f"Explain how {REVISION_CONFIG['revision_source_plan_id']}'s prior blocking and throughput failures are handled. "
             "Do not emit another tool call or non-JSON wrapper."
         )}],
     }]
@@ -155,7 +244,9 @@ def compactness_check(evidence: dict[str, Any], payload: dict[str, Any], body: s
         "all_34_low_stars_present": len(catalog) == 34,
         "all_17_three_stars_present": len(three_stars) == 17,
         "c2_failure_evidence_present": bool(evidence.get("c2_failure_evidence")),
-        "c2_action_outcomes_covered": len(evidence.get("c2_failure_evidence", {}).get("action_outcomes") or []) == len(evidence.get("previous_c2_plan_to_revise", {}).get("action_timeline") or []),
+        "c2_action_outcomes_covered": bool(evidence.get("c2_failure_evidence", {}).get("action_outcomes")),
+        "prior_diagnostic_feedback_present": bool(evidence.get("prior_diagnostic_feedback")),
+        "revision_source_present": evidence.get("provenance", {}).get("revision_source", {}).get("operational_plan_id") == REVISION_CONFIG["revision_source_plan_id"],
         "no_bulk_diagnostic_events_embedded": "events" not in evidence.get("c2_failure_evidence", {}),
         "query_protocol_unbound_from_final_schema": payload.get("text") is None and payload.get("max_output_tokens") == TOKEN_LIMIT,
         "tools_whitelisted": {row.get("name") for row in payload.get("tools") or []} == {"query_mechanic", "query_range_coverage", "check_timing_constraints"},
@@ -169,6 +260,9 @@ def source_manifest(evidence_path: Path) -> dict[str, Any]:
     paths = [
         ROOT / "output/normal_low_star_facts_v1/normal_low_star_facts.json",
         ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json",
+        ROOT / REVISION_CONFIG["revision_source_path"],
+        ROOT / REVISION_CONFIG["feedback_summary_path"],
+        ROOT / REVISION_CONFIG["feedback_events_path"],
         ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_structured_output.json",
         ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2/static_compile_results.json",
         ROOT / "output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_summary.json",
@@ -187,8 +281,39 @@ def source_manifest(evidence_path: Path) -> dict[str, Any]:
     }
 
 
+def validate_revision_contract(parsed: dict[str, Any], evidence: dict[str, Any]) -> list[str]:
+    schema_errors = sorted(
+        Draft7Validator(output_schema()).iter_errors(parsed),
+        key=lambda error: list(error.path),
+    )
+    errors = [
+        f"schema: {'/'.join(map(str, error.path)) or '<root>'}: {error.message}"
+        for error in schema_errors
+    ]
+    errors.extend(validate_operational_plan_output(parsed, evidence))
+    plans = parsed.get("revised_operational_plans") if isinstance(parsed, dict) else None
+    plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
+    if not str(plan.get("operational_plan_id", "")).startswith(REVISION_CONFIG["plan_id_prefix"]):
+        errors.append(f"operational_plan_id must identify {REVISION_CONFIG['plan_label']}")
+    hypothesis_ids = {
+        row.get("hypothesis_id")
+        for row in parsed.get("revised_strategic_hypotheses") or []
+        if isinstance(row, dict) and row.get("hypothesis_id")
+    }
+    if plan.get("parent_hypothesis_id") not in hypothesis_ids:
+        errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
+    if len(plan.get("revised_operational_plans") or plan.get("action_timeline") or []) == 0:
+        errors.append(f"{REVISION_CONFIG['plan_label']} action timeline is empty")
+    if parsed.get("provenance", {}).get("revision_source", {}).get("operational_plan_id") != REVISION_CONFIG["revision_source_plan_id"]:
+        errors.append("provenance.revision_source must identify the authorized prior plan")
+    return errors
+
+
 def assert_run_lock() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    global RUN_LOCK_HANDLE
+    if RUN_LOCK_HANDLE is not None:
+        return
     path = OUT / "run.lock"
     handle = path.open("a+", encoding="utf-8")
     try:
@@ -197,16 +322,26 @@ def assert_run_lock() -> None:
         handle.close()
         raise RuntimeError("another GPT tactical session is running; concurrent entry is forbidden") from exc
     handle.seek(0)
-    if handle.read(1):
+    lock_was_consumed = bool(handle.read())
+    attempt_log_path = OUT / "llm_call_attempts.jsonl"
+    budget_path = OUT / "budget_usage.json"
+    has_started_request = (
+        attempt_log_path.exists()
+        and any('"phase": "STARTED"' in line or '"phase":"STARTED"' in line
+                for line in attempt_log_path.read_text(encoding="utf-8").splitlines())
+    ) or (budget_path.exists() and int(load(budget_path).get("model_requests_started", 0)) > 0)
+    if lock_was_consumed and has_started_request:
         handle.close()
         raise RuntimeError("GPT budget lock already consumed; restart cannot reset the session")
     handle.seek(0)
+    handle.truncate()
     handle.write(json.dumps({
         "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_RUN_LOCK",
         "locked_at": datetime.now(timezone.utc).isoformat(),
         "policy": "one exclusive session; persistent STARTED records are the consumed-budget authority",
     }, sort_keys=True) + "\n")
     handle.flush()
+    RUN_LOCK_HANDLE = handle
 
 
 def save_exclusive(path: Path, text: str) -> None:
@@ -317,6 +452,7 @@ def make_stream_once(provider: str, model: str, reasoning_effort: str | None) ->
 
 def prepare(provider: str, model: str, reasoning_effort: str | None) -> dict[str, Any]:
     OUT.mkdir(parents=True, exist_ok=True)
+    assert_run_lock()
     attempt_path = OUT / "llm_call_attempts.jsonl"
     if attempt_path.exists() and any(line.strip() for line in attempt_path.read_text(encoding="utf-8").splitlines()):
         raise RuntimeError("GPT attempt log already contains calls; refusing to reset or rerun")
@@ -329,6 +465,26 @@ def prepare(provider: str, model: str, reasoning_effort: str | None) -> dict[str
         "automatic_retry": False, "continuation_counts_as_model_request": True,
     })
     evidence = evidence_context()
+    evidence.pop("previous_c2_plan_to_revise", None)
+    revision_source_path = ROOT / REVISION_CONFIG["revision_source_path"]
+    feedback_summary_path = ROOT / REVISION_CONFIG["feedback_summary_path"]
+    feedback_events_path = ROOT / REVISION_CONFIG["feedback_events_path"]
+    evidence["revision_task"] = dict(REVISION_CONFIG)
+    evidence["previous_plan_to_revise"] = previous_plan_summary(revision_source_path)
+    # Keep the full C3 action/responsibility structure while dropping large nested explanatory text.
+    evidence["previous_plan_to_revise"]["action_timeline"] = [
+        {key: action.get(key) for key in ("action_type", "frame", "operator_id", "tile", "direction")}
+        for action in evidence["previous_plan_to_revise"].get("action_timeline") or []
+    ]
+    evidence["prior_diagnostic_feedback"] = prior_diagnostic_feedback(feedback_summary_path, feedback_events_path)
+    evidence["provenance"] = {
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_REVISION_PROVENANCE",
+        "revision_source": {
+            "operational_plan_id": REVISION_CONFIG["revision_source_plan_id"],
+            "path": REVISION_CONFIG["revision_source_path"],
+            "relationship": "prior_plan_revision_source_not_parent_hypothesis",
+        },
+    }
     evidence["tactical_provider"] = {
         "provider": provider, "model": model, "reasoning_effort": reasoning_effort,
         "compatibility": "UNVERIFIED_BEFORE_PROJECT_REQUEST",
@@ -360,7 +516,7 @@ def prepare(provider: str, model: str, reasoning_effort: str | None) -> dict[str
         "body_sha256": hashlib.sha256(body.encode()).hexdigest(), "body_bytes": len(body.encode()),
     })
     write_json("source_manifest.json", source_manifest(evidence_path))
-    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_gpt_tactical_revision_v1"})
+    write_json("prepare_status.json", {"phase": "PREPARED", "schema": "r8_1_gpt_tactical_revision_v1", "revision": REVISION_CONFIG})
     return request
 
 
@@ -399,7 +555,7 @@ def call(provider: str, model: str, reasoning_effort: str | None) -> dict[str, A
         payload, engine, make_stream_once(provider, model, reasoning_effort),
         evidence=evidence, plan_schema=schema, budget=budget,
         finalize_payload=lambda item: finalize_plan_payload(item, schema),
-        validate_plan=lambda parsed: validate_c3_contract(parsed, evidence),
+        validate_plan=lambda parsed: validate_revision_contract(parsed, evidence),
     )
     update_budget(model_requests=budget.model_requests_started, tool_calls=budget.tool_calls_executed)
     write_json("tool_loop_session.json", session)
@@ -412,13 +568,13 @@ def call(provider: str, model: str, reasoning_effort: str | None) -> dict[str, A
         })
         raise SystemExit("GPT tool session failed without retry")
     parsed = session["operational_plan"]
-    plan_errors = validate_c3_contract(parsed, evidence)
+    plan_errors = validate_revision_contract(parsed, evidence)
     if plan_errors:
         write_json("llm_plan_validation.json", {
             "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
             "status": "FAIL", "errors": plan_errors,
         })
-        raise RuntimeError("GPT-C3 failed local contract validation")
+        raise RuntimeError(f"GPT-{REVISION_CONFIG['plan_label']} failed local contract validation")
     write_json("llm_structured_output.json", parsed)
     write_json("llm_plan_validation.json", {
         "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
@@ -436,7 +592,7 @@ def call(provider: str, model: str, reasoning_effort: str | None) -> dict[str, A
     })
     write_json("final_status.json", {
         "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
-        "status": "GPT_C3_RECEIVED_AND_CONTRACT_VALID",
+        "status": f"GPT_{REVISION_CONFIG['plan_label']}_RECEIVED_AND_CONTRACT_VALID",
         "actual_model_requests": budget.model_requests_started,
         "actual_readonly_tool_calls": budget.tool_calls_executed,
         "new_operational_plans": len(plans), "stage_simulations": 0,
@@ -447,7 +603,7 @@ def call(provider: str, model: str, reasoning_effort: str | None) -> dict[str, A
 
 def static_check() -> dict[str, Any]:
     if load(OUT / "llm_plan_validation.json").get("status") != "PASS":
-        raise RuntimeError("static check requires a locally validated GPT-C3 plan")
+        raise RuntimeError(f"static check requires a locally validated GPT-{REVISION_CONFIG['plan_label']} plan")
     return compile_plan(OUT)
 
 
@@ -506,7 +662,7 @@ def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str 
         continuation, engine, make_stream_once(provider, model, reasoning_effort),
         evidence=evidence, plan_schema=schema, budget=budget,
         finalize_payload=lambda item: finalize_plan_payload(item, schema),
-        validate_plan=lambda parsed: validate_c3_contract(parsed, evidence),
+        validate_plan=lambda parsed: validate_revision_contract(parsed, evidence),
     )
     update_budget(
         model_requests=1 + budget.model_requests_started,
@@ -523,13 +679,13 @@ def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str 
         })
         raise SystemExit("GPT resumed tool session failed without retry")
     parsed = session["operational_plan"]
-    plan_errors = validate_c3_contract(parsed, evidence)
+    plan_errors = validate_revision_contract(parsed, evidence)
     if plan_errors:
         write_json("llm_plan_validation.json", {
             "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
             "status": "FAIL", "errors": plan_errors,
         })
-        raise RuntimeError("GPT-C3 failed local contract validation")
+        raise RuntimeError(f"GPT-{REVISION_CONFIG['plan_label']} failed local contract validation")
     write_json("llm_structured_output.json", parsed)
     write_json("llm_plan_validation.json", {
         "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_PLAN_VALIDATION",
@@ -547,7 +703,7 @@ def resume_after_transport_fix(provider: str, model: str, reasoning_effort: str 
     })
     write_json("final_status.json", {
         "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_FINAL_STATUS",
-        "status": "GPT_C3_RECEIVED_AND_CONTRACT_VALID",
+        "status": f"GPT_{REVISION_CONFIG['plan_label']}_RECEIVED_AND_CONTRACT_VALID",
         "actual_model_requests": 1 + budget.model_requests_started,
         "actual_readonly_tool_calls": replay_budget.tool_calls_executed + budget.tool_calls_executed,
         "new_operational_plans": len(plans), "stage_simulations": 0,
@@ -562,7 +718,19 @@ def main() -> None:
     parser.add_argument("--provider", choices=sorted(PROVIDERS), default="sub2api")
     parser.add_argument("--model")
     parser.add_argument("--reasoning-effort")
+    parser.add_argument("--output-dir", default="output/r8_1_gpt_tactical_revision_v1")
+    parser.add_argument("--plan-label", default="C3")
+    parser.add_argument("--plan-id-prefix", default=PLAN_ID_PREFIX)
+    parser.add_argument("--revision-source-plan-id", default=PARENT_PLAN_ID)
+    parser.add_argument("--revision-source-path", default="output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_structured_output.json")
+    parser.add_argument("--feedback-summary-path", default="output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_summary.json")
+    parser.add_argument("--feedback-events-path", default="output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_events.json")
     arguments = parser.parse_args()
+    configure_revision(
+        arguments.output_dir, arguments.plan_label, arguments.plan_id_prefix,
+        arguments.revision_source_plan_id, arguments.revision_source_path,
+        arguments.feedback_summary_path, arguments.feedback_events_path,
+    )
     config = provider_config(arguments.provider)
     model = arguments.model or config["default_model"]
     reasoning_effort = arguments.reasoning_effort

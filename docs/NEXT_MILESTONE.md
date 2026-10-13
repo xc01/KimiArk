@@ -105,3 +105,9 @@ The recovered C3 is now a reviewed tactical input, not a successful strategy. It
 failure is route-10 at frame 1579. Future work must decide whether Work authorizes a tactical
 re-request in a fresh budgeted directory or a bounded mechanism investigation; do not repair the same
 plan automatically, expand search, or call GPT without a new Work-approved budget.
+
+The authorized GPT-C4 session has not produced a plan. Its compact request was frozen at 138,957
+bytes, then the first HTTP request returned 503 (`43346c70-1bc4-4376-bcf3-212e096dd1a4`). The session
+is 1/3 requests, 0/6 tools, 0 plans, and 0 simulations. There was no automatic retry. Work must decide
+whether to manually spend one of the two remaining requests in this session or leave it blocked; no
+action repair, second plan, search expansion, or simulation is authorized from this failure.

@@ -173,11 +173,38 @@ class GptTacticalRevisionTests(unittest.TestCase):
                 "readonly_tool_calls_executed": 0,
             }), encoding="utf-8")
             runner.OUT = temporary_dir
-            runner.assert_run_lock()
+            original_handle = runner.RUN_LOCK_HANDLE
+            runner.RUN_LOCK_HANDLE = None
             try:
+                runner.assert_run_lock()
+                (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                    "model_requests_started": 1, "max_model_requests": 3,
+                    "readonly_tool_calls_executed": 0,
+                }), encoding="utf-8")
+                runner.RUN_LOCK_HANDLE = None
                 with self.assertRaisesRegex(RuntimeError, "budget lock already consumed"):
                     runner.assert_run_lock()
             finally:
+                runner.RUN_LOCK_HANDLE = original_handle
+                runner.OUT = original_out
+
+    def test_lock_recovers_only_before_any_model_request(self):
+        original_out = runner.OUT
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_dir = Path(temporary)
+            (temporary_dir / "llm_call_attempts.jsonl").write_text("", encoding="utf-8")
+            (temporary_dir / "run.lock").write_text("{}\n", encoding="utf-8")
+            (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                "model_requests_started": 0, "max_model_requests": 3,
+                "readonly_tool_calls_executed": 0,
+            }), encoding="utf-8")
+            original_handle = runner.RUN_LOCK_HANDLE
+            runner.OUT = temporary_dir
+            runner.RUN_LOCK_HANDLE = None
+            try:
+                runner.assert_run_lock()
+            finally:
+                runner.RUN_LOCK_HANDLE = original_handle
                 runner.OUT = original_out
 
 

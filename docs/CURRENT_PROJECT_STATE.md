@@ -299,6 +299,14 @@ terminal事件`response.completed`，request ID
 工具使用或战术学习。旧范围/SP反例是否被新战术吸收保持UNKNOWN。下一次是否调整提示、schema
 封装或provider兼容性，由Work审查原始响应后决定。
 
+## 2026-10-13 — GPT-C4 blocked by provider 503
+
+The C4 request was prepared compactly without the full C2 plan while retaining C2 failure evidence,
+all 34 ordinary low-star facts, 17 three-stars and complete route-leak summaries. The frozen body is
+138,957 bytes. The first counted request returned HTTP 503 with request ID
+`43346c70-1bc4-4376-bcf3-212e096dd1a4`; the session remains 1/3 requests, 0/6 tools, 0 plans and
+0 simulations. No C4 or tactical-feasibility conclusion exists.
+
 ## 2026-10-13 GPT战术入口准备
 
 CONFIRMED_FROM_CODE_AND_OFFLINE_PREPARE：新增通用入口`run_r8_1_gpt_tactical_revision_v1.py`，
