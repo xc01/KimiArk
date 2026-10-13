@@ -225,6 +225,18 @@ class GameDataRepository:
         handbook = self._table("enemy_handbook_table.json").get("enemyData", {}).get(enemy_id, {})
         handbook_damage_type = next((item for item in handbook.get("damageType") or [] if isinstance(item, str)), None)
         attack_timing = self._enemy_attack_timings().get(enemy_id)
+        no_damage = (
+            handbook_damage_type == "NO_DAMAGE"
+            and (raw.get("applyWay") or {}).get("m_value") == "NONE"
+        )
+
+        def no_damage_value(wrapper: Any, field: str) -> ValueWithSource[Any]:
+            if isinstance(wrapper, dict) and wrapper.get("m_defined") is True:
+                return self._defined_value(wrapper, source, f"{base}.attributes.{field}.m_value")
+            if no_damage and isinstance(wrapper, dict) and wrapper.get("m_value") == 0:
+                return known(0.0, source, f"{base}.attributes.{field}.m_value[NO_DAMAGE]")
+            return unknown()
+
         source = "zh_CN/gamedata/levels/enemydata/enemy_database.json"
         base = f"$.enemies[Key={enemy_id}].Value[level={level}].enemyData"
         abilities: tuple[EnemyAbility, ...] = ()
@@ -248,8 +260,8 @@ class GameDataRepository:
             enemy_id, self._defined_value(raw.get("name"), source, f"{base}.name.m_value"),
             EnemyStats(
                 self._defined_value(attributes.get("maxHp"), source, f"{base}.attributes.maxHp.m_value"), self._defined_value(attributes.get("atk"), source, f"{base}.attributes.atk.m_value"),
-                self._defined_value(attributes.get("def"), source, f"{base}.attributes.def.m_value"), self._defined_value(attributes.get("magicResistance"), source, f"{base}.attributes.magicResistance.m_value"),
-                self._defined_value(attributes.get("moveSpeed"), source, f"{base}.attributes.moveSpeed.m_value"), self._defined_value(attributes.get("baseAttackTime"), source, f"{base}.attributes.baseAttackTime.m_value"),
+                self._defined_value(attributes.get("def"), source, f"{base}.attributes.def.m_value"), no_damage_value(attributes.get("magicResistance"), "magicResistance"),
+                self._defined_value(attributes.get("moveSpeed"), source, f"{base}.attributes.moveSpeed.m_value"), no_damage_value(attributes.get("baseAttackTime"), "baseAttackTime"),
                 self._defined_value(attributes.get("massLevel"), source, f"{base}.attributes.massLevel.m_value"), self._defined_value(raw.get("lifePointReduce"), source, f"{base}.lifePointReduce.m_value"),
                 self._defined_value(raw.get("rangeRadius"), source, f"{base}.rangeRadius.m_value"),
                 unknown(),

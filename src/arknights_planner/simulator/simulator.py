@@ -476,6 +476,8 @@ class Simulator:
     def _enemy_outputs(self, state: SimulationState, stage: Stage) -> None:
         for enemy in tuple(sorted(state.active_enemies.values(), key=lambda item: item.spawn_index)):
             self._enemy_ability_outputs(state, stage, enemy)
+            if enemy.atk <= self._EPSILON and enemy.attack_interval <= self._EPSILON:
+                continue
             if enemy.attack_stand_until > self._EPSILON and state.time + self._EPSILON >= enemy.attack_stand_until:
                 self._emit(state, EventType.ATTACK_RECOVERY_END, source=enemy.instance_id)
                 enemy.attack_stand_until = 0.0

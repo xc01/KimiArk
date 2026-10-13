@@ -36,6 +36,16 @@ def test_medic_and_damage_operators_reuse_the_shared_combat_output_pipeline() ->
     assert CombatOutputType.HEAL.value == "HEAL" and CombatOutputType.DAMAGE.value == "DAMAGE"
 
 
+def test_ursus_civilian_no_damage_attributes_are_known_from_game_data() -> None:
+    repository = GameDataRepository(ROOT / "data/ArknightsGameData")
+    enemy = repository.get_enemy("enemy_3001_upeopl")
+    stats = enemy.stats
+    assert stats.magic_resistance.status.value == "KNOWN"
+    assert stats.magic_resistance.value == 0.0
+    assert stats.attack_interval.status.value == "KNOWN"
+    assert stats.attack_interval.value == 0.0
+
+
 def test_generic_multi_target_support_remains_explicitly_blocked() -> None:
     support = json.loads((ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json").read_text())
     catapult = next(item for item in support["operators"] if item["operator_id"] == "char_282_catap")

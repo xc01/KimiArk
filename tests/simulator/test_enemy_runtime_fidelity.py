@@ -103,6 +103,28 @@ def test_arts_enemy_uses_arts_mitigation_not_defense():
     assert dict(damage.details)["amount"] == 100.0
 
 
+def test_zero_attack_no_damage_enemy_does_not_emit_attack_outputs():
+    enemy = runtime_enemies()["brute"]
+    enemy = replace(
+        enemy,
+        stats=replace(
+            enemy.stats,
+            atk=known(0.0, "enemy/test", "$.atk"),
+            attack_interval=known(0.0, "enemy/test", "$.baseAttackTime"),
+            apply_way=known("NONE", "enemy/test", "$.applyWay"),
+            damage_type=known("NO_DAMAGE", "enemy/test", "$.damageType"),
+        ),
+    )
+    result = run(
+        enemies={"brute": enemy},
+        strategy=Strategy(("blocker",), (deploy("blocker", (3, 1)),)),
+        max_time=4.0,
+    )
+    assert not events(result, EventType.ATTACK_WINDUP, source="brute#0")
+    assert not events(result, EventType.ATTACK_START, source="brute#0")
+    assert not events(result, EventType.DAMAGE, source="brute#0")
+
+
 def test_client_derived_windup_strike_and_recovery_event_trace():
     enemies = runtime_enemies()
     enemies["brute"] = replace(
