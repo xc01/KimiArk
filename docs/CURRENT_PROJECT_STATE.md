@@ -381,6 +381,20 @@ Vanilla第二次技能也因frame1243已死亡而失败。最早实际漏怪是r
 frame1295漏怪。没有第二次模拟、动作修复、扩搜或robust targeting复验。
 事件与参数在`output/r8_1_lowstar_c2_full_diagnostic_v1/`。
 
+## 2026-10-13 C3失败修订会话
+
+CONFIRMED_FROM_RUNTIME：C3准备载荷137,980字节，包含34名普通低星、17名三星、C2关键事件与
+22个动作结局，没有嵌入完整事件日志。第1次请求HTTP 200但`response.incomplete`，request ID
+`0217918902506155e054c6d0ba743fab13ed8d72af4b8b2a2c417`；usage input 35,829、output 32,768
+（reasoning 32,765），只有reasoning项，没有assistant文本或原生function_call。
+
+第2次是显式记录的协议调整请求，添加`tool_choice=required`并要求不再做穷举推理；它不是自动
+重试。HTTP 200但再次`response.incomplete`，request ID
+`0217918911989243f04613060c95c0e1cb70b4f628471a9e08b15`；usage input 35,912、output 32,768
+（reasoning 32,765），仍只有reasoning项。两次都没有工具调用。budget为2/3请求、0/6工具；
+剩余1次请求有意不消耗。没有C3、静态编译、模拟、WIN或战术不可行结论。
+证据在`output/r8_1_lowstar_c3_failure_revision_v1/provider_failure_analysis.json`。
+
 ## 2026-10-13 C2有界真实工具会话失败
 
 CONFIRMED_FROM_RUNTIME：C2会话发起1/3次真实`kimi-k3`请求，0/6次只读工具调用，HTTP 200，

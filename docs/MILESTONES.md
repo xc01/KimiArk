@@ -355,3 +355,14 @@ The one authorized full-stage diagnostic run used the original 22 actions and re
 at frame 890. Vanilla died at frame 1243, unblocking route-6 `enemy_1108_uterer#3`, which leaked
 at frame 1295. Hibiscus' frame-1680 deployment then failed for insufficient DP. No action repair,
 second run, robust roadblock recheck, real-game WIN, or faithful certificate was claimed.
+
+## 2026-10-13 — C3 request stopped reasoning-only
+
+C3 evidence was compacted to 137,980 bytes and retained all 34 ordinary low-star operators, 17
+three-stars, C2 key events, economic rejections, and all 22 action outcomes. Both bounded Kimi
+requests returned HTTP 200 but `response.incomplete`; each used 32,768 output tokens with 32,765
+reasoning tokens and produced no assistant message or native function call. The second attempt
+added `tool_choice=required` as an explicit protocol adjustment, not an automatic retry.
+
+The session stopped at 2/3 model requests and 0/6 tools. The final request was deliberately not
+spent. There is no C3, no static compile, no diagnostic simulation, and no feasibility claim.

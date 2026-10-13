@@ -212,6 +212,42 @@ class ToolLoopTests(unittest.TestCase):
         })
         self.assertNotIn("previous_response_id", continuation)
 
+    def test_final_text_content_is_not_duplicated(self):
+        arguments = json.dumps(coverage_call("char_120_hibisc", [5, 7], "UP", [("char_122_beagle", [4, 6])]), separators=(",", ":"))
+        call = {"call_id": "call-no-dup", "name": "query_range_coverage", "arguments": arguments}
+        terminal_call = {"type": "function_call", "item_id": "item-call-no-dup", "call_id": "call-no-dup", "name": "query_range_coverage", "arguments": arguments, "status": "completed"}
+        terminal_plan = {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": json.dumps(self.plan, separators=(",", ":"))}]}
+
+        def fake_stream(payload):
+            if payload["input"][-1].get("type") != "function_call_output":
+                envelope = {"id": "resp-no-dup-tool", "status": "completed", "output": [terminal_call]}
+                events = [
+                    ("response.created", {"response": {"id": "resp-no-dup-tool", "status": "in_progress", "output": []}}),
+                    ("response.output_item.added", {"item": {**terminal_call, "arguments": "", "status": "in_progress"}}),
+                    ("response.function_call_arguments.delta", {"call_id": "call-no-dup", "delta": arguments}),
+                    ("response.function_call_arguments.done", {"call_id": "call-no-dup", "arguments": arguments}),
+                    ("response.output_item.done", {"item": terminal_call}),
+                    ("response.completed", {"response": envelope}),
+                ]
+            else:
+                envelope = {"id": "resp-no-dup-plan", "status": "completed", "output": [terminal_plan]}
+                events = [
+                    ("response.created", {"response": {"id": "resp-no-dup-plan", "status": "in_progress", "output": []}}),
+                    ("response.completed", {"response": envelope}),
+                ]
+            from kimi_responses_transport import parse_sse
+            raw = sse(events)
+            accumulator = StreamAccumulator()
+            for event in parse_sse(raw.decode()):
+                accumulator.observe(event)
+            return envelope, accumulator, raw
+
+        result = run_mock_tool_session(
+            self.payload, self.engine, fake_stream, lambda parsed: [] if parsed == self.plan else ["plan mismatch"],
+            evidence=self.evidence, plan_schema=self.plan_schema,
+        )
+        self.assertEqual(result["status"], "COMPLETE")
+
     def test_incomplete_tool_response_is_not_executed(self):
         def fake_stream(payload):
             envelope = {"id": "resp-incomplete", "status": "in_progress", "output": []}

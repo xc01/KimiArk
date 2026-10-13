@@ -1,0 +1,53 @@
+{
+  "schema_version": "R8_1_LOWSTAR_C3_PROVIDER_FAILURE_ANALYSIS_V1",
+  "status": "FAILED_NO_C3_NO_SIMULATION",
+  "attempts": [
+    {
+      "attempt": 1,
+      "http_status": 200,
+      "terminal_event": "response.incomplete",
+      "request_id": "0217918902506155e054c6d0ba743fab13ed8d72af4b8b2a2c417",
+      "input_tokens": 35829,
+      "output_tokens": 32768,
+      "reasoning_tokens": 32765,
+      "output_item_types": ["reasoning"],
+      "assistant_message_present": false,
+      "native_function_calls": 0
+    },
+    {
+      "attempt": 2,
+      "protocol_adjustment": "tool_choice=required plus explicit no-exhaustive-reasoning guard; deliberate new request, not automatic retry",
+      "http_status": 200,
+      "terminal_event": "response.incomplete",
+      "request_id": "0217918911989243f04613060c95c0e1cb70b4f628471a9e08b15",
+      "input_tokens": 35912,
+      "cached_tokens": 35584,
+      "output_tokens": 32768,
+      "reasoning_tokens": 32765,
+      "output_item_types": ["reasoning"],
+      "assistant_message_present": false,
+      "native_function_calls": 0
+    }
+  ],
+  "interpretation": {
+    "tool_choice_field": "HTTP 200 accepted the request, but the intended forcing semantics were not observed; compatibility remains UNVERIFIED.",
+    "reasoning_incomplete": "Both attempts exhausted the configured 32768 output budget on reasoning-only items.",
+    "plan_reuse_rule": "Hidden reasoning is not an OperationalPlan and cannot be compiled or treated as a tool result."
+  },
+  "budget": {
+    "model_requests_started": 2,
+    "max_model_requests": 3,
+    "readonly_tool_calls_executed": 0,
+    "max_readonly_tool_calls": 6,
+    "remaining_model_requests": 1,
+    "deliberately_not_spent_reason": "No evidence that a third 32768-token request would produce a native tool call or valid C3."
+  },
+  "execution": {
+    "new_operational_plans": 0,
+    "static_compile_checks": 0,
+    "stage_simulations_started": 0,
+    "tactical_search_expansions": 0,
+    "faithful_certificate": "NOT_ISSUED",
+    "result_claim": "NONE"
+  }
+}

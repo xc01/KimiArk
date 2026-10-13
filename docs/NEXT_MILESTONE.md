@@ -77,3 +77,11 @@ Future revision decisions must preserve route-6 blocking and account for operato
 must review
 `output/r8_1_lowstar_c2_full_diagnostic_v1/diagnostic_summary.json`
 before any next bounded tactical request.
+
+C3 was prepared from this evidence, but both requests ended reasoning-only at the 32,768-token
+boundary; `tool_choice=required` did not produce a native function call. The third request was not
+spent. Work must review
+`output/r8_1_lowstar_c3_failure_revision_v1/provider_failure_analysis.json`
+and the raw SSE records before authorizing another protocol shape, a smaller query-only step, or a
+different output/reasoning configuration. No C3 compile or simulation is authorized from the saved
+reasoning.

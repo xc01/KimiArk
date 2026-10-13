@@ -299,3 +299,13 @@ SIMULATION_LOSS_DIAGNOSTIC_ONLY：使用原样22个动作启动1/1次全关模�
 击杀27、漏怪29、剩余生命-24、4名干员死亡。frame570芬自动收入6 DP，frame890死亡；
 frame1243 Vanilla死亡导致route-6敌人解除阻挡，frame1295首次漏怪；frame1680 Hibiscus
 部署不足。没有改动作、没有第二次模拟、没有WIN/实机/robust WIN声明。定向pytest 63/63 PASS。
+
+## 2026-10-13 — C3失败修订请求
+
+PREPARED：C3紧凑证据body 137,980字节，含C2关键结果、死亡/漏怪链、经济拒绝、22个动作结局和
+完整低星目录。67/67定向pytest PASS。
+
+FAILED_NO_C3：第1次请求`response.incomplete`，output 32,768全部为reasoning 32,765，无
+assistant文本或原生function_call。第2次显式`tool_choice=required`请求HTTP 200，仍
+`response.incomplete`且reasoning 32,765，无工具调用。预算2/3请求、0/6工具；第3次不消耗。
+没有C3、静态编译、模拟或战术不可行证明。
