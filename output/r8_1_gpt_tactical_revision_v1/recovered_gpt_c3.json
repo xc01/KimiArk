@@ -1,0 +1,937 @@
+{
+  "counterexample_avoidance_explanations": [
+    {
+      "avoidance": "Fang is absent. Noirc opens directly; no skill income is budgeted.",
+      "counterexample": "Fang death removes subsequent income and blocking."
+    },
+    {
+      "avoidance": "Vanilla is absent and Beagle deploys f690. C3 removes that specific ownership gap without asserting that all later survival is proven.",
+      "counterexample": "Vanilla dies f1243; route-6 leaks f1295 and route-2 f1394 despite Beagle f1290."
+    },
+    {
+      "avoidance": "Bottom healing starts f1530, Beagle's first defense starts f1920, Popka is absent, and Cardigan arrives before the flood. Unexpected Beagle death still requires a failure check.",
+      "counterexample": "Beagle and Popka die before their late skills."
+    },
+    {
+      "avoidance": "Retain supplied C2 DOWN/LEFT coverage declarations and include active-duration pauses in later skill arithmetic; mark absent C3 verification explicitly.",
+      "counterexample": "Medic directions and SP recharge assumptions fail."
+    }
+  ],
+  "deterministic_verifier_questions": [
+    "Sort action execution chronologically, including f6090 before f6180, without changing any declared action.",
+    "Verify legal tiles, directions, ordinary-mode catalog membership, costs, deployment slots, and SP readiness.",
+    "Record block ownership, HP, healing targets, deaths, rejected actions, and first leak for the entire run.",
+    "Accept C3 only if the final runtime WIN condition is satisfied; otherwise report the first causal failure without claiming real-game infeasibility."
+  ],
+  "explicit_assumptions": [
+    "C3 is a conditional current-runtime candidate, not a verified clear or a real-game result.",
+    "Natural DP follows the supplied diagnostic model: initial DP 10 and +1 DP/s at 30 FPS. Deployment payments use only this income.",
+    "All operators use the authoritative ordinary-mode debug configuration; unsupported talents contribute nothing to survival or damage estimates.",
+    "Declared deployments occur one second after the arithmetic affordability boundary to avoid relying on exact-boundary DP rounding."
+  ],
+  "lessons_from_infeasibility": [
+    {
+      "lesson": "An affordable deployment is insufficient when its funding operator or blocking predecessor has already died.",
+      "scope": "C2 conditional failure; no strategic impossibility claim."
+    }
+  ],
+  "provenance": {
+    "invalid_final_output_sha256": "2f3d5b0d59851d27a757316af952292d1e6f628da40ac2c60903eb7a49e6b916",
+    "normalization_changes": [
+      "added provenance.revision_source",
+      "stably sorted action_timeline by integer frame"
+    ],
+    "raw_final_output_sha256": "2d19abb6d7964f2e3028b4d021bbb85d3c34138dc9752f078ebd808aef8de1e5",
+    "raw_response_path": "output/r8_1_gpt_tactical_revision_v1/resume_attempt_2_raw_response.txt",
+    "raw_response_sha256": "771c3d332fb5634e6c4e7714b7e82c32ad89533929fb18053647d508b81db6ff",
+    "revision_source": {
+      "operational_plan_id": "R8_1_LOWSTAR_PLAN_C2",
+      "path": "output/r8_1_lowstar_c2_compact_tool_revision_v2/llm_structured_output.json",
+      "relationship": "prior_plan_revision_source_not_parent_hypothesis"
+    },
+    "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_RECOVERED_PROVENANCE",
+    "unchanged_scope": "No operator, action parameter, tile, direction, frame value, skill, responsibility, hypothesis or output field was rewritten."
+  },
+  "rejected_tactical_assumptions": [
+    {
+      "assumption": "Future Fang or Vanilla income can fund mandatory support regardless of survival.",
+      "replacement": "Use a natural-DP-only payment schedule with no vanguard deployments."
+    },
+    {
+      "assumption": "Deploying Beagle after Vanilla dies transfers enemies already downstream back to Beagle.",
+      "replacement": "Beagle owns the bottom interception line before either observed contact."
+    },
+    {
+      "assumption": "Late skills, unhealed blockers, and a post-flood backstop guarantee survival.",
+      "replacement": "Deploy healing before the later pressure windows, replace Popka with damage behind Beagle, and establish Cardigan before the flood."
+    }
+  ],
+  "retained_tactical_knowledge": [
+    {
+      "basis": "Supplied C2 positional coverage evidence.",
+      "knowledge": "Preserve the two corridors, bottom-facing medic and caster, and separate top healing."
+    },
+    {
+      "basis": "Supplied runtime occupancy and WIN rules.",
+      "knowledge": "Avoid active device tiles and require zero leaks."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 150,
+          "operator_id": "char_500_noirc",
+          "rationale": "Natural DP 15 pays 14; establish top ownership before route-3 reaches col6.",
+          "tile": [
+            1,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 690,
+          "operator_id": "char_122_beagle",
+          "rationale": "Natural DP balance 19 pays 18; establish bottom ownership before C2's route-2 contact at 822.",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 1020,
+          "operator_id": "char_124_kroos",
+          "rationale": "Balance 12 pays 11; begin top clearing and bottom approach chip.",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1530,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Balance 18 pays 17 without Vanilla income; start permanent bottom healing.",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1920,
+          "operator_id": "char_122_beagle",
+          "rationale": "41 seconds after deployment exceeds the 40-SP first requirement; protect the setup pressure window."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2070,
+          "operator_id": "char_210_stward",
+          "rationale": "Balance 19 pays 18; add bottom pile damage.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2460,
+          "operator_id": "char_120_hibisc",
+          "rationale": "31 seconds after deployment; boost healing across the t82-102 bottom pressure."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2580,
+          "operator_id": "char_212_ansel",
+          "rationale": "Balance 18 pays 17; top healing exists well before the final flood.",
+          "tile": [
+            2,
+            9
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 3030,
+          "operator_id": "char_208_melan",
+          "rationale": "Balance 16 pays 15; add sustained bottom damage without removing Beagle.",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3360,
+          "operator_id": "char_212_ansel",
+          "rationale": "26 seconds after deployment satisfies initial10/cost35 arithmetic; support t112-137 top pressure."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 3570,
+          "operator_id": "char_209_ardign",
+          "rationale": "Balance 19 pays 18; eighth operator establishes bottom exit ownership before the t130 flood.",
+          "tile": [
+            5,
+            8
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3990,
+          "operator_id": "char_120_hibisc",
+          "rationale": "51 seconds after first activation accounts for 20 seconds active plus 30 seconds recharge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4050,
+          "operator_id": "char_122_beagle",
+          "rationale": "71 seconds after first activation accounts for 30 seconds active plus 40 seconds recharge; cover t135-165."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4260,
+          "operator_id": "char_208_melan",
+          "rationale": "41 seconds after deployment; boost bottom killing during t142-162."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5190,
+          "operator_id": "char_212_ansel",
+          "rationale": "61 seconds after first activation; support remaining top enemies during cleanup."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5520,
+          "operator_id": "char_120_hibisc",
+          "rationale": "51 seconds after second activation; sustain bottom cleanup if battle remains active."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6090,
+          "operator_id": "char_208_melan",
+          "rationale": "61 seconds after first activation accounts for 20 seconds active plus 40 seconds recharge; accelerate surviving bottom tail."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6180,
+          "operator_id": "char_122_beagle",
+          "rationale": "71 seconds after second activation; protect a prolonged bottom tail if battle remains active."
+        }
+      ],
+      "allowed_substitutions": [],
+      "battle_phases": [
+        {
+          "frames": [
+            0,
+            1530
+          ],
+          "responsibility": "Establish both defender lines and Kroos; defenders absorb the unhealed setup interval."
+        },
+        {
+          "frames": [
+            1530,
+            3030
+          ],
+          "responsibility": "Add bottom healing and arts damage, then top healing; use early defensive and healing skills."
+        },
+        {
+          "frames": [
+            3030,
+            3900
+          ],
+          "responsibility": "Add Melantha and Cardigan; reach eight deployed operators without retreating a blocker."
+        },
+        {
+          "frames": [
+            3900,
+            4824
+          ],
+          "responsibility": "Hold final flood using layered bottom blocking and scheduled healing, defense, and attack skills."
+        },
+        {
+          "frames": [
+            4824
+          ],
+          "responsibility": "After the last second spawn of route-34, retain all operators until zero active enemies and WIN. No fixed cleanup completion is asserted."
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "c2": "Fang and Vanilla open and generate mandatory income.",
+          "c3": "Noirc and Beagle open; all costs use natural DP."
+        },
+        {
+          "c2": "Vanilla holds route-2 and route-6 until a later Beagle deployment.",
+          "c3": "Beagle deploys f690 before both observed contacts; no planned release-and-recapture interval."
+        },
+        {
+          "c2": "Hibiscus depends on Vanilla's second payout.",
+          "c3": "Hibiscus deploys f1530 from natural DP alone."
+        },
+        {
+          "c2": "Popka is a later bottom blocking and damage anchor.",
+          "c3": "Melantha supplies damage behind Beagle; Cardigan supplies separately healed exit blocking."
+        },
+        {
+          "c2": "Top healing f3660 and Cardigan f5340.",
+          "c3": "Ansel f2580 and Cardigan f3570."
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "Beagle dies despite earlier healing",
+          "limit": "This does not guarantee route-2 interception or simultaneous pile transfer. Beagle survival remains mandatory for a certified zero-leak result.",
+          "responsibility": "Melantha can intercept one eligible downstream enemy; Cardigan can intercept up to three bottom-exit enemies after f3570."
+        },
+        {
+          "condition": "Melantha dies",
+          "limit": "Lost damage may saturate blocking capacity; no automatic replacement is delegated.",
+          "responsibility": "Beagle retains primary ownership; Cardigan retains bottom exit ownership."
+        },
+        {
+          "condition": "Noirc dies",
+          "limit": "C3 has no certified top backup. No invented redeployment or refund rescues this branch.",
+          "responsibility": "Flag top ownership failure."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "corridor": "Top row1",
+          "owner": "Noirc blocks; Kroos kills; Ansel heals from f2580.",
+          "routes": [
+            1,
+            3,
+            4,
+            9,
+            17,
+            18,
+            28
+          ]
+        },
+        {
+          "corridor": "Bottom row3 approach",
+          "owner": "Kroos approach chip and Steward coverage near [3,5]; no claimed blocking on device tiles.",
+          "routes": [
+            6,
+            7,
+            8,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34
+          ]
+        },
+        {
+          "corridor": "Bottom row4",
+          "owner": "Beagle [4,6] primary block3; Melantha [4,7] damage and block1 overflow; Hibiscus sustains both."
+        },
+        {
+          "corridor": "Bottom col8 exit",
+          "owner": "Cardigan [5,8] block3 from f3570, covered by Hibiscus; no unsupported self-heal."
+        },
+        {
+          "corridor": "Route-2 transit toward top exit",
+          "owner": "Beagle must hold it at [4,6]; Melantha provides one downstream interception opportunity. Cardigan [5,8] does not cover route-2's upward exit."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "LEFT",
+          "operator_id": "char_500_noirc",
+          "role": "Permanent top block3 opener",
+          "tile": [
+            1,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_122_beagle",
+          "role": "Permanent bottom block3 opener",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_124_kroos",
+          "role": "Top damage and bottom approach crossfire",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_120_hibisc",
+          "role": "Bottom normal and skill healing",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_210_stward",
+          "role": "Bottom arts damage",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_212_ansel",
+          "role": "Top healing",
+          "tile": [
+            2,
+            9
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_208_melan",
+          "role": "Bottom damage behind Beagle and block1 overflow",
+          "tile": [
+            4,
+            7
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_209_ardign",
+          "role": "Healed bottom exit block3",
+          "tile": [
+            5,
+            8
+          ]
+        }
+      ],
+      "explicit_deadline_basis": [
+        {
+          "action": "Beagle f690",
+          "basis": "132-frame margin before C2's observed Vanilla contact. Changed contact geometry still requires verification.",
+          "deadline": "Bottom deployment before f822"
+        },
+        {
+          "action": "Noirc f150",
+          "basis": "Supplied route-3 spawns f240; traversing five tiles to col6 at 1.1 tiles/s gives approximately f376 under continuous model arithmetic.",
+          "deadline": "Top opening interception",
+          "unknown_reason": "Exact contact radius and client timing are UNKNOWN."
+        },
+        {
+          "action": "Cardigan f3570",
+          "basis": "330 frames before model flood spawns begin f3900.",
+          "deadline": "Exit backstop before final flood"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "restriction": "No mode-specific reserve operators, operators outside the supplied catalog, or rarity above 3."
+        },
+        {
+          "restriction": "No Python-selected replacements, movements, or unscheduled handovers."
+        },
+        {
+          "restriction": "No Popka multi-target damage, Cardigan self-heal, unsupported talents, or device navigation changes credited."
+        }
+      ],
+      "formation_structure": {
+        "bottom": "Beagle [4,6] LEFT; Melantha [4,7] LEFT; Hibiscus [5,7] DOWN; Steward [5,6] DOWN; Cardigan [5,8] UP.",
+        "declared_range_checks": [
+          {
+            "direction": "LEFT",
+            "operator_id": "char_500_noirc",
+            "responsibility": "Attack enemies blocked on his own tile.",
+            "status": "SOURCE_DECLARED",
+            "targets": [
+              [
+                1,
+                6
+              ]
+            ],
+            "tile": [
+              1,
+              6
+            ],
+            "unknown_reason": "No C3 coverage query returned; blocked contact and target selection require runtime verification."
+          },
+          {
+            "direction": "LEFT",
+            "operator_id": "char_122_beagle",
+            "responsibility": "Attack his bottom blocking pile.",
+            "status": "SOURCE_DECLARED",
+            "targets": [
+              [
+                4,
+                6
+              ]
+            ],
+            "tile": [
+              4,
+              6
+            ],
+            "unknown_reason": "No C3 coverage query returned; contact and pile selection remain unverified."
+          },
+          {
+            "direction": "LEFT",
+            "operator_id": "char_124_kroos",
+            "responsibility": "Top kills and bottom approach chip.",
+            "status": "INHERITED_C2_REPORTED_TOOL_COVERAGE",
+            "targets": [
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                3,
+                6
+              ]
+            ],
+            "tile": [
+              2,
+              6
+            ],
+            "unknown_reason": "No new C3 query; target ordering and time spent attacking each corridor are UNKNOWN."
+          },
+          {
+            "direction": "DOWN",
+            "operator_id": "char_120_hibisc",
+            "responsibility": "Heal Beagle, Melantha, and Cardigan.",
+            "status": "INHERITED_C2_REPORTED_TOOL_COVERAGE",
+            "targets": [
+              [
+                4,
+                6
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                5,
+                8
+              ]
+            ],
+            "tile": [
+              5,
+              7
+            ],
+            "unknown_reason": "Single-target allocation and aggregate healing sufficiency are unverified."
+          },
+          {
+            "direction": "DOWN",
+            "operator_id": "char_210_stward",
+            "responsibility": "Bottom approach and blocking-pile arts damage.",
+            "status": "INHERITED_C2_REPORTED_TOOL_COVERAGE",
+            "targets": [
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                4,
+                7
+              ]
+            ],
+            "tile": [
+              5,
+              6
+            ],
+            "unknown_reason": "Target ordering and final-wave damage throughput are UNKNOWN."
+          },
+          {
+            "direction": "LEFT",
+            "operator_id": "char_212_ansel",
+            "responsibility": "Sustain Noirc using normal healing; skill extends pressure-window sustain.",
+            "status": "INHERITED_C2_REPORTED_TOOL_COVERAGE",
+            "targets": [
+              [
+                1,
+                6
+              ]
+            ],
+            "tile": [
+              2,
+              9
+            ],
+            "unknown_reason": "Exact healing timing is unverified; no extra-target talent is credited."
+          },
+          {
+            "direction": "LEFT",
+            "operator_id": "char_208_melan",
+            "responsibility": "Attack Beagle's pile and block one overflow enemy.",
+            "status": "SOURCE_OFFSET_DECLARATION_UNVERIFIED",
+            "targets": [
+              [
+                4,
+                6
+              ],
+              [
+                4,
+                7
+              ]
+            ],
+            "tile": [
+              4,
+              7
+            ],
+            "unknown_reason": "No range query returned for this changed deployment; actual blocked-enemy positions and melee reach require verification."
+          },
+          {
+            "direction": "UP",
+            "operator_id": "char_209_ardign",
+            "responsibility": "Attack and block bottom enemies traversing the col8 exit.",
+            "status": "SOURCE_DECLARED",
+            "targets": [
+              [
+                5,
+                8
+              ]
+            ],
+            "tile": [
+              5,
+              8
+            ],
+            "unknown_reason": "No C3 query returned; interception capacity under accumulated overflow is unverified."
+          }
+        ],
+        "top": "Noirc [1,6] LEFT; Kroos [2,6] LEFT; Ansel [2,9] LEFT."
+      },
+      "formation_transitions": [
+        {
+          "ownership": "Noirc and Beagle retain their original lines throughout.",
+          "transition": "Defender opening to supported formation"
+        },
+        {
+          "ownership": "Add downstream capacity without releasing existing blocked enemies.",
+          "transition": "Add Melantha and Cardigan"
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "Zero leaks; life-point capacity is never a tactical budget."
+        },
+        {
+          "invariant": "Never deploy on [3,5], [4,9], [2,7], [2,1], or [5,3]."
+        },
+        {
+          "invariant": "No planned retreats; retain blocking ownership through cleanup."
+        },
+        {
+          "invariant": "Eight distinct deployment tiles and at most eight deployed operators."
+        },
+        {
+          "invariant": "Route-2 must remain intercepted before its upward exit; Cardigan is only a bottom-exit backstop."
+        },
+        {
+          "invariant": "Do not certify survival merely from coverage, defense arithmetic, or a funded deployment."
+        }
+      ],
+      "opening_responsibilities": [
+        {
+          "interval": "f150 until Kroos f1020, then permanent",
+          "owner": "Noirc",
+          "survival_basis": "Against supplied 330 ATK, base DEF315 gives 16.5 damage per hit under the minimum-damage formula. This improves substantially on Fang's DEF260, but cumulative contacts and HP remain a runtime check.",
+          "transfer": "No planned retreat or predecessor death; Noirc owns the top line from the opening."
+        },
+        {
+          "interval": "f690 until Hibiscus f1530, then permanent",
+          "owner": "Beagle",
+          "survival_basis": "Base DEF490 reduces supplied 330/380 attacks to 16.5/19 per hit. Three attacking blocked enemies imply at most 38 damage/s from three 380-ATK enemies at 1.5-second intervals, excluding unverified interactions.",
+          "transfer": "Route-2 and route-6 encounter the defender directly; Vanilla never owns them."
+        }
+      ],
+      "operational_plan_id": "R8_1_LOWSTAR_PLAN_C3",
+      "optional_responsibilities": [
+        {
+          "responsibility": "Skill actions after battle termination are moot; late skills contribute only if their operators remain alive and deployed."
+        }
+      ],
+      "parent_hypothesis_id": "R8_1_C3_NATURAL_DP_DEFENDER_OPEN",
+      "pressure_window_responsibilities": [
+        {
+          "owner": "Beagle handles early bottom contacts without a vanguard handover; Noirc and Kroos handle top.",
+          "unknown_reason": "Actual remaining HP and outstanding enemy counts are unverified.",
+          "window": "t25-51"
+        },
+        {
+          "owner": "Hibiscus sustains Beagle; Steward joins at t69; Ansel joins top at t86.",
+          "window": "t51-101"
+        },
+        {
+          "owner": "Melantha adds bottom damage; Cardigan establishes exit blocking at t119.",
+          "window": "t101-130"
+        },
+        {
+          "owner": "Hibiscus f3990, Beagle f4050, Melantha f4260; Cardigan catches bottom overflow.",
+          "unknown_reason": "No simulation establishes that final-wave kill rate prevents saturation.",
+          "window": "t130 through final arrivals"
+        },
+        {
+          "owner": "All surviving blockers, damage operators, and medics remain deployed; later scheduled skills support an extended tail.",
+          "window": "Cleanup after t160.8"
+        }
+      ],
+      "reserve_strategy": [
+        {
+          "death_effect": "An operator death does not remove any credited future income. It can still invalidate blocking and skill actions.",
+          "income_dependency": "Initial 10 plus 119 natural DP by f3570; zero skill DP and zero refunds.",
+          "payment_schedule": [
+            {
+              "balance_after": 1,
+              "cost": 14,
+              "frame": 150
+            },
+            {
+              "balance_after": 1,
+              "cost": 18,
+              "frame": 690
+            },
+            {
+              "balance_after": 1,
+              "cost": 11,
+              "frame": 1020
+            },
+            {
+              "balance_after": 1,
+              "cost": 17,
+              "frame": 1530
+            },
+            {
+              "balance_after": 1,
+              "cost": 18,
+              "frame": 2070
+            },
+            {
+              "balance_after": 1,
+              "cost": 17,
+              "frame": 2580
+            },
+            {
+              "balance_after": 1,
+              "cost": 15,
+              "frame": 3030
+            },
+            {
+              "balance_after": 1,
+              "cost": 18,
+              "frame": 3570
+            }
+          ],
+          "strategy": "Natural DP reserve",
+          "total_cost": 128,
+          "unknown_reason": "Timing tool verification and payment-entry linkage were not returned."
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_500_noirc",
+        "char_122_beagle",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_208_melan",
+        "char_209_ardign"
+      ],
+      "skill_intents": [
+        {
+          "frames": [
+            1920,
+            4050,
+            6180
+          ],
+          "intent": "Defense during setup, flood, and extended cleanup.",
+          "operator_id": "char_122_beagle",
+          "status": "SOURCE_SP_ARITHMETIC_UNVERIFIED"
+        },
+        {
+          "frames": [
+            2460,
+            3990,
+            5520
+          ],
+          "intent": "Bottom healing with active-duration SP pauses included.",
+          "operator_id": "char_120_hibisc",
+          "status": "SOURCE_SP_ARITHMETIC_UNVERIFIED"
+        },
+        {
+          "frames": [
+            3360,
+            5190
+          ],
+          "intent": "Top healing pressure and cleanup.",
+          "operator_id": "char_212_ansel",
+          "status": "SOURCE_SP_ARITHMETIC_UNVERIFIED"
+        },
+        {
+          "frames": [
+            4260,
+            6090
+          ],
+          "intent": "Bottom flood and cleanup damage.",
+          "operator_id": "char_208_melan",
+          "status": "SOURCE_SP_ARITHMETIC_UNVERIFIED"
+        },
+        {
+          "intent": "Runtime-managed attack-SP skills; no fixed trigger frames or target priorities assumed.",
+          "operator_id": "char_124_kroos / char_210_stward"
+        },
+        {
+          "intent": "Never activate unsupported self-healing.",
+          "operator_id": "char_209_ardign"
+        }
+      ],
+      "tactical_thesis": "Open with Noirc and Beagle using natural DP, then build Kroos crossfire and two independent medic supports. Beagle intercepts route-2 and route-6 before their C2 contacts, eliminating the Vanilla-to-Beagle transfer gap. Melantha attacks behind Beagle without replacing his blocking ownership; Cardigan provides an earlier healed bottom exit backstop. Keep the entire formation through spawn exhaustion and cleanup. This candidate resolves C2's income dependency and scheduled ownership gap, while survival and final-wave throughput remain conditional.",
+      "temporary_roles": [],
+      "unknown_dependencies": [
+        {
+          "topic": "C3 range and timing verification",
+          "unknown_reason": "Only unsupported economy-topic queries returned; new declarations were not tool-checked."
+        },
+        {
+          "topic": "Opening survival",
+          "unknown_reason": "No C3 combat run establishes defender HP, contact timing, or initial enemy accumulation."
+        },
+        {
+          "topic": "Final-wave throughput",
+          "unknown_reason": "Single-target damage, target ordering, and blocking saturation have not been simulated."
+        },
+        {
+          "topic": "Death handover",
+          "unknown_reason": "Released enemies are not guaranteed to enter downstream block radius before leaking."
+        },
+        {
+          "topic": "Ordinary WALK roadblock navigation",
+          "unknown_reason": "Supplied evidence explicitly leaves it UNKNOWN; C3 preserves the given runtime routes."
+        },
+        {
+          "topic": "Exact client timing",
+          "unknown_reason": "Windup, rounding, and priority are outside the supplied evidence."
+        }
+      ],
+      "verification_questions": [
+        {
+          "question": "Do all eight natural-DP payments execute with nonnegative balances and no skill-income entries?"
+        },
+        {
+          "question": "Does Beagle intercept route-2 before f822 and route-6 before its downstream escape segment?"
+        },
+        {
+          "question": "Do Noirc and Beagle survive until their respective medics deploy?"
+        },
+        {
+          "question": "Does Melantha at [4,7] LEFT attack enemies blocked at [4,6]?"
+        },
+        {
+          "question": "Does Hibiscus sustain the actual Beagle, Melantha, and Cardigan healing demand without lethal gaps?"
+        },
+        {
+          "question": "Do final-wave enemy counts remain within effective blocking capacity, including route-2's distinct exit?"
+        },
+        {
+          "question": "Does the complete run finish with zero leaks, exhausted spawns, and no active enemies?"
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "evidence_boundary": "C2 death and leak frames are conditional diagnostic observations. Changing the formation changes subsequent contacts and outcomes.",
+    "failure_interpretation": "C2 lost living blockers and future income before its support formation existed. C3 removes the vanguard-income dependency and establishes durable blocking before the observed route-2 and route-6 contacts.",
+    "stage_id": "main_08-01",
+    "tool_results": {
+      "economy": "UNKNOWN",
+      "unknown_reason": "The executed query used a topic outside the mechanic whitelist. No C3 range or timing tool verification was returned."
+    },
+    "win_condition": "Zero leaks, exhausted spawn schedule, and no active enemies."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_1_C3_NATURAL_DP_DEFENDER_OPEN",
+      "principal_test": "Bottom killing speed and outstanding enemy count must remain within the actual interception capacity during the final paired spawns.",
+      "status": "CONDITIONAL_UNVERIFIED",
+      "thesis": "Defenders can absorb the setup interval under the supplied physical-damage model while natural DP builds independent healing and damage."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "mandatory": [
+      "No skill income, refunds, unsupported self-healing, or probabilistic talents in the payment or survival budget.",
+      "Beagle must be deployed before route-2 reaches the bottom line.",
+      "Healing coverage does not establish sufficient healing throughput.",
+      "Any blocker death requires immediate ownership verification; it cannot be treated as a harmless formation transition."
+    ],
+    "maximum_simultaneous_deployments": 8,
+    "ordinary_mode": true,
+    "rarity_range": [
+      1,
+      3
+    ]
+  },
+  "uncertainties": [
+    {
+      "status": "UNVERIFIED_CANDIDATE",
+      "unknown_reason": "C3 has no returned timing verification, new range verification, or full-stage diagnostic. Its zero-leak outcome remains unresolved."
+    }
+  ]
+}

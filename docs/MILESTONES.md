@@ -380,3 +380,11 @@ Update: provider compatibility is partially confirmed: the project API emitted a
 the only final JSON violated C2 parent identity and frame ordering. Persistent evidence records 4
 STARTED / 3 FINISHED requests, exceeding the 3-request cap; no further call is permitted. A numbering
 bug overwrote some raw response files and is documented without reconstruction.
+
+## 2026-10-13 — Recovered GPT-C3 diagnostic
+
+The saved GPT-C3 was recovered offline without another model request. After fixing hypothesis-lineage
+semantics and preserving one stable action-order correction, the recovery passed schema/contract and
+static checks with 0 conflicts / 0 UNKNOWNs. The authorized single full-stage diagnostic simulation
+completed as LOSS: 46 kills, 10 leaks, remaining life -5, zero operator deaths; first leak frame 1579.
+This is conditional model evidence only.

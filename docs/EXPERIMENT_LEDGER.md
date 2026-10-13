@@ -320,3 +320,9 @@ assistant文本或原生function_call。第2次显式`tool_choice=required`请�
 更新：项目会话实际日志4 STARTED / 3 FINISHED，按STARTED计为4/3（超出授权）；1/6只读工具；
 0个通过契约的OperationalPlan。原生function_call和续接成功；唯一最终JSON因parent错误和
 frame乱序被拒绝。attempt编号缺陷覆盖原始响应，已保存缺失记录并修复未来行为。
+
+## 2026-10-13 GPT-C3恢复与执行
+
+模型请求0、只读工具0、新战术计划0。离线恢复1份GPT-C3；schema/contract PASS；静态检查
+0冲突/0 UNKNOWN。关卡模拟1/1次启动，结果LOSS：46杀、10漏、生命-5、0死亡，最早漏怪frame1579。
+manifest阶段故障已记录；模拟没有重启。

@@ -288,10 +288,17 @@ def validate_c3_contract(parsed: dict[str, Any], evidence: dict[str, Any]) -> li
     plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
     if not str(plan.get("operational_plan_id", "")).startswith(PLAN_ID_PREFIX):
         errors.append("operational_plan_id must identify C3")
-    if plan.get("parent_hypothesis_id") != PARENT_PLAN_ID:
-        errors.append("parent_hypothesis_id must identify C2")
+    hypothesis_ids = {
+        row.get("hypothesis_id")
+        for row in parsed.get("revised_strategic_hypotheses") or []
+        if isinstance(row, dict) and row.get("hypothesis_id")
+    }
+    if plan.get("parent_hypothesis_id") not in hypothesis_ids:
+        errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
     if len(plan.get("revised_operational_plans") or plan.get("action_timeline") or []) == 0:
         errors.append("C3 action timeline is empty")
+    if parsed.get("provenance", {}).get("revision_source", {}).get("operational_plan_id") != PARENT_PLAN_ID:
+        errors.append("provenance.revision_source must identify C2")
     return errors
 
 

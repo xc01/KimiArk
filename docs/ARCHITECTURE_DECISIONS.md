@@ -201,3 +201,8 @@ function_call和成功续接。
 决策：provider工具轮不得因为同一输出包含assistant commentary和completed function_call而判为最终计划。
 只要整体response完成、function_call完成且流式/最终形状一致，就必须执行原生工具并重建完整续接。
 attempt文件编号必须继承持久预算计数，禁止每个进程从1重写，避免覆盖请求/响应取证材料。
+
+决策：`parent_hypothesis_id`引用`revised_strategic_hypotheses[].hypothesis_id`；C2等旧计划只放在
+`provenance.revision_source`。恢复输出只能做显式无损整理：本例加入provenance并按整数frame稳定
+排序，同帧相对顺序不变；每个参数保持逐项一致。全关诊断入口的source/out/plan_id必须参数化并
+解析为绝对路径，manifest写入失败也不能成为重跑理由。

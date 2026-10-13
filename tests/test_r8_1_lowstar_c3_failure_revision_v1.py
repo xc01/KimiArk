@@ -42,7 +42,8 @@ class C3FailureRevisionTests(unittest.TestCase):
         ]}
         errors = validate_c3_contract(wrong, evidence)
         self.assertIn("operational_plan_id must identify C3", errors)
-        self.assertIn("parent_hypothesis_id must identify C2", errors)
+        self.assertIn("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id", errors)
+        self.assertIn("provenance.revision_source must identify C2", errors)
         self.assertTrue(PLAN_ID_PREFIX and PARENT_PLAN_ID)
 
 

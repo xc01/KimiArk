@@ -321,6 +321,20 @@ output 7,529（reasoning 955）。最终文本是合法JSON，但不是有效GPT
 没有静态编译、模拟或WIN/LOSS。Sub2API/GPT的“原生工具+完整续接”兼容性已从项目入口观察到；
 最终计划契约兼容性失败。
 
+## 2026-10-13 GPT-C3离线恢复与诊断LOSS
+
+CONFIRMED_FROM_OFFLINE_RECOVERY：模型请求0。保存的原始最终输出与`invalid_final_plan.json.parsed`
+逐项一致；恢复副本只加入`provenance.revision_source=C2`并把frame6090玫兰莎技能稳定排序到
+frame6180米格鲁技能前。精确diff、规范化记录、现有schema/contract结果和静态检查已另存。
+
+CONFIRMED_FROM_STATIC_CHECK：恢复GPT-C3有18个原样动作、8个部署，静态编译为0冲突、0 UNKNOWN；
+无faithful证书。
+
+CONFIRMED_FROM_SIMULATION：授权1/1次原样全关诊断模拟完成，LOSS。46杀、10漏、剩余生命-5、
+0干员死亡、终局DP123.4667。首漏为route-10 `enemy_1108_uterer#9`，frame1579。无部署错误、
+无自动DP收入事件。manifest曾因相对路径缺陷延迟写入，事件/summary已保存；修复后只重建manifest，
+没有重跑。无robust targeting复验，不能宣称实机通关。
+
 ## 2026-10-13 C2紧凑两阶段会话失败
 
 CONFIRMED_FROM_CODE：V2准备使用`compact_operator_catalog()`，请求从372,545字节压缩到

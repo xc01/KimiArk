@@ -45,6 +45,14 @@ class GptTacticalRevisionTests(unittest.TestCase):
         self.assertNotIn(b"Bearer", body)
         self.assertNotIn(b"Authorization", body)
 
+    def test_parent_hypothesis_may_reference_strategic_hypothesis_not_plan_id(self):
+        parsed = json.loads((OUT / "invalid_final_plan.json").read_text(encoding="utf-8"))["parsed"]
+        evidence = json.loads((OUT / "llm_evidence_context.json").read_text(encoding="utf-8"))
+        errors = runner.validate_c3_contract(parsed, evidence)
+        self.assertNotIn("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id", errors)
+        self.assertIn("action[17] frame is out of order", errors)
+        self.assertIn("provenance.revision_source must identify C2", errors)
+
     def test_tool_continuation_keeps_call_context_before_result(self):
         base_payload = json.loads((OUT / "llm_request.json").read_text(encoding="utf-8"))
         call = {
@@ -65,7 +73,8 @@ class GptTacticalRevisionTests(unittest.TestCase):
             temporary_dir.mkdir(exist_ok=True)
             (temporary_dir / "llm_call_attempts.jsonl").write_text("", encoding="utf-8")
             (temporary_dir / "budget_usage.json").write_text(json.dumps({
-                "model_requests_started": 0, "readonly_tool_calls_executed": 0,
+                "model_requests_started": 0, "max_model_requests": 3,
+                "readonly_tool_calls_executed": 0,
             }), encoding="utf-8")
             for name in ("llm_evidence_context.json", "revision_output_schema.json", "llm_request.json"):
                 (temporary_dir / name).write_bytes((OUT / name).read_bytes())
@@ -116,7 +125,8 @@ class GptTacticalRevisionTests(unittest.TestCase):
             temporary_dir = Path(temporary)
             (temporary_dir / "llm_call_attempts.jsonl").write_text("", encoding="utf-8")
             (temporary_dir / "budget_usage.json").write_text(json.dumps({
-                "model_requests_started": 1, "readonly_tool_calls_executed": 0,
+                "model_requests_started": 1, "max_model_requests": 3,
+                "readonly_tool_calls_executed": 0,
             }), encoding="utf-8")
             original_out = runner.OUT
             runner.OUT = temporary_dir
@@ -130,6 +140,45 @@ class GptTacticalRevisionTests(unittest.TestCase):
                 runner.OUT = original_out
             self.assertTrue((temporary_dir / "attempt_2_request.json").is_file())
             self.assertTrue((temporary_dir / "attempt_2_request_body.txt").is_file())
+
+    def test_started_records_block_restart_even_without_finish_record(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_dir = Path(temporary)
+            (temporary_dir / "llm_call_attempts.jsonl").write_text(
+                json.dumps({"phase": "STARTED", "request_body_sha256": "abc"}) + "\n",
+                encoding="utf-8",
+            )
+            (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                "model_requests_started": 0, "max_model_requests": 3,
+                "readonly_tool_calls_executed": 0,
+            }), encoding="utf-8")
+            original_out = runner.OUT
+            runner.OUT = temporary_dir
+            try:
+                with self.assertRaisesRegex(RuntimeError, "1/3 STARTED records"):
+                    runner.reconcile_budget_from_request_log()
+            finally:
+                runner.OUT = original_out
+            self.assertEqual(
+                json.loads((temporary_dir / "budget_usage.json").read_text())["model_requests_started"], 1,
+            )
+
+    def test_concurrent_entries_are_locked(self):
+        original_out = runner.OUT
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_dir = Path(temporary)
+            (temporary_dir / "llm_call_attempts.jsonl").write_text("", encoding="utf-8")
+            (temporary_dir / "budget_usage.json").write_text(json.dumps({
+                "model_requests_started": 0, "max_model_requests": 3,
+                "readonly_tool_calls_executed": 0,
+            }), encoding="utf-8")
+            runner.OUT = temporary_dir
+            runner.assert_run_lock()
+            try:
+                with self.assertRaisesRegex(RuntimeError, "budget lock already consumed"):
+                    runner.assert_run_lock()
+            finally:
+                runner.OUT = original_out
 
 
 if __name__ == "__main__":

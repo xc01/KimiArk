@@ -15,10 +15,10 @@ from arknights_planner.simulator import ApproximateRealRangeTransformer, Instant
 
 ROOT = Path(__file__).resolve().parents[1]
 GAMEDATA = ROOT / "data/ArknightsGameData"
-SOURCE = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2"
-OUT = ROOT / "output/r8_1_lowstar_c2_full_diagnostic_v1"
+DEFAULT_SOURCE = ROOT / "output/r8_1_lowstar_c2_compact_tool_revision_v2"
+DEFAULT_OUT = ROOT / "output/r8_1_lowstar_c2_full_diagnostic_v1"
 FRAMES_PER_SECOND = 30
-PLAN_ID = "R8_1_LOWSTAR_PLAN_C2"
+DEFAULT_PLAN_ID = "R8_1_LOWSTAR_PLAN_C2"
 STAGE_ID = "main_08-01"
 
 
@@ -26,8 +26,8 @@ def load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_json(name: str, payload: Any) -> None:
-    (OUT / name).write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+def write_json(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def sha256(path: Path) -> str:
@@ -53,10 +53,10 @@ def json_value(value: Any) -> Any:
     return asdict(value) if is_dataclass(value) else value
 
 
-def fail_started(error: str, started: dict[str, Any]) -> None:
+def fail_started(error: str, started: dict[str, Any], out: Path) -> None:
     record = {**started, "status": "FAILED_BEFORE_RESULT", "error": error}
-    write_json("simulation_attempt.json", record)
-    write_json("final_status.json", {
+    write_json(out / "simulation_attempt.json", record)
+    write_json(out / "final_status.json", {
         "budget": {"kimi_requests": 0, "new_plans": 0, "new_candidates": 0,
                    "stage_simulations_started": 1, "search_expansions": 0},
         "faithful_certificate": "NOT_ISSUED",
@@ -114,23 +114,25 @@ def summaries(events: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=False)
-    static = load(SOURCE / "static_compile_results.json")
-    candidate = load(SOURCE / "direction_complete_action_candidate.json")
-    evidence = load(SOURCE / "llm_evidence_context.json")
-    plan = load(SOURCE / "llm_structured_output.json")["revised_operational_plans"][0]
-    if candidate["operational_plan_id"] != PLAN_ID or static["classification"] not in {
+def run_full_diagnostic(source: Path = DEFAULT_SOURCE, out: Path = DEFAULT_OUT, plan_id: str = DEFAULT_PLAN_ID) -> None:
+    source = source if source.is_absolute() else ROOT / source
+    out = out if out.is_absolute() else ROOT / out
+    out.mkdir(parents=True, exist_ok=True)
+    static = load(source / "static_compile_results.json")
+    candidate = load(source / "direction_complete_action_candidate.json")
+    evidence = load(source / "llm_evidence_context.json")
+    plan = load(source / "llm_structured_output.json")["revised_operational_plans"][0]
+    if candidate["operational_plan_id"] != plan_id or static["classification"] not in {
         "STATIC_CONTRACT_CHECKED_CONDITIONAL", "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN"
     } or static["conflicts"]:
-        raise SystemExit("C2 full diagnostic execution premise not met")
+        raise SystemExit("full diagnostic execution premise not met")
     actions = candidate["actions"]
     catalog = {row["operator_id"]: row for row in evidence["normal_low_star_catalog"]}
     deployments = [action for action in actions if action["action_type"] == "DEPLOY"]
     selected_ids = set(plan["selected_low_star_operator_ids"])
     deployment_ids = {action["operator_id"] for action in deployments}
     if deployment_ids != selected_ids or len(deployment_ids) != len(deployments):
-        raise SystemExit("saved C2 deployment set does not match selected catalog")
+        raise SystemExit("saved deployment set does not match selected catalog")
     candidate_contract = [
         (action["action_type"], int(action["frame"]), action["operator_id"], action.get("tile"), action.get("direction"))
         for action in actions
@@ -140,7 +142,7 @@ def main() -> None:
         for action in plan["action_timeline"]
     ]
     if candidate_contract != plan_contract:
-        raise SystemExit("direction-complete candidate does not match the saved C2 action timeline")
+        raise SystemExit("direction-complete candidate does not match the saved action timeline")
     selections = tuple(
         RealOperatorSelection(
             action["operator_id"],
@@ -163,14 +165,14 @@ def main() -> None:
         strategy_actions.append(Action(action_type, int(action["frame"]) / FRAMES_PER_SECOND, action["operator_id"], tile, action.get("direction")))
     started = {
         "schema_version": "R8_1_LOWSTAR_C2_FULL_DIAGNOSTIC_ATTEMPT_V1",
-        "plan_id": PLAN_ID,
+        "plan_id": plan_id,
         "action_count": len(actions),
         "stage_simulations_started": 1,
         "status": "STARTED",
         "policy": RealSimulationApproximationPolicy.m11_second_quantized().names,
         "automatic_retry": False,
     }
-    write_json("simulation_attempt.json", started)
+    write_json(out / "simulation_attempt.json", started)
     try:
         policy = RealSimulationApproximationPolicy.m11_second_quantized()
         fixture = ApproximateRealSimulationAdapter(GameDataRepository(GAMEDATA)).build_fixture(
@@ -184,14 +186,14 @@ def main() -> None:
             strategy=strategy, config=SimulationConfig(dt=1 / FRAMES_PER_SECOND, max_time=600.0),
         )
     except Exception as exc:
-        fail_started(f"{type(exc).__name__}: {exc}", started)
+        fail_started(f"{type(exc).__name__}: {exc}", started, out)
         return
     events = [event_payload(event) for event in result.events]
     event_summaries = summaries(events)
     parameters = {
         "mechanics_version": "m18.9-stage-device-runtime-v1",
         "stage_id": STAGE_ID,
-        "plan_id": PLAN_ID,
+        "plan_id": plan_id,
         "run_mode": "DIAGNOSTIC_MODEL_FULL_STAGE",
         "run_count": 1,
         "frames_per_second": FRAMES_PER_SECOND,
@@ -217,23 +219,23 @@ def main() -> None:
         "first_failure": first_failure_context(events),
     }
     completed = {**started, "status": "COMPLETED", "result_saved": True}
-    write_json("simulation_attempt.json", completed)
-    write_json("simulation_parameters.json", parameters)
-    write_json("diagnostic_events.json", {"events": events})
-    write_json("diagnostic_summary.json", summary)
+    write_json(out / "simulation_attempt.json", completed)
+    write_json(out / "simulation_parameters.json", parameters)
+    write_json(out / "diagnostic_events.json", {"events": events})
+    write_json(out / "diagnostic_summary.json", summary)
     source_paths = (
-        Path(__file__).resolve(), SOURCE / "llm_structured_output.json", SOURCE / "direction_complete_action_candidate.json",
-        SOURCE / "static_compile_results.json", SOURCE / "llm_evidence_context.json",
+        Path(__file__).resolve(), source / "llm_structured_output.json", source / "direction_complete_action_candidate.json",
+        source / "static_compile_results.json", source / "llm_evidence_context.json",
         (ROOT / "src/arknights_planner/simulator/simulator.py"), (ROOT / "src/arknights_planner/adapters/approximate_real.py"),
         (ROOT / "src/arknights_planner/adapters/low_rarity_skill.py"), (ROOT / "scripts/compile_r8_1_lowstar_c2_plan_v1.py"),
-        OUT / "simulation_parameters.json", OUT / "diagnostic_events.json", OUT / "diagnostic_summary.json",
+        out / "simulation_parameters.json", out / "diagnostic_events.json", out / "diagnostic_summary.json",
     )
-    write_json("run_manifest.json", {
+    write_json(out / "run_manifest.json", {
         "schema_version": "R8_1_LOWSTAR_C2_FULL_DIAGNOSTIC_MANIFEST_V1",
         "files": {str(path.relative_to(ROOT)): file_record(path) for path in source_paths},
     })
     final_result = summary["result"]
-    write_json("final_status.json", {
+    write_json(out / "final_status.json", {
         "budget": {"kimi_requests": 0, "new_plans": 0, "new_candidates": 0,
                    "stage_simulations_started": 1, "search_expansions": 0},
         "classification": "DIAGNOSTIC_MODEL_FULL_STAGE",
@@ -254,4 +256,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_full_diagnostic()

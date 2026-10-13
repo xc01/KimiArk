@@ -100,3 +100,8 @@ No further GPT call may run from this directory: the persisted STARTED count is 
 `invalid_final_plan.json`, and `evidence_numbering_incident.json`. Any later tactical revision needs a
 new authorized directory and must explicitly handle the rejected plan's late frame-6090 ordering and
 wrong parent identity; it must not repair or replay the invalid output as a valid C3.
+
+The recovered C3 is now a reviewed tactical input, not a successful strategy. Its first concrete model
+failure is route-10 at frame 1579. Future work must decide whether Work authorizes a tactical
+re-request in a fresh budgeted directory or a bounded mechanism investigation; do not repair the same
+plan automatically, expand search, or call GPT without a new Work-approved budget.

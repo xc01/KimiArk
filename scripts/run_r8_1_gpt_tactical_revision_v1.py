@@ -8,6 +8,7 @@ import os
 import socket
 import urllib.error
 import urllib.request
+import fcntl
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -186,6 +187,33 @@ def source_manifest(evidence_path: Path) -> dict[str, Any]:
     }
 
 
+def assert_run_lock() -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    path = OUT / "run.lock"
+    handle = path.open("a+", encoding="utf-8")
+    try:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError as exc:
+        handle.close()
+        raise RuntimeError("another GPT tactical session is running; concurrent entry is forbidden") from exc
+    handle.seek(0)
+    if handle.read(1):
+        handle.close()
+        raise RuntimeError("GPT budget lock already consumed; restart cannot reset the session")
+    handle.seek(0)
+    handle.write(json.dumps({
+        "schema_version": "R8_1_GPT_TACTICAL_REVISION_V1_RUN_LOCK",
+        "locked_at": datetime.now(timezone.utc).isoformat(),
+        "policy": "one exclusive session; persistent STARTED records are the consumed-budget authority",
+    }, sort_keys=True) + "\n")
+    handle.flush()
+
+
+def save_exclusive(path: Path, text: str) -> None:
+    with path.open("x", encoding="utf-8") as handle:
+        handle.write(text)
+
+
 def append_attempt(record: dict[str, Any]) -> None:
     with (OUT / "llm_call_attempts.jsonl").open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
@@ -199,6 +227,24 @@ def update_budget(model_requests: int | None = None, tool_calls: int | None = No
     if tool_calls is not None:
         state["readonly_tool_calls_executed"] = max(state["readonly_tool_calls_executed"], tool_calls)
     write_json(path, state)
+
+
+def reconcile_budget_from_request_log() -> dict[str, Any]:
+    records = [json.loads(line) for line in (OUT / "llm_call_attempts.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    started = sum(row.get("phase") == "STARTED" for row in records)
+    finished = sum(row.get("phase") == "FINISHED" for row in records)
+    state = load(OUT / "budget_usage.json")
+    current = int(state.get("model_requests_started", 0))
+    if started != current:
+        state["model_requests_started"] = max(current, started)
+        state["budget_reconciliation"] = "STARTED records are authoritative, including requests without FINISHED records."
+        write_json("budget_usage.json", state)
+    if state["model_requests_started"] > 0 or state["model_requests_started"] >= state["max_model_requests"]:
+        raise RuntimeError(
+            f"GPT model request budget exhausted: "
+            f"{state['model_requests_started']}/{state['max_model_requests']} STARTED records"
+        )
+    return {"started": started, "finished": finished, **state}
 
 
 def make_stream_once(provider: str, model: str, reasoning_effort: str | None) -> Any:
@@ -218,10 +264,8 @@ def make_stream_once(provider: str, model: str, reasoning_effort: str | None) ->
             raise RuntimeError(f"{config['credential_env']} is not set")
         attempts += 1
         update_budget(model_requests=attempts)
-        (OUT / f"attempt_{attempts}_request.json").write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-        )
-        (OUT / f"attempt_{attempts}_request_body.txt").write_bytes(body)
+        save_exclusive(OUT / f"attempt_{attempts}_request.json", json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+        save_exclusive(OUT / f"attempt_{attempts}_request_body.txt", body.decode("utf-8"))
         request = urllib.request.Request(base_url, data=body, method="POST", headers={
             "Accept": "text/event-stream", "Authorization": f"Bearer {credential}", "Content-Type": "application/json",
         })
@@ -254,7 +298,7 @@ def make_stream_once(provider: str, model: str, reasoning_effort: str | None) ->
         except OSError as exc:
             accumulator.error = f"NETWORK_OR_STREAM_INTERRUPTED: {exc}"
         raw = b"".join(chunks)
-        (OUT / f"attempt_{attempts}_raw_response.txt").write_bytes(raw)
+        save_exclusive(OUT / f"attempt_{attempts}_raw_response.txt", raw.decode("utf-8"))
         for event in parse_sse(raw.decode("utf-8", errors="replace")):
             accumulator.observe(event)
         accumulator.http_status = http_status
@@ -327,8 +371,8 @@ def call(provider: str, model: str, reasoning_effort: str | None) -> dict[str, A
     for path in (evidence_path, schema_path, request_path):
         if not path.is_file():
             raise RuntimeError(f"missing prepared input: {path}")
-    if load(OUT / "budget_usage.json").get("model_requests_started", 0) > 0:
-        raise RuntimeError("GPT budget already consumed; restart cannot reset or retry")
+    assert_run_lock()
+    reconcile_budget_from_request_log()
     config = provider_config(provider)
     if not os.environ.get(config["credential_env"]):
         error = {
