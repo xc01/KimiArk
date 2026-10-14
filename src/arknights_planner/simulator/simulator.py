@@ -298,15 +298,16 @@ class Simulator:
                    time=state.time, remaining_life=state.remaining_life, reason=reason)
 
     def _target_device_for(self, state: SimulationState, operator: RuntimeOperator) -> RuntimeDevice | None:
-        if any(not enemy.is_neutral for enemy in state.active_enemies.values()):
-            return None
         covered = self.range_transformer.covered_tiles(origin=operator.tile, offsets=self._effective_range(operator), direction=operator.direction)
-        targets = [device for device in state.active_devices.values() if device.tile in covered]
+        targets = [
+            device for device in state.active_devices.values()
+            if device.tile in covered
+        ]
         selected = min(targets, key=lambda device: device.device_id) if targets else None
         self._emit(state, EventType.DEVICE_TARGET_SELECTION, source=operator.operator_id,
                    target=selected.device_id if selected else None,
                    candidate_ids=tuple(device.device_id for device in targets),
-                   rule="DEVICE_ONLY_WHEN_NO_ENEMY_TARGET_TAUNT_MINUS_ONE_LOWEST_DEVICE_ID")
+                   rule="DEVICE_IF_OPERATOR_HAS_NO_ENEMY_TARGET_LOCAL_ORDINARY_DEVICE_CANDIDATES_DEVICE_ID_ORDER")
         return selected
 
     def _apply_damage_to_device(self, state: SimulationState, device_id: str, source_id: str, damage: float, *, kind: str = "physical") -> None:

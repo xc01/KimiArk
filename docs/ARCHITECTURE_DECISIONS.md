@@ -282,3 +282,12 @@ them in the command and attempt metadata. `features.apps=false` is a one-session
 connector fault-isolation override, not a provider/model switch and not a change
 to local read-only tools. Large diagnostic event/summary files are also committed
 as gzip with both compressed and decompressed SHA-256 values in the manifest.
+## 2026-10-14 Local device targeting boundary
+
+Device targeting belongs to the same operator's local candidate selection. A
+non-neutral enemy elsewhere is not evidence that this operator has a target, so
+it must not disable ordinary device candidates. The m19.1 runtime selects an
+ordinary device only after the local enemy function returns no candidate, and
+range/faction/eligibility rules remain intact. Exact client ordering among
+multiple devices and the full 2026 selector implementation remain UNKNOWN.
+Historical global-gate simulations stay historical-only.

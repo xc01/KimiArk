@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m18.9-stage-device-runtime-v1"
+ACTIVE_MECHANICS_VERSION = "m19.1-local-device-target-v1"
 
 MECHANICS_VERSION_HISTORY = {
     "m18-targeting-v1": {
@@ -52,6 +52,14 @@ MECHANICS_VERSION_HISTORY = {
     },
     ACTIVE_MECHANICS_VERSION: {
         "status": "ACTIVE",
+        "summary": "Local device targeting: an operator may target an ordinary roadblock in range when it has no optional enemy candidate; remote enemies do not create a global attack gate.",
+    },
+    "m19.0-neutral-protected-target-v1": {
+        "status": "SUPERSEDED",
+        "summary": "Adds neutral protected-target faction, life scoring, and roadblock civilian blocking.",
+    },
+    "m18.9-stage-device-runtime-v1": {
+        "status": "SUPERSEDED",
         "summary": "Adds enemy passive HP regeneration and exact every-second-attack cold override while retaining client-derived enemy attack timing.",
     },
 }

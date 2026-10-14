@@ -397,3 +397,18 @@ release path and officer pressure must be protected together. V9/V10 and
 V14/V15 are plan-specific current-model observations, not general disproof of
 interception. V11–V13 have no battle result.
 
+## 2026-10-14 Global device gate invalidated earlier clearance interpretation
+
+CONFIRMED_FROM_CODE_AND_SOURCE: `_target_device_for` treated any active
+non-neutral enemy anywhere as a global reason not to select a device. The PRTS
+roadblock/selector pages and fixed GameData support a low-taunt filtered
+candidate, not a map-wide prohibition. The correction in
+`m19.1-local-device-target-v1` uses local operator candidates only.
+
+LESSON: do not infer “must wait for every map enemy to disappear” from the old
+global runtime gate. This invalidates the strong claim that V14/V15 excluded
+clearance timing; it also changes their conditional results. The unchanged V15
+timeline now clears #2 at frame 2715, saves #6, keeps life 3, and safely
+delivers all protected targets. V14 still loses #6 at 5294, so the comparison
+is plan-specific and remains non-robust. Historical global-gate events are
+historical-only, not client evidence.

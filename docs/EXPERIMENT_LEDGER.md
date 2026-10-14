@@ -529,3 +529,12 @@ WIN with the same 36/0/0/life 2 metrics; it cleared roadblock #2 at 5911 but #6
 died at 4994 and #11 took two attacks. V16 was CLI start 32, left no final
 message, and was manually stopped after about 26 minutes without new session
 output. Internal requests remain `UNKNOWN_CLI_INTERNAL`.
+## 2026-10-14 Local device targeting replays
+
+No GPT CLI call was made in this repair round. Two original R8-2 plans were
+replayed once with unchanged action snapshots: V14 remained 36/0/0/life 2 with
+#6 death at 5294 and #2 destroyed at 6354; V15 became a perfect conditional
+simulator result at 36/0/0/life 3, 0 protected deaths, all protected arrivals,
+and #2 destroyed at 2715. R8-1 C7 was replayed once under both historical
+roadblock-targeting variants; both remained WIN. Simulation starts this round:
+four (two R8-2 plans plus two R8-1 targeting variants).

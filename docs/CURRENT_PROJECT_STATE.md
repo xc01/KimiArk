@@ -72,3 +72,23 @@ V14 is the better perfect-completion candidate because #6 died at 5294 rather
 than 4994 and #11 arrived without damage. Neither is perfect: #6 remains the only
 blocked protected target. V16 had no final message and was manually stopped with
 evidence. R8-4/R8-7 have not advanced in this round.
+## 2026-10-14 Local device targeting and R8-2 V15 perfect simulator result
+
+CONFIRMED_FROM_CODE: the prior device fallback contained an unsupported global
+gate—any active non-neutral enemy anywhere prevented a device target, even when
+the operator had no optional local enemy. PRTS and fixed GameData support taunt
+`-1` and filtered candidate priority, not a map-wide gate. Mechanics version
+`m19.1-local-device-target-v1` now considers ordinary devices only after the
+same operator has no local enemy candidate and only within its range. Exact
+multi-device ordering remains UNKNOWN.
+
+CONFIRMED_FROM_SIMULATION: unchanged V14 and V15 actions were replayed once at
+`output/r8_1_r8_7_batch_v1/main_08-02/local_device_target_revalidation_v1/`.
+V14 remains a WIN but #6 dies at 5294; V15 is now a perfect current-model
+simulator result with 36 kills, 0 leaks, 0 deaths, life 3, 0 protected-target
+deaths, all four protected arrivals, and roadblock #2 destroyed at 2715. This
+is not robust and not real-game. The seven-stage table is
+`seven_stage_status_v9.json`.
+
+CONFIRMED_FROM_SIMULATION: R8-1 C7 was replayed once on the same timeline under
+both historical roadblock-targeting variants and remains WIN in both.

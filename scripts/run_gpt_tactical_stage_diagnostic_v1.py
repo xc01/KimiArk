@@ -14,6 +14,7 @@ from arknights_planner.adapters import (
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.models.strategy import Action, ActionType, Strategy
 from arknights_planner.simulator import ApproximateRealRangeTransformer, InstantProjectileModel, SimulationConfig, Simulator
+from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
     event_payload,
     fail_started,
@@ -27,7 +28,7 @@ from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
 ROOT = Path(__file__).resolve().parents[1]
 GAMEDATA = ROOT / "data/ArknightsGameData"
 FRAMES_PER_SECOND = 30.0
-MECHANICS_VERSION = "m19.0-neutral-protected-target-v1"
+MECHANICS_VERSION = ACTIVE_MECHANICS_VERSION
 
 
 def load(path: Path) -> Any:

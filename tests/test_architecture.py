@@ -165,7 +165,7 @@ def test_equal_remaining_path_uses_stable_creation_order():
     assert selected.instance_id == "earlier-created#0"
 
 
-def test_device_targeting_does_not_displace_enemy_targets():
+def test_device_targeting_follows_local_enemy_candidates_only():
     stage = replace(
         runtime_stage(),
         devices=(BattleDevice("device#0", "trap_020_roadblock", (3, 1), 8000.0, 200.0, 20.0, -1, True, "ENEMY"),),
@@ -178,8 +178,10 @@ def test_device_targeting_does_not_displace_enemy_targets():
     )
     state.active_enemies["enemy#0"] = runtime_enemy("enemy#0", route_id="main", distance=5.0, spawn_index=0)
     operator = runtime_operator(attack_range=((0, 0),))
+    assert Simulator()._target_enemy_for(stage, state, operator) is None
     selected = Simulator()._target_device_for(state, operator)
-    assert selected is None
+    assert selected is not None
+    assert selected.device_id == "device#0"
 
 
 def test_device_is_targeted_when_no_enemy_is_available_and_is_destroyed():

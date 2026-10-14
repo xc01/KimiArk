@@ -252,7 +252,7 @@ def prepare() -> dict[str, Any]:
             "readonly_query_helpers": True,
         }
         evidence["corrected_mechanism_support"] = {
-            "mechanics_version": "m19.0-neutral-protected-target-v1",
+            "mechanics_version": "m19.1-local-device-target-v1",
             "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies",
             "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
             "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
