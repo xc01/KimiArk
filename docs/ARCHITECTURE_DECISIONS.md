@@ -271,3 +271,8 @@ lethal transition to `_damage_enemy`. That path calls `_unblock` before removing
 the active enemy, releasing its block slot exactly once while preserving kill
 counting and protected-target life deduction. Regression coverage includes
 direct death, projectile death, and one dead target in a multi-block holder.
+
+Decision: a tactical retry may explicitly reuse a saved prompt, evidence and
+schema directory. The runner copies the frozen inputs byte-for-byte, records the
+prompt SHA-256, and does not regenerate tactical material. This prevents drift
+between repeated attempts while retaining per-attempt locks, budgets and logs.

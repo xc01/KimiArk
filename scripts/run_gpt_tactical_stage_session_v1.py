@@ -25,6 +25,7 @@ PLAN_PREFIX = "R8_2_GPT_V3"
 PLAN_LABEL = "R8-2-V3"
 REVISION_SOURCE_DIR: str | None = None
 DIAGNOSTIC_SUMMARY: str | None = None
+SAVED_INPUT_DIR: str | None = None
 
 
 def load(path: Path) -> Any:
@@ -47,7 +48,7 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, SAVED_INPUT_DIR
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -57,6 +58,7 @@ def configure(arguments: argparse.Namespace) -> None:
     PLAN_LABEL = arguments.plan_label
     REVISION_SOURCE_DIR = arguments.revision_source
     DIAGNOSTIC_SUMMARY = arguments.diagnostic_summary
+    SAVED_INPUT_DIR = arguments.saved_input_dir
     codex_runner.configure_run(
         arguments.output_dir,
         arguments.diagnostic_output_dir,
@@ -154,63 +156,78 @@ def prepare() -> dict[str, Any]:
         "automatic_resume": False,
     }
     write_json(codex_runner.OUT / "budget_usage.json", budget)
-    evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
-    evidence = copy.deepcopy(evidence)
-    schema = evidence["output_schema"]
-    evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
-    evidence["tactical_provider"] = {
-        "provider": "codex-cli", "model": codex_runner.MODEL,
-        "reasoning_effort": codex_runner.REASONING_EFFORT,
-        "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
-    }
-    evidence["codex_cli_run_policy"] = {
-        "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
-        "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
-        "readonly_query_helpers": True,
-    }
-    evidence["corrected_mechanism_support"] = {
-        "mechanics_version": "m19.0-neutral-protected-target-v1",
-        "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies",
-        "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
-        "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
-        "roadblock_special_blocking": "roadblocks may block Ursus Civilian but are not ordinary operator blocking",
-        "officer_protected_target_attack_radius": "enemy_1107_uoffcr can normally attack Ursus Civilian within 1.2",
-        "unknowns": [
-            "exact client target priority between operators and protected targets",
-            "other protected-target families and exact continuous-frame client timing",
-        ],
-    }
-    evidence.pop("output_schema", None)
-    if REVISION_SOURCE_DIR is not None:
-        revision_source = ROOT / REVISION_SOURCE_DIR
-        evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
-        evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
-        evidence["provenance"]["revision_source"] = {
-            "path": REVISION_SOURCE_DIR,
-            "relationship": "prior_simulated_candidate_not_parent_hypothesis",
-            "revision_policy": "GPT decides tactical changes; deterministic checks may only reject the original fixed actions",
+    if SAVED_INPUT_DIR is not None:
+        saved_dir = ROOT / SAVED_INPUT_DIR
+        for name in ("llm_evidence_context.json", "codex_prompt.txt", "revision_output_schema.json", "evidence_completeness.json"):
+            (codex_runner.OUT / name).write_bytes((saved_dir / name).read_bytes())
+        evidence = load(codex_runner.OUT / "llm_evidence_context.json")
+        schema = load(codex_runner.OUT / "revision_output_schema.json")
+        prompt = (codex_runner.OUT / "codex_prompt.txt").read_text(encoding="utf-8")
+    else:
+        evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
+        evidence = copy.deepcopy(evidence)
+        schema = evidence["output_schema"]
+        evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
+        evidence["tactical_provider"] = {
+            "provider": "codex-cli", "model": codex_runner.MODEL,
+            "reasoning_effort": codex_runner.REASONING_EFFORT,
+            "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
         }
-    write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
-    write_json(codex_runner.OUT / "revision_output_schema.json", schema)
-    prompt = build_prompt(evidence)
+        evidence["codex_cli_run_policy"] = {
+            "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
+            "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
+            "readonly_query_helpers": True,
+        }
+        evidence["corrected_mechanism_support"] = {
+            "mechanics_version": "m19.0-neutral-protected-target-v1",
+            "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies",
+            "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
+            "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
+            "roadblock_special_blocking": "roadblocks may block Ursus Civilian but are not ordinary operator blocking",
+            "officer_protected_target_attack_radius": "enemy_1107_uoffcr can normally attack Ursus Civilian within 1.2",
+            "unknowns": [
+                "exact client target priority between operators and protected targets",
+                "other protected-target families and exact continuous-frame client timing",
+            ],
+        }
+        evidence.pop("output_schema", None)
+        if REVISION_SOURCE_DIR is not None:
+            revision_source = ROOT / REVISION_SOURCE_DIR
+            evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
+            evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+            evidence["provenance"]["revision_source"] = {
+                "path": REVISION_SOURCE_DIR,
+                "relationship": "prior_simulated_candidate_not_parent_hypothesis",
+                "revision_policy": "GPT decides tactical changes; deterministic checks may only reject the original fixed actions",
+            }
+        write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
+        write_json(codex_runner.OUT / "revision_output_schema.json", schema)
+        prompt = build_prompt(evidence)
     prompt_bytes = len(prompt.encode("utf-8"))
     if prompt_bytes > BODY_LIMIT:
         raise RuntimeError(f"Codex prompt exceeds {BODY_LIMIT} bytes: {prompt_bytes}")
     (codex_runner.OUT / "codex_prompt.txt").write_text(prompt, encoding="utf-8")
-    completeness = {
-        "stage_id": evidence["stage_id"] == STAGE_ID,
-        "all_34_low_stars_present": len(evidence["normal_low_star_catalog"]) == 34,
-        "all_17_three_stars_present": sum(
-            item["identity"]["rarity"] == 3 for item in evidence["normal_low_star_catalog"]
-        ) == 17,
-        "routes_present": bool(evidence["source_routes"]),
-        "wave_schedule_present": bool(evidence["source_wave_schedule"]),
-        "runtime_status": evidence["stage_mechanism_support"]["runtime_adapter_status"],
-        "prompt_bytes": prompt_bytes,
-        "prompt_bytes_at_or_below_limit": prompt_bytes <= BODY_LIMIT,
-    }
-    if not all(completeness.values()):
-        raise RuntimeError("stage evidence completeness check failed: " + json.dumps(completeness, sort_keys=True))
+    if SAVED_INPUT_DIR is None:
+        completeness = {
+            "stage_id": evidence["stage_id"] == STAGE_ID,
+            "all_34_low_stars_present": len(evidence["normal_low_star_catalog"]) == 34,
+            "all_17_three_stars_present": sum(
+                item["identity"]["rarity"] == 3 for item in evidence["normal_low_star_catalog"]
+            ) == 17,
+            "routes_present": bool(evidence["source_routes"]),
+            "wave_schedule_present": bool(evidence["source_wave_schedule"]),
+            "runtime_status": evidence["stage_mechanism_support"]["runtime_adapter_status"],
+            "prompt_bytes": prompt_bytes,
+            "prompt_bytes_at_or_below_limit": prompt_bytes <= BODY_LIMIT,
+        }
+        if not all(completeness.values()):
+            raise RuntimeError("stage evidence completeness check failed: " + json.dumps(completeness, sort_keys=True))
+    else:
+        completeness = load(codex_runner.OUT / "evidence_completeness.json")
+        completeness["reused_saved_input"] = True
+        completeness["prompt_sha256"] = sha256(codex_runner.OUT / "codex_prompt.txt")
+        completeness["prompt_bytes"] = prompt_bytes
+        completeness["prompt_bytes_at_or_below_limit"] = prompt_bytes <= BODY_LIMIT
     write_json(codex_runner.OUT / "evidence_completeness.json", completeness)
     write_json(codex_runner.OUT / "codex_command.json", {
         "argv": codex_runner.build_command(codex_runner.OUT / "codex_final_message.txt"),
@@ -234,6 +251,7 @@ def build_prompt(evidence: dict[str, Any]) -> str:
         roadblock = clearance["roadblock_2"]
         civilian = clearance["v1_v3_common_events"]["civilian_11"]
         death = clearance["v1_v3_common_events"]["civilian_6"]["death"]
+        v5 = clearance.get("v5_result_feedback")
         clearance_instruction = (
             "USER_CONFIRMED_OBSERVATION: an Ursus Civilian remains stopped at a roadblock "
             f"until that roadblock is destroyed. {roadblock['device_id']} at [row,col]={roadblock['tile_json_row_col']} "
@@ -245,6 +263,13 @@ def build_prompt(evidence: dict[str, Any]) -> str:
             "roadblock damage/destruction and #11's safe PROTECTED_TARGET_REACHED. Full completion is primary; also aim for "
             "protected-target loss=0."
         )
+        if v5:
+            remaining = v5["remaining_perfect_completion_failure"]["civilian_6"]
+            clearance_instruction += (
+                f" V5 already destroyed roadblock #2 and safely reached #11, but civilian #6 died at frame "
+                f"{remaining['death']['frame']} after {remaining['officer_attack_count']} officer attacks. V6 must retain the "
+                "zero-leak result and change the officer-protection responsibility so every protected target arrives."
+            )
     return f"""You are {codex_runner.MODEL} via the local Codex CLI, the tactical decision maker for {STAGE_ID} / {STAGE_ID.replace('main_0', 'R8-')}.
 Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operational_plan_id": "{PLAN_ID}"` exactly. The final assistant message must be exactly one JSON object matching the supplied output schema; no markdown wrapper or commentary.
 
@@ -418,6 +443,7 @@ def main() -> None:
     parser.add_argument("--prior-cli-starts", type=int, default=0)
     parser.add_argument("--revision-source")
     parser.add_argument("--diagnostic-summary")
+    parser.add_argument("--saved-input-dir")
     arguments = parser.parse_args()
     configure(arguments)
     if arguments.phase == "session":

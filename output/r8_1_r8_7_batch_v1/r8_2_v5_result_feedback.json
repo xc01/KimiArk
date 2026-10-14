@@ -1,0 +1,24 @@
+{
+  "schema_version": "R8_2_V5_RESULT_FEEDBACK_V1",
+  "source": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v5_attempt3/diagnostic_events.json",
+  "result": {"win": true, "kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+  "resolved": {
+    "roadblock_2": {"damage_events": 15, "destroyed_frame": 6633, "destroyer": "char_208_melan", "first_damage_frame": 6003},
+    "civilian_11": {"protected_target_reached_frame": 6956, "death": false},
+    "zero_leak": true,
+    "operator_deaths": 0
+  },
+  "remaining_perfect_completion_failure": {
+    "civilian_6": {
+      "spawn": {"route": "route-5", "frame": 1500},
+      "first_roadblock_2_block": {"frame": 1730, "device": "trap_020_roadblock#2"},
+      "first_officer_attack": {"frame": 2954, "attacker": "enemy_1107_uoffcr#18", "damage": 280},
+      "death": {"frame": 4604, "attacker": "enemy_1107_uoffcr#30", "damage": 280, "life_delta": -1, "kill_counted": false},
+      "officer_attack_count": 13,
+      "attackers": ["enemy_1107_uoffcr#18", "enemy_1107_uoffcr#19", "enemy_1107_uoffcr#22", "enemy_1107_uoffcr#23", "enemy_1107_uoffcr#26", "enemy_1107_uoffcr#27", "enemy_1107_uoffcr#30"]
+    },
+    "causal_window": "Civilian #6 was stopped by roadblock #2 from frame 1730 to 4603 while multiple Infected Patrol Officers remained within radius 1.2. The plan reduced, but did not remove, the officer pool before the 13th attack killed #6 at frame 4604."
+  },
+  "accepted_claim": "SIMULATOR_WIN_WITH_PROTECTED_TARGET_LOSS",
+  "required_next_goal": "Preserve zero leaks and #11 arrival while preventing all protected-target deaths; simulator WIN alone does not satisfy perfect completion."
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "CODEX_ENTRY_NETWORK_CHECK_V1",
+  "date": "2026-10-14",
+  "proxy_environment": {
+    "interactive_and_runner_match": true,
+    "HTTP_PROXY": "http://127.0.0.1:7890",
+    "HTTPS_PROXY": "http://127.0.0.1:7890",
+    "ALL_PROXY": "socks5://127.0.0.1:7890",
+    "NO_PROXY": "localhost,127.0.0.1,::1"
+  },
+  "proxied_chatgpt_endpoint": {
+    "url": "https://chatgpt.com/backend-api/ps/mcp",
+    "status": 451,
+    "total_seconds": 0.917543,
+    "response_origin": "Cloudflare/OpenAI service response after CONNECT",
+    "headers": {
+      "content-type": "application/json",
+      "content-length": 35,
+      "server": "cloudflare",
+      "x-oai-request-id": "9df57aa1-5ec0-4c42-80ae-b328e8fc6e98",
+      "cf-cache-status": "DYNAMIC",
+      "cf-ray": "a4a5ffc17de60c97-SJC"
+    },
+    "body": {"message": "no_biscuit_no_service"},
+    "body_sha256": "5d5c0157b4bb26546ac36ab5250d86d463ef67458a9dfaf726dec622ab25d739"
+  },
+  "direct_chatgpt_endpoint": {
+    "status": 0,
+    "error": "connection timeout after about 6.2 seconds"
+  },
+  "interpretation": "The 451 is a service-side response, not a proxy-generated status; it was not treated alone as a region proof. The subsequent minimal Codex probe succeeded."
+}

@@ -1,0 +1,562 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 480,
+      "operator_id": "char_283_midn",
+      "tile": [
+        4,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 840,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1323,
+      "operator_id": "char_122_beagle",
+      "tile": [
+        1,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1533,
+      "operator_id": "char_124_kroos",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1680,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2043,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        5,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2373,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        2,
+        1
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 2703,
+      "operator_id": "char_211_adnach",
+      "tile": [
+        3,
+        1
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2943,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 3060,
+      "operator_id": "char_123_fang"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 3063,
+      "operator_id": "char_209_ardign",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3123,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3600,
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4323,
+      "operator_id": "char_211_adnach"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4443,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4923,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4980,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Skill ready and defense needed.",
+      "frame": 5700,
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Skill ready and healing needed.",
+      "frame": 5943,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "condition": "Hostile spawns exhausted and no active non-neutral enemies.",
+      "frame": 6000,
+      "operator_id": "char_211_adnach",
+      "rationale": "Hand supplemental damage slot to clearance attacker."
+    },
+    {
+      "action_type": "DEPLOY",
+      "condition": "Adnach handoff completed and sufficient DP.",
+      "direction": "UP",
+      "frame": 6003,
+      "operator_id": "char_208_melan",
+      "rationale": "Attack roadblock #2 until destruction; remain deployed through evacuation.",
+      "tile": [
+        3,
+        7
+      ]
+    }
+  ],
+  "changed_conflicting_assumptions": [
+    {
+      "rejected": "Lane clearance alone completes the stage, or waiting releases civilian #11.",
+      "replacement": "Assign an attacker whose verified range contains roadblock #2 and require destruction followed by safe arrival."
+    },
+    {
+      "rejected": "Keep all eight combat operators deployed indefinitely.",
+      "replacement": "After hostile exhaustion, Adnach hands his slot to Melantha; permanent blocking and healing continue."
+    },
+    {
+      "rejected": "Early placement guarantees early device damage.",
+      "replacement": "Global hostile presence gates device attacks in this model. Cleanup clearance has a bounded damage calculation; civilian #6's earlier survival is unresolved."
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "No supplied spawns.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Neutral evacuation; Kroos clears roadblock #1 during hostile-free cleanup. Ordinary operators neither attack nor block civilians.",
+      "routes": [
+        "route-1",
+        "route-3"
+      ]
+    },
+    {
+      "responsibility": "Midnight, Fang and Steward handle opening officers; Cardigan later takes forward blocking under Hibiscus healing.",
+      "routes": [
+        "route-2",
+        "route-4",
+        "route-11"
+      ]
+    },
+    {
+      "responsibility": "Melantha destroys roadblock #2 and opens civilian evacuation. Require #11's safe arrival; #6's earlier officer exposure remains the acknowledged perfect-completion gap.",
+      "routes": [
+        "route-5",
+        "route-6"
+      ]
+    },
+    {
+      "responsibility": "Beagle blocks; Kroos and Adnach kill; Ansel heals. Keep Beagle and Kroos after Adnach's cleanup retreat.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-12",
+        "route-13",
+        "route-14",
+        "route-15",
+        "route-16",
+        "route-17"
+      ]
+    },
+    {
+      "responsibility": "Cardigan intercepts, Midnight catches overflow and damages, Steward adds arts fire, Hibiscus sustains both blockers.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-18",
+        "route-19",
+        "route-20",
+        "route-21",
+        "route-22"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Opening economy and adjacent officer damage.",
+      "tile": [
+        3,
+        3
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_283_midn",
+      "role": "Continuous rear row-4 blocking and damage.",
+      "tile": [
+        4,
+        3
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Arts fire over both row-4 blockers.",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_122_beagle",
+      "role": "Permanent row-1 three-block anchor.",
+      "tile": [
+        1,
+        2
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_124_kroos",
+      "role": "Row-1 damage and roadblock-1 cleanup.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_120_hibisc",
+      "role": "Healing for Midnight and Cardigan.",
+      "tile": [
+        5,
+        2
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_212_ansel",
+      "role": "Dedicated Beagle healing.",
+      "tile": [
+        2,
+        1
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_211_adnach",
+      "role": "Supplemental row-1 damage until clearance handoff.",
+      "tile": [
+        3,
+        1
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_209_ardign",
+      "role": "Forward row-4 three-block tank.",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_208_melan",
+      "role": "Exclusive roadblock-2 clearance after hostile exhaustion.",
+      "tile": [
+        3,
+        7
+      ]
+    }
+  ],
+  "formation_structure": {
+    "cleanup": "Melantha replaces Adnach; seven existing operators remain.",
+    "combat_row_1": [
+      "Beagle",
+      "Kroos",
+      "Adnach",
+      "Ansel"
+    ],
+    "combat_row_4": [
+      "Cardigan",
+      "Midnight",
+      "Steward",
+      "Hibiscus"
+    ],
+    "damage_basis": "Basic attacks and supported skill primitives; no probabilistic talents, splash, Cardigan self-heal or Midnight arts conversion credited."
+  },
+  "formation_transitions": [
+    {
+      "seconds": 16,
+      "transition": "Midnight establishes the row-4 anchor."
+    },
+    {
+      "seconds": 51.1,
+      "transition": "Beagle and Kroos establish row-1 defense."
+    },
+    {
+      "seconds": 79.1,
+      "transition": "Both lanes have dedicated healing."
+    },
+    {
+      "seconds": 102.1,
+      "transition": "Cardigan replaces Fang's slot while Midnight remains continuously deployed."
+    },
+    {
+      "seconds": 200.1,
+      "transition": "After observed hostile exhaustion, Melantha replaces Adnach and attacks roadblock #2."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "rule": "Use catalog debug configurations and legal integer [row,col] deployment tiles; never deploy on [[2,5],[4,7]]."
+    },
+    {
+      "rule": "Never exceed eight deployed operators; retreat Fang before Cardigan and Adnach before Melantha."
+    },
+    {
+      "rule": "Require sufficient actual DP. Credit natural +1 DP/s and supported Fang procs; credit no retreat refunds."
+    },
+    {
+      "rule": "Manual skills require readiness; time-SP pauses during active skills."
+    },
+    {
+      "rule": "Do not execute Adnach's retreat until all hostile spawns are exhausted and no hostile remains; delay both handoff actions together if necessary."
+    },
+    {
+      "rule": "Keep both permanent lane blockers, Kroos, Steward and both medics through WIN."
+    },
+    {
+      "rule": "Ordinary operators neither attack nor block neutral civilians; roadblock destruction supplies release."
+    },
+    {
+      "rule": "WIN requires remaining_life > 0, zero leaks, exhausted spawns and no active enemies; the cap stays 18000 frames."
+    }
+  ],
+  "operational_plan_id": "R8_2_GPT_V5",
+  "parent_hypothesis_id": "R8-2-H5",
+  "pressure_window_responsibilities": [
+    {
+      "seconds": [
+        0,
+        49
+      ],
+      "task": "Finance and establish both exits; defeat opening officers."
+    },
+    {
+      "seconds": [
+        50,
+        105
+      ],
+      "task": "Maintain simultaneous officer-train and row-1 defense; execute Fang-to-Cardigan handoff."
+    },
+    {
+      "seconds": [
+        120,
+        151
+      ],
+      "task": "Hold paired batches using Beagle defense, Adnach burst and both medics."
+    },
+    {
+      "seconds": [
+        160,
+        186
+      ],
+      "task": "Keep all eight combat units through final spawns and hostile cleanup; Midnight's second skill reinforces row 4."
+    },
+    {
+      "seconds": [
+        200,
+        240
+      ],
+      "task": "Destroy both obstructing roadblocks, maintain exit defenses and confirm all surviving protected targets arrive."
+    },
+    {
+      "seconds": [
+        240,
+        600
+      ],
+      "task": "If unfinished, retain clearance attacker, blockers and healing; investigate missing acceptance events without forcing civilian release or extending the cap."
+    }
+  ],
+  "roadblock_2_clearance": {
+    "attacker": "char_208_melan",
+    "basic_attack_interval_seconds": 1.5,
+    "completion_guard": "Require observed DEVICE_DAMAGE, DEVICE_DESTROYED and #11 PROTECTED_TARGET_REACHED; predicted times do not substitute for events.",
+    "damage_per_basic_hit": 538,
+    "deployment_frame": 6003,
+    "direction": "UP",
+    "expected_civilian_11_arrival": "Approximately 233.4 seconds: destruction plus remaining seven tiles at 0.65 tiles/s, conditional on modeled route resumption.",
+    "expected_destroy_seconds": [
+      221.1,
+      222.6
+    ],
+    "required_basic_hits": 15,
+    "start_condition": "All hostile spawns exhausted and no active non-neutral enemies.",
+    "start_seconds": 200.1,
+    "tile_row_col": [
+      3,
+      7
+    ],
+    "timing_status": "Current-model arithmetic allowing one initial attack interval; exact client timing UNKNOWN.",
+    "verified_covered_tiles_row_col": [
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        7
+      ]
+    ]
+  },
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_283_midn",
+    "char_210_stward",
+    "char_122_beagle",
+    "char_124_kroos",
+    "char_120_hibisc",
+    "char_212_ansel",
+    "char_211_adnach",
+    "char_209_ardign",
+    "char_208_melan"
+  ],
+  "skill_intents": [
+    {
+      "effect": "+6 DP; modeled procs at 19,44,69,94 seconds.",
+      "operator_id": "char_123_fang",
+      "type": "AUTO"
+    },
+    {
+      "effect": "Supported attack-SP scaled two-hit attack; retained for roadblock-1 cleanup.",
+      "operator_id": "char_124_kroos",
+      "type": "AUTO"
+    },
+    {
+      "effect": "Supported attack-SP scaled attack.",
+      "operator_id": "char_210_stward",
+      "type": "AUTO"
+    },
+    {
+      "activation_seconds": [
+        56,
+        166
+      ],
+      "effect": "+35% ATK for 40 seconds.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "activation_seconds": [
+        120,
+        190
+      ],
+      "effect": "+50% DEF for 30 seconds; second use only if needed.",
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "activation_seconds": [
+        98.1,
+        148.1,
+        198.1
+      ],
+      "effect": "+50% healing ATK for 20 seconds.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "activation_seconds": [
+        104.1,
+        164.1
+      ],
+      "effect": "+40% healing ATK for 25 seconds; baseline range covers Beagle.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "activation_seconds": [
+        144.1
+      ],
+      "effect": "+50% ATK for 20 seconds.",
+      "operator_id": "char_211_adnach"
+    },
+    {
+      "effect": "Basic blocking only; unsupported self-heal excluded.",
+      "operator_id": "char_209_ardign"
+    },
+    {
+      "effect": "Clearance uses basic attacks only; no skill or unsupported talent required.",
+      "operator_id": "char_208_melan"
+    }
+  ],
+  "tactical_thesis": "Preserve both defended exits until hostile exhaustion. At 200 seconds, retire Adnach and deploy Melantha at [3,7] facing UP to destroy roadblock #2. Maintain every blocker, both medics, Kroos and Steward through civilian arrival and WIN.",
+  "unknown_dependencies": [
+    {
+      "impact": "Acceptance must use observed destruction and safe arrival.",
+      "mechanic": "Exact client device targeting and civilian resumption timing",
+      "status": "UNKNOWN"
+    },
+    {
+      "impact": "The retained combat phase contains the saved #6 death; this plan targets full completion with surviving objective life.",
+      "mechanic": "Zero protected-target loss",
+      "status": "UNRESOLVED"
+    }
+  ]
+}

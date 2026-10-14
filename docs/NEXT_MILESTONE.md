@@ -1,11 +1,10 @@
-# Next milestone: complete R8-2 roadblock-clearance and civilian protection
+# Next milestone: rerun frozen R8-2 V6 for protected-target zero loss
 
-R8-2 V1/V3 both reach 36 kills, 0 leaks, 0 operator deaths, and life 2, but
-civilian `enemy_3001_upeopl#11` remains stopped by roadblock #2 at frame 18000.
-The next GPT-C5 must decide the complete clearance responsibility and protect
-civilians; acceptance requires roadblock damage/destruction, #11 safe arrival,
-zero leaks, and no protected-target loss for the user's perfect-completion goal.
-After R8-2, continue with R8-4 and R8-7 using the death-unblock-fixed windows.
+R8-2 V5 already cleared roadblock #2, delivered #11, and achieved a simulator
+WIN with zero leaks. The sole remaining R8-2 tactical target is to prevent
+civilian #6's death while preserving that result. The frozen V6 prompt SHA is
+`30882fb15d4c5180663adb52cf127bc90bbc62a1021c93421815168985a1f8a1`; retry only
+when the Codex workspace route is available, in a new non-overwriting attempt.
 
 SUPERSEDED 2026-10-14: the following R8-7 milestone was archived after the
 ghost-block correction invalidated its old failure window.

@@ -1,0 +1,61 @@
+{
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V5",
+  "generated_at": "2026-10-14",
+  "active_mechanics_version": "m19.0-neutral-protected-target-v1",
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN",
+  "stages": [
+    {
+      "stage_id": "main_08-01",
+      "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN",
+      "current_best_plan": "C7",
+      "result": {"kills": 56, "leaks": 0, "operator_deaths": 0, "remaining_life": 5},
+      "evidence": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_death_unblock_fixed_v1/",
+      "real_game_status": "UNKNOWN"
+    },
+    {
+      "stage_id": "main_08-02",
+      "status": "SIMULATOR_WIN_WITH_PROTECTED_TARGET_LOSS",
+      "current_best_plan": "R8_2_GPT_V5",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+      "roadblock_2": {"damage_events": 15, "destroyed_frame": 6633, "destroyer": "char_208_melan"},
+      "civilian_11_arrival_frame": 6956,
+      "protected_target_deaths": [{"civilian": "enemy_3001_upeopl#6", "frame": 4604, "attacker": "enemy_1107_uoffcr#30"}],
+      "perfect_completion": false,
+      "next_plan": "R8_2_GPT_V6",
+      "next_prompt_sha256": "30882fb15d4c5180663adb52cf127bc90bbc62a1021c93421815168985a1f8a1",
+      "next_block": "CLI workspace routing discovery timed out; no tactical failure inferred",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v5_attempt3/",
+      "real_game_status": "UNKNOWN"
+    },
+    {
+      "stage_id": "main_08-03",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["APPEAR_AT_POS", "DISAPPEAR", "WAIT_CURRENT_FRAGMENT_TIME"]
+    },
+    {
+      "stage_id": "main_08-04",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "current_best_plan": "R8_4_GPT_V2",
+      "result": {"kills": 50, "leaks": 4, "operator_deaths": 1, "remaining_life": -1},
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-04/R8_4_GPT_V2/"
+    },
+    {
+      "stage_id": "main_08-05",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["APPEAR_AT_POS", "DISAPPEAR"]
+    },
+    {
+      "stage_id": "main_08-06",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["WAIT_CURRENT_WAVE_TIME"]
+    },
+    {
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "current_best_plan": "R8_7_GPT_V2",
+      "result": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1},
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-07/R8_7_GPT_V2/"
+    }
+  ]
+}

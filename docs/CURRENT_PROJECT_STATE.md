@@ -44,3 +44,12 @@ roadblock #2 HP 8000/DEF 200/RES 20. V1/V3 never selected or damaged it. A
 compact clearance evidence package and explicit user observation are prepared.
 Two R8-2 GPT-C5 CLI starts failed at `workspace routing discovery failed`
 without a retry; no plan or simulation was produced.
+
+## 2026-10-14 R8-2 V5 is the current best fixed candidate
+
+`seven_stage_status_v5.json` supersedes v4. R8-2 V5 passed schema/contract and
+static checks, then its first fixed simulation produced a simulator WIN with 36
+kills, 0 leaks, 0 operator deaths, and life 2. Roadblock #2 was destroyed at
+frame 6633 and #11 arrived safely at frame 6956. Civilian #6 died at frame 4604,
+so perfect completion is still false. The V6 prompt was generated and frozen,
+but its only CLI attempt failed at `workspace routing discovery timed out`.

@@ -462,3 +462,17 @@ attempts (cumulative starts 17 and 18) launched the same frozen R8-2-V5 prompt
 and budget. Both failed at `workspace routing discovery failed`; no GPT-C5 was
 received and no simulation was run. The failure after bounded proxy repair was
 saved verbatim and treated as infrastructure, not tactical evidence.
+
+## 2026-10-14 Codex entry recovered and R8-2 V5 won once
+
+After verifying interactive and runner proxy variables were identical, the
+service-side endpoint returned HTTP 451 `no_biscuit_no_service` with
+`x-oai-request-id`; direct access timed out. One minimal Codex probe then
+succeeded with `READY` (input 14,223 / cached 12,288 / output 5). The frozen
+R8-2-V5 prompt (`b7331b3d81680b5aa48eacc4d99c97682e3bb15a931bd75a77f8a315654480c4`)
+was reused in attempt3. Its schema/contract and static checks passed with 0
+conflicts, and the single fixed simulation WON: 36 kills, 0 leaks, 0 operator
+deaths, life 2. Roadblock #2 was damaged 15 times and destroyed at frame 6633;
+civilian #11 safely arrived at frame 6956. This is a simulator WIN, not perfect
+completion, because civilian #6 died at frame 4604. A V6 revision attempt failed
+at `workspace routing discovery timed out` without producing a plan.

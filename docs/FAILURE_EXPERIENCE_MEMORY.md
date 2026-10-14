@@ -352,3 +352,13 @@ not turn this into evidence that the model misunderstood the stage. The frozen
 R8-2-V5 prompt includes the user-confirmed permanent roadblock stop, roadblock
 #2 attributes, zero prior attack events, civilian #11, and civilian #6 death.
 
+## 2026-10-14 R8-2 V5 clears the final roadblock but loses civilian #6
+
+V5's clearance handoff successfully destroyed roadblock #2 and delivered #11.
+The remaining perfect-completion defect is earlier: #6 remained blocked from
+frame 1730 while Infected Patrol Officers attacked it 13 times, with the 13th
+attack killing it at frame 4604. This is not license to ignore the civilian;
+the next tactical version must remove the officer pressure while preserving
+V5's zero-leak outcome. A V6 transport failure is infrastructure and must not be
+recorded as model tactical disagreement.
+
