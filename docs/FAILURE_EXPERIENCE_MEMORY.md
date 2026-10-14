@@ -375,3 +375,15 @@ hold time, and clearance handoff as one coupled structure. Do not reuse V6/V8 as
 successful knowledge; use them as evidence that one-variable timing changes are
 insufficient.
 
+## 2026-10-14 V9 improved survival but exposed clearance timing
+
+V9 disproves the V8 conclusion that the tactical family could not recover from
+the opening: Popukar actually deployed and blocked, no operator died, leaks fell
+to one, and roadblock #2 was destroyed. Its real failure was that #6 stayed held
+by roadblock #2 until frame 5293 while the destruction happened at frame 8943,
+so 13 officer attacks killed #6 at frame 5294. V10 shifted the late leak but did
+not change this exposure and lost Popukar. Static DP revisions V11–V13 also show
+that repairing one conditional deployment can move the deficit to the next
+deploy. Treat protection, clearance, route throughput, and conditional economy as
+one plan; do not call any unresolved dependency a DP formula bug.
+

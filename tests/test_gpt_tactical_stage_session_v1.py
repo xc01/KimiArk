@@ -87,3 +87,22 @@ def test_compact_diagnostic_feedback_excludes_full_event_timeline(tmp_path) -> N
     assert feedback["clean_route_count"] == 1
     assert "DAMAGE" not in encoded
     assert len(encoded) < 140000
+
+
+def test_prompt_injects_structural_tactical_feedback_without_changing_plan_identity() -> None:
+    original = (runner.PLAN_ID, runner.PLAN_LABEL)
+    try:
+        runner.PLAN_ID = "R8_2_GPT_V9"
+        runner.PLAN_LABEL = "R8-2-V9"
+        prompt = runner.build_prompt({
+            "stage_active_facts": {"roadblock_plan_tiles_row_col": [[2, 5], [4, 7]]},
+            "prior_tactical_feedback": {
+                "causal_interpretation": "opening survival failure broke the conditional economic dependency",
+                "design_freedom": "GPT may change any tactical decision",
+            },
+        })
+        assert "prior_tactical_feedback is the verified causal history" in prompt
+        assert "survival/handoff failures, not arithmetic bugs" in prompt
+        assert '"operational_plan_id": "R8_2_GPT_V9"' in prompt
+    finally:
+        runner.PLAN_ID, runner.PLAN_LABEL = original

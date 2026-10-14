@@ -442,6 +442,24 @@ leaks / 1 death / life -10; the first objective failure was leak at frame 2369,
 V5 remains the zero-leak simulator-WIN baseline; V8 is not a tactical improvement.
 Internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 
+## 2026-10-14 V9–V13 structural protection closure
+
+CLI starts 25–29 ran with `features.apps=false` and medium reasoning. V9 usage:
+input 482,346 / cached 421,888 / output 8,519 / reasoning 2,730. Its original
+simulation was 35 kills / 1 leak / 0 deaths / life 1; deployment errors 0,
+roadblock #2 destroyed at frame 8943, #11 arrived at 9266, but #6 died at 5294
+and Uterer #37 leaked at 5228. V10 usage: input 539,030 / cached 475,904 /
+output 13,508 / reasoning 6,503. Its simulation was 35 / 1 / 1 death / life 1;
+Popukar died at 5264 and Officer #38 leaked at 5512, while #6 still died at 5294.
+
+V11 usage: input 549,199 / cached 487,296 / output 11,331 / reasoning 4,399;
+it was rejected for Hibiscus DP 16.1/17 at frame 2373. V12 usage: input 268,196 /
+cached 219,136 / output 9,216 / reasoning 3,582; it fixed that conflict but was
+rejected for Midnight DP 15.1/16 at frame 2823. V13 usage: input 384,938 /
+cached 333,952 / output 7,537 / reasoning 2,004; it repeated V12's conflict with
+no information increment, so the loop stopped. V5 remains the best zero-leak
+simulator-WIN baseline.
+
 # 2026-10-14 Civilian mechanics correction and bounded revisions
 
 The corrected R8-2 V1 simulation is 8 kills / 28 leaks / 0 deaths / life -26; its

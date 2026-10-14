@@ -1,0 +1,64 @@
+{
+  "schema_version": "R8_2_STRUCTURAL_TACTICAL_FEEDBACK_V1",
+  "accepted_classification": {
+    "V5": "SIMULATOR_WIN_WITH_PROTECTED_TARGET_LOSS; immutable zero-leak baseline",
+    "V6": "CONDITIONAL_PARTIAL_PROTECTION_IMPROVEMENT_BUT_LOSS",
+    "V7": "STATIC_ECONOMIC_REJECTION_ONLY_NO_SIMULATION",
+    "V8": "SURVIVAL_PREMISE_AND_DEPENDENT_ECONOMY_FAILURE; not a demonstrated failure of Popukar interception"
+  },
+  "v5_baseline": {
+    "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+    "protected_target_loss": {"civilian": "enemy_3001_upeopl#6", "frame": 4604},
+    "roadblock_2_destroyed_frame": 6633,
+    "civilian_11_arrival_frame": 6956
+  },
+  "v6_evidence": {
+    "result": {"kills": 34, "leaks": 2, "operator_deaths": 0, "remaining_life": 0},
+    "protected_target_death": {"civilian": "enemy_3001_upeopl#6", "frame": 4844},
+    "roadblock_2_destroyed_frame": 8733,
+    "civilian_11_arrival_frame": 9056,
+    "partial_improvement": {
+      "civilian_11_damage_events": {"V5": 11, "V6": 6},
+      "frame_range": [4634, 5294],
+      "interpretation": "conditional improvement, not proof that the whole interception structure is viable"
+    },
+    "remaining_exposure": {
+      "first_civilian_6_attack": {"frame": 2954, "source": "enemy_1107_uoffcr#18"},
+      "same_officer_blocked_by_cardigan": {"frame": 2974, "operator": "char_122_beagle"},
+      "lesson": "block-before-exposure is missing; paired pressure and later handoff remain problematic"
+    },
+    "leaks": [
+      {"frame": 5033, "source": "enemy_1107_uoffcr#23"},
+      {"frame": 5033, "source": "enemy_1107_uoffcr#30"}
+    ]
+  },
+  "v7_evidence": {
+    "status": "STATIC_CONFLICT_NO_SIMULATION",
+    "conflict": {
+      "frame": 2763,
+      "operator": "char_281_popka",
+      "required_dp": 19,
+      "ledger_dp": 13.1,
+      "reason": "INSUFFICIENT_DP"
+    }
+  },
+  "v8_causal_chain": [
+    {"frame": 1780, "event": "Fang blocks enemy_1107_uoffcr#7"},
+    {"frame": 1841, "event": "Fang dies after two enemy attacks; block is released"},
+    {"frame": 1965, "event": "first leak: enemy_1107_uoffcr#7"},
+    {"frame": 2070, "event": "static ledger expected Fang automatic 6 DP, but the operator is dead at runtime"},
+    {"frame": 2433, "event": "Popukar deploy rejected: 13.1 DP versus 19 required"},
+    {"frame": 2433, "event": "Popukar block/damage duty therefore never starts"},
+    {"frame": 4560, "event": "Popukar retreat rejected because she was never deployed"},
+    {"frame": 4604, "event": "civilian #6 dies"}
+  ],
+  "causal_interpretation": "The opening survival failure broke the conditional economic dependency and prevented the key interceptor from being established. This is not evidence of a DP formula bug, nor a simulated failure of Popukar blocking.",
+  "geometry_and_economy_source": [
+    "output/r8_1_r8_7_batch_v1/main_08-02/facts/llm_evidence_context.json",
+    "stage_options: initial_cost=10, max_cost=99, cost_increase_time_seconds=1, deployment_limit=8",
+    "stage_active_facts contains runtime routes, deployable tiles, active devices and [col,row]/[row,col] conventions",
+    "enemy_1107_uoffcr protected-target attack radius=1.2"
+  ],
+  "design_freedom": "GPT may change any tactical decision, including whether Fang or Popukar is retained. Python will not select replacements, positions, directions or timings.",
+  "required_next_goal": "Keep V5's demonstrated zero-leak and roadblock-clearing capability while establishing earlier protected-target protection and a survival-supported economic plan; target zero protected-target deaths and all four safe arrivals."
+}

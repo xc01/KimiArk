@@ -1,0 +1,226 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-02",
+    "plan_label": "R8-2-V10",
+    "GameData": {
+      "deployment_limit": 8,
+      "initial_dp": 10,
+      "ordinary_three_star_catalog_count": 17,
+      "roadblock_2": {"hp": 8000, "defense": 200, "res": 20}
+    },
+    "current_model": {
+      "officer_civilian_attack_radius": 1.2,
+      "blocked_officer_targets_its_blocker": true,
+      "device_attacks_require_no_active_hostiles": true,
+      "saved_runtime_last_spawn_seconds": 171,
+      "ordinary_operators_attack_or_block_civilians": false
+    },
+    "USER_CONFIRMED": "Civilian movement through a roadblock requires actual roadblock destruction.",
+    "UNKNOWN": ["Exact client timing and target ordering", "V10 combat outcome"],
+    "verification": "Read-only inspection of schema, V5 actions, V9 feedback/events, targeting, movement and range code; range and damage arithmetic only. No stage simulation or file changes."
+  },
+  "revised_tactical_requirements": {
+    "scope": "Full stage",
+    "cap_seconds": 600,
+    "protected_target_loss_goal": 0,
+    "acceptance": [
+      "Roadblock #2 DEVICE_DAMAGE and DEVICE_DESTROYED",
+      "Safe PROTECTED_TARGET_REACHED for #0, #3, #6 and #11",
+      "Zero protected-target deaths",
+      "Zero leaks",
+      "remaining_life > 0",
+      "Spawn schedule exhausted",
+      "No active enemies"
+    ],
+    "claim_status": "UNSIMULATED_REVISION"
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-2-H10",
+      "status": "UNSIMULATED",
+      "thesis": "Preserve Popukar's offensive interception through the final officers, concentrate her skill and Ansel's extended healing on paired pressure, and add Adnachiel to the top defense after southern spawns end. This should prevent the overflow that delivered the lethal thirteenth civilian hit while retaining dedicated roadblock clearance."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_2_GPT_V10",
+      "parent_hypothesis_id": "R8-2-H10",
+      "tactical_thesis": "Keep Popukar at [3,7] facing DOWN instead of replacing her with Cardigan. Midnight supports her from [3,5]; their overlapping attack skills cover the late paired officers. Ansel holds his first range extension for that fight. Transfer Steward's completed southern damage duty to Adnachiel's top-lane damage duty. After hostile exhaustion, Castle-3 replaces Popukar and destroys roadblock #2 while the remaining defenses stay deployed.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_208_melan",
+        "char_210_stward",
+        "char_122_beagle",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_281_popka",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_211_adnach",
+        "char_286_cast3"
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "rejected": "Interception at [3,7] prevents every civilian attack.",
+          "replacement": "Officers enter civilian attack radius before reaching the blocking tile. Prevent repeated attacks and overflow; twelve isolated 280-damage hits leave #6 at 140 HP, so a thirteenth hit is unacceptable."
+        },
+        {
+          "rejected": "Fresh Cardigan's third blocking slot compensates for losing Popukar's attack.",
+          "replacement": "Keep Popukar and concentrate her attack skill on 150.1–170.1 seconds. With Midnight active, modeled single-target officer DPS is approximately 894.5, versus approximately 529.9 for Cardigan with active Midnight."
+        },
+        {
+          "rejected": "Popukar needs her first attack skill against the isolated 122/130-second officer pair.",
+          "replacement": "Use basic attacks plus Midnight against isolated arrivals; save the burst for the dense late pairs."
+        },
+        {
+          "rejected": "Ansel's first extended healing should begin immediately when ready.",
+          "replacement": "Hold it until 145.1 seconds to cover Popukar during paired pressure."
+        },
+        {
+          "rejected": "Beagle and Kroos alone provide enough late top-lane throughput.",
+          "replacement": "After southern officer spawns finish, replace Steward with Adnachiel before the late top waves."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id": "char_123_fang", "tile": [3,3], "direction": "UP", "role": "Temporary economy and southern support."},
+        {"operator_id": "char_208_melan", "tile": [4,3], "direction": "RIGHT", "role": "Southern blocker; retain through evacuation."},
+        {"operator_id": "char_210_stward", "tile": [5,3], "direction": "DOWN", "role": "Early southern arts damage; retire after that duty ends."},
+        {"operator_id": "char_122_beagle", "tile": [1,2], "direction": "RIGHT", "role": "Permanent top-lane three-block anchor."},
+        {"operator_id": "char_124_kroos", "tile": [2,1], "direction": "RIGHT", "role": "Top-lane damage."},
+        {"operator_id": "char_120_hibisc", "tile": [5,2], "direction": "RIGHT", "role": "Heal Melantha."},
+        {"operator_id": "char_281_popka", "tile": [3,7], "direction": "DOWN", "role": "Continuous two-block officer interception and damage."},
+        {"operator_id": "char_212_ansel", "tile": [2,2], "direction": "RIGHT", "role": "Heal Beagle; extended skill reaches Popukar."},
+        {"operator_id": "char_283_midn", "tile": [3,5], "direction": "RIGHT", "role": "Support interception and clear roadblock #1."},
+        {"operator_id": "char_211_adnach", "tile": [3,1], "direction": "DOWN", "role": "Supplement damage against enemies held at [1,2]."},
+        {"operator_id": "char_286_cast3", "tile": [3,7], "direction": "UP", "role": "Dedicated roadblock #2 clearance after hostile exhaustion."}
+      ],
+      "formation_structure": {
+        "southern": ["Melantha", "Steward until 120 seconds", "Hibiscus"],
+        "top": ["Beagle", "Kroos", "Ansel", "Adnachiel from 120.1 seconds"],
+        "officer_interception": ["Popukar", "Midnight", "Ansel during range extension"],
+        "slot_handoffs": ["Fang to Midnight", "Steward to Adnachiel", "Popukar to Castle-3"],
+        "economy": "Natural +1 DP/s and Fang's supported +6 procs near 19,44,69,94 seconds. No refunds credited.",
+        "deployment_dp_after": [
+          {"seconds": 0, "dp": 0},
+          {"seconds": 15, "dp": 0},
+          {"seconds": 27, "dp": 0},
+          {"seconds": 44.1, "dp": 5.1},
+          {"seconds": 50.1, "dp": 0.1},
+          {"seconds": 67.1, "dp": 0.1},
+          {"seconds": 80.1, "dp": 0.1},
+          {"seconds": 97.1, "dp": 6.1},
+          {"seconds": 107.1, "dp": 0.1},
+          {"seconds": 120.1, "dp": 2.1}
+        ],
+        "range_checks": "Ansel's extended RIGHT range from [2,2] includes [3,7]. Midnight covers [3,7] and [2,5]. Adnachiel facing DOWN from [3,1] covers Beagle's [1,2].",
+        "damage_budget": "One target per attack; no probability talents, AoE geometry or unsupported damage conversion credited."
+      },
+      "formation_transitions": [
+        {"seconds": 15, "transition": "Establish Melantha's southern blocking before early officers traverse the corridor."},
+        {"seconds": 67.1, "transition": "Complete southern healing."},
+        {"seconds": 80.1, "transition": "Place Popukar before northern officer arrivals."},
+        {"seconds": 107.1, "transition": "Retire Fang after four DP procs and add Midnight."},
+        {"seconds": 120.1, "transition": "Transfer Steward's slot to Adnachiel after the southern spawn sequence has ended."},
+        {"seconds": 145.1, "transition": "Extend Ansel's healing to Popukar."},
+        {"seconds": 147.1, "transition": "Begin Midnight's forty-second attack boost."},
+        {"seconds": 150.1, "transition": "Begin Popukar's twenty-second attack boost; retain her blocking throughout."},
+        {"seconds": 220.1, "transition": "After verified hostile exhaustion, replace Popukar with Castle-3 for clearance."}
+      ],
+      "corridor_responsibilities": [
+        {"routes": ["route-0"], "responsibility": "No supplied spawns."},
+        {"routes": ["route-1","route-3"], "responsibility": "Leave civilians neutral. Midnight destroys roadblock #1 during hostile-free periods; require #0 and #3 safe arrivals."},
+        {"routes": ["route-2","route-4","route-11"], "responsibility": "Melantha blocks; Steward and Fang support early damage; Hibiscus sustains Melantha. Retire Steward only after this duty is complete."},
+        {"routes": ["route-5","route-6"], "responsibility": "Prevent repeated officer attacks on waiting civilians through continuous Popukar interception. Castle-3 subsequently destroys roadblock #2; require both #6 and #11 safe arrivals."},
+        {"routes": ["route-7","route-8","route-12","route-13","route-14","route-15","route-16","route-17"], "responsibility": "Beagle blocks, Kroos attacks, Ansel heals; Adnachiel adds damage from 120.1 seconds and boosts attack for the final waves."},
+        {"routes": ["route-9","route-10","route-18","route-19","route-20","route-21","route-22"], "responsibility": "Popukar continuously intercepts at [3,7], supported by Midnight. Melantha catches any downstream hostile, but overflow remains a civilian-protection failure requiring verification."}
+      ],
+      "pressure_window_responsibilities": [
+        {"seconds": [0,53], "task": "Build southern blocking and damage, then Beagle and Kroos; use Melantha's first ready burst."},
+        {"seconds": [53,95], "task": "Sustain southern officers, complete healing and establish Popukar."},
+        {"seconds": [95,120], "task": "Contain isolated northern officers, add Midnight and finish the southern wave."},
+        {"seconds": [120,145], "task": "Add Adnachiel to the top lane. Preserve Popukar's attack skill and Ansel's range skill for paired pressure."},
+        {"seconds": [145,170.1], "task": "Ansel heals the interceptor; Midnight and Popukar overlap attack boosts. Avoid saturation of Popukar's two blocking slots."},
+        {"seconds": [170.1,195], "task": "Midnight remains boosted until 187.1; Popukar finishes interception. Adnachiel's boosted damage supports the final top waves."},
+        {"seconds": [195,220], "task": "Finish remaining hostiles with containment intact; resume needed healing."},
+        {"seconds": [220,312], "task": "Execute the guarded Castle-3 handoff, destroy both roadblocks and verify all four civilian arrivals."},
+        {"seconds": [312,600], "task": "Continue any unfinished clearance with defenses retained; accept only the complete WIN conditions within the unchanged cap."}
+      ],
+      "skill_intents": [
+        {"operator_id": "char_123_fang", "effect": "Automatic +6 DP; record four procs before retirement."},
+        {"operator_id": "char_208_melan", "activation_seconds": [55], "effect": "+50% ATK for early southern pressure; no talent bonus assumed."},
+        {"operator_id": "char_210_stward", "effect": "Automatic attack-SP scaled hit until retirement."},
+        {"operator_id": "char_124_kroos", "effect": "Automatic supported two-hit skill; no probability talent credit."},
+        {"operator_id": "char_122_beagle", "activation_seconds": [120,190], "effect": "+50% DEF for 30 seconds; later use requires defensive need."},
+        {"operator_id": "char_120_hibisc", "activation_seconds": [97.1,147.1,197.1], "effect": "+50% healing ATK for 20 seconds; require healing need."},
+        {"operator_id": "char_212_ansel", "activation_seconds": [145.1,205.1], "effect": "+40% healing ATK and two forward range cells for 25 seconds. First use is reserved for Popukar's paired-pressure window."},
+        {"operator_id": "char_283_midn", "activation_seconds": [147.1], "effect": "+35% ATK for 40 seconds; budget physical damage only."},
+        {"operator_id": "char_281_popka", "activation_seconds": [150.1], "effect": "+50% ATK for 20 seconds; retain operator through cleanup."},
+        {"operator_id": "char_211_adnach", "activation_seconds": [160.1], "effect": "+50% ATK for 20 seconds against late top pressure; no targeting or attack-speed talent credit."},
+        {"operator_id": "char_286_cast3", "effect": "Basic device attacks only; no deployment buff credit."}
+      ],
+      "roadblock_2_clearance": {
+        "device_id": "trap_020_roadblock#2",
+        "attacker": "char_286_cast3",
+        "tile_row_col": [3,7],
+        "direction": "UP",
+        "planned_deployment_frame": 6603,
+        "start_seconds": 220.1,
+        "start_condition": "Spawn schedule exhausted, no active non-neutral enemies, Popukar retreat completed, tile free and sufficient DP.",
+        "damage_per_basic_hit": 153,
+        "required_basic_hits": 53,
+        "basic_attack_interval_seconds": 1.5,
+        "expected_destroy_seconds": [298.1,299.6],
+        "expected_safe_arrival_by_seconds": 312,
+        "timing_basis": "ceil(8000/(353-200))=53 hits; 52 intervals plus zero to one initial interval. Deferred handoff shifts estimates.",
+        "completion_guard": "Retain Castle-3 until DEVICE_DESTROYED is observed, then require safe PROTECTED_TARGET_REACHED for #6 and #11. Never infer destruction or release from elapsed time."
+      },
+      "mandatory_tactical_invariants": [
+        {"rule": "Select only supplied catalog operators with identity.rarity 1-3 and qualification.normal_mode=true; exclude mode-specific reserves. Ordinary three-star catalog count is 17."},
+        {"rule": "DEPLOY tiles are integer [row,col]. Forbidden deployment set is exactly [[2,5],[4,7]]."},
+        {"rule": "Maintain at most eight deployed operators. Handoffs require completed retreat, free tile and actual DP; credit no refunds."},
+        {"rule": "Ordinary operators neither attack nor block civilians. Assign no ordinary medic healing to civilians."},
+        {"rule": "Do not replace Popukar during active officer pressure. A third blocking slot alone does not replace her damage responsibility."},
+        {"rule": "Before Steward's retirement, verify the southern officers are eliminated; defer his paired handoff if necessary."},
+        {"rule": "Manual skills require readiness. Time-SP pauses during active skills; delayed activations shift subsequent readiness."},
+        {"rule": "Retain Melantha, Hibiscus, Beagle, Kroos, Ansel, Midnight and Adnachiel through actual completion."},
+        {"rule": "Any thirteenth 280-damage hit on #6 violates the protection goal; downstream containment alone cannot establish civilian safety."},
+        {"rule": "Castle-3's handoff requires actual hostile exhaustion. Keep clearance attackers until their assigned devices are destroyed."},
+        {"rule": "WIN requires remaining_life>0, zero leaks, exhausted spawns and no active enemies; perfect completion additionally requires all four safe arrivals and zero protected-target deaths."},
+        {"rule": "Hard cap is frame 18000, 600 seconds. No forced release or cap extension."}
+      ],
+      "action_timeline": [
+        {"action_type": "DEPLOY", "frame": 0, "operator_id": "char_123_fang", "tile": [3,3], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 450, "operator_id": "char_208_melan", "tile": [4,3], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 810, "operator_id": "char_210_stward", "tile": [5,3], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 1323, "operator_id": "char_122_beagle", "tile": [1,2], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 1503, "operator_id": "char_124_kroos", "tile": [2,1], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 1650, "operator_id": "char_208_melan"},
+        {"action_type": "DEPLOY", "frame": 2013, "operator_id": "char_120_hibisc", "tile": [5,2], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 2403, "operator_id": "char_281_popka", "tile": [3,7], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 2913, "operator_id": "char_212_ansel", "tile": [2,2], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2913, "operator_id": "char_120_hibisc", "condition": "Ready and healing needed."},
+        {"action_type": "RETREAT", "frame": 3210, "operator_id": "char_123_fang", "condition": "Four DP procs recorded; Melantha remains deployed."},
+        {"action_type": "DEPLOY", "frame": 3213, "operator_id": "char_283_midn", "tile": [3,5], "direction": "RIGHT", "condition": "Fang handoff complete and sufficient DP."},
+        {"action_type": "RETREAT", "frame": 3600, "operator_id": "char_210_stward", "condition": "All route-2, route-4 and route-11 officers eliminated; otherwise defer this paired handoff."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3600, "operator_id": "char_122_beagle", "condition": "Ready and defense needed."},
+        {"action_type": "DEPLOY", "frame": 3603, "operator_id": "char_211_adnach", "tile": [3,1], "direction": "DOWN", "condition": "Steward handoff complete, tile free and sufficient DP; defer together with retreat."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4353, "operator_id": "char_212_ansel", "condition": "Ready; provide the reserved extended healing window."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4413, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4413, "operator_id": "char_120_hibisc", "condition": "Ready and healing needed."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4503, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4803, "operator_id": "char_211_adnach", "condition": "Ready; if deployment was deferred, activate when ready while top pressure remains."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5700, "operator_id": "char_122_beagle", "condition": "Ready and defense needed."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5913, "operator_id": "char_120_hibisc", "condition": "Ready and healing needed."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6153, "operator_id": "char_212_ansel", "condition": "Ready and healing needed; defer if the first activation was delayed."},
+        {"action_type": "RETREAT", "frame": 6600, "operator_id": "char_281_popka", "condition": "Hostile spawn schedule exhausted and no active non-neutral enemies; otherwise defer the paired clearance handoff."},
+        {"action_type": "DEPLOY", "frame": 6603, "operator_id": "char_286_cast3", "tile": [3,7], "direction": "UP", "condition": "Guarded Popukar handoff completed, tile free and sufficient DP; defer together with retreat.", "rationale": "Maintain dedicated basic attacks on roadblock #2 until destruction."}
+      ],
+      "unknown_dependencies": [
+        {"mechanic": "Late interception throughput", "status": "UNSIMULATED", "impact": "Skill overlap must prevent blocking saturation and repeated civilian hits; DPS arithmetic does not prove discrete attack ordering."},
+        {"mechanic": "Ansel healing allocation", "status": "CURRENT_MODEL_RANGE_VERIFIED_OUTCOME_UNSIMULATED", "impact": "Extended coverage is valid, but Popukar's survival through final cleanup requires verification."},
+        {"mechanic": "Supplemental top damage", "status": "UNSIMULATED", "impact": "Adnachiel covers Beagle's tile and adds late damage; zero leaks remains an acceptance requirement."},
+        {"mechanic": "Exact client timing and target priority", "status": "UNKNOWN", "impact": "Current-model blocking and device targeting rules do not establish client ordering."}
+      ]
+    }
+  ]
+}

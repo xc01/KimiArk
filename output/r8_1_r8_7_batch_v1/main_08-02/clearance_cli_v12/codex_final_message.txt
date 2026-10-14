@@ -1,0 +1,220 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-02",
+    "plan_label": "R8-2-V12",
+    "GameData": {
+      "deployment_limit": 8,
+      "initial_dp": 10,
+      "ordinary_three_star_catalog_count": 17,
+      "roadblock_2": {"hp": 8000, "defense": 200, "res": 20}
+    },
+    "current_model": {
+      "blocked_officers_attack_their_blocker": true,
+      "officer_civilian_attack_radius": 1.2,
+      "device_attacks_require_no_active_hostiles": true,
+      "ordinary_operators_attack_or_block_civilians": false,
+      "medic_coverage_at_interceptor": false,
+      "conservative_last_spawn_seconds": 171
+    },
+    "USER_CONFIRMED": "Civilian passage requires actual roadblock destruction.",
+    "UNKNOWN": ["Exact client timing and target priority", "V12 combat outcome"],
+    "verification": "Read-only inspection of the supplied schema, saved evidence and simulator deployment, targeting and blocking rules. No simulation or file changes."
+  },
+  "revised_tactical_requirements": {
+    "scope": "Full stage",
+    "cap_seconds": 600,
+    "claim_status": "UNSIMULATED_REVISION",
+    "protected_target_loss_goal": 0,
+    "acceptance": [
+      "Roadblock #2 DEVICE_DAMAGE and DEVICE_DESTROYED",
+      "Safe PROTECTED_TARGET_REACHED for #0, #3, #6 and #11",
+      "Zero protected-target deaths",
+      "Zero leaks",
+      "remaining_life > 0",
+      "Exhausted spawns",
+      "No active enemies"
+    ]
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-2-H12",
+      "status": "UNSIMULATED",
+      "thesis": "Assign Cardigan's three-block capacity and 475 DEF to officer interception. Bring Midnight forward to 94.1 seconds and boost him through 142–182 seconds. This should sharply reduce civilian exposure and interceptor attrition while preserving Beagle's established top defense and dedicated post-combat roadblock clearance."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_2_GPT_V12",
+      "parent_hypothesis_id": "R8-2-H12",
+      "tactical_thesis": "Replace unhealed Popukar with Cardigan at [3,7]. Cardigan holds three officers and takes only 16.5 damage per ordinary officer hit under the current formula. Midnight supplies the interceptor's damage from 94.1 seconds, with his boost covering the dense final arrivals. Keep southern containment and the established top formation. After actual hostile exhaustion, Castle-3 clears roadblock #2 while Midnight clears #1; retain defenses until all four civilians arrive.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_208_melan",
+        "char_210_stward",
+        "char_122_beagle",
+        "char_209_ardign",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_283_midn",
+        "char_212_ansel",
+        "char_211_adnach",
+        "char_285_medic2",
+        "char_286_cast3"
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "rejected": "An unhealed two-block attacker is the appropriate permanent officer interceptor.",
+          "replacement": "Cardigan assumes interception with three blocks, 2130 HP and 475 DEF. Her unsupported self-heal is not required or activated."
+        },
+        {
+          "rejected": "Midnight must wait until 107.1 seconds.",
+          "replacement": "Retire Fang immediately after the fourth recorded DP proc and deploy Midnight at 94.1 seconds. Ansel follows at 106.1 seconds; Beagle and Kroos hold the opening top pressure."
+        },
+        {
+          "rejected": "A late interceptor attack skill and one deployment heal establish civilian safety.",
+          "replacement": "Use durable interception, earlier sustained damage and a 142–182-second Midnight boost. Retain downstream containment and verify actual protected-target arrivals."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id": "char_123_fang", "tile": [3,3], "direction": "UP", "role": "Opening DP and southern damage support"},
+        {"operator_id": "char_208_melan", "tile": [4,3], "direction": "RIGHT", "role": "Southern blocking and downstream officer containment"},
+        {"operator_id": "char_210_stward", "tile": [5,3], "direction": "DOWN", "role": "Southern arts damage"},
+        {"operator_id": "char_122_beagle", "tile": [1,2], "direction": "RIGHT", "role": "Permanent top three-block anchor"},
+        {"operator_id": "char_209_ardign", "tile": [3,7], "direction": "DOWN", "role": "Permanent officer interceptor during combat"},
+        {"operator_id": "char_124_kroos", "tile": [2,1], "direction": "RIGHT", "role": "Top damage"},
+        {"operator_id": "char_120_hibisc", "tile": [5,2], "direction": "RIGHT", "role": "Southern healing"},
+        {"operator_id": "char_283_midn", "tile": [3,5], "direction": "RIGHT", "role": "Interceptor damage support and roadblock #1 clearance"},
+        {"operator_id": "char_212_ansel", "tile": [2,2], "direction": "RIGHT", "role": "Top healing"},
+        {"operator_id": "char_211_adnach", "tile": [3,1], "direction": "DOWN", "role": "Additional top damage"},
+        {"operator_id": "char_285_medic2", "tile": [3,2], "direction": "DOWN", "role": "Deployment heal and basic top healing"},
+        {"operator_id": "char_286_cast3", "tile": [3,7], "direction": "UP", "role": "Dedicated roadblock #2 clearance"}
+      ],
+      "formation_structure": {
+        "southern": ["Melantha", "Steward", "Hibiscus"],
+        "top": ["Beagle", "Kroos", "Ansel", "Adnachiel", "Lancet-2 after handoff"],
+        "officer_protection": ["Cardigan interception", "Midnight damage", "Melantha downstream containment"],
+        "range_checks": "Midnight covers Cardigan's tile [3,7] and roadblock #1 [2,5]. Castle-3 UP covers roadblock #2 [4,7]. Both top medics cover Beagle. No ordinary medic coverage or civilian healing is credited at [3,7].",
+        "economy": "Natural +1 DP/s; Fang contributes four supported +6 DP procs near 19,44,69,94 seconds. No refunds credited.",
+        "deployment_dp_after": [
+          {"seconds": 0, "dp": 0},
+          {"seconds": 15, "dp": 0},
+          {"seconds": 27, "dp": 0},
+          {"seconds": 44.1, "dp": 5.1},
+          {"seconds": 57.1, "dp": 0.1},
+          {"seconds": 68.1, "dp": 0.1},
+          {"seconds": 79.1, "dp": 0.1},
+          {"seconds": 94.1, "dp": 5.1},
+          {"seconds": 106.1, "dp": 0.1},
+          {"seconds": 120.1, "dp": 3.1}
+        ],
+        "damage_budget": "Single-target attacks and supported skill multipliers only. Cardigan contributes approximately 129 physical DPS against officers; boosted Midnight approximately 401 DPS when continuously attacking them. These rates do not guarantee target ordering or absence of overflow.",
+        "survival_budget": "Officer hits deal max(16.5,330-475)=16.5 to Cardigan. Lancet-2 supplies up to 200 additional operator HP on deployment. No Cardigan self-heal, probability talent or Midnight arts conversion credited.",
+        "slot_handoffs": ["Fang to Midnight", "Steward to Adnachiel", "Hibiscus to Lancet-2", "Cardigan to Castle-3"]
+      },
+      "formation_transitions": [
+        {"seconds": 57.1, "transition": "Establish durable three-block officer interception"},
+        {"seconds": 94.1, "transition": "Transfer completed opening economy to interceptor damage"},
+        {"seconds": 106.1, "transition": "Complete top healing"},
+        {"seconds": 120.1, "transition": "Transfer completed southern arts duty to top damage"},
+        {"seconds": 142, "transition": "Boost Midnight through the dense final officer waves"},
+        {"seconds": 165.1, "transition": "Transfer completed southern healing to deployment recovery and top healing"},
+        {"seconds": 220.1, "transition": "After verified hostile exhaustion, transfer interception to device clearance"}
+      ],
+      "corridor_responsibilities": [
+        {"routes": ["route-0"], "responsibility": "No supplied spawns"},
+        {"routes": ["route-1","route-3"], "responsibility": "Leave civilians neutral; Midnight clears roadblock #1 during permitted hostile-free periods; require #0 and #3 safe arrival"},
+        {"routes": ["route-2","route-4","route-11"], "responsibility": "Melantha blocks, Steward damages and Hibiscus heals; finish this duty before guarded handoffs"},
+        {"routes": ["route-5","route-6"], "responsibility": "Cardigan intercepts approaching officers and Midnight reduces their residence time; Castle-3 later destroys roadblock #2; require both #6 and #11 safe arrival"},
+        {"routes": ["route-7","route-8","route-12","route-13","route-14","route-15","route-16","route-17"], "responsibility": "Beagle blocks; Kroos and later Adnachiel kill; Ansel and later Lancet-2 sustain Beagle"},
+        {"routes": ["route-9","route-10","route-18","route-19","route-20","route-21","route-22"], "responsibility": "Cardigan owns upstream three-block interception, Midnight owns sustained damage and the dense-wave burst, Melantha owns downstream containment. Any overflow near waiting civilians remains a protection risk rather than proof of safety"}
+      ],
+      "pressure_window_responsibilities": [
+        {"seconds": [0,57.1], "task": "Establish southern defense and Beagle's top anchor; Melantha boosts at 55 seconds"},
+        {"seconds": [57.1,94.1], "task": "Deploy Cardigan, Kroos and Hibiscus; retain Fang through four DP procs"},
+        {"seconds": [94.1,120.1], "task": "Midnight supports the first northern officers; Ansel completes top sustain"},
+        {"seconds": [120.1,142], "task": "Maintain Cardigan interception and transfer cleared southern damage to Adnachiel"},
+        {"seconds": [142,182], "task": "Midnight boosts throughout dense officer arrivals; Adnachiel boosts at 160.1; Lancet-2 restores operator HP at 165.1"},
+        {"seconds": [182,220], "task": "Finish remaining hostiles with Cardigan and all containment retained"},
+        {"seconds": [220,312], "task": "Guarded Castle-3 handoff, actual roadblock destruction and civilian evacuation"},
+        {"seconds": [312,600], "task": "Continue any unfinished clearance and evacuation; retain defense and accept only the complete WIN conditions before the unchanged cap"}
+      ],
+      "skill_intents": [
+        {"operator_id": "char_123_fang", "effect": "Automatic +6 DP; verify four procs before retirement"},
+        {"operator_id": "char_208_melan", "activation_seconds": [55], "effect": "+50% ATK for 20 seconds"},
+        {"operator_id": "char_210_stward", "effect": "Automatic supported attack-SP scaled hit"},
+        {"operator_id": "char_124_kroos", "effect": "Automatic supported two-hit attack skill"},
+        {"operator_id": "char_209_ardign", "effect": "Basic blocking and attacks only; unsupported self-heal unused"},
+        {"operator_id": "char_283_midn", "activation_seconds": [142], "effect": "+35% ATK for 40 seconds; physical damage budget"},
+        {"operator_id": "char_122_beagle", "activation_seconds": [120,190], "effect": "+50% DEF for 30 seconds"},
+        {"operator_id": "char_120_hibisc", "activation_seconds": [109.1,159.1], "effect": "+50% healing ATK for 20 seconds"},
+        {"operator_id": "char_212_ansel", "activation_seconds": [145.1,205.1], "effect": "+40% healing ATK for 25 seconds; no effective interceptor range extension credited"},
+        {"operator_id": "char_211_adnach", "activation_seconds": [160.1], "effect": "+50% ATK for 20 seconds"},
+        {"operator_id": "char_285_medic2", "effect": "Supported deployment heal, then basic top healing"},
+        {"operator_id": "char_286_cast3", "effect": "Basic device attacks; unsupported deployment buff unused"}
+      ],
+      "action_timeline": [
+        {"action_type": "DEPLOY", "frame": 0, "operator_id": "char_123_fang", "tile": [3,3], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 450, "operator_id": "char_208_melan", "tile": [4,3], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 810, "operator_id": "char_210_stward", "tile": [5,3], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 1323, "operator_id": "char_122_beagle", "tile": [1,2], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 1650, "operator_id": "char_208_melan"},
+        {"action_type": "DEPLOY", "frame": 1713, "operator_id": "char_209_ardign", "tile": [3,7], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 2043, "operator_id": "char_124_kroos", "tile": [2,1], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 2373, "operator_id": "char_120_hibisc", "tile": [5,2], "direction": "RIGHT"},
+        {"action_type": "RETREAT", "frame": 2820, "operator_id": "char_123_fang", "condition": "Four DP procs recorded and Melantha remains deployed"},
+        {"action_type": "DEPLOY", "frame": 2823, "operator_id": "char_283_midn", "tile": [3,5], "direction": "RIGHT", "condition": "Fang handoff completed and actual DP sufficient"},
+        {"action_type": "DEPLOY", "frame": 3183, "operator_id": "char_212_ansel", "tile": [2,2], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3273, "operator_id": "char_120_hibisc", "condition": "Ready and southern healing needed"},
+        {"action_type": "RETREAT", "frame": 3600, "operator_id": "char_210_stward", "condition": "All route-2, route-4 and route-11 officers eliminated; otherwise defer paired handoff"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3600, "operator_id": "char_122_beagle", "condition": "Ready and defense needed"},
+        {"action_type": "DEPLOY", "frame": 3603, "operator_id": "char_211_adnach", "tile": [3,1], "direction": "DOWN", "condition": "Steward handoff completed, tile free and actual DP sufficient; defer together"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4260, "operator_id": "char_283_midn", "condition": "Ready"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4353, "operator_id": "char_212_ansel", "condition": "Ready and top healing needed"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4773, "operator_id": "char_120_hibisc", "condition": "Ready; account for any delayed first activation"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4803, "operator_id": "char_211_adnach", "condition": "Ready; deferred deployment shifts readiness"},
+        {"action_type": "RETREAT", "frame": 4950, "operator_id": "char_120_hibisc", "condition": "Southern hostiles eliminated and Melantha stable; otherwise defer paired handoff"},
+        {"action_type": "DEPLOY", "frame": 4953, "operator_id": "char_285_medic2", "tile": [3,2], "direction": "DOWN", "condition": "Hibiscus handoff completed and actual DP sufficient"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5700, "operator_id": "char_122_beagle", "condition": "Ready and defense needed"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6153, "operator_id": "char_212_ansel", "condition": "Ready and healing needed; account for delayed first activation"},
+        {"action_type": "RETREAT", "frame": 6600, "operator_id": "char_209_ardign", "condition": "Hostile spawn schedule exhausted and no active non-neutral enemies; otherwise defer paired clearance handoff"},
+        {"action_type": "DEPLOY", "frame": 6603, "operator_id": "char_286_cast3", "tile": [3,7], "direction": "UP", "condition": "Cardigan handoff completed, tile free and actual DP sufficient; defer together"}
+      ],
+      "roadblock_2_clearance": {
+        "device_id": "trap_020_roadblock#2",
+        "attacker": "char_286_cast3",
+        "tile_row_col": [3,7],
+        "direction": "UP",
+        "planned_start_frame": 6603,
+        "start_seconds": 220.1,
+        "start_condition": "Exhausted hostile spawns, no active non-neutral enemies and completed Cardigan retreat",
+        "damage_per_basic_hit": 153,
+        "required_basic_hits": 53,
+        "basic_attack_interval_seconds": 1.5,
+        "expected_destroy_seconds": [298.1,299.6],
+        "expected_safe_arrival_by_seconds": 312,
+        "timing_basis": "ceil(8000/(353-200))=53 hits; 52 intervals plus zero to one initial interval. Deferred handoff shifts estimates.",
+        "completion_guard": "Retain Castle-3 until actual DEVICE_DAMAGE and DEVICE_DESTROYED; then require both #6 and #11 safe PROTECTED_TARGET_REACHED. Elapsed time never substitutes for these events."
+      },
+      "mandatory_tactical_invariants": [
+        {"rule": "Only supplied normal-mode catalog operators with identity.rarity 1–3 and qualification.normal_mode=true; exclude mode-specific reserve units"},
+        {"rule": "DEPLOY uses integer [row,col] and an explicit direction. Forbidden deployment set is exactly [[2,5],[4,7]]"},
+        {"rule": "At most eight deployed operators; every handoff requires completed retreat, free tile and actual sufficient DP; no refund assumptions"},
+        {"rule": "Ordinary operators neither attack nor block civilians; ordinary healing and Lancet-2 deployment healing are assigned only to operators"},
+        {"rule": "Keep Cardigan throughout active officer pressure; never perform the Castle-3 handoff while a hostile remains"},
+        {"rule": "Do not credit Cardigan self-healing, probability talents, AoE geometry, Midnight arts conversion or Ansel healing at [3,7]"},
+        {"rule": "Manual skills require readiness; time-SP pauses during active skills and delayed activations shift subsequent readiness"},
+        {"rule": "Do not retire southern damage or healing before its actual duty is complete"},
+        {"rule": "Retain Melantha, Beagle, Kroos, Midnight, Ansel, Adnachiel, Lancet-2 and Castle-3 through actual completion"},
+        {"rule": "Cardigan capacity and calculated DPS are hypotheses, not guarantees. Twelve 280-damage hits leave a civilian at 140 HP; a thirteenth is fatal"},
+        {"rule": "WIN requires remaining_life>0, zero leaks, exhausted spawns and no active enemies; perfect acceptance additionally requires all four protected targets safely reached"},
+        {"rule": "Hard cap remains frame 18000; no forced civilian release or cap extension"}
+      ],
+      "unknown_dependencies": [
+        {"mechanic": "Three-block interception and Midnight target ordering", "status": "UNSIMULATED", "impact": "Must limit overflow and civilian attacks through the final paired officer waves"},
+        {"mechanic": "Cardigan survival", "status": "UNSIMULATED", "impact": "Reduced incoming damage and supported deployment recovery must sustain interception until actual hostile exhaustion"},
+        {"mechanic": "Ansel deployment at 106.1 seconds", "status": "UNSIMULATED", "impact": "Beagle and Kroos must sustain opening top pressure until healing arrives"},
+        {"mechanic": "Exact client timing and target priority", "status": "UNKNOWN", "impact": "Current-model arithmetic does not prove client execution"}
+      ]
+    }
+  ]
+}

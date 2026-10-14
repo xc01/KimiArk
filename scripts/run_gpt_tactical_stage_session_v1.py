@@ -25,6 +25,7 @@ PLAN_PREFIX = "R8_2_GPT_V3"
 PLAN_LABEL = "R8-2-V3"
 REVISION_SOURCE_DIR: str | None = None
 DIAGNOSTIC_SUMMARY: str | None = None
+TACTICAL_FEEDBACK: str | None = None
 STATIC_CONFLICT_SUMMARY: str | None = None
 SAVED_INPUT_DIR: str | None = None
 
@@ -59,6 +60,7 @@ def configure(arguments: argparse.Namespace) -> None:
     PLAN_LABEL = arguments.plan_label
     REVISION_SOURCE_DIR = arguments.revision_source
     DIAGNOSTIC_SUMMARY = arguments.diagnostic_summary
+    TACTICAL_FEEDBACK = arguments.tactical_feedback
     STATIC_CONFLICT_SUMMARY = arguments.static_conflict_summary
     SAVED_INPUT_DIR = arguments.saved_input_dir
     codex_runner.configure_run(
@@ -206,6 +208,8 @@ def prepare() -> dict[str, Any]:
                     "source": STATIC_CONFLICT_SUMMARY,
                     "result": load(ROOT / STATIC_CONFLICT_SUMMARY),
                 }
+            if TACTICAL_FEEDBACK:
+                evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)
             evidence["roadblock_clearance_evidence"] = revision_evidence.get("roadblock_clearance_evidence")
             prior_plan_tiles = revision_evidence.get("stage_active_facts", {}).get(
                 "roadblock_plan_tiles_row_col"
@@ -300,6 +304,7 @@ Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity`
 
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
 {"IMPORTANT: prior_static_feedback is from the immediately preceding candidate, while prior_diagnostic_feedback may be from the earlier simulated baseline. Resolve every prior static conflict exactly without letting Python alter tactical actions." if "prior_static_feedback" in evidence else ""}
+{"IMPORTANT: prior_tactical_feedback is the verified causal history. Treat failed conditional economic dependencies as survival/handoff failures, not arithmetic bugs. Preserve demonstrated improvements only when the structure that produced them remains supported; redesign the opening survival, interception, protection, and clearance responsibilities yourself." if "prior_tactical_feedback" in evidence else ""}
 
 Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not attack or block neutral civilians with ordinary operators; remember enemy officers may attack civilians and civilian death costs objective life. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
 
@@ -467,6 +472,7 @@ def main() -> None:
     )
     parser.add_argument("--revision-source")
     parser.add_argument("--diagnostic-summary")
+    parser.add_argument("--tactical-feedback")
     parser.add_argument("--static-conflict-summary")
     parser.add_argument("--saved-input-dir")
     arguments = parser.parse_args()
