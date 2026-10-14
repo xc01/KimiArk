@@ -428,4 +428,7 @@ achievable, but the opening survival and route-throughput cost was too high. V10
 recovered most throughput yet left #14 behind roadblock #4, so civilian clearing
 cannot be implicit. Opening deaths remain coupled to later deployment errors; a
 missing interceptor invalidates downstream conditional retreats and skills.
-Contract-only V7/V11 plans have no tactical simulation result.
+Contract-only V7/V11 and static-only V12 have no tactical result. V13 shows that
+solving both protected arrivals by broadening clearance/redeployment can collapse
+route defense; the next structure must preserve V10's line and selectively clear
+#4.

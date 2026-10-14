@@ -554,4 +554,6 @@ failed contract validation. Fixed diagnostics were started for V3, V5, V9, V10,
 plus one same-plan V5 re-evaluation after correcting the runner's retreat-redeploy
 gate. V5: 21/12/7/life -9 and both protected arrivals. V9: 24/9/4/life -6 and
 both arrivals. V10: 28/5/3/life -2 and only #3 arrival. Internal model requests
-remain `UNKNOWN_CLI_INTERNAL`.
+remain `UNKNOWN_CLI_INTERNAL`. Later V11 failed lineage, V12 was static-only,
+and high-effort V13 achieved both protected arrivals but regressed to
+17/16/8/life -13. V10 remains best.

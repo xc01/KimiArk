@@ -1,0 +1,41 @@
+{
+  "active_mechanics_version": "m19.1-local-device-target-v1",
+  "generated_at": "2026-10-15",
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "round_runtime_counters": {
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "new_cli_process_starts_since_e4a33d0": 11,
+    "new_stage_simulation_attempts_since_e4a33d0": 7,
+    "new_stage_simulations_completed_since_e4a33d0": 6
+  },
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V12",
+  "stages": [
+    {"current_best_plan": "C7", "evidence": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_local_device_v1/", "result": {"kills": 56, "leaks": 0, "operator_deaths": 0, "remaining_life": 5}, "stage_id": "main_08-01", "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN"},
+    {"current_best_plan": "R8_2_GPT_V15", "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/local_device_target_revalidation_v1/v15/", "perfect_completion": true, "protected_target_deaths": [], "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 3}, "stage_id": "main_08-02", "status": "PERFECT_SIMULATOR_WIN_CONDITIONAL_CURRENT_MODEL"},
+    {"blockers": ["APPEAR_AT_POS", "DISAPPEAR", "WAIT_CURRENT_FRAGMENT_TIME"], "stage_id": "main_08-03", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {"current_best_plan": "R8_4_GPT_V4", "evidence": "output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/", "perfect_completion": true, "protected_target_deaths": [], "result": {"kills": 54, "leaks": 0, "operator_deaths": 0, "remaining_life": 3}, "stage_id": "main_08-04", "status": "PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL"},
+    {"blockers": ["APPEAR_AT_POS", "DISAPPEAR"], "stage_id": "main_08-05", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {"blockers": ["WAIT_CURRENT_WAVE_TIME"], "stage_id": "main_08-06", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {
+      "candidates": [
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_target_revalidation_v1/R8_7_GPT_V2/", "plan": "R8_7_GPT_V2", "protected_target_arrivals": 0, "result": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1}},
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v5/", "plan": "R8_7_GPT_V5", "protected_target_arrivals": 2, "result": {"kills": 21, "leaks": 12, "operator_deaths": 7, "remaining_life": -9}},
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v10/", "plan": "R8_7_GPT_V10", "protected_target_arrivals": 1, "result": {"kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2}},
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v13/", "plan": "R8_7_GPT_V13", "protected_target_arrivals": 2, "result": {"kills": 17, "leaks": 16, "operator_deaths": 8, "remaining_life": -13}}
+      ],
+      "current_best_plan": "R8_7_GPT_V10",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v10/",
+      "next_block": "V10 is the best current result at 28/5/3/-2 with #3 arrival. It leaves #14 blocked by roadblock #4. V13 achieved both arrivals but regressed to 17/16/8/-13.",
+      "next_plan": "R8_7_GPT_V14",
+      "result": {"kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2},
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS_BEST_CURRENT_MODEL",
+      "unexecuted_or_worse_candidates": [
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_revision_v11/", "plan": "R8_7_GPT_V11", "reason": "FAILED_SCHEMA_CONTRACT_PARENT_HYPOTHESIS_REFERENCE", "simulated": false},
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_revision_v12/", "plan": "R8_7_GPT_V12", "reason": "STATIC_CONFLICT_LAVA_SP_30_40", "simulated": false},
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v13/", "plan": "R8_7_GPT_V13", "protected_target_arrivals": 2, "reason": "LOSS", "result": {"kills": 17, "leaks": 16, "operator_deaths": 8, "remaining_life": -13}, "simulated": true}
+      ]
+    }
+  ],
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN; PERFECT_COMPLETION_REMAINS_CONDITIONAL_ON_CURRENT_MODEL"
+}

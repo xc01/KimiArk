@@ -114,4 +114,4 @@ with both arrivals. V10 nearly restored V2 throughput at 28/5/3/life -2 and
 arrived #3, but #14 stayed blocked by roadblock #4. V10 is the best current
 R8-7 result; V2 remains the minimum-leak loss baseline. V11 failed schema/contract
 lineage validation and has no simulation. The seven-stage table is
-`seven_stage_status_v11.json`.
+`seven_stage_status_v12.json`.

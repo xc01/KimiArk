@@ -1,0 +1,45 @@
+{
+  "battle_result_status": "NO_SIMULATION",
+  "candidate_status": "CONTRACT_INVALID_ONLY",
+  "comparison": {
+    "R8_7_GPT_V10": {
+      "kills": 28,
+      "leaks": 5,
+      "operator_deaths": 3,
+      "remaining_life": -2,
+      "protected_target_arrivals": 1
+    },
+    "R8_7_GPT_V11": {
+      "simulated": false,
+      "failure": "parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id"
+    },
+    "conclusion": "V11 has no tactical result. Preserve V10's structure, complete roadblock #4 clearance, and declare V12's own hypothesis."
+  },
+  "contract_rule": "parent_hypothesis_id must equal a hypothesis_id declared in the same revised_strategic_hypotheses list",
+  "critical_causal_chain": {
+    "clearance_gap": {
+      "civilian": "enemy_3001_upeopl#14",
+      "first_block": 3168,
+      "roadblock": "trap_020_roadblock#4",
+      "device_damage_events": 0
+    },
+    "deaths": [
+      {"frame": 1076, "operator": "char_286_cast3", "source_window": "five 290 uterer#4 hits"},
+      {"frame": 1920, "operator": "char_240_wyvern", "source_window": "repeated uoffcr#7 pressure; final 760 emppnt hit"},
+      {"frame": 3030, "operator": "char_210_stward", "source_window": "four 910 emppnt hits"}
+    ],
+    "leaks": [
+      {"frame": 1199, "route": "route-7", "enemy": "enemy_1108_uterer#4"},
+      {"frame": 1532, "route": "route-8", "enemy": "enemy_1107_uoffcr#8"},
+      {"frame": 2792, "route": "route-11", "enemy": "enemy_1107_uoffcr#11"},
+      {"frame": 3152, "route": "route-14", "enemy": "enemy_1107_uoffcr#13"},
+      {"frame": 4019, "route": "route-1", "enemy": "enemy_1112_emppnt#0"}
+    ]
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {"arrivals": 1, "deaths": 0, "protected_arrival_frame": 12636},
+  "result": {"deployment_errors": 13, "kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2, "win": false},
+  "schema_version": "R8_7_GPT_V12_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V10",
+  "unknown_boundaries": ["exact client multi-device ordering", "full 2026 selector/aggro details", "real-game result"]
+}

@@ -30,7 +30,7 @@ PLAN_ID = "R8_1_LOWSTAR_PLAN_C4"
 PLAN_LABEL = "C4"
 PLAN_PREFIX = "R8_1_LOWSTAR_PLAN_C4"
 MODEL = "gpt-6.1-sol"
-REASONING_EFFORT = "medium"
+REASONING_EFFORT = os.environ.get("CODEX_REASONING_EFFORT", "medium")
 CLI_TIMEOUT_SECONDS = 3600
 PRIOR_CLI_STARTS = 0
 CLI_ATTEMPT_NUMBER = 1
@@ -155,7 +155,7 @@ def build_command(last_message_path: Path) -> list[str]:
     command = [
         "codex", "exec", "--json", "--sandbox", "read-only", "--cd", str(ROOT),
         "-c", 'model_provider="openai"', "-m", MODEL,
-        "-c", 'model_reasoning_effort="medium"',
+        "-c", f'model_reasoning_effort="{REASONING_EFFORT}"',
         "-o", str(last_message_path), "-",
     ]
     for value in EXTRA_CONFIG_VALUES:
