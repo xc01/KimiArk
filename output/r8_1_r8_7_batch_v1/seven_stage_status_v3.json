@@ -1,0 +1,234 @@
+{
+  "batch_totals": {
+    "automatic_retry": false,
+    "cumulative_codex_cli_process_starts": 16,
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "new_codex_cli_process_starts_this_cycle": 3,
+    "new_original_action_diagnostics_this_cycle": 5,
+    "new_tactical_revision_diagnostics_this_cycle": 1,
+    "observed_usage_totals": {
+      "cached_input_tokens": 1801600,
+      "input_tokens": 2147541,
+      "output_tokens": 38833,
+      "reasoning_output_tokens": 20257
+    },
+    "optimization_runs": 0,
+    "usage_records": [
+      {
+        "cached_input_tokens": 846592,
+        "experiment": "R8_2_GPT_V4",
+        "input_tokens": 920691,
+        "output_tokens": 17783,
+        "reasoning_output_tokens": 11059
+      },
+      {
+        "cached_input_tokens": 627712,
+        "experiment": "R8_4_GPT_V3",
+        "input_tokens": 800470,
+        "output_tokens": 8469,
+        "reasoning_output_tokens": 2284
+      },
+      {
+        "cached_input_tokens": 327296,
+        "experiment": "R8_7_GPT_V2",
+        "input_tokens": 426380,
+        "output_tokens": 12581,
+        "reasoning_output_tokens": 6914
+      }
+    ]
+  },
+  "generated_at": "2026-10-14",
+  "mechanics_correction": {
+    "civilian_death_scoring": "CONFIRMED_FROM_GAMEDATA_AND_CODE",
+    "neutral_faction": "CONFIRMED_FROM_FIXED_GAMEDATA_AND_PRTS",
+    "officer_civilian_attack_radius": "CONFIRMED_FROM_PRTS_AND_CODE",
+    "ordinary_operator_blocking_of_civilians": "CONFIRMED_REJECTED_FROM_CODE",
+    "ordinary_operator_targeting_of_civilians": "CONFIRMED_REJECTED_FROM_CODE",
+    "remaining_life_win_condition": "CONFIRMED_FROM_CODE",
+    "roadblock_special_blocking": "CONFIRMED_FROM_PRTS_AND_CODE",
+    "safe_arrival_scoring": "CONFIRMED_FROM_GAMEDATA_AND_CODE",
+    "unknowns": [
+      "exact client target priority between operators and protected targets",
+      "other protected-target families and exact continuous-frame client timing"
+    ],
+    "version": "m19.0-neutral-protected-target-v1"
+  },
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V3",
+  "stages": [
+    {
+      "current_best_plan": "C7",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-01/ and prior R8-1 C7 robust evidence",
+      "operators": 8,
+      "rarity_sum": 22,
+      "real_game_status": "UNKNOWN",
+      "result": {
+        "kills": 56,
+        "leaks": 0,
+        "operator_deaths": 0,
+        "remaining_life": 5
+      },
+      "stage_id": "main_08-01",
+      "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN",
+      "targeting_revalidation": "PASS_A_AND_PASS_B"
+    },
+    {
+      "current_best_plan": null,
+      "evidence": "output/r8_1_r8_7_batch_v1/civilian_mechanics_corrected_v1/main_08-02/",
+      "latest_revision": {
+        "conflict_categories": [
+          "DEPLOYMENT_LIMIT",
+          "INSUFFICIENT_DP",
+          "SP_NOT_READY",
+          "REDEPLOY_DECLARATION_MISMATCH"
+        ],
+        "plan": "R8_2_GPT_V4",
+        "schema_contract": "PASS",
+        "simulation": "BLOCKED_STATIC_CONFLICT"
+      },
+      "operators": null,
+      "original_revalidation": [
+        {
+          "first_objective_failure": {
+            "frame": 1889,
+            "reason": "ENEMY_LEAK"
+          },
+          "plan": "R8_2_GPT_V1",
+          "result": {
+            "kills": 8,
+            "leaks": 28,
+            "operator_deaths": 0,
+            "remaining_life": -26
+          }
+        },
+        {
+          "first_objective_failure": {
+            "frame": 2129,
+            "reason": "ENEMY_LEAK"
+          },
+          "plan": "R8_2_GPT_V3",
+          "result": {
+            "kills": 11,
+            "leaks": 25,
+            "operator_deaths": 0,
+            "remaining_life": -23
+          }
+        }
+      ],
+      "rarity_sum": null,
+      "real_game_status": "UNKNOWN",
+      "result": null,
+      "stage_id": "main_08-02",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "targeting_revalidation": "NOT_APPLICABLE"
+    },
+    {
+      "blockers": [
+        "APPEAR_AT_POS",
+        "DISAPPEAR",
+        "WAIT_CURRENT_FRAGMENT_TIME"
+      ],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json",
+      "stage_id": "main_08-03",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "evidence": "output/r8_1_r8_7_batch_v1/civilian_mechanics_corrected_v1/main_08-04/",
+      "latest_revision": {
+        "conflict_categories": [
+          "SP_NOT_READY"
+        ],
+        "plan": "R8_4_GPT_V3",
+        "schema_contract": "PASS",
+        "simulation": "BLOCKED_STATIC_CONFLICT"
+      },
+      "original_revalidation": [
+        {
+          "first_objective_failure": {
+            "frame": 2018,
+            "reason": "ENEMY_LEAK"
+          },
+          "plan": "R8_4_GPT_V1",
+          "result": {
+            "kills": 20,
+            "leaks": 34,
+            "operator_deaths": 0,
+            "remaining_life": -31
+          }
+        },
+        {
+          "first_objective_failure": {
+            "frame": 2018,
+            "reason": "ENEMY_LEAK"
+          },
+          "plan": "R8_4_GPT_V2",
+          "result": {
+            "kills": 20,
+            "leaks": 34,
+            "operator_deaths": 1,
+            "remaining_life": -31
+          }
+        }
+      ],
+      "stage_id": "main_08-04",
+      "status": "MECHANICS_CORRECTED_LOSS"
+    },
+    {
+      "blockers": [
+        "APPEAR_AT_POS",
+        "DISAPPEAR"
+      ],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json",
+      "stage_id": "main_08-05",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "blockers": [
+        "WAIT_CURRENT_WAVE_TIME"
+      ],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json",
+      "stage_id": "main_08-06",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "comparison_to_recovered_v1": {
+        "after": {
+          "kills": 13,
+          "leaks": 20,
+          "operator_deaths": 2,
+          "remaining_life": -17
+        },
+        "before": {
+          "kills": 4,
+          "leaks": 29,
+          "operator_deaths": 5,
+          "remaining_life": -26
+        }
+      },
+      "current_best_plan": "R8_7_GPT_V2",
+      "evidence": "output/r8_1_r8_7_batch_v1/civilian_mechanics_corrected_v1/main_08-07/",
+      "first_leak": {
+        "frame": 1289,
+        "source_id": "enemy_1108_uterer#4"
+      },
+      "first_objective_failure": {
+        "frame": 1532,
+        "reason": "ENEMY_LEAK"
+      },
+      "metadata_normalization": "parent_hypothesis_id only; no tactical action change",
+      "operators": 8,
+      "rarity_sum": 18,
+      "real_game_status": "UNKNOWN",
+      "result": {
+        "kills": 13,
+        "leaks": 20,
+        "operator_deaths": 2,
+        "remaining_life": -17
+      },
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "targeting_revalidation": "NOT_APPLICABLE"
+    }
+  ],
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN"
+}

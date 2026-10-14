@@ -326,3 +326,11 @@ and 36/18/5 in R2. R8-7 degraded from 6 kills/27 leaks/5 deaths in the recovered
 V1 to 17/16/7 in R1 and 1/32/6 in R2. Stop the loop and reanalyze the tactical
 bottleneck instead of issuing another same-shape revision request.
 
+## 2026-10-14 Civilian behavior changed the R8-2 baseline
+
+Treating enemy-stored Ursus Civilians as ordinary targets made the old R8-2 V1
+false-positive WIN. The corrected model removes those operator attacks and
+consequently exposes 28 leaks, though civilian scoring and roadblock handling are
+now source-backed. Do not reintroduce civilian kills, ordinary blocking, or a
+life-zero WIN to recover that old result.
+

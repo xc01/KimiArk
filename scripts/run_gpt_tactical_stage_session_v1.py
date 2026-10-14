@@ -104,7 +104,8 @@ def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
             clean_route_count += 1
     return {
         "classification": summary.get("classification"),
-        "full_stage_mechanism_support": summary.get("full_stage_mechanism_support"),
+        "mechanics_version": summary.get("mechanics_version"),
+        "corrected_mechanism_support": summary.get("corrected_mechanism_support"),
         "civilian_operator_targetability": summary.get("civilian_operator_targetability"),
         "civilian_blocking": summary.get("civilian_blocking"),
         "result_metrics": {
@@ -117,7 +118,11 @@ def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
         },
         "leaking_route_summaries": leaking_routes,
         "clean_route_count": clean_route_count,
+        "objective_failures": summary.get("objective_failures") or [],
+        "protected_target_reached_events": summary.get("protected_target_reached_events") or [],
+        "protected_target_deaths": summary.get("protected_target_deaths") or [],
         "first_leak": (summary.get("first_failure") or {}).get("first_leak"),
+        "first_objective_failure": (summary.get("first_failure") or {}).get("objective_failure"),
         "operator_death_events": [
             compact_runtime_event(event)
             for event in summary.get("event_summaries", {}).get("operator_death_events") or []
@@ -162,6 +167,18 @@ def prepare() -> dict[str, Any]:
         "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
         "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
         "readonly_query_helpers": True,
+    }
+    evidence["corrected_mechanism_support"] = {
+        "mechanics_version": "m19.0-neutral-protected-target-v1",
+        "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies",
+        "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
+        "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
+        "roadblock_special_blocking": "roadblocks may block Ursus Civilian but are not ordinary operator blocking",
+        "officer_protected_target_attack_radius": "enemy_1107_uoffcr can normally attack Ursus Civilian within 1.2",
+        "unknowns": [
+            "exact client target priority between operators and protected targets",
+            "other protected-target families and exact continuous-frame client timing",
+        ],
     }
     evidence.pop("output_schema", None)
     if REVISION_SOURCE_DIR is not None:
@@ -216,11 +233,11 @@ Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operat
 
 You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
 
-Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN is zero leaks, exhausted spawns and no active enemies.
+Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies.
 
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
 
-Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
+Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not attack or block neutral civilians with ordinary operators; remember enemy officers may attack civilians and civilian death costs objective life. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
 
 EVIDENCE_JSON
 {evidence_json}

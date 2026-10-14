@@ -1,0 +1,497 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-02",
+    "GameData": {
+      "ordinary_three_star_catalog_count": 17,
+      "deployment_limit": 8,
+      "forbidden_deployment_tiles": [[2, 5], [4, 7]]
+    },
+    "current_model": {
+      "final_spawn_seconds": 171,
+      "failure_cause": "Death removes an enemy from active_enemies but does not remove its ID from blocked_enemy_ids. Capacity checks count those stale IDs. Consequently, nominally permanent blockers exhaust cumulative capacity even after successful kills.",
+      "source": "src/arknights_planner/simulator/simulator.py:_damage_enemy,_advance_enemies",
+      "roadblock_targeting": "Ordinary damage operators may destroy covered roadblocks when no hostile enemies remain anywhere.",
+      "verification_status": "Read-only source and range inspection; no simulation performed."
+    },
+    "UNKNOWN": [
+      "Client navigation around active roadblocks.",
+      "Client target priority between operators and civilians.",
+      "Combat and economic sufficiency of the conditional handoffs below."
+    ]
+  },
+  "revised_tactical_requirements": {
+    "scope": "First spawn through hostile and civilian cleanup.",
+    "legal_roster": "Use only supplied normal_mode=true, rarity 1-3 catalog entries and supplied configurations.",
+    "completion": "remaining_life > 0 AND enemies_leaked == 0 AND exhausted_spawns AND no_active_enemies.",
+    "neutral_rule": "Ordinary operators neither attack nor block civilians.",
+    "execution": "Conditional actions require observed DP, readiness, deployment availability and capacity; a missed interception deadline invalidates this hypothesis."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-2-H4",
+      "status": "UNSIMULATED_CONDITIONAL_HYPOTHESIS",
+      "thesis": "Improve row-1 approach fire, place Midnight behind row-4 contact, rotate exhausted blockers without assuming capacity restoration, and explicitly destroy both roadblocks during safe cleanup.",
+      "limitation": "This is a full-stage tactical hypothesis, not a demonstrated zero-leak WIN."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_2_GPT_V4",
+      "parent_hypothesis_id": "R8-2-H4",
+      "tactical_thesis": "Use separate exit defenses with overlapping attacks and dedicated healing. Preserve a fresh rear interception wherever the current model has exhausted a forward blocker's cumulative capacity. Release roadblock-held civilians only through supported ordinary attacks during hostile-free cleanup.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_283_midn",
+        "char_210_stward",
+        "char_122_beagle",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_211_adnach",
+        "char_209_ardign",
+        "char_284_spot",
+        "char_500_noirc",
+        "char_502_nblade"
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "rejected": "Successful kills automatically preserve indefinite blocking in this runtime.",
+          "replacement": "Track cumulative accepted blocks until retirement; use fresh deployments and require verification that damage clears overflow before the exit."
+        },
+        {
+          "rejected": "The previous Adnach position provides substantial approach damage.",
+          "replacement": "Move Adnach to [2,1] RIGHT, whose verified range includes row-1 columns 1-4."
+        },
+        {
+          "rejected": "Civilian transit can be delegated to ordinary blockers.",
+          "replacement": "Keep officers away from held civilians and provide attacks that can eventually destroy both roadblocks."
+        },
+        {
+          "rejected": "Leaving both devices untouched is compatible with complete model cleanup.",
+          "replacement": "Kroos covers the first device; a separate late Midnight deployment covers the second."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "operator_id": "char_123_fang",
+          "tile": [3,3],
+          "direction": "UP",
+          "role": "Opening DP; attacks the row-4 anchor."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "tile": [4,1],
+          "direction": "RIGHT",
+          "role": "Row-4 damage covering columns 1-4 and initially fresh rear blocking."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [5,3],
+          "direction": "DOWN",
+          "role": "Verified arts coverage at row-4 columns 2-4."
+        },
+        {
+          "operator_id": "char_500_noirc",
+          "tile": [4,3],
+          "direction": "RIGHT",
+          "role": "Opening row-4 contact."
+        },
+        {
+          "operator_id": "char_122_beagle",
+          "tile": [1,2],
+          "direction": "RIGHT",
+          "role": "Opening row-1 contact."
+        },
+        {
+          "operator_id": "char_124_kroos",
+          "tile": [2,2],
+          "direction": "RIGHT",
+          "role": "Row-1 fire and first-roadblock cleanup."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "tile": [5,2],
+          "direction": "RIGHT",
+          "role": "Row-4 healing at columns 2-4."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "tile": [3,1],
+          "direction": "DOWN",
+          "role": "Verified baseline healing of [1,2]."
+        },
+        {
+          "operator_id": "char_211_adnach",
+          "tile": [2,1],
+          "direction": "RIGHT",
+          "role": "Row-1 approach and anchor fire."
+        },
+        {
+          "operator_id": "char_209_ardign",
+          "tile": [4,2],
+          "direction": "RIGHT",
+          "role": "Fresh rear row-4 handoff."
+        },
+        {
+          "operator_id": "char_284_spot",
+          "tile": [1,2],
+          "direction": "RIGHT",
+          "role": "Fresh row-1 replacement; basic attacks and blocking only."
+        },
+        {
+          "operator_id": "char_502_nblade",
+          "tile": [1,3],
+          "direction": "LEFT",
+          "role": "Temporary forward row-1 interception; supported 40-second redeployment availability."
+        }
+      ],
+      "formation_structure": {
+        "row_1": ["rotating blocker", "Kroos", "Adnach", "Ansel"],
+        "row_4": ["rotating blocker", "Midnight", "Steward", "Hibiscus"],
+        "opening": "Fang occupies an economic slot until a contact replacement or second medic requires it.",
+        "damage_basis": "Single-target attacks and supported ATK/DEF/healing primitives; no splash, probability talents, Spot healing, Cardigan self-heal or Midnight arts conversion credited.",
+        "capacity_basis": "Client simultaneous blocking and current-model cumulative blocking are distinct."
+      },
+      "formation_transitions": [
+        {
+          "window_seconds": [0,45],
+          "transition": "Establish row-4 contact and arts support; complete row-1 preparation before its first hostile arrival."
+        },
+        {
+          "window_seconds": [45,105],
+          "transition": "Finish approach fire and healing; replace exhausted opening blockers rather than extending their nominal roles."
+        },
+        {
+          "window_seconds": [120,171],
+          "transition": "Use ready reserve blockers for paired pressure; retain both damage groups and medics whenever replacing contact."
+        },
+        {
+          "trigger": "Hostile spawns exhausted and all hostiles eliminated.",
+          "transition": "Preserve civilian life while arranging coverage of the second roadblock and waiting for all remaining protected targets to finish."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "routes": ["route-0"],
+          "responsibility": "No supplied spawn."
+        },
+        {
+          "routes": ["route-1","route-3"],
+          "responsibility": "Civilians are never operator targets. Kroos can destroy [2,5] during hostile-free intervals; officers are intercepted on row 4."
+        },
+        {
+          "routes": ["route-2","route-4","route-11"],
+          "responsibility": "Noir Corne initially takes contact at [4,3]; Midnight and Steward kill officers. Fresh Cardigan or another ready defender takes contact when cumulative capacity is exhausted."
+        },
+        {
+          "routes": ["route-5","route-6"],
+          "responsibility": "Protect civilians held at [4,7]. Complete supported roadblock destruction during cleanup; neither ordinary blocking nor invented escort healing is assigned."
+        },
+        {
+          "routes": ["route-7","route-8","route-12","route-13","route-14","route-15","route-16","route-17"],
+          "responsibility": "Kroos and Adnach attack the approach; Beagle, then fresh Spot/Yato or a ready redeployed defender intercept. Ansel heals contact."
+        },
+        {
+          "routes": ["route-9","route-10","route-18","route-19","route-20","route-21","route-22"],
+          "responsibility": "Rotating row-4 defenders intercept officers under Midnight/Steward fire and Hibiscus healing. Treat any officer approaching within 1.2 of a held civilian as urgent objective pressure."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        {
+          "spawn_seconds": [3,45],
+          "task": "Secure the initial officer sequence and fund both lanes; do not mistake the absence of operator deaths for adequate interception."
+        },
+        {
+          "spawn_seconds": [50,105],
+          "task": "Replace depleted cumulative blocking during the route-11 train; protect both civilian holding points and sustain direct row-1 attackers."
+        },
+        {
+          "spawn_seconds": [120,130],
+          "task": "Enter with fresh capacity for both paired streams; spend burst healing only on actual damage."
+        },
+        {
+          "spawn_seconds": [140,151],
+          "task": "Use Adnach burst and fresh row-1 contact; keep row-4 reserve contact available for successive officer pairs."
+        },
+        {
+          "spawn_seconds": [160,171],
+          "task": "Preserve attack coverage while handing contact to ready reserves; count the second route-22 spawn at 171."
+        },
+        {
+          "after_seconds": 171,
+          "task": "Finish hostiles, remove remaining roadblocks through ordinary covered attacks, and wait for protected-target arrival or other terminal resolution before evaluating WIN."
+        }
+      ],
+      "skill_intents": [
+        {
+          "operator_id": "char_123_fang",
+          "effect": "Supported automatic +6 DP; credit only observed procs."
+        },
+        {
+          "operator_id": "char_124_kroos",
+          "effect": "Supported automatic scaled two-hit attack."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "effect": "Supported automatic scaled hit; no highest-defense priority assumption."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "effect": "+35% ATK for officer pressure; first readiness requires 40 inactive seconds after deployment."
+        },
+        {
+          "operator_id": "char_211_adnach",
+          "effect": "+50% ATK during dense direct waves; first readiness requires 40 inactive seconds."
+        },
+        {
+          "operator_id": "char_122_beagle",
+          "effect": "+50% DEF during actual multi-enemy contact; it does not restore exhausted blocking capacity."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "effect": "+50% healing ATK when contact is damaged and pressure persists."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "effect": "+40% healing ATK; baseline verified range already covers Beagle."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "rule": "Never deploy on [[2,5],[4,7]]; all action tiles are integer [row,col]."
+        },
+        {
+          "rule": "Never exceed eight simultaneous operators; retire an exhausted or temporary unit before filling its slot."
+        },
+        {
+          "rule": "Never credit refunds or unavailable redeployments. Ordinary defender cooldown is 70 seconds; Yato's supported cooldown is 40 seconds."
+        },
+        {
+          "rule": "A blocker with stale capacity is not a functioning permanent anchor. A handoff must leave either fresh contact or verified lethal coverage."
+        },
+        {
+          "rule": "Time-SP pauses during active skills; every manual activation requires observed readiness."
+        },
+        {
+          "rule": "Do not attack or block neutral civilians with ordinary operators; civilian death deducts objective life."
+        },
+        {
+          "rule": "Do not claim WIN merely because hostile spawns end or hostile enemies disappear."
+        }
+      ],
+      "action_timeline": [
+        {
+          "frame": 0,
+          "action_type": "DEPLOY",
+          "operator_id": "char_123_fang",
+          "tile": [3,3],
+          "direction": "UP"
+        },
+        {
+          "frame": 480,
+          "action_type": "DEPLOY",
+          "operator_id": "char_283_midn",
+          "tile": [4,1],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=16."
+        },
+        {
+          "frame": 840,
+          "action_type": "DEPLOY",
+          "operator_id": "char_210_stward",
+          "tile": [5,3],
+          "direction": "DOWN",
+          "condition": "Actual DP >=18."
+        },
+        {
+          "frame": 1263,
+          "action_type": "DEPLOY",
+          "operator_id": "char_500_noirc",
+          "tile": [4,3],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=14 and the next officer has not passed this interception."
+        },
+        {
+          "frame": 1593,
+          "action_type": "DEPLOY",
+          "operator_id": "char_124_kroos",
+          "tile": [2,2],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=11."
+        },
+        {
+          "frame": 1953,
+          "action_type": "DEPLOY",
+          "operator_id": "char_122_beagle",
+          "tile": [1,2],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=18 and first direct attacker has not passed the tile."
+        },
+        {
+          "frame": 1980,
+          "action_type": "ACTIVATE_SKILL",
+          "operator_id": "char_283_midn",
+          "condition": "Ready and officers are in range."
+        },
+        {
+          "frame": 2283,
+          "action_type": "DEPLOY",
+          "operator_id": "char_120_hibisc",
+          "tile": [5,2],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=17 and a slot is free."
+        },
+        {
+          "frame": 2460,
+          "action_type": "RETREAT",
+          "operator_id": "char_123_fang",
+          "condition": "A reserve contact unit or dedicated row-1 healing needs the slot; retire earlier if that handoff is urgent."
+        },
+        {
+          "frame": 2463,
+          "action_type": "DEPLOY",
+          "operator_id": "char_502_nblade",
+          "tile": [1,3],
+          "direction": "LEFT",
+          "condition": "Actual DP >=7; Beagle has exhausted cumulative capacity and the next attacker has not passed [1,3]."
+        },
+        {
+          "frame": 2793,
+          "action_type": "DEPLOY",
+          "operator_id": "char_212_ansel",
+          "tile": [3,1],
+          "direction": "DOWN",
+          "condition": "Actual DP >=17 and a slot is free after an exhausted contact unit retires."
+        },
+        {
+          "frame": 3123,
+          "action_type": "DEPLOY",
+          "operator_id": "char_211_adnach",
+          "tile": [2,1],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=11 and a slot is free."
+        },
+        {
+          "frame": 3126,
+          "action_type": "DEPLOY",
+          "operator_id": "char_209_ardign",
+          "tile": [4,2],
+          "direction": "RIGHT",
+          "condition": "Fresh row-4 contact is required; actual DP >=18 and a slot is free. Advance this handoff when the next officer would otherwise escape."
+        },
+        {
+          "frame": 3300,
+          "action_type": "RETREAT",
+          "operator_id": "char_122_beagle",
+          "condition": "Cumulative capacity exhausted, no live enemy remains self-blocked, and Yato or verified damage covers the handoff."
+        },
+        {
+          "frame": 3303,
+          "action_type": "DEPLOY",
+          "operator_id": "char_284_spot",
+          "tile": [1,2],
+          "direction": "RIGHT",
+          "condition": "Actual DP >=17, tile and slot free; establish fresh capacity before the 120/121 pair arrives."
+        },
+        {
+          "frame": 4200,
+          "action_type": "ACTIVATE_SKILL",
+          "operator_id": "char_211_adnach",
+          "condition": "Ready; dense row-1 attackers in range."
+        },
+        {
+          "frame": 4203,
+          "action_type": "ACTIVATE_SKILL",
+          "operator_id": "char_120_hibisc",
+          "condition": "Ready; row-4 contact damaged."
+        },
+        {
+          "frame": 4800,
+          "action_type": "ACTIVATE_SKILL",
+          "operator_id": "char_212_ansel",
+          "condition": "Ready; row-1 contact damaged."
+        },
+        {
+          "frame": 5280,
+          "action_type": "ACTIVATE_SKILL",
+          "operator_id": "char_283_midn",
+          "condition": "Ready; final officers remain."
+        },
+        {
+          "frame": 6000,
+          "action_type": "RETREAT",
+          "operator_id": "char_283_midn",
+          "condition": "All hostile spawns consumed and no hostile remains; second roadblock still active."
+        },
+        {
+          "frame": 8103,
+          "action_type": "DEPLOY",
+          "operator_id": "char_283_midn",
+          "tile": [4,4],
+          "direction": "RIGHT",
+          "condition": "At least 70 seconds after actual retreat, sufficient actual redeployment DP, tile and slot free, no hostile remains."
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "trigger": "An anchor reaches its current-model cumulative block limit.",
+          "action": "Retire only after live self-blocked enemies are cleared. Deploy a ready reserve at that lane's declared contact tile before the next arrival. Repeat through the final batch.",
+          "row_1_pool": ["char_122_beagle","char_284_spot","char_502_nblade"],
+          "row_4_pool": ["char_500_noirc","char_209_ardign"],
+          "failure_condition": "No ready affordable reserve and approach damage cannot clear overflow; do not classify the plan as feasible."
+        },
+        {
+          "trigger": "Battle persists beyond listed skill windows.",
+          "action": "Repeat supported manual skills only after observed readiness, preserving inactive recovery and active duration."
+        },
+        {
+          "trigger": "A listed conditional deployment cannot execute before its interception deadline.",
+          "action": "Record a tactical failure; delaying the action does not establish a zero-leak witness."
+        }
+      ],
+      "reserve_strategy": [
+        {
+          "policy": "All substitutions remain within the selected catalog. Never assume a retired operator is immediately available or that a fresh deployment is free."
+        }
+      ],
+      "economic_order": {
+        "status": "CONDITIONAL; reserve branches are not certified affordable",
+        "opening_basis": "Initial 10 DP, natural +1 DP/s, Fang cost 10 and only supported observed +6 DP procs.",
+        "refund_credit": 0,
+        "priority": "Interception before additional damage, then healing according to observed contact damage.",
+        "limitation": "The expanded reserve roster and handoffs require a deterministic DP/cooldown audit; the action clock is not a client timing claim."
+      },
+      "unknown_dependencies": [
+        {
+          "mechanic": "Current-model stale blocking capacity",
+          "status": "SOURCE_CONFIRMED_DEFECT",
+          "impact": "Reserve rotations alone are not yet proven sufficient; a zero-leak model result must not be asserted."
+        },
+        {
+          "mechanic": "Roster selection limit",
+          "status": "UNKNOWN_IN_SUPPLIED_EVIDENCE",
+          "impact": "Twelve selected operators; simultaneous deployment remains capped at eight."
+        },
+        {
+          "mechanic": "Officer attacks against held civilians",
+          "status": "SUPPORTED_RADIUS_WITH_UNKNOWN_CLIENT_PRIORITY",
+          "impact": "Late cleanup cannot retroactively recover civilian life lost during officer transit."
+        }
+      ],
+      "verification_questions": [
+        {
+          "question": "Do reserve DP and cooldown branches supply fresh capacity before every uncovered arrival?"
+        },
+        {
+          "question": "Does the improved Adnach range clear paired direct attackers before exhausted-contact overflow leaks?"
+        },
+        {
+          "question": "Can row-4 interception prevent enough civilian deaths to retain positive objective life?"
+        },
+        {
+          "question": "Do both roadblocks disappear and all remaining civilians resolve before the final WIN predicate is evaluated?"
+        }
+      ]
+    }
+  ]
+}

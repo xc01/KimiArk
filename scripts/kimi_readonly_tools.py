@@ -10,7 +10,7 @@ from arknights_planner.simulator.range import ApproximateRealRangeTransformer
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_VERSION = "GameData 0ef7f952dfd018392200157a5c79a6511ba69122"
-MECHANICS_VERSION = "m18.9-stage-device-runtime-v1"
+MECHANICS_VERSION = "m19.0-neutral-protected-target-v1"
 NORMAL_LOW_STAR_FACTS = ROOT / "output/normal_low_star_facts_v1/normal_low_star_facts.json"
 EVIDENCE_CONTEXT = ROOT / "output/r8_1_low_star_full_tactical_closure_v2/llm_evidence_context.json"
 
@@ -20,6 +20,12 @@ MECHANIC_TOPICS = {
     "skill_sp_recovery_during_effect",
     "current_damage_formula",
     "current_simulator_win_rule",
+    "neutral_faction_and_blocking",
+    "operator_targeting_neutrals",
+    "ordinary_medic_targeting",
+    "enemy_protected_target_attack",
+    "protected_target_life_scoring",
+    "roadblock_special_blocking",
     "r8_1_stage_facts",
     "affordance_catalog",
 }
@@ -144,13 +150,19 @@ BASE_RULE_CARD = {
         "range_orientation": "GameData range offsets are stored for RIGHT. ApproximateRealRangeTransformer rotates them in bottom-left field coordinates.",
         "time_sp_recovery": "Current public low-rarity runtime advances time-SP by 1.0 SP/s only while inactive. SP is paused while a skill is active.",
         "damage": "Current formula layer: physical max(0.05A,A-D); arts max(0.05A,0.01A*(100-RES)); attack interval T0/(clamp(S,10,600)/100).",
-        "simulator_win": "Current Simulator wins when no enemy leaks, the spawn schedule is exhausted, and no active enemies remain.",
+        "simulator_win": "Current Simulator wins only when remaining life is positive, no enemy leaks, the spawn schedule is exhausted, and no active enemies remain.",
+        "neutral_units": "Enemy-stored neutral units are not ordinary operator attack or block targets. Ordinary medics select deployed operators, not neutral enemies. Source-backed enemy abilities may attack neutral protected targets.",
         "economy": "Natural DP and provided ledger deltas are model calculations. Refunds, skill DP and merchant upkeep are only valid with their stated evidence and conditions.",
         "unknown": "Exact client timing, active roadblock ordinary-WALK navigation, target priority and unsupported effects remain UNKNOWN unless supplied evidence says otherwise.",
     },
     "sources": [
         "scripts/kimi_readonly_tools.py",
         "scripts/kimi_responses_transport.py",
+        "output/prts_mechanism_evidence_v1/prts_mechanism_facts.json",
+        "output/prts_mechanism_evidence_v1/pages/乌萨斯平民.html",
+        "output/prts_mechanism_evidence_v1/pages/选择器.html",
+        "output/prts_mechanism_evidence_v1/pages/感染者纠察官.html",
+        "output/prts_mechanism_evidence_v1/pages/道路障碍物.html",
         "src/arknights_planner/simulator/range.py",
         "src/arknights_planner/simulator/combat_rules.py",
         "src/arknights_planner/simulator/simulator.py",
@@ -266,8 +278,32 @@ class ReadOnlyQueryEngine:
             }
             sources = ["output/r8_1_low_star_full_tactical_closure_v2/llm_evidence_context.json", "scripts/run_r8_1_low_star_full_tactical_closure_v1.py"]
             unknowns = ["route pressure, client navigation and exact wait/block timing remain model or UNKNOWN facts"]
+        elif topic == "neutral_faction_and_blocking":
+            result = {"faction": "NEUTRAL", "operator_ordinary_block": False, "operator_ordinary_attack": False, "enemy_ordinary_attack_may_include_neutral": True}
+            sources = ["output/prts_mechanism_evidence_v1/pages/乌萨斯平民.html", "output/prts_mechanism_evidence_v1/pages/选择器.html", "src/arknights_planner/simulator/simulator.py"]
+            unknowns = ["special operators/skills that explicitly target neutrals are outside this bounded rule"]
+        elif topic == "operator_targeting_neutrals":
+            result = {"ordinary_attack_target_side": "OPPOSING_FACTION_ONLY", "neutral_selected": False}
+            sources = ["output/prts_mechanism_evidence_v1/pages/选择器.html", "src/arknights_planner/simulator/simulator.py"]
+            unknowns = ["explicit neutral-targeting skills, splash/aoe behavior and special device interactions are UNKNOWN"]
+        elif topic == "ordinary_medic_targeting":
+            result = {"target_pool": "deployed operators only", "neutral_enemy_directly_healed": False}
+            sources = ["src/arknights_planner/simulator/simulator.py", "output/prts_mechanism_evidence_v1/pages/选择器.html"]
+            unknowns = ["special healing skills, auras and other recovery effects require individual source support"]
+        elif topic == "enemy_protected_target_attack":
+            result = {"enemy_id": "enemy_1107_uoffcr", "protected_target_attack_radius": 1.2, "targets": ["enemy_3001_upeopl"], "normal_attack": True}
+            sources = ["output/prts_mechanism_evidence_v1/pages/感染者纠察官.html", "src/arknights_planner/simulator/simulator.py"]
+            unknowns = ["exact client target priority between operators and protected targets is UNKNOWN"]
+        elif topic == "protected_target_life_scoring":
+            result = {"safe_arrival": {"life_delta": 0, "kill_counted": False, "leak_counted": False}, "death": {"life_delta": -1, "kill_counted": False}}
+            sources = ["data/ArknightsGameData/zh_CN/gamedata/levels/enemydata/enemy_database.json", "output/prts_mechanism_evidence_v1/pages/乌萨斯平民.html", "src/arknights_planner/simulator/simulator.py"]
+            unknowns = []
+        elif topic == "roadblock_special_blocking":
+            result = {"template_id": "trap_020_roadblock", "blocked": ["enemy_3001_upeopl"], "blocking_radius": 0.4472, "operator_ordinary_block": False, "our_units_may_destroy": True}
+            sources = ["output/prts_mechanism_evidence_v1/pages/道路障碍物.html", "src/arknights_planner/adapters/approximate_real.py", "src/arknights_planner/simulator/simulator.py"]
+            unknowns = ["behavior for other protected target families and exact continuous-frame client timing are UNKNOWN"]
         else:
-            result = {"win_if": ["enemies_leaked == 0", "all spawn events consumed", "active_enemies is empty"], "loss_or_non_win": "otherwise"}
+            result = {"win_if": ["remaining_life > 0", "enemies_leaked == 0", "all spawn events consumed", "active_enemies is empty"], "loss_or_non_win": "otherwise"}
             sources = ["src/arknights_planner/simulator/simulator.py:711"]
             unknowns = ["stage-specific completion boundaries must be checked against a concrete run"]
             if topic == "affordance_catalog":

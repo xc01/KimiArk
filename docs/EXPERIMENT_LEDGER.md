@@ -423,3 +423,20 @@ before static compile and simulation: 0 valid plans and 0 simulations. Evidence 
   These are ordered kills/leaks/deaths. No full-mechanism WIN, robust WIN, or
   real-game claim is issued.
 
+# 2026-10-14 Civilian mechanics correction and bounded revisions
+
+The corrected R8-2 V1 simulation is 8 kills / 28 leaks / 0 deaths / life -26; its
+first objective failure is frame 1889 (`ENEMY_LEAK`), and frame 4604 records the
+first source-backed civilian death. R8-2 V3 is 11/25/0/life -23. R8-4 V1 and V2
+are both 20/34/life -31 (0 and 1 deaths respectively). R8-7 V1 is 4/29/5/life
+-26. The obsolete `PARTIAL_MECHANICS_DIAGNOSTIC_WIN` result is therefore
+contradicted, while all old artifacts remain in `recovery_v2_diagnostics/`.
+
+Three new Codex CLI starts produced R8-2 V4, R8-4 V3, and R8-7 V2. R8-2 V4 and
+R8-4 V3 passed schema/contract but were blocked from simulation by static DP/SP,
+deployment limit and redeploy declaration conflicts. R8-7 V2 required only a
+recorded parent-hypothesis metadata mapping and then passed static checks; its
+single diagnostic improved V1 to 13/20/2/life -17 but still lost at frame 1532.
+The batch has 16 cumulative CLI starts; internal request count remains
+`UNKNOWN_CLI_INTERNAL`. Observed input/output token totals are 2,147,541 and
+38,833.

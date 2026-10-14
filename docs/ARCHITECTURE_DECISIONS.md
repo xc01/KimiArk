@@ -250,3 +250,14 @@ aggressive roadblock或AOE目标。双变体均WIN才可标roadblock-targeting r
 修订反馈只保留整体胜负/击杀/漏怪/死亡/生命/DP、每条漏怪路线与漏怪事件、干员死亡、部署错误和
 机制UNKNOWN，不携带完整`result.events`。R8-4反馈约2.6KB、R8-7约6.4KB；提示仍分别为
 121,828和129,405字节，低于140,000字节门禁。恢复和修订使用阶段本地路障事实，不污染其他关卡。
+
+## 2026-10-14 Neutral protected-target runtime
+
+`EnemyStats` now carries source-backed `is_neutral` and
+`protected_target_attack_radius`. The Simulator filters ordinary operator targets
+to the opposing faction, gives enemy selectors an explicit protected target pool,
+scores civilian arrival and death according to fixed GameData, and records
+`OBJECTIVE_FAILURE` with the first time and reason. The diagnostic runner freezes
+the plan/action snapshot, hashes its source files, and emits
+`MECHANICS_CORRECTED_DIAGNOSTIC_*` instead of resurrecting the obsolete partial
+WIN label.

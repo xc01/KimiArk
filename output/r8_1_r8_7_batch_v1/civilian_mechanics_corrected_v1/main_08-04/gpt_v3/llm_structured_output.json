@@ -1,0 +1,639 @@
+{
+  "deterministic_verifier_questions": [
+    "Does Fang survive to supply all three DP payments, and does Melantha prevent the opening leak?",
+    "Does enemy death release blocker occupancy in the actual diagnostic runtime?",
+    "Do central clearance and western Midnight support prevent every leak through final ranged arrivals?",
+    "Does conditional cleanup destroy both obstructing devices and allow all surviving civilians to arrive?",
+    "Does execution finish with positive life, zero leaks, exhausted spawns and no active enemies?"
+  ],
+  "explicit_assumptions": [
+    "Frames are tactical choices under the 30 FPS model, not client deadlines.",
+    "Conditional cleanup requires an executor that honors its guards; a fixed-frame compiler must not execute those actions unconditionally.",
+    "Read-only source and range checks were performed; no files were modified and no stage simulation was run."
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 330,
+          "operator_id": "char_124_kroos",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 780,
+          "operator_id": "char_208_melan",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 1110,
+          "operator_id": "char_120_hibisc",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1470,
+          "operator_id": "char_122_beagle",
+          "tile": [
+            6,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 2010,
+          "operator_id": "char_209_ardign",
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2010,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2040,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2340,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            2
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2700,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2820,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2850,
+          "operator_id": "char_123_fang"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3120,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 3390,
+          "operator_id": "char_281_popka",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3570,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3840,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4050,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4620,
+          "operator_id": "char_281_popka"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4830,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4950,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5100,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5670,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "RETREAT",
+          "condition": "Cleanup handoff condition satisfied; otherwise defer.",
+          "frame": 12000,
+          "operator_id": "char_124_kroos"
+        },
+        {
+          "action_type": "RETREAT",
+          "condition": "Cleanup handoff condition satisfied; otherwise defer.",
+          "frame": 12000,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "RETREAT",
+          "condition": "Cleanup handoff condition satisfied; otherwise defer.",
+          "frame": 12000,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "DEPLOY",
+          "condition": "Cleanup handoff completed, redeployment ready and observed DP sufficient.",
+          "direction": "DOWN",
+          "frame": 14130,
+          "operator_id": "char_124_kroos",
+          "tile": [
+            4,
+            8
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "condition": "Cleanup handoff completed, tile vacant, redeployment ready and observed DP sufficient.",
+          "direction": "RIGHT",
+          "frame": 14130,
+          "operator_id": "char_208_melan",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "change": "Melantha arrives at 26s instead of 93s; opening damage takes priority over preserving the old handoff."
+        },
+        {
+          "change": "Replace unsupported claims of reusable aggregate blocking with a runtime-defect dependency: stale occupancy must be checked independently of tactical throughput."
+        },
+        {
+          "change": "Replace Noir Corne's isolated western damage with Cardigan plus Midnight; use neither Cardigan's unsupported self-heal nor Midnight's unsupported arts conversion."
+        },
+        {
+          "change": "Move Kroos into Hibiscus coverage and assign explicit civilian roadblock cleanup."
+        }
+      ],
+      "conditional_responsibilities": [
+        {
+          "condition": "At cleanup frames, spawns are exhausted and no active hostile enemies remain.",
+          "execution_rule": "Cleanup frames are earliest checkpoints. If the condition is false, defer the entire handoff and retain combat defenses. Redeploy only when observed DP covers actual redeployment costs.",
+          "responsibility": "Retreat Kroos, Melantha and Beagle; after at least 70s redeploy Kroos and Melantha on their listed cleanup tiles."
+        },
+        {
+          "basis": "Current runtime permits ordinary attacks on active devices when no hostile enemies remain; no navigation shortcut or destruction deadline is assumed.",
+          "condition": "A civilian remains stopped at a surviving roadblock.",
+          "responsibility": "Keep the corresponding cleanup attacker deployed until device destruction and subsequent civilian passage are observed."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "owner": "Central melee layers and Kroos; western formation catches actual downstream arrivals.",
+          "routes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            12,
+            13,
+            14,
+            15,
+            16,
+            20,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27
+          ]
+        },
+        {
+          "owner": "Cardigan blocks western contact; Midnight supplies damage; Ansel sustains both.",
+          "routes": [
+            9,
+            10,
+            11,
+            18,
+            19,
+            21
+          ]
+        },
+        {
+          "owner": "Observe neutral evacuation and officer proximity; cleanup attackers remove obstructing devices without targeting civilians.",
+          "routes": [
+            0,
+            7,
+            17
+          ]
+        },
+        {
+          "owner": "No supplied spawn; no invented threat.",
+          "routes": [
+            8
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "DOWN",
+          "operator_id": "char_123_fang",
+          "role": "Temporary central block2 and automatic DP.",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_124_kroos",
+          "role": "Central physical fire; receives Hibiscus healing.",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_208_melan",
+          "role": "Early upstream damage and block1.",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_120_hibisc",
+          "role": "Heal central melee operators and Kroos.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_122_beagle",
+          "role": "Central downstream block3.",
+          "tile": [
+            6,
+            3
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_209_ardign",
+          "role": "Western block3 with external healing.",
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_212_ansel",
+          "role": "Heal Cardigan and Midnight.",
+          "tile": [
+            5,
+            2
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_283_midn",
+          "role": "Attack western traversal and Cardigan's contact tile.",
+          "tile": [
+            6,
+            2
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_281_popka",
+          "role": "Replace Fang with central damage and block2; credit one generic attack target.",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_124_kroos",
+          "role": "Conditional cleanup fire covering eastern roadblock [2,8].",
+          "tile": [
+            4,
+            8
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_208_melan",
+          "role": "Conditional cleanup attack covering western roadblock [6,4].",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "capacity_limit": "Eight operators before Fang retires; seven afterward; eight after Popukar deploys.",
+        "central": "Melantha [4,3], Fang then Popukar [5,3], Beagle [6,3]; Kroos [4,6] LEFT and Hibiscus [5,6] LEFT.",
+        "economy": {
+          "conditions": "Fang survives and supplies +6 DP at 19,44,69s; retreat at 95s. Natural DP is +1/s. No retreat refunds are credited.",
+          "deployment_seconds": [
+            0,
+            11,
+            26,
+            37,
+            49,
+            67,
+            78,
+            94,
+            113
+          ],
+          "dp_after_deployments": [
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "status": "CONDITIONAL_CURRENT_MODEL_CALCULATION"
+        },
+        "range_checks": "Read-only transformer checks confirm Hibiscus covers the three central blocking tiles and Kroos; Ansel covers Cardigan and Midnight; Midnight covers [5,1] and [6,1]. Kroos's central range covers [4,3] and [5,3], not [6,3].",
+        "western": "Cardigan [5,1], Midnight [6,2] LEFT and Ansel [5,2] LEFT."
+      },
+      "formation_transitions": [
+        {
+          "transition": "Establish Fang and Kroos; add Melantha at 26s and central healing at 37s.",
+          "window_seconds": [
+            0,
+            37
+          ]
+        },
+        {
+          "transition": "Add downstream Beagle, western Cardigan, Ansel and Midnight.",
+          "window_seconds": [
+            49,
+            94
+          ]
+        },
+        {
+          "transition": "Retire Fang while Melantha and Beagle remain; Popukar fills the vacated central tile.",
+          "window_seconds": [
+            95,
+            113
+          ]
+        },
+        {
+          "transition": "Maintain both holds and repeat ready skills until hostile clearance.",
+          "window_seconds": [
+            113,
+            400
+          ]
+        },
+        {
+          "transition": "Conditional cleanup handoff; retain remaining formation while clearing devices and observing civilian arrivals.",
+          "window_seconds": [
+            400,
+            null
+          ]
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "Never deploy on [[2,8],[6,4]]; every deployment uses legal integer [row,col] and a cardinal direction."
+        },
+        {
+          "invariant": "At most eight operators simultaneously deployed; use supplied configurations."
+        },
+        {
+          "invariant": "Zero leaks and remaining_life > 0 are mandatory; civilian deaths are not budgeted."
+        },
+        {
+          "invariant": "Ordinary operators neither attack nor block civilians; officer attacks within 1.2 remain a protection concern."
+        },
+        {
+          "invariant": "Do not credit unsupported talents, skills, splash geometry, target priority, refunds or client deadlines."
+        },
+        {
+          "invariant": "Repeat manual skills only while deployed, ready and inactive; stop on terminal WIN."
+        },
+        {
+          "invariant": "Do not interpret stale runtime blocking occupancy as a GameData mechanic or claim this proposal is a verified WIN."
+        },
+        {
+          "invariant": "163s marks the last model spawn, not completion; resolve hostile survivors, devices obstructing evacuation and active civilians."
+        }
+      ],
+      "operational_plan_id": "R8_4_GPT_V3",
+      "parent_hypothesis_id": "R8_4_EARLY_DAMAGE_WEST_SUPPORT_EVACUATION",
+      "pressure_window_responsibilities": [
+        {
+          "owner": "Observe first civilian; use earlier Melantha damage to prevent the prior opening accumulation.",
+          "window_seconds": [
+            3,
+            42
+          ]
+        },
+        {
+          "owner": "Beagle contains overflow and runners; establish western blocking and healing before bypass pressure.",
+          "window_seconds": [
+            42,
+            80
+          ]
+        },
+        {
+          "owner": "Midnight supports western ranged arrivals; maintain central coverage through Fang's retirement.",
+          "window_seconds": [
+            80,
+            130
+          ]
+        },
+        {
+          "owner": "Midnight's 135s skill covers western buildup; Melantha's 128s and Popukar's 154s skills support central overlap.",
+          "window_seconds": [
+            130,
+            163
+          ]
+        },
+        {
+          "owner": "Continue both defenses through ranged waits, remaining hostiles and repeated skill cycles.",
+          "window_seconds": [
+            163,
+            400
+          ]
+        },
+        {
+          "owner": "Only after exhausted spawns and zero active hostiles, perform device cleanup; continue until civilians finish and WIN is confirmed.",
+          "window_seconds": [
+            400,
+            null
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_124_kroos",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_122_beagle",
+        "char_209_ardign",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_281_popka"
+      ],
+      "skill_intents": [
+        {
+          "intent": "Automatic +6 DP; no manual action.",
+          "operator_id": "char_123_fang"
+        },
+        {
+          "intent": "Automatic attack-SP two-hit skill; no random talent credit.",
+          "operator_id": "char_124_kroos"
+        },
+        {
+          "first_frame": 2040,
+          "intent": "Central healing boost; active-duration SP pause included.",
+          "operator_id": "char_120_hibisc",
+          "repeat_period_frames": 1530
+        },
+        {
+          "first_frame": 2700,
+          "intent": "Central defense boost.",
+          "operator_id": "char_122_beagle",
+          "repeat_period_frames": 2130
+        },
+        {
+          "first_frame": 2010,
+          "intent": "Upstream ATK boost until cleanup retreat.",
+          "operator_id": "char_208_melan",
+          "repeat_period_frames": 1830
+        },
+        {
+          "first_frame": 3120,
+          "intent": "Western healing boost; normal range already covers both assigned allies.",
+          "operator_id": "char_212_ansel",
+          "repeat_period_frames": 1830
+        },
+        {
+          "first_frame": 4050,
+          "intent": "Supported ATK boost; no arts-conversion credit.",
+          "operator_id": "char_283_midn",
+          "repeat_period_frames": 3330
+        },
+        {
+          "first_frame": 4620,
+          "intent": "Central ATK boost; no unsupported simultaneous-target credit.",
+          "operator_id": "char_281_popka",
+          "repeat_period_frames": 1830
+        },
+        {
+          "intent": "Ordinary attacks and blocking only; do not activate unsupported self-heal.",
+          "operator_id": "char_209_ardign"
+        }
+      ],
+      "tactical_thesis": "Deploy Melantha before the prior first leak, reinforce central blocking before runners, and replace Fang with Popukar after establishing the western defense. Kroos receives healing. Midnight supports Cardigan against ranged bypasses. After hostile clearance, redeploy damage operators to remove roadblocks and complete civilian evacuation.",
+      "unknown_dependencies": [
+        {
+          "detail": "Killed enemies are deleted without clearing holder occupancy in the inspected death path; this can invalidate repeated blocking and must be distinguished from tactical failure.",
+          "status": "SOURCE_OBSERVED_DEFECT",
+          "topic": "Runtime occupancy"
+        },
+        {
+          "detail": "Opening survival, clearance throughput, support survival and civilian protection remain unverified; no simulation was run.",
+          "status": "UNKNOWN",
+          "topic": "Outcome"
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "GameData": "Melee routes traverse column 3; ranged bypasses converge on the western exit. Civilian death deducts objective life.",
+    "UNKNOWN": [
+      "Exact client targeting and timing",
+      "Ordinary WALK navigation around active roadblocks",
+      "Revised formation outcome"
+    ],
+    "current_model": "Ordinary operators neither attack nor block civilians. Active roadblocks can stop civilian evacuation. Inspected simulator death handling leaves stale blocked_enemy_ids, so nominal blocking capacity cannot be assumed to refresh in this runtime.",
+    "stage_id": "main_08-04"
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_4_EARLY_DAMAGE_WEST_SUPPORT_EVACUATION",
+      "thesis": "Earlier central damage prevents opening accumulation; Midnight supplies western killing power; healed ranged support and explicit device cleanup address failures the prior formation left unresolved."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "deployment_limit": 8,
+    "objective": "WIN only with remaining_life > 0, zero leaks, exhausted spawns and no active enemies.",
+    "operator_policy": "Only normal_low_star_catalog operators with identity.rarity 1-3 and qualification.normal_mode true; exclude mode-specific reserves.",
+    "prohibited_plan_tiles_row_col": [
+      [
+        2,
+        8
+      ],
+      [
+        6,
+        4
+      ]
+    ],
+    "scope": "Opening, all hostile routes, civilian evacuation and terminal cleanup."
+  }
+}

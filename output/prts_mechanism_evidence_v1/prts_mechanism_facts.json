@@ -1,0 +1,56 @@
+{
+  "schema_version": "PRTS_MECHANISM_EVIDENCE_V1",
+  "access_date": "2026-10-14",
+  "evidence_class": "PRTS_MECHANISM_EXPLANATION_SUPPLEMENT",
+  "precedence": "Fixed GameData remains primary for exact numbers; PRTS supplies behavior and selector semantics; deterministic implementation is traced to simulator code.",
+  "pages": [
+    {
+      "title": "乌萨斯平民",
+      "url": "https://prts.wiki/w/乌萨斯平民",
+      "page_file": "pages/乌萨斯平民.html",
+      "facts": [
+        "Enemy-stored Ursus Civilian is a neutral unit.",
+        "Enemy-class neutral units are not blocked by character-class units.",
+        "Safe protected-target arrival does not deduct objective life; death deducts objective life.",
+        "Ursus Civilian cannot attack and is not ordinarily blocked.",
+        "It is not counted in annihilation."
+      ]
+    },
+    {
+      "title": "选择器",
+      "url": "https://prts.wiki/w/选择器",
+      "page_file": "pages/选择器.html",
+      "facts": [
+        "Faction classes include ALLY, ENEMY, and NEUTRAL.",
+        "For an ALLY-side selector, the opposing side is ENEMY; for an ENEMY-side selector, the opposing side includes ALLY and NEUTRAL.",
+        "A NEUTRAL-side selector selects ENEMY.",
+        "As a common subjective-side default, an enemy unit that can select ally units also selects neutral units."
+      ]
+    },
+    {
+      "title": "感染者纠察官",
+      "url": "https://prts.wiki/w/感染者纠察官",
+      "page_file": "pages/感染者纠察官.html",
+      "facts": [
+        "The Infected Patrol Officer can normally attack Ursus Civilian and Talulah the Fighter within radius 1.2.",
+        "This is a source-backed special target capability; do not generalize radius 1.2 to all enemies."
+      ]
+    },
+    {
+      "title": "道路障碍物",
+      "url": "https://prts.wiki/w/道路障碍物",
+      "page_file": "pages/道路障碍物.html",
+      "facts": [
+        "Roadblock is an enemy-faction device with blocking radius 0.4472.",
+        "It specifically blocks Ursus Civilian and Talulah the Fighter from advancing and can be destroyed by our units.",
+        "This device blocking is distinct from ordinary character blocking."
+      ]
+    }
+  ],
+  "unknowns": [
+    "Exact client target priority between operators and neutral protected targets remains UNKNOWN.",
+    "Special skills, auras, and recovery effects that target neutrals require individual evidence.",
+    "Behavior for protected target families other than those named by roadblock evidence remains UNKNOWN.",
+    "Exact continuous-frame client blocking and timing remain UNKNOWN."
+  ]
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,7 @@ from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
 ROOT = Path(__file__).resolve().parents[1]
 GAMEDATA = ROOT / "data/ArknightsGameData"
 FRAMES_PER_SECOND = 30.0
+MECHANICS_VERSION = "m19.0-neutral-protected-target-v1"
 
 
 def load(path: Path) -> Any:
@@ -70,7 +72,13 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
         "stage_simulations_started": 1, "status": "STARTED", "automatic_retry": False,
         "policy": RealSimulationApproximationPolicy.m11_second_quantized().names,
     }
+    if out.exists() and any(out.iterdir()):
+        raise RuntimeError(f"diagnostic output directory is not empty: {out}")
     out.mkdir(parents=True, exist_ok=True)
+    plan_snapshot = out / "plan_snapshot.json"
+    action_snapshot = out / "action_snapshot.json"
+    write_json(plan_snapshot, plan)
+    write_json(action_snapshot, {"actions": actions})
     write_json(out / "simulation_attempt.json", started)
     try:
         policy = RealSimulationApproximationPolicy.m11_second_quantized()
@@ -91,7 +99,7 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
     events = [event_payload(event) for event in result.events]
     event_summaries = summaries(events)
     parameters = {
-        "mechanics_version": evidence["mechanics_version"],
+        "mechanics_version": MECHANICS_VERSION,
         "stage_id": stage_id, "plan_id": plan_id,
         "run_mode": "DIAGNOSTIC_MODEL_FULL_STAGE", "run_count": 1,
         "frames_per_second": FRAMES_PER_SECOND,
@@ -104,23 +112,33 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
         "natural_dp_policy": policy.natural_dp.value,
         "ignored_real_skill_data": fixture.ignored_real_skill_data,
     }
-    partial_support = evidence["stage_mechanism_support"]["full_stage_result_support"] == "PARTIAL_SIMULATION_ONLY"
-    classification = (
-        ("PARTIAL_MECHANICS_DIAGNOSTIC_WIN" if result.win else "PARTIAL_MECHANICS_DIAGNOSTIC_LOSS")
-        if partial_support else "DIAGNOSTIC_MODEL_FULL_STAGE"
-    )
+    classification = "MECHANICS_CORRECTED_DIAGNOSTIC_WIN" if result.win else "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS"
     summary = {
         "result": json_value(result),
         "classification": classification,
-        "full_stage_mechanism_support": evidence["stage_mechanism_support"]["full_stage_result_support"],
-        "civilian_operator_targetability": evidence["stage_mechanism_support"]["operator_targetability_of_friendly_units"],
-        "civilian_blocking": evidence["stage_mechanism_support"]["friendly_unit_blocking"],
+        "mechanics_version": MECHANICS_VERSION,
+        "corrected_mechanism_support": {
+            "remaining_life_win_condition": "SUPPORTED_BY_RUNTIME",
+            "neutral_faction_and_ordinary_blocking": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+            "ordinary_operator_targeting_neutrals": "SUPPORTED_AS_REJECTED",
+            "protected_target_life_scoring": "SUPPORTED_BY_GAMEDATA_AND_RUNTIME",
+            "roadblock_special_blocking_for_ursus_civilians": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+            "officer_protected_target_attack_radius": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+        },
+        "civilian_operator_targetability": "CONFIRMED_NOT_ORDINARY_TARGET",
+        "civilian_blocking": "CONFIRMED_NOT_ORDINARY_BLOCK_TARGET",
         "faithful_certificate": "NOT_ISSUED", "operationally_verified": False,
         "real_game_win_claim": False, "robust_claim": "NOT_EVALUATED",
         "omitted_or_unknown_mechanics": evidence["simulation_domain"]["omitted_or_unknown_mechanics"],
         "event_count": len(events), "event_summaries": event_summaries,
+        "objective_failures": [row for row in events if row["event_type"] == "OBJECTIVE_FAILURE"],
+        "protected_target_reached_events": [row for row in events if row["event_type"] == "PROTECTED_TARGET_REACHED"],
+        "protected_target_deaths": [row for row in events if row["event_type"] == "ENEMY_DEATH" and row["details"].get("life_delta", 0) < 0],
         "first_failure": first_failure_context(events),
     }
+    objective_failures = [row for row in events if row["event_type"] == "OBJECTIVE_FAILURE"]
+    if objective_failures:
+        summary["first_failure"] = {"objective_failure": objective_failures[0], **(summary["first_failure"] or {})}
     write_json(out / "simulation_attempt.json", {**started, "status": "COMPLETED", "result_saved": True})
     write_json(out / "simulation_parameters.json", parameters)
     write_json(out / "diagnostic_events.json", {"events": events})
@@ -129,11 +147,28 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
         "schema_version": "GPT_TACTICAL_STAGE_DIAGNOSTIC_FINAL_STATUS_V1",
         "stage_id": stage_id, "plan_id": plan_id,
         "classification": classification, "faithful_certificate": "NOT_ISSUED",
+        "result_classification": classification,
+        "mechanics_version": MECHANICS_VERSION,
         "simulator_win": bool(result.win), "real_game_win_claim": False,
         "robust_claim": "NOT_EVALUATED",
         "remaining_life": result.remaining_life, "enemies_killed": result.enemies_killed,
         "enemies_leaked": result.enemies_leaked, "operator_deaths": result.operator_deaths,
         "final_dp": result.final_dp, "first_failure": summary["first_failure"],
+        "first_objective_failure_time": result.first_objective_failure_time,
+        "first_objective_failure_reason": result.first_objective_failure_reason,
         "status": "DIAGNOSTIC_COMPLETE_NOT_OPERATIONALLY_VERIFIED",
     })
+    manifest = {
+        "schema_version": "GPT_TACTICAL_STAGE_DIAGNOSTIC_MANIFEST_V2",
+        "source": str(source),
+        "source_files_sha256": {
+            name: hashlib.sha256((source / name).read_bytes()).hexdigest()
+            for name in ("llm_evidence_context.json", "llm_structured_output.json")
+        },
+        "stage_id": stage_id, "plan_id": plan_id,
+        "plan_snapshot_sha256": hashlib.sha256(plan_snapshot.read_bytes()).hexdigest(),
+        "action_snapshot_sha256": hashlib.sha256(action_snapshot.read_bytes()).hexdigest(),
+        "mechanics_version": MECHANICS_VERSION,
+    }
+    write_json(out / "manifest.json", manifest)
     return summary

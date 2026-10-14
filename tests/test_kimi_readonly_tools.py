@@ -97,6 +97,23 @@ class ReadonlyToolTests(unittest.TestCase):
         self.assertIsNone(result["result"])
         self.assertIn("topic is not in the whitelist", result["unknowns"][0])
 
+    def test_neutral_protected_target_mechanics_are_queryable(self):
+        eng = engine()
+        faction = eng.query_mechanic({"topic": "neutral_faction_and_blocking"})
+        targeting = eng.query_mechanic({"topic": "operator_targeting_neutrals"})
+        medic = eng.query_mechanic({"topic": "ordinary_medic_targeting"})
+        enemy = eng.query_mechanic({"topic": "enemy_protected_target_attack"})
+        scoring = eng.query_mechanic({"topic": "protected_target_life_scoring"})
+        roadblock = eng.query_mechanic({"topic": "roadblock_special_blocking"})
+        win = eng.query_mechanic({"topic": "current_simulator_win_rule"})
+        self.assertEqual(faction["result"]["operator_ordinary_block"], False)
+        self.assertEqual(targeting["result"]["neutral_selected"], False)
+        self.assertEqual(medic["result"]["neutral_enemy_directly_healed"], False)
+        self.assertEqual(enemy["result"]["protected_target_attack_radius"], 1.2)
+        self.assertEqual(scoring["result"]["death"]["life_delta"], -1)
+        self.assertEqual(roadblock["result"]["blocking_radius"], 0.4472)
+        self.assertIn("remaining_life > 0", win["result"]["win_if"])
+
     def test_stage_and_affordance_summaries_stay_readonly(self):
         eng = engine()
         stage = eng.query_mechanic({"topic": "r8_1_stage_facts"})

@@ -1,21 +1,15 @@
-# Next milestone: stop loss-driven revision, close evidence and update status
+# Next milestone: close the corrected R8-7 opening, not repeat R8-2/R8-4 shapes
 
-The recovered six-plan pipeline now runs against stage-local roadblock facts. Six
-saved plans passed schema/contract; five passed static checks. The sole static
-conflict is R8-2 V2 at frame 4440: Beagle's SP is 39.9667 against cost 40.
-Five recovered candidates completed one original-action diagnostic each.
+The immediate bottleneck is R8-7 V2's early leak of `enemy_1108_uterer#4` at
+frame 1289 and objective failure at frame 1532. Although V2 improved to 13
+kills/20 leaks/2 deaths/life -17, its own hypothesis flags temporary blocker
+survival and the patrol damage budget as unresolved. The next tactical request,
+if authorized, must be a structural R8-7 opening revision focused on these
+specific bottlenecks and the saved local failure window; Python must not move its
+actions.
 
-R8-4 and R8-7 then each received two failure-driven GPT revisions. Every
-generated revision passed schema/contract and static checks, and every revision
-was simulated exactly once, but all four remained `LOSS`; the second R8-4 and
-R8-7 revisions degraded performance. Do not continue loss-driven revision from
-these versions without a new bottleneck analysis. R8-3, R8-5, and R8-6 remain
-`BLOCKED` by unimplemented route checkpoint semantics.
-
-The immediate work is therefore not another tactical model request. Update the
-seven-stage status, archive the new request/response/tool/diagnostic evidence,
-and preserve the corrected finding that the earlier claim of six plans being
-invalid because of GPT roadblock discipline was contradicted. The next tactical
-attempt requires either new mechanism support for the blocked stages or a
-reviewed structural-bottleneck prompt; it must not repeat the failed prompt shape
-or automatically move GPT's actions.
+Do not retry R8-2 V4 or R8-4 V3 without a new plan: their static conflicts are
+direct plan defects, not simulator errors. R8-3/R8-5/R8-6 remain BLOCKED until
+their route checkpoint semantics are supported. Do not run optimization until
+all seven stages have validated WIN, and do not convert any simulator result into
+an实机 claim.

@@ -133,6 +133,8 @@ class Simulator:
             counts_as_kill=getattr(getattr(stats, "counts_as_kill", None), "value", None) is not False,
             counts_as_leak=getattr(getattr(stats, "counts_as_leak", None), "value", None) is not False,
             death_life_point_reduce=int((getattr(getattr(stats, "death_life_point_reduce", None), "value", None) or 0)),
+            is_neutral=bool((getattr(getattr(stats, "is_neutral", None), "value", None) or False)),
+            protected_target_attack_radius=None if getattr(getattr(stats, "protected_target_attack_radius", None), "value", None) is None else float(stats.protected_target_attack_radius.value),
         )
         self._emit(state, EventType.SPAWN, source=instance_id, enemy_id=enemy_id, route_id=route_id)
 
@@ -284,21 +286,19 @@ class Simulator:
         enemy = state.active_enemies.get(enemy_id)
         if enemy is None:
             return
-        enemy.hp -= damage
-        self._emit(state, EventType.DAMAGE, source=source_id, target=enemy_id, amount=damage, kind=kind)
-        if enemy.hp <= 0:
-            self._unblock(state, enemy)
-            del state.active_enemies[enemy_id]
-            if enemy.counts_as_kill:
-                state.enemies_killed += 1
-            if enemy.death_life_point_reduce:
-                state.remaining_life -= enemy.death_life_point_reduce
-            self._emit(state, EventType.ENEMY_DEATH, source=source_id, target=enemy_id,
-                       kill_counted=enemy.counts_as_kill,
-                       life_delta=-enemy.death_life_point_reduce)
+        self._damage_enemy(state, enemy, source_id, damage, kind=kind)
+
+    def _record_objective_failure(self, state: SimulationState, reason: str) -> None:
+        if state.remaining_life > 0:
+            return
+        if state.first_objective_failure_time is None:
+            state.first_objective_failure_time = state.time
+            state.first_objective_failure_reason = reason
+        self._emit(state, EventType.OBJECTIVE_FAILURE, source=None,
+                   time=state.time, remaining_life=state.remaining_life, reason=reason)
 
     def _target_device_for(self, state: SimulationState, operator: RuntimeOperator) -> RuntimeDevice | None:
-        if state.active_enemies:
+        if any(not enemy.is_neutral for enemy in state.active_enemies.values()):
             return None
         covered = self.range_transformer.covered_tiles(origin=operator.tile, offsets=self._effective_range(operator), direction=operator.direction)
         targets = [device for device in state.active_devices.values() if device.tile in covered]
@@ -388,8 +388,12 @@ class Simulator:
             targets = blocked_targets
             rule = "SELF_BLOCKED_FIRST_THEN_REMAINING_PATH_DISTANCE_THEN_CREATION_ORDER"
         else:
-            targets = [enemy for enemy in state.active_enemies.values() if self._grid_position(self._enemy_position(stage, enemy)) in covered]
-            rule = "HATRED_DES_remaining_path_distance_then_creation_order"
+            targets = [
+                enemy for enemy in state.active_enemies.values()
+                if not enemy.is_neutral
+                and self._grid_position(self._enemy_position(stage, enemy)) in covered
+            ]
+            rule = "OPPOSING_FACTION_ONLY_HATRED_DES_remaining_path_distance_then_creation_order"
         def remaining_path(enemy: RuntimeEnemy) -> float:
             route = next(item for item in stage.routes if item.route_id == enemy.route_id)
             return max(0.0, route.length - enemy.distance)
@@ -401,6 +405,43 @@ class Simulator:
                    blocked_candidate_ids=tuple(x.instance_id for x in blocked_targets),
                    candidate_path_distances=tuple((x.instance_id, remaining_path(x)) for x in targets))
         return selected
+
+    def _target_protected_for(self, stage: Stage, state: SimulationState, enemy: RuntimeEnemy) -> RuntimeEnemy | None:
+        if enemy.protected_target_attack_radius is None:
+            return None
+        position = self._enemy_position(stage, enemy)
+        targets = [
+            candidate for candidate in state.active_enemies.values()
+            if candidate.is_neutral
+            and hypot(position[0] - self._enemy_position(stage, candidate)[0],
+                      position[1] - self._enemy_position(stage, candidate)[1])
+            <= enemy.protected_target_attack_radius + self._EPSILON
+        ]
+        selected = min(targets, key=lambda item: (
+            hypot(position[0] - self._enemy_position(stage, item)[0],
+                  position[1] - self._enemy_position(stage, item)[1]),
+            item.spawn_index,
+        )) if targets else None
+        self._emit(state, EventType.TARGET_SELECTION, source=enemy.instance_id,
+                   target=selected.instance_id if selected else None,
+                   candidate_ids=tuple(item.instance_id for item in targets),
+                   rule="PROTECTED_TARGET_RADIUS_NEAREST_THEN_CREATION_ORDER",
+                   radius=enemy.protected_target_attack_radius)
+        return selected
+
+    def _damage_enemy(self, state: SimulationState, target: RuntimeEnemy, source_id: str, damage: float, *, kind: str) -> None:
+        target.hp -= damage
+        self._emit(state, EventType.DAMAGE, source=source_id, target=target.instance_id, amount=damage, kind=kind)
+        if target.hp <= 0:
+            del state.active_enemies[target.instance_id]
+            if target.counts_as_kill:
+                state.enemies_killed += 1
+            if target.death_life_point_reduce:
+                state.remaining_life -= target.death_life_point_reduce
+                self._record_objective_failure(state, "PROTECTED_TARGET_DEATH")
+            self._emit(state, EventType.ENEMY_DEATH, source=source_id, target=target.instance_id,
+                       kill_counted=target.counts_as_kill,
+                       life_delta=-target.death_life_point_reduce)
 
     def _target_ally_for(self, state: SimulationState, operator: RuntimeOperator) -> RuntimeOperator | None:
         covered = self.range_transformer.covered_tiles(origin=operator.tile, offsets=self._effective_range(operator), direction=operator.direction)
@@ -499,6 +540,11 @@ class Simulator:
             if state.time + self._EPSILON < enemy.next_attack_time:
                 continue
             target_id = enemy.blocked_by if enemy.blocked_by in state.deployed_operators else None
+            protected_target = None
+            if target_id is None:
+                protected_target = self._target_protected_for(stage, state, enemy)
+                if protected_target is not None:
+                    target_id = protected_target.instance_id
             if target_id is None and enemy.attack_range is not None:
                 position = self._enemy_position(stage, enemy)
                 candidates = [operator for operator in state.deployed_operators.values() if hypot(position[0] - operator.tile[0], position[1] - operator.tile[1]) <= enemy.attack_range + self._EPSILON]
@@ -518,7 +564,10 @@ class Simulator:
             )
             self._emit(state, EventType.ATTACK_STRIKE, source=enemy.instance_id, target=target_id)
             self._emit(state, EventType.ATTACK_START, source=enemy.instance_id, target=target_id)
-            if special_ability:
+            if protected_target is not None:
+                raw_damage = physical_damage(enemy.atk, protected_target.defense)
+                self._damage_enemy(state, protected_target, enemy.instance_id, raw_damage, kind="enemy_physical")
+            elif special_ability:
                 self._emit(state, EventType.ENEMY_ABILITY_START, source=enemy.instance_id, ability=special_ability.ability_id, target_count=1)
                 self._damage_operator(state, enemy, target_id, special_ability)
                 self._emit(state, EventType.ENEMY_ABILITY_HIT, source=enemy.instance_id, target=target_id,
@@ -596,18 +645,36 @@ class Simulator:
                     enemy.route_wait_remaining = wait.duration
                     continue
             candidates: list[tuple[float, RuntimeOperator]] = []
-            for operator in state.deployed_operators.values():
-                # This runtime implements ordinary ground blocking only.
-                # A ranged unit's source block stat does not let it hold a
-                # ground enemy while deployed on a high-ground tile.
-                tile = stage.stage_map.tile_at(operator.tile) if stage.stage_map else None
-                if tile is not None and tile.tile_kind == "HIGH_GROUND":
+            if enemy.is_neutral:
+                device_blocked = False
+                for device in state.active_devices.values():
+                    if device.template_id != "trap_020_roadblock":
+                        continue
+                    for blocking_distance in route.distances_at(device.tile):
+                        if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
+                            enemy.distance = blocking_distance
+                            self._emit(state, EventType.BLOCK, source=device.device_id,
+                                       target=enemy.instance_id, blocking_radius=0.4472,
+                                       rule="PRTS_ROADBLOCK_NEUTRAL_RADIUS_0_4472")
+                            device_blocked = True
+                            break
+                    if device_blocked:
+                        break
+                if device_blocked:
                     continue
-                if len(operator.blocked_enemy_ids) >= self._effective_block(operator):
-                    continue
-                for blocking_distance in route.distances_at(operator.tile):
-                    if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
-                        candidates.append((blocking_distance, operator))
+            else:
+                for operator in state.deployed_operators.values():
+                    # This runtime implements ordinary ground blocking only.
+                    # A ranged unit's source block stat does not let it hold a
+                    # ground enemy while deployed on a high-ground tile.
+                    tile = stage.stage_map.tile_at(operator.tile) if stage.stage_map else None
+                    if tile is not None and tile.tile_kind == "HIGH_GROUND":
+                        continue
+                    if len(operator.blocked_enemy_ids) >= self._effective_block(operator):
+                        continue
+                    for blocking_distance in route.distances_at(operator.tile):
+                        if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
+                            candidates.append((blocking_distance, operator))
             if candidates:
                 blocking_distance, holder = min(candidates, key=lambda item: (item[0], item[1].operator_id))
                 enemy.distance = blocking_distance
@@ -620,6 +687,7 @@ class Simulator:
                 if enemy.counts_as_leak:
                     state.remaining_life -= enemy.life_point_reduce
                     state.enemies_leaked += 1
+                    self._record_objective_failure(state, "ENEMY_LEAK")
                     self._emit(state, EventType.ENEMY_LEAK, source=enemy.instance_id, amount=enemy.life_point_reduce)
                 else:
                     self._emit(state, EventType.PROTECTED_TARGET_REACHED, source=enemy.instance_id, amount=0)
@@ -677,7 +745,14 @@ class Simulator:
         if stage.stage_map is None:
             raise ValueError("Simulation requires a StageMap")
         config = config or SimulationConfig()
-        state = SimulationState(0.0, self._number(stage.initial_dp, "initial DP"), stage.initial_life)
+        raw_initial_life = getattr(stage.initial_life, "value", stage.initial_life)
+        if raw_initial_life is None:
+            raise ValueError("Simulation requires known initial life")
+        state = SimulationState(
+            0.0,
+            self._number(stage.initial_dp, "initial DP"),
+            int(raw_initial_life),
+        )
         state.active_devices = {
             device.device_id: RuntimeDevice(
                 device.device_id, device.template_id, device.tile, device.hp, device.hp,
@@ -721,7 +796,12 @@ class Simulator:
             tick_index += 1
             state.time = round(tick_index * config.dt, 10)
             self._advance_operator_runtime(state, config.dt)
-        win = state.enemies_leaked == 0 and spawn_index == len(spawns) and not state.active_enemies
+        win = (
+            state.remaining_life > 0
+            and state.enemies_leaked == 0
+            and spawn_index == len(spawns)
+            and not state.active_enemies
+        )
         score = (1000.0 if win else 0.0) + state.enemies_killed * 10.0 + state.remaining_life * 5.0 - state.enemies_leaked * 100.0
         route_lengths = {route.route_id: route.length for route in stage.routes}
         remaining_progress = sum(enemy.distance / route_lengths[enemy.route_id] for enemy in state.active_enemies.values())
@@ -731,4 +811,6 @@ class Simulator:
             operator_deaths=state.operator_deaths, time_survived=state.time, score=score, final_dp=state.dp,
             enemies_remaining=len(state.active_enemies), remaining_enemy_hp=remaining_hp, remaining_enemy_route_progress=remaining_progress,
             events=tuple(state.events), deployment_errors=tuple(state.deployment_errors),
+            first_objective_failure_time=state.first_objective_failure_time,
+            first_objective_failure_reason=state.first_objective_failure_reason,
         )

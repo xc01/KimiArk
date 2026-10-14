@@ -35,6 +35,7 @@ class EventType(str, Enum):
     DEVICE_TARGET_SELECTION = "DEVICE_TARGET_SELECTION"
     DEVICE_DAMAGE = "DEVICE_DAMAGE"
     DEVICE_DESTROYED = "DEVICE_DESTROYED"
+    OBJECTIVE_FAILURE = "OBJECTIVE_FAILURE"
 
 
 @dataclass(frozen=True)
@@ -79,6 +80,8 @@ class RuntimeEnemy:
     max_hp: float = 0.0
     hp_recovery_per_second: float = 0.0
     normal_attack_count: int = 0
+    is_neutral: bool = False
+    protected_target_attack_radius: float | None = None
 
 
 @dataclass
@@ -148,6 +151,8 @@ class SimulationState:
     enemies_leaked: int = 0
     operator_deaths: int = 0
     deployment_errors: list[str] = field(default_factory=list)
+    first_objective_failure_time: float | None = None
+    first_objective_failure_reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -175,3 +180,5 @@ class SimulationResult:
     events: tuple[SimulationEvent, ...]
     deployment_errors: tuple[str, ...]
     run_metadata: SimulationRunMetadata | None = None
+    first_objective_failure_time: float | None = None
+    first_objective_failure_reason: str | None = None

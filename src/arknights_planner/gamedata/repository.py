@@ -233,6 +233,19 @@ class GameDataRepository:
         base = f"$.enemies[Key={enemy_id}].Value[level={level}].enemyData"
         raw_description = (raw.get("description") or {}).get("m_value") or ""
         friendly = "<@eb.key>友好单位</>" in raw_description
+        neutral = (
+            "<@eb.key>友好单位</>" in raw_description
+            and "撤回保护目标时不扣除关卡生命值" in raw_description
+        )
+        protected_attack_radius = (
+            known(
+                1.2,
+                "output/prts_mechanism_evidence_v1/prts_mechanism_facts.json",
+                "$.pages[2].facts[0]",
+            )
+            if "远程武器" in raw_description and "乌萨斯平民与斗士塔露拉" in raw_description
+            else unknown()
+        )
         protected_arrival = (
             "撤回保护目标时不扣除关卡生命值" in raw_description
             or "进入侵入点时不扣除关卡生命值" in raw_description
@@ -294,6 +307,10 @@ class GameDataRepository:
                 known(False, "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.isInvalidKilled") if handbook.get("isInvalidKilled") is True else known(True, "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.isInvalidKilled") if handbook.get("isInvalidKilled") is False else unknown(),
                 known(not protected_arrival, "zh_CN/gamedata/levels/enemydata/enemy_database.json", f"{base}.description") if raw_description else unknown(),
                 death_life_reduce,
+                known(neutral, "zh_CN/gamedata/levels/enemydata/enemy_database.json", f"{base}.description")
+                if raw_description
+                else unknown(),
+                protected_attack_radius,
             ), source,
             abilities=abilities,
             attack_timing=attack_timing,
