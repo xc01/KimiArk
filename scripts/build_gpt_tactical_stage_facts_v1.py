@@ -65,8 +65,10 @@ def active_stage_facts(stage_id: str) -> dict[str, Any]:
         }
         for item in stage.routes
     ]
+    occupied_tiles = {tuple(item.tile) for item in stage.devices}
     enemy_runtime = []
     for enemy_id, enemy in sorted(fixture.enemies.items()):
+        stats = enemy.stats
         enemy_runtime.append(
             {
                 "enemy_id": enemy_id,
@@ -75,6 +77,12 @@ def active_stage_facts(stage_id: str) -> dict[str, Any]:
                 if enemy.attack_timing
                 else "NONE",
                 "supported_abilities": [item.ability_type for item in enemy.abilities],
+                "is_friendly": stats.is_friendly.to_dict() if stats.is_friendly else None,
+                "counts_as_kill": stats.counts_as_kill.to_dict() if stats.counts_as_kill else None,
+                "counts_as_leak": stats.counts_as_leak.to_dict() if stats.counts_as_leak else None,
+                "death_life_point_reduce": stats.death_life_point_reduce.to_dict() if stats.death_life_point_reduce else None,
+                "operator_targetability": "UNKNOWN",
+                "blockability": "UNKNOWN",
             }
         )
     return {
@@ -92,13 +100,25 @@ def active_stage_facts(stage_id: str) -> dict[str, Any]:
         "roadblock_tiles_col_row": [
             item["tile_col_row"] for item in devices if item["template_id"] == "trap_020_roadblock"
         ],
+        "roadblock_plan_tiles_row_col": [
+            [item["tile_col_row"][1], item["tile_col_row"][0]]
+            for item in devices if item["template_id"] == "trap_020_roadblock"
+        ],
         "devices": devices,
-        "deployable_ground_tiles_col_row": [
+        "terrain_ground_tiles_col_row": [
             [item.x, item.y] for item in stage.stage_map.tiles if item.tile_kind == "GROUND"
         ],
-        "deployable_high_ground_tiles_col_row": [
+        "terrain_high_ground_tiles_col_row": [
             [item.x, item.y] for item in stage.stage_map.tiles if item.tile_kind == "HIGH_GROUND"
         ],
+        "deployable_ground_tiles_col_row": sorted(
+            [[item.x, item.y] for item in stage.stage_map.tiles
+             if item.tile_kind == "GROUND" and (item.x, item.y) not in occupied_tiles]
+        ),
+        "deployable_high_ground_tiles_col_row": sorted(
+            [[item.x, item.y] for item in stage.stage_map.tiles
+             if item.tile_kind == "HIGH_GROUND" and (item.x, item.y) not in occupied_tiles]
+        ),
         "runtime_adapter_routes": routes,
         "enemy_runtime": enemy_runtime,
     }
@@ -160,12 +180,27 @@ def build_context(stage_id: str) -> dict[str, Any]:
     repository = GameDataRepository(GAMEDATA)
     _, _, level_path, level = repository.get_stage_level_document(stage_id)
     reference = load(REFERENCE_CONTEXT)
-    unsupported = {
+    source_route_types = sorted({
         checkpoint["type"]
         for row in compact_source_routes(level)
         for checkpoint in row["checkpoints"]
-        if checkpoint["type"] not in {"MOVE", "WAIT_FOR_SECONDS", "WAIT_CURRENT_FRAGMENT_TIME", "DISAPPEAR"}
-    }
+    })
+    runtime_supported_route_types = {"MOVE", "WAIT_FOR_SECONDS"}
+    unsupported_route_types = sorted(set(source_route_types) - runtime_supported_route_types)
+    adapter_blocked = bool(unsupported_route_types)
+    semantics = []
+    for item in enemy_facts(level):
+        enemy = repository.get_enemy(item["enemy_id"], level=item["level"])
+        stats = enemy.stats
+        semantics.append({
+            "enemy_id": item["enemy_id"],
+            "is_friendly": stats.is_friendly.to_dict(),
+            "counts_as_kill": stats.counts_as_kill.to_dict(),
+            "counts_as_leak": stats.counts_as_leak.to_dict(),
+            "death_life_point_reduce": stats.death_life_point_reduce.to_dict(),
+            "operator_targetability": "UNKNOWN",
+            "blockability": "UNKNOWN",
+        })
     return {
         "schema_version": "GPT_TACTICAL_STAGE_FACTS_V1",
         "stage_id": stage_id,
@@ -190,29 +225,29 @@ def build_context(stage_id: str) -> dict[str, Any]:
         "enemy_facts": enemy_facts(level),
         "source_routes": compact_source_routes(level),
         "source_wave_schedule": compact_wave_schedule(level),
-        "model_spawn_timeline": spawn_timeline(stage_id),
-        "stage_active_facts": active_stage_facts(stage_id),
+        "model_spawn_timeline": spawn_timeline(stage_id) if not adapter_blocked else {
+            "status": "BLOCKED_UNSUPPORTED_ROUTE_CHECKPOINT",
+            "unsupported_types": unsupported_route_types,
+        },
+        "stage_active_facts": active_stage_facts(stage_id) if not adapter_blocked else {
+            "status": "SOURCE_ONLY_RUNTIME_ADAPTER_BLOCKED",
+            "runtime_adapter_blockers": unsupported_route_types,
+        },
         "normal_low_star_catalog": compact_operator_catalog(),
         "normal_low_star_support_counts": load(SUPPORT_PATH)["counts"],
         "simulation_domain": simulation_domain(),
         "stage_mechanism_support": {
-            "raw_route_checkpoint_types": sorted(
-                {
-                    checkpoint["type"]
-                    for row in compact_source_routes(level)
-                    for checkpoint in row["checkpoints"]
-                }
-            ),
-            "runtime_adapter_supported_checkpoint_types": ["MOVE", "WAIT_FOR_SECONDS"],
-            "runtime_adapter_status": "BLOCKED" if unsupported else "OK",
-            "stage_specific_loss_mechanism_status": (
-                "SUPPORTED_BY_enemy_lifePointReduce"
-                if all(
-                    item.get("life_point_reduce") is not None
-                    for item in enemy_facts(level)
-                )
-                else "UNKNOWN"
-            ),
+            "raw_route_checkpoint_types": source_route_types,
+            "runtime_adapter_supported_checkpoint_types": sorted(runtime_supported_route_types),
+            "runtime_adapter_unsupported_checkpoint_types": unsupported_route_types,
+            "runtime_adapter_status": "BLOCKED" if adapter_blocked else "OK",
+            "enemy_semantics": semantics,
+            "protected_target_arrival_semantics": "SOURCE_BACKED_NO_LIFE_DELTA",
+            "protected_target_death_life_delta": "SOURCE_BACKED_BY_dead.value",
+            "protected_target_kill_counting": "SOURCE_BACKED_NOT_COUNTED",
+            "operator_targetability_of_friendly_units": "UNKNOWN",
+            "friendly_unit_blocking": "UNKNOWN",
+            "full_stage_result_support": "PARTIAL_SIMULATION_ONLY",
         },
         "hard_policy": {
             "ordinary_mode_only": True,
@@ -257,7 +292,7 @@ def main() -> None:
             for fragment in context["source_wave_schedule"]["fragments"]
         ),
         "runtime_adapter_status": context["stage_mechanism_support"]["runtime_adapter_status"],
-        "stage_specific_loss_mechanism_status": context["stage_mechanism_support"]["stage_specific_loss_mechanism_status"],
+        "full_stage_result_support": context["stage_mechanism_support"]["full_stage_result_support"],
     }, sort_keys=True))
 
 

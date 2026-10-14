@@ -229,6 +229,30 @@ class GameDataRepository:
             handbook_damage_type == "NO_DAMAGE"
             and (raw.get("applyWay") or {}).get("m_value") == "NONE"
         )
+        source = "zh_CN/gamedata/levels/enemydata/enemy_database.json"
+        base = f"$.enemies[Key={enemy_id}].Value[level={level}].enemyData"
+        raw_description = (raw.get("description") or {}).get("m_value") or ""
+        friendly = "<@eb.key>友好单位</>" in raw_description
+        protected_arrival = (
+            "撤回保护目标时不扣除关卡生命值" in raw_description
+            or "进入侵入点时不扣除关卡生命值" in raw_description
+        )
+        death_life_description = "死亡时扣除关卡生命值" in raw_description
+        death_blackboard = next(
+            (
+                item
+                for item in raw.get("talentBlackboard") or []
+                if isinstance(item, dict) and item.get("key") == "dead.value"
+            ),
+            None,
+        )
+        death_life_reduce = (
+            known(abs(int(death_blackboard["value"])), source, f"{base}.talentBlackboard[dead.value]")
+            if death_life_description
+            and death_blackboard is not None
+            and isinstance(death_blackboard.get("value"), (int, float))
+            else unknown()
+        )
 
         def no_damage_value(wrapper: Any, field: str) -> ValueWithSource[Any]:
             if isinstance(wrapper, dict) and wrapper.get("m_defined") is True:
@@ -237,8 +261,6 @@ class GameDataRepository:
                 return known(0.0, source, f"{base}.attributes.{field}.m_value[NO_DAMAGE]")
             return unknown()
 
-        source = "zh_CN/gamedata/levels/enemydata/enemy_database.json"
-        base = f"$.enemies[Key={enemy_id}].Value[level={level}].enemyData"
         abilities: tuple[EnemyAbility, ...] = ()
         for raw_skill in raw.get("skills") or []:
             if not isinstance(raw_skill, dict) or raw_skill.get("prefabKey") != "coldattack":
@@ -268,6 +290,10 @@ class GameDataRepository:
                 self._field(raw, "applyWay", source, f"{base}.applyWay.m_value"),
                 known("ARTS", "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.damageType") if handbook_damage_type == "MAGIC" else known("PHYSICAL", "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.damageType") if handbook_damage_type else unknown(),
                 self._defined_value(attributes.get("hpRecoveryPerSec"), source, f"{base}.attributes.hpRecoveryPerSec.m_value"),
+                known(friendly, "zh_CN/gamedata/levels/enemydata/enemy_database.json", f"{base}.description") if raw_description else unknown(),
+                known(False, "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.isInvalidKilled") if handbook.get("isInvalidKilled") is True else known(True, "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.isInvalidKilled") if handbook.get("isInvalidKilled") is False else unknown(),
+                known(not protected_arrival, "zh_CN/gamedata/levels/enemydata/enemy_database.json", f"{base}.description") if raw_description else unknown(),
+                death_life_reduce,
             ), source,
             abilities=abilities,
             attack_timing=attack_timing,

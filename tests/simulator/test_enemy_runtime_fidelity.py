@@ -125,6 +125,56 @@ def test_zero_attack_no_damage_enemy_does_not_emit_attack_outputs():
     assert not events(result, EventType.DAMAGE, source="brute#0")
 
 
+def test_protected_target_reaches_end_without_life_loss_or_leak_count():
+    enemy = runtime_enemies()["brute"]
+    enemy = replace(
+        enemy,
+        stats=replace(
+            enemy.stats,
+            max_hp=known(10, "test", "$.hp"),
+            move_speed=known(1.0, "test", "$.speed"),
+            life_point_reduce=known(0, "test", "$.life"),
+            counts_as_leak=known(False, "test", "$.protected"),
+        ),
+    )
+    result = run(
+        enemies={"brute": enemy}, strategy=Strategy((), ()),
+        max_time=7.0,
+    )
+    arrival = events(result, EventType.PROTECTED_TARGET_REACHED, source="brute#0")
+    assert arrival
+    assert not events(result, EventType.ENEMY_LEAK, source="brute#0")
+    assert result.remaining_life == 1
+    assert result.enemies_leaked == 0
+    assert result.win is True
+
+
+def test_protected_target_death_costs_life_without_kill_count():
+    blocker = runtime_operators()["blocker"]
+    lethal_stats = replace(blocker.phases[0].stats_max, atk=known(1_000, "test", "$.atk"))
+    blocker = replace(blocker, phases=(replace(blocker.phases[0], stats_min=lethal_stats, stats_max=lethal_stats),))
+    enemy = runtime_enemies()["brute"]
+    enemy = replace(
+        enemy,
+        stats=replace(
+            enemy.stats,
+            counts_as_kill=known(False, "test", "$.invalidKilled"),
+            death_life_point_reduce=known(1, "test", "$.dead.value"),
+        ),
+    )
+    result = run(
+        operators={"blocker": blocker},
+        enemies={"brute": enemy},
+        strategy=Strategy(("blocker",), (deploy("blocker", (3, 1)),)),
+        max_time=3.0,
+    )
+    death = enemy_events(result, EventType.ENEMY_DEATH, source="blocker", target="brute#0")[0]
+    assert dict(death.details)["kill_counted"] is False
+    assert dict(death.details)["life_delta"] == -1
+    assert result.enemies_killed == 0
+    assert result.remaining_life == 0
+
+
 def test_client_derived_windup_strike_and_recovery_event_trace():
     enemies = runtime_enemies()
     enemies["brute"] = replace(

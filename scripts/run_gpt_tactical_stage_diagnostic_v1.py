@@ -6,15 +6,13 @@ from pathlib import Path
 from typing import Any
 
 from arknights_planner.adapters import (
-    ApproximateRealRangeTransformer,
     ApproximateRealSimulationAdapter,
-    InstantProjectileModel,
     RealOperatorSelection,
     RealSimulationApproximationPolicy,
 )
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.models.strategy import Action, ActionType, Strategy
-from arknights_planner.simulator import SimulationConfig, Simulator
+from arknights_planner.simulator import ApproximateRealRangeTransformer, InstantProjectileModel, SimulationConfig, Simulator
 from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
     event_payload,
     fail_started,
@@ -106,8 +104,17 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
         "natural_dp_policy": policy.natural_dp.value,
         "ignored_real_skill_data": fixture.ignored_real_skill_data,
     }
+    partial_support = evidence["stage_mechanism_support"]["full_stage_result_support"] == "PARTIAL_SIMULATION_ONLY"
+    classification = (
+        ("PARTIAL_MECHANICS_DIAGNOSTIC_WIN" if result.win else "PARTIAL_MECHANICS_DIAGNOSTIC_LOSS")
+        if partial_support else "DIAGNOSTIC_MODEL_FULL_STAGE"
+    )
     summary = {
-        "result": json_value(result), "classification": "DIAGNOSTIC_MODEL_FULL_STAGE",
+        "result": json_value(result),
+        "classification": classification,
+        "full_stage_mechanism_support": evidence["stage_mechanism_support"]["full_stage_result_support"],
+        "civilian_operator_targetability": evidence["stage_mechanism_support"]["operator_targetability_of_friendly_units"],
+        "civilian_blocking": evidence["stage_mechanism_support"]["friendly_unit_blocking"],
         "faithful_certificate": "NOT_ISSUED", "operationally_verified": False,
         "real_game_win_claim": False, "robust_claim": "NOT_EVALUATED",
         "omitted_or_unknown_mechanics": evidence["simulation_domain"]["omitted_or_unknown_mechanics"],
@@ -121,7 +128,7 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
     write_json(out / "final_status.json", {
         "schema_version": "GPT_TACTICAL_STAGE_DIAGNOSTIC_FINAL_STATUS_V1",
         "stage_id": stage_id, "plan_id": plan_id,
-        "classification": "DIAGNOSTIC_MODEL_FULL_STAGE", "faithful_certificate": "NOT_ISSUED",
+        "classification": classification, "faithful_certificate": "NOT_ISSUED",
         "simulator_win": bool(result.win), "real_game_win_claim": False,
         "robust_claim": "NOT_EVALUATED",
         "remaining_life": result.remaining_life, "enemies_killed": result.enemies_killed,

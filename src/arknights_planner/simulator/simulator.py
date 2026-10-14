@@ -130,6 +130,9 @@ class Simulator:
             attack_animation_duration=enemy.attack_timing.duration_seconds if enemy.attack_timing else 0.0,
             max_hp=self._number(stats.max_hp, "enemy hp"),
             hp_recovery_per_second=0.0 if stats.hp_recovery_per_second.value is None else float(stats.hp_recovery_per_second.value),
+            counts_as_kill=getattr(getattr(stats, "counts_as_kill", None), "value", None) is not False,
+            counts_as_leak=getattr(getattr(stats, "counts_as_leak", None), "value", None) is not False,
+            death_life_point_reduce=int((getattr(getattr(stats, "death_life_point_reduce", None), "value", None) or 0)),
         )
         self._emit(state, EventType.SPAWN, source=instance_id, enemy_id=enemy_id, route_id=route_id)
 
@@ -286,8 +289,13 @@ class Simulator:
         if enemy.hp <= 0:
             self._unblock(state, enemy)
             del state.active_enemies[enemy_id]
-            state.enemies_killed += 1
-            self._emit(state, EventType.ENEMY_DEATH, source=source_id, target=enemy_id)
+            if enemy.counts_as_kill:
+                state.enemies_killed += 1
+            if enemy.death_life_point_reduce:
+                state.remaining_life -= enemy.death_life_point_reduce
+            self._emit(state, EventType.ENEMY_DEATH, source=source_id, target=enemy_id,
+                       kill_counted=enemy.counts_as_kill,
+                       life_delta=-enemy.death_life_point_reduce)
 
     def _target_device_for(self, state: SimulationState, operator: RuntimeOperator) -> RuntimeDevice | None:
         if state.active_enemies:
@@ -609,9 +617,12 @@ class Simulator:
                 continue
             enemy.distance = proposed
             if enemy.distance + self._EPSILON >= route.length:
-                state.remaining_life -= enemy.life_point_reduce
-                state.enemies_leaked += 1
-                self._emit(state, EventType.ENEMY_LEAK, source=enemy.instance_id, amount=enemy.life_point_reduce)
+                if enemy.counts_as_leak:
+                    state.remaining_life -= enemy.life_point_reduce
+                    state.enemies_leaked += 1
+                    self._emit(state, EventType.ENEMY_LEAK, source=enemy.instance_id, amount=enemy.life_point_reduce)
+                else:
+                    self._emit(state, EventType.PROTECTED_TARGET_REACHED, source=enemy.instance_id, amount=0)
                 del state.active_enemies[enemy.instance_id]
 
     def _advance_operator_runtime(self, state: SimulationState, dt: float) -> None:

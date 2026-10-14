@@ -591,6 +591,19 @@ def validate_operational_plan_output(parsed: Any, evidence: dict[str, Any]) -> l
         if key not in plan:
             errors.append(f"plan missing {key}")
     catalog = {item["operator_id"]: item for item in evidence.get("normal_low_star_catalog", [])}
+    active = evidence.get("stage_active_facts")
+    if not isinstance(active, dict):
+        return ["stage_active_facts is required and must be an object"]
+    roadblock_rows = active.get("roadblock_tiles_col_row")
+    if not isinstance(roadblock_rows, list):
+        return ["stage_active_facts.roadblock_tiles_col_row is required"]
+    device_rows = active.get("active_device_tiles_col_row")
+    if not isinstance(device_rows, list):
+        return ["stage_active_facts.active_device_tiles_col_row is required"]
+    try:
+        occupied_runtime_tiles = {tuple(int(value) for value in row) for row in device_rows}
+    except (TypeError, ValueError):
+        return ["stage_active_facts.active_device_tiles_col_row must contain integer [col,row] rows"]
     selected = plan.get("selected_low_star_operator_ids") or []
     if not isinstance(selected, list) or not selected:
         errors.append("selected_low_star_operator_ids is empty")
@@ -631,8 +644,10 @@ def validate_operational_plan_output(parsed: Any, evidence: dict[str, Any]) -> l
                 errors.append(f"{label} DEPLOY lacks integer [row,col]")
                 continue
             row, col = tile
-            if [col, row] in ROADBLOCK_TILES_COL_ROW:
+            if [col, row] in roadblock_rows:
                 errors.append(f"{label} deploys on active roadblock [row,col]={tile}")
+            elif (col, row) in occupied_runtime_tiles:
+                errors.append(f"{label} deploys on an active stage device [row,col]={tile}")
             runtime_tile = (col, row)
             active = evidence.get("stage_active_facts") or {}
             ground = active.get("deployable_ground_tiles_col_row") or []

@@ -20,6 +20,10 @@ class EnemyStats:
     apply_way: ValueWithSource[str | None] = field(default_factory=unknown)
     damage_type: ValueWithSource[str | None] = field(default_factory=unknown)
     hp_recovery_per_second: ValueWithSource[float | int | None] = field(default_factory=unknown)
+    is_friendly: ValueWithSource[bool | None] = field(default_factory=unknown)
+    counts_as_kill: ValueWithSource[bool | None] = field(default_factory=unknown)
+    counts_as_leak: ValueWithSource[bool | None] = field(default_factory=unknown)
+    death_life_point_reduce: ValueWithSource[int | None] = field(default_factory=unknown)
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,613 @@
+{
+  "deterministic_verifier_questions": [
+    "Does Fang survive and supply DP at 19, 44 and 69 seconds?",
+    "Does Beagle intercept every released enemy during the 92-93 second handoff?",
+    "Do central blocking and shared healing withstand final overlapping spawns without overflow?",
+    "Do western containment, support survival and civilian evacuation preserve zero leaks through exhausted spawns and no active enemies?"
+  ],
+  "explicit_assumptions": [
+    "All action frames are tactical choices under the current 30 FPS model, not client deadlines.",
+    "Range coverage and the conditional DP ledger were checked read-only; no stage simulation was run.",
+    "Manual skill schedules include active-duration SP pauses and readiness margins."
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 330,
+          "operator_id": "char_124_kroos",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 690,
+          "operator_id": "char_120_hibisc",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1200,
+          "operator_id": "char_122_beagle",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 1560,
+          "operator_id": "char_210_stward",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1620,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 1980,
+          "operator_id": "char_500_noirc",
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2310,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            2
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2550,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2760,
+          "operator_id": "char_123_fang"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2790,
+          "operator_id": "char_208_melan",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3150,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3150,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 3270,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4380,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4500,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4680,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4680,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4980,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6210,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6210,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6810,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6810,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7740,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7830,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8040,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8640,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8940,
+          "operator_id": "char_122_beagle"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9270,
+          "operator_id": "char_120_hibisc"
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "owner": "Column-3 layered hold. Kroos and Steward support Fang, then Melantha; Beagle catches overflow and Midnight adds downstream capacity. Noir Corne catches any central escape.",
+          "routes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            12,
+            13,
+            14,
+            15,
+            16,
+            20,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27
+          ]
+        },
+        {
+          "owner": "Noir Corne and Ansel own the western exit independently. Central fire may contribute only when an enemy actually enters its verified range.",
+          "routes": [
+            9,
+            10,
+            11,
+            18,
+            19,
+            21
+          ]
+        },
+        {
+          "owner": "Observe civilians through their eastern approach and western evacuation. Do not assume blocking, healing, hostile targeting or roadblock passage semantics beyond supplied support.",
+          "routes": [
+            0,
+            7,
+            17
+          ]
+        },
+        {
+          "owner": "No supplied spawn uses this E_NUM route; assign no invented threat or tactic.",
+          "routes": [
+            8
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "DOWN",
+          "operator_id": "char_123_fang",
+          "role": "Temporary upstream block2 and automatic DP.",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_124_kroos",
+          "role": "Fire across all three central blocking tiles.",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_120_hibisc",
+          "role": "Heal central blockers and Steward.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_122_beagle",
+          "role": "Permanent central block3 behind the opening.",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_210_stward",
+          "role": "Arts fire into the upstream hold at [4,3].",
+          "tile": [
+            4,
+            6
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_500_noirc",
+          "role": "Independent western exit block3.",
+          "tile": [
+            5,
+            1
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_212_ansel",
+          "role": "Sustain Noir Corne on western bypasses.",
+          "tile": [
+            5,
+            2
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_208_melan",
+          "role": "Replace Fang with upstream damage and block1.",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_283_midn",
+          "role": "Central block2 and fire into [4,3] and [5,3].",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "central_sequence": "Melantha [4,3] -> Beagle [5,3] -> Midnight [6,3], with seven aggregate blocking slots on distinct tiles.",
+        "economy": {
+          "conditions": "Fang survives through retirement at 92s and receives uninterrupted inactive time-SP. Effective Fang cost is 10. No refunds or unsupported DP effects are counted.",
+          "deployment_seconds": [
+            0,
+            11,
+            23,
+            40,
+            52,
+            66,
+            77,
+            93,
+            109
+          ],
+          "dp_after_deployments": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "fang_income_seconds": [
+            19,
+            44,
+            69
+          ],
+          "status": "CONDITIONAL_CURRENT_MODEL_CALCULATION"
+        },
+        "fire_support": "Helper-confirmed Kroos coverage includes [4,3], [5,3], [6,3]; Steward includes [4,3]; Midnight includes [4,3] and [5,3]. No target priority is assumed.",
+        "healing": "Helper-confirmed Hibiscus normal range includes all three central blockers; Ansel normal range includes Noir Corne. No probabilistic extra healing is credited.",
+        "western_exit": "Noir Corne [5,1], healed by Ansel [5,2]."
+      },
+      "formation_transitions": [
+        {
+          "transition": "Deploy Fang, Kroos, then central healing.",
+          "window_seconds": [
+            0,
+            23
+          ]
+        },
+        {
+          "transition": "Add Beagle before dense arrivals, then Steward, western blocking and western healing; retain Fang.",
+          "window_seconds": [
+            40,
+            77
+          ]
+        },
+        {
+          "transition": "Retreat Fang, then deploy Melantha on the vacated tile. Beagle remains downstream throughout the handoff.",
+          "window_seconds": [
+            92,
+            93
+          ]
+        },
+        {
+          "transition": "Midnight completes eight permanent operators; retain them until WIN.",
+          "window_seconds": [
+            109,
+            null
+          ]
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "Zero leaks; life points are not an expendable tactical resource."
+        },
+        {
+          "invariant": "Use only selected legal catalog operators and supplied configurations; at most eight simultaneously deployed."
+        },
+        {
+          "invariant": "Never occupy either active roadblock tile or rely on device removal or rerouting."
+        },
+        {
+          "invariant": "Beagle remains deployed during Fang's retirement and Melantha's deployment; no further planned retreats."
+        },
+        {
+          "invariant": "Keep western blocking and healing independent of central target selection."
+        },
+        {
+          "invariant": "Do not credit unsupported talents, splash geometry, refunds, civilian interactions or target priorities."
+        },
+        {
+          "invariant": "Scheduled actions execute only while the stage is active. Continue listed skill cadences after the explicit timeline until terminal WIN."
+        }
+      ],
+      "operational_plan_id": "R8_4_GPT_V2",
+      "parent_hypothesis_id": "R8_4_COLUMN3_WEST_EXIT",
+      "pressure_window_responsibilities": [
+        {
+          "owner": "Observe first civilian; Fang and Kroos clear initial officers. Hibiscus begins central sustain at 23s.",
+          "window_seconds": [
+            3,
+            40
+          ]
+        },
+        {
+          "owner": "Beagle provides simultaneous blocking for clustered officers and 58/64/70s runners. Steward accelerates upstream clearance; establish western containment before ranged spawns.",
+          "window_seconds": [
+            42,
+            80
+          ]
+        },
+        {
+          "owner": "Maintain both holds during runners, northern officers and ranged waits. Replace Fang only with downstream coverage already present; complete Midnight before final-wave buildup.",
+          "window_seconds": [
+            80,
+            130
+          ]
+        },
+        {
+          "owner": "Use Melantha at 146s, Midnight at 150s, and central defense/healing at 156s against overlapping officers and runners.",
+          "window_seconds": [
+            130,
+            163
+          ]
+        },
+        {
+          "owner": "Ansel boosts western healing at 166s. Preserve all blockers through the 5/10/15s ranged waits, civilian evacuation and remaining kills; repeat skills until WIN.",
+          "window_seconds": [
+            163,
+            null
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_122_beagle",
+        "char_210_stward",
+        "char_500_noirc",
+        "char_212_ansel",
+        "char_208_melan",
+        "char_283_midn"
+      ],
+      "skill_intents": [
+        {
+          "intent": "Automatic +6 DP; no manual activation.",
+          "operator_id": "char_123_fang"
+        },
+        {
+          "intent": "Automatic attack-SP two-hit skill; no random talent credit.",
+          "operator_id": "char_124_kroos"
+        },
+        {
+          "intent": "Automatic attack-SP scaled hit; no highest-defense priority or unsupported ATK talent credit.",
+          "operator_id": "char_210_stward"
+        },
+        {
+          "frames": [
+            1620,
+            3150,
+            4680,
+            6210,
+            7740,
+            9270
+          ],
+          "intent": "Central healing boosts, including final accumulation; active duration pauses SP.",
+          "operator_id": "char_120_hibisc",
+          "repeat_period_frames": 1530
+        },
+        {
+          "frames": [
+            2550,
+            4680,
+            6810,
+            8940
+          ],
+          "intent": "Defense during accumulated blocking; retain block3 throughout.",
+          "operator_id": "char_122_beagle",
+          "repeat_period_frames": 2130
+        },
+        {
+          "frames": [
+            3150,
+            4980,
+            6810,
+            8640
+          ],
+          "intent": "Western healing boosts; required coverage uses normal range.",
+          "operator_id": "char_212_ansel",
+          "repeat_period_frames": 1830
+        },
+        {
+          "frames": [
+            4380,
+            6210,
+            8040
+          ],
+          "intent": "ATK boost for final runners and subsequent cleanup.",
+          "operator_id": "char_208_melan",
+          "repeat_period_frames": 1830
+        },
+        {
+          "frames": [
+            4500,
+            7830
+          ],
+          "intent": "Supported ATK boost for final overlap; do not assume an unsupported arts conversion.",
+          "operator_id": "char_283_midn",
+          "repeat_period_frames": 3330
+        }
+      ],
+      "tactical_thesis": "Fang and Kroos establish the opening. Beagle supplies downstream capacity before Melantha takes Fang's upstream tile. Steward, Kroos and Midnight clear the central hold; Hibiscus heals its three melee operators. Noir Corne and Ansel independently contain western bypasses through final cleanup.",
+      "unknown_dependencies": [
+        {
+          "detail": "Fang survival and the three automatic income payments require battle verification.",
+          "status": "UNKNOWN",
+          "topic": "Opening"
+        },
+        {
+          "detail": "Shared single-target healing, dense-wave clearance and exact handoff acquisition remain unverified.",
+          "status": "UNKNOWN",
+          "topic": "Central throughput"
+        },
+        {
+          "detail": "Ranged targeting may threaten support operators; no deployment-order targeting guarantee is assumed.",
+          "status": "UNKNOWN",
+          "topic": "Western ranged pressure"
+        },
+        {
+          "detail": "Active roadblock WALK navigation and civilian targeting interactions are unresolved.",
+          "status": "UNKNOWN",
+          "topic": "Devices and civilians"
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "GameData": "Serpentine melee routes converge on column 3; several ranged routes bypass that hold toward the western exit. Three civilian routes require observation throughout evacuation.",
+    "UNKNOWN": [
+      "Ordinary-WALK navigation around active roadblocks",
+      "Target ordering and civilian targeting interactions",
+      "Exact client contact and attack timing"
+    ],
+    "current_model": "Pressure begins at 8s, intensifies at 58s and 80s, and culminates in overlapping melee waves from 130s plus three ranged spawns at 163s.",
+    "scope": "Initial full-stage plan R8-4-V2.",
+    "stage_id": "main_08-04"
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_4_COLUMN3_WEST_EXIT",
+      "thesis": "Use an economical column-3 opening, establish downstream blocking before replacing Fang, and maintain a separately healed western exit blocker for bypassing ranged enemies."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "deployment_limit": 8,
+    "objective": "Zero leaks, exhausted spawns, and no active enemies.",
+    "operator_policy": "Only supplied ordinary-mode rarity 1-3 operators, using their supplied configurations.",
+    "prohibited_plan_tiles_row_col": [
+      [
+        2,
+        8
+      ],
+      [
+        6,
+        4
+      ]
+    ],
+    "termination": "Retain the completed formation and repeat ready manual skills through terminal WIN; 163s is not a stopping time."
+  },
+  "uncertainties": [
+    {
+      "detail": "This is an executable tactical proposal, not a verified WIN.",
+      "status": "UNKNOWN",
+      "topic": "Outcome"
+    }
+  ]
+}

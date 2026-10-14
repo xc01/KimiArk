@@ -1,0 +1,695 @@
+{
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            1,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 420,
+          "operator_id": "char_500_noirc",
+          "tile": [
+            4,
+            4
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 750,
+          "operator_id": "char_124_kroos",
+          "tile": [
+            5,
+            4
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1080,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1380,
+          "operator_id": "char_211_adnach",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1740,
+          "operator_id": "char_120_hibisc",
+          "tile": [
+            2,
+            1
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1950,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 2100,
+          "operator_id": "char_209_ardign",
+          "tile": [
+            1,
+            4
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 2580,
+          "operator_id": "char_283_midn",
+          "tile": [
+            1,
+            2
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2610,
+          "operator_id": "char_211_adnach"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2700,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "RETREAT",
+          "condition": "No live blocked enemy; otherwise defer this retreat and Popukar deployment.",
+          "frame": 2850,
+          "operator_id": "char_123_fang"
+        },
+        {
+          "action_type": "DEPLOY",
+          "condition": "Fang has retreated and a deployment slot is available.",
+          "direction": "RIGHT",
+          "frame": 3030,
+          "operator_id": "char_281_popka",
+          "tile": [
+            4,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4200,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4200,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4350,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4350,
+          "operator_id": "char_281_popka"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4410,
+          "operator_id": "char_211_adnach"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "condition": "Battle remains active.",
+          "frame": 5700,
+          "operator_id": "char_120_hibisc"
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "model_requirement": "Clear these units rather than allowing zero-life-cost escapes.",
+          "responsibility": "Fang intercepts early row-1 civilian arrivals. Adnachiel assists the second arrival once deployed.",
+          "route_ids": [
+            "route-1",
+            "route-3"
+          ]
+        },
+        {
+          "responsibility": "Noir Corne blocks bottom-origin officers at [4,4]; Kroos attacks them and Ansel sustains Noir Corne.",
+          "route_ids": [
+            "route-2",
+            "route-4",
+            "route-11"
+          ]
+        },
+        {
+          "navigation_dependency": "UNKNOWN around [4,7]",
+          "responsibility": "The row-4 formation receives civilians after their checkpoint sequence; retain blocking until the ordinary-model units are cleared.",
+          "route_ids": [
+            "route-5",
+            "route-6"
+          ]
+        },
+        {
+          "responsibility": "Fang handles the first fast enemy if already blocked; Cardigan receives later arrivals, Midnight supplies rear damage and overflow blocking, Adnachiel attacks and Hibiscus heals.",
+          "route_ids": [
+            "route-7",
+            "route-8",
+            "route-12",
+            "route-13",
+            "route-14",
+            "route-15",
+            "route-16",
+            "route-17"
+          ]
+        },
+        {
+          "navigation_dependency": "UNKNOWN around [4,7]",
+          "responsibility": "Noir Corne receives officers exiting onto row 4; Popukar supplies rear damage and catches overflow after 101 seconds.",
+          "route_ids": [
+            "route-9",
+            "route-10",
+            "route-18",
+            "route-19",
+            "route-20",
+            "route-21",
+            "route-22"
+          ]
+        },
+        {
+          "responsibility": "No scheduled spawns; no tactical allocation.",
+          "route_ids": [
+            "route-0"
+          ]
+        }
+      ],
+      "declared_range_checks": [
+        {
+          "direction": "DOWN",
+          "operator_id": "char_124_kroos",
+          "targets": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          "tile": [
+            5,
+            4
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_212_ansel",
+          "targets": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_211_adnach",
+          "targets": [
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_120_hibisc",
+          "targets": [
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "tile": [
+            2,
+            1
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_283_midn",
+          "targets": [
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ]
+          ],
+          "tile": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_281_popka",
+          "targets": [
+            [
+              4,
+              4
+            ]
+          ],
+          "tile": [
+            4,
+            3
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_123_fang",
+          "role": "Opening interception, DP and temporary rear blocking",
+          "tile": [
+            1,
+            3
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_500_noirc",
+          "role": "Permanent three-block row-4 frontline",
+          "tile": [
+            4,
+            4
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_124_kroos",
+          "role": "Row-4 physical fire support",
+          "tile": [
+            5,
+            4
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_212_ansel",
+          "role": "Heal row-4 frontline and rear",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_211_adnach",
+          "role": "Row-1 physical fire support",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_120_hibisc",
+          "role": "Heal all row-1 blockers",
+          "tile": [
+            2,
+            1
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_209_ardign",
+          "role": "Permanent three-block row-1 frontline",
+          "tile": [
+            1,
+            4
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_283_midn",
+          "role": "Rear blocking and damage through the row-1 frontline",
+          "tile": [
+            1,
+            2
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_281_popka",
+          "role": "Rear two-block officer damage and overflow interception",
+          "tile": [
+            4,
+            3
+          ]
+        }
+      ],
+      "economy": {
+        "basis": "Initial 10 DP, natural +1 DP/s, Fang effective cost 10 and four supported +6 DP cycles; refunds counted as zero.",
+        "deployment_seconds": [
+          0,
+          14,
+          25,
+          36,
+          46,
+          58,
+          70,
+          86,
+          101
+        ],
+        "dp_after_deployment": [
+          0,
+          0,
+          6,
+          0,
+          5,
+          0,
+          0,
+          0,
+          2
+        ],
+        "status": "Read-only arithmetic checked under the current model; exact client same-frame timing UNKNOWN."
+      },
+      "explicit_deadline_basis": [
+        {
+          "basis": "Route-2 first officer reaches [4,4] at approximately 12+7/1.1=18.36 seconds under the supplied polyline model.",
+          "deadline_seconds": 14
+        },
+        {
+          "basis": "Route-1 first civilian reaches Fang at approximately 3+11/0.65=19.92 seconds; opening placement ensures interception.",
+          "deadline_seconds": 0
+        },
+        {
+          "basis": "Route-7 first fast enemy reaches Fang at approximately 65+6/1.7=68.53 seconds; lower fire and healing are established beforehand.",
+          "deadline_seconds": 58
+        }
+      ],
+      "formation_structure": {
+        "device_policy": "Leave devices untouched; derive no navigation benefit from them.",
+        "peak_deployments": 8,
+        "row_1": {
+          "damage": "char_211_adnach",
+          "final_total_block": 5,
+          "frontline": "char_209_ardign",
+          "healing": "char_120_hibisc",
+          "rear": "char_283_midn"
+        },
+        "row_4": {
+          "damage": "char_124_kroos",
+          "final_total_block": 5,
+          "frontline": "char_500_noirc",
+          "healing": "char_212_ansel",
+          "rear": "char_281_popka"
+        }
+      },
+      "formation_transitions": [
+        {
+          "seconds": 0,
+          "transition": "Fang intercepts row-1 civilian traffic; establish Noir Corne on row 4 at 14 seconds."
+        },
+        {
+          "seconds": 58,
+          "transition": "Both lanes have ranged fire and healing before the first fast-enemy arrival."
+        },
+        {
+          "seconds": 70,
+          "transition": "Cardigan intercepts new row-1 arrivals ahead of Fang. Already blocked enemies remain Fang's responsibility until killed."
+        },
+        {
+          "seconds": 86,
+          "transition": "Midnight supplies rear damage and blocking; deployment count reaches eight."
+        },
+        {
+          "seconds": 95,
+          "transition": "Retreat Fang after the 94-second DP cycle, leaving Cardigan and Midnight holding row 1."
+        },
+        {
+          "seconds": 101,
+          "transition": "Use the released slot for Popukar behind Noir Corne; retain the completed formation through WIN."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "rule": "Every selected operator is catalog-qualified for ordinary mode with rarity 1-3."
+        },
+        {
+          "rule": "Never deploy on [2,5] or [4,7]; every declared deployment uses an active legal terrain tile."
+        },
+        {
+          "rule": "Do not exceed eight simultaneous deployments; retreat Fang before deploying Popukar."
+        },
+        {
+          "rule": "Fang's retreat must not release a live blocked enemy; if that handoff condition fails, retain Fang and defer Popukar until Fang is clear."
+        },
+        {
+          "rule": "Keep Cardigan and Noir Corne deployed throughout final traffic; no late frontline retreat."
+        },
+        {
+          "rule": "Budget no retreat refunds, kill DP or unsupported talents."
+        },
+        {
+          "rule": "Do not allow any ordinary-model civilian escape merely because its life_point_reduce is zero."
+        },
+        {
+          "rule": "WIN requires zero leaks, exhausted expanded spawns and no active enemies; no fixed finish time is asserted."
+        }
+      ],
+      "operational_plan_id": "R8_2_GPT_V3",
+      "parent_hypothesis_id": "R8_2_H_DUAL_EXIT",
+      "pressure_window_responsibilities": [
+        {
+          "responsibility": "Fang holds civilian traffic while Noir Corne establishes the separate officer defense; prioritize upper ranged support and healing.",
+          "seconds": [
+            3,
+            45
+          ]
+        },
+        {
+          "responsibility": "Maintain row-4 defense against civilians and five route-11 officers; establish lower ranged support and healing before fast enemies, then install Cardigan and Midnight.",
+          "seconds": [
+            50,
+            113
+          ]
+        },
+        {
+          "responsibility": "Receive the first paired fast enemies and officers with both completed lane formations.",
+          "seconds": [
+            120,
+            139
+          ]
+        },
+        {
+          "responsibility": "Use Midnight, Adnachiel, Hibiscus and Popukar skills across paired-wave arrivals; keep five blocking capacity per lane.",
+          "seconds": [
+            140,
+            179
+          ]
+        },
+        {
+          "responsibility": "Clear the final expanded spawns and remaining backlog; keep both healers and all permanent blockers deployed.",
+          "seconds": [
+            180,
+            "WIN"
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_500_noirc",
+        "char_124_kroos",
+        "char_212_ansel",
+        "char_211_adnach",
+        "char_120_hibisc",
+        "char_209_ardign",
+        "char_283_midn",
+        "char_281_popka"
+      ],
+      "skill_intents": [
+        {
+          "effect": "+6 DP each while deployed",
+          "mode": "AUTO",
+          "model_dp_seconds": [
+            19,
+            44,
+            69,
+            94
+          ],
+          "operator_id": "char_123_fang"
+        },
+        {
+          "intent": "Use the supported attack-SP double-hit pattern; count no critical-hit talent.",
+          "mode": "AUTO",
+          "operator_id": "char_124_kroos"
+        },
+        {
+          "activation_seconds": [
+            87,
+            147
+          ],
+          "intent": "Twenty-second ATK boosts for middle and final fast-enemy pressure; 60 seconds between activations respects duration plus recharge.",
+          "operator_id": "char_211_adnach"
+        },
+        {
+          "activation_seconds": [
+            90,
+            140,
+            190
+          ],
+          "intent": "Twenty-second healing boosts; each subsequent activation follows 20 active plus 30 recharge seconds.",
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "activation_seconds": [
+            65,
+            145
+          ],
+          "intent": "Boost upper healing during mixed traffic and final officer pressure; base range already covers both upper melee positions.",
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "activation_seconds": [
+            140
+          ],
+          "intent": "Forty-second supported ATK boost through the dense lower waves; do not require an unverified damage-type conversion.",
+          "operator_id": "char_283_midn"
+        },
+        {
+          "activation_seconds": [
+            145
+          ],
+          "intent": "Twenty-second ATK boost against the first dense final officer cluster.",
+          "operator_id": "char_281_popka"
+        },
+        {
+          "intent": "Use ordinary blocking and attacks only; self-healing skill is unsupported.",
+          "operator_id": "char_209_ardign"
+        }
+      ],
+      "tactical_thesis": "Hold row 4 with Noir Corne, Kroos and Ansel; hold row 1 initially with Fang, then Cardigan, Adnachiel, Hibiscus and Midnight. Retire Fang after four evidenced DP cycles and add Popukar behind Noir Corne for the final officer waves.",
+      "validation_status": "Ranges and economic arithmetic checked read-only; no stage simulation or victory certificate.",
+      "verification_questions": [
+        {
+          "question": "Does actual roadblock navigation deliver every scheduled route into its assigned exit defense?"
+        },
+        {
+          "question": "Does Fang clear early civilians without a counted escape and remain clear for the 95-second handoff?"
+        },
+        {
+          "question": "Do ordinary target selection and single-target damage clear late backlogs before either lane exceeds five blocking capacity?"
+        },
+        {
+          "question": "Are all expanded spawns through 171 seconds consumed before zero-leak WIN is reported?"
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "GameData": {
+      "deployment_limit": 8,
+      "exit_lanes_row_col": [
+        [
+          4,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "forbidden_device_tiles_row_col": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          7
+        ]
+      ]
+    },
+    "UNKNOWN": [
+      "Ordinary WALK navigation around active roadblocks",
+      "Client civilian allegiance, targetability and evacuation behavior",
+      "Exact client timing and target priority"
+    ],
+    "current_model": {
+      "civilian_handling": "The ordinary runtime can block and attack enemy_3001_upeopl. Its escape increments enemies_leaked despite life_point_reduce=0.",
+      "expanded_final_spawn_seconds": 171,
+      "schedule_note": "The reported 163-second summary excludes the second members of counted events; expand count and interval.",
+      "win": "enemies_leaked == 0 AND spawn schedule exhausted AND active_enemies empty"
+    },
+    "scope": "Initial full-stage R8-2-V3; no inherited R8-1 tactics.",
+    "stage_id": "main_08-02"
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_2_H_DUAL_EXIT",
+      "status": "UNSIMULATED_TACTICAL_HYPOTHESIS",
+      "thesis": "Fang secures early row-1 traffic and funds two permanent exit defenses; sturdy frontline blockers and rear melee damage absorb the late paired waves."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "completion": "Keep both formations through the expanded 171-second final spawn and subsequent cleanup; elapsed time alone never establishes WIN.",
+    "configuration": "Use each selected operator's supplied debug_configuration exactly.",
+    "opening": "Intercept the first civilian on the row-1 exit lane and the first officers on row 4.",
+    "simultaneous_defense": "Maintain independent blocking, ranged damage and healing on both exit lanes.",
+    "unsupported_effects": "Do not budget probability talents, Cardigan self-healing, Noir Corne stat talents or Popukar multitarget attacks."
+  }
+}

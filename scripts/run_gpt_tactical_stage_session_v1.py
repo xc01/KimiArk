@@ -137,12 +137,16 @@ def prepare() -> dict[str, Any]:
 
 def build_prompt(evidence: dict[str, Any]) -> str:
     evidence_json = json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))
+    active = evidence["stage_active_facts"]
+    forbidden_plan_tiles = active.get("roadblock_plan_tiles_row_col")
+    if not isinstance(forbidden_plan_tiles, list):
+        raise RuntimeError("stage_active_facts.roadblock_plan_tiles_row_col is required")
     return f"""You are {codex_runner.MODEL} via the local Codex CLI, the tactical decision maker for {STAGE_ID} / {STAGE_ID.replace('main_0', 'R8-')}.
 Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operational_plan_id": "{PLAN_ID}"` exactly. The final assistant message must be exactly one JSON object matching the supplied output schema; no markdown wrapper or commentary.
 
 You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
 
-Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; reverse it to [row,col] before checking DEPLOY. For example, active roadblock [col,row]=[5,3] forbids DEPLOY [row,col]=[3,5]. Never deploy on any converted roadblock tile. WIN is zero leaks, exhausted spawns and no active enemies.
+Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN is zero leaks, exhausted spawns and no active enemies.
 
 This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you.
 

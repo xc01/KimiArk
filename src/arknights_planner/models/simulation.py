@@ -19,6 +19,7 @@ class EventType(str, Enum):
     DAMAGE = "DAMAGE"
     ENEMY_DEATH = "ENEMY_DEATH"
     ENEMY_LEAK = "ENEMY_LEAK"
+    PROTECTED_TARGET_REACHED = "PROTECTED_TARGET_REACHED"
     ENEMY_ABILITY_START = "ENEMY_ABILITY_START"
     ENEMY_ABILITY_HIT = "ENEMY_ABILITY_HIT"
     ENEMY_STATUS_HIT = "ENEMY_STATUS_HIT"
@@ -53,6 +54,9 @@ class RuntimeEnemy:
     hp: float
     speed: float
     life_point_reduce: int
+    counts_as_kill: bool = True
+    counts_as_leak: bool = True
+    death_life_point_reduce: int = 0
     defense: float = 0.0
     atk: float = 0.0
     attack_interval: float = 1.0
