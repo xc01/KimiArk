@@ -26,23 +26,28 @@ def test_stage_prompt_pins_plan_identity_and_roadblock_coordinate_conversion() -
 
 
 def test_stage_prompt_requires_protected_target_zero_loss_after_v5() -> None:
-    prompt = runner.build_prompt({
-        "stage_active_facts": {"roadblock_plan_tiles_row_col": [[2, 5], [4, 7]]},
-        "roadblock_clearance_evidence": {
-            "roadblock_2": {"device_id": "trap_020_roadblock#2", "tile_json_row_col": [4, 7]},
-            "v1_v3_common_events": {
-                    "civilian_11": {"spawn": {}, "first_roadblock_2_block": {"frame": 2330}, "last_roadblock_2_block": {"frame": 18000}},
-                "civilian_6": {"death": {"frame": 4604}},
+    original = runner.PLAN_LABEL
+    try:
+        runner.PLAN_LABEL = "R8-2-V6"
+        prompt = runner.build_prompt({
+            "stage_active_facts": {"roadblock_plan_tiles_row_col": [[2, 5], [4, 7]]},
+            "roadblock_clearance_evidence": {
+                "roadblock_2": {"device_id": "trap_020_roadblock#2", "tile_json_row_col": [4, 7]},
+                "v1_v3_common_events": {
+                        "civilian_11": {"spawn": {}, "first_roadblock_2_block": {"frame": 2330}, "last_roadblock_2_block": {"frame": 18000}},
+                    "civilian_6": {"death": {"frame": 4604}},
+                },
+                "v5_result_feedback": {
+                    "remaining_perfect_completion_failure": {
+                        "civilian_6": {"death": {"frame": 4604}, "officer_attack_count": 13}
+                    }
+                },
             },
-            "v5_result_feedback": {
-                "remaining_perfect_completion_failure": {
-                    "civilian_6": {"death": {"frame": 4604}, "officer_attack_count": 13}
-                }
-            },
-        },
-    })
-    assert "V6 must retain the zero-leak result" in prompt
-    assert "every protected target arrives" in prompt
+        })
+        assert "R8-2-V6 must retain the zero-leak result" in prompt
+        assert "every protected target arrives" in prompt
+    finally:
+        runner.PLAN_LABEL = original
 
 
 def test_compact_diagnostic_feedback_excludes_full_event_timeline(tmp_path) -> None:

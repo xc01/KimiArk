@@ -423,6 +423,25 @@ before static compile and simulation: 0 valid plans and 0 simulations. Evidence 
   These are ordered kills/leaks/deaths. No full-mechanism WIN, robust WIN, or
   real-game claim is issued.
 
+## 2026-10-14 R8-2 V6/V8 bounded tactical closure
+
+With `features.apps=false`, the frozen R8-2 V6 input (SHA-256
+`30882fb15d4c5180663adb52cf127bc90bbc62a1021c93421815168985a1f8a1`) succeeded on
+CLI start 22. Usage: input 298,104 / cached 252,672 / output 8,837 /
+reasoning 4,302. Schema/contract and static checks passed; the original fixed
+simulation was 34 kills / 2 leaks / 0 deaths / life 0, #6 died at frame 4844, and
+roadblock #2 was destroyed at frame 8733.
+
+R8-2 V7 was CLI start 23: input 382,822 / cached 329,984 / output 8,864 /
+reasoning 3,872. Schema/contract passed but the only static conflict was
+`INSUFFICIENT_DP` for Popukar at frame 2763 (13.1/19); no simulation was run.
+R8-2 V8 was CLI start 24: input 584,192 / cached 526,592 / output 12,200 /
+reasoning 6,343. It passed static checks and was simulated once: 24 kills / 12
+leaks / 1 death / life -10; the first objective failure was leak at frame 2369,
+#6 died at frame 4604, and roadblock #2 was still destroyed at frame 7233.
+V5 remains the zero-leak simulator-WIN baseline; V8 is not a tactical improvement.
+Internal model requests remain `UNKNOWN_CLI_INTERNAL`.
+
 # 2026-10-14 Civilian mechanics correction and bounded revisions
 
 The corrected R8-2 V1 simulation is 8 kills / 28 leaks / 0 deaths / life -26; its

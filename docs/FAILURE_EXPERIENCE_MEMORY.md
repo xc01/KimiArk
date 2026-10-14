@@ -362,3 +362,16 @@ the next tactical version must remove the officer pressure while preserving
 V5's zero-leak outcome. A V6 transport failure is infrastructure and must not be
 recorded as model tactical disagreement.
 
+## 2026-10-14 V6/V8 show the protection-clearance coupling
+
+V6 proved that Apps connector isolation restored transport, but its upstream
+interception/officer-throughput balance leaked `enemy_1107_uoffcr#23` and
+`#30` at frame 5033; these were exactly part of the pressure pool that had killed
+#6 in V5. V8 overcorrected by weakening the opening line, producing 12 leaks by
+frame 5228 and life -10 before the late roadblock destruction. Thus preserving
+#6 cannot be solved by merely delaying clearance or removing early line pressure.
+The next revision must treat officer throughput, protected-target exposure, road
+hold time, and clearance handoff as one coupled structure. Do not reuse V6/V8 as
+successful knowledge; use them as evidence that one-variable timing changes are
+insufficient.
+

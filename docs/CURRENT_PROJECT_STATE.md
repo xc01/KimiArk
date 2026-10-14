@@ -53,3 +53,13 @@ kills, 0 leaks, 0 operator deaths, and life 2. Roadblock #2 was destroyed at
 frame 6633 and #11 arrived safely at frame 6956. Civilian #6 died at frame 4604,
 so perfect completion is still false. The V6 prompt was generated and frozen,
 but its only CLI attempt failed at `workspace routing discovery timed out`.
+
+## 2026-10-14 V6/V8 restore the entry but miss perfect completion
+
+`seven_stage_status_v6.json` supersedes v5. The optional `features.apps=false`
+Codex override restored transport without changing the model or global config.
+CLI starts are now 24 (V6=22, V7=23, V8=24); internal requests remain
+`UNKNOWN_CLI_INTERNAL`. V5 remains the immutable zero-leak simulator WIN with
+protected-target loss. V6/V8 both simulated LOSS; V7 was blocked by an exact DP
+static conflict. The next step is a structural GPT revision, not another
+same-shape timing retry.

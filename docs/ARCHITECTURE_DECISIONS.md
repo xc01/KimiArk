@@ -276,3 +276,9 @@ Decision: a tactical retry may explicitly reuse a saved prompt, evidence and
 schema directory. The runner copies the frozen inputs byte-for-byte, records the
 prompt SHA-256, and does not regenerate tactical material. This prevents drift
 between repeated attempts while retaining per-attempt locks, budgets and logs.
+
+Decision: the generic runner accepts explicit `--extra-config` values and records
+them in the command and attempt metadata. `features.apps=false` is a one-session
+connector fault-isolation override, not a provider/model switch and not a change
+to local read-only tools. Large diagnostic event/summary files are also committed
+as gzip with both compressed and decompressed SHA-256 values in the manifest.

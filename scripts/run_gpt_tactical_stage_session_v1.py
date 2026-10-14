@@ -25,6 +25,7 @@ PLAN_PREFIX = "R8_2_GPT_V3"
 PLAN_LABEL = "R8-2-V3"
 REVISION_SOURCE_DIR: str | None = None
 DIAGNOSTIC_SUMMARY: str | None = None
+STATIC_CONFLICT_SUMMARY: str | None = None
 SAVED_INPUT_DIR: str | None = None
 
 
@@ -58,12 +59,14 @@ def configure(arguments: argparse.Namespace) -> None:
     PLAN_LABEL = arguments.plan_label
     REVISION_SOURCE_DIR = arguments.revision_source
     DIAGNOSTIC_SUMMARY = arguments.diagnostic_summary
+    STATIC_CONFLICT_SUMMARY = arguments.static_conflict_summary
     SAVED_INPUT_DIR = arguments.saved_input_dir
     codex_runner.configure_run(
         arguments.output_dir,
         arguments.diagnostic_output_dir,
         cli_attempt=arguments.cli_attempt,
         prior_cli_starts=arguments.prior_cli_starts,
+        extra_config_values=arguments.extra_config,
         reuse_saved_cli_input=False,
         source_dir=arguments.facts_dir,
         plan_id=PLAN_ID,
@@ -193,8 +196,24 @@ def prepare() -> dict[str, Any]:
         evidence.pop("output_schema", None)
         if REVISION_SOURCE_DIR is not None:
             revision_source = ROOT / REVISION_SOURCE_DIR
+            revision_evidence = load(revision_source / "llm_evidence_context.json")
+            if revision_evidence.get("stage_id") != evidence.get("stage_id"):
+                raise RuntimeError("revision source belongs to a different stage")
             evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
             evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+            if STATIC_CONFLICT_SUMMARY:
+                evidence["prior_static_feedback"] = {
+                    "source": STATIC_CONFLICT_SUMMARY,
+                    "result": load(ROOT / STATIC_CONFLICT_SUMMARY),
+                }
+            evidence["roadblock_clearance_evidence"] = revision_evidence.get("roadblock_clearance_evidence")
+            prior_plan_tiles = revision_evidence.get("stage_active_facts", {}).get(
+                "roadblock_plan_tiles_row_col"
+            )
+            if prior_plan_tiles is not None:
+                evidence.setdefault("stage_active_facts", {})[
+                    "roadblock_plan_tiles_row_col"
+                ] = prior_plan_tiles
             evidence["provenance"]["revision_source"] = {
                 "path": REVISION_SOURCE_DIR,
                 "relationship": "prior_simulated_candidate_not_parent_hypothesis",
@@ -267,7 +286,7 @@ def build_prompt(evidence: dict[str, Any]) -> str:
             remaining = v5["remaining_perfect_completion_failure"]["civilian_6"]
             clearance_instruction += (
                 f" V5 already destroyed roadblock #2 and safely reached #11, but civilian #6 died at frame "
-                f"{remaining['death']['frame']} after {remaining['officer_attack_count']} officer attacks. V6 must retain the "
+                f"{remaining['death']['frame']} after {remaining['officer_attack_count']} officer attacks. {PLAN_LABEL} must retain the "
                 "zero-leak result and change the officer-protection responsibility so every protected target arrives."
             )
     return f"""You are {codex_runner.MODEL} via the local Codex CLI, the tactical decision maker for {STAGE_ID} / {STAGE_ID.replace('main_0', 'R8-')}.
@@ -280,6 +299,7 @@ Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity`
 {clearance_instruction}
 
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
+{"IMPORTANT: prior_static_feedback is from the immediately preceding candidate, while prior_diagnostic_feedback may be from the earlier simulated baseline. Resolve every prior static conflict exactly without letting Python alter tactical actions." if "prior_static_feedback" in evidence else ""}
 
 Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not attack or block neutral civilians with ordinary operators; remember enemy officers may attack civilians and civilian death costs objective life. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
 
@@ -441,8 +461,13 @@ def main() -> None:
     parser.add_argument("--plan-id-prefix", required=True)
     parser.add_argument("--cli-attempt", type=int, default=1)
     parser.add_argument("--prior-cli-starts", type=int, default=0)
+    parser.add_argument(
+        "--extra-config", action="append", default=[],
+        help="additional Codex -c override, recorded with the attempt",
+    )
     parser.add_argument("--revision-source")
     parser.add_argument("--diagnostic-summary")
+    parser.add_argument("--static-conflict-summary")
     parser.add_argument("--saved-input-dir")
     arguments = parser.parse_args()
     configure(arguments)

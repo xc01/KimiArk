@@ -22,6 +22,20 @@ class GptC4CodexCliTests(unittest.TestCase):
         self.assertNotIn("--output-schema", command)
         self.assertNotIn("--dangerously-bypass-approvals-and-sandbox", command)
 
+    def test_extra_config_is_injected_as_argument_array(self):
+        original_values = runner.EXTRA_CONFIG_VALUES
+        runner.EXTRA_CONFIG_VALUES = ["features.apps=false"]
+        try:
+            command = runner.build_command(Path("final.txt"))
+        finally:
+            runner.EXTRA_CONFIG_VALUES = original_values
+        self.assertIn('model_provider="openai"', command)
+        feature_index = command.index("features.apps=false")
+        self.assertEqual(command[feature_index - 1], "-c")
+        self.assertEqual(command[feature_index + 1], "-c")
+        self.assertEqual(command[command.index("-m")], "-m")
+        self.assertIn("gpt-6.1-sol", command)
+
     def test_codex_process_receives_local_proxy_defaults(self):
         with mock.patch.dict(runner.os.environ, {}, clear=True):
             environment = runner.codex_environment()

@@ -15,6 +15,17 @@ their route checkpoint semantics are supported. Do not run optimization until
 all seven stages have validated WIN, and do not convert any simulator result into
 an实机 claim.
 
+## Current milestone: structural R8-2 protected-target rethink
+
+R8-2 V5 remains the immutable best fixed simulator WIN baseline: 36 kills, 0
+leaks, 0 operator deaths, life 2, roadblock #2 destroyed at frame 6633, and #11
+arrived at frame 6956; #6 died at frame 4604. V6 restored roadblock clearing but
+leaked two officers and lost #6. V7 was rejected only for frame-2763 insufficient
+DP. V8 preserved roadblock clearing but regressed to 12 leaks, one operator
+death, life -10, and #6 death. Stop same-shape retries. The next GPT revision
+must redesign the opening interception/officer-throughput balance and the
+protection-to-clearance handoff; Python must not select the replacement tactics.
+
 SUPERSEDED 2026-10-14: the old R8-7 V2 loss window above came from ghost-block
 pollution. The current bottleneck is the death-unblock-fixed window: two early
 guards die, R8-7 first leaks at frame 1289, and first fails at frame 1532. R8-2

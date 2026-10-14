@@ -34,6 +34,7 @@ REASONING_EFFORT = "medium"
 CLI_TIMEOUT_SECONDS = 3600
 PRIOR_CLI_STARTS = 0
 CLI_ATTEMPT_NUMBER = 1
+EXTRA_CONFIG_VALUES: list[str] = []
 REUSE_SAVED_CLI_INPUT = False
 FEEDBACK_SUMMARY_PATH = ROOT / "output/r8_1_gpt_c3_full_diagnostic_v1/diagnostic_summary.json"
 FEEDBACK_EVENTS_PATH = ROOT / "output/r8_1_gpt_c3_full_diagnostic_v1/diagnostic_events.json"
@@ -66,6 +67,7 @@ def configure_run(
     *,
     cli_attempt: int,
     prior_cli_starts: int,
+    extra_config_values: list[str] | None = None,
     reuse_saved_cli_input: bool = False,
     source_dir: str,
     plan_id: str,
@@ -77,10 +79,12 @@ def configure_run(
     feedback_events: str,
 ) -> None:
     global OUT, DIAGNOSTIC_OUT, CLI_ATTEMPT_NUMBER, PRIOR_CLI_STARTS, REUSE_SAVED_CLI_INPUT, SOURCE
+    global EXTRA_CONFIG_VALUES
     global PLAN_ID, PLAN_LABEL, PLAN_PREFIX, FEEDBACK_SUMMARY_PATH, FEEDBACK_EVENTS_PATH
     OUT = ROOT / output_dir
     DIAGNOSTIC_OUT = ROOT / diagnostic_output_dir
     CLI_ATTEMPT_NUMBER = cli_attempt
+    EXTRA_CONFIG_VALUES = list(extra_config_values or [])
     PRIOR_CLI_STARTS = prior_cli_starts
     REUSE_SAVED_CLI_INPUT = reuse_saved_cli_input
     SOURCE = ROOT / source_dir
@@ -148,12 +152,15 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
 
 
 def build_command(last_message_path: Path) -> list[str]:
-    return [
+    command = [
         "codex", "exec", "--json", "--sandbox", "read-only", "--cd", str(ROOT),
         "-c", 'model_provider="openai"', "-m", MODEL,
         "-c", 'model_reasoning_effort="medium"',
         "-o", str(last_message_path), "-",
     ]
+    for value in EXTRA_CONFIG_VALUES:
+        command[command.index("-m") - 2:command.index("-m") - 2] = ["-c", value]
+    return command
 
 
 def codex_environment() -> dict[str, str]:
@@ -559,6 +566,10 @@ def main() -> None:
     parser.add_argument("--diagnostic-output-dir", default="output/r8_1_gpt_c4_codex_cli_diagnostic_v1")
     parser.add_argument("--cli-attempt", type=int, default=1)
     parser.add_argument("--prior-cli-starts", type=int, default=0)
+    parser.add_argument(
+        "--extra-config", action="append", default=[],
+        help="additional Codex -c override, recorded with the attempt",
+    )
     parser.add_argument("--reuse-saved-input", action="store_true")
     parser.add_argument("--source-dir", default="output/r8_1_gpt_c4_codex_cli_v3")
     parser.add_argument("--plan-id", default="R8_1_LOWSTAR_PLAN_C4")
@@ -572,6 +583,7 @@ def main() -> None:
     configure_run(
         arguments.output_dir, arguments.diagnostic_output_dir,
         cli_attempt=arguments.cli_attempt, prior_cli_starts=arguments.prior_cli_starts,
+        extra_config_values=arguments.extra_config,
         reuse_saved_cli_input=arguments.reuse_saved_input,
         source_dir=arguments.source_dir,
         plan_id=arguments.plan_id,

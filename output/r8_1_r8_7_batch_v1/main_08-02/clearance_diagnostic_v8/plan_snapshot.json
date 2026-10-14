@@ -1,0 +1,656 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 480,
+      "operator_id": "char_283_midn",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 840,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1323,
+      "operator_id": "char_122_beagle",
+      "tile": [
+        1,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1533,
+      "operator_id": "char_124_kroos",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2043,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        5,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 2433,
+      "operator_id": "char_281_popka",
+      "tile": [
+        3,
+        7
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2943,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        2,
+        1
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2943,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3600,
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3660,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3723,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3963,
+      "operator_id": "char_281_popka"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4443,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 4560,
+      "operator_id": "char_281_popka",
+      "rationale": "Replace the unhealed interceptor before final paired pressure."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 4563,
+      "operator_id": "char_209_ardign",
+      "rationale": "Reestablish interception with fresh HP and three blocking slots.",
+      "tile": [
+        3,
+        7
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and healing needed.",
+      "frame": 5523,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and defense needed.",
+      "frame": 5700,
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and healing needed.",
+      "frame": 5943,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "condition": "Hostile schedule exhausted and no active non-neutral enemies; otherwise defer this paired handoff.",
+      "frame": 6600,
+      "operator_id": "char_209_ardign"
+    },
+    {
+      "action_type": "DEPLOY",
+      "condition": "Guarded Cardigan handoff completed, tile free and sufficient DP; defer together with retreat.",
+      "direction": "UP",
+      "frame": 6603,
+      "operator_id": "char_208_melan",
+      "rationale": "Damage and destroy roadblock #2; retain evacuation responsibility.",
+      "tile": [
+        3,
+        7
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and active hostiles remain.",
+      "frame": 6960,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and healing needed.",
+      "frame": 7323,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and healing needed.",
+      "frame": 7443,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "condition": "Ready and defense needed.",
+      "frame": 7800,
+      "operator_id": "char_122_beagle"
+    }
+  ],
+  "changed_conflicting_assumptions": [
+    {
+      "rejected": "Popukar can be funded at 92.1 seconds after both medics.",
+      "replacement": "Deploy Popukar at 81.1 seconds and Ansel at 98.1 seconds; the declared DP ledger remains nonnegative."
+    },
+    {
+      "rejected": "An unhealed Popukar should remain until 160 seconds.",
+      "replacement": "Replace her at 152.1 seconds with fresh three-block Cardigan, preserving Midnight's remaining burst for the handoff."
+    },
+    {
+      "rejected": "Downstream containment alone protects civilians.",
+      "replacement": "Officers must be intercepted and killed before repeated attacks accumulate beside roadblock #2."
+    },
+    {
+      "rejected": "Waiting beyond hostile exhaustion clears a roadblock.",
+      "replacement": "Melantha has explicit attack coverage, destruction arithmetic, a guarded start, and observed destruction and evacuation requirements."
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "No supplied spawns.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Ordinary operators leave civilians neutral. Kroos damages and destroys roadblock #1 during hostile-free periods; verify #0 and #3 arrive safely.",
+      "routes": [
+        "route-1",
+        "route-3"
+      ]
+    },
+    {
+      "responsibility": "Midnight and Steward damage southern officers; Fang blocks at [4,4] under Hibiscus healing.",
+      "routes": [
+        "route-2",
+        "route-4",
+        "route-11"
+      ]
+    },
+    {
+      "responsibility": "Protect waiting #6 and #11 through offensive interception, maintain blocking capacity, then destroy roadblock #2 and verify both safe arrivals.",
+      "routes": [
+        "route-5",
+        "route-6"
+      ]
+    },
+    {
+      "responsibility": "Beagle blocks, Kroos damages, and Ansel heals through final cleanup.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-12",
+        "route-13",
+        "route-14",
+        "route-15",
+        "route-16",
+        "route-17"
+      ]
+    },
+    {
+      "responsibility": "Popukar then Cardigan intercept at [3,7], supported by Midnight. Fang and Steward retain downstream containment; overflow is a protection failure even if caught before the exit.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-18",
+        "route-19",
+        "route-20",
+        "route-21",
+        "route-22"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_123_fang",
+      "role": "Row-4 two-block anchor and supported DP generation.",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_283_midn",
+      "role": "Shared southern damage and northern interceptor damage.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Arts damage supporting Fang.",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_122_beagle",
+      "role": "Permanent row-1 three-block anchor.",
+      "tile": [
+        1,
+        2
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_124_kroos",
+      "role": "Row-1 damage and roadblock-1 clearance.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_120_hibisc",
+      "role": "Heal Fang.",
+      "tile": [
+        5,
+        2
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_281_popka",
+      "role": "Early northern two-block damage interceptor.",
+      "tile": [
+        3,
+        7
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_212_ansel",
+      "role": "Heal Beagle.",
+      "tile": [
+        2,
+        1
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_209_ardign",
+      "role": "Fresh final-wave three-block interceptor; basic attacks only.",
+      "tile": [
+        3,
+        7
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_208_melan",
+      "role": "Dedicated hostile-free roadblock-2 clearance.",
+      "tile": [
+        3,
+        7
+      ]
+    }
+  ],
+  "formation_structure": {
+    "deployment_dp_after": [
+      {
+        "dp": 0,
+        "operator": "Fang",
+        "seconds": 0
+      },
+      {
+        "dp": 0,
+        "operator": "Midnight",
+        "seconds": 16
+      },
+      {
+        "dp": 0,
+        "operator": "Steward",
+        "seconds": 28
+      },
+      {
+        "dp": 4.1,
+        "operator": "Beagle",
+        "seconds": 44.1
+      },
+      {
+        "dp": 0.1,
+        "operator": "Kroos",
+        "seconds": 51.1
+      },
+      {
+        "dp": 0.1,
+        "operator": "Hibiscus",
+        "seconds": 68.1
+      },
+      {
+        "dp": 0.1,
+        "operator": "Popukar",
+        "seconds": 81.1
+      },
+      {
+        "dp": 6.1,
+        "operator": "Ansel",
+        "seconds": 98.1
+      },
+      {
+        "dp": 54.1,
+        "operator": "Cardigan",
+        "seconds": 152.1
+      }
+    ],
+    "economy": "Natural DP plus Fang's supported +6 procs at approximately 19+25n seconds. No refund credit.",
+    "eighth_slot": "Popukar, then Cardigan, then Melantha.",
+    "healing": "Hibiscus covers Fang; Ansel covers Beagle. Neither medic covers the northern interceptor.",
+    "permanent_operators": [
+      "Fang",
+      "Midnight",
+      "Steward",
+      "Beagle",
+      "Kroos",
+      "Hibiscus",
+      "Ansel"
+    ],
+    "verified_range": "Midnight covers [3,7] and [4,5]; Popukar covers [2,7]; Melantha covers [4,7]."
+  },
+  "formation_transitions": [
+    {
+      "seconds": 0,
+      "transition": "Establish the actual row-4 blocking responsibility."
+    },
+    {
+      "seconds": 51.1,
+      "transition": "Complete both exit damage formations."
+    },
+    {
+      "seconds": 81.1,
+      "transition": "Fund Popukar before the second medic; establish northern interception before officers spawn at 95 seconds."
+    },
+    {
+      "seconds": 98.1,
+      "transition": "Complete Ansel's healing responsibility before the paired top-lane waves."
+    },
+    {
+      "seconds": 122,
+      "transition": "Start Midnight's officer-protection burst."
+    },
+    {
+      "seconds": 132.1,
+      "transition": "Overlap Popukar's burst with Midnight."
+    },
+    {
+      "seconds": 152.1,
+      "transition": "Complete the fresh Cardigan handoff before prolonged unhealed exposure and final officer batches."
+    },
+    {
+      "seconds": 220.1,
+      "transition": "After hostile exhaustion, hand the interceptor slot to Melantha for roadblock clearance."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "rule": "Use only supplied normal_low_star_catalog operators with identity.rarity 1-3 and qualification.normal_mode=true; exclude mode-specific reserves. Ordinary three-star catalog count is 17."
+    },
+    {
+      "rule": "Every DEPLOY has integer [row,col] and UP, DOWN, LEFT or RIGHT. Never deploy on [[2,5],[4,7]]."
+    },
+    {
+      "rule": "Never exceed eight deployed operators; replacement deployment follows retreat and requires actual DP."
+    },
+    {
+      "rule": "Manual skills require readiness; time-SP pauses while active. Credit no unsupported talents, AoE geometry, refunds or effects."
+    },
+    {
+      "rule": "Ordinary operators neither attack nor block neutral civilians; ordinary medics are not assigned civilian healing."
+    },
+    {
+      "rule": "Keep Fang, Midnight, Steward, Beagle, Kroos, Hibiscus and Ansel through WIN."
+    },
+    {
+      "rule": "A roadblock remains an evacuation obstruction until actual destruction; never force release."
+    },
+    {
+      "rule": "Require all four protected arrivals, including #6 and #11, zero protected-target deaths, zero leaks, remaining_life>0, exhausted spawns and no active enemies."
+    },
+    {
+      "rule": "The hard cap is 600 seconds, frame 18000."
+    }
+  ],
+  "operational_plan_id": "R8_2_GPT_V8",
+  "parent_hypothesis_id": "R8-2-H8",
+  "pressure_window_responsibilities": [
+    {
+      "seconds": [
+        0,
+        65
+      ],
+      "task": "Establish southern containment and the top-lane blocker and damage dealer."
+    },
+    {
+      "seconds": [
+        65,
+        98.1
+      ],
+      "task": "Beagle absorbs early top-lane pressure without Ansel; prioritize Popukar funding and then complete medic deployment."
+    },
+    {
+      "seconds": [
+        98.1,
+        122
+      ],
+      "task": "Clear isolated northern officers with Popukar and Midnight; prevent a persistent officer pool beside civilians."
+    },
+    {
+      "seconds": [
+        122,
+        152
+      ],
+      "task": "Overlap Midnight and Popukar damage during paired pressure; preserve Popukar's two blocking slots."
+    },
+    {
+      "seconds": [
+        152,
+        182
+      ],
+      "task": "Fresh Cardigan holds up to three officers while Midnight finishes the paired and final batches. Preserve both exits through the actual last spawn at 171 seconds."
+    },
+    {
+      "seconds": [
+        182,
+        220
+      ],
+      "task": "Finish all hostiles and retain defenders; do not equate the final spawn with hostile exhaustion."
+    },
+    {
+      "seconds": [
+        220,
+        254
+      ],
+      "task": "Perform the guarded clearance handoff, destroy roadblock #2, and verify civilian evacuation."
+    },
+    {
+      "seconds": [
+        254,
+        600
+      ],
+      "task": "Maintain remaining defense and clearance responsibilities until every acceptance condition holds; delayed work remains inside frame 18000."
+    }
+  ],
+  "roadblock_2_clearance": {
+    "attacker": "char_208_melan",
+    "basic_attack_interval_seconds": 1.5,
+    "completion_guard": "Require DEVICE_DAMAGE and DEVICE_DESTROYED for this device, followed by safe PROTECTED_TARGET_REACHED for #6 and #11. Keep Melantha through destruction. Any deferred start shifts estimates equally without extending the cap.",
+    "damage_per_basic_hit": 538,
+    "device_id": "trap_020_roadblock#2",
+    "direction": "UP",
+    "expected_destroy_seconds": [
+      241.1,
+      242.6
+    ],
+    "expected_safe_arrival_by_seconds": 253.4,
+    "planned_deployment_frame": 6603,
+    "required_basic_hits": 15,
+    "start_condition": "All hostile spawns exhausted, no active non-neutral enemies, Cardigan retreat completed, tile free and sufficient DP.",
+    "start_seconds": 220.1,
+    "tile_row_col": [
+      3,
+      7
+    ],
+    "timing_basis": "8000 HP / (738 ATK - 200 DEF), rounded upward, requires 15 hits. Fourteen intervals plus zero to one initial interval; remaining route length is 7 tiles at speed 0.65."
+  },
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_283_midn",
+    "char_210_stward",
+    "char_122_beagle",
+    "char_124_kroos",
+    "char_120_hibisc",
+    "char_281_popka",
+    "char_212_ansel",
+    "char_209_ardign",
+    "char_208_melan"
+  ],
+  "skill_intents": [
+    {
+      "effect": "Supported +6 DP generation.",
+      "operator_id": "char_123_fang",
+      "type": "AUTO"
+    },
+    {
+      "effect": "Supported attack-SP two-hit pattern; no probability talent credit.",
+      "operator_id": "char_124_kroos",
+      "type": "AUTO"
+    },
+    {
+      "effect": "Supported attack-SP scaled hit; no unsupported targeting talent credit.",
+      "operator_id": "char_210_stward",
+      "type": "AUTO"
+    },
+    {
+      "activation_seconds": [
+        122,
+        232
+      ],
+      "effect": "+35% ATK for 40 seconds; second activation only if ready and hostiles remain. Credit physical damage only.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "activation_seconds": [
+        132.1
+      ],
+      "effect": "+50% ATK for 20 seconds; readiness begins at 121.1 seconds. Credit one attack target.",
+      "operator_id": "char_281_popka"
+    },
+    {
+      "activation_seconds": [
+        120,
+        190,
+        260
+      ],
+      "effect": "+50% DEF for 30 seconds; subsequent uses require readiness and defensive need.",
+      "operator_id": "char_122_beagle"
+    },
+    {
+      "activation_seconds": [
+        98.1,
+        148.1,
+        198.1,
+        248.1
+      ],
+      "effect": "+50% healing ATK for 20 seconds; subsequent uses require healing need.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "activation_seconds": [
+        124.1,
+        184.1,
+        244.1
+      ],
+      "effect": "+40% healing ATK for 25 seconds. First readiness is 123.1 seconds; baseline range covers Beagle.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "effect": "Use basic attacks and three-block capacity; no unsupported self-healing.",
+      "operator_id": "char_209_ardign"
+    },
+    {
+      "effect": "Basic roadblock attacks; no talent or manual skill required.",
+      "operator_id": "char_208_melan"
+    }
+  ],
+  "tactical_thesis": "Use Popukar and Midnight to eliminate northern officers while preserving interception capacity. Fund Popukar before Ansel, overlap offensive skills during paired pressure, and replace the unhealed Popukar with fresh Cardigan at 152.1 seconds. Maintain both exit defenses, then assign Melantha to actual roadblock-2 destruction and complete every civilian evacuation.",
+  "unknown_dependencies": [
+    {
+      "impact": "Interception survival, capacity, civilian exposure and zero leaks require verification; this plan does not claim a verified perfect result.",
+      "mechanic": "Revised combat balance and handoff",
+      "status": "UNSIMULATED"
+    },
+    {
+      "impact": "Current-model blocker priority and range calculations do not establish a client guarantee.",
+      "mechanic": "Exact client timing and target priority",
+      "status": "UNKNOWN"
+    }
+  ]
+}
