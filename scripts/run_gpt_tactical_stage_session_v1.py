@@ -23,6 +23,8 @@ STAGE_ID = "main_08-02"
 PLAN_ID = "R8_2_GPT_V3"
 PLAN_PREFIX = "R8_2_GPT_V3"
 PLAN_LABEL = "R8-2-V3"
+REVISION_SOURCE_DIR: str | None = None
+DIAGNOSTIC_SUMMARY: str | None = None
 
 
 def load(path: Path) -> Any:
@@ -45,7 +47,7 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -53,6 +55,8 @@ def configure(arguments: argparse.Namespace) -> None:
     PLAN_ID = arguments.plan_id
     PLAN_PREFIX = arguments.plan_id_prefix
     PLAN_LABEL = arguments.plan_label
+    REVISION_SOURCE_DIR = arguments.revision_source
+    DIAGNOSTIC_SUMMARY = arguments.diagnostic_summary
     codex_runner.configure_run(
         arguments.output_dir,
         arguments.diagnostic_output_dir,
@@ -68,6 +72,63 @@ def configure(arguments: argparse.Namespace) -> None:
         feedback_summary="NONE",
         feedback_events="NONE",
     )
+def compact_runtime_event(event: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "event_type": event.get("event_type"),
+        "frame": event.get("frame"),
+        "source_id": event.get("source_id"),
+        "target_id": event.get("target_id"),
+        "details": event.get("details"),
+    }
+
+
+def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
+    summary = load(path)
+    result = summary.get("result") or {}
+    route_summaries = summary.get("event_summaries", {}).get("route_summaries") or {}
+    leaking_routes = []
+    clean_route_count = 0
+    for route, row in sorted(route_summaries.items()):
+        if row.get("leaks"):
+            leaking_routes.append({
+                "route": route,
+                "spawn_count": row.get("spawn_count"),
+                "block_count": len(row.get("blocks") or []),
+                "kill_count": len(row.get("kills") or []),
+                "leaks": [
+                    compact_runtime_event(item)
+                    for item in row["leaks"]
+                ],
+            })
+        else:
+            clean_route_count += 1
+    return {
+        "classification": summary.get("classification"),
+        "full_stage_mechanism_support": summary.get("full_stage_mechanism_support"),
+        "civilian_operator_targetability": summary.get("civilian_operator_targetability"),
+        "civilian_blocking": summary.get("civilian_blocking"),
+        "result_metrics": {
+            "win": result.get("win"),
+            "enemies_killed": result.get("enemies_killed"),
+            "enemies_leaked": result.get("enemies_leaked"),
+            "operator_deaths": result.get("operator_deaths"),
+            "remaining_life": result.get("remaining_life"),
+            "final_dp": result.get("final_dp"),
+        },
+        "leaking_route_summaries": leaking_routes,
+        "clean_route_count": clean_route_count,
+        "first_leak": (summary.get("first_failure") or {}).get("first_leak"),
+        "operator_death_events": [
+            compact_runtime_event(event)
+            for event in summary.get("event_summaries", {}).get("operator_death_events") or []
+        ],
+        "deployment_errors": [
+            compact_runtime_event(event)
+            for event in summary.get("event_summaries", {}).get("deployment_errors") or []
+        ],
+    }
+
+
 def prepare() -> dict[str, Any]:
     codex_runner.assert_run_lock()
     budget = {
@@ -103,6 +164,15 @@ def prepare() -> dict[str, Any]:
         "readonly_query_helpers": True,
     }
     evidence.pop("output_schema", None)
+    if REVISION_SOURCE_DIR is not None:
+        revision_source = ROOT / REVISION_SOURCE_DIR
+        evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
+        evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+        evidence["provenance"]["revision_source"] = {
+            "path": REVISION_SOURCE_DIR,
+            "relationship": "prior_simulated_candidate_not_parent_hypothesis",
+            "revision_policy": "GPT decides tactical changes; deterministic checks may only reject the original fixed actions",
+        }
     write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
     write_json(codex_runner.OUT / "revision_output_schema.json", schema)
     prompt = build_prompt(evidence)
@@ -148,7 +218,7 @@ You may use read-only shell commands to inspect the supplied evidence or `script
 
 Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN is zero leaks, exhausted spawns and no active enemies.
 
-This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you.
+{"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
 
 Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:
 
@@ -310,6 +380,8 @@ def main() -> None:
     parser.add_argument("--plan-id-prefix", required=True)
     parser.add_argument("--cli-attempt", type=int, default=1)
     parser.add_argument("--prior-cli-starts", type=int, default=0)
+    parser.add_argument("--revision-source")
+    parser.add_argument("--diagnostic-summary")
     arguments = parser.parse_args()
     configure(arguments)
     if arguments.phase == "session":
