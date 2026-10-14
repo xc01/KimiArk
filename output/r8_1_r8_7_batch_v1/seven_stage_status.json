@@ -1,0 +1,95 @@
+{
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V2",
+  "generated_at": "2026-10-14",
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN",
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "stages": [
+    {
+      "stage_id": "main_08-01",
+      "status": "ROBUST_ROADBLOCK_TARGETING_SIMULATOR_WIN",
+      "current_best_plan": "C7",
+      "result": {"kills": 56, "leaks": 0, "operator_deaths": 0, "remaining_life": 5},
+      "operators": 8,
+      "rarity_sum": 22,
+      "targeting_revalidation": "PASS_A_AND_PASS_B",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-01/ and prior R8-1 C7 robust evidence"
+    },
+    {
+      "stage_id": "main_08-02",
+      "status": "PARTIAL_MECHANICS_DIAGNOSTIC_WIN",
+      "current_best_plan": "R8_2_GPT_V1",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 0},
+      "operators": 9,
+      "rarity_sum": 27,
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "blockers": ["civilian_operator_targetability=UNKNOWN", "civilian_blocking=UNKNOWN"],
+      "evidence": "output/r8_1_r8_7_batch_v1/recovery_v2/main_08-02/cli/ and recovery_v2_diagnostics/main_08-02/cli/"
+    },
+    {
+      "stage_id": "main_08-03",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "current_best_plan": null,
+      "unsupported_checkpoints": ["APPEAR_AT_POS", "DISAPPEAR", "WAIT_CURRENT_FRAGMENT_TIME"],
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-04",
+      "status": "PARTIAL_MECHANICS_DIAGNOSTIC_LOSS",
+      "current_best_plan": "R8_4_GPT_V2",
+      "result": {"kills": 44, "leaks": 10, "operator_deaths": 2, "remaining_life": -8},
+      "operators": 9,
+      "rarity_sum": 26,
+      "later_revisions": [
+        {"plan": "R8_4_GPT_R1", "result": {"kills": 43, "leaks": 11, "operator_deaths": 1, "remaining_life": -9}},
+        {"plan": "R8_4_GPT_R2", "result": {"kills": 36, "leaks": 18, "operator_deaths": 5, "remaining_life": -16}}
+      ],
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/recovery_v2_diagnostics/main_08-04/ and main_08-04/revision_diagnostic_v2-v3/"
+    },
+    {
+      "stage_id": "main_08-05",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "current_best_plan": null,
+      "unsupported_checkpoints": ["APPEAR_AT_POS", "DISAPPEAR"],
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-06",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "current_best_plan": null,
+      "unsupported_checkpoints": ["WAIT_CURRENT_WAVE_TIME"],
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-07",
+      "status": "PARTIAL_MECHANICS_DIAGNOSTIC_LOSS",
+      "current_best_plan": "R8_7_GPT_R1",
+      "result": {"kills": 17, "leaks": 16, "operator_deaths": 7, "remaining_life": -14},
+      "operators": 13,
+      "rarity_sum": 33,
+      "later_revisions": [
+        {"plan": "R8_7_GPT_R2", "result": {"kills": 1, "leaks": 32, "operator_deaths": 6, "remaining_life": -29}}
+      ],
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/revision_diagnostic_v2/"
+    }
+  ],
+  "seven_stage_batch_totals": {
+    "codex_cli_process_starts": 13,
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "new_original_action_diagnostics_in_this_loop": 9,
+    "historical_r8_1_targeting_revalidation_simulations": 2,
+    "automatic_retry": false,
+    "optimization_runs": 0
+  }
+}

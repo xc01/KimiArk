@@ -527,3 +527,9 @@ process starts advanced from 9 to 13; internal model requests remain
 UNKNOWN_CLI_INTERNAL. Evidence is under the respective `revision_cli_v2/v3`
 and `revision_diagnostic_v2/v3` directories.
 
+CONFIRMED_FROM_CODE: `seven_stage_status.json` now records the current best
+fixed candidate per stage. R8-1 is a roadblock-targeting robust simulator WIN;
+R8-2 is only a partial-mechanics diagnostic WIN because civilian interaction
+remains UNKNOWN; R8-3/R8-5/R8-6 are mechanism-blocked; R8-4 and R8-7 remain
+partial-mechanics losses. Optimization has not started.
+
