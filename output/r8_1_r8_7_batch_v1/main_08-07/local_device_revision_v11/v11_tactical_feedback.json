@@ -1,0 +1,40 @@
+{
+  "battle_result_status": "SIMULATED_LOSS",
+  "comparison": {
+    "R8_7_GPT_V2": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1, "protected_target_arrivals": 0},
+    "R8_7_GPT_V10": {"kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2, "protected_target_arrivals": 1},
+    "conclusion": "V10 nearly matched V2 throughput and reached #3. Do not regress those gains; complete #4 clearance and solve the remaining three hostile leaks."
+  },
+  "critical_causal_chain": {
+    "deaths": [
+      {"frame": 1076, "operator": "char_286_cast3", "window": "five 290 uterer#4 hits; two heals insufficient"},
+      {"frame": 1920, "operator": "char_240_wyvern", "window": "repeated 90 uoffcr#7 hits and intermittent healing; final 760 emppnt hit"},
+      {"frame": 3030, "operator": "char_210_stward", "window": "four 910 emppnt hits from 2220; repeated healing insufficient"}
+    ],
+    "leaks": [
+      {"frame": 1199, "route": "route-7", "enemy": "enemy_1108_uterer#4"},
+      {"frame": 1532, "route": "route-8", "enemy": "enemy_1107_uoffcr#8"},
+      {"frame": 2792, "route": "route-11", "enemy": "enemy_1107_uoffcr#11"},
+      {"frame": 3152, "route": "route-14", "enemy": "enemy_1107_uoffcr#13"},
+      {"frame": 4019, "route": "route-1", "enemy": "enemy_1112_emppnt#0"}
+    ],
+    "first_life_failure": {"frame": 2792, "remaining_life": 0},
+    "deployment_errors": {"count": 13, "first": "char_240_wyvern@85.2 operator is not deployed"}
+  },
+  "clearance_progress": {
+    "protected_arrival": {"civilian": "enemy_3001_upeopl#3", "frame": 12636},
+    "protected_blockage": {
+      "civilian": "enemy_3001_upeopl#14",
+      "first_block": 3168,
+      "blocking_roadblock": "trap_020_roadblock#4",
+      "device_damage_events": 0,
+      "arrived": false
+    }
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {"arrivals": 1, "deaths": 0},
+  "result": {"deployment_errors": 13, "kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2, "win": false},
+  "schema_version": "R8_7_GPT_V11_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V10",
+  "unknown_boundaries": ["exact client multi-device ordering", "full 2026 selector/aggro details", "real-game result"]
+}

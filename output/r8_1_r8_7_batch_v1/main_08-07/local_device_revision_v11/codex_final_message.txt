@@ -1,0 +1,276 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-07",
+    "status": "UNVERIFIED_FULL_STAGE_REVISION",
+    "GameData": "Four hostile ground approaches, one flying patrol, two neutral civilians and four occupied roadblocks.",
+    "CURRENT_MODEL": "Ordinary operators cannot attack or block civilians. Officers can damage civilians. Ordered replacements precede movement; ranged enemy targeting uses distance. Ordinary attacks can damage covered roadblocks when no hostile target is selected.",
+    "UNKNOWN": "Client targeting, device navigation, exact handoff timing and sufficient combat throughput.",
+    "verification": "Read-only source and arithmetic inspection; no simulation performed."
+  },
+  "revised_tactical_requirements": {
+    "legal_catalog": "Only supplied normal_low_star_catalog operators with identity.rarity 1-3 and qualification.normal_mode=true; exclude mode-specific reserves.",
+    "ordinary_three_star_catalog_count": 17,
+    "configuration": "Use supplied debug configurations.",
+    "deployment_limit": 8,
+    "coordinates": "Integer [row,col]; explicit UP, DOWN, LEFT or RIGHT.",
+    "forbidden_tiles_row_col": [[1,2],[6,2],[1,6],[6,6]],
+    "completion": {
+      "remaining_life": ">0",
+      "enemies_leaked": 0,
+      "spawn_schedule_exhausted": true,
+      "active_enemies": 0
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-7-V11",
+      "thesis": "Replace the failed upper robot opening with Melantha, support the lower opening with an injury-timed global heal, retire Vanilla before patrol exposure, and divide patrol killing between sustained eastern Arts and a western caster relay. Fund later actions without Vanilla income after retirement.",
+      "acceptance": "All ground interceptions survive, the patrol dies before its model exit, roadblocks are destroyed, civilians resolve, and the complete WIN predicate holds.",
+      "limitation": "This is a tactical hypothesis, not a demonstrated win."
+    }
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_V11",
+      "parent_hypothesis_id": "R8-7-V10",
+      "tactical_thesis": "Use Melantha instead of Castle-3 for the upper opening. Place Friston-3 on the lower outer route, deploy Lancet-2 after injuries, and replace Friston-3 with Beagle. Retire Vanilla after the second verified income and establish Midnight before the next central officer. Protect eastern Steward with timed Hibiscus healing and later Ansel support; add GALLUS² without crediting its talent. Finish the patrol with Lava and Durin at its western wait, then establish sustained Arts against armor and explicitly clear all four roadblocks.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_240_wyvern",
+        "char_208_melan",
+        "char_4093_frston",
+        "char_285_medic2",
+        "char_120_hibisc",
+        "char_122_beagle",
+        "char_210_stward",
+        "char_4227_gallus",
+        "char_283_midn",
+        "char_212_ansel",
+        "char_121_lava",
+        "char_501_durin",
+        "char_284_spot",
+        "char_009_12fce"
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "rejected": "Castle-3 can survive the upper runner with shared healing.",
+          "change": "Deploy Melantha at 20 seconds; her HP and ordinary damage carry that engagement."
+        },
+        {
+          "rejected": "Vanilla remains available for all later economic activations.",
+          "change": "Support her opening, require observed incomes at 25 and 55.1 seconds, and retire her at 61.1 seconds. Credit no later Vanilla income."
+        },
+        {
+          "rejected": "Late eastern Steward alone provides sufficient surviving patrol damage.",
+          "change": "Start Steward at 61.1 seconds, add GALLUS², time Hibiscus's first skill for patrol fire, and use a western Lava/Durin relay."
+        },
+        {
+          "rejected": "A scheduled caster transfer establishes patrol death.",
+          "change": "Eastern withdrawal requires observed western passage; subsequent combat transfers require observed patrol death."
+        },
+        {
+          "rejected": "Preserving a prior clearance assignment establishes device coverage.",
+          "change": "Declare separate caster placements covering each roadblock and retain them until actual destruction."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT"},
+        {"operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT"},
+        {"operator_id":"char_208_melan","tile":[1,5],"direction":"RIGHT"},
+        {"operator_id":"char_4093_frston","tile":[6,5],"direction":"RIGHT"},
+        {"operator_id":"char_285_medic2","tile":[5,7],"direction":"LEFT"},
+        {"operator_id":"char_120_hibisc","tile":[2,5],"direction":"RIGHT"},
+        {"operator_id":"char_122_beagle","tile":[6,5],"direction":"RIGHT"},
+        {"operator_id":"char_210_stward","tile":[2,7],"direction":"UP","role":"Eastern patrol"},
+        {"operator_id":"char_4227_gallus","tile":[2,6],"direction":"UP","role":"Additional eastern patrol damage"},
+        {"operator_id":"char_283_midn","tile":[4,5],"direction":"RIGHT"},
+        {"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN"},
+        {"operator_id":"char_121_lava","tile":[2,3],"direction":"LEFT","role":"Western patrol relay"},
+        {"operator_id":"char_501_durin","tile":[2,2],"direction":"RIGHT","role":"Western patrol relay"},
+        {"operator_id":"char_284_spot","tile":[3,5],"direction":"RIGHT"},
+        {"operator_id":"char_009_12fce","tile":[2,3],"direction":"RIGHT","role":"Upper armor damage"},
+        {"operator_id":"char_210_stward","tile":[2,7],"direction":"LEFT","role":"Upper armor damage"},
+        {"operator_id":"char_121_lava","tile":[5,5],"direction":"RIGHT","role":"Lower armor and eastern roadblock"},
+        {"operator_id":"char_009_12fce","tile":[2,5],"direction":"RIGHT","role":"Upper eastern roadblock"},
+        {"operator_id":"char_501_durin","tile":[2,3],"direction":"LEFT","role":"Upper western roadblock"},
+        {"operator_id":"char_4227_gallus","tile":[5,3],"direction":"LEFT","role":"Lower western roadblock"}
+      ],
+      "formation_structure": {
+        "opening": "Fang and Vanilla hold central routes; Melantha holds upper outer; Friston-3 holds lower outer until Beagle replaces him.",
+        "healing": "Lancet-2 supplies the opening global heal and temporary lower healing. Hibiscus covers both upper holds and eastern attackers. Ansel DOWN covers the lower central hold, Lava's eventual lower tile, the upper central hold and eastern Steward; upper outer Melantha remains Hibiscus's responsibility.",
+        "patrol": "Steward UP covers both eastern waits. GALLUS² UP adds upper eastern and vertical-pass damage. Lava LEFT and Durin RIGHT cover the final western wait.",
+        "late_combat": "Spot blocks three upper central enemies without unsupported healing. Midnight holds lower central, Melantha upper outer and Beagle lower outer. 12F then Steward supply upper Arts; Lava supplies lower Arts.",
+        "clearance": "12F RIGHT at [2,5], Lava RIGHT at [5,5], Durin LEFT at [2,3], and GALLUS² LEFT at [5,3] cover the four devices."
+      },
+      "formation_transitions": [
+        {"frame":1470,"handoff":"Ordered Friston-3 retreat and Beagle deployment."},
+        {"frame":1833,"handoff":"Retire Vanilla after the opening officer is dead and the 55.1-second income succeeded; Steward takes the free slot."},
+        {"frame":2613,"handoff":"Midnight restores lower central interception before the model officer arrival near 87.64 seconds."},
+        {"frame":3423,"handoff":"After the patrol passes west beyond eastern coverage, retire Steward and GALLUS²; introduce the western relay."},
+        {"earliest_frame":3900,"handoff":"Only after observed patrol death, retire western Lava and Durin."},
+        {"frame":4203,"handoff":"Ordered Fang retreat and Spot deployment; no Fang income after retirement."},
+        {"frame":5526,"handoff":"Steward returns after at least 70 actual seconds, facing LEFT to cover both upper holds from [2,7]."},
+        {"frame":6306,"handoff":"Lava returns after her actual cooldown to support final lower armor."},
+        {"earliest_frame":9900,"handoff":"After hostile clearance, retire combat occupants and establish the four declared device attackers."}
+      ],
+      "corridor_responsibilities": [
+        {
+          "route_ids":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],
+          "block":"Fang, then Spot at [3,5].",
+          "attack":"Blocker attacks, then single-target modeled 12F attacks and Steward LEFT.",
+          "healing":"Hibiscus plus Ansel's base coverage."
+        },
+        {
+          "route_ids":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],
+          "block":"Vanilla through opening clearance; Midnight by 87.1 seconds.",
+          "attack":"Vanilla's supported boost, Midnight's Arts windows and late Lava.",
+          "healing":"Opening Lancet-2, then Ansel."
+        },
+        {
+          "route_ids":["route-7","route-8","route-17","route-22","route-23","route-24"],
+          "block":"Melantha at [1,5].",
+          "attack":"Melantha and later upper casters.",
+          "healing":"Hibiscus; Ansel's extension is supplementary, not the primary assignment."
+        },
+        {
+          "route_ids":["route-9","route-10","route-16","route-25","route-26","route-27"],
+          "block":"Friston-3, then Beagle at [6,5].",
+          "attack":"Blocker attacks and late Lava.",
+          "healing":"Opening Lancet-2. Ansel DOWN does not cover Beagle; later survival relies on Beagle's supported DEF and HP, not invented healing."
+        },
+        {
+          "route_ids":["route-1"],
+          "attack":"Eastern Steward and GALLUS², followed by western Lava and Durin.",
+          "protection":"Hibiscus's delayed first boost and Ansel protect eastern Steward. In the western relay, Durin is nearer the final wait than Lava under current-model targeting.",
+          "acceptance":"Observed death before approximately 133.97 model seconds; no blocking credit against the flyer."
+        },
+        {
+          "route_ids":["route-2","route-15"],
+          "protection":"Keep outer officers intercepted at column 5 and monitor civilian proximity.",
+          "clearance":"Destroy all four roadblocks and wait for neutral route resolution.",
+          "constraint":"No ordinary attacks, blocking or medic healing assigned to civilians."
+        },
+        {"route_ids":["route-0"],"responsibility":"No supplied spawn."}
+      ],
+      "pressure_window_responsibilities": [
+        {"seconds":[3,49],"responsibility":"Establish all four interceptions; use the 35-second global heal after injuries, establish Hibiscus at 37 seconds and replace the lower robot at 49 seconds."},
+        {"seconds":[49,87.64],"responsibility":"Preserve Vanilla through the second income, retire her before patrol fire, start eastern Arts, and restore lower central blocking before the next officer arrives."},
+        {"seconds":[68,114.1],"responsibility":"Protect eastern Steward with Hibiscus's patrol-timed boost and Ansel; maintain ground holds while accumulating patrol damage."},
+        {"seconds":[114.1,133.97],"responsibility":"Execute the western caster relay only after observed passage; kill the patrol before exit. A living patrol at exit invalidates the plan."},
+        {"seconds":[131,186],"responsibility":"Replace Fang with Spot, maintain Midnight's first armor window, and establish upper sustained Arts."},
+        {"seconds":[186,211],"responsibility":"Hold runner pairs and final armor; sustain healing and introduce lower Lava after cooldown."},
+        {"seconds":[211,null],"responsibility":"Continue combat until all hostiles die, then destroy devices and wait for civilian resolution before evaluating WIN."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","mode":"AUTO","effect":"Supported +6 DP; opening ledger credits activations through 119 seconds only, conditional on survival."},
+        {"operator_id":"char_240_wyvern","seconds":[25,55.1],"effect":"+6 DP and +35% ATK for 10 seconds; no subsequent income credited."},
+        {"operator_id":"char_208_melan","seconds":[60.1,120.2,180.3,240.4],"effect":"+50% ATK for 20 seconds; continue at intervals of at least 60.1 actual seconds."},
+        {"operator_id":"char_120_hibisc","seconds":[75.1,125.2,175.3,225.4,275.5],"effect":"+50% healing ATK for 20 seconds; first activation is reserved for patrol pressure, not spent immediately upon readiness."},
+        {"operator_id":"char_122_beagle","seconds":[89.1,159.2,229.3],"effect":"+50% DEF for 30 seconds; continue at intervals of at least 70.1 seconds."},
+        {"operator_id":"char_212_ansel","seconds":[116.2,176.3,236.4,296.5],"effect":"+40% healing ATK and supported forward extension for 25 seconds; repeat no sooner than 60.1 seconds."},
+        {"operator_id":"char_283_midn","seconds":[147.2,257.3],"effect":"Arts conversion and +35% ATK for 40 seconds; active time pauses SP recovery."},
+        {"operator_id":"char_121_lava","seconds":[125.2,220.3,280.4],"effect":"+50 attack speed for 20 seconds. Redeployment resets the readiness calculation; credit deployment SP, not splash geometry."},
+        {"operator_id":"char_210_stward","mode":"AUTO","effect":"Supported attack-SP scaled hit; no highest-DEF priority credit."}
+      ],
+      "explicit_deadline_basis": [
+        {
+          "classification":"CURRENT_MODEL_CALCULATION",
+          "deadlines":"Column-5 opening runner arrivals approximately 13.35, 18.35, 28.35 and 33.35 seconds; lower officer after the medical gap approximately 87.64 seconds; patrol exit approximately 133.97 seconds."
+        },
+        {
+          "classification":"STATIC_CONDITIONAL_LEDGER",
+          "post_deployment_dp_lower_bounds":[[0,0],[11,0],[20,0],[23,0],[35,15],[37,0],[49,0],[61.1,0.1],[64.1,0.1],[87.1,13.1],[91.1,0.1],[115.1,0.1],[121.1,0.1],[140.1,2.1],[162.1,0.1],[184.2,4.2],[210.2,0.2]],
+          "basis":"Natural DP, Fang's supported initial cost reduction, observed Fang incomes through 119 seconds, and Vanilla incomes at 25 and 55.1 seconds only. No refunds.",
+          "qualification":"Any failed income or survival dependency invalidates downstream funding. Redeployments also require actual cooldown and runtime cost."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {"rule":"At most eight deployed operators; replacements retire predecessors first."},
+        {"rule":"Never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"rule":"Do not credit unsupported talents, splash geometry, Spot healing, refunds, target commands or damage resistance."},
+        {"rule":"Never attack or block civilians with ordinary operators; civilian death deducts objective life."},
+        {"rule":"Missed income is a survival or handoff failure, not an arithmetic correction."},
+        {"rule":"Conditional groups require observed prerequisites, actual DP, vacancies, cooldown and readiness; defer the dependent group together."},
+        {"rule":"Eastern patrol withdrawal does not establish death. Western attackers remain responsible until observed death."},
+        {"rule":"No late-wave or clearance transfer may silently discard a living patrol."},
+        {"rule":"WIN requires positive remaining life, zero leaks, exhausted spawns and zero active enemies."}
+      ],
+      "conditional_responsibilities": [
+        {"trigger":"Patrol remains alive during the western relay.","responsibility":"Retain the declared attackers and monitor actual strikes. Durin and Lava each tolerate only one unhealed patrol hit; lethal damage before patrol death invalidates the relay. Do not substitute a claimed target order or guaranteed kill."},
+        {"trigger":"Hostiles remain after the final listed combat skills.","responsibility":"Repeat supported skills using actual activation times and declared minimum intervals; retain all interception and healing assignments."},
+        {"trigger":"Patrol death occurs later than frame 3900.","responsibility":"Defer both western retreats; Lava's return requires 70 actual seconds after her retreat."},
+        {"trigger":"Hostile clearance occurs after frame 9900.","responsibility":"Defer the complete clearance group to actual clearance; preserve all cooldown and deployment conditions."},
+        {"trigger":"Roadblocks or civilians remain.","responsibility":"Keep the four device coverage assignments, repeat Lava's ready skill at intervals of at least 60.1 seconds, and wait until no active unit remains."}
+      ],
+      "unknown_dependencies": [
+        {"dependency":"Vanilla surviving the narrow opening officer window until the second income and retirement."},
+        {"dependency":"Friston-3 surviving with the injury-timed global heal and temporary lower healing until 49 seconds."},
+        {"dependency":"Eastern casters delivering sufficient damage despite ground-target competition."},
+        {"dependency":"Western nearest-target relay completing before either caster's second lethal patrol hit."},
+        {"dependency":"Beagle surviving later pressure without ordinary Ansel coverage."},
+        {"dependency":"Single-target modeled 12F damage clearing upper armor before block capacity is exceeded; no AoE or evasion credited."},
+        {"dependency":"Client targeting, continuous-frame timing and roadblock navigation."}
+      ],
+      "action_timeline": [
+        {"action_type":"DEPLOY","frame":0,"operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":330,"operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":600,"operator_id":"char_208_melan","tile":[1,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":690,"operator_id":"char_4093_frston","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":750,"operator_id":"char_240_wyvern"},
+        {"action_type":"DEPLOY","frame":1050,"operator_id":"char_285_medic2","tile":[5,7],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":1110,"operator_id":"char_120_hibisc","tile":[2,5],"direction":"RIGHT"},
+        {"action_type":"RETREAT","frame":1470,"operator_id":"char_4093_frston"},
+        {"action_type":"DEPLOY","frame":1470,"operator_id":"char_122_beagle","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"RETREAT","frame":1500,"operator_id":"char_285_medic2","rationale":"Leave before eastern patrol exposure."},
+        {"action_type":"ACTIVATE_SKILL","frame":1653,"operator_id":"char_240_wyvern"},
+        {"action_type":"ACTIVATE_SKILL","frame":1803,"operator_id":"char_208_melan"},
+        {"action_type":"RETREAT","frame":1833,"operator_id":"char_240_wyvern","condition":"Opening blocked officer is dead and second income succeeded."},
+        {"action_type":"DEPLOY","frame":1833,"operator_id":"char_210_stward","tile":[2,7],"direction":"UP","condition":"Vanilla retirement gate satisfied; actual DP and slot valid."},
+        {"action_type":"DEPLOY","frame":1923,"operator_id":"char_4227_gallus","tile":[2,6],"direction":"UP"},
+        {"action_type":"ACTIVATE_SKILL","frame":2253,"operator_id":"char_120_hibisc"},
+        {"action_type":"DEPLOY","frame":2613,"operator_id":"char_283_midn","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":2673,"operator_id":"char_122_beagle"},
+        {"action_type":"DEPLOY","frame":2733,"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN"},
+        {"action_type":"RETREAT","frame":3423,"operator_id":"char_210_stward","condition":"Patrol observed moving west beyond column 6 after its final eastern wait."},
+        {"action_type":"RETREAT","frame":3423,"operator_id":"char_4227_gallus","condition":"Same observed western-passage gate."},
+        {"action_type":"DEPLOY","frame":3453,"operator_id":"char_121_lava","tile":[2,3],"direction":"LEFT","condition":"Western-passage gate satisfied; actual DP and slot valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":3486,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":3606,"operator_id":"char_208_melan"},
+        {"action_type":"DEPLOY","frame":3633,"operator_id":"char_501_durin","tile":[2,2],"direction":"RIGHT","condition":"Western relay active; DP and slot valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":3756,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":3756,"operator_id":"char_121_lava"},
+        {"action_type":"RETREAT","frame":3900,"operator_id":"char_121_lava","condition":"Patrol observed dead; otherwise retain and defer dependent transfer."},
+        {"action_type":"RETREAT","frame":3900,"operator_id":"char_501_durin","condition":"Patrol observed dead."},
+        {"action_type":"RETREAT","frame":4203,"operator_id":"char_123_fang","condition":"Patrol dead; replacement affordable and tile handoff valid."},
+        {"action_type":"DEPLOY","frame":4203,"operator_id":"char_284_spot","tile":[3,5],"direction":"RIGHT","condition":"Ordered Fang handoff gate satisfied."},
+        {"action_type":"ACTIVATE_SKILL","frame":4416,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":4776,"operator_id":"char_122_beagle"},
+        {"action_type":"DEPLOY","frame":4863,"operator_id":"char_009_12fce","tile":[2,3],"direction":"RIGHT","condition":"Patrol dead, Lava withdrawn and actual DP valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":5259,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":5289,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":5409,"operator_id":"char_208_melan"},
+        {"action_type":"DEPLOY","frame":5526,"operator_id":"char_210_stward","tile":[2,7],"direction":"LEFT","condition":"Patrol dead; at least 70 actual seconds since Steward retreat; DP and slot valid."},
+        {"action_type":"DEPLOY","frame":6306,"operator_id":"char_121_lava","tile":[5,5],"direction":"RIGHT","condition":"Patrol dead; at least 70 actual seconds since Lava retreat; DP and slot valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":6609,"operator_id":"char_121_lava"},
+        {"action_type":"ACTIVATE_SKILL","frame":6762,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":6879,"operator_id":"char_122_beagle"},
+        {"action_type":"ACTIVATE_SKILL","frame":7092,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":7212,"operator_id":"char_208_melan"},
+        {"action_type":"ACTIVATE_SKILL","frame":7719,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":8112,"operator_id":"char_121_lava"},
+        {"action_type":"ACTIVATE_SKILL","frame":8265,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":8679,"operator_id":"char_212_ansel"},
+        {"action_type":"RETREAT","frame":9900,"operator_id":"char_009_12fce","condition":"Spawns exhausted and zero living hostiles, including patrol; defer entire clearance group otherwise."},
+        {"action_type":"RETREAT","frame":9900,"operator_id":"char_120_hibisc","condition":"Hostile-clearance gate satisfied."},
+        {"action_type":"RETREAT","frame":9900,"operator_id":"char_212_ansel","condition":"Hostile-clearance gate satisfied."},
+        {"action_type":"RETREAT","frame":9900,"operator_id":"char_210_stward","condition":"Hostile-clearance gate satisfied."},
+        {"action_type":"DEPLOY","frame":9903,"operator_id":"char_501_durin","tile":[2,3],"direction":"LEFT","condition":"Clearance gate satisfied; actual cooldown, DP and vacancy valid."},
+        {"action_type":"DEPLOY","frame":9906,"operator_id":"char_4227_gallus","tile":[5,3],"direction":"LEFT","condition":"Clearance gate satisfied; at least 200 actual seconds since GALLUS² retreat; DP and vacancy valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":9915,"operator_id":"char_121_lava","condition":"Clearance gate satisfied; deployed, ready and targets remain."},
+        {"action_type":"DEPLOY","frame":12003,"operator_id":"char_009_12fce","tile":[2,5],"direction":"RIGHT","condition":"Clearance gate satisfied; at least 70 actual seconds since 12F retreat; DP and vacancy valid."},
+        {"action_type":"ACTIVATE_SKILL","frame":12018,"operator_id":"char_121_lava","condition":"Deployed, ready and targets remain."},
+        {"action_type":"ACTIVATE_SKILL","frame":13821,"operator_id":"char_121_lava","condition":"Deployed, ready and targets remain."}
+      ]
+    }
+  ]
+}

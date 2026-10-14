@@ -1,0 +1,18 @@
+{
+  "allow_same_plan_revalidation": true,
+  "base_commit": "e4a33d0ea5ec115ede7270aa97453cb9de5fe21c",
+  "error": "RuntimeError: a deployment operator is reused without a source-backed RETREAT",
+  "input_hashes": {
+    "llm_evidence_context.json": "9b59e9c31f3e2c70668049ae53fb11f502e9d49c74c47cf703b8c0345fae476b",
+    "llm_structured_output.json": "972ce182399917e4eb95952694f5944d4d03d94e1ee22336b2d40cbc3d570357"
+  },
+  "reason": "Public runner rejected valid source-backed RETREAT then DEPLOY transitions. No plan action or GPT call changed.",
+  "regression_status": "PASS",
+  "regressions": [
+    "tests/test_gpt_tactical_stage_diagnostic_v1.py::test_validated_unique_deployments_allows_retreat_backed_redeploy",
+    "tests/test_gpt_tactical_stage_diagnostic_v1.py::test_validated_unique_deployments_rejects_reuse_without_retreat"
+  ],
+  "schema_version": "GPT_TACTICAL_STAGE_PROGRAM_DEFECT_CORRECTION_V1",
+  "simulation_attempts_before_correction": 1,
+  "status": "CORRECTED_SAME_PLAN_REEVALUATION_ALLOWED"
+}

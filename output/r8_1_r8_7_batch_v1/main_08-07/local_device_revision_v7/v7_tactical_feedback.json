@@ -1,0 +1,48 @@
+{
+  "battle_result_status": "NO_SIMULATION",
+  "candidate_status": "STATIC_CONFLICT_ONLY",
+  "comparison": {
+    "R8_7_GPT_V5": {
+      "kills": 21,
+      "leaks": 12,
+      "operator_deaths": 7,
+      "remaining_life": -9,
+      "protected_target_arrivals": 2
+    },
+    "R8_7_GPT_V6": {
+      "simulated": false,
+      "unique_static_conflicts": 3
+    },
+    "conclusion": "V6 was never executed. Repair its exact static conflicts while retaining the intended survival/clearance restructuring."
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "schema_version": "R8_7_GPT_V7_STATIC_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V6",
+  "static_conflicts": [
+    {
+      "action": "char_121_lava ACTIVATE_SKILL",
+      "available_sp_model": 30,
+      "frame": 2862,
+      "required_sp": 40
+    },
+    {
+      "action": "DEPLOY",
+      "frame": 9010,
+      "operator_id": "char_210_stward",
+      "reason": "TILE_OCCUPIED",
+      "tile_json_row_col": [2, 5]
+    },
+    {
+      "action": "DEPLOY",
+      "frame": 9011,
+      "operator_id": "char_4227_gallus",
+      "reason": "TILE_OCCUPIED",
+      "tile_json_row_col": [5, 3]
+    }
+  ],
+  "unknown_boundaries": [
+    "exact client multi-device ordering",
+    "full 2026 selector/aggro details",
+    "real-game result"
+  ]
+}

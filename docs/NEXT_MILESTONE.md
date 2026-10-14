@@ -1,15 +1,14 @@
-# Next milestone: revalidate and revise R8-7 under m19.1
+# Next milestone: close R8-7 under m19.1
 
-R8-2 V15 remains the frozen perfect simulator result for `main_08-02`.
-R8-4 V4 is now the frozen best fixed result for `main_08-04`: simulator WIN,
-54 kills, 0 leaks, 0 operator deaths, initial life 3 retained, and all three
-protected targets safely arrived at frame 5336. Both roadblocks were destroyed;
-#2 at frame 4062 and #1 at frame 4644. Evidence:
-`output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/`.
+R8-2 V15 and R8-4 V4 remain frozen current-model perfect simulator results.
+The single active goal is R8-7. `R8_7_GPT_V10` is the best current result
+(28 kills, 5 leaks, 3 operator deaths, remaining life -2, protected target #3
+arrival), while `R8_7_GPT_V2` remains the minimum-leak loss baseline (29/4/2/-1)
+but has zero protected-target arrivals. V10 still leaves civilian #14 blocked by
+roadblock #4. Evidence:
+`output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v10/`.
 
-These are `PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL` claims only. Neither is a
-faithful/robust certificate or real-game WIN. Do not spend more GPT calls on
-R8-2 or R8-4. The next effective action is to replay saved R8-7 V2 once under
-`m19.1-local-device-target-v1`, then feed any new causal failure to GPT for a
-tactical revision. R8-3/R8-5/R8-6 remain mechanism-blocked; optimization is not
-started.
+V11 was generated but failed its `parent_hypothesis_id` contract and was not
+simulated. The next tactical request must preserve V10's throughput gains, add a
+real #4 clearance responsibility, and solve route-7/8 plus the mid/late leaks.
+R8-3/R8-5/R8-6 remain mechanism-blocked; optimization is not started.

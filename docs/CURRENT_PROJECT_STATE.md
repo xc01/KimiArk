@@ -101,3 +101,17 @@ civilian damage. Roadblock #2 and #1 were destroyed at 4062 and 4644. This is
 `PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL`, not robust and not real-game. Evidence
 is `output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/`; active
 status is `seven_stage_status_v10.json`.
+## 2026-10-15 R8-7 tactical iterations are current
+
+CONFIRMED_FROM_CODE: the diagnostic runner incorrectly rejected valid
+`RETREAT -> DEPLOY` transitions. It now validates each repeat against a
+source-backed prior retreat and passes both new regressions. R8-7 V5 was
+re-evaluated once on the same frozen plan after this correction.
+
+CONFIRMED_FROM_SIMULATION: R8-7 V5 achieved all four roadblock clears and both
+civilian arrivals, but lost with 21/12/7/life -9. V9 improved to 24/9/4/life -6
+with both arrivals. V10 nearly restored V2 throughput at 28/5/3/life -2 and
+arrived #3, but #14 stayed blocked by roadblock #4. V10 is the best current
+R8-7 result; V2 remains the minimum-leak loss baseline. V11 failed schema/contract
+lineage validation and has no simulation. The seven-stage table is
+`seven_stage_status_v11.json`.

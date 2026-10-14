@@ -1,0 +1,91 @@
+{
+  "acceptance": {
+    "full_win": "positive remaining life, zero enemy leaks, exhausted spawns, no active enemies including civilians, and no protected-target deaths",
+    "perfect_goal": "all protected targets safely arrive and initial life is retained"
+  },
+  "battle_result_status": "SIMULATED_LOSS",
+  "comparison": {
+    "R8_7_GPT_V2": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1, "protected_target_arrivals": 0},
+    "R8_7_GPT_V5": {"kills": 21, "leaks": 12, "operator_deaths": 7, "remaining_life": -9, "protected_target_arrivals": 2},
+    "conclusion": "V5 solved roadblock clearing and protected-target arrival but overpaid in early and mid defense. Preserve the clearing capability while rebuilding survival and kill throughput."
+  },
+  "critical_causal_chain": {
+    "early_cascade": [
+      {
+        "event": "char_240_wyvern death",
+        "frame": 1337,
+        "source_window": "eight 140 hits from uterer#2, two 90 hits from uoffcr#7, final 760 from emppnt"
+      },
+      {
+        "event": "Steward deploy rejected",
+        "frame": 1776,
+        "reason": "insufficient DP"
+      },
+      {
+        "event": "char_4093_frston death",
+        "frame": 1760,
+        "source_window": "sustained 145 hits from uterer#4 and 95 hits from uoffcr#8 despite repeated healing"
+      },
+      {
+        "event": "char_212_ansel death",
+        "frame": 1787,
+        "source_window": "three 891 emppnt hits; three 362 self-heals"
+      },
+      {
+        "event": "char_4227_gallus death",
+        "frame": 1937,
+        "source_window": "one 948 emppnt hit"
+      },
+      {
+        "event": "first objective life exhausted",
+        "frame": 1938,
+        "reason": "third early leak"
+      }
+    ],
+    "early_leaks": [
+      {"enemy": "enemy_1107_uoffcr#7", "frame": 1500, "route": "route-6"},
+      {"enemy": "enemy_1108_uterer#4", "frame": 1874, "route": "route-7"},
+      {"enemy": "enemy_1107_uoffcr#8", "frame": 1938, "route": "route-8"}
+    ],
+    "later_deaths": [
+      {"frame": 2810, "operator": "char_500_noirc", "source_window": "sustained 65 hits from uterer#5 and 16.5 hits from uoffcr#9"},
+      {"frame": 3197, "operator": "char_121_lava", "source_window": "three 905 emppnt hits; three 345 heals"},
+      {"frame": 5010, "operator": "char_283_midn", "source_window": "six 306 enemy-arts hits from uamord#22"}
+    ],
+    "deployment_errors": {"count": 15, "first": "char_210_stward@59.2 insufficient DP"}
+  },
+  "clearance_progress": {
+    "all_four_roadblocks_destroyed": true,
+    "destroyed": {
+      "trap_020_roadblock#4": {"frame": 8011, "operator": "char_121_lava"},
+      "trap_020_roadblock#3": {"frame": 9203, "operator": "char_009_12fce"},
+      "trap_020_roadblock#2": {"frame": 10383, "operator": "char_4227_gallus"},
+      "trap_020_roadblock#1": {"frame": 10694, "operator": "char_501_durin"}
+    },
+    "protected_arrivals": [
+      {"civilian": "enemy_3001_upeopl#14", "frame": 10521},
+      {"civilian": "enemy_3001_upeopl#3", "frame": 10832}
+    ]
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {
+    "arrivals": 2,
+    "deaths": 0,
+    "spawned": ["enemy_3001_upeopl#3", "enemy_3001_upeopl#14"]
+  },
+  "result": {
+    "deployment_errors": 15,
+    "kills": 21,
+    "leaks": 12,
+    "operator_deaths": 7,
+    "remaining_life": -9,
+    "win": false
+  },
+  "schema_version": "R8_7_GPT_V6_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V5",
+  "unknown_boundaries": [
+    "exact client multi-device ordering",
+    "full 2026 selector/aggro details",
+    "real-game result"
+  ]
+}

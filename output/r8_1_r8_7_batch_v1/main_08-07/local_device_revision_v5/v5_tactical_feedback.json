@@ -1,0 +1,54 @@
+{
+  "acceptance": {
+    "full_win": "positive remaining life, zero enemy leaks, exhausted spawns, no active enemies including civilians, and no protected-target deaths",
+    "perfect_goal": "all protected targets safely arrive and initial life is retained"
+  },
+  "battle_result_status": "NO_SIMULATION",
+  "candidate_status": "STATIC_CONFLICT_ONLY",
+  "comparison": {
+    "R8_7_GPT_V3": {
+      "kills": 20,
+      "leaks": 13,
+      "operator_deaths": 6,
+      "remaining_life": -10,
+      "protected_target_arrivals": 1,
+      "protected_target_deaths": 0
+    },
+    "R8_7_GPT_V4": {
+      "simulated": false,
+      "static_conflicts": 2
+    },
+    "conclusion": "V4 was never executed. Repair only its two concrete static conflicts and retain the useful structural intent; do not label inherited V3 failures as V4 combat failures."
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {
+    "blocked": [
+      {"civilian": "enemy_3001_upeopl#14", "roadblock": "trap_020_roadblock#4", "device_damage_events": 0}
+    ],
+    "clearance_requirement": "all protected targets must safely arrive"
+  },
+  "schema_version": "R8_7_GPT_V5_STATIC_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V4",
+  "static_conflicts": [
+    {
+      "action_context": "char_121_lava ACTIVATE_SKILL",
+      "available_sp_model": 30,
+      "frame": 2865,
+      "operator_id": "char_121_lava",
+      "reason": "SP_NOT_READY",
+      "required_sp": 40
+    },
+    {
+      "action_context": "DEPLOY",
+      "available_operators": 8,
+      "frame": 9302,
+      "limit": 8,
+      "reason": "DEPLOYMENT_LIMIT"
+    }
+  ],
+  "unknown_boundaries": [
+    "exact client multi-device ordering",
+    "full 2026 selector/aggro details",
+    "real-game result"
+  ]
+}

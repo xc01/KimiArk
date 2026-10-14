@@ -1,0 +1,120 @@
+{
+  "active_mechanics_version": "m19.1-local-device-target-v1",
+  "generated_at": "2026-10-15",
+  "local_device_targeting": {
+    "evidence": "output/r8_1_r8_7_batch_v1/local_device_target_test_comparison_v1.json",
+    "global_gate_removed": "CONFIRMED_BY_LOCAL_RUNTIME_REVIEW_AND_REMOVED_AS_UNSUPPORTED",
+    "ordering_unknowns": "exact multi-device client ordering and full 2026 selector/aggro implementation UNKNOWN",
+    "source": "PRTS roadblock/selector + fixed GameData tauntLevel=-1; docs/mechanics/PRTS_ROADBLOCK_TARGETING.md"
+  },
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "round_runtime_counters": {
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "new_cli_process_starts_since_e4a33d0": 9,
+    "new_stage_simulations_since_e4a33d0": 5
+  },
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V11",
+  "stages": [
+    {
+      "current_best_plan": "C7",
+      "evidence": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_local_device_v1/",
+      "mechanics_version": "m19.1-local-device-target-v1",
+      "real_game_status": "UNKNOWN",
+      "result": {"kills": 56, "leaks": 0, "operator_deaths": 0, "remaining_life": 5},
+      "stage_id": "main_08-01",
+      "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN"
+    },
+    {
+      "current_best_plan": "R8_2_GPT_V15",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/local_device_target_revalidation_v1/v15/",
+      "mechanics_version": "m19.1-local-device-target-v1",
+      "next_block": "No R8-2 tactical blocker under the conditional current model; robustness and real-game status remain UNKNOWN.",
+      "next_plan": "HOLD_V15_AS_BASELINE",
+      "perfect_completion": true,
+      "protected_target_arrivals": [
+        {"civilian": "enemy_3001_upeopl#6", "frame": 3038},
+        {"civilian": "enemy_3001_upeopl#11", "frame": 3038},
+        {"civilian": "enemy_3001_upeopl#0", "frame": 9219},
+        {"civilian": "enemy_3001_upeopl#3", "frame": 9219}
+      ],
+      "protected_target_deaths": [],
+      "real_game_status": "UNKNOWN",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 3},
+      "stage_id": "main_08-02",
+      "status": "PERFECT_SIMULATOR_WIN_CONDITIONAL_CURRENT_MODEL",
+      "win_meaning": "SIMULATOR_WIN_AND_PERFECT_COMPLETION_UNDER_CURRENT_MODEL; NOT_ROBUST_AND_NOT_REAL_GAME"
+    },
+    {"blockers": ["APPEAR_AT_POS", "DISAPPEAR", "WAIT_CURRENT_FRAGMENT_TIME"], "stage_id": "main_08-03", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {
+      "current_best_plan": "R8_4_GPT_V4",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/",
+      "mechanics_version": "m19.1-local-device-target-v1",
+      "next_block": "No R8-4 tactical blocker under current model; targeting robustness and real-game status remain UNKNOWN.",
+      "next_plan": "HOLD_V4_AS_BASELINE",
+      "perfect_completion": true,
+      "protected_target_arrivals": [
+        {"civilian": "enemy_3001_upeopl#0", "frame": 5336},
+        {"civilian": "enemy_3001_upeopl#18", "frame": 5336},
+        {"civilian": "enemy_3001_upeopl#36", "frame": 5336}
+      ],
+      "protected_target_deaths": [],
+      "real_game_status": "UNKNOWN",
+      "result": {"kills": 54, "leaks": 0, "operator_deaths": 0, "remaining_life": 3},
+      "roadblocks_destroyed": [
+        {"device": "trap_020_roadblock#2", "destroyer": "char_283_midn", "frame": 4062},
+        {"device": "trap_020_roadblock#1", "destroyer": "char_210_stward", "frame": 4644}
+      ],
+      "stage_id": "main_08-04",
+      "status": "PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL",
+      "win_meaning": "PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL; NOT_ROBUST; NOT_REAL_GAME"
+    },
+    {"blockers": ["APPEAR_AT_POS", "DISAPPEAR"], "stage_id": "main_08-05", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {"blockers": ["WAIT_CURRENT_WAVE_TIME"], "stage_id": "main_08-06", "status": "BLOCKED_MECHANISM_UNSUPPORTED"},
+    {
+      "candidates": [
+        {
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_target_revalidation_v1/R8_7_GPT_V2/",
+          "plan": "R8_7_GPT_V2",
+          "protected_target_arrivals": 0,
+          "result": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1}
+        },
+        {
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v3/",
+          "plan": "R8_7_GPT_V3",
+          "protected_target_arrivals": 1,
+          "result": {"kills": 20, "leaks": 13, "operator_deaths": 6, "remaining_life": -10}
+        },
+        {
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v5/",
+          "plan": "R8_7_GPT_V5",
+          "protected_target_arrivals": 2,
+          "result": {"kills": 21, "leaks": 12, "operator_deaths": 7, "remaining_life": -9}
+        },
+        {
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v9/",
+          "plan": "R8_7_GPT_V9",
+          "protected_target_arrivals": 2,
+          "result": {"kills": 24, "leaks": 9, "operator_deaths": 4, "remaining_life": -6}
+        },
+        {
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v10/",
+          "plan": "R8_7_GPT_V10",
+          "protected_target_arrivals": 1,
+          "result": {"kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2}
+        }
+      ],
+      "current_best_plan": "R8_7_GPT_V10",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_diagnostic_v10/",
+      "mechanics_version": "m19.1-local-device-target-v1",
+      "next_block": "V10 reached 28 kills, 5 leaks, 3 deaths, life -2 and protected target #3 arrival; #14 stayed blocked by roadblock #4. V2 remains the minimum-leak loss baseline but has zero protected arrivals.",
+      "next_plan": "R8_7_GPT_V11",
+      "result": {"kills": 28, "leaks": 5, "operator_deaths": 3, "remaining_life": -2},
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS_BEST_CURRENT_MODEL",
+      "unexecuted_candidates": [
+        {"evidence": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_revision_v11/", "plan": "R8_7_GPT_V11", "reason": "FAILED_SCHEMA_CONTRACT_PARENT_HYPOTHESIS_REFERENCE", "simulated": false}
+      ]
+    }
+  ],
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN; PERFECT_COMPLETION_REMAINS_CONDITIONAL_ON_CURRENT_MODEL"
+}

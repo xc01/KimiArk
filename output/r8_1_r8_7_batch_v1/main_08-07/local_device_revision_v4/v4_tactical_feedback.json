@@ -1,0 +1,74 @@
+{
+  "acceptance": {
+    "full_win": "positive remaining life, zero enemy leaks, exhausted spawns, no active enemies including civilians, and no protected-target deaths",
+    "perfect_goal": "all protected targets safely arrive and initial life is retained",
+    "prohibition": "do not force civilians through, ignore active units, extend the 600-second cap, or assume unsupported mechanics"
+  },
+  "battle_result_status": "SIMULATED_LOSS",
+  "critical_causal_chain": {
+    "civilian_blockage": [
+      {
+        "civilian": "enemy_3001_upeopl#3",
+        "route": "blocked by #3 at 678, then #1 at 2044",
+        "result": "PROTECTED_TARGET_REACHED at 8732 after #1 was destroyed at 8594"
+      },
+      {
+        "civilian": "enemy_3001_upeopl#14",
+        "result": "still blocked by trap_020_roadblock#4 at end",
+        "first_block": 3168,
+        "why": "roadblock #4 received zero device-damage events"
+      }
+    ],
+    "operator_deaths": [
+      {"frame": 840, "operator": "char_286_cast3", "source": "enemy_1112_emppnt#0", "recent_window": "two 910 enemy-physical hits at 420 and 840"},
+      {"frame": 1310, "operator": "char_240_wyvern", "source": "enemy_1107_uoffcr#7", "recent_window": "eight 140 hits from uterer#2 then two 90 hits from uoffcr#7"},
+      {"frame": 3180, "operator": "char_210_stward", "source": "enemy_1112_emppnt#0", "recent_window": "five 910 enemy-physical hits from 2280; repeated Hibiscus heals insufficient"},
+      {"frame": 4970, "operator": "char_122_beagle", "source": "enemy_1107_uoffcr#18", "recent_window": "sustained 16.5-hit pressure from uoffcr#16/#18"},
+      {"frame": 5204, "operator": "char_209_ardign", "source": "enemy_1110_uamord#22", "recent_window": "six 340 enemy-arts hits from 4700"},
+      {"frame": 6217, "operator": "char_121_lava", "source": "enemy_1110_uamord#33", "recent_window": "enemy-arts hit of 289 at death"}
+    ],
+    "objective_failures": {
+      "count": 11,
+      "first": {"frame": 3152, "reason": "ENEMY_LEAK", "remaining_life": 0}
+    },
+    "structural_regression": {
+      "castle3_death_frame": 840,
+      "deployment_errors": 13,
+      "deployment_errors_first_insufficient_dp": "char_212_ansel@1800 insufficient DP",
+      "first_leak": {"enemy": "enemy_1107_uoffcr#7", "frame": 1488, "route": "route-6"},
+      "key_point": "opening interceptor deaths caused later redeploy/retreat assumptions to fail; deaths cascaded into 13 leaks"
+    }
+  },
+  "comparison": {
+    "R8_7_GPT_V2": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1},
+    "R8_7_GPT_V3": {"kills": 20, "leaks": 13, "operator_deaths": 6, "remaining_life": -10},
+    "conclusion": "V3 advanced civilian clearing but regressed survival and throughput. Do not preserve actions by habit; rebuild the opening interception and late route responsibilities."
+  },
+  "device_targeting_under_local_rule": [
+    {"device": "trap_020_roadblock#3", "operator": "char_208_melan", "damage_total": 8070, "destroyed_frame": 1860},
+    {"device": "trap_020_roadblock#1", "operator": "char_501_durin", "damage_total": 8160, "destroyed_frame": 8594},
+    {"device": "trap_020_roadblock#2", "operator": "char_4227_gallus", "damage_total": 8143.2, "destroyed_frame": 9027},
+    {"device": "trap_020_roadblock#4", "damage_total": 0, "destroyed": false}
+  ],
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {
+    "arrivals": 1,
+    "deaths": 0,
+    "spawned": ["enemy_3001_upeopl#3", "enemy_3001_upeopl#14"]
+  },
+  "result": {
+    "deployment_errors": 13,
+    "kills": 20,
+    "leaks": 13,
+    "operator_deaths": 6,
+    "remaining_life": -10,
+    "win": false
+  },
+  "schema_version": "R8_7_GPT_V4_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V3",
+  "unknown_boundaries": [
+    "exact client multi-device ordering",
+    "full 2026 selector/aggro details",
+    "real-game result"
+  ]
+}

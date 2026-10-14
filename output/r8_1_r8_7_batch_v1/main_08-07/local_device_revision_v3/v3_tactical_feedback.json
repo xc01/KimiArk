@@ -1,0 +1,105 @@
+{
+  "acceptance": {
+    "full_win": "positive remaining life, zero enemy leaks, exhausted spawns, no active enemies including civilians, and no protected-target deaths",
+    "perfect_goal": "all protected targets safely arrive and initial life is retained",
+    "prohibition": "do not force civilians through, ignore active units, extend the 600-second cap, or assume unsupported mechanics"
+  },
+  "battle_result_status": "SIMULATED_LOSS",
+  "critical_causal_chain": {
+    "civilian_blockage": [
+      {
+        "civilian": "enemy_3001_upeopl#3",
+        "blocked_by": "trap_020_roadblock#3",
+        "first_block": 678,
+        "still_blocked_at_18000": true
+      },
+      {
+        "civilian": "enemy_3001_upeopl#14",
+        "first_block": 3168,
+        "blocked_by": "trap_020_roadblock#4",
+        "roadblock_destroyed": {
+          "frame": 8467,
+          "operator": "char_121_lava"
+        },
+        "next_block": {
+          "frame": 8651,
+          "blocked_by": "trap_020_roadblock#2",
+          "still_blocked_at_18000": true
+        }
+      }
+    ],
+    "deployment_error": {
+      "action_frame": 2881,
+      "operator": "char_4188_confes",
+      "reason": "operator is not deployed because Confes died at frame 1166"
+    },
+    "operator_deaths": [
+      {
+        "frame": 1166,
+        "operator": "char_4188_confes",
+        "source": "enemy_1108_uterer#4",
+        "recent_window": "eight 226 enemy-physical hits from frame 851; three 345 heals from Hibiscus were insufficient"
+      },
+      {
+        "frame": 3180,
+        "operator": "char_210_stward",
+        "source": "enemy_1112_emppnt#0",
+        "recent_window": "five 910 enemy-physical hits from frame 2070; repeated Hibiscus heals were insufficient"
+      }
+    ],
+    "objective_failures": [
+      {
+        "frame": 1532,
+        "reason": "ENEMY_LEAK",
+        "remaining_life": 0
+      },
+      {
+        "frame": 4019,
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -1
+      }
+    ]
+  },
+  "device_targeting_under_local_rule": [
+    {
+      "device": "trap_020_roadblock#3",
+      "damage_total": 1591.2,
+      "operators": ["char_4188_confes", "char_210_stward"],
+      "destroyed": false
+    },
+    {
+      "device": "trap_020_roadblock#4",
+      "damage_total": 8380.8,
+      "operator": "char_121_lava",
+      "destroyed_frame": 8467
+    }
+  ],
+  "known_gaps_vs_goal": [
+    "two roadblocks still block civilians at end",
+    "zero protected-target arrivals",
+    "zero protected-target deaths",
+    "early route capacity and Confes survival failed",
+    "late emppnt handling killed Steward and leaked"
+  ],
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {
+    "arrivals": 0,
+    "deaths": 0,
+    "spawned": ["enemy_3001_upeopl#3", "enemy_3001_upeopl#14"]
+  },
+  "result": {
+    "deployment_errors": 1,
+    "kills": 29,
+    "leaks": 4,
+    "operator_deaths": 2,
+    "remaining_life": -1,
+    "win": false
+  },
+  "schema_version": "R8_7_GPT_V3_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V2",
+  "unknown_boundaries": [
+    "exact client multi-device ordering",
+    "full 2026 selector/aggro details",
+    "real-game result"
+  ]
+}

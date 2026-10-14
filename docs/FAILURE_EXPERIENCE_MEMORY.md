@@ -421,3 +421,11 @@ civilians remained blocked behind roadblock #1 until the cap, so a zero-leak
 enemy plan still cannot be a WIN. V4 resolved both route throughput and civilian
 clearance: WIN, 54/0/0/life 3, all three civilians arrived at 5336, no
 protected-target damage, and both roadblocks destroyed.
+## 2026-10-15 R8-7 separates survival from civilian clearing
+
+V5 and V9 prove that complete roadblock clearing and protected-target arrival are
+achievable, but the opening survival and route-throughput cost was too high. V10
+recovered most throughput yet left #14 behind roadblock #4, so civilian clearing
+cannot be implicit. Opening deaths remain coupled to later deployment errors; a
+missing interceptor invalidates downstream conditional retreats and skills.
+Contract-only V7/V11 plans have no tactical simulation result.

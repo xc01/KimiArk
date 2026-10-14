@@ -1,0 +1,39 @@
+{
+  "battle_result_status": "SIMULATED_LOSS",
+  "comparison": {
+    "R8_7_GPT_V2": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1, "protected_target_arrivals": 0},
+    "R8_7_GPT_V5": {"kills": 21, "leaks": 12, "operator_deaths": 7, "remaining_life": -9, "protected_target_arrivals": 2},
+    "R8_7_GPT_V9": {"kills": 24, "leaks": 9, "operator_deaths": 4, "remaining_life": -6, "protected_target_arrivals": 2},
+    "conclusion": "V2 has the best defense/throughput; V9 has complete protected-target arrival. V10 should keep V2's effective route defense and add a cheaper, transferable clearance responsibility."
+  },
+  "critical_causal_chain": {
+    "early_deaths": [
+      {"frame": 1337, "operator": "char_240_wyvern", "window": "eight 140 uterer#2 hits, two 90 uoffcr#7 hits, final 760 emppnt hit"},
+      {"frame": 1361, "operator": "char_4093_frston", "window": "seven 145 uterer#5 hits; sparse 70 heals"}
+    ],
+    "early_leaks": [
+      {"frame": 1484, "route": "route-9", "enemy": "enemy_1108_uterer#5"},
+      {"frame": 1500, "route": "route-6", "enemy": "enemy_1107_uoffcr#7"},
+      {"frame": 1652, "route": "route-10", "enemy": "enemy_1107_uoffcr#9"}
+    ],
+    "later_deaths": [
+      {"frame": 3390, "operator": "char_120_hibisc", "window": "three 890 emppnt hits; three 345 self-heals"},
+      {"frame": 5651, "operator": "char_208_melan", "window": "six 340 uamord#21 arts hits, then 225 uterer#27 hit"}
+    ],
+    "deployment_errors": {"count": 15, "first": "char_240_wyvern@55.1 operator is not deployed"},
+    "first_life_failure": {"frame": 1652, "remaining_life": 0}
+  },
+  "clearance_progress": {
+    "all_four_roadblocks_destroyed": true,
+    "protected_arrivals": [
+      {"civilian": "enemy_3001_upeopl#14", "frame": 10973},
+      {"civilian": "enemy_3001_upeopl#3", "frame": 12640}
+    ]
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "protected_targets": {"arrivals": 2, "deaths": 0},
+  "result": {"deployment_errors": 15, "kills": 24, "leaks": 9, "operator_deaths": 4, "remaining_life": -6, "win": false},
+  "schema_version": "R8_7_GPT_V10_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_V9",
+  "unknown_boundaries": ["exact client multi-device ordering", "full 2026 selector/aggro details", "real-game result"]
+}

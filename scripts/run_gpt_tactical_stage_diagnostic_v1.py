@@ -35,6 +35,32 @@ def load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def validated_unique_deployments(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    chronological = sorted(actions, key=lambda item: (int(item.get("frame", -1)), actions.index(item)))
+    deployment_count: dict[str, int] = {}
+    retreat_count: dict[str, int] = {}
+    for action in chronological:
+        operator_id = action.get("operator_id")
+        if action.get("action_type") == "DEPLOY":
+            deployment_count[operator_id] = deployment_count.get(operator_id, 0) + 1
+            if deployment_count[operator_id] > retreat_count.get(operator_id, 0) + 1:
+                raise RuntimeError("a deployment operator is reused without a source-backed RETREAT")
+        elif action.get("action_type") == "RETREAT":
+            retreat_count[operator_id] = retreat_count.get(operator_id, 0) + 1
+
+    seen: set[str] = set()
+    unique: list[dict[str, Any]] = []
+    for action in chronological:
+        if action.get("action_type") != "DEPLOY":
+            continue
+        operator_id = action["operator_id"]
+        if operator_id in seen:
+            continue
+        seen.add(operator_id)
+        unique.append(action)
+    return unique
+
+
 def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -43,9 +69,7 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
     evidence = load(source / "llm_evidence_context.json")
     plan = load(source / "llm_structured_output.json")["revised_operational_plans"][0]
     actions = plan["action_timeline"]
-    deployments = [item for item in actions if item.get("action_type") == "DEPLOY"]
-    if len({item["operator_id"] for item in deployments}) != len(deployments):
-        raise RuntimeError("a deployment operator is reused without a source-backed RETREAT")
+    deployments = validated_unique_deployments(actions)
     catalog = {item["operator_id"]: item for item in evidence["normal_low_star_catalog"]}
     selections = tuple(
         RealOperatorSelection(

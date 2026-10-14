@@ -546,3 +546,12 @@ revision, and V4 revision. V3 was 47/7/3/life -4; V4 was 54/0/0/life 3 with all
 three protected targets safely arriving. The V4 result is current-model
 perfect simulator WIN only. Internal model request count remains
 UNKNOWN_CLI_INTERNAL.
+## 2026-10-15 R8-7 m19.1 revision loop
+
+Since `e4a33d0`, R8-7 used nine new CLI starts (V3, V4, V5, V6, V7, V8, V9,
+V10, V11). V4 and V6 were static-conflict candidates without simulation. V7 and V11
+failed contract validation. Fixed diagnostics were started for V3, V5, V9, V10,
+plus one same-plan V5 re-evaluation after correcting the runner's retreat-redeploy
+gate. V5: 21/12/7/life -9 and both protected arrivals. V9: 24/9/4/life -6 and
+both arrivals. V10: 28/5/3/life -2 and only #3 arrival. Internal model requests
+remain `UNKNOWN_CLI_INTERNAL`.
