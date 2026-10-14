@@ -35,3 +35,12 @@ roadblock-targeting interpretations. R8-2 V1/V3 reach zero leaks and life 2 but
 leave civilian #11 active at roadblock #2. R8-4 V2 is 50/4/1/life -1; R8-7 V2 is
 29/4/2/life -1. The six older corrected-model windows are potentially polluted
 and no longer reliable tactical feedback.
+
+## 2026-10-14 R8-2 is waiting on the tactical transport
+
+R8-2 V1/V3 are zero-leak, zero-operator-death, life-positive candidates but not
+WIN because civilian #11 remains active at roadblock #2. Fixed GameData gives
+roadblock #2 HP 8000/DEF 200/RES 20. V1/V3 never selected or damaged it. A
+compact clearance evidence package and explicit user observation are prepared.
+Two R8-2 GPT-C5 CLI starts failed at `workspace routing discovery failed`
+without a retry; no plan or simulation was produced.

@@ -228,12 +228,31 @@ def build_prompt(evidence: dict[str, Any]) -> str:
     forbidden_plan_tiles = active.get("roadblock_plan_tiles_row_col")
     if not isinstance(forbidden_plan_tiles, list):
         raise RuntimeError("stage_active_facts.roadblock_plan_tiles_row_col is required")
+    clearance_instruction = ""
+    clearance = evidence.get("roadblock_clearance_evidence")
+    if clearance:
+        roadblock = clearance["roadblock_2"]
+        civilian = clearance["v1_v3_common_events"]["civilian_11"]
+        death = clearance["v1_v3_common_events"]["civilian_6"]["death"]
+        clearance_instruction = (
+            "USER_CONFIRMED_OBSERVATION: an Ursus Civilian remains stopped at a roadblock "
+            f"until that roadblock is destroyed. {roadblock['device_id']} at [row,col]={roadblock['tile_json_row_col']} "
+            f"blocked civilian {civilian['spawn']}, first blocked at frame {civilian['first_roadblock_2_block']['frame']} "
+            f"and remained blocked at frame {civilian['last_roadblock_2_block']['frame']}; neither prior plan selected or damaged it. "
+            f"Civilian #6 died at frame {death['frame']} and cost one objective life. Decide the complete roadblock-#2 "
+            "clearance responsibility (attacker, tile, direction, start, expected destroy timing) and protect/maintain the "
+            "defense without extending the 600-second cap, ignoring the civilian, or forcing release. Acceptance requires "
+            "roadblock damage/destruction and #11's safe PROTECTED_TARGET_REACHED. Full completion is primary; also aim for "
+            "protected-target loss=0."
+        )
     return f"""You are {codex_runner.MODEL} via the local Codex CLI, the tactical decision maker for {STAGE_ID} / {STAGE_ID.replace('main_0', 'R8-')}.
 Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operational_plan_id": "{PLAN_ID}"` exactly. The final assistant message must be exactly one JSON object matching the supplied output schema; no markdown wrapper or commentary.
 
 You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
 
 Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies.
+
+{clearance_instruction}
 
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
 

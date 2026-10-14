@@ -344,3 +344,11 @@ feedback. Use the death-unblock-fixed revalidation instead: R8-2 V1/V3 leave an
 active civilian at roadblock #2 despite zero leaks, R8-4 V2 first leaks at frame
 3269, and R8-7 V2 loses two guards and first fails at frame 1532.
 
+## 2026-10-14 Infrastructure failure is not tactical feedback
+
+The first two R8-2 clearance CLI attempts both failed at
+`workspace routing discovery failed`. Save the thread/error logs and stop; do
+not turn this into evidence that the model misunderstood the stage. The frozen
+R8-2-V5 prompt includes the user-confirmed permanent roadblock stop, roadblock
+#2 attributes, zero prior attack events, civilian #11, and civilian #6 death.
+

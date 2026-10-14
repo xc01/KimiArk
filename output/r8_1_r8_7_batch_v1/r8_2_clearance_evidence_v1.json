@@ -1,0 +1,78 @@
+{
+  "schema_version": "R8_2_CLEARANCE_EVIDENCE_V1",
+  "mechanics_version": "m19.1-death-unblock-v1",
+  "sources": {
+    "fixed_gamedata_roadblock": "data/ArknightsGameData/zh_CN/gamedata/excel/character_table.json:trap_020_roadblock.phases[0].attributesKeyFrames[0].data",
+    "user_observation": "output/user_observed_mechanics_v1.json#R8_2_ROADBLOCK_NEUTRAL_PERMANENT_STOP",
+    "events": [
+      "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V1/diagnostic_events.json",
+      "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V3/diagnostic_events.json"
+    ]
+  },
+  "roadblock_2": {
+    "device_id": "trap_020_roadblock#2",
+    "template_id": "trap_020_roadblock",
+    "tile_col_row": [7, 4],
+    "tile_json_row_col": [4, 7],
+    "hp": 8000,
+    "defense": 200,
+    "magic_resistance": 20.0,
+    "taunt_level": -1,
+    "ordinary_targetable": true,
+    "user_confirmed_rule": "An Ursus Civilian remains stopped at the roadblock until it is destroyed.",
+    "current_model_rule": "Operators may target an ordinary-targetable device only when no non-neutral enemy is active; coverage and range still apply. This target priority is a current-model rule, not confirmed client ordering."
+  },
+  "roadblock_1_context": {
+    "device_id": "trap_020_roadblock#1",
+    "tile_col_row": [5, 2],
+    "tile_json_row_col": [2, 5],
+    "v1_events": {"device_damage_count": 37, "device_destroyed_count": 0, "first_damage_frame": 3481},
+    "note": "Civilians #0/#3 eventually reached safely, so this is context only. The decisive final active enemy is #11 at roadblock #2."
+  },
+  "v1_v3_common_events": {
+    "v1_result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2, "active_enemies": 1, "win": false},
+    "v3_result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2, "active_enemies": 1, "win": false},
+    "roadblock_2_attack_events": {
+      "v1_device_target_selections": 0,
+      "v1_device_damage_events": 0,
+      "v1_device_destroyed_events": 0,
+      "v3_device_target_selections": 0,
+      "v3_device_damage_events": 0,
+      "v3_device_destroyed_events": 0
+    },
+    "civilian_11": {
+      "spawn": {"route": "route-6", "frame": 2100},
+      "first_roadblock_2_block": {"frame": 2330, "device": "trap_020_roadblock#2"},
+      "last_roadblock_2_block": {"frame": 18000, "device": "trap_020_roadblock#2"},
+      "protected_target_reached": false,
+      "officer_attacks": {
+        "first_frame": 4634,
+        "attackers": ["enemy_1107_uoffcr#30", "enemy_1107_uoffcr#31", "enemy_1107_uoffcr#34", "enemy_1107_uoffcr#35", "enemy_1107_uoffcr#38", "enemy_1107_uoffcr#39"],
+        "death": false
+      }
+    },
+    "civilian_6": {
+      "spawn": {"route": "route-5", "frame": 1500},
+      "first_roadblock_2_block": {"frame": 1730, "device": "trap_020_roadblock#2"},
+      "first_officer_attack": {"frame": 2954, "attacker": "enemy_1107_uoffcr#18"},
+      "death": {"frame": 4604, "attacker": "enemy_1107_uoffcr#30", "life_delta": -1, "kill_counted": false},
+      "attack_count": 13,
+      "attackers": ["enemy_1107_uoffcr#18", "enemy_1107_uoffcr#19", "enemy_1107_uoffcr#22", "enemy_1107_uoffcr#23", "enemy_1107_uoffcr#26", "enemy_1107_uoffcr#27", "enemy_1107_uoffcr#30"]
+    },
+    "safe_arrivals": {
+      "v1": [{"frame": 6601, "civilian": "enemy_3001_upeopl#0"}, {"frame": 6601, "civilian": "enemy_3001_upeopl#3"}],
+      "v3": [{"frame": 6601, "civilian": "enemy_3001_upeopl#0"}, {"frame": 6601, "civilian": "enemy_3001_upeopl#3"}]
+    }
+  },
+  "tactical_requirement": {
+    "must_destroy": "trap_020_roadblock#2",
+    "acceptance_events": ["DEVICE_DAMAGE", "DEVICE_DESTROYED", "BLOCK release/resume is implicit in route progress", "PROTECTED_TARGET_REACHED for enemy_3001_upeopl#11"],
+    "must_avoid": "Do not increase the 600-second cap, ignore the active civilian, force release, or attack/block neutrals with ordinary operators.",
+    "ideal_goal": "Complete the full zero-leak WIN and avoid enemy_3001_upeopl#6 death; user-requested perfect completion requires protected-target loss=0."
+  },
+  "existing_plan_context": {
+    "v1_snapshot": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V1/action_snapshot.json",
+    "v3_snapshot": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V3/action_snapshot.json",
+    "observed": "Neither plan selected or damaged roadblock #2. V1 maintained 0 leaks and no operator deaths; its successfully retained responsibilities are visible in the action snapshot, but GPT may replace any action when necessary."
+  }
+}

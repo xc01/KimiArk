@@ -1,0 +1,35 @@
+{
+  "schema_version": "R8_2_CLEARANCE_SESSION_STATUS_V1",
+  "date": "2026-10-14",
+  "plan_requested": "R8_2_GPT_V5",
+  "revision_source_plan": "R8_2_GPT_V1",
+  "prior_validated_results": [
+    {"plan": "R8_2_GPT_V1", "kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2, "win": false},
+    {"plan": "R8_2_GPT_V3", "kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2, "win": false}
+  ],
+  "cli_starts": [
+    {
+      "experiment": "clearance_cli_v5",
+      "attempt": 1,
+      "cumulative_cli_process_starts": 17,
+      "status": "CLI_FAILED_NO_RETRY",
+      "failure": "workspace routing discovery failed",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_cli_v5/"
+    },
+    {
+      "experiment": "clearance_cli_v5_attempt2",
+      "attempt": 2,
+      "cumulative_cli_process_starts": 18,
+      "status": "CLI_FAILED_NO_RETRY",
+      "failure": "workspace routing discovery failed",
+      "environment_note": "A broken SG TLS path was identified; HK recovered api.openai.com TLS, but chatgpt.com/backend-api/ps/mcp returned 451 and Codex still failed. This was not treated as tactical or tool failure.",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_cli_v5_attempt2/"
+    }
+  ],
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "new_operational_plans": 0,
+  "stage_simulations_started": 0,
+  "automatic_retry": false,
+  "blocked_reason": "Two independent Codex CLI starts failed at workspace routing discovery after bounded infrastructure repair; no GPT-C5 was received.",
+  "next_unblocked_action": "Run the frozen prompt and evidence in a new non-overwriting CLI attempt once the Codex ChatGPT workspace route is available; do not alter the prompt to mask the failure."
+}

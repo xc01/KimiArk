@@ -453,3 +453,12 @@ failure frame 5010. R8-7 V2 reached 29 kills, 4 leaks, 2 deaths, and life -1;
 its first leak was frame 1289 and first objective failure frame 1532. R8-1 C7
 passed both saved roadblock-targeting replays under the fixed code with 56 kills,
 0 leaks, and life 5.
+
+## 2026-10-14 R8-2 clearance CLI was infrastructure-blocked
+
+A compact roadblock-#2 evidence package was prepared from fixed GameData, a
+separate user observation, and V1/V3 events. Two new non-overwriting Codex CLI
+attempts (cumulative starts 17 and 18) launched the same frozen R8-2-V5 prompt
+and budget. Both failed at `workspace routing discovery failed`; no GPT-C5 was
+received and no simulation was run. The failure after bounded proxy repair was
+saved verbatim and treated as infrastructure, not tactical evidence.
