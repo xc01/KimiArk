@@ -334,3 +334,13 @@ consequently exposes 28 leaks, though civilian scoring and roadblock handling ar
 now source-backed. Do not reintroduce civilian kills, ordinary blocking, or a
 life-zero WIN to recover that old result.
 
+## 2026-10-14 Ghost block invalidated the six prior loss windows
+
+The unified death path omitted `_unblock`, so dead enemies remained in
+`blocked_enemy_ids` and could consume block capacity. The six simulations in
+`civilian_mechanics_corrected_v1/` are therefore potentially ghost-polluted
+historical observations; do not use their loss windows as reliable tactical
+feedback. Use the death-unblock-fixed revalidation instead: R8-2 V1/V3 leave an
+active civilian at roadblock #2 despite zero leaks, R8-4 V2 first leaks at frame
+3269, and R8-7 V2 loses two guards and first fails at frame 1532.
+

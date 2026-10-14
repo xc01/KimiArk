@@ -440,3 +440,16 @@ single diagnostic improved V1 to 13/20/2/life -17 but still lost at frame 1532.
 The batch has 16 cumulative CLI starts; internal request count remains
 `UNKNOWN_CLI_INTERNAL`. Observed input/output token totals are 2,147,541 and
 38,833.
+
+## 2026-10-14 Ghost-block fix and original-action revalidation
+
+The parent run had 32 pytest failures in the same environment; the fix has 31,
+with 0 new and 1 resolved. A new non-overwriting directory revalidated four
+saved action timelines. R8-2 V1/V3 each reached 36 kills, 0 leaks, 0 operator
+deaths, and life 2, but civilian `enemy_3001_upeopl#11` was still blocked by
+roadblock #2 at the final frame, so neither is WIN. R8-4 V2 reached 50 kills,
+4 leaks, 1 death, and life -1; its first leak was frame 3269 and first objective
+failure frame 5010. R8-7 V2 reached 29 kills, 4 leaks, 2 deaths, and life -1;
+its first leak was frame 1289 and first objective failure frame 1532. R8-1 C7
+passed both saved roadblock-targeting replays under the fixed code with 56 kills,
+0 leaks, and life 5.

@@ -238,6 +238,10 @@ schema参数。任务文本仍要求完整OperationalPlan JSON；接收后必须
 targeting解释：A非普通目标；B仅无普通敌人候选时可选中。不得额外发明rerouting、civilian blocking、
 aggressive roadblock或AOE目标。双变体均WIN才可标roadblock-targeting robust simulator WIN。
 
+决策：所有普通攻击、弹道和其他实际伤害入口都委托统一`_damage_enemy`致死链。该链在删除活跃敌人前
+调用`_unblock`，保证死亡名额释放一次、死亡引用清理、击杀计数与目标生命扣减仍然一致。新增测试覆盖
+直接致死、弹道致死和多阻挡干员只释放死亡目标的场景。
+
 ## 2026-10-14 通用七关入口
 
 新增`build_gpt_tactical_stage_facts_v1.py`、`run_gpt_tactical_stage_session_v1.py`和
@@ -261,3 +265,9 @@ scores civilian arrival and death according to fixed GameData, and records
 the plan/action snapshot, hashes its source files, and emits
 `MECHANICS_CORRECTED_DIAGNOSTIC_*` instead of resurrecting the obsolete partial
 WIN label.
+
+Decision: every ordinary, projectile, and other real damage path delegates the
+lethal transition to `_damage_enemy`. That path calls `_unblock` before removing
+the active enemy, releasing its block slot exactly once while preserving kill
+counting and protected-target life deduction. Regression coverage includes
+direct death, projectile death, and one dead target in a multi-block holder.

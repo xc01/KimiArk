@@ -13,3 +13,10 @@ direct plan defects, not simulator errors. R8-3/R8-5/R8-6 remain BLOCKED until
 their route checkpoint semantics are supported. Do not run optimization until
 all seven stages have validated WIN, and do not convert any simulator result into
 an实机 claim.
+
+SUPERSEDED 2026-10-14: the old R8-7 V2 loss window above came from ghost-block
+pollution. The current bottleneck is the death-unblock-fixed window: two early
+guards die, R8-7 first leaks at frame 1289, and first fails at frame 1532. R8-2
+also has a direct tactical gap: V1/V3 leave civilian #11 active at roadblock #2
+despite zero leaks. Any next GPT revision must address these facts; Python must
+not alter actions.

@@ -433,6 +433,7 @@ class Simulator:
         target.hp -= damage
         self._emit(state, EventType.DAMAGE, source=source_id, target=target.instance_id, amount=damage, kind=kind)
         if target.hp <= 0:
+            self._unblock(state, target)
             del state.active_enemies[target.instance_id]
             if target.counts_as_kill:
                 state.enemies_killed += 1

@@ -25,3 +25,13 @@ roadblock-targeting robust simulator WIN; R8-2/R8-4/R8-7 are corrected-model
 LOSS; R8-3/R8-5/R8-6 are mechanism-blocked. No new optimization cycle has
 started. Cumulative CLI starts are 16; internal requests remain
 UNKNOWN_CLI_INTERNAL. Simulator results are not real-game claims.
+
+## 2026-10-14 Death-unblock revalidation is current
+
+CONFIRMED_FROM_CODE: `seven_stage_status_v4.json` supersedes v3 for tactical
+interpretation. The death/unblock path now releases dead targets in ordinary,
+projectile, and multi-block tests. R8-1 C7 remains robust across both saved
+roadblock-targeting interpretations. R8-2 V1/V3 reach zero leaks and life 2 but
+leave civilian #11 active at roadblock #2. R8-4 V2 is 50/4/1/life -1; R8-7 V2 is
+29/4/2/life -1. The six older corrected-model windows are potentially polluted
+and no longer reliable tactical feedback.
