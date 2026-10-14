@@ -1,0 +1,134 @@
+{
+  "active_mechanics_version": "m19.0-neutral-protected-target-v1",
+  "generated_at": "2026-10-14",
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V8",
+  "stages": [
+    {
+      "current_best_plan": "C7",
+      "evidence": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_death_unblock_fixed_v1/",
+      "real_game_status": "UNKNOWN",
+      "result": {
+        "kills": 56,
+        "leaks": 0,
+        "operator_deaths": 0,
+        "remaining_life": 5
+      },
+      "stage_id": "main_08-01",
+      "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN"
+    },
+    {
+      "civilian_11_arrival_frame": 7162,
+      "civilian_11_damage_events": 0,
+      "current_best_plan": "R8_2_GPT_V14",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v5_attempt3/",
+      "latest_revision_evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v14/",
+      "next_block": "GPT must protect the roadblock-held release path and officer pressure while retaining V14 zero-leak WIN.",
+      "next_plan": "V14_PROTECTION_RELEASE_COUPLED_REVISION",
+      "perfect_completion": false,
+      "protected_target_deaths": [
+        {
+          "attacker": "enemy_1107_uoffcr#39",
+          "civilian": "enemy_3001_upeopl#6",
+          "frame": 5294
+        }
+      ],
+      "real_game_status": "UNKNOWN",
+      "result": {
+        "kills": 36,
+        "leaks": 0,
+        "operator_deaths": 0,
+        "remaining_life": 2
+      },
+      "revision_attempts": [
+        {
+          "civilian_6_death_frame": 5294,
+          "cli_attempt": 30,
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v14/",
+          "plan": "R8_2_GPT_V14",
+          "result": {
+            "kills": 36,
+            "leaks": 0,
+            "operator_deaths": 0,
+            "remaining_life": 2,
+            "win": true
+          }
+        },
+        {
+          "civilian_6_death_frame": 4994,
+          "cli_attempt": 31,
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v15/",
+          "plan": "R8_2_GPT_V15",
+          "result": {
+            "kills": 36,
+            "leaks": 0,
+            "operator_deaths": 0,
+            "remaining_life": 2,
+            "win": true
+          }
+        },
+        {
+          "cli_attempt": 32,
+          "evidence": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_cli_v16/",
+          "plan": "R8_2_GPT_V16",
+          "result": "MANUALLY_STOPPED_NO_PROGRESS_NO_FINAL_MESSAGE"
+        }
+      ],
+      "roadblock_2": {
+        "destroyed_frame": 6839,
+        "destroyer": "char_283_midn"
+      },
+      "stage_id": "main_08-02",
+      "status": "SIMULATOR_WIN_WITH_PROTECTED_TARGET_LOSS; V14_CURRENT_BEST_PERFECT_COMPLETION_CANDIDATE"
+    },
+    {
+      "blockers": [
+        "APPEAR_AT_POS",
+        "DISAPPEAR",
+        "WAIT_CURRENT_FRAGMENT_TIME"
+      ],
+      "stage_id": "main_08-03",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "current_best_plan": "R8_4_GPT_V2",
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-04/R8_4_GPT_V2/",
+      "result": {
+        "kills": 50,
+        "leaks": 4,
+        "operator_deaths": 1,
+        "remaining_life": -1
+      },
+      "stage_id": "main_08-04",
+      "status": "MECHANICS_CORRECTED_LOSS"
+    },
+    {
+      "blockers": [
+        "APPEAR_AT_POS",
+        "DISAPPEAR"
+      ],
+      "stage_id": "main_08-05",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "blockers": [
+        "WAIT_CURRENT_WAVE_TIME"
+      ],
+      "stage_id": "main_08-06",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED"
+    },
+    {
+      "current_best_plan": "R8_7_GPT_V2",
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-07/R8_7_GPT_V2/",
+      "result": {
+        "kills": 29,
+        "leaks": 4,
+        "operator_deaths": 2,
+        "remaining_life": -1
+      },
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS"
+    }
+  ],
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN"
+}

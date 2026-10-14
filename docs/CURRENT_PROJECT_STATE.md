@@ -64,10 +64,11 @@ protected-target loss. V6/V8 both simulated LOSS; V7 was blocked by an exact DP
 static conflict. The next step is a structural GPT revision, not another
 same-shape timing retry.
 
-## 2026-10-14 V9–V13 did not reach perfect completion
+## 2026-10-14 V14/V15 are zero-leak WINs but not perfect
 
-`seven_stage_status_v7.json` supersedes v6. CLI starts are now 29. V9/V10 both
-passed schema/contract and static checks, then were simulated once; both were
-LOSS and #6 died at frame 5294. V9 was 35/1/0/life 1; V10 was 35/1/1/life 1.
-V11–V13 were schema-valid but static-rejected. V5 remains the immutable zero-leak
-simulator-WIN baseline, and R8-4/R8-7 have not advanced in this round.
+`seven_stage_status_v8.json` supersedes v7. CLI starts are now 32. V14 and V15
+are both simulator WINs with 36 kills / 0 leaks / 0 operator deaths / life 2.
+V14 is the better perfect-completion candidate because #6 died at 5294 rather
+than 4994 and #11 arrived without damage. Neither is perfect: #6 remains the only
+blocked protected target. V16 had no final message and was manually stopped with
+evidence. R8-4/R8-7 have not advanced in this round.

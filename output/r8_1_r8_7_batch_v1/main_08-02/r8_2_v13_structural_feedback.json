@@ -1,0 +1,63 @@
+{
+  "schema_version": "R8_2_STRUCTURAL_TACTICAL_FEEDBACK_V2",
+  "source_discipline": "Each battle block names its separately executed plan. Static candidates have NO_SIMULATION and must not inherit another plan's result.",
+  "battle_results": {
+    "R8_2_GPT_V5": {
+      "status": "SIMULATOR_WIN_WITH_PROTECTED_TARGET_LOSS",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+      "roadblock_2_destroyed_frame": 6633,
+      "civilian_11_arrival_frame": 6956,
+      "civilian_6_death": {"frame": 4604, "attacker": "enemy_1107_uoffcr#30"}
+    },
+    "R8_2_GPT_V9": {
+      "status": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "result": {"kills": 35, "leaks": 1, "operator_deaths": 0, "remaining_life": 1},
+      "popukar": {"deployed": true, "block_count": 4},
+      "roadblock_2_destroyed_frame": 8943,
+      "civilian_11_arrival_frame": 9266,
+      "civilian_6_death": {"frame": 5294, "attacker": "enemy_1107_uoffcr#39"},
+      "leak": {"frame": 5228, "enemy": "enemy_1108_uterer#37", "route": "route-17"}
+    },
+    "R8_2_GPT_V10": {
+      "status": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "result": {"kills": 35, "leaks": 1, "operator_deaths": 1, "remaining_life": 1},
+      "popukar": {"deployed": true, "block_count": 12, "death_frame": 5264},
+      "civilian_6_death": {"frame": 5294, "attacker": "enemy_1107_uoffcr#39"},
+      "leak": {"frame": 5512, "enemy": "enemy_1107_uoffcr#38", "route": "route-19"}
+    }
+  },
+  "static_rejections": [
+    {
+      "plan_id": "R8_2_GPT_V11",
+      "simulation_status": "NO_SIMULATION",
+      "conflict": {"frame": 2373, "operator": "char_120_hibisc", "required_dp": 17, "available_dp": 16.1},
+      "feedback_transmission": "The exact conflict was not explicitly embedded as prior_static_feedback in the V12 request."
+    },
+    {
+      "plan_id": "R8_2_GPT_V12",
+      "simulation_status": "NO_SIMULATION",
+      "conflict": {"frame": 2823, "operator": "char_283_midn", "required_dp": 16, "available_dp": 15.1},
+      "feedback_transmission": "The exact conflict was not explicitly embedded as prior_static_feedback in the V13 request."
+    },
+    {
+      "plan_id": "R8_2_GPT_V13",
+      "simulation_status": "NO_SIMULATION",
+      "conflict": {"frame": 2823, "operator": "char_283_midn", "required_dp": 16, "available_dp": 15.1},
+      "feedback_transmission": "V13 repeated V12's conflict; this must not be recorded as V13 having received and ignored it."
+    }
+  ],
+  "verified_assets_and_limits": {
+    "V5": "zero-leak line, roadblock clearing and #11 delivery remain immutable baseline knowledge",
+    "V9": "successful establishment of Popukar interception; do not infer that all interception structures are invalid",
+    "V10": "higher block volume was possible but late blocker death and route-19 pressure remained",
+    "V11_V12_V13": "no battle evidence; only their exact static economy conflicts are known"
+  },
+  "geometry_and_economy_source": [
+    "output/r8_1_r8_7_batch_v1/main_08-02/facts/llm_evidence_context.json",
+    "stage_options: initial_cost=10, max_cost=99, cost_increase_time_seconds=1, deployment_limit=8",
+    "stage_active_facts contains runtime routes, deployable tiles, active devices and [col,row]/[row,col] conventions",
+    "enemy_1107_uoffcr protected-target attack radius=1.2"
+  ],
+  "design_task": "Solve protected-target exposure, late route throughput, roadblock-clearance handoff, and deployment economy as one structure. Retain only verified duties that the new structure still supports; explain changed assumptions and why each old counterexample is addressed.",
+  "python_boundary": "Python will not choose operators, positions, directions, timings, retreats or replacement tactics."
+}

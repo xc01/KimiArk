@@ -1,0 +1,31 @@
+{
+  "schema_version": "R8_2_V14_RESULT_FEEDBACK_V1",
+  "source_plan_id": "R8_2_GPT_V14",
+  "source": "output/r8_1_r8_7_batch_v1/main_08-02/clearance_diagnostic_v14/diagnostic_events.json",
+  "status": "MECHANICS_CORRECTED_DIAGNOSTIC_WIN_WITH_PROTECTED_TARGET_LOSS",
+  "result": {"win": true, "kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+  "verified_assets": {
+    "zero_leak": true,
+    "operator_deaths": 0,
+    "deployment_errors": 0,
+    "roadblock_2_destroyed": {"frame": 6839, "attacker": "char_283_midn"},
+    "civilian_11": {"safe_arrival_frame": 7162, "damage_events": 0},
+    "protected_target_arrivals": [
+      {"civilian": "enemy_3001_upeopl#11", "frame": 7162},
+      {"civilian": "enemy_3001_upeopl#0", "frame": 9219},
+      {"civilian": "enemy_3001_upeopl#3", "frame": 9219}
+    ]
+  },
+  "remaining_failure": {
+    "civilian": "enemy_3001_upeopl#6",
+    "roadblock_2_first_block_frame": 1730,
+    "roadblock_2_last_block_frame": 5293,
+    "first_attack_frame": 2954,
+    "attack_count": 13,
+    "death_frame": 5294,
+    "attacker": "enemy_1107_uoffcr#39",
+    "causal_window": "#6 remained roadblock-held from 1730 through 5293. Roadblock #2 was destroyed at 6839, after the 13th officer attack killed #6 at 5294. The plan nevertheless completed zero leaks and WIN."
+  },
+  "model_freedom": "GPT may change protection or clearance timing in any structural way. Do not harden frame 5294 as a universal deadline; recompute risk under changed conditions. Python will not select tactics.",
+  "next_acceptance": ["simulator WIN retained", "zero leaks", "zero protected-target deaths", "all four civilians safely arrived", "roadblock destroyed", "initial life preserved"]
+}

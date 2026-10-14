@@ -50,7 +50,7 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, SAVED_INPUT_DIR
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -91,6 +91,10 @@ def compact_runtime_event(event: dict[str, Any]) -> dict[str, Any]:
 
 def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
     summary = load(path)
+    final_status_path = path.with_name("final_status.json")
+    source_plan_id = summary.get("plan_id")
+    if not source_plan_id and final_status_path.is_file():
+        source_plan_id = load(final_status_path).get("plan_id")
     result = summary.get("result") or {}
     route_summaries = summary.get("event_summaries", {}).get("route_summaries") or {}
     leaking_routes = []
@@ -110,6 +114,7 @@ def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
         else:
             clean_route_count += 1
     return {
+        "source_plan_id": source_plan_id or "UNKNOWN_SOURCE_PLAN",
         "classification": summary.get("classification"),
         "mechanics_version": summary.get("mechanics_version"),
         "corrected_mechanism_support": summary.get("corrected_mechanism_support"),
@@ -138,6 +143,69 @@ def compact_diagnostic_feedback(path: Path) -> dict[str, Any]:
             compact_runtime_event(event)
             for event in summary.get("event_summaries", {}).get("deployment_errors") or []
         ],
+    }
+
+
+def build_static_feedback(revision_source: Path, static_summary_path: Path) -> dict[str, Any]:
+    structured = load(revision_source / "llm_structured_output.json")
+    plans = structured.get("revised_operational_plans") or []
+    candidate = plans[0] if len(plans) == 1 else {}
+    static = load(static_summary_path)
+    deployment_checks = (static.get("checks") or {}).get("deployment") or []
+    dp_ledger = static.get("dp_ledger") or {}
+    ledger_entries = dp_ledger.get("entries") or []
+    conflicts = []
+    for conflict in static.get("conflicts") or []:
+        action_index = next(
+            (
+                check.get("action_index")
+                for check in deployment_checks
+                if check.get("operator_id") == conflict.get("operator_id")
+                and check.get("frame") == conflict.get("frame")
+            ),
+            None,
+        )
+        conflict_frame = conflict.get("frame")
+        previous_economic_events = [
+            {
+                "event": row.get("event"),
+                "frame": row.get("frame"),
+                "operator_id": row.get("operator_id"),
+                "delta": row.get("delta"),
+                "balance_before": row.get("balance_before"),
+                "balance_after": row.get("balance_after"),
+                "status": row.get("status"),
+                "source": row.get("source"),
+            }
+            for row in ledger_entries
+            if row.get("frame") is not None
+            and conflict_frame is not None
+            and row["frame"] < conflict_frame
+            and row.get("event") in {
+                "NATURAL_DP", "AUTO_SKILL_DP_INCOME", "SKILL_DP_INCOME",
+                "DEPLOY_COST", "DEPLOY_COST_REJECTED",
+            }
+        ]
+        conflicts.append({
+            "candidate_plan_id": candidate.get("operational_plan_id"),
+            "action_index": action_index,
+            "conflict": conflict.get("conflict"),
+            "frame": conflict_frame,
+            "operator_id": conflict.get("operator_id"),
+            "required_value": conflict.get("cost"),
+            "available_value": conflict.get("balance_before"),
+            "previous_economic_events": previous_economic_events,
+            "conditional_income_sources": (dp_ledger.get("automatic_skill_income_model") or {}).get(
+                "conditions"
+            ) or [],
+            "battle_result_status": "NO_SIMULATION",
+        })
+    return {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_STATIC_CONFLICT_FEEDBACK",
+        "source": str(static_summary_path),
+        "source_plan_id": candidate.get("operational_plan_id"),
+        "simulation_status": "NO_SIMULATION",
+        "conflicts": conflicts,
     }
 
 
@@ -203,13 +271,16 @@ def prepare() -> dict[str, Any]:
                 raise RuntimeError("revision source belongs to a different stage")
             evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
             evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
-            if STATIC_CONFLICT_SUMMARY:
-                evidence["prior_static_feedback"] = {
-                    "source": STATIC_CONFLICT_SUMMARY,
-                    "result": load(ROOT / STATIC_CONFLICT_SUMMARY),
-                }
             if TACTICAL_FEEDBACK:
                 evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)
+            if STATIC_CONFLICT_SUMMARY:
+                evidence["prior_static_feedback"] = build_static_feedback(
+                    revision_source, ROOT / STATIC_CONFLICT_SUMMARY
+                )
+                if evidence.get("prior_tactical_feedback"):
+                    evidence["prior_static_feedback"]["battle_feedback_source_plan_id"] = (
+                        evidence["prior_tactical_feedback"].get("source_plan_id")
+                    )
             evidence["roadblock_clearance_evidence"] = revision_evidence.get("roadblock_clearance_evidence")
             prior_plan_tiles = revision_evidence.get("stage_active_facts", {}).get(
                 "roadblock_plan_tiles_row_col"
@@ -303,7 +374,7 @@ Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity`
 {clearance_instruction}
 
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
-{"IMPORTANT: prior_static_feedback is from the immediately preceding candidate, while prior_diagnostic_feedback may be from the earlier simulated baseline. Resolve every prior static conflict exactly without letting Python alter tactical actions." if "prior_static_feedback" in evidence else ""}
+{"IMPORTANT: prior_static_feedback is from the immediately preceding candidate and has battle_result_status=NO_SIMULATION. prior_diagnostic_feedback and prior_tactical_feedback come from their separately recorded source_plan_id values, not from the unexecuted static candidate. Resolve every prior static conflict exactly without letting Python alter tactical actions." if "prior_static_feedback" in evidence else ""}
 {"IMPORTANT: prior_tactical_feedback is the verified causal history. Treat failed conditional economic dependencies as survival/handoff failures, not arithmetic bugs. Preserve demonstrated improvements only when the structure that produced them remains supported; redesign the opening survival, interception, protection, and clearance responsibilities yourself." if "prior_tactical_feedback" in evidence else ""}
 
 Use read-only helper functions when needed to verify ranges, timing or mechanics. Do not attack or block neutral civilians with ordinary operators; remember enemy officers may attack civilians and civilian death costs objective life. Do not invent device navigation, target ordering, refunds, client timing or unsupported effects. Distinguish GameData facts, current-model rules and UNKNOWN. Do not repeat evidence prose. The compact evidence JSON follows:

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import tempfile
+from pathlib import Path
 
 import run_gpt_tactical_stage_session_v1 as runner
 
@@ -78,10 +80,12 @@ def test_compact_diagnostic_feedback_excludes_full_event_timeline(tmp_path) -> N
         },
         "first_failure": {"first_leak": {"frame": 3}},
     }))
+    (tmp_path / "final_status.json").write_text(json.dumps({"plan_id": "R8_2_GPT_V10"}))
     feedback = runner.compact_diagnostic_feedback(summary_path)
     encoded = json.dumps(feedback)
 
     assert feedback["result_metrics"]["enemies_leaked"] == 10
+    assert feedback["source_plan_id"] == "R8_2_GPT_V10"
     assert feedback["leaking_route_summaries"][0]["block_count"] == 1
     assert feedback["leaking_route_summaries"][0]["kill_count"] == 1
     assert feedback["clean_route_count"] == 1
@@ -106,3 +110,62 @@ def test_prompt_injects_structural_tactical_feedback_without_changing_plan_ident
         assert '"operational_plan_id": "R8_2_GPT_V9"' in prompt
     finally:
         runner.PLAN_ID, runner.PLAN_LABEL = original
+
+
+def test_static_conflict_feedback_is_structured_and_not_battle_result(tmp_path: Path) -> None:
+    revision_source = tmp_path / "candidate"
+    revision_source.mkdir()
+    (revision_source / "llm_structured_output.json").write_text(json.dumps({
+        "revised_operational_plans": [{"operational_plan_id": "R8_2_GPT_V13"}]
+    }))
+    static_path = tmp_path / "static_compile_results.json"
+    static_path.write_text(json.dumps({
+        "conflicts": [{
+            "conflict": "INSUFFICIENT_DP", "frame": 2823,
+            "operator_id": "char_283_midn", "cost": 16, "balance_before": 15.1,
+        }],
+        "checks": {"deployment": [{"action_index": 4, "frame": 2823, "operator_id": "char_283_midn"}]},
+        "dp_ledger": {
+            "entries": [{"event": "NATURAL_DP", "frame": 1500, "delta": 1.0}],
+            "automatic_skill_income_model": {"conditions": ["operator survives"]},
+        },
+    }))
+    feedback = runner.build_static_feedback(revision_source, static_path)
+
+    assert feedback["source_plan_id"] == "R8_2_GPT_V13"
+    assert feedback["simulation_status"] == "NO_SIMULATION"
+    conflict = feedback["conflicts"][0]
+    assert conflict["candidate_plan_id"] == "R8_2_GPT_V13"
+    assert conflict["action_index"] == 4
+    assert conflict["required_value"] == 16
+    assert conflict["available_value"] == 15.1
+    assert conflict["previous_economic_events"][0]["frame"] == 1500
+    assert conflict["battle_result_status"] == "NO_SIMULATION"
+
+
+def test_prompt_keeps_static_and_battle_feedback_sources_distinct() -> None:
+    prompt = runner.build_prompt({
+        "stage_active_facts": {"roadblock_plan_tiles_row_col": [[2, 5], [4, 7]]},
+        "prior_diagnostic_feedback": {"source_plan_id": "R8_2_GPT_V10", "result_metrics": {}},
+        "prior_tactical_feedback": {
+            "source_plan_id": "R8_2_GPT_V10",
+            "causal_interpretation": "late blocker death shifted route pressure",
+        },
+        "prior_static_feedback": {
+            "source_plan_id": "R8_2_GPT_V12",
+            "battle_feedback_source_plan_id": "R8_2_GPT_V10",
+            "simulation_status": "NO_SIMULATION",
+            "conflicts": [{
+                "candidate_plan_id": "R8_2_GPT_V12", "action_index": 4,
+                "frame": 2823, "operator_id": "char_283_midn",
+                "required_value": 16, "available_value": 15.1,
+            }],
+        },
+    })
+    assert '"candidate_plan_id":"R8_2_GPT_V12"' in prompt
+    assert '"required_value":16' in prompt
+    assert '"available_value":15.1' in prompt
+    assert '"source_plan_id":"R8_2_GPT_V10"' in prompt
+    assert '"battle_feedback_source_plan_id":"R8_2_GPT_V10"' in prompt
+    assert '"battle_result_status":"NO_SIMULATION"' not in prompt
+    assert "NO_SIMULATION" in prompt

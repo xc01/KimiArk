@@ -387,3 +387,13 @@ that repairing one conditional deployment can move the deficit to the next
 deploy. Treat protection, clearance, route throughput, and conditional economy as
 one plan; do not call any unresolved dependency a DP formula bug.
 
+## 2026-10-14 V14/V15 bracket the protection-clearance coupling
+
+V14 reached zero leaks, zero operator deaths, and roadblock clearing, but #6
+still died at frame 5294. V15 cleared the roadblock earlier and retained a
+zero-leak WIN, yet #6 died earlier at frame 4994 and #11 took two attacks. These
+bracketing results prove that moving destruction earlier is insufficient; the
+release path and officer pressure must be protected together. V9/V10 and
+V14/V15 are plan-specific current-model observations, not general disproof of
+interception. V11–V13 have no battle result.
+

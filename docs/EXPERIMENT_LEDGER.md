@@ -513,3 +513,19 @@ deaths, life 2. Roadblock #2 was damaged 15 times and destroyed at frame 6633;
 civilian #11 safely arrived at frame 6956. This is a simulator WIN, not perfect
 completion, because civilian #6 died at frame 4604. A V6 revision attempt failed
 at `workspace routing discovery timed out` without producing a plan.
+
+## 2026-10-14 Feedback repair, V14/V15 WINs, and V16 hang
+
+A global-assignment bug prevented `--tactical-feedback` and
+`--static-conflict-summary` from reaching V11–V13. The runner now embeds static
+conflicts with candidate ID, action index, required/available DP, prior economic
+events, conditional-income conditions and `NO_SIMULATION`; diagnostic feedback
+also records its source plan ID. V14 (CLI start 30, input 401,313 / cached
+301,568 / output 13,629 / reasoning 6,758) passed all static checks and simulated
+WIN with 36 kills / 0 leaks / 0 deaths / life 2; roadblock #2 was destroyed at
+frame 6839 and #11 arrived at 7162, but #6 died at 5294. V15 (CLI start 31,
+input 322,821 / cached 274,176 / output 8,926 / reasoning 3,115) also simulated
+WIN with the same 36/0/0/life 2 metrics; it cleared roadblock #2 at 5911 but #6
+died at 4994 and #11 took two attacks. V16 was CLI start 32, left no final
+message, and was manually stopped after about 26 minutes without new session
+output. Internal requests remain `UNKNOWN_CLI_INTERNAL`.
