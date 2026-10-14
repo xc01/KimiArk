@@ -1,0 +1,23 @@
+{
+  "schema_version": "DEATH_UNBLOCK_TEST_COMPARISON_V1",
+  "date": "2026-10-14",
+  "python": "/home/bigdata/Desktop/cybergym-main/.venv/bin/python",
+  "command": "PYTHONPATH=src:scripts:/usr/lib/python3/dist-packages pytest -q --tb=no -p no:cacheprovider",
+  "parent": {
+    "head": "5e8bfb8d25ade91b643320afa67e2f5f3408ea2a",
+    "source": "git show HEAD:src/arknights_planner/simulator/simulator.py",
+    "failures": 32,
+    "notable_new_failures": [
+      "tests/simulator/test_unblock_on_death.py::test_direct_death_releases_slot_and_next_enemy_is_blocked",
+      "tests/simulator/test_unblock_on_death.py::test_projectile_death_releases_slot_and_next_enemy_is_blocked",
+      "tests/simulator/test_unblock_on_death.py::test_multi_block_releases_only_the_dead_enemy"
+    ]
+  },
+  "fixed": {
+    "failures": 31,
+    "new_failures": 0,
+    "resolved_failures": 1,
+    "classification": "The prior test_blocking_and_unblocking_follow_enemy_death synthetic regression is the resolved old test; the three new tests are retained as direct, projectile, and multi-block coverage."
+  },
+  "interpretation": "The remaining 31 failures are pre-existing in the same parent/environment run and were not changed by this fix."
+}

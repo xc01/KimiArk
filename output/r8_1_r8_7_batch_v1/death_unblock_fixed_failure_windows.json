@@ -1,0 +1,55 @@
+{
+  "schema_version": "DEATH_UNBLOCK_REVALIDATION_FAILURE_WINDOWS_V1",
+  "mechanics_version": "m19.1-death-unblock-v1",
+  "generated_at": "2026-10-14",
+  "runs": [
+    {
+      "plan": "R8_2_GPT_V1",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+      "blocking_failure": {
+        "enemy": "enemy_3001_upeopl#11",
+        "device": "trap_020_roadblock#2",
+        "first_roadblock_contact_frame": 17971,
+        "last_roadblock_block_frame": 18000,
+        "consequence": "No leak or life loss, but the active neutral remains on the board and Simulator cannot WIN."
+      }
+    },
+    {
+      "plan": "R8_2_GPT_V3",
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+      "blocking_failure": {
+        "enemy": "enemy_3001_upeopl#11",
+        "device": "trap_020_roadblock#2",
+        "first_roadblock_contact_frame": 17971,
+        "last_roadblock_block_frame": 18000,
+        "consequence": "No leak or life loss, but the active neutral remains on the board and Simulator cannot WIN."
+      }
+    },
+    {
+      "plan": "R8_4_GPT_V2",
+      "result": {"kills": 50, "leaks": 4, "operator_deaths": 1, "remaining_life": -1},
+      "key_events": [
+        {"frame": 3269, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#27"},
+        {"frame": 4919, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#50"},
+        {"frame": 5010, "event": "ENEMY_LEAK", "enemy": "enemy_1109_uabone#40"},
+        {"frame": 5166, "event": "OPERATOR_DEATH", "operator": "char_124_kroos"},
+        {"frame": 5460, "event": "ENEMY_LEAK", "enemy": "enemy_1109_uabone#56"}
+      ],
+      "first_objective_failure": {"frame": 5010, "reason": "ENEMY_LEAK"}
+    },
+    {
+      "plan": "R8_7_GPT_V2",
+      "result": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1},
+      "key_events": [
+        {"frame": 1166, "event": "OPERATOR_DEATH", "operator": "char_4188_confes"},
+        {"frame": 1289, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#4"},
+        {"frame": 1395, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#5"},
+        {"frame": 1532, "event": "ENEMY_LEAK", "enemy": "enemy_1107_uoffcr#8"},
+        {"frame": 3180, "event": "OPERATOR_DEATH", "operator": "char_210_stward"},
+        {"frame": 4019, "event": "ENEMY_LEAK", "enemy": "enemy_1112_emppnt#0"}
+      ],
+      "first_objective_failure": {"frame": 1532, "reason": "ENEMY_LEAK"}
+    }
+  ],
+  "note": "These are compact locators, not replacements for the compressed full event and summary files."
+}

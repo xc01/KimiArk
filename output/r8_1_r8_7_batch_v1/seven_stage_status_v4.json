@@ -1,0 +1,100 @@
+{
+  "schema_version": "R8_1_R8_7_STATUS_TABLE_V4",
+  "generated_at": "2026-10-14",
+  "death_unblock_fix": {
+    "mechanics_version": "m19.1-death-unblock-v1",
+    "parent_head": "5e8bfb8d25ade91b643320afa67e2f5f3408ea2a",
+    "parent_test_failures": 32,
+    "fixed_test_failures": 31,
+    "new_test_failures": 0,
+    "resolved_failures": 1,
+    "historical_scope": "The six simulations in civilian_mechanics_corrected_v1 used code with the ghost-block defect and are retained as potentially polluted historical observations, not reliable corrected-model tactical feedback."
+  },
+  "optimization_status": "NOT_STARTED_UNTIL_ALL_SEVEN_CONFIRMED_WIN",
+  "win_meaning": "SIMULATOR_WIN_IS_NOT_REAL_GAME_WIN",
+  "stages": [
+    {
+      "stage_id": "main_08-01",
+      "status": "ROADBLOCK_TARGETING_ROBUST_SIMULATOR_WIN",
+      "current_best_plan": "C7",
+      "operators": 8,
+      "rarity_sum": 22,
+      "result": {"kills": 56, "leaks": 0, "operator_deaths": 0, "remaining_life": 5},
+      "evidence": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_death_unblock_fixed_v1/",
+      "targeting_revalidation": "PASS_A_AND_PASS_B",
+      "real_game_status": "UNKNOWN"
+    },
+    {
+      "stage_id": "main_08-02",
+      "status": "ZERO_LEAK_ACTIVE_NEUTRAL_LOSS",
+      "current_best_plan": "R8_2_GPT_V1",
+      "operators": 9,
+      "rarity_sum": 27,
+      "result": {"kills": 36, "leaks": 0, "operator_deaths": 0, "remaining_life": 2},
+      "blocker": {
+        "enemy": "enemy_3001_upeopl#11",
+        "device": "trap_020_roadblock#2",
+        "first_roadblock_contact_frame": 17971,
+        "still_blocked_at_final_frame": 18000,
+        "reason": "The plan leaves an active neutral civilian stopped at an undestroyed roadblock; the no-active-enemies condition is not met."
+      },
+      "revalidated_plans": [
+        {"plan": "R8_2_GPT_V1", "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V1/"},
+        {"plan": "R8_2_GPT_V3", "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/R8_2_GPT_V3/"}
+      ],
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-02/",
+      "targeting_revalidation": "NOT_APPLICABLE",
+      "real_game_status": "UNKNOWN"
+    },
+    {
+      "stage_id": "main_08-03",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["APPEAR_AT_POS", "DISAPPEAR", "WAIT_CURRENT_FRAGMENT_TIME"],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-04",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "current_best_plan": "R8_4_GPT_V2",
+      "result": {"kills": 50, "leaks": 4, "operator_deaths": 1, "remaining_life": -1},
+      "first_leak": {"frame": 3269, "enemy": "enemy_1108_uterer#27"},
+      "first_objective_failure": {"frame": 5010, "reason": "ENEMY_LEAK"},
+      "operator_death": {"frame": 5166, "operator": "char_124_kroos"},
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-04/R8_4_GPT_V2/",
+      "real_game_status": "UNKNOWN"
+    },
+    {
+      "stage_id": "main_08-05",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["APPEAR_AT_POS", "DISAPPEAR"],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-06",
+      "status": "BLOCKED_MECHANISM_UNSUPPORTED",
+      "blockers": ["WAIT_CURRENT_WAVE_TIME"],
+      "evidence": "output/r8_1_r8_7_batch_v1/route_capability_matrix.json"
+    },
+    {
+      "stage_id": "main_08-07",
+      "status": "MECHANICS_CORRECTED_LOSS",
+      "current_best_plan": "R8_7_GPT_V2",
+      "operators": 13,
+      "rarity_sum": 33,
+      "result": {"kills": 29, "leaks": 4, "operator_deaths": 2, "remaining_life": -1},
+      "first_leak": {"frame": 1289, "enemy": "enemy_1108_uterer#4"},
+      "first_objective_failure": {"frame": 1532, "reason": "ENEMY_LEAK"},
+      "operator_deaths": [
+        {"frame": 1166, "operator": "char_4188_confes"},
+        {"frame": 3180, "operator": "char_210_stward"}
+      ],
+      "evidence": "output/r8_1_r8_7_batch_v1/death_unblock_fixed_revalidation_v1/main_08-07/R8_7_GPT_V2/",
+      "real_game_status": "UNKNOWN"
+    }
+  ],
+  "unknowns": [
+    "Exact client target priority between operators and neutral protected targets",
+    "Other protected-target families and exact continuous-frame client timing",
+    "Real-game verification for every stage"
+  ]
+}
