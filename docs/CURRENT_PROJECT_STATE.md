@@ -503,3 +503,27 @@ R8-2消耗三次CLI启动：V1两处路障冲突加ID错误；V2一处路障冲�
 R8-7消耗一次：路障与ID错误。九次新CLI启动全部计入本批次；0个有效计划、0次模拟。因此
 R8-2/R8-4/R8-7都按NO_RETRY停止，不能把失败输入当作战术计划。R8-2的乌萨斯平民
 `lifePointReduce=0`是GameData事实；客户端平民特殊胜负机制仍UNKNOWN。
+# 2026-10-14 Stage-local recovery and failure-driven revisions
+
+CONFIRMED_FROM_CODE_AND_EVIDENCE: stage-local recovery under
+`output/r8_1_r8_7_batch_v1/recovery_v2/` validated all six saved plans through
+schema/contract and parent-hypothesis checks. Five had 0 static conflicts; R8-2
+V2 alone had the frame-4440 Beagle SP conflict (39.9667 vs 40). The former claim
+that all six were invalid because GPT selected roadblocks is contradicted and
+must not be reused as tactical feedback.
+
+CONFIRMED_FROM_SIMULATION: five recovered candidates each ran once under
+`recovery_v2_diagnostics/`. R8-2 V1 was a partial-mechanics diagnostic WIN with
+36 kills/0 leaks/0 deaths/life 0. R8-2 V3, R8-4 V1, R8-4 V2, and R8-7 V1 were
+partial-mechanics diagnostic losses. Civilian targetability/blocking remain
+UNKNOWN, so no R8-2 full-mechanism WIN claim is issued.
+
+CONFIRMED_FROM_RUNTIME: four additional failure-driven Codex CLI sessions
+generated and locally validated R8-4-R1/R2 and R8-7-R1/R2. Each had 0 static
+conflicts and each was simulated once. R8-4-R1 was 43 kills/11 leaks/1 death;
+R8-4-R2 degraded to 36/18/5. R8-7-R1 was 17 kills/16 leaks/7 deaths; R8-7-R2
+degraded to 1/32/6. There is no WIN and no tactical-optimization result. CLI
+process starts advanced from 9 to 13; internal model requests remain
+UNKNOWN_CLI_INTERNAL. Evidence is under the respective `revision_cli_v2/v3`
+and `revision_diagnostic_v2/v3` directories.
+

@@ -404,3 +404,22 @@ starts: R8-2 V1/V2/V3 = 3, R8-4 V1/V2 = 2, R8-7 V1 = 1. Combined with the prior 
 stage report now totals nine CLI starts. All six continuation plans failed schema/contract validation
 before static compile and simulation: 0 valid plans and 0 simulations. Evidence is under
 `output/r8_1_r8_7_batch_v1/`.
+# 2026-10-14 Recovery loop and four bounded GPT revisions
+
+- Feedback compression fix commit: `7288339...`; targeted tests 2/2 PASS. The
+  compact summaries excluded full result event timelines; R8-4 feedback was
+  about 2.6 KB and R8-7 feedback about 6.4 KB.
+- CLI starts: R8-4-R1 (cumulative 10), R8-7-R1 (11), R8-4-R2 (12),
+  R8-7-R2 (13). Internal model requests: UNKNOWN_CLI_INTERNAL. No automatic
+  retry, resume, model change, or endpoint change.
+- R8-4-R1: input tokens 344,055 (cached 288,896), output 11,150
+  (reasoning 5,985). R8-7-R1: input 548,992 (cached 486,656), output 15,432
+  (reasoning 9,132). R8-4-R2: input 328,971 (cached 279,040), output 7,776
+  (reasoning 3,176). R8-7-R2: input 350,005 (cached 296,320), output 18,086
+  (reasoning 11,999).
+- Simulations: four new original-action diagnostics, one per candidate. Results
+  are `PARTIAL_MECHANICS_DIAGNOSTIC_LOSS`: R8-4-R1 43/11/1/life -9; R8-4-R2
+  36/18/5/life -16; R8-7-R1 17/16/7/life -14; R8-7-R2 1/32/6/life -29.
+  These are ordered kills/leaks/deaths. No full-mechanism WIN, robust WIN, or
+  real-game claim is issued.
+

@@ -309,3 +309,20 @@ GPT能读取事实，但三次R8-2计划在显式路障数组后仍选择`[row,c
 解释`[col,row]`到`[row,col]`的反转，仍不改。R8-4 V2同样选择路障。这不是坐标格式解析缺陷的唯一
 假设；更像模型把roadblock tile当作可部署/支援位。Python不得替它挪格或删干员。必须把这类计划拒在
 静态前，并保留invalid plan、prompt版本与usage。
+## 2026-10-14 Cross-stage rejection correction
+
+The previous memory claiming six saved plans failed because GPT ignored
+roadblock discipline was contradicted by the stage-local recovery run. All six
+plans passed schema/contract and parent-hypothesis checks, and five passed
+static checks. Do not feed that invalid lesson into future tactical prompts.
+The remaining deterministic static failure is R8-2 V2 Beagle SP 39.9667/40 at
+frame 4440.
+
+## 2026-10-14 Repeated loss revisions can degrade
+
+Failure summaries alone did not lead to stable structural improvement. R8-4
+degraded from 44 kills/10 leaks/2 deaths in the recovered V2 to 43/11/1 in R1
+and 36/18/5 in R2. R8-7 degraded from 6 kills/27 leaks/5 deaths in the recovered
+V1 to 17/16/7 in R1 and 1/32/6 in R2. Stop the loop and reanalyze the tactical
+bottleneck instead of issuing another same-shape revision request.
+

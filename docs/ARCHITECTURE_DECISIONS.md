@@ -244,3 +244,9 @@ aggressive roadblock或AOE目标。双变体均WIN才可标roadblock-targeting r
 `run_gpt_tactical_stage_diagnostic_v1.py`。事实提取保留34名普通低星和17名三星，显式区分
 `[row,col]`计划坐标与`[col,row]`运行时/装置坐标；编译与模拟仍读取同一本地输出目录。R8-3/R8-5
 的route lifecycle与R8-6的wave wait保持BLOCKED，不伪装完整模拟。
+
+## 2026-10-14 阶段本地恢复与紧凑反馈
+
+修订反馈只保留整体胜负/击杀/漏怪/死亡/生命/DP、每条漏怪路线与漏怪事件、干员死亡、部署错误和
+机制UNKNOWN，不携带完整`result.events`。R8-4反馈约2.6KB、R8-7约6.4KB；提示仍分别为
+121,828和129,405字节，低于140,000字节门禁。恢复和修订使用阶段本地路障事实，不污染其他关卡。
