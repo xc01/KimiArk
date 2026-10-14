@@ -291,3 +291,10 @@ ordinary device only after the local enemy function returns no candidate, and
 range/faction/eligibility rules remain intact. Exact client ordering among
 multiple devices and the full 2026 selector implementation remain UNKNOWN.
 Historical global-gate simulations stay historical-only.
+## 2026-10-15 R8-4 result boundary
+
+R8-4 V4's perfect result is limited to the current deterministic model. It uses
+the m19.1 local-device targeting rule and the existing simulator WIN predicate;
+it does not establish exact client aggro, roadblock navigation, or real-game
+behavior. Robustness requires separately authorized variant replay, and
+optimization remains blocked until all runnable stages have current-model WINs.

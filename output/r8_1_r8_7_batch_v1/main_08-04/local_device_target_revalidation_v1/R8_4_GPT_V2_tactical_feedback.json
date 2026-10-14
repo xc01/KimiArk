@@ -1,0 +1,26 @@
+{
+  "schema_version": "R8_4_GPT_V2_M19_1_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_4_GPT_V2",
+  "battle_result_status": "SIMULATED_LOSS",
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "result": {"win": false, "kills": 48, "leaks": 6, "operator_deaths": 1, "remaining_life": -3},
+  "mechanism_update": {
+    "supported": "An operator may target an ordinary roadblock in range when it has no optional local enemy candidate; a non-neutral enemy elsewhere is not a global disable switch.",
+    "unknown": ["exact client ordering among multiple devices", "full 2026 selector/aggro details", "real-game results"],
+    "history": "R8-4 V2's 50/4/1 result was m19.0; do not reuse it as an m19.1 causal failure."
+  },
+  "verified_causal_facts": {
+    "first_leak": {"frame": 3269, "enemy": "enemy_1108_uterer#27", "route": "route-12", "block_events": 0, "kroos_damage": [{"frame": 3150, "amount": 425.0}, {"frame": 3150, "amount": 425.0}]},
+    "officer_leak_window": [{"frame": 3398, "enemy": "enemy_1107_uoffcr#23", "route": "route-12"}, {"frame": 3428, "enemy": "enemy_1107_uoffcr#25", "route": "route-13"}],
+    "late_leaks": [{"frame": 5010, "enemy": "enemy_1109_uabone#40", "route": "route-18"}, {"frame": 5138, "enemy": "enemy_1107_uoffcr#49", "route": "route-22"}, {"frame": 5168, "enemy": "enemy_1107_uoffcr#51", "route": "route-23"}, {"frame": 5460, "enemy": "enemy_1109_uabone#56", "route": "route-21"}],
+    "only_operator_death": {"frame": 5166, "operator": "char_124_kroos", "killing_blow": {"frame": 5166, "attacker": "enemy_1109_uabone#55", "amount": 224.0}, "recent_enemy_damage_to_kroos": [{"frame": 4959, "attacker": "enemy_1109_uabone#55"}, {"frame": 5028, "attacker": "enemy_1109_uabone#55"}, {"frame": 5097, "attacker": "enemy_1109_uabone#55"}], "no_heals_or_blocks_in_death_window": true},
+    "roadblock_2": {"first_damage_frame": 390, "destroyed_frame": 6702, "destroyer": "char_283_midn"},
+    "deployment_errors": 0,
+    "protected_target_events": {"reached": 0, "deaths": 0, "note": "R8-4 has no protected-target arrivals in this simulation; there are no Ursus civilians to rescue in R8-2 terms."}
+  },
+  "revision_requirements": {
+    "objective": "Full WIN first: positive life, zero leaks, exhausted spawns, no active enemies.",
+    "decision_authority": "GPT decides all opening structure, simultaneous blocking, early route throughput, late route cleanup, healing/retreat timing, device clearance, and economic dependencies.",
+    "python_boundary": "Python will only validate and simulate the fixed actions; it will not choose replacements or move actions."
+  }
+}

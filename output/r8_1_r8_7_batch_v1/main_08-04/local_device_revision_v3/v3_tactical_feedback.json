@@ -1,0 +1,41 @@
+{
+  "schema_version": "R8_4_GPT_V3_M19_1_TACTICAL_FEEDBACK_V1",
+  "battle_result_status": "SIMULATED_LOSS",
+  "source_plan_id": "R8_4_GPT_V3",
+  "comparison": {
+    "R8_4_GPT_V2": {"kills": 48, "leaks": 6, "operator_deaths": 1, "remaining_life": -3},
+    "R8_4_GPT_V3": {"kills": 47, "leaks": 7, "operator_deaths": 3, "remaining_life": -4},
+    "conclusion": "V3's restructured routes regressed survival and throughput; retain successful responsibilities only when their structure remains supported, do not preserve actions by habit."
+  },
+  "mechanics_version": "m19.1-local-device-target-v1",
+  "result": {"win": false, "kills": 47, "leaks": 7, "operator_deaths": 3, "remaining_life": -4},
+  "critical_causal_chain": {
+    "first_leak": {"frame": 3599, "enemy": "enemy_1108_uterer#31", "route": "route-15", "observed_damage": [{"frame": 3565, "source": "char_124_kroos", "amount": 275.0}], "block_events": 0},
+    "operator_deaths": [
+      {"frame": 3876, "operator": "char_210_stward", "killing_blow": "enemy_1109_uabone#34", "recent_damage": "five 260-hit attacks from frame 3600 through 3876", "heals_or_blocks_for_steward": 0},
+      {"frame": 5304, "operator": "char_212_ansel", "killing_blow": "enemy_1109_uabone#54 and #56", "recent_damage": "repeated 241-hit attacks", "heals": "some self/allied heals occurred but were insufficient"},
+      {"frame": 5560, "operator": "char_500_noirc", "killing_blow": "enemy_1108_uterer#48 and #50", "recent_damage": "sustained mixed melee pressure", "heals": "two Ansel heals before death, insufficient"}
+    ],
+    "leaks": [{"frame": 3599, "enemy": "enemy_1108_uterer#31", "route": "route-15"}, {"frame": 5069, "enemy": "enemy_1108_uterer#53", "route": "route-27"}, {"frame": 5138, "enemy": "enemy_1107_uoffcr#49", "route": "route-22"}, {"frame": 5430, "enemy": "enemy_1109_uabone#54", "route": "route-19"}, {"frame": 5460, "enemy": "enemy_1109_uabone#56", "route": "route-21"}, {"frame": 5613, "enemy": "enemy_1108_uterer#48", "route": "route-27"}, {"frame": 5613, "enemy": "enemy_1108_uterer#50", "route": "route-26"}],
+    "civilian_blockage": {
+      "confirmed": true,
+      "protected_targets": ["enemy_3001_upeopl#0", "enemy_3001_upeopl#18", "enemy_3001_upeopl#36"],
+      "first_block": 459,
+      "blocking_device": "trap_020_roadblock#1",
+      "at_frame_18000": "still blocked",
+      "civilian_damage_events": 0,
+      "civilian_deaths": 0,
+      "arrivals": 0,
+      "roadblock_1_destroyed": false,
+      "roadblock_2_destroyed": {"frame": 5946, "source": "char_283_midn"}
+    },
+    "deployment_errors": 0
+  },
+  "acceptance": {
+    "full_win": "positive life, zero enemy leaks, exhausted spawns, no active enemies (including civilians), and no protected-target deaths",
+    "perfect_goal": "all protected targets safely arrive and initial life is retained",
+    "prohibition": "do not force civilians through, ignore active units, extend the 600-second cap, or assume unsupported mechanics"
+  },
+  "decision_authority": "GPT decides every structural, placement, direction, timing, skill, retreat, clearance and economic change. Python only validates and simulates.",
+  "unknown_boundaries": ["exact client multi-device ordering", "full 2026 selector/aggro details", "real-game result"]
+}

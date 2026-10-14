@@ -1,0 +1,225 @@
+{
+  "revised_stage_understanding": {
+    "stage_id": "main_08-04",
+    "GameData": "Serpentine officers and runners, northern reinforcements, western ranged approaches and three civilian routes require complete interception and evacuation.",
+    "current_model": "Ordinary operators neither attack nor block neutral civilians. Officers can attack nearby civilians. Covered roadblocks receive ordinary attacks only when the operator has no enemy target. Civilian death deducts objective life.",
+    "UNKNOWN": ["Exact client target priority and timing", "Active-device effects on ordinary WALK navigation", "Revised survival, throughput and clearance completion"]
+  },
+  "revised_tactical_requirements": {
+    "objective": "remaining_life > 0, zero leaks, exhausted spawns, no active enemies including civilians, and no protected-target deaths",
+    "operator_policy": "Only supplied normal_low_star_catalog entries with identity.rarity 1-3 and qualification.normal_mode true; supplied configurations; no mode-specific reserves.",
+    "catalog_three_star_count_verified": 17,
+    "deployment_limit": 8,
+    "prohibited_plan_tiles_row_col": [[2, 8], [6, 4]],
+    "termination": "Continue containment, healing, device clearance and civilian evacuation until WIN within the existing 600-second cap."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_4_DAMAGE_FIRST_INTERCEPTION_PROTECTED_CLEARANCE",
+      "thesis": "Concentrated upstream damage can prevent queue growth despite fewer central blocking slots. Beagle strengthens the western hold, and medic-covered Steward can survive to finish eastern enemies and the civilian-blocking roadblock."
+    }
+  ],
+  "explicit_assumptions": [
+    "No stage simulation, file mutation or other AI provider invocation was performed.",
+    "Read-only helper checks confirmed declared range coverage, 17 ordinary three-star catalog entries and recurring skill intervals.",
+    "Frames are current-model tactical choices, not exact client deadlines.",
+    "Four Fang payments are conditional on uninterrupted survival and time-SP recovery; their failure is an opening or protection failure.",
+    "Unsupported talents, simultaneous multi-target damage, Midnight arts conversion, refunds and targeting guarantees receive no credit."
+  ],
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_4_GPT_V4",
+      "parent_hypothesis_id": "R8_4_DAMAGE_FIRST_INTERCEPTION_PROTECTED_CLEARANCE",
+      "tactical_thesis": "Replace the central low-damage Beagle with Melantha at 37s, keep Fang behind her, and establish Midnight at 47s. Use Beagle for western containment. Move Steward to [3,6] RIGHT inside Hibiscus coverage. Replace Fang with Popukar at 108s under Melantha's attack boost, then retain the complete formation through enemy clearance and civilian evacuation.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_124_kroos",
+        "char_120_hibisc",
+        "char_208_melan",
+        "char_283_midn",
+        "char_122_beagle",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_281_popka"
+      ],
+      "changed_conflicting_assumptions": [
+        {
+          "change": "Melantha replaces the upstream central defender; Beagle replaces Noir Corne in the western hold.",
+          "hypothesis": "Reducing central service time is more valuable than retaining three low-damage upstream blocking slots. Western Beagle's 490 base DEF reduces ordinary damage from every supplied enemy attack.",
+          "limit": "Central capacity falls to five slots; stronger clearance must compensate."
+        },
+        {
+          "change": "Steward moves from [4,8] DOWN to [3,6] RIGHT.",
+          "hypothesis": "Verified Hibiscus healing addresses the demonstrated unhealed death while retaining eastern roadblock and important ranged-spawn coverage.",
+          "limit": "The revised range does not cover the route-18 spawn at [4,9]; its western movement remains Beagle's responsibility."
+        },
+        {
+          "change": "Fang-to-Popukar handoff advances to 108s and occurs during Melantha's 104-124s boost.",
+          "hypothesis": "Clear the middle-wave queue before runners reach saturated containment; the old 113s handoff structure did not establish sufficient throughput.",
+          "limit": "The earlier replacement requires Fang's fourth conditional payment at 94s."
+        },
+        {
+          "change": "Ansel boosts at 163s and Beagle at 177s.",
+          "hypothesis": "Protect western containment during the final ranged waits and their subsequent arrival.",
+          "limit": "Ansel still shares healing demand with central blockers and can be attacked; survival remains unverified."
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id": "char_123_fang", "tile": [4, 3], "direction": "DOWN", "role": "Opening block2, upstream supporting attacks and conditional DP; retire at 108s."},
+        {"operator_id": "char_124_kroos", "tile": [3, 4], "direction": "LEFT", "role": "Shared fire on upstream central and western containment; Hibiscus heals her."},
+        {"operator_id": "char_120_hibisc", "tile": [4, 6], "direction": "LEFT", "role": "Heal central attackers, Kroos and revised eastern Steward."},
+        {"operator_id": "char_208_melan", "tile": [3, 3], "direction": "DOWN", "role": "High-damage first interception, block1 and northern approach attacks."},
+        {"operator_id": "char_283_midn", "tile": [5, 3], "direction": "RIGHT", "role": "Downstream block2, support [4,3] and clear western roadblock."},
+        {"operator_id": "char_122_beagle", "tile": [4, 1], "direction": "UP", "role": "Western block3 with Kroos damage and Ansel healing."},
+        {"operator_id": "char_212_ansel", "tile": [5, 2], "direction": "DOWN", "role": "Overlapping central healing, western Beagle healing and self-healing."},
+        {"operator_id": "char_210_stward", "tile": [3, 6], "direction": "RIGHT", "role": "Medic-covered eastern fire and eastern roadblock clearance."},
+        {"operator_id": "char_281_popka", "tile": [4, 3], "direction": "DOWN", "role": "Replace Fang with stronger block2 damage supporting Melantha."}
+      ],
+      "formation_structure": {
+        "central": "Melantha [3,3] -> Fang/Popukar [4,3] -> Midnight [5,3], supported by Kroos and two medics.",
+        "western": "Beagle [4,1] holds enemies for Kroos; Ansel heals Beagle and herself.",
+        "eastern": "Steward [3,6] RIGHT remains inside Hibiscus's normal healing range.",
+        "verified_normal_range_targets": {
+          "Hibiscus": [[3, 3], [4, 3], [5, 3], [3, 4], [3, 6]],
+          "Ansel": [[3, 3], [4, 3], [5, 3], [4, 1]],
+          "Kroos": [[3, 3], [4, 3], [4, 1]],
+          "Midnight": [[4, 3], [6, 4]],
+          "Steward": [[2, 8], [3, 7], [2, 7], [3, 9]]
+        },
+        "device_clearance": {
+          "eastern": "Steward covers only roadblock [2,8], beginning at 94s; preserve him until destruction and civilian release are observed.",
+          "western": "Midnight covers only roadblock [6,4], beginning at 47s; preserve him until destruction is observed.",
+          "constraint": "Enemy targets take precedence in the current model. Neither destruction deadlines nor navigation changes are assumed."
+        },
+        "economy": {
+          "status": "CONDITIONAL_CURRENT_MODEL_CALCULATION",
+          "initial_dp": 10,
+          "natural_dp_per_second": 1,
+          "credited_fang_payment_seconds": [19, 44, 69, 94],
+          "credited_payment_value": 6,
+          "deployment_seconds": [0, 11, 23, 37, 47, 65, 76, 94, 108.0333333333],
+          "conservative_dp_after_deployments": [0, 0, 1, 0, 0, 0, 0, 0, 1],
+          "conditions": "Fang survives through 94s; the 94s deployment is affordable without same-frame payment ordering. No later Fang income or retreat refund is credited."
+        }
+      },
+      "formation_transitions": [
+        {"window_seconds": [0, 37], "transition": "Fang establishes opening interception; Kroos at 11s supplies damage, and Hibiscus at 23s establishes protection."},
+        {"window_seconds": [37, 76], "transition": "Melantha takes first interception at 37s; Midnight supplies downstream capacity at 47s; Beagle establishes the west at 65s; Ansel overlaps healing at 76s."},
+        {"window_seconds": [94, 108.0333333333], "transition": "Add healed Steward. Boost Melantha at 104s, retire Fang at 108s, and deploy Popukar one frame later while Melantha and Midnight remain present."},
+        {"window_seconds": [108.0333333333, 600], "transition": "Retain eight operators; repeat ready skills, kill remaining enemies, destroy both devices and permit neutral evacuation until terminal WIN."}
+      ],
+      "corridor_responsibilities": [
+        {"routes": [1, 2, 3, 4, 5, 6, 12, 13, 15, 16, 22, 23, 26, 27], "owner": "Melantha, Fang/Popukar and Midnight clear the serpentine stream; Kroos supports upstream containment. Beagle intercepts anything reaching the western corridor."},
+        {"routes": [14, 20, 24, 25], "owner": "Melantha intercepts northern descent; Popukar and Midnight catch overflow, with shared ranged fire and overlapping healing."},
+        {"routes": [9, 10, 11, 18, 19], "owner": "Steward damages enemies inside his eastern range; Beagle and Kroos provide permanent western interception and clearance when eastern coverage ends."},
+        {"routes": [21], "owner": "Beagle and Kroos handle the western spawn; Ansel's 163s boost addresses attacks during the wait and approach."},
+        {"routes": [0, 7, 17], "owner": "Steward removes the eastern civilian-blocking device; Midnight removes the western device. Ordinary operators leave civilians untargeted and unblocked. Central interception limits officer proximity along their later passage."},
+        {"routes": [8], "owner": "No supplied spawn; no invented responsibility."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_seconds": [3, 37], "owner": "Fang survives opening contact long enough for Kroos clearance and Hibiscus healing; preserve the conditional economic chain."},
+        {"window_seconds": [42, 80], "owner": "Melantha and Midnight kill first-wave accumulation and intercept 58/64/70s runners; establish Beagle and overlapping healing before the dense middle wave."},
+        {"window_seconds": [80, 130], "owner": "Midnight's 88s and Melantha's 104s boosts accelerate central clearance. Hibiscus's 105s boost and Ansel's 102s boost protect the 108s handoff. Steward begins eastern attacks and device clearance at 94s."},
+        {"window_seconds": [130, 163], "owner": "Popukar's 149s attack boost and Hibiscus's 156s healing address final melee buildup; hold all interception positions."},
+        {"window_seconds": [163, 200], "owner": "Ansel's 163s healing, Melantha's 165s attack and Beagle's 177s defense address final ranged and melee overlap. Preserve Steward and both medics."},
+        {"window_seconds": [200, 600], "owner": "Continue clearance and recurring skills while active. Both roadblocks must be destroyed and every surviving civilian must arrive; last spawn and last hostile kill are insufficient termination conditions."}
+      ],
+      "skill_intents": [
+        {"operator_id": "char_123_fang", "intent": "Automatic DP; four credited activations require survival through 94s."},
+        {"operator_id": "char_124_kroos", "intent": "Automatic supported attack-SP two-hit pattern; no random talent benefit."},
+        {"operator_id": "char_210_stward", "intent": "Automatic supported scaled-hit pattern; no unsupported highest-defense targeting benefit."},
+        {"operator_id": "char_120_hibisc", "first_frame": 1620, "repeat_period_frames": 1530, "intent": "20s healing boost every 51s while stage remains active."},
+        {"operator_id": "char_208_melan", "first_frame": 3120, "repeat_period_frames": 1830, "intent": "20s attack boost every 61s; first activation covers handoff, second covers final convergence."},
+        {"operator_id": "char_283_midn", "first_frame": 2640, "repeat_period_frames": 3330, "intent": "40s supported attack boost every 111s; no arts-conversion credit."},
+        {"operator_id": "char_122_beagle", "first_frame": 3180, "repeat_period_frames": 2130, "intent": "30s defense boost every 71s; protect western accumulation."},
+        {"operator_id": "char_212_ansel", "first_frame": 3060, "repeat_period_frames": 1830, "intent": "25s healing boost every 61s; essential coverage uses normal range."},
+        {"operator_id": "char_281_popka", "first_frame": 4470, "repeat_period_frames": 1830, "intent": "20s attack boost every 61s; no simultaneous multi-target damage credit."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"invariant": "WIN requires remaining_life > 0, zero leaks, exhausted spawns and no active enemies including civilians; require all protected targets safely arrived and no protected-target deaths."},
+        {"invariant": "Only legal supplied ordinary-mode rarity 1-3 operators and supplied configurations."},
+        {"invariant": "Never deploy on [[2,8],[6,4]]; all deployment tiles use integer [row,col] and declared cardinal directions."},
+        {"invariant": "Never exceed eight simultaneous operators; retreat Fang before deploying Popukar."},
+        {"invariant": "Melantha and Midnight remain deployed throughout the handoff; no subsequent retreat is planned."},
+        {"invariant": "Do not attack or block civilians, force passage through devices, invent targeting commands, or credit unsupported effects and refunds."},
+        {"invariant": "Execute listed skills only while stage remains active; stop actions at WIN. Do not extend the existing 600-second cap."}
+      ],
+      "unknown_dependencies": [
+        {"topic": "Central throughput", "status": "UNKNOWN", "detail": "Higher single-target damage must compensate for reducing central blocking capacity from seven to five; verify every runner interception."},
+        {"topic": "Protection", "status": "UNKNOWN", "detail": "Hibiscus shares central, Kroos and Steward healing; Ansel shares central and western healing. Range inclusion does not prove sufficient healing or survival."},
+        {"topic": "Economy", "status": "UNKNOWN", "detail": "Fourth Fang payment and the 108s replacement depend on survival. A missed payment is a survival or protection failure."},
+        {"topic": "Clearance", "status": "UNKNOWN", "detail": "Steward and Midnight must receive enough attacks without competing enemy targets to destroy both roadblocks before the existing cap."},
+        {"topic": "Outcome", "status": "UNKNOWN", "detail": "This fixed tactical revision has not been simulated and is not a verified WIN."}
+      ],
+      "action_timeline": [
+        {"action_type": "DEPLOY", "frame": 0, "operator_id": "char_123_fang", "tile": [4, 3], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 330, "operator_id": "char_124_kroos", "tile": [3, 4], "direction": "LEFT"},
+        {"action_type": "DEPLOY", "frame": 690, "operator_id": "char_120_hibisc", "tile": [4, 6], "direction": "LEFT"},
+        {"action_type": "DEPLOY", "frame": 1110, "operator_id": "char_208_melan", "tile": [3, 3], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 1410, "operator_id": "char_283_midn", "tile": [5, 3], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 1620, "operator_id": "char_120_hibisc"},
+        {"action_type": "DEPLOY", "frame": 1950, "operator_id": "char_122_beagle", "tile": [4, 1], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 2280, "operator_id": "char_212_ansel", "tile": [5, 2], "direction": "DOWN"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2640, "operator_id": "char_283_midn"},
+        {"action_type": "DEPLOY", "frame": 2820, "operator_id": "char_210_stward", "tile": [3, 6], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3060, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3120, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3150, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3180, "operator_id": "char_122_beagle"},
+        {"action_type": "RETREAT", "frame": 3240, "operator_id": "char_123_fang"},
+        {"action_type": "DEPLOY", "frame": 3241, "operator_id": "char_281_popka", "tile": [4, 3], "direction": "DOWN"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4470, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4680, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4890, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4950, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5310, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5970, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6210, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6300, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6720, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6780, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 7440, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 7740, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 8130, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 8550, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 8610, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9270, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9300, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9570, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9960, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 10380, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 10440, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 10800, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 11700, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 11790, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 12210, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 12270, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 12330, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 12630, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 13620, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 13830, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 13860, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 14040, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 14100, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15390, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15450, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15870, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15930, "operator_id": "char_208_melan"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15960, "operator_id": "char_122_beagle"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 15960, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 16920, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 17280, "operator_id": "char_281_popka"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 17700, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 17760, "operator_id": "char_208_melan"}
+      ]
+    }
+  ],
+  "deterministic_verifier_questions": [
+    "Does Fang survive through all four credited payments without delaying any deployment?",
+    "Does concentrated Melantha, Popukar, Midnight and Kroos damage prevent every central overflow despite five central blocking slots?",
+    "Do Melantha and Midnight contain all enemies during the 108s handoff?",
+    "Does healed Steward survive eastern pressure and destroy roadblock [2,8]?",
+    "Do Beagle, Kroos and Ansel clear final western ranged enemies without Ansel dying?",
+    "Are both roadblocks destroyed and all civilians safely arrived before positive-life, zero-leak WIN within 600 seconds?"
+  ]
+}

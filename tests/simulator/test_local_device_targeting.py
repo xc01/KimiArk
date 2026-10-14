@@ -26,15 +26,18 @@ def _stationary_enemy() -> Enemy:
     return Enemy("stationary", known("Stationary Enemy", _SOURCE, "$.enemy.name"), stats, _SOURCE)
 
 
-def _run(*, device_tile: tuple[int, int], ordinary_targetable: bool = True, enemy: bool = False):
+def _run(*, device_tile: tuple[int, int], ordinary_targetable: bool = True, enemy: bool = False, enemy_route: str = "remote"):
     device = BattleDevice(
         "roadblock#0", "trap_020_roadblock", device_tile, 50.0, 0.0, 0.0, -1,
         ordinary_targetable=ordinary_targetable,
     )
-    routes = (Route("main", (Waypoint(1, 1), Waypoint(6, 1))),)
+    routes = (
+        Route("main", (Waypoint(1, 1), Waypoint(6, 1))),
+        Route("remote", (Waypoint(6, 1), Waypoint(6, 0))),
+    )
     stage = replace(
         runtime_stage(), routes=routes, devices=(device,),
-        spawn_events=(SpawnEvent(0.0, "stationary", "main"),) if enemy else (SpawnEvent(100.0, "stationary", "main"),),
+        spawn_events=(SpawnEvent(0.0, "stationary", enemy_route),) if enemy else (SpawnEvent(100.0, "stationary", "remote"),),
     )
     return Simulator().run(
         stage=stage,
@@ -46,7 +49,9 @@ def _run(*, device_tile: tuple[int, int], ordinary_targetable: bool = True, enem
 
 
 def test_remote_enemy_does_not_prevent_local_roadblock_targeting():
-    result = _run(device_tile=(1, 1))
+    result = _run(device_tile=(1, 1), enemy=True, enemy_route="remote")
+    assert [event for event in result.events if event.event_type is EventType.SPAWN and event.source_id == "stationary#0"]
+    assert not [event for event in result.events if event.event_type is EventType.ENEMY_DEATH and event.target_id == "stationary#0"]
     attacks = [event for event in result.events if event.event_type is EventType.ATTACK_START and event.target_id == "roadblock#0"]
     assert attacks
     assert [event for event in result.events if event.event_type is EventType.DEVICE_DESTROYED]
@@ -54,7 +59,7 @@ def test_remote_enemy_does_not_prevent_local_roadblock_targeting():
 
 
 def test_optional_local_enemy_has_priority_over_device():
-    result = _run(device_tile=(1, 1), enemy=True)
+    result = _run(device_tile=(1, 1), enemy=True, enemy_route="main")
     selections = [event for event in result.events if event.event_type is EventType.TARGET_SELECTION and event.source_id == "dps"]
     assert selections
     assert all(event.target_id == "stationary#0" for event in selections)

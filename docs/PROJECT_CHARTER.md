@@ -57,7 +57,7 @@ OP-05 deadline 941，Minimum DP 49，Available DP 47.367。
 不能预设是 Kimi 或编译器问题；读实际代码、测试、实验 artifacts 后判断。
 
 ## 七、机制与证据纪律
-主要关卡 main_08-01 / R8-1；机制版本 m19.1-local-device-target-v1。
+主要关卡 main_08-01 / R8-1、main_08-04 / R8-4；机制版本 m19.1-local-device-target-v1。
 GameData 是主要事实源，PRTS、客户端及其他可核实机制证据作补充。禁止猜测修改机制以使战术通过。
 R8-1 曾有两种具证据支持的 roadblock targeting 解释。若获得模拟器 WIN，必须用完全相同动作时间线在两种解释下重验，才能声称 robust WIN。真实游戏验证独立处理。
 

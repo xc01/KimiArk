@@ -538,3 +538,11 @@ simulator result at 36/0/0/life 3, 0 protected deaths, all protected arrivals,
 and #2 destroyed at 2715. R8-1 C7 was replayed once under both historical
 roadblock-targeting variants; both remained WIN. Simulation starts this round:
 four (two R8-2 plans plus two R8-1 targeting variants).
+## 2026-10-15 R8-4 m19.1 closure
+
+Since `da1544b`, this round used 2 new CLI process starts (V3 and V4) and 4 new
+R8-4 diagnostics: accidental R2 source replay, correct V2 original replay, V3
+revision, and V4 revision. V3 was 47/7/3/life -4; V4 was 54/0/0/life 3 with all
+three protected targets safely arriving. The V4 result is current-model
+perfect simulator WIN only. Internal model request count remains
+UNKNOWN_CLI_INTERNAL.

@@ -1,22 +1,15 @@
-# Next milestone: preserve R8-2 V15 until authorized verification
+# Next milestone: revalidate and revise R8-7 under m19.1
 
-The current effective milestone is not another R8-2 tactical revision. With
-`m19.1-local-device-target-v1`, the unchanged R8-2 V15 action timeline is a
-perfect simulator result: WIN, 36 kills, 0 leaks, 0 operator deaths, initial
-life 3 retained, 0 protected-target deaths, and all four protected targets
-arrived. Roadblock #2 was first damaged at frame 1743 and destroyed by Popukar
-at frame 2715. Evidence:
-`output/r8_1_r8_7_batch_v1/main_08-02/local_device_target_revalidation_v1/v15/`.
+R8-2 V15 remains the frozen perfect simulator result for `main_08-02`.
+R8-4 V4 is now the frozen best fixed result for `main_08-04`: simulator WIN,
+54 kills, 0 leaks, 0 operator deaths, initial life 3 retained, and all three
+protected targets safely arrived at frame 5336. Both roadblocks were destroyed;
+#2 at frame 4062 and #1 at frame 4644. Evidence:
+`output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/`.
 
-Do not overwrite V15 or call GPT again while this milestone is active. Its
-robustness is not established because the same timeline has not been replayed
-under alternative supported roadblock-targeting interpretations, and no result
-is a real-game claim. The next action is Work review of that evidence; only
-then should it authorize either a bounded targeting-variant recheck, continued
-R8-4/R8-7 tactical closure, or the later optimization phase.
-
-R8-1 C7 was replayed once on the same timeline under the two existing
-roadblock-targeting variants and remains WIN in both. R8-3/R8-5/R8-6 remain
-mechanism-blocked. R8-4 and R8-7 retain their best conditional-model LOSS
-baselines. Optimization is still not started until all seven stages have a
-validated WIN under the active model.
+These are `PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL` claims only. Neither is a
+faithful/robust certificate or real-game WIN. Do not spend more GPT calls on
+R8-2 or R8-4. The next effective action is to replay saved R8-7 V2 once under
+`m19.1-local-device-target-v1`, then feed any new causal failure to GPT for a
+tactical revision. R8-3/R8-5/R8-6 remain mechanism-blocked; optimization is not
+started.

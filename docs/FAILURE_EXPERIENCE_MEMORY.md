@@ -412,3 +412,12 @@ timeline now clears #2 at frame 2715, saves #6, keeps life 3, and safely
 delivers all protected targets. V14 still loses #6 at 5294, so the comparison
 is plan-specific and remains non-robust. Historical global-gate events are
 historical-only, not client evidence.
+## 2026-10-15 R8-4 stale failure and civilian-clearance coupling
+
+R8-4 V2's old 50/4/1 result was m19.0 and dropped to 48/6/1/life -3 after
+original replay under m19.1; V2's six leaks therefore cannot be reused as the
+current tactical failure. V3 regressed to 47/7/3/life -4 and exposed that three
+civilians remained blocked behind roadblock #1 until the cap, so a zero-leak
+enemy plan still cannot be a WIN. V4 resolved both route throughput and civilian
+clearance: WIN, 54/0/0/life 3, all three civilians arrived at 5336, no
+protected-target damage, and both roadblocks destroyed.

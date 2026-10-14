@@ -92,3 +92,12 @@ is not robust and not real-game. The seven-stage table is
 
 CONFIRMED_FROM_SIMULATION: R8-1 C7 was replayed once on the same timeline under
 both historical roadblock-targeting variants and remains WIN in both.
+## 2026-10-15 R8-4 V4 is a perfect simulator result
+
+CONFIRMED_FROM_SIMULATION: after one failed V3 revision, GPT's V4 fixed plan
+reached simulator WIN for `main_08-04`: 54 kills, 0 leaks, 0 operator deaths,
+remaining life 3, and all three civilians safely arrived at frame 5336 with no
+civilian damage. Roadblock #2 and #1 were destroyed at 4062 and 4644. This is
+`PERFECT_SIMULATOR_WIN_IN_CURRENT_MODEL`, not robust and not real-game. Evidence
+is `output/r8_1_r8_7_batch_v1/main_08-04/local_device_diagnostic_v4/`; active
+status is `seven_stage_status_v10.json`.
