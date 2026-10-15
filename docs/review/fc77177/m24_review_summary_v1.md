@@ -11,8 +11,9 @@ targeting B, R8-2 V15, R8-4 V4, and R8-7 V13.
 The Git bundle
 `/tmp/KimiArk_m24_unpushed_21f2914_840de3f.bundle`
 contains the three unpushed commits and verifies against base
-`21f2914b49bb9e80eb74fe05e6e3ead7d8aa77de`; SHA-256 is
-`0349369c7a87d2d46e835f7e651c7b715a6508abd32c0f7e72a58fb3a0af7a8b`.
+`21f2914b49bb9e80eb74fe05e6e3ead7d8aa77de`. Regenerate it from the final HEAD
+with `git bundle create /tmp/KimiArk_m24_unpushed_21f2914_840de3f.bundle
+origin/master..HEAD`, then verify with `git bundle verify`.
 
 ## Causal findings
 
