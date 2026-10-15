@@ -198,14 +198,23 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
         frame = int(action.get("frame", -1))
         operator_id = action.get("operator_id")
         if action_type == "DEPLOY":
-            if deployment_slot_count >= deployment_limit:
+            operator = catalog.get(operator_id, {})
+            identity = operator.get("identity", {})
+            raw_rarity = identity.get("rarity")
+            try:
+                rarity = int(raw_rarity)
+                has_valid_rarity = True
+            except (TypeError, ValueError):
+                rarity = 0
+                has_valid_rarity = False
+            occupies_normal_deployment_slot = has_valid_rarity and rarity >= 2
+            if occupies_normal_deployment_slot and deployment_slot_count >= deployment_limit:
                 deployment_limit_conflicts.append({"frame": frame, "deployed_count": deployment_slot_count, "limit": deployment_limit})
             tile_json = action.get("tile")
             direction = action.get("direction")
             runtime_tile = json_tile_to_runtime(tile_json, f"action[{index}].tile")
             marker = (operator_id, tuple(tile_json or []), direction)
             declaration_match = marker in deployment_positions
-            operator = catalog.get(operator_id, {})
             support = supports.get(operator_id, {})
             position = operator.get("identity", {}).get("position")
             qualification = operator.get("qualification", {})
@@ -219,7 +228,9 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
             reasons: list[str] = []
             if not qualification.get("normal_mode"):
                 status = "CONFLICT"; reasons.append("NOT_NORMAL_MODE")
-            if not 1 <= int(operator.get("identity", {}).get("rarity", 0)) <= 3:
+            if not has_valid_rarity:
+                status = "CONFLICT"; reasons.append("MISSING_OR_INVALID_RARITY")
+            if has_valid_rarity and not 1 <= rarity <= 3:
                 status = "CONFLICT"; reasons.append("RARITY_OUTSIDE_1_TO_3")
             if not declaration_match:
                 status = "CONFLICT"; reasons.append("DEPLOYMENT_DECLARATION_MISMATCH")
@@ -256,10 +267,17 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
             if status == "CONFLICT" and any(reason in {"ACTIVE_ROADBLOCK_TILE", "TILE_NOT_LEGAL_FOR_POSITION", "TILE_OCCUPIED"} for reason in reasons):
                 tile_conflicts.append(deployment_checks[-1])
                 continue
-            if legal_tile and not roadblock and not occupied and not_already_deployed and redeploy_ready:
+            if (
+                has_valid_rarity
+                and legal_tile
+                and not roadblock
+                and not occupied
+                and not_already_deployed
+                and redeploy_ready
+            ):
                 deployed[operator_id] = frame
                 tile_occupancy[runtime_tile] = operator_id
-                if int(operator.get("identity", {}).get("rarity", 0)) >= 2:
+                if rarity >= 2:
                     deployment_slot_count += 1
             declared_rows = structured_range_checks(plan, action)
             if not declared_rows:

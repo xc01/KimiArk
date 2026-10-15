@@ -1,28 +1,365 @@
 {
-  "schema_version": "M23_FULL_TEST_COMPARISON_V1",
-  "parent_sha256": "4ced50e9ea6d70abfb4c7a6967ea5a9b7c6bebf2",
-  "mechanics_version": "m23-behavioral-mechanics-v1",
-  "environment": "same Python venv and copied GameData/output artifacts",
-  "parent_full": {
-    "junit": "/tmp/kimiark-parent-full-4ced50e.xml",
-    "tests": 530,
-    "failed": 34,
-    "passed": 494,
-    "skipped": 2
-  },
+  "common_failure_count": 31,
   "current_full": {
-    "junit": "/tmp/kimiark-current-full-m23.xml",
-    "tests": 530,
     "failed": 31,
+    "failure_records": [
+      {
+        "id": "tests.test_approximate_real::test_fixed_0_1_run_has_manifest_uses_base_attack_time_and_does_not_execute_skills",
+        "kind": "failure",
+        "message": "AssertionError: assert {<EventType.A...E_BORN'>, ...} >= {<EventType.A...AWN: 'SPAWN'>}\n  \n  Extra items in the right set:\n  <EventType.BLOCK: 'BLOCK'>"
+      },
+      {
+        "id": "tests.test_benchmark::test_bounded_real_manual_attack_interpreter_is_skill_pattern_not_operator_branch",
+        "kind": "failure",
+        "message": "AssertionError: assert <RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'> is <RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'>\n +  where <RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'> = InterpretedLowRaritySkill(skill_id='skcom_magic_rage[1]', support=<RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTAB...ratio=0.0, heal_mode=False, damage_type_override=None), auto_activate=False), source_pattern=(('attack_speed', 50.0),)).support\n +  and   <RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'> = RealSkillSupport.UNSUPPORTED"
+      },
+      {
+        "id": "tests.test_ch6_11_meaningful_benchmark.TacticalRealizabilityTests::test_non_blockable_lane_hypothesis_is_revised_to_ranged_interception",
+        "kind": "failure",
+        "message": "AssertionError: 'DUAL_BLOCK_FRONTLINE' != 'BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER'\n- DUAL_BLOCK_FRONTLINE\n+ BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER"
+      },
+      {
+        "id": "tests.test_executable_plan_lowering::test_block_routes_use_exact_simulator_geometry_not_rasterized_cells",
+        "kind": "failure",
+        "message": "AssertionError: assert 3.0 is None\n +  where 3.0 = distance_at((4, 3))\n +    where distance_at = Route(route_id='route-4', waypoints=(Waypoint(x=4.0, y=6.0), Waypoint(x=4.0, y=3.0), Waypoint(x=5.0, y=3.0), Waypoint(x=5.0, y=0.0)), waits=(), movement_mode='WALK', hidden_spans=()).distance_at"
+      },
+      {
+        "id": "tests.test_inspector::test_repository_inventory_and_table_shape",
+        "kind": "failure",
+        "message": "AssertionError: assert 2 == 1\n +  where 2 = TableInspection(path='/tmp/pytest-of-bigdata/pytest-238/test_repository_inventory_and_0/zh_CN/gamedata/excel/character_table.json', exists=True, json_kind='object', top_level_keys=('char_merchant', 'char_test'), item_count=2).item_count"
+      },
+      {
+        "id": "tests.test_m11::test_m11_bottom_left_coordinates_preserve_move_and_wait_checkpoint_types",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m11::test_m11_second_quantized_hierarchy_is_explicit_and_deterministic",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m11::test_m11_bounded_cardinality_search_runs_real_fixture_and_is_honest_about_no_win",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m13_search::test_m13_composition_coverage_is_complete_for_executable_pool",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_economy::test_opening_economy_signatures_are_full_pool_and_report_only_supported_dp_skills",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_economy::test_economy_repair_keeps_exactly_seven_operators_in_candidate_generation",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_source_explicit_self_cost_talent_and_time_sp_dp_patterns_are_runtime_mapped",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_auto_and_manual_dp_changes_are_distinct_and_source_amounts_are_applied_once",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_m14_economy_audit_keeps_blocked_coupled_dp_effects_unsupported_and_reports_nonmaterial_deadline_result",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_geometry::test_parallel_opening_routes_have_no_shared_tiles_but_plume_can_range_interact_with_both",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_opening::test_opening_schedule_respects_exact_dp_for_two_r4_blockers",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_opening::test_opening_arrival_report_records_route_margins_and_single_substitution",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_initial_constraints_are_source_derived_hard_opening_deadlines",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_one_placement_can_satisfy_both_parallel_opening_constraints",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_frontier_damage_constraint_is_a_repair_request_not_an_unproven_hard_deadline",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_m15_runs_without_llm_and_reaches_the_allowed_cardinality_layer",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_preserved_parent_has_supported_route_2_interaction_timing_trace",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_route_capable_late_deployment_is_a_frontier_dependency",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_reassignment_generates_same_position_operator_replacements",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_call_saves_completed_response_handoff",
+        "kind": "failure",
+        "message": "SystemExit: Kimi response failed contract validation without retry"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_schema_rejects_empty_multiple_and_missing_direction",
+        "kind": "failure",
+        "message": "AssertionError: False is not true"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_valid_final_payload_and_contract_handoff",
+        "kind": "failure",
+        "message": "AssertionError: Lists differ: ['stage_active_facts.active_device_tiles_col_row is required'] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\n'stage_active_facts.active_device_tiles_col_row is required'\n\n- ['stage_active_facts.active_device_tiles_col_row is required']\n+ []"
+      },
+      {
+        "id": "tests.test_spatial_timing::test_facing_candidates_are_coverage_aware",
+        "kind": "failure",
+        "message": "AssertionError: assert 1 >= 2\n +  where 1 = len({'DOWN'})"
+      },
+      {
+        "id": "tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests::test_r8_1_pool_fixture_instantiates_five_source_backed_devices",
+        "kind": "failure",
+        "message": "AssertionError: Items in the first set but not the second:\n(1, 2)\n(3, 5)\n(7, 2)\n(9, 4)\nItems in the second set but not the first:\n(3, 1)\n(7, 4)\n(9, 2)\n(1, 4)"
+      },
+      {
+        "id": "tests.test_tactical_demand.TacticalDemandTests::test_failure_trace_alignment_uses_stage_first_requirements",
+        "kind": "failure",
+        "message": "AssertionError: 'REQUIREMENT_PRESENT_BUT_NOT_REALIZED' != 'NOT_EXPLAINED_BY_REQUIREMENT_MODEL'\n- REQUIREMENT_PRESENT_BUT_NOT_REALIZED\n+ NOT_EXPLAINED_BY_REQUIREMENT_MODEL"
+      },
+      {
+        "id": "tests.test_tactical_demand.TacticalDemandTests::test_requirement_atoms_have_complete_scope_and_evidence",
+        "kind": "failure",
+        "message": "AssertionError: False is not true"
+      }
+    ],
+    "junit": "docs/review/fc77177/m23_current_full_m23.junit.xml",
+    "junit_sha256": "ca0032aca04bc7e77ea832f1e97930890d54d15a9ce0a8e6f5cac43538a52ba4",
     "passed": 497,
-    "skipped": 2
+    "skipped": 2,
+    "tests": 530
   },
+  "current_only_failures": [],
+  "environment": "same Python venv and copied GameData/output artifacts",
   "fixed_relative_to_parent": [
     "tests.test_architecture::test_q3_remains_unknown_only_after_evidence_retrieval",
     "tests.test_architecture::test_unsupported_mechanic_can_be_unknown_after_retrieval",
     "tests.test_ch6_11_meaningful_benchmark.MeaningfulBenchmarkSelectionTests::test_structural_suite_selects_three_distinct_ch6_11_stages"
   ],
+  "mechanics_version": "m23-behavioral-mechanics-v1",
   "new_failures": [],
-  "common_failure_count": 31,
-  "resolution": "The comparison is by exact testcase ID from JUnit, not by failure totals alone. No current failure is new relative to the parent snapshot."
+  "parent_full": {
+    "failed": 34,
+    "failure_records": [
+      {
+        "id": "tests.test_approximate_real::test_fixed_0_1_run_has_manifest_uses_base_attack_time_and_does_not_execute_skills",
+        "kind": "failure",
+        "message": "AssertionError: assert {<EventType.A...E_BORN'>, ...} >= {<EventType.A...AWN: 'SPAWN'>}\n  \n  Extra items in the right set:\n  <EventType.BLOCK: 'BLOCK'>"
+      },
+      {
+        "id": "tests.test_architecture::test_q3_remains_unknown_only_after_evidence_retrieval",
+        "kind": "failure",
+        "message": "assert False is True"
+      },
+      {
+        "id": "tests.test_architecture::test_unsupported_mechanic_can_be_unknown_after_retrieval",
+        "kind": "failure",
+        "message": "assert False is True"
+      },
+      {
+        "id": "tests.test_benchmark::test_bounded_real_manual_attack_interpreter_is_skill_pattern_not_operator_branch",
+        "kind": "failure",
+        "message": "AssertionError: assert <RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'> is <RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'>\n +  where <RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'> = InterpretedLowRaritySkill(skill_id='skcom_magic_rage[1]', support=<RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTAB...ratio=0.0, heal_mode=False, damage_type_override=None), auto_activate=False), source_pattern=(('attack_speed', 50.0),)).support\n +  and   <RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'> = RealSkillSupport.UNSUPPORTED"
+      },
+      {
+        "id": "tests.test_ch6_11_meaningful_benchmark.MeaningfulBenchmarkSelectionTests::test_structural_suite_selects_three_distinct_ch6_11_stages",
+        "kind": "failure",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kimiark-parent-4ced50e/scripts/build_ch6_11_meaningful_benchmark.py'"
+      },
+      {
+        "id": "tests.test_ch6_11_meaningful_benchmark.TacticalRealizabilityTests::test_non_blockable_lane_hypothesis_is_revised_to_ranged_interception",
+        "kind": "failure",
+        "message": "AssertionError: 'DUAL_BLOCK_FRONTLINE' != 'BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER'\n- DUAL_BLOCK_FRONTLINE\n+ BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER"
+      },
+      {
+        "id": "tests.test_executable_plan_lowering::test_block_routes_use_exact_simulator_geometry_not_rasterized_cells",
+        "kind": "failure",
+        "message": "AssertionError: assert 3.0 is None\n +  where 3.0 = distance_at((4, 3))\n +    where distance_at = Route(route_id='route-4', waypoints=(Waypoint(x=4.0, y=6.0), Waypoint(x=4.0, y=3.0), Waypoint(x=5.0, y=3.0), Waypoint(x=5.0, y=0.0)), waits=(), movement_mode='WALK', hidden_spans=()).distance_at"
+      },
+      {
+        "id": "tests.test_inspector::test_repository_inventory_and_table_shape",
+        "kind": "failure",
+        "message": "AssertionError: assert 2 == 1\n +  where 2 = TableInspection(path='/tmp/pytest-of-bigdata/pytest-236/test_repository_inventory_and_0/zh_CN/gamedata/excel/character_table.json', exists=True, json_kind='object', top_level_keys=('char_merchant', 'char_test'), item_count=2).item_count"
+      },
+      {
+        "id": "tests.test_m11::test_m11_bottom_left_coordinates_preserve_move_and_wait_checkpoint_types",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m11::test_m11_second_quantized_hierarchy_is_explicit_and_deterministic",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m11::test_m11_bounded_cardinality_search_runs_real_fixture_and_is_honest_about_no_win",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m13_search::test_m13_composition_coverage_is_complete_for_executable_pool",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_economy::test_opening_economy_signatures_are_full_pool_and_report_only_supported_dp_skills",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_economy::test_economy_repair_keeps_exactly_seven_operators_in_candidate_generation",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_source_explicit_self_cost_talent_and_time_sp_dp_patterns_are_runtime_mapped",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_auto_and_manual_dp_changes_are_distinct_and_source_amounts_are_applied_once",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_fidelity::test_m14_economy_audit_keeps_blocked_coupled_dp_effects_unsupported_and_reports_nonmaterial_deadline_result",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_geometry::test_parallel_opening_routes_have_no_shared_tiles_but_plume_can_range_interact_with_both",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_opening::test_opening_schedule_respects_exact_dp_for_two_r4_blockers",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m14_opening::test_opening_arrival_report_records_route_margins_and_single_substitution",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_initial_constraints_are_source_derived_hard_opening_deadlines",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_one_placement_can_satisfy_both_parallel_opening_constraints",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_frontier_damage_constraint_is_a_repair_request_not_an_unproven_hard_deadline",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15::test_m15_runs_without_llm_and_reaches_the_allowed_cardinality_layer",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_preserved_parent_has_supported_route_2_interaction_timing_trace",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_route_capable_late_deployment_is_a_frontier_dependency",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_m15_repair::test_m15_1_reassignment_generates_same_position_operator_replacements",
+        "kind": "failure",
+        "message": "AttributeError: 'NoneType' object has no attribute 'get'"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_call_saves_completed_response_handoff",
+        "kind": "failure",
+        "message": "SystemExit: Kimi response failed contract validation without retry"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_schema_rejects_empty_multiple_and_missing_direction",
+        "kind": "failure",
+        "message": "AssertionError: False is not true"
+      },
+      {
+        "id": "tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests::test_valid_final_payload_and_contract_handoff",
+        "kind": "failure",
+        "message": "AssertionError: Lists differ: ['stage_active_facts.active_device_tiles_col_row is required'] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\n'stage_active_facts.active_device_tiles_col_row is required'\n\n- ['stage_active_facts.active_device_tiles_col_row is required']\n+ []"
+      },
+      {
+        "id": "tests.test_spatial_timing::test_facing_candidates_are_coverage_aware",
+        "kind": "failure",
+        "message": "AssertionError: assert 1 >= 2\n +  where 1 = len({'DOWN'})"
+      },
+      {
+        "id": "tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests::test_r8_1_pool_fixture_instantiates_five_source_backed_devices",
+        "kind": "failure",
+        "message": "AssertionError: Items in the first set but not the second:\n(1, 2)\n(3, 5)\n(7, 2)\n(9, 4)\nItems in the second set but not the first:\n(3, 1)\n(7, 4)\n(9, 2)\n(1, 4)"
+      },
+      {
+        "id": "tests.test_tactical_demand.TacticalDemandTests::test_failure_trace_alignment_uses_stage_first_requirements",
+        "kind": "failure",
+        "message": "AssertionError: 'REQUIREMENT_PRESENT_BUT_NOT_REALIZED' != 'NOT_EXPLAINED_BY_REQUIREMENT_MODEL'\n- REQUIREMENT_PRESENT_BUT_NOT_REALIZED\n+ NOT_EXPLAINED_BY_REQUIREMENT_MODEL"
+      },
+      {
+        "id": "tests.test_tactical_demand.TacticalDemandTests::test_requirement_atoms_have_complete_scope_and_evidence",
+        "kind": "failure",
+        "message": "AssertionError: False is not true"
+      }
+    ],
+    "junit": "docs/review/fc77177/m23_parent_full_4ced50e.junit.xml",
+    "junit_sha256": "abb50341486083d052ca713a4947314cb6c30da7af6cd79c6396643d5b9a3ce3",
+    "passed": 494,
+    "skipped": 2,
+    "tests": 530
+  },
+  "parent_only_failures": [
+    "tests.test_architecture::test_q3_remains_unknown_only_after_evidence_retrieval",
+    "tests.test_architecture::test_unsupported_mechanic_can_be_unknown_after_retrieval",
+    "tests.test_ch6_11_meaningful_benchmark.MeaningfulBenchmarkSelectionTests::test_structural_suite_selects_three_distinct_ch6_11_stages"
+  ],
+  "parent_sha256": "4ced50e9ea6d70abfb4c7a6967ea5a9b7c6bebf2",
+  "resolution": "Exact JUnit testcase IDs compare same-venv/same-artifact parent and current runs. Current-only is empty.",
+  "schema_version": "M23_FULL_TEST_COMPARISON_V1"
 }
