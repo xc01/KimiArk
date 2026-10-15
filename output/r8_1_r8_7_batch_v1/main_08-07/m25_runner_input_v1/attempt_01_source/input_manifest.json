@@ -1,0 +1,34 @@
+{
+  "cli_started": false,
+  "mutations": [
+    "copy m24 evidence_context as llm_evidence_context",
+    "attach payload reference; original payload remains external for readonly access",
+    "remove stale V12-only static/tactical blocks from prompt; causal feedback remains in m24 payload and prior_diagnostic_feedback provenance",
+    "attach schema from prior V13 runner",
+    "copy prior final message for provenance",
+    "derive roadblock_plan_tiles_row_col coordinate swap"
+  ],
+  "removed_from_prompt_not_from_history": {
+    "prior_static_feedback": {
+      "sha256": "d9d200c9fb79e2e9a97e8eb97921502a58124382124efb0f2f62525cfb382752",
+      "source_plan_id": "R8_7_GPT_V12"
+    },
+    "prior_tactical_feedback": {
+      "sha256": "9abaff980c7451a9e92a4c5e07899465e6f844fbe61741efb27cf7676f4598bd",
+      "source_plan_id": "R8_7_GPT_V12"
+    }
+  },
+  "schema_source": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-07/local_device_revision_v13/revision_output_schema.json",
+    "sha256": "e9018205cfcfa195901100094ef8bd3d70ac1d0c930c8a7c52e0f0771552b844"
+  },
+  "schema_version": "M25_RUNNER_INPUT_FROM_M24_PAYLOAD_V1",
+  "source_evidence": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-07/m24_tactical_revision_input_v1/evidence_context.json",
+    "sha256": "71f896bbf2a5c599c8af59f24e23deb388abd74fe22b5352bd55be36d6674cf7"
+  },
+  "source_payload": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-07/m24_tactical_revision_input_v1/codex_payload.json",
+    "sha256": "d9cb13284eb5d2970ee73749b8f49afef225c237a4884522d4411ddbea9e2758"
+  }
+}

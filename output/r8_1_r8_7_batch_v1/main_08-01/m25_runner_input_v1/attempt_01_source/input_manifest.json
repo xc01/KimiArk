@@ -1,0 +1,28 @@
+{
+  "mutations": [
+    "copy m24 evidence_context as llm_evidence_context",
+    "attach m24 codex_payload unchanged",
+    "attach schema from original C7 runner",
+    "copy prior final message for runner manifest only",
+    "derive roadblock_plan_tiles_row_col from roadblock_tiles_col_row by deterministic coordinate swap",
+    "add stage_mechanism_support; runtime OK is backed by saved m23 R8-1 replay and all unsupported legacy details are UNKNOWN or explicit"
+  ],
+  "prior_final_message_source": {
+    "path": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_cli/codex_final_message.txt",
+    "role": "provenance_only_not_tactical_revision",
+    "sha256": "d0dba1fc405451adc6e563dbc6018a6cfe98187f54f9ca9b4e74b8eeeb5a38ea"
+  },
+  "schema_source": {
+    "path": "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_cli/revision_output_schema.json",
+    "sha256": "e9018205cfcfa195901100094ef8bd3d70ac1d0c930c8a7c52e0f0771552b844"
+  },
+  "schema_version": "M25_RUNNER_INPUT_FROM_M24_PAYLOAD_V1",
+  "source_evidence": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-01/m24_tactical_revision_input_v1/evidence_context.json",
+    "sha256": "39071deeaea0bab58334ccee016c1efc6f10d4b8f1f5207df3c8d2233631e8ac"
+  },
+  "source_payload": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-01/m24_tactical_revision_input_v1/codex_payload.json",
+    "sha256": "397d587ada71bc4dceb74c34bbe59b15e7080c0bd9c68259e27fcdc434cdb672"
+  }
+}

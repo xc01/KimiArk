@@ -204,3 +204,15 @@ saved source. `m24_causal_feedback_v1.json` separates R8-1 route-throughput,
 R8-4 operator death from target loss, and R8-7 artillery/opening chain. Two
 complete R8-1/R8-7 tactical payloads are stored with hashes and explicit
 `sent=false`; no model call has occurred.
+
+## 2026-10-16 m25 entry is blocked before tactics
+
+The first authorized R8-1 Codex start used `gpt-6.1-sol`, `high`,
+`features.apps=false`, and the prepared m24 payload. It counted as CLI start 47
+and failed before producing a plan with `workspace routing discovery failed`.
+Network preflight showed the configured mihomo port was absent; starting the
+existing local binary was denied by the sandbox before it could bind 7890/9090,
+and direct DNS also failed. No auth, provider, model, or node switch was made.
+R8-7 has a runner-compatible prepared prompt under the 140 KiB limit, but was
+not sent. Both R8-1 and R8-7 therefore have zero new plans and zero new full
+simulations; their m23/m24 baselines remain the newest tactical evidence.

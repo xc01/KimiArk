@@ -1,0 +1,93 @@
+{
+  "schema_version": "M25_ENTRY_BLOCKAGE_REPORT_V1",
+  "local_head_sha256": "9b36a7e6fc3b857059d7ffa0d0ea5442a63eb8bf",
+  "local_origin_tracking_ref": "9b36a7e6fc3b857059d7ffa0d0ea5442a63eb8bf",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "fixed_gamedata_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "budget": {
+    "historical_cli_process_starts_before_round": 46,
+    "new_cli_process_starts": 1,
+    "cumulative_cli_process_starts": 47,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "recovery_starts_used": 0,
+    "recovery_starts_allowed": 2,
+    "new_full_stage_simulations_started": 0,
+    "new_full_stage_simulations_completed": 0,
+    "new_tactical_plans": 0,
+    "new_tactical_simulations": 0
+  },
+  "entry_result": {
+    "status": "BLOCKED_BEFORE_TACTICAL_PLAN",
+    "model_provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "extra_config": ["features.apps=false"],
+    "cli_thread_id": "01a1406e-f8f7-7a22-8eeb-cf15071251fb",
+    "cli_exit_code": 1,
+    "turn_error": "workspace routing discovery failed",
+    "stderr": "failed to refresh available models: Connection failed: error sending request",
+    "no_retry_policy_followed": true,
+    "no_model_switch_or_auth_reset": true
+  },
+  "network_preflight": {
+    "proxy_environment": "ALL_PROXY=socks5://127.0.0.1:7890; HTTPS_PROXY=http://127.0.0.1:7890",
+    "initial_proxy_listener": false,
+    "local_mihomo_binary": "/home/bigdata/Desktop/mihomo",
+    "local_mihomo_config_test": "PASS_WITH_EXISTING_USER_CONFIG",
+    "temporary_no_tun_config_only": "/tmp/kimiark_mihomo_no_tun_debug.yaml",
+    "mihomo_binding_result": "DENIED_BY_SANDBOX listen tcp 127.0.0.1:7890: socket: operation not permitted",
+    "controller_binding_result": "DENIED_BY_SANDBOX listen tcp 0.0.0.0:9090: socket: operation not permitted",
+    "direct_https_probe": "DNS_RESOLUTION_FAILED",
+    "conclusion": "Local sandbox denied binding the existing proxy and direct DNS failed; no proxy endpoint was available.",
+    "node_switch_attempted": false,
+    "auth_or_config_reset_attempted": false
+  },
+  "prepared_inputs": [
+    {
+      "stage_id": "main_08-01",
+      "payload": {
+        "path": "output/r8_1_r8_7_batch_v1/main_08-01/m24_tactical_revision_input_v1/codex_payload.json",
+        "sha256": "397d587ada71bc4dceb74c34bbe59b15e7080c0bd9c68259e27fcdc434cdb672"
+      },
+      "runner_input": "output/r8_1_r8_7_batch_v1/main_08-01/m25_runner_input_v1/attempt_01_source/input_manifest.json",
+      "prompt": {
+        "path": "output/r8_1_r8_7_batch_v1/main_08-01/m25_tactical_revision_v1/attempt_01_cli/codex_prompt.txt",
+        "sha256": "6ccfa3782dcd3003fb9d8322c29f1db55d2f485f749450138611c80157c46789",
+        "bytes": 137503
+      },
+      "cli_attempt": "output/r8_1_r8_7_batch_v1/main_08-01/m25_tactical_revision_v1/attempt_01_cli",
+      "simulation_attempt_count": 0,
+      "plan_produced": false
+    },
+    {
+      "stage_id": "main_08-07",
+      "payload": {
+        "path": "output/r8_1_r8_7_batch_v1/main_08-07/m24_tactical_revision_input_v1/codex_payload.json",
+        "sha256": "d9cb13284eb5d2970ee73749b8f49afef225c237a4884522d4411ddbea9e2758"
+      },
+      "runner_input": "output/r8_1_r8_7_batch_v1/main_08-07/m25_runner_input_v1/attempt_01_source/input_manifest.json",
+      "prompt": {
+        "path": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_01_cli_blocked_entry/codex_prompt.txt",
+        "sha256": "41af65c7d897f7c8e7bbdaec996db6ab5a08d1be6fb693901101487d7f6b08b2",
+        "bytes": 139070
+      },
+      "cli_attempt": null,
+      "cli_attempt_count": 0,
+      "simulation_attempt_count": 0,
+      "plan_produced": false
+    }
+  ],
+  "focused_regression": {
+    "command": "pytest -q tests/test_gpt_tactical_stage_session_v1.py tests/test_gpt_tactical_stage_diagnostic_v1.py tests/simulator/test_deep_mechanism_regressions.py test_behavioral_regressions.py test_robot_compiler.py",
+    "passed": 43,
+    "failed": 0,
+    "log_path": "/tmp/kimiark_m25_focused_tests.txt",
+    "interpretation": "Entry/network blockage is not a simulator or compiler tactical failure."
+  },
+  "impact": {
+    "r8_1": "No new plan; saved C7 A/B LOSS baselines remain unchanged.",
+    "r8_7": "No new plan; saved V13 LOSS baseline remains unchanged.",
+    "tactical_classification": "NO_NEW_TACTICAL_EVIDENCE",
+    "forbidden_claims": ["GPT rejected the plan", "strategy was ineffective", "entry failure validates or invalidates tactics"]
+  }
+}
