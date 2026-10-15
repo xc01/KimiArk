@@ -192,3 +192,6 @@ current-model diagnostics only, not faithful, robust or real-game claims.
 New tactical CLI calls remain 0. New full-stage simulation starts are 5. The
 m23 parent/current and m24 full-test comparisons have exact failure IDs;
 the latest 530-test run is 497 passed / 31 failed / 2 skipped with no new failure.
+The local m24 commits have not yet reached GitHub; SSH through both the direct
+route and process-level mihomo CONNECT proxy failed before key exchange. See
+`docs/review/fc77177/m24_push_status_v1.json`.
