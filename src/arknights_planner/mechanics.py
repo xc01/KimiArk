@@ -5,12 +5,12 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m21-roadblock-radius-v1"
+ACTIVE_MECHANICS_VERSION = "m22-deep-mechanics-partial-v1"
 
 MECHANICS_VERSION_HISTORY = {
     ACTIVE_MECHANICS_VERSION: {
         "status": "ACTIVE",
-        "summary": "Adds PRTS-backed roadblock radius blocking, radius release on destruction, stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
+        "summary": "Keeps roadblock radius blocking and adds static DP generations, refund/maxCost, zero-duration AUTO scheduling, selected low-rarity abilities, delayed locked-area artillery, and friendly ice/altar device effects. Full mechanism closure is not claimed.",
     },
     "m18-targeting-v1": {
         "status": "HISTORICAL",

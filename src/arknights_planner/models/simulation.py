@@ -77,6 +77,8 @@ class RuntimeEnemy:
     attack_animation_duration: float = 0.0
     attack_stand_until: float = 0.0
     attack_windup_started: bool = False
+    attack_speed_status_until: float = 0.0
+    attack_speed_status_delta: float = 0.0
     max_hp: float = 0.0
     hp_recovery_per_second: float = 0.0
     normal_attack_count: int = 0
@@ -85,6 +87,9 @@ class RuntimeEnemy:
     movement_mode: str = "WALK"
     block_requirement: int = 1
     hidden: bool = False
+    area_hit_time: float | None = None
+    area_hit_position: tuple[float, float] | None = None
+    area_hit_radius: float | None = None
 
 
 @dataclass
@@ -109,6 +114,7 @@ class RuntimeOperator:
     skill_ready: bool = False
     skill_active: bool = False
     skill_remaining_duration: float = 0.0
+    auto_next_trigger_time: float | None = None
     attack_cooldown: float = 0.0
     next_attack_time: float = 0.0
     pending_next_attack: bool = False
@@ -128,7 +134,13 @@ class RuntimeOperator:
     maintenance_interval: float = 0.0
     next_maintenance_time: float = 0.0
     can_attack_air: bool = True
+    attack_all_blocked: bool = False
     deployment_cost: float = 0.0
+    talent_atk_ratio: float = 0.0
+    talent_max_hp_ratio: float = 0.0
+    anti_air_priority: bool = False
+    prioritize_high_defense: bool = False
+    air_target_atk_multiplier: float = 1.0
 
 
 @dataclass
@@ -141,6 +153,11 @@ class RuntimeDevice:
     defense: float
     magic_resistance: float
     taunt_level: int
+    ordinary_targetable: bool = True
+    effect_skill_id: str | None = None
+    effect_value: float = 0.0
+    effect_range_radius: float = 0.0
+    next_effect_time: float | None = None
 
 
 @dataclass

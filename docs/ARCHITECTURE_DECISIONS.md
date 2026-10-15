@@ -312,3 +312,12 @@ the m19.1 local-device targeting rule and the existing simulator WIN predicate;
 it does not establish exact client aggro, roadblock navigation, or real-game
 behavior. Robustness requires separately authorized variant replay, and
 optimization remains blocked until all runnable stages have current-model WINs.
+## 2026-10-15 m22 keeps bounded interpreters, not a general blackboard engine
+
+The operator and enemy repairs add explicit source-backed fields
+(`damage_type_override`, `range_forward_extend`, `heal_mode`, all-blocked attack,
+air/high-defense priority, talent ratios, delayed locked-area attack, and device
+effect templates). They do not infer arbitrary prefab behavior. The DP ledger is a
+sequential action simulation rather than an all-DEPLOY pre-scan, so deployment
+generation, cooldown and refund share runtime semantics. Unsupported client frame
+ordering and redeployment cost growth remain explicit UNKNOWN.

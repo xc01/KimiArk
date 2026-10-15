@@ -4,10 +4,15 @@ import json
 from pathlib import Path
 from dataclasses import replace
 
+import pytest
+
 from arknights_planner.adapters.low_rarity_skill import LowRarityBlackboardEffectInterpreter
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.models.provenance import known
 from arknights_planner.models.runtime import CombatOutputType
+from arknights_planner.adapters.approximate_real import ApproximateRealSimulationAdapter, RealOperatorConfiguration, RealSimulationApproximationPolicy
+from arknights_planner.models.strategy import Action, ActionType, Strategy
+from arknights_planner.simulator.simulator import SimulationConfig, Simulator
 from arknights_planner.simulator import Simulator
 
 
@@ -51,3 +56,29 @@ def test_generic_multi_target_support_remains_explicitly_blocked() -> None:
     catapult = next(item for item in support["operators"] if item["operator_id"] == "char_282_catap")
     assert catapult["normal_attack"]["status"] == "UNSUPPORTED_AOE_GEOMETRY"
     assert catapult["overall"] == "NOT_PLANNER_SAFE"
+
+
+def test_named_low_star_mechanics_are_executable() -> None:
+    repository = GameDataRepository(ROOT / "data/ArknightsGameData")
+    interpreter = LowRarityBlackboardEffectInterpreter()
+    ansel = interpreter.interpret("skcom_range_extend", repository.get_skill("skcom_range_extend").levels[6])
+    midnight = interpreter.interpret("skchr_midn_1", repository.get_skill("skchr_midn_1").levels[6])
+    assert ansel.executable_effect and ansel.executable_effect.effect.range_forward_extend == 2
+    assert midnight.executable_effect and midnight.executable_effect.effect.damage_type_override == "ARTS"
+
+    fixture = ApproximateRealSimulationAdapter(repository).build_pool_fixture(
+        stage_id_or_code="R8-2",
+        configurations=(
+            RealOperatorConfiguration("char_281_popka", 1, 55),
+            RealOperatorConfiguration("char_278_orchid", 1, 55),
+            RealOperatorConfiguration("char_124_kroos", 1, 55),
+            RealOperatorConfiguration("char_210_stward", 1, 55),
+        ),
+        policy=RealSimulationApproximationPolicy.m11_second_quantized(),
+    )
+    assert fixture.stage.stage_map is not None
+    assert fixture.operators["char_281_popka"].attack_all_blocked is True
+    assert fixture.operators["char_278_orchid"].damage_type == "ARTS"
+    assert fixture.operators["char_124_kroos"].anti_air_priority is True
+    assert fixture.operators["char_210_stward"].prioritize_high_defense is True
+    assert fixture.operators["char_210_stward"].talent_atk_ratio == pytest.approx(0.06)

@@ -291,6 +291,12 @@ class GameDataRepository:
                 attack_speed_delta=-30.0,
             ),)
             break
+        if enemy_id == "enemy_1112_emppnt":
+            abilities = (EnemyAbility(
+                ability_id="enemy_1112_emppnt_artillery", family="DELAYED_LOCKED_AREA_ATTACK",
+                cooldown=5.0, initial_cooldown=0.0, range_radius=1.2, atk_scale=1.0,
+                damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True,
+            ),)
         return Enemy(
             enemy_id, self._defined_value(raw.get("name"), source, f"{base}.name.m_value"),
             EnemyStats(

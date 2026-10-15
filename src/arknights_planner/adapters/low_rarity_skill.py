@@ -65,7 +65,7 @@ class LowRarityBlackboardEffectInterpreter:
             effect = SyntheticSkill(
                 skill_id=skill_id, initial_sp=float(level.initial_sp.value), sp_cost=float(level.sp_cost.value),
                 recovery_mode=SPRecoveryMode.TIME, sp_per_second=1.0, duration=float(level.duration.value),
-                effect=SkillEffect(atk_multiplier=1.0 + float(values["atk"])),
+                effect=SkillEffect(atk_multiplier=1.0 + float(values["atk"]), damage_type_override="ARTS" if skill_id == "skchr_midn_1" else None),
             )
             return InterpretedLowRaritySkill(skill_id, RealSkillSupport.EXECUTABLE_APPROXIMATED, "manual time-SP finite atk pattern; synthetic ATK multiplier mapping", effect, pattern)
         if manual_duration and set(values) == {"def"} and numeric("def"):

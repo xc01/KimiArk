@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from math import floor
 import json
 from pathlib import Path
 from typing import Any
@@ -156,7 +157,7 @@ def structured_range_checks(plan: dict[str, Any], action: dict[str, Any]) -> lis
     ]
 
 
-def build_dp_ledger(
+def build_dp_ledger_legacy(
     plan: dict[str, Any],
     catalog: dict[str, dict[str, Any]],
     supports: dict[str, dict[str, Any]],
@@ -305,8 +306,7 @@ def build_dp_ledger(
 
 
 def evidence_stage_initial_dp(input_dir: Path) -> float:
-    stage_options = load(input_dir / "llm_evidence_context.json")["stage_options"]
-    return float(stage_options["initial_cost"])
+    return float(evidence_stage_options(input_dir)["initial_cost"])
 
 
 def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
@@ -549,3 +549,169 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
 
 if __name__ == "__main__":
     compile_plan()
+
+
+def evidence_stage_options(input_dir: Path) -> dict[str, Any]:
+    return load(input_dir / "llm_evidence_context.json")["stage_options"]
+
+
+def build_dp_ledger(
+    plan: dict[str, Any],
+    catalog: dict[str, dict[str, Any]],
+    supports: dict[str, dict[str, Any]],
+    input_dir: Path,
+) -> dict[str, Any]:
+    readiness: dict[str, Any] = {}
+    dp = float(evidence_stage_initial_dp(input_dir))
+    rows: list[dict[str, Any]] = [{"frame": 0, "event": "STAGE_INITIAL_DP", "delta": dp,
+                                  "balance_before": 0.0, "balance_after": dp,
+                                  "source": "stage_options.initial_cost; natural DP model +1/s"}]
+    conflicts: list[dict[str, Any]] = []
+    auto_events = automatic_dp_skill_events(plan, catalog, supports)
+    auto_before: dict[int, list[dict[str, Any]]] = {}
+    auto_after: dict[int, list[dict[str, Any]]] = {}
+    for row in auto_events:
+        target = auto_before if row["ordering"] == "BEFORE_ACTIONS" else auto_after
+        target.setdefault(int(row["frame"]), []).append(row)
+    scheduled_frames = sorted({int(action["frame"]) for action in plan["action_timeline"]}
+                              | set(auto_before) | set(auto_after))
+    actions_by_frame: dict[int, list[tuple[int, dict[str, Any]]]] = {}
+    for index, action in enumerate(plan["action_timeline"]):
+        actions_by_frame.setdefault(int(action["frame"]), []).append((index, action))
+    deployed_at: dict[str, int] = {}
+    active_generations: dict[str, int] = {}
+    active_operators: set[str] = set()
+    previous_ready: dict[str, int] = {}
+    deployment_slot_count = 0
+    stage_options = evidence_stage_options(input_dir)
+    max_dp = float(stage_options.get("max_cost") or 99)
+    deployment_limit = int(stage_options.get("deployment_limit") or 99)
+    previous_frame = 0
+    for frame in scheduled_frames:
+        if frame < previous_frame:
+            conflicts.append({"frame": frame, "conflict": "ACTION_FRAME_OUT_OF_ORDER"})
+        if frame > previous_frame:
+            before = dp
+            dp = min(max_dp, dp + (frame - previous_frame) / FRAMES_PER_SECOND)
+            rows.append({"frame": frame, "event": "NATURAL_DP", "delta": dp - before,
+                         "balance_before": before, "balance_after": dp,
+                         "source": "stage costIncreaseTime=1 second; 30 FPS action clock"})
+            previous_frame = frame
+        for event in auto_before.get(frame, []):
+            before = dp
+            dp = min(max_dp, dp + float(event["amount"]))
+            rows.append({"frame": frame, "event": "AUTO_SKILL_DP_INCOME", "operator_id": event["operator_id"],
+                         "cycle": event["cycle"], "delta": dp - before, "balance_before": before,
+                         "balance_after": dp, "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT",
+                         "source": "AUTO INCREASE_WITH_TIME duration=0 cost pattern; same public adapter timing model"})
+        for _, action in actions_by_frame.get(frame, []):
+            action_type = action.get("action_type")
+            operator_id = action.get("operator_id")
+            if action_type == "DEPLOY":
+                rarity = int((catalog.get(operator_id, {}).get("identity") or {}).get("rarity") or 1)
+                if operator_id in active_operators:
+                    conflicts.append({"frame": frame, "operator_id": operator_id,
+                                      "conflict": "OPERATOR_ALREADY_DEPLOYED"})
+                    rows.append({"frame": frame, "event": "DEPLOY_REJECTED", "operator_id": operator_id,
+                                 "status": "CONFLICT"})
+                    continue
+                if rarity >= 2 and deployment_slot_count >= deployment_limit:
+                    conflicts.append({"frame": frame, "operator_id": operator_id,
+                                      "conflict": "DEPLOYMENT_LIMIT_REACHED"})
+                    rows.append({"frame": frame, "event": "DEPLOY_REJECTED", "operator_id": operator_id,
+                                 "status": "CONFLICT"})
+                    continue
+                cost = actual_cost(catalog[operator_id], supports[operator_id])
+                before = dp
+                if dp + 1e-9 < cost:
+                    conflicts.append({"frame": frame, "operator_id": operator_id,
+                                      "conflict": "INSUFFICIENT_DP", "balance_before": before, "cost": cost})
+                    rows.append({"frame": frame, "event": "DEPLOY_COST_REJECTED", "operator_id": operator_id,
+                                 "cost": cost, "balance_before": before, "balance_after": before,
+                                 "status": "CONFLICT"})
+                    continue
+                dp -= cost
+                deployed_at[operator_id] = frame
+                active_generations[operator_id] = active_generations.get(operator_id, 0) + 1
+                active_operators.add(operator_id)
+                if rarity >= 2:
+                    deployment_slot_count += 1
+                previous_ready.pop(operator_id, None)
+                rows.append({"frame": frame, "event": "DEPLOY_COST", "operator_id": operator_id,
+                             "cost": cost, "balance_before": before, "balance_after": dp,
+                             "status": "PAID", "generation": active_generations[operator_id]})
+            elif action_type == "RETREAT":
+                if operator_id not in active_operators:
+                    continue
+                cost = actual_cost(catalog[operator_id], supports[operator_id])
+                refund = floor(cost * 0.5)
+                before = dp
+                dp += refund
+                active_operators.remove(operator_id)
+                if int((catalog.get(operator_id, {}).get("identity") or {}).get("rarity") or 1) >= 2:
+                    deployment_slot_count -= 1
+                rows.append({"frame": frame, "event": "RETREAT_REFUND", "operator_id": operator_id,
+                             "delta": refund, "balance_before": before, "balance_after": dp,
+                             "status": "CONDITIONAL_ON_OPERATOR_SURVIVAL"})
+            elif action_type == "ACTIVATE_SKILL":
+                key = f"{operator_id}@{frame}"
+                if operator_id not in active_operators:
+                    readiness[key] = {"status": "CONFLICT", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"}
+                    continue
+                skill = first_skill(catalog[operator_id])
+                if skill is None:
+                    readiness[key] = {"status": "CONFLICT", "reason": "NO_SKILL_AT_DEBUG_CONFIGURATION"}
+                    continue
+                deploy_frame = deployed_at[operator_id]
+                initial_sp = float(skill.get("initial_sp") or 0.0)
+                sp_cost = float(skill.get("sp_cost") or 0.0)
+                deployment_bonus = float(supports[operator_id].get("deployment_sp_bonus") or 0.0)
+                available_sp = initial_sp + deployment_bonus + max(0.0, (frame - deploy_frame) / FRAMES_PER_SECOND)
+                if frame < previous_ready.get(operator_id, 0) or available_sp + 1e-9 < sp_cost:
+                    readiness[key] = {"status": "CONFLICT", "reason": "SP_NOT_READY",
+                                      "available_sp_model": available_sp, "required_sp": sp_cost,
+                                      "generation": active_generations[operator_id]}
+                    continue
+                duration_frames = round(float(skill.get("duration") or 0.0) * FRAMES_PER_SECOND)
+                active_until = frame + duration_frames
+                previous_ready[operator_id] = active_until + round(sp_cost * FRAMES_PER_SECOND)
+                readiness[key] = {"status": "PASS_WITH_CONDITIONS", "available_sp_model": available_sp,
+                                  "required_sp": sp_cost, "active_until_frame": active_until,
+                                  "next_model_ready_frame": previous_ready[operator_id],
+                                  "generation": active_generations[operator_id]}
+                skill_dp = float(skill.get("blackboard", {}).get("cost", 0.0) or 0.0)
+                if skill_dp:
+                    before = dp
+                    dp = min(max_dp, dp + skill_dp)
+                    rows.append({"frame": frame, "event": "SKILL_DP_INCOME", "operator_id": operator_id,
+                                 "delta": dp - before, "balance_before": before, "balance_after": dp,
+                                 "source": "skill blackboard cost; readiness is conditional on current model"})
+        for event in auto_after.get(frame, []):
+            before = dp
+            dp = min(max_dp, dp + float(event["amount"]))
+            rows.append({"frame": frame, "event": "AUTO_SKILL_DP_INCOME", "operator_id": event["operator_id"],
+                         "cycle": event["cycle"], "delta": dp - before, "balance_before": before,
+                         "balance_after": dp, "status": "CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT",
+                         "source": "initial-SP auto trigger immediately after deploy; public adapter timing model"})
+    return {
+        "schema_version": "R8_1_LOWSTAR_C2_STATIC_DP_LEDGER_V2",
+        "initial_dp": float(evidence_stage_initial_dp(input_dir)),
+        "natural_dp_per_second": 1.0,
+        "max_dp": max_dp,
+        "deployment_limit": deployment_limit,
+        "automatic_skill_income_model": {
+            "trigger_rule": "Initial trigger after (sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)) seconds; recurrence after sp_cost seconds for duration=0 AUTO TIME skills.",
+            "conditions": ["operator survives", "operator remains deployed", "normal time-SP recovery",
+                           "same retreat-frame trigger is not counted"],
+            "evidence_status": "CONFIRMED_FROM_CURRENT_PUBLIC_RUNTIME_PATTERN_AND_FIXED_GAME_DATA",
+            "events": auto_events,
+        },
+        "retreat_refund": {"value": "HALF_DEPLOYMENT_COST_FLOOR",
+                           "condition": "manual retreat of a surviving deployed operator",
+                           "status": "CONFIRMED_FROM_CODE_RUNTIME_MATCH"},
+        "merchant_upkeep": "NOT_APPLICABLE_UNLESS_MERCHANT_DEPLOYED",
+        "skill_readiness": readiness,
+        "entries": rows,
+        "final_balance": dp,
+        "conflicts": conflicts,
+    }

@@ -61,3 +61,9 @@ class Operator:
     deployment_heal_all_value: float = 0.0
     redeploy_time_delta: float = 0.0
     can_attack_air: bool = True
+    attack_all_blocked: bool = False
+    talent_atk_ratio: float = 0.0
+    talent_max_hp_ratio: float = 0.0
+    anti_air_priority: bool = False
+    prioritize_high_defense: bool = False
+    air_target_atk_multiplier: float = 1.0

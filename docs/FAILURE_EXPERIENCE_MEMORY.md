@@ -448,3 +448,12 @@ not a tactical rejection. A writable gitignored runtime home recovered CLI
 startup, but the next attempt failed at service-side workspace routing. Stop the
 entry after the recorded failure; do not retry the same request or infer a model
 tactical conclusion from it.
+## 2026-10-15 m22 invalidates current-version tactical conclusions
+
+The static ledger previously scanned all future DEPLOY actions before evaluating
+SP. This made V12's future Flame deployment suppress the earlier generation's
+skill; the corrected test directly reproduces deploy 2418, activate 2721,
+retreat 3375, deploy 5478, activate 5490. Zero-duration AUTO also lost one tick
+between cycles, explaining synthetic 1/3.1/5.2 versus 1/3/5 patterns without
+using a tolerance. Existing stage simulations under `m21` must not be reused as
+current mechanism evidence until replayed unchanged.

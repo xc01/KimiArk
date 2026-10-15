@@ -102,7 +102,7 @@ class Route:
         radius: float,
         tolerance: float = 1e-9,
     ) -> tuple[tuple[float, float], ...]:
-        """Return contiguous route-distance intervals within a circular blocker radius."""
+        """Return route-distance intervals whose centres enter a circular blocker."""
         if radius < 0:
             raise ValueError("blocker radius must be non-negative")
         windows: list[tuple[float, float]] = []
@@ -112,18 +112,20 @@ class Route:
             segment_length = hypot(dx, dy)
             if segment_length == 0:
                 continue
+            # Project onto the infinite line before clipping.  Clamping the
+            # projection before computing half_chord makes a nearby endpoint
+            # look closer than the true line segment intersection.
             factor = ((point[0] - first.x) * dx + (point[1] - first.y) * dy) / (segment_length * segment_length)
-            clamped_factor = min(max(factor, 0.0), 1.0)
-            closest_x = first.x + clamped_factor * dx
-            closest_y = first.y + clamped_factor * dy
+            closest_x = first.x + factor * dx
+            closest_y = first.y + factor * dy
             perpendicular_distance = hypot(point[0] - closest_x, point[1] - closest_y)
             if perpendicular_distance <= radius + tolerance:
                 half_chord = max(0.0, radius * radius - perpendicular_distance * perpendicular_distance) ** 0.5
-                entry_offset = clamped_factor * segment_length - half_chord
-                exit_offset = clamped_factor * segment_length + half_chord
-                start = accumulated + min(max(entry_offset, 0.0), segment_length)
-                end = accumulated + min(max(exit_offset, 0.0), segment_length)
-                if end - start > tolerance:
+                line_start = factor * segment_length - half_chord
+                line_end = factor * segment_length + half_chord
+                start = accumulated + min(max(line_start, 0.0), segment_length)
+                end = accumulated + min(max(line_end, 0.0), segment_length)
+                if end - start > -tolerance:
                     windows.append((start, end))
             accumulated += segment_length
         merged: list[tuple[float, float]] = []

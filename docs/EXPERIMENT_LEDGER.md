@@ -578,3 +578,17 @@ CLI: cumulative start count is 46. The 46th start reused the frozen V14 prompt
 after the read-only-home fix, reached a thread, then failed server-side at
 `workspace routing discovery failed` after five reconnect attempts. No automatic
 retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
+## 2026-10-15 m22 mechanism repair run
+
+- Mechanics version: `m22-deep-mechanics-partial-v1`.
+- Code changes: static DP ledger generations/refund/99 cap, zero-duration AUTO
+  scheduling, selected low-rarity skills/talents/targeting, delayed area artillery,
+  and friendly device effects.
+- Focused tests: 59 passed (`test_deep_mechanism_regressions.py`,
+  `test_normal_low_star_mechanics.py`, `test_neutral_protected_target.py`,
+  `test_local_device_targeting.py`, `test_architecture.py`, `test_real_search.py`).
+- Full tests: 496 passed / 31 failed / 2 skipped (529 collected); 31-failure count matches the
+  prior parent observation. Focused parent comparison is
+  `docs/review/fc77177/m22_full_test_comparison_v1.json`.
+- New full-stage simulations: 0. New tactical CLI calls: 0. This run was
+  mechanism-repair only; historical V15/V4/C7/V13 claims remain version-scoped.

@@ -39,6 +39,7 @@ class SkillEffect:
     base_attack_time_override: float | None = None
     immediate_self_heal_ratio: float = 0.0
     heal_mode: bool = False
+    damage_type_override: str | None = None
 
 
 @dataclass(frozen=True)

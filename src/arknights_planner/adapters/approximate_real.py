@@ -511,6 +511,8 @@ class ApproximateRealSimulationAdapter:
         return tuple(timeline)
 
     def _runtime_operator(self, adapted: AdaptedRealOperator, *, interpreted_skill=None, deployment_cost_delta: float = 0.0) -> Operator:
+        from arknights_planner.adapters.normal_low_star import active_talent_candidates
+
         if adapted.exact_keyframe is None or adapted.attack_range is None:
             raise ApproximateRealExecutionError("operator lacks exact keyframe or real range")
         stats = adapted.exact_keyframe.stats
@@ -518,6 +520,21 @@ class ApproximateRealSimulationAdapter:
             adapted.phase_index, adapted.exact_keyframe.level, stats, stats,
             adapted.operator.phases[adapted.phase_index].range_id, (adapted.exact_keyframe,),
         )
+        source = self.repository._table("character_table.json").get(adapted.operator.operator_id, {})
+        source_description = str(source.get("description") or "").replace("</>", "").replace("<@ba.kw>", "")
+        talent_atk = 0.0
+        talent_hp = 0.0
+        prioritize_high_defense = False
+        air_target_atk_multiplier = 1.0
+        for candidate in active_talent_candidates(self.repository, adapted.operator.operator_id):
+            values = {item.get("key"): item.get("value") for item in candidate.get("blackboard", []) if isinstance(item, dict)}
+            description = candidate.get("description") or ""
+            talent_atk += float(values.get("atk", 0.0) or 0.0)
+            talent_hp += float(values.get("max_hp", 0.0) or 0.0)
+            if "防御力最高" in description:
+                prioritize_high_defense = True
+            if "攻击飞行目标" in description and values.get("atk_scale") is not None:
+                air_target_atk_multiplier = max(air_target_atk_multiplier, float(values["atk_scale"]))
         return replace(
             adapted.operator,
             phases=(phase,),
@@ -529,9 +546,20 @@ class ApproximateRealSimulationAdapter:
                 else CombatOutputType.DAMAGE
             ),
             redeploy_time=stats.redeploy_time,
-            damage_type=("ARTS" if adapted.operator.profession.value == "CASTER" else "PHYSICAL"),
+            damage_type=(
+                "ARTS"
+                if adapted.operator.profession.value == "CASTER"
+                or ("攻击造成" in source_description and "法术伤害" in source_description)
+                else "PHYSICAL"
+            ),
             can_attack_air=adapted.operator.position.value == "RANGED",
             deployment_cost_delta=deployment_cost_delta,
+            attack_all_blocked="同时攻击阻挡的所有敌人" in source_description,
+            anti_air_priority="优先攻击空中单位" in (source.get("description") or ""),
+            prioritize_high_defense=prioritize_high_defense,
+            talent_atk_ratio=talent_atk,
+            talent_max_hp_ratio=talent_hp,
+            air_target_atk_multiplier=air_target_atk_multiplier,
             deployment_sp_bonus=deployment_sp_bonus(self.repository, adapted.operator.operator_id),
             deployment_heal_all_value=deployment_heal_all_value(self.repository, adapted.operator.operator_id),
             redeploy_time_delta=self._talent_redeploy_time_delta(adapted),

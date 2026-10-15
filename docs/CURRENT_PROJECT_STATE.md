@@ -131,3 +131,19 @@ lineage validation and has no simulation. The seven-stage table is
 Codex start count is 46; the latest start used a writable runtime `CODEX_HOME`
 but stopped after service-side `workspace routing discovery failed`. The fix
 matrix is `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json`.
+## 2026-10-15 m22 mechanism repair is partial, not full closure
+
+CONFIRMED_FROM_CODE: mechanics `m22-deep-mechanics-partial-v1` fixes static DP
+generation leakage, 99 maxCost, half-cost refunds, one-star occupancy, and
+zero-duration AUTO tick loss. It also implements the six named low-rarity
+behaviors tested in `test_normal_low_star_mechanics.py`, bounded delayed locked-area
+artillery, and source-backed ice/altar device effects. These repairs do not restore
+any historical stage WIN as a full-mechanism conclusion: R8-2 V15 and R8-4 V4 must
+be replayed before current-mechanism use, and R8-1 C7/R8-7 candidates likewise
+remain historical-only.
+
+The full test suite is 496 passed, 31 failed, 2 skipped (529 collected). The same-venv focused
+parent comparison confirms the two architecture device tests are newly fixed; the
+31 full-run failures match the previously observed parent count, but a fair full
+parent run requires copying gitignored runtime artifacts. See
+`docs/review/fc77177/m22_full_test_comparison_v1.json`.
