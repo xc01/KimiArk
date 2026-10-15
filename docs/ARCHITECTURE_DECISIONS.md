@@ -330,3 +330,11 @@ now reach actual range, projectile damage and deployment stats. Artillery is
 modeled as one launch/locked-area lifecycle instead of an extra instant attack;
 area impact applies faction and defense/resistance rules. The static compiler and
 runtime share sequential DP generations, max-cost refunds and squad-slot counting.
+
+## 2026-10-15 m24 keeps rare-resource occupancy exact
+
+The complete compiler now reads the operator before applying the normal
+deployment-limit gate. Rarity 2/3 consumes a slot, rarity 1 does not, a missing
+or invalid rarity produces an explicit conflict instead of being treated as a
+robot, and retreat restores capacity. This prevents a full normal squad from
+being misclassified while preserving the documented robot exception.

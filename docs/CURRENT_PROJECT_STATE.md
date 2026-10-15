@@ -162,3 +162,33 @@ Seven stages remain historical-only until replayed unchanged under m23. R8-3,
 R8-5 and R8-6 still have incomplete decisive semantics. Exact client artillery
 prefab lifecycle, friendly-device lifecycle, redeploy cost growth, full 34-operator
 ability closure, Talulah, checkpoints and probability bounds remain UNKNOWN.
+
+## 2026-10-15 m24 deployment-slot correction and frozen replay
+
+CONFIRMED_FROM_CODE: the complete compiler evaluated the deployment-limit gate
+before reading the current operator. It now reads rarity first, applies the gate
+only to a known rarity-2/3 normal deployment, records `MISSING_OR_INVALID_RARITY`
+instead of silently treating missing rarity as a robot, and leaves one-star
+occupancy and retreat release unchanged. Five focused compiler regressions pass.
+
+CONFIRMED_FROM_SIMULATION: five unchanged m23 replays are complete at commit
+`4073c511f214ae291ea4508af84db521254cf689`: R8-1 C7 A/B are LOSS (54/2/0/life 3
+both), R8-2 V15 is simulator WIN (36/0/0/life 3, four protected arrivals, no
+protected death), R8-4 V4 is simulator WIN (54/0/0/life 3, three protected
+arrivals, no protected death, but Ansel dies at frame 5304), and R8-7 V13 is
+LOSS (17/16/11 operator deaths/life -15, two protected deaths). These are
+current-model diagnostics only, not faithful, robust or real-game claims.
+
+| Stage | Current m23/m24 diagnostic | Evidence |
+|---|---|---|
+| R8-1 | C7 A/B LOSS: 54 kills, 2 leaks, 0 deaths, life 3 | `output/r8_1_r8_7_batch_v1/main_08-01/m23_deployment_slot_revalidation_v1/c7_targeting/` |
+| R8-2 | V15 WIN: 36/0/0, life 3, all 4 protected targets arrive | `output/r8_1_r8_7_batch_v1/main_08-02/m23_deployment_slot_revalidation_v1/v15/` |
+| R8-3 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-4 | V4 WIN: 54/0/0, life 3, all 3 protected targets arrive; 1 operator death | `output/r8_1_r8_7_batch_v1/main_08-04/m23_deployment_slot_revalidation_v1/v4/` |
+| R8-5 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-6 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-7 | V13 LOSS: 17/16, life -15, 11 operator deaths, 2 protected deaths | `output/r8_1_r8_7_batch_v1/main_08-07/m23_deployment_slot_revalidation_v1/v13/` |
+
+New tactical CLI calls remain 0. New full-stage simulation starts are 5. The
+m23 parent/current and m24 full-test comparisons have exact failure IDs;
+the latest 530-test run is 497 passed / 31 failed / 2 skipped with no new failure.

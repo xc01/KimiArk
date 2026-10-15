@@ -466,3 +466,13 @@ physical range, ARTS projectile kind, Spot's external heal range, Beagle's 539
 defense, artillery impact filters, COLD's 1/0.7 attack interval, and the exact
 13-cell `x-1` device range. Future mechanism claims must connect source fields to
 observable behavior.
+
+## 2026-10-15 m24 invalidates old-mechanism R8-1 failure feedback
+
+The unchanged C7 timeline now leaks two enemies in both targeting variants, so
+the m21 one-leak R8-1 feedback must not be reused. R8-2 V15 remains a current
+perfect simulator result. R8-4 V4 remains zero-leak and all-protected-arrival
+but is no longer perfect in the broader user sense because Ansel dies. R8-7 V13
+remains a survival failure and is not evidence against a different tactical
+structure. Do not attribute all R8-7 losses to GPT before confirming that
+artillery, checkpoints, device lifecycle and ability coverage are closed.

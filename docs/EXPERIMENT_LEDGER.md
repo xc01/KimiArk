@@ -601,3 +601,14 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Full tests: 497 passed / 31 failed / 2 skipped (530 collected). Parent
   `4ced50e9ea6d70abfb4c7a6967ea5a9b7c6bebf2` in the same venv/artifact snapshot
   had 34 failures; exact JUnit IDs show no new current failure and three fewer.
+
+## 2026-10-15 m24 deployment-slot replay run
+
+- Code checkpoint: `4073c511f214ae291ea4508af84db521254cf689`.
+- New tactical CLI calls: 0. New full-stage simulation starts: 5.
+- R8-1 C7 targeting A: LOSS, 54/2/0/life 3. R8-1 C7 targeting B: LOSS, 54/2/0/life 3.
+- R8-2 V15: WIN, 36/0/0/life 3; 4 protected arrivals, 0 protected deaths.
+- R8-4 V4: WIN, 54/0/0/life 3; 3 protected arrivals, 0 protected deaths, Ansel death frame 5304.
+- R8-7 V13: LOSS, 17/16/life -15; 11 operator deaths and 2 protected deaths.
+- Focused tests: 5 compiler deployment-slot cases and 17 deep mechanism cases pass.
+- Full tests after the fix: 497 passed / 31 failed / 2 skipped; exact failure IDs match m23 with no additions.
