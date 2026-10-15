@@ -195,3 +195,12 @@ the latest 530-test run is 497 passed / 31 failed / 2 skipped with no new failur
 The local m24 commits have not yet reached GitHub; SSH through both the direct
 route and process-level mihomo CONNECT proxy failed before key exchange. See
 `docs/review/fc77177/m24_push_status_v1.json`.
+
+## 2026-10-16 m24 evidence package is ready, not sent
+
+CONFIRMED_FROM_SAVED_ARTIFACTS: `m24_review_evidence_v1.json` indexes five
+runs, verifies compressed events, and matches every action snapshot to its
+saved source. `m24_causal_feedback_v1.json` separates R8-1 route-throughput,
+R8-4 operator death from target loss, and R8-7 artillery/opening chain. Two
+complete R8-1/R8-7 tactical payloads are stored with hashes and explicit
+`sent=false`; no model call has occurred.
