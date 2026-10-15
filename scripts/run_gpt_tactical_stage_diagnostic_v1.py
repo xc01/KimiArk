@@ -147,7 +147,7 @@ def run_full_diagnostic(*, source: Path, out: Path, stage_id: str, plan_id: str)
             "neutral_faction_and_ordinary_blocking": "SUPPORTED_BY_PRTS_AND_RUNTIME",
             "ordinary_operator_targeting_neutrals": "SUPPORTED_AS_REJECTED",
             "protected_target_life_scoring": "SUPPORTED_BY_GAMEDATA_AND_RUNTIME",
-            "roadblock_special_blocking_for_ursus_civilians": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+            "roadblock_special_blocking_for_ursus_civilians": "SUPPORTED_BY_PRTS_AND_RUNTIME_RADIUS_0_4472",
             "officer_protected_target_attack_radius": "SUPPORTED_BY_PRTS_AND_RUNTIME",
         },
         "civilian_operator_targetability": "CONFIRMED_NOT_ORDINARY_TARGET",

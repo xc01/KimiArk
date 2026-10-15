@@ -16,7 +16,7 @@ from arknights_planner.navigation import WalkNavigationError, WalkNavigator
 from arknights_planner.models.enemy import Enemy
 from arknights_planner.models.operator import Operator, OperatorAttributeKeyframe, OperatorPhase
 from arknights_planner.models.runtime import CombatOutputType
-from arknights_planner.models.provenance import KnowledgeStatus
+from arknights_planner.models.provenance import KnowledgeStatus, known
 from arknights_planner.models.route import Route, RouteWait, Waypoint
 from arknights_planner.models.simulation import SimulationResult, SimulationRunMetadata
 from arknights_planner.models.stage import BattleDevice, SpawnEvent, Stage, StageMap, StageTileRecord, Tile
@@ -352,6 +352,8 @@ class ApproximateRealSimulationAdapter:
             start_coordinate = self._route_coordinate(route.start_position)
             points: list[Waypoint] = [Waypoint(float(start_coordinate[1]), float(start_coordinate[0]))]
             waits: list[RouteWait] = []
+            hidden_spans: list[tuple[float, float]] = []
+            hidden_start: float | None = None
             for checkpoint in route.checkpoints:
                 if checkpoint.checkpoint_type.value == "MOVE":
                     if checkpoint.position is None:
@@ -378,6 +380,37 @@ class ApproximateRealSimulationAdapter:
                         for first, second in zip(points, points[1:])
                     )
                     waits.append(RouteWait(distance, float(checkpoint.time.value)))
+                elif checkpoint.checkpoint_type.value in {
+                    "WAIT_CURRENT_FRAGMENT_TIME", "WAIT_CURRENT_WAVE_TIME",
+                }:
+                    if checkpoint.time.value is None:
+                        raise ApproximateRealExecutionError(f"{checkpoint.checkpoint_type.value} time is UNKNOWN")
+                    distance = sum(
+                        hypot(second.x - first.x, second.y - first.y)
+                        for first, second in zip(points, points[1:])
+                    )
+                    waits.append(RouteWait(distance, float(checkpoint.time.value)))
+                elif checkpoint.checkpoint_type.value == "DISAPPEAR":
+                    if hidden_start is not None:
+                        raise ApproximateRealExecutionError("nested DISAPPEAR checkpoints are unsupported")
+                    hidden_start = sum(
+                        hypot(second.x - first.x, second.y - first.y)
+                        for first, second in zip(points, points[1:])
+                    )
+                elif checkpoint.checkpoint_type.value == "APPEAR_AT_POS":
+                    if hidden_start is None:
+                        raise ApproximateRealExecutionError("APPEAR_AT_POS has no preceding DISAPPEAR checkpoint")
+                    if checkpoint.position is None:
+                        raise ApproximateRealExecutionError("APPEAR_AT_POS position is UNKNOWN")
+                    appear_coordinate = self._route_coordinate(checkpoint.position)
+                    hidden_end = hidden_start + hypot(
+                        float(appear_coordinate[1]) - points[-1].x,
+                        float(appear_coordinate[0]) - points[-1].y,
+                    )
+                    hidden_spans.append((hidden_start, hidden_end))
+                    points.append(Waypoint(float(appear_coordinate[1]), float(appear_coordinate[0])))
+                    start_coordinate = appear_coordinate
+                    hidden_start = None
                 else:
                     raise ApproximateRealExecutionError(f"unsupported route checkpoint type: {checkpoint.checkpoint_type.value!r}")
             end_coordinate = self._route_coordinate(route.end_position)
@@ -389,7 +422,12 @@ class ApproximateRealSimulationAdapter:
                 points.extend(Waypoint(float(item[1]), float(item[0])) for item in leg[1:])
             else:
                 points.append(Waypoint(float(end_coordinate[1]), float(end_coordinate[0])))
-            routes.append(Route(f"route-{route.route_index}", tuple(points), tuple(waits)))
+            if hidden_start is not None:
+                raise ApproximateRealExecutionError("DISAPPEAR checkpoint has no APPEAR_AT_POS")
+            routes.append(Route(
+                f"route-{route.route_index}", tuple(points), tuple(waits),
+                movement_mode=motion_mode or "WALK", hidden_spans=tuple(hidden_spans),
+            ))
         return tuple(routes)
 
     def _route_coordinate(self, route_coordinate) -> tuple[int, int]:
@@ -492,6 +530,7 @@ class ApproximateRealSimulationAdapter:
             ),
             redeploy_time=stats.redeploy_time,
             damage_type=("ARTS" if adapted.operator.profession.value == "CASTER" else "PHYSICAL"),
+            can_attack_air=adapted.operator.position.value == "RANGED",
             deployment_cost_delta=deployment_cost_delta,
             deployment_sp_bonus=deployment_sp_bonus(self.repository, adapted.operator.operator_id),
             deployment_heal_all_value=deployment_heal_all_value(self.repository, adapted.operator.operator_id),
@@ -606,6 +645,8 @@ class ApproximateRealSimulationAdapter:
         routes = self._convert_routes(adapted_stage)
         cost_interval = self._number(adapted_stage.stage.cost_increase_time, "stage costIncreaseTime")
         max_life = int(self._number(adapted_stage.stage.max_life_points, "stage maxLifePoint"))
+        move_multiplier = self._number(adapted_stage.stage.move_multiplier, "stage moveMultiplier")
+        max_dp = self._number(adapted_stage.stage.max_dp, "stage maxCost")
         runtime_stage = replace(
             adapted_stage.stage,
             stage_map=StageMap(
@@ -616,6 +657,8 @@ class ApproximateRealSimulationAdapter:
             spawn_events=tuple(SpawnEvent(item.time, item.enemy_id, item.route_id, item.count, item.interval) for item in timeline),
             initial_life=max_life,
             dp_per_second=1.0 / cost_interval,
+            move_multiplier=known(move_multiplier, adapted_stage.stage.raw_source_file or "level.json", "$.options.moveMultiplier"),
+            max_dp=known(max_dp, adapted_stage.stage.raw_source_file or "level.json", "$.options.maxCost"),
             devices=self._devices(adapted_stage),
         )
         ignored_skills = tuple(

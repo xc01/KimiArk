@@ -1,0 +1,41 @@
+{
+  "schema_version": "R8_DEEP_MECHANISM_FIX_MATRIX_V1",
+  "mechanics_version": "m21-roadblock-radius-v1",
+  "gamedata_sha256_manifest": "docs/review/gamedata_source.json",
+  "audit_directory": "BLOCKED_NOT_PRESENT",
+  "items": [
+    {"id":"A1","title":"stage moveMultiplier","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_stage_move_multiplier_is_applied_once"},
+    {"id":"A2","title":"movement mode and air eligibility","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_melee_cannot_attack_flying_but_ranged_can"},
+    {"id":"A3","title":"ordinary blocking contact geometry","status":"ALREADY_CORRECT_WITH_LIMITATION","note":"current model blocks exact route traversal through the operator tile; exact client continuous contact radius is UNKNOWN"},
+    {"id":"A4","title":"required block count and death release","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_two_block_requirement_requires_block_capacity_but_occupies_one_slot"},
+    {"id":"A5","title":"roadblock radius and release","status":"FIXED","evidence":"data/prts/roadblock.html; tests/simulator/test_deep_mechanism_regressions.py::test_roadblock_radius_blocks_civilian_off_center"},
+    {"id":"A6","title":"R8-3/5/6 route checkpoints","status":"FIXED_CONDITIONAL","note":"DISAPPEAR/APPEAR hidden jumps and fragment/wave duration waits execute; exact client fragment/wave clock association and visibility/targeting are UNKNOWN"},
+    {"id":"B7","title":"DP maxCost","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_stage_max_dp_caps_regeneration_and_skill_gain"},
+    {"id":"B8","title":"one-star deployment occupancy","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_one_star_operator_does_not_occupy_deployment_limit"},
+    {"id":"B9","title":"retreat refund, redeploy cooldown, cost growth","status":"PARTIALLY_FIXED","note":"manual half-cost refund and cooldown tested; exact redeployment cost growth has no source-backed implementation and remains UNKNOWN"},
+    {"id":"B10","title":"SP deployment generations","status":"FIXED","evidence":"tests/simulator/test_deep_mechanism_regressions.py::test_redeployment_uses_fresh_sp_generation"},
+    {"id":"B11","title":"zero-duration auto skill tick","status":"ALREADY_CORRECT","evidence":"existing synthetic runtime tests"},
+    {"id":"B12","title":"same-frame action ordering","status":"ALREADY_CORRECT_WITH_LIMITATION","note":"simulator ordering is deterministic; exact client ordering is UNKNOWN"},
+    {"id":"B13","title":"static/runtime shared rules","status":"PARTIALLY_FIXED","note":"major economy/DP and deployment rules are shared or replayed, but no complete equivalence certificate exists"},
+    {"id":"C14","title":"normal 1-3 star census","status":"FIXED","note":"runtime census returns 34 operators including 17 three-stars and excludes mode-specific reserves via obtainability"},
+    {"id":"C15","title":"all 1-3 star active skills/talents","status":"PARTIALLY_FIXED","note":"census remains executable/basic-attack coverage, not full talent and skill coverage; one-star deploy effects remain blocked"},
+    {"id":"C16","title":"listed low-rarity abilities","status":"PARTIALLY_FIXED","note":"bounded attack/ASPD/range/DP/heal and several device effects are supported; summoning, auras, multi-target and probability families remain incomplete"},
+    {"id":"C17","title":"attribute, skill, attack and speed layers","status":"PARTIALLY_FIXED","note":"bounded layers are separated; full client timing and exact formula parity are not certified"},
+    {"id":"C18","title":"support claims versus implementation","status":"PARTIALLY_FIXED","note":"unsupported active phase-zero talents are reported BLOCKED; unsupported optional skills are only usable as basic attacks, not full mechanism WINs"},
+    {"id":"D19","title":"nine R8 enemies complete abilities","status":"PARTIALLY_FIXED","note":"protected-target attack, movement, block requirements and bounded abilities are supported; complete client behavior is not certified"},
+    {"id":"D20","title":"enemy target selection","status":"PARTIALLY_FIXED","note":"hatred distance, protected-target radius, and basic blocking are implemented; exact taunt/priority client rules remain UNKNOWN"},
+    {"id":"D21","title":"imperial artillery precursor","status":"BLOCKED_WITH_EVIDENCE","note":"flight delayed lock and area shot are not completely implemented; no simulator WIN for stages depending on it may be called full mechanism"},
+    {"id":"D22","title":"Talulah","status":"BLOCKED_WITH_EVIDENCE","note":"complete phase/skill semantics are not implemented"},
+    {"id":"D23","title":"civilian faction and roadblock","status":"FIXED","evidence":"tests/simulator/test_neutral_protected_target.py; PRTS and USER_CONFIRMED_OBSERVATION recorded in prior evidence"},
+    {"id":"D24","title":"R8-5 ice crystal and R8-6 altar runtime effects","status":"BLOCKED_WITH_EVIDENCE","note":"friendly device effects are not implemented; these stages remain mechanism-blocked"},
+    {"id":"D25","title":"roadblock local targeting and death unblock","status":"FIXED","evidence":"tests/simulator/test_local_device_targeting.py; tests/simulator/test_deep_mechanism_regressions.py"},
+    {"id":"E26","title":"probability assumptions and joint lower bound","status":"BLOCKED_WITH_EVIDENCE","note":"runtime has no certified probability mechanism or joint-bound calculator; cannot issue PROBABILISTIC_WIN"}
+  ],
+  "m21_full_stage_replays": [
+    {"stage":"R8-2","plan":"V15","action_hash":"cf98bc4aba6ac2f158cd223b2c7451eb08afd40cd48b0230a6f2add1b7e612e0","result":"WIN 36/0/0/life3","evidence":"output/r8_1_r8_7_batch_v1/main_08-02/roadblock_radius_replay_v15_m21_v1"},
+    {"stage":"R8-4","plan":"V4","action_hash":"d4d36a501bb5bdbcf865cf9d640574b656aa16646b7ebb1a4a795cd37ac41f6c","result":"WIN 54/0/0/life3","evidence":"output/r8_1_r8_7_batch_v1/main_08-04/roadblock_radius_replay_v4_m21_v1"},
+    {"stage":"R8-7","plan":"V13","action_hash":"3dd0590f798bfc42c1dc3cd785f01e4ebf95de92495c2bee07f80e1cad9546bc","result":"LOSS 18/15/10/life-14","evidence":"output/r8_1_r8_7_batch_v1/main_08-07/roadblock_radius_replay_v13_m21_v1"},
+    {"stage":"R8-1","plan":"C7 variants A+B","result":"LOSS both 55/1/0/life4","evidence":"output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_roadblock_radius_m21_v1"}
+  ],
+  "claim_boundary": "Full simulations are current-model diagnostics. No real-game, faithful, robust or PROVEN_MINIMUM claim is made."
+}

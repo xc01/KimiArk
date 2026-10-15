@@ -77,11 +77,11 @@ def test_real_enemy_uses_converted_0_1_route_until_leak(adapter):
     )
     result = Simulator(range_transformer=ApproximateRealRangeTransformer()).run(
         stage=single_spawn_stage, operators=fixture.operators, enemies=fixture.enemies,
-        strategy=Strategy((), ()), config=SimulationConfig(dt=0.1, max_time=12.0),
+        strategy=Strategy((), ()), config=SimulationConfig(dt=0.1, max_time=22.0),
     )
     leak = [event for event in result.events if event.event_type is EventType.ENEMY_LEAK]
     assert result.enemies_leaked == 1
-    assert leak[0].time >= 10.0  # It traverses the converted source route before leaking.
+    assert leak[0].time >= 20.0
 
 
 def test_approximated_spawn_timeline_is_deterministic_and_preserves_hierarchy(adapter):

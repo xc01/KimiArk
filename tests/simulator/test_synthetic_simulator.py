@@ -13,9 +13,9 @@ from arknights_planner.simulator import SimulationConfig, Simulator
 from arknights_planner.simulator.synthetic import synthetic_enemies, synthetic_operators, synthetic_stage
 
 
-def run(strategy: Strategy, *, stage=None, max_time: float = 20.0):
+def run(strategy: Strategy, *, stage=None, max_time: float = 20.0, operators=None):
     return Simulator().run(
-        stage=stage or synthetic_stage(), operators=synthetic_operators(), enemies=synthetic_enemies(),
+        stage=stage or synthetic_stage(), operators=operators or synthetic_operators(), enemies=synthetic_enemies(),
         strategy=strategy, config=SimulationConfig(dt=0.1, max_time=max_time),
     )
 
@@ -58,15 +58,22 @@ def test_deployment_legality_and_dp_cost():
 
 def test_deployment_limit_rejects_third_operator_when_dp_is_available():
     stage = replace(synthetic_stage(), initial_dp=known(20, "synthetic/test", "$.initialDp"))
+    three_star = known(3, "synthetic/test", "$.rarity")
+    operators = {
+        **synthetic_operators(),
+        "guard": replace(synthetic_operators()["guard"], star_rarity=three_star),
+        "archer": replace(synthetic_operators()["archer"], star_rarity=three_star),
+        "rookie": replace(synthetic_operators()["rookie"], star_rarity=three_star),
+    }
     strategy = Strategy(
         ("guard", "archer", "rookie"),
         (
             Action(ActionType.DEPLOY, 0.0, "guard", (3, 1)),
             Action(ActionType.DEPLOY, 0.0, "archer", (1, 2), "UP"),
-            Action(ActionType.DEPLOY, 0.0, "rookie", (4, 2)),
+            Action(ActionType.DEPLOY, 0.0, "rookie", (4, 1)),
         ),
     )
-    result = run(strategy, stage=stage)
+    result = run(strategy, stage=stage, operators=operators)
     assert any("deployment limit reached" in error for error in result.deployment_errors)
 
 
@@ -103,8 +110,8 @@ def test_merchant_maintenance_charges_after_interval_and_stops_on_retreat():
         strategy=strategy, config=SimulationConfig(dt=0.01, max_time=4.0),
     )
     charges = [event for event in result.events if event.event_type is EventType.DP_CHANGE]
-    assert [(event.time, event.source_id, dict(event.details)["amount"]) for event in charges] == [(3.0, "guard", -3.0)]
-    assert abs(result.final_dp - 2.0) < 1e-9
+    assert [(event.time, event.source_id, dict(event.details)["amount"]) for event in charges] == [(3.0, "guard", -3.0), (3.5, "guard", 2.0)]
+    assert abs(result.final_dp - 4.0) < 1e-9
     assert not any(event.event_type is EventType.RETREAT and dict(event.details).get("auto") for event in result.events)
 
 

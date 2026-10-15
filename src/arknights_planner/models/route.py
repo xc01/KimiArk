@@ -25,6 +25,8 @@ class Route:
     route_id: str
     waypoints: tuple[Waypoint, ...]
     waits: tuple[RouteWait, ...] = ()
+    movement_mode: str = "WALK"
+    hidden_spans: tuple[tuple[float, float], ...] = ()
 
     def __post_init__(self) -> None:
         if len(self.waypoints) < 2:
@@ -89,6 +91,48 @@ class Route:
                     distances.append(distance)
             accumulated += segment
         return tuple(distances)
+
+    def hidden_at(self, distance: float, *, tolerance: float = 1e-9) -> bool:
+        return any(start - tolerance <= distance <= end + tolerance for start, end in self.hidden_spans)
+
+    def blocking_windows(
+        self,
+        point: tuple[float, float],
+        *,
+        radius: float,
+        tolerance: float = 1e-9,
+    ) -> tuple[tuple[float, float], ...]:
+        """Return contiguous route-distance intervals within a circular blocker radius."""
+        if radius < 0:
+            raise ValueError("blocker radius must be non-negative")
+        windows: list[tuple[float, float]] = []
+        accumulated = 0.0
+        for first, second in zip(self.waypoints, self.waypoints[1:]):
+            dx, dy = second.x - first.x, second.y - first.y
+            segment_length = hypot(dx, dy)
+            if segment_length == 0:
+                continue
+            factor = ((point[0] - first.x) * dx + (point[1] - first.y) * dy) / (segment_length * segment_length)
+            clamped_factor = min(max(factor, 0.0), 1.0)
+            closest_x = first.x + clamped_factor * dx
+            closest_y = first.y + clamped_factor * dy
+            perpendicular_distance = hypot(point[0] - closest_x, point[1] - closest_y)
+            if perpendicular_distance <= radius + tolerance:
+                half_chord = max(0.0, radius * radius - perpendicular_distance * perpendicular_distance) ** 0.5
+                entry_offset = clamped_factor * segment_length - half_chord
+                exit_offset = clamped_factor * segment_length + half_chord
+                start = accumulated + min(max(entry_offset, 0.0), segment_length)
+                end = accumulated + min(max(exit_offset, 0.0), segment_length)
+                if end - start > tolerance:
+                    windows.append((start, end))
+            accumulated += segment_length
+        merged: list[tuple[float, float]] = []
+        for start, end in sorted(windows):
+            if merged and start <= merged[-1][1] + tolerance:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+            else:
+                merged.append((start, end))
+        return tuple(merged)
 
     def time_at_distance(self, distance: float, *, speed: float) -> float:
         """Movement time including source waits strictly before this distance."""

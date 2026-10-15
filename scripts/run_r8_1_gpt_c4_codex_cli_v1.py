@@ -22,6 +22,7 @@ from run_r8_1_lowstar_c3_failure_revision_v1 import INITIAL_BODY_LIMIT
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RUNTIME_CODEX_HOME = ROOT / ".runtime/codex-home"
 SOURCE = ROOT / "output/r8_1_gpt_c4_codex_cli_v3"
 SAVED_CLI_INPUT_DIR = ROOT / "output/r8_1_gpt_c4_codex_cli_v1"
 OUT = ROOT / "output/r8_1_gpt_c4_codex_cli_v1"
@@ -145,6 +146,8 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
             "all_proxy": environment.get("all_proxy"),
             "no_proxy": environment.get("no_proxy"),
         },
+        "codex_home": environment.get("CODEX_HOME"),
+        "codex_home_mode": "RUNTIME_WRITABLE_HOME" if environment.get("CODEX_HOME") == str(RUNTIME_CODEX_HOME) else "INHERITED",
         "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
     }
     write_json(OUT / "cli_process_attempt.json", record, exclusive=True)
@@ -165,6 +168,15 @@ def build_command(last_message_path: Path) -> list[str]:
 
 def codex_environment() -> dict[str, str]:
     environment = dict(os.environ)
+    configured_home = Path(environment.get("CODEX_HOME", str(Path.home() / ".codex")))
+    if not configured_home.is_dir() or not os.access(configured_home, os.W_OK):
+        RUNTIME_CODEX_HOME.mkdir(parents=True, exist_ok=True)
+        for name in ("auth.json", "config.toml"):
+            source = configured_home / name
+            target = RUNTIME_CODEX_HOME / name
+            if source.exists() and not target.exists():
+                target.symlink_to(source)
+        environment["CODEX_HOME"] = str(RUNTIME_CODEX_HOME)
     expected = {
         "HTTP_PROXY": "http://127.0.0.1:7890",
         "HTTPS_PROXY": "http://127.0.0.1:7890",

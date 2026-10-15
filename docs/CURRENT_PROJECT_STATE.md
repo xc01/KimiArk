@@ -115,3 +115,19 @@ arrived #3, but #14 stayed blocked by roadblock #4. V10 is the best current
 R8-7 result; V2 remains the minimum-leak loss baseline. V11 failed schema/contract
 lineage validation and has no simulation. The seven-stage table is
 `seven_stage_status_v12.json`.
+
+## 2026-10-15 m21 seven-stage status
+
+| Stage | Current result | Evidence |
+|---|---|---|
+| R8-1 | C7 LOSS under m21 targeting A/B; historical wins are m19-history only | `output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay_roadblock_radius_m21_v1/roadblock_targeting_replay_summary.json` |
+| R8-2 | V15 m21 simulator WIN; perfect completion retained | `output/r8_1_r8_7_batch_v1/main_08-02/roadblock_radius_replay_v15_m21_v1/` |
+| R8-3 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-4 | V4 m21 simulator WIN; perfect completion retained | `output/r8_1_r8_7_batch_v1/main_08-04/roadblock_radius_replay_v4_m21_v1/` |
+| R8-5 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-6 | Mechanism BLOCKED | `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json` |
+| R8-7 | V13 m21 LOSS | `output/r8_1_r8_7_batch_v1/main_08-07/roadblock_radius_replay_v13_m21_v1/` |
+
+Codex start count is 46; the latest start used a writable runtime `CODEX_HOME`
+but stopped after service-side `workspace routing discovery failed`. The fix
+matrix is `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json`.

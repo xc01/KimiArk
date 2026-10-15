@@ -291,6 +291,20 @@ ordinary device only after the local enemy function returns no candidate, and
 range/faction/eligibility rules remain intact. Exact client ordering among
 multiple devices and the full 2026 selector implementation remain UNKNOWN.
 Historical global-gate simulations stay historical-only.
+## 2026-10-15 m21 continuous roadblock and runtime home
+
+PRTS defines roadblock blocking by the distance between entity centers and a
+0.4472 radius. The simulator now derives continuous route blocking windows and
+releases the neutral enemy when the roadblock is destroyed. This replaces the
+center-line-only approximation while preserving ordinary operator blocking and
+device targeting eligibility separately.
+
+Nested Codex CLI attempts may inherit a read-only host home. The runner creates
+`/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home` (gitignored),
+symlinks the existing `auth.json` and `config.toml`, and sets `CODEX_HOME` only
+for that process. It preserves login/configuration without copying credentials
+or changing global files. The latest V14 retry still reached the model but failed
+at server-side workspace routing; no second retry was made.
 ## 2026-10-15 R8-4 result boundary
 
 R8-4 V4's perfect result is limited to the current deterministic model. It uses

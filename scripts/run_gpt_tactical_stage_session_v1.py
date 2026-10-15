@@ -11,6 +11,7 @@ from jsonschema import Draft7Validator
 
 import run_r8_1_gpt_c4_codex_cli_v1 as codex_runner
 from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
+from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
 
 
@@ -252,12 +253,15 @@ def prepare() -> dict[str, Any]:
             "readonly_query_helpers": True,
         }
         evidence["corrected_mechanism_support"] = {
-            "mechanics_version": "m19.1-local-device-target-v1",
+            "mechanics_version": ACTIVE_MECHANICS_VERSION,
             "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies",
             "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
             "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
-            "roadblock_special_blocking": "roadblocks may block Ursus Civilian but are not ordinary operator blocking",
+            "roadblock_special_blocking": "PRTS-backed 0.4472 roadblock radius blocks Ursus Civilian and release occurs on destruction; it is not ordinary operator blocking",
             "officer_protected_target_attack_radius": "enemy_1107_uoffcr can normally attack Ursus Civilian within 1.2",
+            "stage_move_multiplier": "applied once to enemy raw move speed",
+            "fragment_or_wave_wait": "checkpoint time is used as the wait duration in the current model",
+            "disappear_appear": "enemy is hidden between source DISAPPEAR and APPEAR_AT_POS; exact client visibility and target rules remain UNKNOWN",
             "unknowns": [
                 "exact client target priority between operators and protected targets",
                 "other protected-target families and exact continuous-frame client timing",

@@ -432,3 +432,19 @@ Contract-only V7/V11 and static-only V12 have no tactical result. V13 shows that
 solving both protected arrivals by broadening clearance/redeployment can collapse
 route defense; the next structure must preserve V10's line and selectively clear
 #4.
+
+## 2026-10-15 m21 invalidates R8-1 C7 as a robust current result
+
+The center-line roadblock approximation was too weak. Under m21's radius model,
+the unchanged C7 timeline leaks `enemy_1108_uterer#54` at frame 5282 in both
+targeting variants. Historical WIN artifacts remain valid only for their recorded
+mechanics versions. The next R8-1 feedback must preserve prior successful roles
+but account for the new continuous clearance geometry and late route leak.
+
+## 2026-10-15 nested CLI infrastructure boundary
+
+The earlier V14 failure was a read-only host `CODEX_HOME` initialization issue,
+not a tactical rejection. A writable gitignored runtime home recovered CLI
+startup, but the next attempt failed at service-side workspace routing. Stop the
+entry after the recorded failure; do not retry the same request or infer a model
+tactical conclusion from it.

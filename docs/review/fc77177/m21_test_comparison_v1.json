@@ -1,0 +1,32 @@
+{
+  "schema_version": "KIMIARK_M21_TEST_COMPARISON_V1",
+  "parent_commit": "fc771771db042026f4aa14762b749b7462191407",
+  "current_branch_head": "fc771771db042026f4aa14762b749b7462191407",
+  "test_command": "PYTHONPATH=<repo>:<repo>/src:<repo>/scripts .venv/bin/python3.12 -m pytest -q",
+  "current": {
+    "collected": 521,
+    "failures": 31,
+    "skips": 2
+  },
+  "parent_worktree_raw": {
+    "failures": 43
+  },
+  "shared_failures": 31,
+  "current_only_failures": [],
+  "parent_only_failures_explained_by_missing_worktree_artifacts": [
+    "FAILED tests/test_architecture.py::test_m23_does_not_request_human_calibration_when_gate_fails",
+    "FAILED tests/test_architecture.py::test_q3_remains_unknown_only_after_evidence_retrieval",
+    "FAILED tests/test_architecture.py::test_unsupported_mechanic_can_be_unknown_after_retrieval",
+    "FAILED tests/test_ch6_11_enemy_runtime_fidelity.py::test_no_ch6_11_enemy_ability_is_claimed_safe_without_semantics",
+    "FAILED tests/test_ch6_11_enemy_runtime_fidelity.py::test_stage_fidelity_recheck_has_24_runnable_normal_stages",
+    "FAILED tests/test_ch6_11_enemy_runtime_fidelity.py::test_unique_ch6_11_enemy_execution_is_per_enemy_not_deployment_only",
+    "FAILED tests/test_ch6_11_meaningful_benchmark.py::MeaningfulBenchmarkSelectionTests::test_structural_suite_selects_three_distinct_ch6_11_stages",
+    "FAILED tests/test_kimi_readonly_tools.py::ReadonlyToolTests::test_source_mapping_hashes_existing_sources",
+    "FAILED tests/test_operator_assignment_recovery.py::test_recorded_round_two_used_no_local_repair_budget",
+    "FAILED tests/test_operator_runtime_fidelity_v1.py::OperatorRuntimeFidelityV1Tests::test_available_low_rarity_operators_are_all_audited",
+    "FAILED tests/test_operator_runtime_fidelity_v1.py::OperatorRuntimeFidelityV1Tests::test_fidelity_classification_summary_matches_records",
+    "FAILED tests/test_operator_runtime_fidelity_v1.py::OperatorRuntimeFidelityV1Tests::test_low_rarity_smoke_regressions_are_deterministic"
+  ],
+  "conclusion": "No current failure set expansion over the shared parent failure set; 12 extra parent worktree failures map to absent local artifacts, not source regressions.",
+  "limitations": "Parent worktree lacks untracked local output and evidence directories; this comparison is a raw-set check, not a full parent artifact clone."
+}

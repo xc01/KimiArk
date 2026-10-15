@@ -151,6 +151,8 @@ class Stage:
     level_structure: StageLevelStructure | None = None
     max_life_points: ValueWithSource[int | None] = unknown()
     cost_increase_time: ValueWithSource[float | int | None] = unknown()
+    move_multiplier: ValueWithSource[float | int | None] = unknown()
+    max_dp: ValueWithSource[float | int | None] = unknown()
     devices: tuple[BattleDevice, ...] = ()
 
 

@@ -82,6 +82,9 @@ class RuntimeEnemy:
     normal_attack_count: int = 0
     is_neutral: bool = False
     protected_target_attack_radius: float | None = None
+    movement_mode: str = "WALK"
+    block_requirement: int = 1
+    hidden: bool = False
 
 
 @dataclass
@@ -99,6 +102,7 @@ class RuntimeOperator:
     magic_resistance: float
     combat_output: str
     redeploy_time: float
+    star_rarity: int = 1
     position: str = "UNKNOWN"
     skill: object | None = None
     current_sp: float = 0.0
@@ -123,6 +127,8 @@ class RuntimeOperator:
     maintenance_cost: float = 0.0
     maintenance_interval: float = 0.0
     next_maintenance_time: float = 0.0
+    can_attack_air: bool = True
+    deployment_cost: float = 0.0
 
 
 @dataclass
@@ -142,6 +148,7 @@ class SimulationState:
     time: float
     dp: float
     remaining_life: int
+    max_dp: float | None = None
     active_enemies: dict[str, RuntimeEnemy] = field(default_factory=dict)
     active_devices: dict[str, RuntimeDevice] = field(default_factory=dict)
     deployed_operators: dict[str, RuntimeOperator] = field(default_factory=dict)

@@ -60,3 +60,4 @@ class Operator:
     deployment_sp_bonus: float = 0.0
     deployment_heal_all_value: float = 0.0
     redeploy_time_delta: float = 0.0
+    can_attack_air: bool = True

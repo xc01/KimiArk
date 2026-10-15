@@ -112,7 +112,7 @@ def test_search_evaluates_approximate_real_runs_and_discovers_a_win(search_resul
     assert search_result.metrics.simulations_to_first_win is not None
     assert search_result.metrics.winning_candidates > 0
     assert search_result.timeline is not None
-    assert search_result.timeline.actions[0].frame == 90
+    assert search_result.timeline.actions[0].frame == 330
     assert search_result.timeline.frame_clock.status.value == "APPROXIMATED"
     assert search_result.timeline.actions[0].action_type.value == "DEPLOY"
 

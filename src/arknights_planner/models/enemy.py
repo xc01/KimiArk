@@ -26,6 +26,7 @@ class EnemyStats:
     death_life_point_reduce: ValueWithSource[int | None] = field(default_factory=unknown)
     is_neutral: ValueWithSource[bool | None] = field(default_factory=unknown)
     protected_target_attack_radius: ValueWithSource[float | int | None] = field(default_factory=unknown)
+    movement_mode: ValueWithSource[str | None] = field(default_factory=unknown)
 
 
 @dataclass(frozen=True)

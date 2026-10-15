@@ -299,7 +299,7 @@ class GameDataRepository:
                 self._defined_value(attributes.get("moveSpeed"), source, f"{base}.attributes.moveSpeed.m_value"), no_damage_value(attributes.get("baseAttackTime"), "baseAttackTime"),
                 self._defined_value(attributes.get("massLevel"), source, f"{base}.attributes.massLevel.m_value"), self._defined_value(raw.get("lifePointReduce"), source, f"{base}.lifePointReduce.m_value"),
                 self._defined_value(raw.get("rangeRadius"), source, f"{base}.rangeRadius.m_value"),
-                unknown(),
+                known(2, source, f"{base}.description") if "阻挡能力大于等于2" in raw_description else unknown(),
                 self._field(raw, "applyWay", source, f"{base}.applyWay.m_value"),
                 known("ARTS", "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.damageType") if handbook_damage_type == "MAGIC" else known("PHYSICAL", "zh_CN/gamedata/excel/enemy_handbook_table.json", f"$.enemyData.{enemy_id}.damageType") if handbook_damage_type else unknown(),
                 self._defined_value(attributes.get("hpRecoveryPerSec"), source, f"{base}.attributes.hpRecoveryPerSec.m_value"),
@@ -311,6 +311,7 @@ class GameDataRepository:
                 if raw_description
                 else unknown(),
                 protected_attack_radius,
+                self._defined_value(raw.get("motion"), source, f"{base}.motion.m_value"),
             ), source,
             abilities=abilities,
             attack_timing=attack_timing,
@@ -516,6 +517,8 @@ class GameDataRepository:
             level_structure=structure,
             max_life_points=self._field((payload or {}).get("options", {}), "maxLifePoint", level_source, "$.options.maxLifePoint"),
             cost_increase_time=self._field((payload or {}).get("options", {}), "costIncreaseTime", level_source, "$.options.costIncreaseTime"),
+            move_multiplier=self._field((payload or {}).get("options", {}), "moveMultiplier", level_source, "$.options.moveMultiplier"),
+            max_dp=self._field((payload or {}).get("options", {}), "maxCost", level_source, "$.options.maxCost"),
         )
 
     def stage_reconstruction_report(self, stage_id_or_code: str) -> StageReconstructionReport:

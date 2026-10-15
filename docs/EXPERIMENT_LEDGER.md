@@ -556,4 +556,25 @@ gate. V5: 21/12/7/life -9 and both protected arrivals. V9: 24/9/4/life -6 and
 both arrivals. V10: 28/5/3/life -2 and only #3 arrival. Internal model requests
 remain `UNKNOWN_CLI_INTERNAL`. Later V11 failed lineage, V12 was static-only,
 and high-effort V13 achieved both protected arrivals but regressed to
-17/16/8/life -13. V10 remains best.
+17/16/8/life -13. V10 remains best under m19.1.
+
+## 2026-10-15 m21 roadblock radius validation
+
+CONFIRMED_FROM_CODE: PRTS `roadblock.html` gives 0.4472 blocking radius. The
+runtime now blocks a civilian whose route enters that radius even without
+passing the device tile center, stops at the first radius intersection, releases
+the civilian when the roadblock is destroyed, and no longer emits repeated
+blocks. A one-star operator is excluded from the deployment-slot count.
+
+CONFIRMED_FROM_SIMULATION: m21 replayed frozen V15, V4 and V13 actions once
+each; action snapshot hashes stayed unchanged. R8-2 V15 remained WIN
+(36/0/0/life 3), R8-4 V4 remained WIN (54/0/0/life 3), and R8-7 V13 remained
+LOSS (18/15/10/life -14). The two C7 roadblock-targeting variants were each
+replayed once and both lost (55/1/0/life 4), so R8-1 requires a new m21 tactical
+revision. Total m21 full-stage simulations: 5. Synthetic regression tests are
+not full-stage counts.
+
+CLI: cumulative start count is 46. The 46th start reused the frozen V14 prompt
+after the read-only-home fix, reached a thread, then failed server-side at
+`workspace routing discovery failed` after five reconnect attempts. No automatic
+retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.

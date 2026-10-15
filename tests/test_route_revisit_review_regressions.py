@@ -39,7 +39,7 @@ def test_late_deployment_can_block_a_revisited_tile_in_the_public_runtime():
     simulator = Simulator()
     strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 5.0, "guard", (3, 1)),))
     simulator._deploy(state, stage, synthetic_operators(), strategy, strategy.actions[0])
-    simulator._spawn(state, synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
+    simulator._spawn(state, synthetic_stage(), synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
     enemy = state.active_enemies["slug#0"]
     enemy.distance = 5.0
     simulator._advance_enemies(state, stage, 0.1)

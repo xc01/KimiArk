@@ -57,7 +57,7 @@ def test_high_ground_unit_with_nonzero_block_stat_does_not_hold_ground_enemy():
     simulator._deploy(state, stage, operators, strategy, strategy.actions[0])
     assert not state.deployment_errors
     assert state.deployed_operators["archer"].base_block_count == 1
-    simulator._spawn(state, synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
+    simulator._spawn(state, synthetic_stage(), synthetic_enemies(), enemy_id="slug", route_id="main", spawn_index=0)
     simulator._advance_enemies(state, stage, 4.0)
     assert state.active_enemies["slug#0"].blocked_by is None
     assert state.active_enemies["slug#0"].distance == 4.0

@@ -111,13 +111,14 @@ class Simulator:
         delta = skill.effect.block_count_delta if operator.skill_active and skill else 0
         return max(0, operator.base_block_count + delta)
 
-    def _spawn(self, state: SimulationState, enemies: dict[str, Enemy], *, enemy_id: str, route_id: str, spawn_index: int) -> None:
+    def _spawn(self, state: SimulationState, stage: Stage, enemies: dict[str, Enemy], *, enemy_id: str, route_id: str, spawn_index: int) -> None:
         enemy = enemies[enemy_id]
         stats = enemy.stats
         instance_id = f"{enemy_id}#{spawn_index}"
         state.active_enemies[instance_id] = RuntimeEnemy(
             instance_id=instance_id, enemy_id=enemy_id, route_id=route_id,
-            hp=self._number(stats.max_hp, "enemy hp"), speed=self._number(stats.move_speed, "enemy speed"),
+            hp=self._number(stats.max_hp, "enemy hp"),
+            speed=self._number(stats.move_speed, "enemy speed") * self._stage_move_multiplier(stage),
             life_point_reduce=int(self._number(stats.life_point_reduce, "enemy life loss")), defense=self._number(stats.defense, "enemy defense"),
             atk=self._number(stats.atk, "enemy attack"), attack_interval=self._number(stats.attack_interval, "enemy attack interval"), spawn_index=spawn_index,
             attack_range=None if getattr(stats.apply_way, "value", None) == "MELEE" else float(stats.attack_range.value) if stats.attack_range.value is not None else None,
@@ -135,6 +136,9 @@ class Simulator:
             death_life_point_reduce=int((getattr(getattr(stats, "death_life_point_reduce", None), "value", None) or 0)),
             is_neutral=bool((getattr(getattr(stats, "is_neutral", None), "value", None) or False)),
             protected_target_attack_radius=None if getattr(getattr(stats, "protected_target_attack_radius", None), "value", None) is None else float(stats.protected_target_attack_radius.value),
+            movement_mode=getattr(getattr(stats, "movement_mode", None), "value", None) or "WALK",
+            block_requirement=max(1, int(getattr(getattr(stats, "block_requirement", None), "value", None) or 1)),
+            hidden=next((route for route in stage.routes if route.route_id == route_id), next(route for route in stage.routes if route.route_id == route_id)).hidden_at(0.0),
         )
         self._emit(state, EventType.SPAWN, source=instance_id, enemy_id=enemy_id, route_id=route_id)
 
@@ -155,7 +159,11 @@ class Simulator:
         elif operator is None: legal, reason = False, "unknown operator"
         elif action.operator_id in state.deployed_operators: legal, reason = False, "operator already deployed"
         elif state.redeploy_available_at.get(action.operator_id, 0.0) > state.time + self._EPSILON: legal, reason = False, "redeploy cooldown active"
-        elif len(state.deployed_operators) >= int(self._number(stage.deployment_limit, "deployment limit")): legal, reason = False, "deployment limit reached"
+        elif int(getattr(getattr(operator, "star_rarity", None), "value", None) or 1) >= 2 and sum(
+            int(item.star_rarity) >= 2
+            for item in state.deployed_operators.values()
+        ) >= int(self._number(stage.deployment_limit, "deployment limit")):
+            legal, reason = False, "deployment limit reached"
         elif any(runtime.tile == action.tile for runtime in state.deployed_operators.values()): legal, reason = False, "tile is occupied"
         elif any(device.tile == action.tile for device in state.active_devices.values()): legal, reason = False, "tile is occupied by active stage device"
         else:
@@ -189,6 +197,7 @@ class Simulator:
             defense=self._number(stats.defense, "operator defense"),
             magic_resistance=self._number(stats.magic_resistance, "operator magic resistance"),
             combat_output=operator.combat_output.value,
+            star_rarity=int(getattr(getattr(operator, "star_rarity", None), "value", None) or 1),
             position=operator.position.value or "UNKNOWN",
             redeploy_time=self._number(operator.redeploy_time, "operator redeploy time"), skill=skill,
             current_sp=skill.initial_sp if skill else 0.0,
@@ -199,6 +208,8 @@ class Simulator:
             deployment_sp_bonus=operator.deployment_sp_bonus,
             deployment_heal_all_value=operator.deployment_heal_all_value,
             redeploy_time_delta=operator.redeploy_time_delta,
+            can_attack_air=operator.position.value == "RANGED",
+            deployment_cost=cost,
         )
         if skill:
             runtime.current_sp = min(skill.sp_cost, runtime.current_sp + runtime.deployment_sp_bonus)
@@ -218,13 +229,13 @@ class Simulator:
                     runtime.skill_ready = True
                     runtime.pending_next_attack = True
                 else:
-                    self._activate_runtime_skill(state, runtime, skill, automatic=True)
+                    self._activate_runtime_skill(state, runtime, skill, automatic=True, max_dp=self._max_dp(stage))
 
     def _unblock(self, state: SimulationState, enemy: RuntimeEnemy) -> None:
         if enemy.blocked_by and enemy.blocked_by in state.deployed_operators:
             holder = state.deployed_operators[enemy.blocked_by]
             if enemy.instance_id in holder.blocked_enemy_ids:
-                holder.blocked_enemy_ids.remove(enemy.instance_id)
+                holder.blocked_enemy_ids = [item for item in holder.blocked_enemy_ids if item != enemy.instance_id]
             self._emit(state, EventType.UNBLOCK, source=holder.operator_id, target=enemy.instance_id)
         enemy.blocked_by = None
 
@@ -236,7 +247,15 @@ class Simulator:
             enemy = state.active_enemies.get(enemy_id)
             if enemy:
                 self._unblock(state, enemy)
+        refund = 0.0 if death else max(0.0, floor(operator.deployment_cost * 0.5))
         del state.deployed_operators[operator_id]
+        if refund:
+            before = state.dp
+            state.dp += refund
+            if state.max_dp is not None:
+                state.dp = min(state.dp, state.max_dp)
+            self._emit(state, EventType.DP_CHANGE, source=operator_id, amount=refund,
+                       before=before, after=state.dp, reason="retreat_refund")
         state.redeploy_available_at[operator_id] = state.time + max(0.0, operator.redeploy_time + operator.redeploy_time_delta)
         if death:
             state.operator_deaths += 1
@@ -251,7 +270,7 @@ class Simulator:
             return
         self._remove_operator(state, action.operator_id, death=False)
 
-    def _activate_runtime_skill(self, state: SimulationState, operator: RuntimeOperator, skill: SyntheticSkill, *, automatic: bool) -> None:
+    def _activate_runtime_skill(self, state: SimulationState, operator: RuntimeOperator, skill: SyntheticSkill, *, automatic: bool, max_dp: float | None = None) -> None:
         operator.current_sp -= skill.sp_cost
         operator.skill_ready = False
         operator.skill_active = True
@@ -264,6 +283,8 @@ class Simulator:
         if skill.effect.dp_immediate:
             before = state.dp
             state.dp += skill.effect.dp_immediate
+            if max_dp is not None:
+                state.dp = min(state.dp, max_dp)
             self._emit(state, EventType.DP_CHANGE, source=operator.operator_id, amount=skill.effect.dp_immediate,
                        before=before, after=state.dp, reason="skill_activation")
 
@@ -280,7 +301,15 @@ class Simulator:
             state.deployment_errors.append(f"{action.operator_id}@{action.time}: {reason}")
             self._emit(state, EventType.SKILL_ACTIVATE, source=action.operator_id, legal=False)
             return
-        self._activate_runtime_skill(state, operator, skill, automatic=False)
+        self._activate_runtime_skill(state, operator, skill, automatic=False, max_dp=state.max_dp)
+
+    def _max_dp(self, stage: Stage) -> float | None:
+        value = getattr(stage.max_dp, "value", None)
+        return None if value is None else float(value)
+
+    def _stage_move_multiplier(self, stage: Stage) -> float:
+        value = getattr(stage.move_multiplier, "value", None)
+        return 1.0 if value is None else float(value)
 
     def _apply_damage_to_enemy(self, state: SimulationState, enemy_id: str, source_id: str, damage: float, *, kind: str = "physical") -> None:
         enemy = state.active_enemies.get(enemy_id)
@@ -318,6 +347,10 @@ class Simulator:
         self._emit(state, EventType.DEVICE_DAMAGE, source=source_id, target=device_id, amount=damage, kind=kind)
         if device.hp <= 0:
             del state.active_devices[device_id]
+            for enemy in state.active_enemies.values():
+                if enemy.blocked_by == device_id:
+                    self._emit(state, EventType.UNBLOCK, source=device_id, target=enemy.instance_id)
+                    enemy.blocked_by = None
             self._emit(state, EventType.DEVICE_DESTROYED, source=source_id, target=device_id)
 
     def _process_projectile_hit(self, state: SimulationState, source_id: str, target_id: str, *, raw_override: float | None = None) -> None:
@@ -392,6 +425,8 @@ class Simulator:
             targets = [
                 enemy for enemy in state.active_enemies.values()
                 if not enemy.is_neutral
+                and (enemy.movement_mode != "FLY" or operator.can_attack_air)
+                and not next(route for route in stage.routes if route.route_id == enemy.route_id).hidden_at(enemy.distance)
                 and self._grid_position(self._enemy_position(stage, enemy)) in covered
             ]
             rule = "OPPOSING_FACTION_ONLY_HATRED_DES_remaining_path_distance_then_creation_order"
@@ -526,6 +561,8 @@ class Simulator:
 
     def _enemy_outputs(self, state: SimulationState, stage: Stage) -> None:
         for enemy in tuple(sorted(state.active_enemies.values(), key=lambda item: item.spawn_index)):
+            if enemy.hidden:
+                continue
             self._enemy_ability_outputs(state, stage, enemy)
             if enemy.atk <= self._EPSILON and enemy.attack_interval <= self._EPSILON:
                 continue
@@ -635,6 +672,7 @@ class Simulator:
             if enemy.attack_stand_until > state.time + self._EPSILON:
                 continue
             route = next(route for route in stage.routes if route.route_id == enemy.route_id)
+            enemy.hidden = route.hidden_at(enemy.distance)
             if enemy.route_wait_remaining > self._EPSILON:
                 enemy.route_wait_remaining = max(0.0, enemy.route_wait_remaining - dt)
                 continue
@@ -647,14 +685,17 @@ class Simulator:
                     enemy.route_wait_remaining = wait.duration
                     continue
             candidates: list[tuple[float, RuntimeOperator]] = []
-            if enemy.is_neutral:
+            if enemy.hidden:
+                pass
+            elif enemy.is_neutral:
                 device_blocked = False
                 for device in state.active_devices.values():
                     if device.template_id != "trap_020_roadblock":
                         continue
-                    for blocking_distance in route.distances_at(device.tile):
-                        if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
-                            enemy.distance = blocking_distance
+                    for window_start, window_end in route.blocking_windows(device.tile, radius=0.4472):
+                        if start - self._EPSILON < window_end and window_start < proposed + self._EPSILON:
+                            enemy.distance = max(start, window_start)
+                            enemy.blocked_by = device.device_id
                             self._emit(state, EventType.BLOCK, source=device.device_id,
                                        target=enemy.instance_id, blocking_radius=0.4472,
                                        rule="PRTS_ROADBLOCK_NEUTRAL_RADIUS_0_4472")
@@ -673,6 +714,10 @@ class Simulator:
                     if tile is not None and tile.tile_kind == "HIGH_GROUND":
                         continue
                     if len(operator.blocked_enemy_ids) >= self._effective_block(operator):
+                        continue
+                    if enemy.movement_mode == "FLY":
+                        continue
+                    if self._effective_block(operator) < enemy.block_requirement:
                         continue
                     for blocking_distance in route.distances_at(operator.tile):
                         if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
@@ -718,7 +763,7 @@ class Simulator:
                     if skill.effect.next_attack_atk_scale != 1.0:
                         operator.pending_next_attack = True
                     else:
-                        self._activate_runtime_skill(state, operator, skill, automatic=True)
+                        self._activate_runtime_skill(state, operator, skill, automatic=True, max_dp=state.max_dp)
 
     def _apply_maintenance(self, state: SimulationState) -> None:
         for operator_id in tuple(state.deployed_operators):
@@ -755,6 +800,7 @@ class Simulator:
             self._number(stage.initial_dp, "initial DP"),
             int(raw_initial_life),
         )
+        state.max_dp = self._max_dp(stage)
         state.active_devices = {
             device.device_id: RuntimeDevice(
                 device.device_id, device.template_id, device.tile, device.hp, device.hp,
@@ -783,7 +829,7 @@ class Simulator:
                 action_index += 1
             while spawn_index < len(spawns) and spawns[spawn_index][0] <= state.time + self._EPSILON:
                 _, enemy_id, route_id = spawns[spawn_index]
-                self._spawn(state, enemies, enemy_id=enemy_id, route_id=route_id, spawn_index=enemy_index)
+                self._spawn(state, stage, enemies, enemy_id=enemy_id, route_id=route_id, spawn_index=enemy_index)
                 spawn_index += 1; enemy_index += 1
             self._apply_maintenance(state)
             self._enemy_outputs(state, stage)
@@ -793,6 +839,9 @@ class Simulator:
                 break
             self._advance_enemies(state, stage, config.dt)
             state.dp += stage.dp_per_second * config.dt
+            max_dp = self._max_dp(stage)
+            if max_dp is not None:
+                state.dp = min(state.dp, max_dp)
             # Derive time from the integer tick, rather than accumulating
             # rounded dt errors that dispatch exact-frame actions one tick late.
             tick_index += 1

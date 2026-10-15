@@ -13,6 +13,7 @@ from arknights_planner.adapters.approximate_real import RealOperatorSelection
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.models.strategy import Action, ActionType, Strategy
 from arknights_planner.simulator import ApproximateRealRangeTransformer, InstantProjectileModel, SimulationConfig, Simulator
+from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 
 from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
     FRAMES_PER_SECOND, GAMEDATA, first_failure_context, json_value, load,
@@ -120,6 +121,7 @@ def run_replay() -> dict[str, Any]:
     audit = {
         "schema_version": "R8_1_C7_ROADBLOCK_TARGETING_REPLAY_V1",
         "classification": "CONDITIONAL_MODEL_ROADBLOCK_TARGETING_REPLAY",
+        "mechanics_version": ACTIVE_MECHANICS_VERSION,
         "plan_id": PLAN_ID,
         "policy": policy.names,
         "frames_per_second": FRAMES_PER_SECOND,
@@ -136,6 +138,7 @@ def run_replay() -> dict[str, Any]:
         "all_variants_win": all_win,
         "robust_roadblock_targeting_claim": "SUPPORTED_WITHIN_TWO_VARIANTS" if all_win else "NOT_SUPPORTED",
         "real_game_win_claim": False,
+        "faithful_certificate": "NOT_ISSUED",
         "omitted_or_unknown_mechanics": evidence["simulation_domain"]["omitted_or_unknown_mechanics"],
     }
     write_json(out / "roadblock_targeting_replay_summary.json", audit)
@@ -149,6 +152,7 @@ def run_replay() -> dict[str, Any]:
         },
     })
     final = {
+        "mechanics_version": ACTIVE_MECHANICS_VERSION,
         "conditional_model_win": bool(variants["B_LOW_PRIORITY_NO_ENEMY_ONLY"]["result"]["win"]),
         "all_roadblock_targeting_variants_win": all_win,
         "robust_roadblock_targeting_claim": audit["robust_roadblock_targeting_claim"],

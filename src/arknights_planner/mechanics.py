@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m19.1-local-device-target-v1"
+ACTIVE_MECHANICS_VERSION = "m21-roadblock-radius-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    ACTIVE_MECHANICS_VERSION: {
+        "status": "ACTIVE",
+        "summary": "Adds PRTS-backed roadblock radius blocking, radius release on destruction, stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
+    },
     "m18-targeting-v1": {
         "status": "HISTORICAL",
         "summary": "Target-selection diagnostics with route-progress ordering.",
@@ -50,9 +54,13 @@ MECHANICS_VERSION_HISTORY = {
         "status_history": "SUPERSEDED_BY_m18.9",
         "summary": "Adds enemy passive HP regeneration and exact every-second-attack cold override while retaining client-derived enemy attack timing.",
     },
+    "m20-stage-clock-v1": {
+        "status": "SUPERSEDED",
+        "summary": "Adds stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
+    },
     ACTIVE_MECHANICS_VERSION: {
         "status": "ACTIVE",
-        "summary": "Local device targeting: an operator may target an ordinary roadblock in range when it has no optional enemy candidate; remote enemies do not create a global attack gate.",
+        "summary": "Adds stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
     },
     "m19.0-neutral-protected-target-v1": {
         "status": "SUPERSEDED",
