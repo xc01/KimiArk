@@ -51,6 +51,11 @@ class Simulator:
 
     _EPSILON = 1e-9
     MECHANICS_VERSION = ACTIVE_MECHANICS_VERSION
+    _FRIENDLY_DEVICE_RANGE_X1 = (
+        (2, 0), (1, -1), (1, 0), (1, 1),
+        (0, -2), (0, -1), (0, 0), (0, 1), (0, 2),
+        (-1, -1), (-1, 0), (-1, 1), (-2, 0),
+    )
 
     def __init__(self, *, range_transformer: RangeTransformer | None = None, projectile_model: ProjectileModel | None = None):
         self.range_transformer = range_transformer or CanonicalSyntheticRangeTransformer()
@@ -113,8 +118,17 @@ class Simulator:
             return operator.base_attack_range
         if skill.effect.range_override is not None:
             return skill.effect.range_override
-        forward_cells = tuple((0, index) for index in range(1, skill.effect.range_forward_extend + 1))
-        return tuple(dict.fromkeys((*operator.base_attack_range, *skill.effect.range_add, *forward_cells)))
+        extended = operator.base_attack_range
+        if skill.effect.range_forward_extend > 0:
+            max_forward = max((col for _, col in extended), default=-1)
+            rows = sorted({row for row, _ in extended} or {0})
+            forward_cells = tuple(
+                (row, col)
+                for col in range(max_forward + 1, max_forward + skill.effect.range_forward_extend + 1)
+                for row in rows
+            )
+            extended = (*extended, *forward_cells)
+        return tuple(dict.fromkeys((*extended, *skill.effect.range_add)))
 
     def _effective_block(self, operator: RuntimeOperator) -> int:
         skill = self._skill(operator)
@@ -206,7 +220,7 @@ class Simulator:
             base_atk=self._number(stats.atk, "operator attack") * (1.0 + operator.talent_atk_ratio),
             base_block_count=int(self._number(stats.block_count, "operator block count")),
             base_attack_interval=self._number(stats.attack_interval, "operator attack interval"), base_attack_range=operator.attack_range,
-            defense=self._number(stats.defense, "operator defense"),
+            defense=self._number(stats.defense, "operator defense") * (1.0 + operator.talent_defense_ratio),
             magic_resistance=self._number(stats.magic_resistance, "operator magic resistance"),
             combat_output=operator.combat_output.value,
             star_rarity=int(getattr(getattr(operator, "star_rarity", None), "value", None) or 1),
@@ -382,7 +396,13 @@ class Simulator:
                 return
             self._emit(state, EventType.PROJECTILE_HIT, source=source_id, target=target_id)
             raw = self._effective_atk(operator) if raw_override is None else raw_override
-            if operator.damage_type == "ARTS":
+            active_skill = self._skill(operator)
+            damage_kind = (
+                active_skill.effect.damage_type_override
+                if operator.skill_active and active_skill and active_skill.effect.damage_type_override is not None
+                else operator.damage_type
+            )
+            if damage_kind == "ARTS":
                 damage = arts_damage(raw, device.magic_resistance,
                                      penetration_ratio=getattr(operator, "magic_resist_penetration", 0.0),
                                      penetration_flat=getattr(operator, "magic_resist_penetration_flat", 0.0))
@@ -396,7 +416,13 @@ class Simulator:
             return
         self._emit(state, EventType.PROJECTILE_HIT, source=source_id, target=target_id)
         raw = self._effective_atk(operator) if raw_override is None else raw_override
-        if operator.damage_type == "ARTS":
+        active_skill = self._skill(operator)
+        damage_kind = (
+            active_skill.effect.damage_type_override
+            if operator.skill_active and active_skill and active_skill.effect.damage_type_override is not None
+            else operator.damage_type
+        )
+        if damage_kind == "ARTS":
             damage = arts_damage(raw, getattr(enemy, "magic_resistance", 0.0),
                                  penetration_ratio=getattr(operator, "magic_resist_penetration", 0.0),
                                  penetration_flat=getattr(operator, "magic_resist_penetration_flat", 0.0))
@@ -604,6 +630,8 @@ class Simulator:
             if enemy.hidden:
                 continue
             self._enemy_ability_outputs(state, stage, enemy, pending_area_hits)
+            if any(ability.family == "DELAYED_LOCKED_AREA_ATTACK" for ability in enemy.abilities):
+                continue
             if enemy.atk <= self._EPSILON and enemy.attack_interval <= self._EPSILON:
                 continue
             if enemy.attack_stand_until > self._EPSILON and state.time + self._EPSILON >= enemy.attack_stand_until:
@@ -663,7 +691,10 @@ class Simulator:
             else:
                 self._damage_operator(state, enemy, target_id)
                 enemy.normal_attack_count += 1
-            enemy.next_attack_time = state.time + enemy.attack_interval
+            effective_attack_interval = enemy.attack_interval
+            if enemy.attack_speed_status_until >= state.time:
+                effective_attack_interval = enemy.attack_interval / (1.0 + enemy.attack_speed_status_delta / 100.0)
+            enemy.next_attack_time = state.time + effective_attack_interval
             enemy.attack_stand_until = max(enemy.attack_stand_until, state.time + enemy.attack_recovery)
             enemy.attack_windup_started = False
 
@@ -686,16 +717,17 @@ class Simulator:
                 if enemy.area_hit_time is not None:
                     continue
                 position = self._enemy_position(stage, enemy)
+                acquisition_radius = enemy.attack_range if enemy.attack_range is not None else ability.range_radius
                 candidates: list[RuntimeEnemy] = [
                     item for item in state.active_enemies.values()
                     if item.is_neutral
                     and hypot(position[0] - self._enemy_position(stage, item)[0],
-                              position[1] - self._enemy_position(stage, item)[1]) <= ability.range_radius
+                              position[1] - self._enemy_position(stage, item)[1]) <= acquisition_radius
                 ] if ability.protected_target_priority else []
                 if not candidates:
                     candidates = [
                         operator for operator in state.deployed_operators.values()
-                        if hypot(position[0] - operator.tile[0], position[1] - operator.tile[1]) <= enemy.attack_range + self._EPSILON
+                        if hypot(position[0] - operator.tile[0], position[1] - operator.tile[1]) <= acquisition_radius
                     ]
                 if not candidates:
                     continue
@@ -737,10 +769,17 @@ class Simulator:
 
     def _process_area_hit(self, state: SimulationState, stage: Stage, hit: _PendingAreaHit) -> None:
         for enemy in tuple(state.active_enemies.values()):
+            if not enemy.is_neutral:
+                continue
             enemy_position = self._enemy_position(stage, enemy)
             if hypot(hit.position[0] - enemy_position[0], hit.position[1] - enemy_position[1]) > hit.radius + self._EPSILON:
                 continue
-            self._damage_enemy(state, enemy, hit.source_id, hit.damage, kind=hit.damage_type)
+            damage = (
+                arts_damage(hit.damage, enemy.magic_resistance)
+                if hit.damage_type == "ARTS"
+                else hit.damage if hit.damage_type == "TRUE" else physical_damage(hit.damage, enemy.defense)
+            )
+            self._damage_enemy(state, enemy, hit.source_id, damage, kind=hit.damage_type)
         for operator in tuple(state.deployed_operators.values()):
             if hypot(hit.position[0] - operator.tile[0], hit.position[1] - operator.tile[1]) > hit.radius + self._EPSILON:
                 continue
@@ -754,6 +793,11 @@ class Simulator:
                        locked_position=hit.position)
             if operator.hp <= 0:
                 self._remove_operator(state, operator.operator_id, death=True)
+        source = state.active_enemies.get(hit.source_id)
+        if source is not None and source.area_hit_time is not None and source.area_hit_time <= state.time + self._EPSILON:
+            source.area_hit_time = None
+            source.area_hit_position = None
+            source.area_hit_radius = None
 
     def _apply_device_effects(self, state: SimulationState, stage: Stage) -> None:
         for device in tuple(state.active_devices.values()):
@@ -761,11 +805,22 @@ class Simulator:
                 continue
             if state.time + self._EPSILON < device.next_effect_time:
                 continue
-            targets = [
-                enemy for enemy in state.active_enemies.values()
-                if not enemy.hidden and hypot(device.tile[0] - self._enemy_position(stage, enemy)[0],
-                                              device.tile[1] - self._enemy_position(stage, enemy)[1]) <= device.effect_range_radius
-            ]
+            effect_cells = (
+                {(cell[0] + device.tile[0], cell[1] + device.tile[1]) for cell in device.effect_range}
+                if device.effect_range is not None
+                else None
+            )
+            targets = []
+            for enemy in state.active_enemies.values():
+                if enemy.hidden:
+                    continue
+                position = self._enemy_position(stage, enemy)
+                if effect_cells is not None:
+                    if self._grid_position(position) not in effect_cells:
+                        continue
+                elif hypot(device.tile[0] - position[0], device.tile[1] - position[1]) > device.effect_range_radius:
+                    continue
+                targets.append(enemy)
             device.next_effect_time = state.time + 15.0
             if not targets:
                 continue
@@ -934,6 +989,8 @@ class Simulator:
                 effect_skill_id={"trap_022_frosts_friend": "sktok_frosts_friend", "trap_023_ore_friend": "sktok_ore_friend"}.get(device.template_id),
                 effect_value={"trap_022_frosts_friend": 10.0, "trap_023_ore_friend": 2000.0}.get(device.template_id, 0.0),
                 effect_range_radius=1.0,
+                effect_range=self._FRIENDLY_DEVICE_RANGE_X1
+                if device.template_id in {"trap_022_frosts_friend", "trap_023_ore_friend"} else None,
                 next_effect_time=15.0 if device.template_id in {"trap_022_frosts_friend", "trap_023_ore_friend"} else None,
             )
             for device in stage.devices

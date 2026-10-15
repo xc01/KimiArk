@@ -138,6 +138,7 @@ class RuntimeOperator:
     deployment_cost: float = 0.0
     talent_atk_ratio: float = 0.0
     talent_max_hp_ratio: float = 0.0
+    talent_defense_ratio: float = 0.0
     anti_air_priority: bool = False
     prioritize_high_defense: bool = False
     air_target_atk_multiplier: float = 1.0
@@ -157,6 +158,7 @@ class RuntimeDevice:
     effect_skill_id: str | None = None
     effect_value: float = 0.0
     effect_range_radius: float = 0.0
+    effect_range: tuple[tuple[int, int], ...] | None = None
     next_effect_time: float | None = None
 
 

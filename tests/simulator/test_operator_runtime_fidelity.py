@@ -59,11 +59,17 @@ def test_aspd_additive_shortens_attack_interval():
 def test_forward_range_extension_adds_right_facing_cells():
     simulator = Simulator()
     base = runtime_operators()["dps"]
+    base_attack_range = ((1, 0), (0, 0), (-1, 0))
     operator = RuntimeOperator(
-        "dps", (1, 2), "UP", 100.0, 100.0, 70.0, 0, 1.0, base.attack_range, 0.0, 0.0, "DAMAGE", 3.0,
+        "dps", (1, 2), "UP", 100.0, 100.0, 70.0, 0, 1.0, base_attack_range, 0.0, 0.0, "DAMAGE", 3.0,
         position="RANGED", skill=_skill(SkillEffect(range_forward_extend=2)), skill_active=True,
     )
-    assert simulator._effective_range(operator) == (*operator.base_attack_range, (0, 1), (0, 2))
+    assert set(simulator._effective_range(operator)) == {
+        *base_attack_range,
+        (1, 1), (1, 2),
+        (0, 1), (0, 2),
+        (-1, 1), (-1, 2),
+    }
 
 
 def test_low_rarity_blackboard_patterns_map_to_generic_effects():

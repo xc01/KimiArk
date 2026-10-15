@@ -64,6 +64,7 @@ class Operator:
     attack_all_blocked: bool = False
     talent_atk_ratio: float = 0.0
     talent_max_hp_ratio: float = 0.0
+    talent_defense_ratio: float = 0.0
     anti_air_priority: bool = False
     prioritize_high_defense: bool = False
     air_target_atk_multiplier: float = 1.0

@@ -524,6 +524,7 @@ class ApproximateRealSimulationAdapter:
         source_description = str(source.get("description") or "").replace("</>", "").replace("<@ba.kw>", "")
         talent_atk = 0.0
         talent_hp = 0.0
+        talent_def = 0.0
         prioritize_high_defense = False
         air_target_atk_multiplier = 1.0
         for candidate in active_talent_candidates(self.repository, adapted.operator.operator_id):
@@ -531,6 +532,8 @@ class ApproximateRealSimulationAdapter:
             description = candidate.get("description") or ""
             talent_atk += float(values.get("atk", 0.0) or 0.0)
             talent_hp += float(values.get("max_hp", 0.0) or 0.0)
+            if "防御力" in description:
+                talent_def += float(values.get("def", 0.0) or 0.0)
             if "防御力最高" in description:
                 prioritize_high_defense = True
             if "攻击飞行目标" in description and values.get("atk_scale") is not None:
@@ -559,6 +562,7 @@ class ApproximateRealSimulationAdapter:
             prioritize_high_defense=prioritize_high_defense,
             talent_atk_ratio=talent_atk,
             talent_max_hp_ratio=talent_hp,
+            talent_defense_ratio=talent_def,
             air_target_atk_multiplier=air_target_atk_multiplier,
             deployment_sp_bonus=deployment_sp_bonus(self.repository, adapted.operator.operator_id),
             deployment_heal_all_value=deployment_heal_all_value(self.repository, adapted.operator.operator_id),
@@ -649,7 +653,7 @@ class ApproximateRealSimulationAdapter:
             )
             for item in configurations
         )
-        interpreter = LowRarityBlackboardEffectInterpreter()
+        interpreter = LowRarityBlackboardEffectInterpreter(range_resolver=self.repository.get_range)
         runtime_operators: dict[str, Operator] = {}
         for adapted in adapted_operators:
             interpreted = None

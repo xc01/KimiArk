@@ -1,0 +1,94 @@
+{
+  "schema_version": "M23_BEHAVIORAL_FIX_MATRIX_V1",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "gamedata_sha": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "items": [
+    {
+      "id": "A1",
+      "title": "skill effects execute in runtime",
+      "status": "FIXED",
+      "source": "skill_table.json levels[6]: skcom_range_extend ability_range_forward_extend=2; skchr_midn_1 says ARTS damage; skchr_spot_1 rangeId=x-4; character_table.json char_122_beagle talent def=0.1",
+      "implementation": [
+        "src/arknights_planner/simulator/simulator.py:_effective_range",
+        "src/arknights_planner/simulator/simulator.py:_process_projectile_hit",
+        "src/arknights_planner/adapters/low_rarity_skill.py:_range_override",
+        "src/arknights_planner/adapters/approximate_real.py:_runtime_operator"
+      ],
+      "tests": [
+        "test_behavioral_regressions.py::test_ansel_skill_changes_actual_range",
+        "test_behavioral_regressions.py::test_midnight_active_skill_deals_arts_damage",
+        "test_behavioral_regressions.py::test_spot_skill_uses_source_heal_range",
+        "test_behavioral_regressions.py::test_beagle_unlocked_defense_talent_applied"
+      ]
+    },
+    {
+      "id": "A2",
+      "title": "route circle/segment overlap",
+      "status": "FIXED",
+      "source": "deterministic geometry; endpoint and tangency cases",
+      "implementation": ["src/arknights_planner/models/route.py:blocking_windows"],
+      "tests": [
+        "test_behavioral_regressions.py::test_circle_wholly_beyond_endpoint_has_no_contact",
+        "tests/simulator/test_deep_mechanism_regressions.py::test_blocking_windows_use_unclamped_line_projection_and_clip_to_segment",
+        "tests/simulator/test_deep_mechanism_regressions.py::test_blocking_windows_handle_zero_length_and_repeated_segments"
+      ]
+    },
+    {
+      "id": "A3",
+      "title": "delayed artillery lifecycle",
+      "status": "FIXED",
+      "source": "GameData enemy ability; PRTS protected-target semantics and physical damage defense rule",
+      "implementation": [
+        "src/arknights_planner/simulator/simulator.py:_enemy_ability_outputs",
+        "src/arknights_planner/simulator/simulator.py:_enemy_outputs",
+        "src/arknights_planner/simulator/simulator.py:_process_area_hit"
+      ],
+      "tests": [
+        "test_behavioral_regressions.py::test_artillery_never_damages_hostile_enemies",
+        "test_behavioral_regressions.py::test_artillery_neutral_damage_respects_defense",
+        "test_behavioral_regressions.py::test_artillery_can_fire_again_after_first_impact",
+        "test_behavioral_regressions.py::test_artillery_has_no_extra_instant_single_target_attack",
+        "test_behavioral_regressions.py::test_artillery_acquisition_range_not_explosion_radius"
+      ]
+    },
+    {
+      "id": "B4",
+      "title": "sequential economy entry",
+      "status": "FIXED",
+      "source": "stage maxCost, half-cost retreat refund, one-star squad-slot rule",
+      "implementation": [
+        "scripts/compile_r8_1_lowstar_c2_plan_v1.py:build_dp_ledger",
+        "scripts/compile_r8_1_lowstar_c2_plan_v1.py:compile_plan"
+      ],
+      "tests": [
+        "test_behavioral_regressions.py::test_static_refund_cannot_exceed_stage_max_dp",
+        "tests/simulator/test_deep_mechanism_regressions.py::test_static_dp_ledger_uses_deployment_generations_for_sp"
+      ]
+    },
+    {
+      "id": "D5",
+      "title": "friendly device behavior",
+      "status": "PARTIALLY_FIXED",
+      "source": "range_table.json x-1 = 13 cells including axial distance 2; skill templates trap_022/trap_023",
+      "implementation": ["src/arknights_planner/simulator/simulator.py:_apply_device_effects"],
+      "tests": [
+        "test_behavioral_regressions.py::test_cold_changes_enemy_actual_attack_interval",
+        "test_behavioral_regressions.py::test_friendly_device_uses_source_x1_not_circle_one",
+        "tests/simulator/test_deep_mechanism_regressions.py::test_friendly_ice_and_altar_devices_execute_source_skills"
+      ],
+      "remaining": "exact device lifecycle/removal and complete stage semantics remain UNKNOWN"
+    },
+    {
+      "id": "C6",
+      "title": "real compiler CLI entry",
+      "status": "FIXED",
+      "source": "Python module/import semantics; provenance paths",
+      "implementation": [
+        "scripts/compile_r8_1_lowstar_c2_plan_v1.py:file_record",
+        "scripts/compile_r8_1_lowstar_c2_plan_v1.py:__main__"
+      ],
+      "tests": ["tests/simulator/test_deep_mechanism_regressions.py::test_compiler_cli_entry_reads_optional_input_directory"]
+    }
+  ],
+  "full_closure": "NOT_CLAIMED"
+}

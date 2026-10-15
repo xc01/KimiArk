@@ -6,8 +6,9 @@ other pattern as unsupported.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
+from typing import Callable
 
 from arknights_planner.models.runtime import SPRecoveryMode, SkillEffect, SyntheticSkill
 from arknights_planner.models.skill import SkillLevel
@@ -37,6 +38,21 @@ class LowRarityBlackboardEffectInterpreter:
     """
 
     version = "low-rarity-blackboard-v3-generic-operator"
+    _SOURCE_RANGE_OVERRIDES = {
+        "x-4": ((1, -1), (1, 0), (1, 1), (0, -1), (0, 0), (0, 1),
+                (-1, -1), (-1, 0), (-1, 1)),
+    }
+
+    def __init__(self, *, range_resolver: Callable | None = None) -> None:
+        self.range_resolver = range_resolver
+
+    def _range_override(self, level: SkillLevel) -> tuple[tuple[int, int], ...] | None:
+        range_id = level.range_id.value
+        if not range_id:
+            return None
+        if self.range_resolver is None:
+            return self._SOURCE_RANGE_OVERRIDES.get(range_id)
+        return tuple((cell.row, cell.col) for cell in self.range_resolver(range_id).cells)
 
     def interpret(self, skill_id: str, level: SkillLevel) -> InterpretedLowRaritySkill:
         pattern = level.blackboard
@@ -65,7 +81,11 @@ class LowRarityBlackboardEffectInterpreter:
             effect = SyntheticSkill(
                 skill_id=skill_id, initial_sp=float(level.initial_sp.value), sp_cost=float(level.sp_cost.value),
                 recovery_mode=SPRecoveryMode.TIME, sp_per_second=1.0, duration=float(level.duration.value),
-                effect=SkillEffect(atk_multiplier=1.0 + float(values["atk"]), damage_type_override="ARTS" if skill_id == "skchr_midn_1" else None),
+                effect=SkillEffect(
+                    atk_multiplier=1.0 + float(values["atk"]),
+                    damage_type_override="ARTS" if skill_id == "skchr_midn_1" else None,
+                    range_override=self._range_override(level),
+                ),
             )
             return InterpretedLowRaritySkill(skill_id, RealSkillSupport.EXECUTABLE_APPROXIMATED, "manual time-SP finite atk pattern; synthetic ATK multiplier mapping", effect, pattern)
         if manual_duration and set(values) == {"def"} and numeric("def"):
@@ -117,6 +137,7 @@ class LowRarityBlackboardEffectInterpreter:
                 recovery_mode=SPRecoveryMode.TIME, sp_per_second=1.0, duration=float(level.duration.value),
                 effect=SkillEffect(atk_multiplier=1.0 + float(values["atk"]), base_attack_time_override=float(values["base_attack_time"]), heal_mode=True),
             )
+            effect = replace(effect, effect=replace(effect.effect, range_override=self._range_override(level)))
             return InterpretedLowRaritySkill(skill_id, RealSkillSupport.EXECUTABLE_APPROXIMATED, "manual time-SP heal-mode pattern with explicit base-healing interval", effect, pattern)
         if (level.skill_type.value == "AUTO" and float(level.duration.value or 0.0) == 0.0
                 and set(values) == {"cost"} and numeric("cost")):

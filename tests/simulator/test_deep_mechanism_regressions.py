@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 from dataclasses import replace
 
@@ -23,6 +26,7 @@ from tests.simulator.test_neutral_protected_target import _neutral
 
 
 _SOURCE = "test/deep-mechanism"
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def _enemy(enemy_id: str, *, speed: float = 1.0, block_requirement: int = 1, movement_mode: str = "WALK") -> Enemy:
@@ -293,6 +297,32 @@ def test_static_dp_ledger_uses_deployment_generations_for_sp():
     assert second["generation"] == 2
     assert second["available_sp_model"] == pytest.approx(20.4)
     assert next(row for row in ledger["entries"] if row["event"] == "RETREAT_REFUND")["delta"] == 9
+
+
+def test_compiler_cli_entry_reads_optional_input_directory(tmp_path):
+    (tmp_path / "llm_evidence_context.json").write_text(json.dumps({
+        "stage_options": {"initial_cost": 10, "max_cost": 99, "deployment_limit": 8},
+        "stage_active_facts": {
+            "roadblock_tiles_col_row": [],
+            "deployable_ground_tiles_col_row": [],
+            "deployable_high_ground_tiles_col_row": [],
+        },
+        "normal_low_star_catalog": [],
+    }), encoding="utf-8")
+    (tmp_path / "llm_structured_output.json").write_text(json.dumps({
+        "revised_operational_plans": [{
+            "operational_plan_id": "cli-entry-regression",
+            "action_timeline": [{"action_type": "RETREAT", "operator_id": "x", "frame": 0}],
+        }],
+    }), encoding="utf-8")
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = os.pathsep.join(["src", "scripts", environment.get("PYTHONPATH", "")])
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/compile_r8_1_lowstar_c2_plan_v1.py"), str(tmp_path)],
+        cwd=ROOT, env=environment, check=False, capture_output=True, text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert (tmp_path / "static_compile_final_status.json").exists()
 
 
 def test_zero_duration_auto_skill_does_not_lose_a_tick_between_cycles():

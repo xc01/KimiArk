@@ -123,6 +123,9 @@ class Route:
                 half_chord = max(0.0, radius * radius - perpendicular_distance * perpendicular_distance) ** 0.5
                 line_start = factor * segment_length - half_chord
                 line_end = factor * segment_length + half_chord
+                if line_end < -tolerance or line_start > segment_length + tolerance:
+                    accumulated += segment_length
+                    continue
                 start = accumulated + min(max(line_start, 0.0), segment_length)
                 end = accumulated + min(max(line_end, 0.0), segment_length)
                 if end - start > -tolerance:

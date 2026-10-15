@@ -321,3 +321,12 @@ effect templates). They do not infer arbitrary prefab behavior. The DP ledger is
 sequential action simulation rather than an all-DEPLOY pre-scan, so deployment
 generation, cooldown and refund share runtime semantics. Unsupported client frame
 ordering and redeployment cost growth remain explicit UNKNOWN.
+
+## 2026-10-15 m23 wires effects to behavior, not metadata
+
+The bounded interpreter remains deliberately limited, but `rangeId`,
+forward range extension, ARTS override, heal range and defensive talent values
+now reach actual range, projectile damage and deployment stats. Artillery is
+modeled as one launch/locked-area lifecycle instead of an extra instant attack;
+area impact applies faction and defense/resistance rules. The static compiler and
+runtime share sequential DP generations, max-cost refunds and squad-slot counting.

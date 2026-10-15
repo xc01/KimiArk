@@ -592,3 +592,12 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `docs/review/fc77177/m22_full_test_comparison_v1.json`.
 - New full-stage simulations: 0. New tactical CLI calls: 0. This run was
   mechanism-repair only; historical V15/V4/C7/V13 claims remain version-scoped.
+
+## 2026-10-15 m23 behavior regression closure
+
+- New tactical CLI calls: 0. New full-stage simulations: 0.
+- Work's 13 behavioral regressions plus the compiler CLI regression pass; no
+  test was deleted or weakened to force green.
+- Full tests: 497 passed / 31 failed / 2 skipped (530 collected). Parent
+  `4ced50e9ea6d70abfb4c7a6967ea5a9b7c6bebf2` in the same venv/artifact snapshot
+  had 34 failures; exact JUnit IDs show no new current failure and three fewer.

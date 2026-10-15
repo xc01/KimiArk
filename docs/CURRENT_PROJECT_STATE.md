@@ -147,3 +147,18 @@ parent comparison confirms the two architecture device tests are newly fixed; th
 31 full-run failures match the previously observed parent count, but a fair full
 parent run requires copying gitignored runtime artifacts. See
 `docs/review/fc77177/m22_full_test_comparison_v1.json`.
+
+## 2026-10-15 m23 behavioral repair
+
+CONFIRMED_FROM_CODE: `m23-behavioral-mechanics-v1` makes Ansel/Midnight/Spot/
+Beagle effects observable in runtime, fixes route-blocking endpoint false
+positives, makes delayed artillery a launch/impact cycle with faction and defense
+rules, applies COLD to enemy attack interval, uses source range `x-1` for friendly
+ice/altar effects, caps static refunds, counts one-star slots correctly, and fixes
+the compiler CLI entry. Work's 13 behavioral regressions plus the CLI regression
+pass. Full tests are 497 passed, 31 failed, 2 skipped (530 collected).
+
+Seven stages remain historical-only until replayed unchanged under m23. R8-3,
+R8-5 and R8-6 still have incomplete decisive semantics. Exact client artillery
+prefab lifecycle, friendly-device lifecycle, redeploy cost growth, full 34-operator
+ability closure, Talulah, checkpoints and probability bounds remain UNKNOWN.

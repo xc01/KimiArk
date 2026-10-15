@@ -5,12 +5,12 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m22-deep-mechanics-partial-v1"
+ACTIVE_MECHANICS_VERSION = "m23-behavioral-mechanics-v1"
 
 MECHANICS_VERSION_HISTORY = {
-    ACTIVE_MECHANICS_VERSION: {
+    "m23-behavioral-mechanics-v1": {
         "status": "ACTIVE",
-        "summary": "Keeps roadblock radius blocking and adds static DP generations, refund/maxCost, zero-duration AUTO scheduling, selected low-rarity abilities, delayed locked-area artillery, and friendly ice/altar device effects. Full mechanism closure is not claimed.",
+        "summary": "Connects skill range/damage/heal behavior to runtime, fixes route blocker intersection, artillery launch-impact cycles, COLD attack interval, friendly device x-1 geometry, and static refund/deployment semantics. Full mechanism closure is not claimed.",
     },
     "m18-targeting-v1": {
         "status": "HISTORICAL",
@@ -58,8 +58,8 @@ MECHANICS_VERSION_HISTORY = {
         "status": "SUPERSEDED",
         "summary": "Adds stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
     },
-    ACTIVE_MECHANICS_VERSION: {
-        "status": "ACTIVE",
+    "m22-deep-mechanics-partial-v1": {
+        "status": "SUPERSEDED",
         "summary": "Adds stage moveMultiplier, maxCost, required block capacity, air eligibility, retreat refund, fragment/wave waits, and disappear/appear hidden spans.",
     },
     "m19.0-neutral-protected-target-v1": {

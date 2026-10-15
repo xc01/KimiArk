@@ -457,3 +457,12 @@ retreat 3375, deploy 5478, activate 5490. Zero-duration AUTO also lost one tick
 between cycles, explaining synthetic 1/3.1/5.2 versus 1/3/5 patterns without
 using a tolerance. Existing stage simulations under `m21` must not be reused as
 current mechanism evidence until replayed unchanged.
+
+## 2026-10-15 m23 metadata-only implementation anti-pattern
+
+Writing fields such as `damage_type_override`, `range_override` or COLD status is
+not evidence that an effect works. The corrected regressions assert changed
+physical range, ARTS projectile kind, Spot's external heal range, Beagle's 539
+defense, artillery impact filters, COLD's 1/0.7 attack interval, and the exact
+13-cell `x-1` device range. Future mechanism claims must connect source fields to
+observable behavior.
