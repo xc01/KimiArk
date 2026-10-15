@@ -216,3 +216,7 @@ and direct DNS also failed. No auth, provider, model, or node switch was made.
 R8-7 has a runner-compatible prepared prompt under the 140 KiB limit, but was
 not sent. Both R8-1 and R8-7 therefore have zero new plans and zero new full
 simulations; their m23/m24 baselines remain the newest tactical evidence.
+
+The resulting m25 commit was also not pushable: SSH closed before key exchange.
+A verified incremental bundle based on `21f2914...` is saved in
+`output/r8_1_r8_7_batch_v1/KimiArk_m25_unpushed_21f2914_9f6992a_20261016004824.bundle`.
