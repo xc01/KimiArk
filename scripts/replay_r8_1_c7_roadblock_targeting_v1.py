@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import hashlib
 import json
 from dataclasses import replace
@@ -22,10 +23,16 @@ from run_r8_1_lowstar_c2_full_diagnostic_v1 import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_cli"
-OUT = ROOT / "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay"
+SOURCE = ROOT / os.environ.get(
+    "R8_1_TARGETING_SOURCE",
+    "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_cli",
+)
+OUT = ROOT / os.environ.get(
+    "R8_1_TARGETING_OUT",
+    "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_roadblock_targeting_replay",
+)
 STAGE_ID = "main_08-01"
-PLAN_ID = "R8_1_LOWSTAR_PLAN_C7"
+PLAN_ID = os.environ.get("R8_1_TARGETING_PLAN_ID", "R8_1_LOWSTAR_PLAN_C7")
 
 
 def file_record(path: Path) -> dict[str, Any]:
