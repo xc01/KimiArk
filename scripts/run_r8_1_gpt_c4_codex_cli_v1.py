@@ -4,13 +4,16 @@ import argparse
 import copy
 import fcntl
 import hashlib
+import http.client
 import json
 import os
 import subprocess
+import time
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
+from urllib.parse import urlparse
 
 from jsonschema import Draft7Validator
 
@@ -198,6 +201,37 @@ def codex_environment() -> dict[str, str]:
         environment[upper] = value
         environment[lower] = value
     return environment
+
+
+def assert_proxy_prestart() -> dict[str, Any]:
+    proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+    if not proxy:
+        raise RuntimeError("HTTPS_PROXY is required before a Codex tactical CLI start")
+    parsed = urlparse(proxy)
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname or not parsed.port:
+        raise RuntimeError(f"HTTPS_PROXY must be an HTTP proxy with host and port: {proxy!r}")
+    started_at = time.monotonic()
+    try:
+        connection = http.client.HTTPConnection(parsed.hostname, parsed.port, timeout=8)
+        connection.request("CONNECT", "chatgpt.com:443")
+        response = connection.getresponse()
+        elapsed_ms = round((time.monotonic() - started_at) * 1000, 3)
+        if response.status != 200:
+            raise RuntimeError(
+                f"proxy CONNECT returned HTTP {response.status}; cannot start tactical CLI"
+            )
+    except Exception as exc:
+        raise RuntimeError(f"proxy prestart failed for {proxy}: {exc}") from exc
+    record = {
+        "schema_version": "CODEX_TACTICAL_PROXY_PRESTART_V1",
+        "proxy": proxy,
+        "connect_target": "chatgpt.com:443",
+        "status": response.status,
+        "elapsed_ms": elapsed_ms,
+        "counts_as_cli_start": False,
+    }
+    write_json(OUT / "proxy_prestart.json", record)
+    return record
 
 
 def build_prompt(evidence: dict[str, Any]) -> str:
@@ -402,6 +436,7 @@ def extract_events_summary(raw: str) -> dict[str, Any]:
 
 
 def run_codex_once(prompt: str, command: list[str], timeout_seconds: int) -> dict[str, Any]:
+    assert_proxy_prestart()
     claim_cli_start(command)
     budget = load(OUT / "budget_usage.json")
     budget["cli_process_starts_in_experiment"] = 1

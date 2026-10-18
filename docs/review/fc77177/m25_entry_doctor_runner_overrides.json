@@ -1,0 +1,386 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "1792334021s since unix epoch",
+  "overallStatus": "fail",
+  "codexVersion": "0.162.1",
+  "checks": {
+    "app_server.status": {
+      "id": "app_server.status",
+      "category": "app-server",
+      "status": "ok",
+      "summary": "background server is not running",
+      "details": {
+        "control socket": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-control/app-server-control.sock",
+        "daemon state dir": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon",
+        "dedicated pid file": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon/daemon.pid (missing)",
+        "dedicated update-loop pid file": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon/daemon-updater.pid (missing)",
+        "mode": "ephemeral",
+        "pid file": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon/app-server.pid (missing)",
+        "settings": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon/settings.json (missing)",
+        "status": "not running",
+        "update-loop pid file": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/app-server-daemon/app-server-updater.pid (missing)"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "auth.credentials": {
+      "id": "auth.credentials",
+      "category": "auth",
+      "status": "ok",
+      "summary": "auth is configured",
+      "details": {
+        "auth env vars present": "OPENAI_API_KEY",
+        "auth file": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/auth.json",
+        "auth storage mode": "File",
+        "stored API key": "false",
+        "stored ChatGPT tokens": "true",
+        "stored agent identity": "false",
+        "stored auth mode": "chatgpt"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "config.load": {
+      "id": "config.load",
+      "category": "config",
+      "status": "warning",
+      "summary": "config loaded",
+      "details": {
+        "CODEX_HOME": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+        "active thread overrides": "not inspected",
+        "config.toml": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/config.toml",
+        "config.toml parse": "ok",
+        "configuration load ms": "119",
+        "configuration scope": "invocation config, including cloud-managed policy",
+        "configured TUI mode": "fullscreen",
+        "cwd": "/home/bigdata/Desktop/arknights-auto-planner",
+        "enabled feature flags": "daemon_auto_start, shell_tool, view_image, sleep_tool, unified_exec, unified_exec_tty, unified_exec_zsh_fork, shell_snapshot, content_item_kinds, code_mode_host, instant_interrupt, terminal_resize_reflow, sqlite, write_stdin_approval, hooks, api_key_model_discovery, enable_request_compression, unbounded_connection_retries, worktrees, system_proxy_fallback, multi_agent, tool_search_always_defer_mcp_tools, tool_suggest, plugins, in_app_browser, browser_annotation_api, in_app_chat, in_app_dictation, in_app_voice, in_app_local_automation, in_app_updates, browser_use, browser_use_full_cdp_access, browser_use_external, computer_use, remote_plugin, plugin_sharing, image_generation, resize_all_images, item_ids, skill_mcp_dependency_install, skill_search, mentions_v2, steer, guardian_approval, guardian_reuse_parent_compaction, goals, collaboration_modes, tool_call_mcp_elicitation, auth_elicitation, fast_mode, ultrafast_mode, realtime_conversation, tui_app_server, compaction_image_budget, workspace_dependencies",
+        "feature flag overrides": "apps=false",
+        "feature flags enabled": "56",
+        "log dir": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/log",
+        "mcp servers": "0",
+        "model": "gpt-6.1-sol",
+        "model provider": "openai",
+        "sqlite home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+        "startup warning": "Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.\n  user (/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/config.toml): `model_supports_reasoning_summaries` is ignored.",
+        "startup warning MCP": "0",
+        "startup warning deprecated": "1",
+        "startup warning hooks": "0",
+        "startup warning plugins": "0",
+        "startup warning skills": "0",
+        "startup warnings": "1"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "git.environment": {
+      "id": "git.environment",
+      "category": "git",
+      "status": "ok",
+      "summary": "git executable found; execution not verified",
+      "details": {
+        ".git entry": "directory",
+        "PATH git #1": "/usr/bin/git",
+        "PATH git #2": "/bin/git",
+        "PATH git entries": "2",
+        "git execution": "not inspected (PATH helpers are not executed)",
+        "repo detected": "true",
+        "repo root": "/home/bigdata/Desktop/arknights-auto-planner",
+        "selected git": "/usr/bin/git"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "installation": {
+      "id": "installation",
+      "category": "install",
+      "status": "ok",
+      "summary": "installation looks consistent",
+      "details": {
+        "PATH codex #1": "/usr/bin/codex",
+        "PATH codex #2": "/bin/codex",
+        "PATH codex entries": "2",
+        "current executable": "/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex",
+        "install context": "npm (package /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl, bin /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin, resources /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-resources, path /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path)",
+        "managed by Vite+": "false",
+        "managed by bun": "false",
+        "managed by npm": "true",
+        "managed by pnpm": "false",
+        "managed package root": "/usr/lib/node_modules/@openai/codex",
+        "npm update target": "not inspected (PATH helpers are not executed)"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "mcp.config": {
+      "id": "mcp.config",
+      "category": "mcp",
+      "status": "ok",
+      "summary": "no MCP servers configured",
+      "details": {},
+      "remediation": null,
+      "durationMs": 0
+    },
+    "network.env": {
+      "id": "network.env",
+      "category": "network",
+      "status": "ok",
+      "summary": "network-related environment looks readable",
+      "details": {
+        "managed proxy": "not configured",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+        "respect system proxy": "disabled"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "network.provider_reachability": {
+      "id": "network.provider_reachability",
+      "category": "reachability",
+      "status": "fail",
+      "summary": "one or more required provider endpoints are unreachable over HTTP",
+      "details": {
+        "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> connect failed (required)",
+        "reachability mode": "ChatGPT auth"
+      },
+      "remediation": "Check proxy, VPN, firewall, DNS, and custom CA configuration.",
+      "durationMs": 43
+    },
+    "network.websocket_reachability": {
+      "id": "network.websocket_reachability",
+      "category": "websocket",
+      "status": "warning",
+      "summary": "Responses WebSocket failed; HTTPS fallback may still work",
+      "details": {
+        "DNS": "lookup failed (Operation not permitted (os error 1))",
+        "auth mode": "chatgpt",
+        "connect timeout": "15000 ms",
+        "endpoint": "wss://chatgpt.com/backend-api/<redacted>",
+        "handshake transport error": "network error: Operation not permitted (os error 1)",
+        "model provider": "openai",
+        "provider name": "OpenAI",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+        "supports websockets": "true",
+        "wire API": "responses"
+      },
+      "remediation": "Check proxy, VPN, firewall, DNS, custom CA, and WebSocket policy support.",
+      "durationMs": 17
+    },
+    "runtime.provenance": {
+      "id": "runtime.provenance",
+      "category": "runtime",
+      "status": "ok",
+      "summary": "running npm on linux-x86_64",
+      "details": {
+        "commit": "unknown",
+        "current executable": "/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex",
+        "install method": "npm (package /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl, bin /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin, resources /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-resources, path /usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path)",
+        "platform": "linux-x86_64",
+        "version": "0.162.1"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "runtime.search": {
+      "id": "runtime.search",
+      "category": "search",
+      "status": "ok",
+      "summary": "search command found (bundled); execution not verified",
+      "details": {
+        "search command": "/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path/rg",
+        "search command readiness": "file exists",
+        "search provider": "bundled"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "sandbox.filesystem_paths": {
+      "id": "sandbox.filesystem_paths",
+      "category": "sandbox",
+      "status": "ok",
+      "summary": "no explicit filesystem paths to probe",
+      "details": {},
+      "remediation": null,
+      "durationMs": 0
+    },
+    "sandbox.helpers": {
+      "id": "sandbox.helpers",
+      "category": "sandbox",
+      "status": "ok",
+      "summary": "sandbox configuration is readable",
+      "details": {
+        "approval policy": "OnRequest",
+        "codex-linux-sandbox helper": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/tmp/arg0/codex-arg0aCCZmE/codex-linux-sandbox",
+        "denied-read glob rules": "0",
+        "denied-read rules": "0",
+        "execve wrapper helper": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/tmp/arg0/codex-arg0aCCZmE/codex-execve-wrapper",
+        "filesystem sandbox": "restricted",
+        "glob scan max depth": "unbounded",
+        "managed filesystem source": "none",
+        "network sandbox": "restricted"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "security.endpoint": {
+      "id": "security.endpoint",
+      "category": "security",
+      "status": "ok",
+      "summary": "endpoint protection is not inspected on this platform",
+      "details": {
+        "endpoint products": "not inspected on this platform"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "state.paths": {
+      "id": "state.paths",
+      "category": "state",
+      "status": "ok",
+      "summary": "state paths and databases are inspectable",
+      "details": {
+        "CODEX_HOME": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home (dir)",
+        "active rollout files": "6 files, 3297099 total bytes, 549516 average bytes",
+        "archived rollout files": "0 files, 0 total bytes, 0 average bytes",
+        "goals DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/goals_1.sqlite (file)",
+        "goals DB integrity": "ok",
+        "log DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/logs_2.sqlite (file)",
+        "log DB integrity": "ok",
+        "log dir": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/log (missing)",
+        "memories DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/memories_1.sqlite (file)",
+        "memories DB integrity": "ok",
+        "memories v2 DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/memories_v2_1.sqlite (missing)",
+        "memories v2 DB integrity": "skipped (missing)",
+        "queue DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/queue_1.sqlite (file)",
+        "queue DB integrity": "ok",
+        "sqlite home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home (dir)",
+        "state DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/state_5.sqlite (file)",
+        "state DB integrity": "ok",
+        "thread history DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/thread_history_1.sqlite (file)",
+        "thread history DB integrity": "ok"
+      },
+      "remediation": null,
+      "durationMs": 53
+    },
+    "state.rollout_db_parity": {
+      "id": "state.rollout_db_parity",
+      "category": "threads",
+      "status": "ok",
+      "summary": "rollout files and state DB thread inventory agree",
+      "details": {
+        "default model provider": "openai",
+        "rollout DB active files": "6",
+        "rollout DB active rows": "6",
+        "rollout DB archive mismatches": "0",
+        "rollout DB archived files": "0",
+        "rollout DB archived rows": "0",
+        "rollout DB duplicate DB paths": "0",
+        "rollout DB duplicate rollout thread ids": "0",
+        "rollout DB malformed file names": "0",
+        "rollout DB missing active rows": "0",
+        "rollout DB missing archived rows": "0",
+        "rollout DB model providers": "openai=6",
+        "rollout DB rows": "6",
+        "rollout DB scan cap reached": "false",
+        "rollout DB scan errors": "0",
+        "rollout DB sources": "exec=6",
+        "rollout DB stale rows": "0"
+      },
+      "remediation": null,
+      "durationMs": 38
+    },
+    "system.disk": {
+      "id": "system.disk",
+      "category": "disk",
+      "status": "ok",
+      "summary": "sufficient free disk space (247.4 GiB)",
+      "details": {
+        "CODEX_HOME available": "247.4 GiB",
+        "failure threshold": "1.0 GiB",
+        "warning threshold": "5.0 GiB",
+        "worktree available": "247.4 GiB"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "system.environment": {
+      "id": "system.environment",
+      "category": "system",
+      "status": "ok",
+      "summary": "OS language C",
+      "details": {
+        "EDITOR": "not set",
+        "GH_PAGER": "set",
+        "GIT_PAGER": "set",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "LC_CTYPE": "C.UTF-8",
+        "PAGER": "set",
+        "VISUAL": "not set",
+        "os": "Ubuntu 22.4.0 (jammy) [64-bit]",
+        "os language": "C",
+        "os type": "Ubuntu",
+        "os version": "22.4.0"
+      },
+      "remediation": null,
+      "durationMs": 78
+    },
+    "terminal.env": {
+      "id": "terminal.env",
+      "category": "terminal",
+      "status": "ok",
+      "summary": "terminal metadata was detected",
+      "details": {
+        "COLORTERM": "present",
+        "NO_COLOR": "1",
+        "SSH_CLIENT": "present",
+        "SSH_CONNECTION": "present",
+        "TERM_PROGRAM": "vscode",
+        "VSCODE_IPC_HOOK_CLI": "present",
+        "color output": "disabled (NO_COLOR)",
+        "effective locale": "C.UTF-8",
+        "stderr is terminal": "false",
+        "stdin is terminal": "false",
+        "stdout is terminal": "false",
+        "terminal": "VS Code",
+        "terminal size": "80x24",
+        "terminal version": "1.128.1"
+      },
+      "remediation": null,
+      "durationMs": 6
+    },
+    "terminal.title": {
+      "id": "terminal.title",
+      "category": "title",
+      "status": "ok",
+      "summary": "terminal title default",
+      "details": {
+        "terminal title activity": "true",
+        "terminal title items": "activity, project-name",
+        "terminal title project source": "git repo root",
+        "terminal title project value": "arknights-auto-planner",
+        "terminal title source": "default"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "updates.status": {
+      "id": "updates.status",
+      "category": "updates",
+      "status": "warning",
+      "summary": "update configuration is locally consistent",
+      "details": {
+        "check for update on startup": "true",
+        "latest version probe": "error sending request for url (https://api.github.com/repos/<redacted>)",
+        "npm update target": "not inspected (PATH helpers are not executed)",
+        "update action": "npm install -g @openai/codex",
+        "version cache": [
+          "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/version.json",
+          "missing"
+        ]
+      },
+      "remediation": null,
+      "durationMs": 47
+    }
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "schema_version": "M25_ENTRY_ENVIRONMENT_DIAGNOSIS_V2",
+  "status": "ENTRY_NOT_RESTORED_NO_V14_RESEND",
+  "budget_after_diagnosis": {
+    "cumulative_cli_process_starts": 51,
+    "new_cli_starts_this_diagnosis": 0,
+    "remaining_new_cli_budget": 11
+  },
+  "normal_shell_observation": {
+    "user": "bigdata",
+    "uid": 1000,
+    "uid_decimal": 1000,
+    "cwd": "/home/bigdata/Desktop/arknights-auto-planner",
+    "codex_path": "/usr/bin/codex",
+    "codex_resolved": "/usr/lib/node_modules/@openai/codex/bin/codex.js",
+    "codex_version": "codex-cli 0.162.1",
+    "home": "/home/bigdata",
+    "codex_home": "UNSET_DEFAULT_/home/bigdata/.codex",
+    "proxy_values": {
+      "HTTP_PROXY": "http://127.0.0.1:7890",
+      "HTTPS_PROXY": "http://127.0.0.1:7890",
+      "ALL_PROXY": "socks5://127.0.0.1:7890",
+      "NO_PROXY": "localhost,127.0.0.1,::1"
+    },
+    "login_status": "Logged in using ChatGPT",
+    "sandbox_network_reachability": "FAILED",
+    "state_database_integrity": "FAILED_IN_DEFAULT_HOME"
+  },
+  "runner_observation": {
+    "user": "bigdata",
+    "uid_decimal": 1000,
+    "cwd": "/home/bigdata/Desktop/arknights-auto-planner",
+    "codex_path": "/usr/bin/codex",
+    "codex_resolved": "/usr/lib/node_modules/@openai/codex/bin/codex.js",
+    "codex_version": "codex-cli 0.162.1",
+    "home": "/home/bigdata",
+    "codex_home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+    "proxy_values": {
+      "HTTP_PROXY": "http://127.0.0.1:7890",
+      "HTTPS_PROXY": "http://127.0.0.1:7890",
+      "ALL_PROXY": "socks5://127.0.0.1:7890",
+      "NO_PROXY": "localhost,127.0.0.1,::1"
+    },
+    "login_status": "Logged in using ChatGPT",
+    "sandbox_network_reachability": "FAILED",
+    "state_database_integrity": "OK"
+  },
+  "doctor_overrides": {
+    "normal": {
+      "overall_status": "fail",
+      "codex_home": "/home/bigdata/.codex",
+      "model": "gpt-6.1-sol",
+      "model_provider": "openai",
+      "feature_overrides": "apps=false",
+      "provider_reachability": {
+        "id": "network.provider_reachability",
+        "category": "reachability",
+        "status": "fail",
+        "summary": "one or more required provider endpoints are unreachable over HTTP",
+        "details": {
+          "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> connect failed (required)",
+          "reachability mode": "ChatGPT auth"
+        },
+        "remediation": "Check proxy, VPN, firewall, DNS, and custom CA configuration.",
+        "durationMs": 41
+      },
+      "websocket_reachability": {
+        "id": "network.websocket_reachability",
+        "category": "websocket",
+        "status": "warning",
+        "summary": "Responses WebSocket failed; HTTPS fallback may still work",
+        "details": {
+          "DNS": "lookup failed (Operation not permitted (os error 1))",
+          "auth mode": "chatgpt",
+          "connect timeout": "15000 ms",
+          "endpoint": "wss://chatgpt.com/backend-api/<redacted>",
+          "handshake transport error": "network error: Operation not permitted (os error 1)",
+          "model provider": "openai",
+          "provider name": "OpenAI",
+          "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+          "supports websockets": "true",
+          "wire API": "responses"
+        },
+        "remediation": "Check proxy, VPN, firewall, DNS, custom CA, and WebSocket policy support.",
+        "durationMs": 17
+      },
+      "state_paths": {
+        "id": "state.paths",
+        "category": "state",
+        "status": "fail",
+        "summary": "state database integrity check failed",
+        "details": {
+          "CODEX_HOME": "/home/bigdata/.codex (dir)",
+          "active rollout files": "68 files, 158592546 total bytes, 2332243 average bytes",
+          "archived rollout files": "0 files, 0 total bytes, 0 average bytes",
+          "goals DB": "/home/bigdata/.codex/goals_1.sqlite (file)",
+          "goals DB integrity": "ok",
+          "log DB": "/home/bigdata/.codex/logs_2.sqlite (file)",
+          "log DB integrity": "ok",
+          "log dir": "/home/bigdata/.codex/log (dir)",
+          "memories DB": "/home/bigdata/.codex/memories_1.sqlite (file)",
+          "memories DB integrity": "error returned from database: (code: 14) unable to open database file",
+          "memories v2 DB": "/home/bigdata/.codex/memories_v2_1.sqlite (missing)",
+          "memories v2 DB integrity": "skipped (missing)",
+          "queue DB": "/home/bigdata/.codex/queue_1.sqlite (file)",
+          "queue DB integrity": "ok",
+          "sqlite home": "/home/bigdata/.codex (dir)",
+          "state DB": "/home/bigdata/.codex/state_5.sqlite (file)",
+          "state DB integrity": "ok",
+          "thread history DB": "/home/bigdata/.codex/thread_history_1.sqlite (file)",
+          "thread history DB integrity": "error returned from database: (code: 14) unable to open database file"
+        },
+        "issues": [
+          {
+            "severity": "fail",
+            "cause": "/home/bigdata/.codex/memories_1.sqlite, /home/bigdata/.codex/thread_history_1.sqlite databases failed integrity check",
+            "measured": null,
+            "expected": null,
+            "remedy": "Move the damaged SQLite database aside, then restart the interactive CLI or app server so it can rebuild that runtime database from saved data. Other entry points may not rebuild automatically.",
+            "fields": []
+          }
+        ],
+        "remediation": null,
+        "durationMs": 150
+      }
+    },
+    "runner": {
+      "overall_status": "fail",
+      "codex_home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+      "model": "gpt-6.1-sol",
+      "model_provider": "openai",
+      "feature_overrides": "apps=false",
+      "provider_reachability": {
+        "id": "network.provider_reachability",
+        "category": "reachability",
+        "status": "fail",
+        "summary": "one or more required provider endpoints are unreachable over HTTP",
+        "details": {
+          "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> connect failed (required)",
+          "reachability mode": "ChatGPT auth"
+        },
+        "remediation": "Check proxy, VPN, firewall, DNS, and custom CA configuration.",
+        "durationMs": 43
+      },
+      "websocket_reachability": {
+        "id": "network.websocket_reachability",
+        "category": "websocket",
+        "status": "warning",
+        "summary": "Responses WebSocket failed; HTTPS fallback may still work",
+        "details": {
+          "DNS": "lookup failed (Operation not permitted (os error 1))",
+          "auth mode": "chatgpt",
+          "connect timeout": "15000 ms",
+          "endpoint": "wss://chatgpt.com/backend-api/<redacted>",
+          "handshake transport error": "network error: Operation not permitted (os error 1)",
+          "model provider": "openai",
+          "provider name": "OpenAI",
+          "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+          "supports websockets": "true",
+          "wire API": "responses"
+        },
+        "remediation": "Check proxy, VPN, firewall, DNS, custom CA, and WebSocket policy support.",
+        "durationMs": 17
+      },
+      "state_paths": {
+        "id": "state.paths",
+        "category": "state",
+        "status": "ok",
+        "summary": "state paths and databases are inspectable",
+        "details": {
+          "CODEX_HOME": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home (dir)",
+          "active rollout files": "6 files, 3297099 total bytes, 549516 average bytes",
+          "archived rollout files": "0 files, 0 total bytes, 0 average bytes",
+          "goals DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/goals_1.sqlite (file)",
+          "goals DB integrity": "ok",
+          "log DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/logs_2.sqlite (file)",
+          "log DB integrity": "ok",
+          "log dir": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/log (missing)",
+          "memories DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/memories_1.sqlite (file)",
+          "memories DB integrity": "ok",
+          "memories v2 DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/memories_v2_1.sqlite (missing)",
+          "memories v2 DB integrity": "skipped (missing)",
+          "queue DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/queue_1.sqlite (file)",
+          "queue DB integrity": "ok",
+          "sqlite home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home (dir)",
+          "state DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/state_5.sqlite (file)",
+          "state DB integrity": "ok",
+          "thread history DB": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home/thread_history_1.sqlite (file)",
+          "thread history DB integrity": "ok"
+        },
+        "remediation": null,
+        "durationMs": 53
+      }
+    }
+  },
+  "conclusion": {
+    "same_codex_binary_and_version": true,
+    "same_chatgpt_login": true,
+    "same_effective_provider_and_model_after_command_overrides": true,
+    "different_codex_home": true,
+    "same_proxy_environment_values": true,
+    "runner_proxy_connectivity": "FAILED_BEFORE_WORKSPACE_ROUTING",
+    "not_asserted_as_client_or_account_root_cause": true
+  },
+  "failed_attempt_02": {
+    "command": [
+      "codex",
+      "exec",
+      "--json",
+      "--sandbox",
+      "read-only",
+      "--cd",
+      "/home/bigdata/Desktop/arknights-auto-planner",
+      "-c",
+      "features.apps=false",
+      "-c",
+      "model_provider=\"openai\"",
+      "-m",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "-o",
+      "/home/bigdata/Desktop/arknights-auto-planner/output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_02_cli/codex_final_message.txt",
+      "-"
+    ],
+    "timeout_seconds": 3600,
+    "exit_code": 1,
+    "stderr": "workspace routing discovery failed",
+    "simulations_started": 0,
+    "plans_generated": 0
+  },
+  "repair": {
+    "proxy_prestart_added": "scripts/run_r8_1_gpt_c4_codex_cli_v1.py",
+    "prestart_test_in_restricted_runner": {
+      "expected": "fail before claim_cli_start",
+      "observed": "RuntimeError proxy prestart failed: Operation not permitted",
+      "cli_start_claimed": false,
+      "record_created": false
+    },
+    "server_terminal_collector": "scripts/collect_codex_entry_environment_v1.sh"
+  },
+  "next_operator_command_in_server_terminal": "bash /home/bigdata/Desktop/arknights-auto-planner/scripts/collect_codex_entry_environment_v1.sh",
+  "evidence_files": {
+    "normal_doctor": "docs/review/fc77177/m25_entry_doctor_normal_overrides.json",
+    "runner_doctor": "docs/review/fc77177/m25_entry_doctor_runner_overrides.json",
+    "runner_environment": "docs/review/fc77177/m25_entry_runner_environment_report.txt"
+  },
+  "evidence_sha256": {
+    "normal_doctor": "cdfe4a7fb78313ee0f666d8057ca353b9923c6244741c05c6bf9ecb62a1af027",
+    "runner_doctor": "986ff35a40a157d33fccdf0076d270db5776e5b8b07cf956add70ff43a19135f",
+    "runner_environment": "76574bd74346bc2d0ba2c12e138ae526ad2ece77452307924d33c20618a2ca08"
+  }
+}
