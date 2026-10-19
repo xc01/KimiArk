@@ -19,6 +19,18 @@ FAILURE_CATEGORIES = {
 }
 
 
+def classify_candidate(
+    *, validation: dict[str, Any], static_conflicts: list[Any], simulation_gate: dict[str, Any]
+) -> str:
+    if validation.get("status") != "PASS":
+        return "A_CONTRACT_INVALID"
+    if static_conflicts:
+        return "B_STATIC_CONFLICT"
+    if simulation_gate.get("simulator_win") is True:
+        return "D_CURRENT_MODEL_WIN"
+    return "C_LEGAL_BATTLE_LOSS"
+
+
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 

@@ -465,7 +465,6 @@ def prepare() -> dict[str, Any]:
             }
             evidence.pop("m24_tactical_revision_input", None)
             evidence.pop("roadblock_clearance_evidence", None)
-            evidence.pop("simulation_domain", None)
         schema = experience.add_revision_hypothesis_schema(schema)
         write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
         write_json(codex_runner.OUT / "revision_output_schema.json", schema)

@@ -136,7 +136,7 @@ def test_shared_gate_binds_plan_and_stage_and_rejects_used_output() -> None:
     )
     assert result["expected_protected_target_count"] == 2
     output.mkdir()
-    (output / "simulation_reservation.json").write_text(json.dumps({"status": "RESERVED"}))
+    (output / "manifest.json").write_text(json.dumps({"status": "COMPLETED"}))
     with pytest.raises(RuntimeError, match="non-empty diagnostic output"):
         gate.prepare_evaluation(
             source_dir=source, diagnostic_output_dir=output, budget_path=budget_path,

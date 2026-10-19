@@ -1,0 +1,684 @@
+{
+  "civilian_blocking": "CONFIRMED_NOT_ORDINARY_BLOCK_TARGET",
+  "civilian_operator_targetability": "CONFIRMED_NOT_ORDINARY_TARGET",
+  "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+  "clean_route_count": 11,
+  "confirmed_events": {
+    "artillery_final_leak": {
+      "enemy_id": "enemy_1112_emppnt#0",
+      "frame": 5759,
+      "route": "route-1"
+    },
+    "first_leak": {
+      "enemy_id": "enemy_1108_uterer#4",
+      "frame": 1221,
+      "route": "route-7"
+    },
+    "operator_deaths": [
+      {
+        "frame": 1080,
+        "source_id": "char_192_falco"
+      },
+      {
+        "frame": 1680,
+        "source_id": "char_283_midn"
+      },
+      {
+        "frame": 1980,
+        "source_id": "char_212_ansel"
+      },
+      {
+        "frame": 2280,
+        "source_id": "char_123_fang"
+      },
+      {
+        "frame": 2280,
+        "source_id": "char_500_noirc"
+      },
+      {
+        "frame": 2730,
+        "source_id": "char_210_stward"
+      },
+      {
+        "frame": 3030,
+        "source_id": "char_501_durin"
+      },
+      {
+        "frame": 3330,
+        "source_id": "char_4227_gallus"
+      },
+      {
+        "frame": 5130,
+        "source_id": "char_120_hibisc"
+      },
+      {
+        "frame": 5130,
+        "source_id": "char_121_lava"
+      },
+      {
+        "frame": 5138,
+        "source_id": "char_284_spot"
+      },
+      {
+        "frame": 5430,
+        "source_id": "char_122_beagle"
+      },
+      {
+        "frame": 6753,
+        "source_id": "char_208_melan"
+      }
+    ],
+    "protected_target_deaths": [
+      {
+        "frame": 3180,
+        "last_hit_source_id": "enemy_1112_emppnt#0",
+        "target_id": "enemy_3001_upeopl#3"
+      },
+      {
+        "frame": 3966,
+        "last_hit_source_id": "enemy_1107_uoffcr#18",
+        "target_id": "enemy_3001_upeopl#14"
+      }
+    ]
+  },
+  "corrected_mechanism_support": {
+    "neutral_faction_and_ordinary_blocking": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+    "officer_protected_target_attack_radius": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+    "ordinary_operator_targeting_neutrals": "SUPPORTED_AS_REJECTED",
+    "protected_target_life_scoring": "SUPPORTED_BY_GAMEDATA_AND_RUNTIME",
+    "remaining_life_win_condition": "SUPPORTED_BY_RUNTIME",
+    "roadblock_special_blocking_for_ursus_civilians": "SUPPORTED_BY_PRTS_AND_RUNTIME_RADIUS_0_4472"
+  },
+  "deployment_errors": [
+    {
+      "details": {
+        "legal": false,
+        "reason": "insufficient DP",
+        "tile": "5,4"
+      },
+      "event_type": "DEPLOY",
+      "frame": 4275,
+      "source_id": "char_209_ardign",
+      "target_id": null
+    }
+  ],
+  "first_leak": {
+    "details": {
+      "amount": 1
+    },
+    "event_type": "ENEMY_LEAK",
+    "frame": 1221,
+    "source_id": "enemy_1108_uterer#4",
+    "target_id": null,
+    "time": 40.7
+  },
+  "first_objective_failure": {
+    "details": {
+      "reason": "ENEMY_LEAK",
+      "remaining_life": 0,
+      "time": 64.1666666667
+    },
+    "event_type": "OBJECTIVE_FAILURE",
+    "frame": 1925,
+    "source_id": null,
+    "target_id": null,
+    "time": 64.1666666667
+  },
+  "hypothesis_prediction": {
+    "query": {
+      "earliest_frame": 2100,
+      "event_type": "PROTECTED_TARGET_REACHED",
+      "event_type_declared": "PROTECTED_TARGET_REACHED",
+      "latest_frame": 3450,
+      "source_id": null,
+      "status": "VALID_QUERY",
+      "target_id": "enemy_3001_upeopl#3"
+    },
+    "status": "EVENT_NOT_OBSERVED"
+  },
+  "interpretation": [
+    "The GPT prediction of protected target #3 arriving in 2100-3450 did not occur; #3 died by artillery at 3180.",
+    "Moving survival earlier did not prevent the first uterer leak at 1221; Falco died at 1080 and the plan lost early corridor control.",
+    "Later officers dominated unpicked routes; this is a structure/coverage failure, not an arithmetic bug.",
+    "The result is worse on kills/leaks/deaths than the frozen M26 V3, so this candidate must not replace it as best."
+  ],
+  "leaking_route_summaries": [
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5759,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        }
+      ],
+      "route": "route-1",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 1925,
+          "source_id": "enemy_1107_uoffcr#9",
+          "target_id": null
+        }
+      ],
+      "route": "route-10",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 3065,
+          "source_id": "enemy_1107_uoffcr#11",
+          "target_id": null
+        }
+      ],
+      "route": "route-11",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 2915,
+          "source_id": "enemy_1107_uoffcr#10",
+          "target_id": null
+        }
+      ],
+      "route": "route-12",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 3275,
+          "source_id": "enemy_1107_uoffcr#12",
+          "target_id": null
+        }
+      ],
+      "route": "route-13",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 3425,
+          "source_id": "enemy_1107_uoffcr#13",
+          "target_id": null
+        }
+      ],
+      "route": "route-14",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 4070,
+          "source_id": "enemy_1107_uoffcr#16",
+          "target_id": null
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 4370,
+          "source_id": "enemy_1107_uoffcr#18",
+          "target_id": null
+        }
+      ],
+      "route": "route-16",
+      "spawn_count": 2
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 4625,
+          "source_id": "enemy_1107_uoffcr#20",
+          "target_id": null
+        }
+      ],
+      "route": "route-18",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5196,
+          "source_id": "enemy_1110_uamord#22",
+          "target_id": null
+        }
+      ],
+      "route": "route-19",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 1,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5404,
+          "source_id": "enemy_1110_uamord#21",
+          "target_id": null
+        }
+      ],
+      "route": "route-21",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 1,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5661,
+          "source_id": "enemy_1107_uoffcr#23",
+          "target_id": null
+        }
+      ],
+      "route": "route-22",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5975,
+          "source_id": "enemy_1107_uoffcr#25",
+          "target_id": null
+        }
+      ],
+      "route": "route-23",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6425,
+          "source_id": "enemy_1107_uoffcr#30",
+          "target_id": null
+        }
+      ],
+      "route": "route-24",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6082,
+          "source_id": "enemy_1108_uterer#28",
+          "target_id": null
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6292,
+          "source_id": "enemy_1108_uterer#31",
+          "target_id": null
+        }
+      ],
+      "route": "route-28",
+      "spawn_count": 2
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6996,
+          "source_id": "enemy_1110_uamord#34",
+          "target_id": null
+        }
+      ],
+      "route": "route-29",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5932,
+          "source_id": "enemy_1108_uterer#27",
+          "target_id": null
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6142,
+          "source_id": "enemy_1108_uterer#29",
+          "target_id": null
+        }
+      ],
+      "route": "route-30",
+      "spawn_count": 2
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6846,
+          "source_id": "enemy_1110_uamord#33",
+          "target_id": null
+        }
+      ],
+      "route": "route-31",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 1,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 2607,
+          "source_id": "enemy_1107_uoffcr#7",
+          "target_id": null
+        }
+      ],
+      "route": "route-6",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 1,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 1221,
+          "source_id": "enemy_1108_uterer#4",
+          "target_id": null
+        }
+      ],
+      "route": "route-7",
+      "spawn_count": 1
+    },
+    {
+      "block_count": 0,
+      "kill_count": 0,
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 1820,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": null
+        }
+      ],
+      "route": "route-8",
+      "spawn_count": 1
+    }
+  ],
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "objective_failure_summary": {
+    "count": 23,
+    "full_failure_timeline_source": "SAVED_DIAGNOSTIC_EVENTS",
+    "reason_counts": {
+      "null": 23
+    }
+  },
+  "objective_failures": [
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": 0,
+        "time": 64.1666666667
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 1925,
+      "source_id": null,
+      "target_id": null,
+      "time": 64.1666666667
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -1,
+        "time": 86.9
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 2607,
+      "source_id": null,
+      "target_id": null,
+      "time": 86.9
+    }
+  ],
+  "operator_death_events": [
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 1080,
+      "source_id": "char_192_falco",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 1680,
+      "source_id": "char_283_midn",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 1980,
+      "source_id": "char_212_ansel",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 2280,
+      "source_id": "char_123_fang",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 2280,
+      "source_id": "char_500_noirc",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 2730,
+      "source_id": "char_210_stward",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 3030,
+      "source_id": "char_501_durin",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 3330,
+      "source_id": "char_4227_gallus",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 5130,
+      "source_id": "char_120_hibisc",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 5130,
+      "source_id": "char_121_lava",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 5138,
+      "source_id": "char_284_spot",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 5430,
+      "source_id": "char_122_beagle",
+      "target_id": null
+    },
+    {
+      "details": {},
+      "event_type": "OPERATOR_DEATH",
+      "frame": 6753,
+      "source_id": "char_208_melan",
+      "target_id": null
+    }
+  ],
+  "protected_target_deaths": [
+    {
+      "details": {
+        "kill_counted": false,
+        "life_delta": -1
+      },
+      "event_type": "ENEMY_DEATH",
+      "frame": 3180,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "enemy_3001_upeopl#3",
+      "time": 106.0
+    },
+    {
+      "details": {
+        "kill_counted": false,
+        "life_delta": -1
+      },
+      "event_type": "ENEMY_DEATH",
+      "frame": 3966,
+      "source_id": "enemy_1107_uoffcr#18",
+      "target_id": "enemy_3001_upeopl#14",
+      "time": 132.2
+    }
+  ],
+  "protected_target_reached_events": [],
+  "result_metrics": {
+    "enemies_killed": 10,
+    "enemies_leaked": 23,
+    "final_dp": 62.233333333334386,
+    "operator_deaths": 13,
+    "remaining_life": -22,
+    "win": false
+  },
+  "result_summary": {
+    "enemies_killed": 10,
+    "enemies_leaked": 23,
+    "operator_deaths": 13,
+    "protected_target_deaths": 2,
+    "protected_targets_reached": 0,
+    "win": false
+  },
+  "schema_version": "M28_ATTEMPT06_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M28_V2"
+}
