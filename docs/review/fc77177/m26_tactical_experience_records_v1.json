@@ -414,7 +414,7 @@
         "R8-7 full-stage fixed-action structure",
         "interpreting early corridor loss and unpicked officer routes from saved events"
       ],
-      "code_commit_sha256": "012463d",
+      "code_commit_sha256": "012463d8640bc20e532b20da22aca60c3efe6c7c",
       "comparison_boundary": "Exploratory LOSS; do not claim structural infeasibility from one candidate.",
       "evidence_paths": [
         "docs/review/fc77177/m28_attempt06_causal_feedback_v1.json",
@@ -470,6 +470,80 @@
         "protected target #3 last hit was enemy_1112_emppnt#0 at frame3180",
         "protected target #14 last hit was enemy_1107_uoffcr#18 at frame3966",
         "artillery enemy_1112_emppnt#0 leaked route-1 at frame5759"
+      ]
+    },
+    {
+      "applicable_conditions": [
+        "same mechanics and GameData versions",
+        "R8-7 full-stage fixed-action structure",
+        "evaluating late-line collapse after verified opening survival"
+      ],
+      "code_commit_sha256": "012463d8640bc20e532b20da22aca60c3efe6c7c",
+      "comparison_boundary": "Exploratory LOSS; it improved kill count and reduced leaks versus attempt06, but cannot prove the structure is viable.",
+      "evidence_paths": [
+        "docs/review/fc77177/m28_attempt11_causal_feedback_v1.json",
+        "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/diagnostic_summary.json",
+        "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/diagnostic_events.json"
+      ],
+      "experience_id": "M28-EXP-0002",
+      "failure_category": "LEGAL_BATTLE_LOSS",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "parent_candidate_result": {
+        "enemies_killed": 20,
+        "enemies_leaked": 13,
+        "operator_deaths": 7,
+        "protected_target_deaths": 1,
+        "protected_targets_reached": 0,
+        "win": false
+      },
+      "refuted_hypotheses": [
+        "surviving the opening and completing the declared early Fang kill produced a complete defense",
+        "two medics plus early roadblock work guaranteed protected-target arrival"
+      ],
+      "relevant_operator_ids": [
+        "char_123_fang",
+        "char_120_hibisc",
+        "char_210_stward",
+        "char_121_lava",
+        "char_212_ansel",
+        "char_284_spot",
+        "char_500_noirc",
+        "char_122_beagle",
+        "enemy_1112_emppnt#0",
+        "enemy_1107_uoffcr#16",
+        "enemy_1107_uoffcr#19",
+        "enemy_3001_upeopl#3",
+        "enemy_3001_upeopl#14"
+      ],
+      "responsibility_tags": [
+        "late_route_coverage",
+        "operator_survival",
+        "healing",
+        "protected_target",
+        "roadblock_clearance",
+        "source_operator_survival"
+      ],
+      "source_artifact_sha256": "3e8328adbdbda6e1c027f79c8b15a824e87cbd1b5f77229d3ab89da8471da182",
+      "source_plan_id": "R8_7_GPT_M28_V4",
+      "stage_id": "main_08-07",
+      "status": "EVIDENCE_SUPPORTED",
+      "supported_hypotheses": [
+        "the declared ENEMY_DEATH observable occurred at frame899",
+        "operator deaths can invalidate later skills and corridor duties even when static legality passes at scheduling time",
+        "late leaks dominated the result after the opening survival was verified"
+      ],
+      "unproven": [
+        "client-faithful targeting and continuous-frame timing",
+        "whether #14 could arrive under a different GPT structure",
+        "whether the full tactical hypothesis would pass if every late responsibility survived"
+      ],
+      "verified_events": [
+        "first operator death was char_120_hibisc at frame2580",
+        "protected target #3 was last hit by enemy_1112_emppnt#0 at frame3330",
+        "first leak was enemy_1107_uoffcr#19 at frame5091",
+        "surviving artillery enemy_1112_emppnt#0 leaked at frame5759",
+        "protected target #14 did not reach; no arrival or death event was recorded in the saved full run"
       ]
     }
   ],

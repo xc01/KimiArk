@@ -1,0 +1,191 @@
+{
+  "schema_version": "KIMIARK_SIMULATED_CANDIDATE_CAUSAL_FEEDBACK_V1",
+  "stage_id": "main_08-07",
+  "source_plan_id": "R8_7_GPT_M28_V4",
+  "parent_plan_id": "R8_7_GPT_M28_V3",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "result_classification": "C_LEGAL_BATTLE_LOSS",
+  "simulator_result": {
+    "win": false,
+    "enemies_killed": 20,
+    "enemies_leaked": 13,
+    "enemies_remaining": 1,
+    "operator_deaths": 7,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 0,
+    "remaining_life": -11
+  },
+  "objective_scope": {
+    "simulator_win": false,
+    "project_perfect": false,
+    "zero_leaks": false,
+    "protected_targets_zero_deaths": false,
+    "protected_targets_all_reached": false,
+    "expected_protected_target_count": 2,
+    "operator_deaths_allowed": true,
+    "operator_deaths_recorded_separately": true,
+    "targeting_variants": "NOT_EVALUATED",
+    "faithful_status": "UNKNOWN_NOT_ISSUED",
+    "real_game_status": "NOT_PLAYED"
+  },
+  "verified_causal_events": [
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 2580,
+      "source_id": "char_120_hibisc",
+      "target_id": null,
+      "meaning": "first recorded operator death"
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 3180,
+      "source_id": "char_210_stward",
+      "target_id": null,
+      "meaning": "second recorded operator death"
+    },
+    {
+      "event_type": "DAMAGE",
+      "frame": 3180,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "enemy_3001_upeopl#3",
+      "amount": 950,
+      "kind": "enemy_physical"
+    },
+    {
+      "event_type": "ENEMY_DEATH",
+      "frame": 3330,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "enemy_3001_upeopl#3",
+      "meaning": "protected target #3 final hit; artillery is confirmed as last attacker"
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 3930,
+      "source_id": "char_121_lava",
+      "target_id": null
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 4680,
+      "source_id": "char_212_ansel",
+      "target_id": null
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 4752,
+      "source_id": "char_284_spot",
+      "target_id": null
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 4836,
+      "source_id": "char_500_noirc",
+      "target_id": null
+    },
+    {
+      "event_type": "ENEMY_LEAK",
+      "frame": 5091,
+      "source_id": "enemy_1107_uoffcr#19",
+      "target_id": null,
+      "meaning": "first leak"
+    },
+    {
+      "event_type": "OPERATOR_DEATH",
+      "frame": 5430,
+      "source_id": "char_122_beagle",
+      "target_id": null
+    },
+    {
+      "event_type": "ENEMY_LEAK",
+      "frame": 5759,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": null,
+      "meaning": "surviving artillery leaked; this was not first leak"
+    },
+    {
+      "event_type": "ENEMY_LEAK",
+      "frame": 6996,
+      "source_id": "enemy_1110_uamord#34",
+      "target_id": null,
+      "meaning": "last observed leak"
+    }
+  ],
+  "protected_target_observations": {
+    "enemy_3001_upeopl#3": {
+      "route_id": "route-2",
+      "spawn_frame": 540,
+      "first_roadblock_block": 761,
+      "officer_attack_damage_frames": [1296, 1356, 1416],
+      "artillery_damage_frames": [3030, 3180, 3330],
+      "death_frame": 3330,
+      "last_attacker": "enemy_1112_emppnt#0"
+    },
+    "enemy_3001_upeopl#14": {
+      "route_id": "route-15",
+      "spawn_frame": 3030,
+      "first_roadblock_block": 3251,
+      "roadblock_unblock": 3504,
+      "officer_attack_damage_frames": [3606, 3666, 3726],
+      "second_roadblock_block": 3873,
+      "death_or_reach_frame": "NOT_OBSERVED_IN_SAVED_EVENTS",
+      "arrival": false
+    }
+  },
+  "hypothesis_evaluation": {
+    "status": "VERIFIED",
+    "query": {
+      "event_type": "ENEMY_DEATH",
+      "earliest_frame": 870,
+      "latest_frame": 1050,
+      "source_id": "char_123_fang",
+      "target_id": "enemy_1108_uterer#1"
+    },
+    "observed_match_frame": 899,
+    "interpretation": "The declared first observable occurred. This verifies only that one declared event, not the full tactical hypothesis, perfect objective, targeting fidelity, robustness or real-game behavior."
+  },
+  "runtime_conditional_failures": [
+    "char_120_hibiscus had died before scheduled skills at frames 2880 and 4410 and later skill frames",
+    "char_121_lava had died before scheduled skills at frame 5550 and later skill frames",
+    "char_212_ansel had died before scheduled skill at frame 5760 and later skill frames",
+    "char_122_beagle had died before scheduled skills at frame 6930 and later skill frames"
+  ],
+  "causal_interpretation": {
+    "direct_failure": "The opening survived long enough to verify Fang's declared kill, but later operator deaths left multiple routes uncovered, producing 13 leaks.",
+    "protected_target_failure": "#3 was killed by artillery after officer damage; #14 was not observed reaching its objective.",
+    "chain": "Deaths of Hibiscus, Steward, Lava, Ansel, Spot, Noir Corne and Beagle removed intended healing, arts output and corridor blocking; later skill commands then had no live source.",
+    "unknown": "Exact client target priority, continuous-frame timing, client-faithful AoE targeting, and whether a different structure can preserve all duties remain UNKNOWN."
+  },
+  "artifacts": {
+    "diagnostic_events": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/diagnostic_events.json",
+      "bytes": 16370179,
+      "sha256": "5cb4eb38f250b9d30e3ffb1304746e71d38006c1accc6ae627cd3f3f0d9534d3"
+    },
+    "diagnostic_summary": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/diagnostic_summary.json",
+      "bytes": 21434134,
+      "sha256": "600354978313e6c2384c2d41cd2146647f66979e15d91eaeed8f5da6e3d9f233"
+    },
+    "action_snapshot": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/action_snapshot.json",
+      "bytes": 6898,
+      "sha256": "6d69ad72facea030ff4be4a8fb3cabe4ac1c6e7cd91a7c84449030346cf4b5e8"
+    },
+    "plan_snapshot": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/plan_snapshot.json",
+      "bytes": 23105,
+      "sha256": "f71655c7df97e2e216866bae16832baf4d4abe0e1cc557a6c559d0dc49237e18"
+    },
+    "simulation_attempt": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/simulation_attempt.json",
+      "bytes": 641,
+      "sha256": "10c5911886f6f4691baa5cbc560600acd9248369336371bbba3d13b074d5c8f5"
+    },
+    "manifest": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_12_diagnostic/manifest.json",
+      "bytes": 735,
+      "sha256": "451c0ed442050957184ae5c6d14e827ce282b69d0e7c0bcfc4ff2d9e3bb4ba0f"
+    }
+  }
+}

@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="31" skipped="2" tests="578" time="166.260" timestamp="2026-10-20T02:53:02.791607+08:00" hostname="ibd-196"><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_operator_melee_and_ranged_attack_event_traces" time="0.004" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_operator_aspd_and_base_attack_time_change_interval" time="0.003" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_operator_base_attack_time_is_independent_source" time="0.001" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_first_operator_attack_occurs_at_deployment_frame_when_target_available" time="0.002" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_defense_sp_is_not_silently_treated_as_time_or_attack_sp" time="0.002" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_attack_sp_requires_normal_attacks_not_elapsed_time" time="0.001" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_ammo_and_multi_charge_states_are_absent_not_approximated" time="0.000" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_melee_enemy_with_nonzero_source_range_attacks_only_blocker" time="0.003" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_ranged_enemy_attack_uses_source_range_radius" time="0.003" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_magic_enemy_attack_uses_arts_mitigation_and_event_kind" time="0.002" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_enemy_windup_and_recovery_are_explicitly_absent_without_client_timing" time="0.003" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_enemy_skills_have_no_runtime_in_current_model" time="0.002" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_move_wait_move_route_preserves_wait_distance_and_duration" time="0.003" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_blocker_death_releases_enemy_and_next_blocker_takes_over" time="0.002" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_movement_into_ranged_range_is_tick_quantized" time="0.001" /><testcase classname="tests.simulator.test_atomic_combat_runtime" name="test_disappear_and_appear_checkpoints_are_not_runtime_route_legs" time="0.000" /><testcase classname="tests.simulator.test_combat_runtime" name="test_time_sp_recovery_marks_skill_ready_at_known_synthetic_time" time="0.001" /><testcase classname="tests.simulator.test_combat_runtime" name="test_insufficient_sp_rejects_manual_skill_activation" time="0.003" /><testcase classname="tests.simulator.test_combat_runtime" name="test_skill_modifies_attack_then_reverts_after_duration" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_additive_attack_modifier_is_composable_with_multiplier" time="0.001" /><testcase classname="tests.simulator.test_combat_runtime" name="test_active_range_override_reaches_enemy_outside_base_range" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_block_count_modifier_allows_two_synthetic_enemies_to_block" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_healing_is_an_explicit_output_and_caps_at_max_hp" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_enemy_attack_kills_operator_and_releases_blocked_enemy" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_retreat_releases_blocked_enemy" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_redeploy_cooldown_rejects_then_allows_later_deployment" time="0.001" /><testcase classname="tests.simulator.test_combat_runtime" name="test_ground_and_high_ground_legality_are_position_specific" time="0.002" /><testcase classname="tests.simulator.test_combat_runtime" name="test_end_to_end_runtime_strategy_requires_blocker_dps_healer_and_skill" time="0.011" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_stage_move_multiplier_is_applied_once" time="0.002" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_stage_max_dp_caps_regeneration_and_skill_gain" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_manual_retreat_refunds_half_deployment_cost" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_one_star_operator_does_not_occupy_deployment_limit" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_two_one_star_operators_do_not_exhaust_normal_deployment_limit" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_redeployment_uses_fresh_sp_generation" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_two_block_requirement_requires_block_capacity_but_occupies_one_slot" time="0.003" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_roadblock_restraint_and_block_radii_are_distinct" time="0.002" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_blocking_windows_use_unclamped_line_projection_and_clip_to_segment" time="0.000" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_blocking_windows_handle_zero_length_and_repeated_segments" time="0.000" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_melee_cannot_attack_flying_but_ranged_can" time="0.002" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_r8_3_5_6_special_routes_are_structurally_executable" time="1.075" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_static_dp_ledger_uses_deployment_generations_for_sp" time="0.001" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_compiler_cli_entry_reads_optional_input_directory" time="0.155" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_zero_duration_auto_skill_does_not_lose_a_tick_between_cycles" time="0.006" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_emp_point_locks_protected_target_and_hits_area_after_delay" time="0.003" /><testcase classname="tests.simulator.test_deep_mechanism_regressions" name="test_friendly_ice_and_altar_devices_execute_source_skills" time="0.003" /><testcase classname="tests.simulator.test_enemy_ability_runtime" name="test_enemy_passive_hp_regeneration_is_game_data_backed_and_event_visible" time="0.002" /><testcase classname="tests.simulator.test_enemy_ability_runtime" name="test_game_data_passive_regen_values_load_for_all_ch6_11_regen_enemies" time="0.299" /><testcase classname="tests.simulator.test_enemy_ability_runtime" name="test_snow_mage_every_second_attack_applies_exact_cold_status" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_melee_enemy_moves_blocks_and_attacks_with_event_trace" time="0.002" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_enemy_dies_after_operator_strike_with_event_trace" time="0.002" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_ranged_enemy_attacks_without_being_blocked" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_arts_enemy_uses_arts_mitigation_not_defense" time="0.002" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_zero_attack_no_damage_enemy_does_not_emit_attack_outputs" time="0.002" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_protected_target_reaches_end_without_life_loss_or_leak_count" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_protected_target_death_costs_life_without_kill_count" time="0.002" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_client_derived_windup_strike_and_recovery_event_trace" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_target_death_before_strike_prevents_ghost_damage" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_route_wait_advances_route_distance_by_source_wait_duration" time="0.001" /><testcase classname="tests.simulator.test_enemy_runtime_fidelity" name="test_independent_enemy_ability_clock_does_not_use_normal_attack_interval" time="0.002" /><testcase classname="tests.simulator.test_fixed_prefix_review_regressions" name="test_source_route_coordinate_is_not_a_serialized_map_array_row" time="0.000" /><testcase classname="tests.simulator.test_fixed_prefix_review_regressions" name="test_predefined_device_uses_field_coordinates_without_a_second_row_flip" time="0.000" /><testcase classname="tests.simulator.test_fixed_prefix_review_regressions" name="test_thirty_fps_clock_dispatches_action_at_frame_90_not_91" time="0.001" /><testcase classname="tests.simulator.test_fixed_prefix_review_regressions" name="test_high_ground_unit_with_nonzero_block_stat_does_not_hold_ground_enemy" time="0.001" /><testcase classname="tests.simulator.test_local_device_targeting" name="test_remote_enemy_does_not_prevent_local_roadblock_targeting" time="0.001" /><testcase classname="tests.simulator.test_local_device_targeting" name="test_optional_local_enemy_has_priority_over_device" time="0.001" /><testcase classname="tests.simulator.test_local_device_targeting" name="test_device_outside_operator_range_is_not_targeted" time="0.001" /><testcase classname="tests.simulator.test_local_device_targeting" name="test_non_ordinary_device_is_not_targeted" time="0.001" /><testcase classname="tests.simulator.test_low_rarity_runtime_closure" name="test_base_attack_time_override_controls_attack_timestamps" time="0.001" /><testcase classname="tests.simulator.test_low_rarity_runtime_closure" name="test_base_attack_time_and_aspd_are_composable" time="0.001" /><testcase classname="tests.simulator.test_low_rarity_runtime_closure" name="test_base_attack_time_override_is_restored_after_skill_end" time="0.001" /><testcase classname="tests.simulator.test_low_rarity_runtime_closure" name="test_immediate_self_heal_uses_max_hp_ratio" time="0.001" /><testcase classname="tests.simulator.test_low_rarity_runtime_closure" name="test_heal_mode_stops_damage_and_heals_injured_ally" time="0.001" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_fixed_game_data_marks_civilian_and_officer_correctly" time="0.292" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_life_zero_or_negative_is_never_a_win" time="0.002" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_neutral_safe_arrival_is_not_leak_kill_or_life_loss" time="0.001" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_operator_does_not_attack_or_block_neutral_but_enemy_can_attack_it" time="0.001" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_protected_target_attack_respects_radius" time="0.001" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_ordinary_medic_selects_deployed_operators_not_neutrals" time="0.002" /><testcase classname="tests.simulator.test_neutral_protected_target" name="test_roadblock_blocks_neutral_but_not_ordinary_enemy" time="0.002" /><testcase classname="tests.simulator.test_normal_low_star_mechanics" name="test_selected_skills_correctly_report_sp_recovery_and_effect_classes" time="0.190" /><testcase classname="tests.simulator.test_normal_low_star_mechanics" name="test_medic_and_damage_operators_reuse_the_shared_combat_output_pipeline" time="0.270" /><testcase classname="tests.simulator.test_normal_low_star_mechanics" name="test_ursus_civilian_no_damage_attributes_are_known_from_game_data" time="0.288" /><testcase classname="tests.simulator.test_normal_low_star_mechanics" name="test_generic_multi_target_support_remains_explicitly_blocked" time="0.001" /><testcase classname="tests.simulator.test_normal_low_star_mechanics" name="test_named_low_star_mechanics_are_executable" time="1.177" /><testcase classname="tests.simulator.test_normal_low_star_talent_runtime" name="test_deployment_sp_bonus_can_complete_skill_ready_state" time="0.001" /><testcase classname="tests.simulator.test_normal_low_star_talent_runtime" name="test_deployment_global_heal_hits_all_deployed_allies" time="0.002" /><testcase classname="tests.simulator.test_normal_low_star_talent_runtime" name="test_redeploy_time_delta_shortens_actual_cooldown" time="0.002" /><testcase classname="tests.simulator.test_operator_runtime_fidelity" name="test_attack_sp_next_attack_skill_consumes_on_next_attack" time="0.001" /><testcase classname="tests.simulator.test_operator_runtime_fidelity" name="test_defense_buff_reduces_incoming_physical_damage" time="0.001" /><testcase classname="tests.simulator.test_operator_runtime_fidelity" name="test_aspd_additive_shortens_attack_interval" time="0.001" /><testcase classname="tests.simulator.test_operator_runtime_fidelity" name="test_forward_range_extension_adds_right_facing_cells" time="0.000" /><testcase classname="tests.simulator.test_operator_runtime_fidelity" name="test_low_rarity_blackboard_patterns_map_to_generic_effects" time="0.001" /><testcase classname="tests.simulator.test_stronghold_differential_micro" name="test_delayed_projectile_does_not_hit_after_shooter_death" time="0.001" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_route_position_is_continuous_and_piecewise_linear" time="0.000" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_spawn_schedule_uses_explicit_synthetic_times" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_natural_dp_generation_is_deterministic" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_deployment_legality_and_dp_cost" time="0.006" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_deployment_limit_rejects_third_operator_when_dp_is_available" time="0.004" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_active_stage_device_blocks_tile_until_removed" time="0.001" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_merchant_maintenance_charges_after_interval_and_stops_on_retreat" time="0.007" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_merchant_auto_retreats_when_maintenance_cannot_be_paid" time="0.006" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_synthetic_range_transform_and_target_acquisition" time="0.005" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_attack_events_preserve_logical_order_with_instant_projectile" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_physical_damage_and_enemy_death_are_deterministic" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_blocking_and_unblocking_follow_enemy_death" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_leak_reduces_life_when_no_strategy_is_deployed" time="0.002" /><testcase classname="tests.simulator.test_synthetic_simulator" name="test_fixed_hand_authored_synthetic_strategy_produces_deterministic_win" time="0.008" /><testcase classname="tests.simulator.test_synthetic_simulator.ExecutionPrerequisiteRegressionTests" name="test_device_occupancy_and_merchant_maintenance" time="0.013" /><testcase classname="tests.simulator.test_unblock_on_death" name="test_direct_death_releases_slot_and_next_enemy_is_blocked" time="0.010" /><testcase classname="tests.simulator.test_unblock_on_death" name="test_projectile_death_releases_slot_and_next_enemy_is_blocked" time="0.017" /><testcase classname="tests.simulator.test_unblock_on_death" name="test_multi_block_releases_only_the_dead_enemy" time="0.006" /><testcase classname="tests.test_approximate_real" name="test_strict_mode_still_refuses_real_0_1" time="1.113" /><testcase classname="tests.test_approximate_real" name="test_approximate_mode_requires_explicit_policy" time="0.001" /><testcase classname="tests.test_approximate_real" name="test_approximate_real_range_transform_has_explicit_four_facing_rule[RIGHT-expected0]" time="0.000" /><testcase classname="tests.test_approximate_real" name="test_approximate_real_range_transform_has_explicit_four_facing_rule[DOWN-expected1]" time="0.000" /><testcase classname="tests.test_approximate_real" name="test_approximate_real_range_transform_has_explicit_four_facing_rule[LEFT-expected2]" time="0.000" /><testcase classname="tests.test_approximate_real" name="test_approximate_real_range_transform_has_explicit_four_facing_rule[UP-expected3]" time="0.000" /><testcase classname="tests.test_approximate_real" name="test_real_tile_mapping_and_route_conversion_are_source_derived" time="1.145" /><testcase classname="tests.test_approximate_real" name="test_real_enemy_uses_converted_0_1_route_until_leak" time="1.175" /><testcase classname="tests.test_approximate_real" name="test_approximated_spawn_timeline_is_deterministic_and_preserves_hierarchy" time="1.092" /><testcase classname="tests.test_approximate_real" name="test_fixed_0_1_run_has_manifest_uses_base_attack_time_and_does_not_execute_skills" time="1.191"><failure message="AssertionError: assert {&lt;EventType.A...E_BORN'&gt;, ...} &gt;= {&lt;EventType.A...AWN: 'SPAWN'&gt;}&#10;  &#10;  Extra items in the right set:&#10;  &lt;EventType.BLOCK: 'BLOCK'&gt;">adapter = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x73480c68bf20&gt;
+
+    def test_fixed_0_1_run_has_manifest_uses_base_attack_time_and_does_not_execute_skills(adapter):
+        run = adapter.run_main_00_01(
+            mode=RealExecutionMode.APPROXIMATE_REAL,
+            policy=RealSimulationApproximationPolicy.main_00_01(),
+        )
+        result = run.result
+        bluep = run.fixture.operators["char_129_bluep"]
+        attack_times = [event.time for event in result.events if event.event_type is EventType.ATTACK_START and event.source_id == "char_129_bluep"]
+    
+        assert bluep.phases[0].stats_max.attack_interval.value == 1.0
+        assert attack_times[1] - attack_times[0] == 1.0
+        assert result.run_metadata is not None
+        assert result.run_metadata.mode == "APPROXIMATE_REAL"
+        assert run.execution_report.simulator_executable is True
+        assert run.execution_report.strategy_uses_real_skill is False
+        assert "ZERO_WINDUP_ZERO_EXTRA_RECOVERY" in result.run_metadata.approximations_used
+        assert "INSTANT_PROJECTILE" in result.run_metadata.approximations_used
+        assert run.fixture.ignored_real_skill_data == ("char_129_bluep", "char_010_chen")
+        assert not any(event.event_type is EventType.SKILL_ACTIVATE for event in result.events)
+        assert result.win is True
+        assert result.enemies_killed == 11
+        assert result.enemies_leaked == 0
+&gt;       assert {event.event_type for event in result.events} &gt;= {EventType.SPAWN, EventType.DEPLOY, EventType.BLOCK, EventType.ATTACK_START, EventType.DAMAGE, EventType.ENEMY_DEATH}
+E       AssertionError: assert {&lt;EventType.A...E_BORN'&gt;, ...} &gt;= {&lt;EventType.A...AWN: 'SPAWN'&gt;}
+E         
+E         Extra items in the right set:
+E         &lt;EventType.BLOCK: 'BLOCK'&gt;
+
+tests/test_approximate_real.py:120: AssertionError</failure></testcase><testcase classname="tests.test_approximate_real" name="test_real_demo_cli_identifies_approximate_mode" time="1.332" /><testcase classname="tests.test_approximate_real" name="test_approximate_stage_view_exposes_tile_mapping_and_spawn_timeline" time="0.344" /><testcase classname="tests.test_architecture" name="test_q1_unique_path_distance_is_contextually_resolved_and_not_unknown" time="0.001" /><testcase classname="tests.test_architecture" name="test_q2_cached_sandbox_evidence_resolves_ordinary_melee_blocked_priority" time="0.001" /><testcase classname="tests.test_architecture" name="test_q3_remains_unknown_only_after_evidence_retrieval" time="0.001" /><testcase classname="tests.test_architecture" name="test_unsupported_mechanic_can_be_unknown_after_retrieval" time="0.001" /><testcase classname="tests.test_architecture" name="test_conflicting_evidence_remains_explicit_and_blocks_unknown" time="0.001" /><testcase classname="tests.test_architecture" name="test_mechanics_version_dependency_marks_old_artifacts_stale" time="0.000" /><testcase classname="tests.test_architecture" name="test_experiment_scope_makes_benchmark_bounds_non_global" time="0.000" /><testcase classname="tests.test_architecture" name="test_melee_operator_prioritizes_self_blocked_enemy_even_outside_range" time="0.001" /><testcase classname="tests.test_architecture" name="test_looping_route_uses_remaining_path_not_euclidean_exit_distance" time="0.001" /><testcase classname="tests.test_architecture" name="test_equal_remaining_path_uses_stable_creation_order" time="0.001" /><testcase classname="tests.test_architecture" name="test_device_targeting_follows_local_enemy_candidates_only" time="0.001" /><testcase classname="tests.test_architecture" name="test_device_is_targeted_when_no_enemy_is_available_and_is_destroyed" time="0.000" /><testcase classname="tests.test_architecture" name="test_core_repair_abstractions_accept_non_6_8_synthetic_context" time="0.000" /><testcase classname="tests.test_architecture" name="test_top_down_smoke_wires_external_timeline_within_scope" time="1.658" /><testcase classname="tests.test_architecture" name="test_m23_does_not_request_human_calibration_when_gate_fails" time="0.001" /><testcase classname="tests.test_benchmark" name="test_game_data_rarity_normalizes_tier_to_human_stars" time="0.265" /><testcase classname="tests.test_benchmark" name="test_low_rarity_census_filters_non_operator_templates_and_classifies_support" time="0.349" /><testcase classname="tests.test_benchmark" name="test_bounded_real_manual_attack_interpreter_is_skill_pattern_not_operator_branch" time="0.001"><failure message="AssertionError: assert &lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'&gt; is &lt;RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'&gt;&#10; +  where &lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'&gt; = InterpretedLowRaritySkill(skill_id='skcom_magic_rage[1]', support=&lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTAB...ratio=0.0, heal_mode=False, damage_type_override=None), auto_activate=False), source_pattern=(('attack_speed', 50.0),)).support&#10; +  and   &lt;RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'&gt; = RealSkillSupport.UNSUPPORTED">repository = &lt;arknights_planner.gamedata.repository.GameDataRepository object at 0x73480ef862d0&gt;
+
+    def test_bounded_real_manual_attack_interpreter_is_skill_pattern_not_operator_branch(repository):
+        interpreter = LowRarityBlackboardEffectInterpreter()
+        melantha = repository.get_skill("skcom_atk_up[1]").levels[-1]
+        lava = repository.get_skill("skcom_magic_rage[1]").levels[-1]
+        supported = interpreter.interpret("skcom_atk_up[1]", melantha)
+        unsupported = interpreter.interpret("skcom_magic_rage[1]", lava)
+        assert supported.support is RealSkillSupport.EXECUTABLE_APPROXIMATED
+        assert supported.executable_effect is not None
+        assert supported.executable_effect.effect.atk_multiplier == 1.5
+        assert supported.executable_effect.sp_cost == 40
+&gt;       assert unsupported.support is RealSkillSupport.UNSUPPORTED
+E       AssertionError: assert &lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'&gt; is &lt;RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'&gt;
+E        +  where &lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTABLE_APPROXIMATED'&gt; = InterpretedLowRaritySkill(skill_id='skcom_magic_rage[1]', support=&lt;RealSkillSupport.EXECUTABLE_APPROXIMATED: 'EXECUTAB...ratio=0.0, heal_mode=False, damage_type_override=None), auto_activate=False), source_pattern=(('attack_speed', 50.0),)).support
+E        +  and   &lt;RealSkillSupport.UNSUPPORTED: 'UNSUPPORTED'&gt; = RealSkillSupport.UNSUPPORTED
+
+tests/test_benchmark.py:60: AssertionError</failure></testcase><testcase classname="tests.test_benchmark" name="test_interpreted_real_skill_uses_existing_runtime_activation_and_duration" time="0.008" /><testcase classname="tests.test_benchmark" name="test_objective_is_hard_win_then_count_rarity_robustness_actions_duration" time="0.000" /><testcase classname="tests.test_benchmark" name="test_redeployment_counts_once_and_human_directions_are_localized" time="0.001" /><testcase classname="tests.test_benchmark" name="test_validation_record_is_evidence_only_round_trip" time="0.001" /><testcase classname="tests.test_benchmark" name="test_stage_benchmark_suite_is_selected_but_compatibility_is_explicit" time="0.372" /><testcase classname="tests.test_benchmark" name="test_benchmark_cli_persists_blocked_compatibility_without_running_search" time="0.374" /><testcase classname="tests.test_benchmark" name="test_cardinality_search_exhausts_lower_count_then_rarity_without_scalar_rewards" time="0.034" /><testcase classname="tests.test_ch6_11_enemy_runtime_fidelity" name="test_unique_ch6_11_enemy_execution_is_per_enemy_not_deployment_only" time="0.006" /><testcase classname="tests.test_ch6_11_enemy_runtime_fidelity" name="test_stage_fidelity_recheck_has_24_runnable_normal_stages" time="0.001" /><testcase classname="tests.test_ch6_11_enemy_runtime_fidelity" name="test_no_ch6_11_enemy_ability_is_claimed_safe_without_semantics" time="0.000" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.MeaningfulBenchmarkSelectionTests" name="test_structural_suite_selects_three_distinct_ch6_11_stages" time="0.001" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.TacticalRealizabilityTests" name="test_infeasible_nonblocking_requirement_rejects_hypothesis" time="2.679" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.TacticalRealizabilityTests" name="test_non_blockable_lane_hypothesis_is_revised_to_ranged_interception" time="0.001"><failure message="AssertionError: 'DUAL_BLOCK_FRONTLINE' != 'BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER'&#10;- DUAL_BLOCK_FRONTLINE&#10;+ BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER">self = &lt;test_ch6_11_meaningful_benchmark.TacticalRealizabilityTests testMethod=test_non_blockable_lane_hypothesis_is_revised_to_ranged_interception&gt;
+
+    def test_non_blockable_lane_hypothesis_is_revised_to_ranged_interception(self):
+        requirement = TacticalRequirementModel(
+            requirement_id="test-invalid-block",
+            requirement_type="STALL_INTERCEPTION",
+            evidence="regression requirement on an exact non-blockable route",
+            pressure_window="early-pressure",
+            affected_routes=("route-4",),
+            hardness="HARD",
+            confidence=1.0,
+            capability="BLOCK",
+            provenance="regression",
+        )
+        hypothesis = PlanHypothesis(
+            hypothesis_id="invalid-dual-block",
+            summary="Regression hypothesis",
+            target_cardinality=2,
+            tactical_archetype="DUAL_BLOCK_FRONTLINE",
+            required_capabilities=("BLOCK", "RANGED_DPS"),
+            preferred_operator_ids=("char_272_strong", "char_494_vendla"),
+            deployment_order=("char_272_strong", "char_494_vendla"),
+        )
+        result = TacticalRealizabilityAnalyzer().validate(
+            self.understanding, (requirement,), (hypothesis,)
+        )
+        self.assertEqual(len(result.accepted_hypotheses), 1)
+&gt;       self.assertEqual(
+            result.accepted_hypotheses[0].tactical_archetype,
+            "BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER",
+        )
+E       AssertionError: 'DUAL_BLOCK_FRONTLINE' != 'BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER'
+E       - DUAL_BLOCK_FRONTLINE
+E       + BLOCK_REALIZABLE_LANE_RANGED_INTERCEPT_OTHER
+
+tests/test_ch6_11_meaningful_benchmark.py:112: AssertionError</failure></testcase><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_base_and_skill_timing_candidates_both_survive_deduplication" time="0.220" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_executable_fingerprint_distinguishes_skill_frame" time="0.001" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_high_pressure_control_roster_prioritizes_supported_skills" time="2.404" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_skill_intent_lowers_to_event_relative_action" time="0.000" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_skill_ready_legality_rejects_activation_before_ready" time="0.001" /><testcase classname="tests.test_ch6_11_meaningful_benchmark.SkillLoweringTests" name="test_skill_refinement_preserves_strategy_and_changes_skill_frame" time="0.002" /><testcase classname="tests.test_cross_stage_plan_validation" name="test_same_plan_tile_legality_changes_by_stage_roadblock_evidence" time="0.000" /><testcase classname="tests.test_cross_stage_plan_validation" name="test_missing_current_stage_roadblocks_do_not_fall_back_to_r8_1" time="0.000" /><testcase classname="tests.test_data_cli" name="test_inspect_stage_cli_outputs_reconstruction_report" time="0.005" /><testcase classname="tests.test_data_cli" name="test_data_cli_module_entrypoint" time="0.005" /><testcase classname="tests.test_data_cli" name="test_operator_relations_cli_traces_skill_and_range" time="0.005" /><testcase classname="tests.test_executable_plan_lowering" name="test_block_routes_use_exact_simulator_geometry_not_rasterized_cells" time="2.833"><failure message="AssertionError: assert 3.0 is None&#10; +  where 3.0 = distance_at((4, 3))&#10; +    where distance_at = Route(route_id='route-4', waypoints=(Waypoint(x=4.0, y=6.0), Waypoint(x=4.0, y=3.0), Waypoint(x=5.0, y=3.0), Waypoint(x=5.0, y=0.0)), waits=(), movement_mode='WALK', hidden_spans=()).distance_at">def test_block_routes_use_exact_simulator_geometry_not_rasterized_cells():
+        engine, understanding, search = main_01_01_spatial_fixture()
+        route_4 = next(route for route in engine.fixture.stage.routes if route.route_id == "route-4")
+        false_block_tile = (4, 3)
+    
+        assert false_block_tile in {
+            cell
+            for route in understanding.routes
+            if route.route_id == "route-4"
+            for cell in route.cells
+        }
+&gt;       assert route_4.distance_at(false_block_tile) is None
+E       AssertionError: assert 3.0 is None
+E        +  where 3.0 = distance_at((4, 3))
+E        +    where distance_at = Route(route_id='route-4', waypoints=(Waypoint(x=4.0, y=6.0), Waypoint(x=4.0, y=3.0), Waypoint(x=5.0, y=3.0), Waypoint(x=5.0, y=0.0)), waits=(), movement_mode='WALK', hidden_spans=()).distance_at
+
+tests/test_executable_plan_lowering.py:57: AssertionError</failure></testcase><testcase classname="tests.test_executable_plan_lowering" name="test_semantic_skeletons_preserve_distinct_executable_geometry" time="1.351" /><testcase classname="tests.test_executable_plan_lowering" name="test_timing_preserves_desired_frame_unless_legality_requires_later" time="0.015" /><testcase classname="tests.test_executable_plan_lowering" name="test_timing_refinement_can_survive_to_a_changed_timeline" time="0.016" /><testcase classname="tests.test_executable_plan_lowering" name="test_responsibility_audit_separates_reachable_and_executed_frames" time="0.058" /><testcase classname="tests.test_executable_plan_lowering" name="test_executable_timeline_fingerprint_ignores_semantic_parent_only" time="0.000" /><testcase classname="tests.test_execution" name="test_normalized_coordinate_mapping_with_viewport" time="0.000" /><testcase classname="tests.test_execution" name="test_stage_grid_mapping_preserves_documented_simulator_axes" time="0.000" /><testcase classname="tests.test_execution" name="test_facing_gesture_mapping[RIGHT-expected0]" time="0.000" /><testcase classname="tests.test_execution" name="test_facing_gesture_mapping[DOWN-expected1]" time="0.000" /><testcase classname="tests.test_execution" name="test_facing_gesture_mapping[LEFT-expected2]" time="0.000" /><testcase classname="tests.test_execution" name="test_facing_gesture_mapping[UP-expected3]" time="0.000" /><testcase classname="tests.test_execution" name="test_shared_deadline_schedule_avoids_cumulative_sleep_drift" time="0.001" /><testcase classname="tests.test_execution" name="test_mock_deploy_gesture_records_card_tile_direction_and_timestamps" time="0.001" /><testcase classname="tests.test_execution" name="test_execution_trace_serialization_round_trip" time="0.001" /><testcase classname="tests.test_execution" name="test_prediction_trace_generation_is_compact_and_includes_battle_end" time="0.000" /><testcase classname="tests.test_execution" name="test_calibration_report_distinguishes_observed_unobserved_and_cannot_compare" time="0.001" /><testcase classname="tests.test_execution" name="test_dry_run_resolves_gestures_but_sends_no_input" time="0.001" /><testcase classname="tests.test_execution" name="test_cli_requires_explicit_execute_guard" time="0.014" /><testcase classname="tests.test_execution" name="test_adb_command_construction_never_contacts_a_live_device" time="0.000" /><testcase classname="tests.test_execution" name="test_optional_live_device_environment_is_explicitly_opted_in" time="0.000"><skipped type="pytest.skip" message="requires explicit local device-test opt-in">/home/bigdata/Desktop/arknights-auto-planner/tests/test_execution.py:158: requires explicit local device-test opt-in</skipped></testcase><testcase classname="tests.test_feasibility_roster_recovery.FeasibilityRosterRecoveryTests" name="test_feasibility_mode_generates_five_plus_and_control_rosters" time="5.488" /><testcase classname="tests.test_feasibility_roster_recovery.FeasibilityRosterRecoveryTests" name="test_larger_roster_uses_active_subset_and_retains_reserves" time="3.821" /><testcase classname="tests.test_feasibility_roster_recovery.FeasibilityRosterRecoveryTests" name="test_squad_size_and_deployment_limit_are_separate" time="0.000" /><testcase classname="tests.test_feasibility_roster_recovery.FeasibilityRosterRecoveryTests" name="test_unknown_squad_limit_does_not_collapse_requested_roster_bound" time="1.527" /><testcase classname="tests.test_frames" name="test_frame_validation_and_clock_rational_conversion" time="0.001" /><testcase classname="tests.test_frames" name="test_unknown_client_frame_frequency_is_explicit" time="0.000" /><testcase classname="tests.test_frames" name="test_timeline_supports_all_three_actions_and_stable_same_frame_order" time="0.000" /><testcase classname="tests.test_frames" name="test_timeline_rejects_wait_and_invalid_action_payloads" time="0.000" /><testcase classname="tests.test_frames" name="test_legacy_seconds_are_converted_once_at_boundary" time="0.000" /><testcase classname="tests.test_frames" name="test_simulator_frame_boundary_rejects_unknown_frequency_and_accepts_configured" time="0.001" /><testcase classname="tests.test_gpt_tactical_stage_diagnostic_v1" name="test_validated_unique_deployments_allows_retreat_backed_redeploy" time="0.000" /><testcase classname="tests.test_gpt_tactical_stage_diagnostic_v1" name="test_validated_unique_deployments_rejects_reuse_without_retreat" time="0.000" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_stage_prompt_pins_plan_identity_and_roadblock_coordinate_conversion" time="0.000" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_stage_prompt_requires_protected_target_zero_loss_after_v5" time="0.000" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_compact_diagnostic_feedback_excludes_full_event_timeline" time="0.148" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_prompt_injects_structural_tactical_feedback_without_changing_plan_identity" time="0.000" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_static_conflict_feedback_is_structured_and_not_battle_result" time="0.001" /><testcase classname="tests.test_gpt_tactical_stage_session_v1" name="test_prompt_keeps_static_and_battle_feedback_sources_distinct" time="0.000" /><testcase classname="tests.test_inspector" name="test_repository_inventory_and_table_shape" time="0.003"><failure message="AssertionError: assert 2 == 1&#10; +  where 2 = TableInspection(path='/tmp/pytest-of-bigdata/pytest-309/test_repository_inventory_and_0/zh_CN/gamedata/excel/character_table.json', exists=True, json_kind='object', top_level_keys=('char_merchant', 'char_test'), item_count=2).item_count">gamedata_root = PosixPath('/tmp/pytest-of-bigdata/pytest-309/test_repository_inventory_and_0')
+
+    def test_repository_inventory_and_table_shape(gamedata_root):
+        inspector = GameDataInspector(gamedata_root)
+        report = inspector.repository_report()
+        assert report["exists"] is True
+        assert report["directories"]["zh_CN/gamedata/excel"] is True
+        assert report["expected_tables"]["character_table.json"] is True
+        inspection = inspector.inspect_table("character_table.json")
+        assert inspection.exists is True
+        assert inspection.json_kind == "object"
+&gt;       assert inspection.item_count == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = TableInspection(path='/tmp/pytest-of-bigdata/pytest-309/test_repository_inventory_and_0/zh_CN/gamedata/excel/character_table.json', exists=True, json_kind='object', top_level_keys=('char_merchant', 'char_test'), item_count=2).item_count
+
+tests/test_inspector.py:13: AssertionError</failure></testcase><testcase classname="tests.test_inspector" name="test_missing_repository_is_reported_not_guessed" time="0.001" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_c1_declared_range_counterexamples" time="0.031" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_c1_hibiscus_second_activation_not_ready" time="0.008" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_invalid_configuration_is_rejected_without_reorientation" time="0.015" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_neutral_protected_target_mechanics_are_queryable" time="0.008" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_source_mapping_hashes_existing_sources" time="0.005" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_stage_and_affordance_summaries_stay_readonly" time="0.008" /><testcase classname="tests.test_kimi_readonly_tools.ReadonlyToolTests" name="test_unknown_mechanic_returns_unknown" time="0.008" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_ambiguous_same_frame_deployment_is_unknown_not_conflict" time="0.019" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_argument_done_mismatch_is_malformed" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_declared_order_uses_linked_entry_position" time="0.020" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_duplicate_call_ids_are_rejected_before_execution" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_empty_final_plan_cannot_bypass_contract_validation" time="0.015" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_end_to_end_mock_queries_and_returns_valid_plan" time="0.024" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_final_text_content_is_not_duplicated" time="0.024" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_function_call_item_and_argument_done_are_correlated" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_incomplete_function_call_is_not_executed_even_if_response_completed" time="0.013" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_incomplete_tool_response_is_not_executed" time="0.013" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_insufficient_linked_deployment_is_conflict_without_pass" time="0.019" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_invalid_arguments_are_schema_rejected_before_execution" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_invalid_call_and_wrong_result_ids_are_rejected" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_invalid_final_plan_fails_without_simulation" time="0.016" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_linked_payment_with_unordered_same_frame_entries_is_unknown" time="0.019" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_linked_same_frame_deployment_payment_is_not_double_charged" time="0.019" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_request_budget_exhausts_before_fourth_model_request" time="0.014" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_seventh_tool_call_is_rejected_before_any_execution" time="0.012" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_stream_and_final_call_mismatch_is_malformed" time="0.013" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_tool_enabled_request_preserves_user_start_and_forbids_previous_response" time="0.540" /><testcase classname="tests.test_kimi_readonly_tools.ToolLoopTests" name="test_valid_final_plan_without_native_tool_call_is_rejected" time="0.016" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_mcp_stdio_handshake_tools_and_experience_call" time="0.066" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_frozen_evaluation_budget_gate_is_enforced" time="0.014" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_mcp_plan_contract_runs_schema_semantic_event_and_static_layers" time="0.036" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_mcp_plan_contract_rejects_missing_revision_hypothesis" time="0.035" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_shared_gate_binds_plan_and_stage_and_rejects_used_output" time="0.004" /><testcase classname="tests.test_kimiark_mcp_server_v1" name="test_evaluate_frozen_plan_rejects_without_subprocess" time="0.009" /><testcase classname="tests.test_kimiark_usage_retry_scheduler_v1" name="test_reconcile_does_not_keep_a_dead_executor_waiting" time="0.002" /><testcase classname="tests.test_kimiark_usage_retry_scheduler_v1" name="test_lock_is_held_detects_an_active_executor" time="0.001" /><testcase classname="tests.test_m11" name="test_stage_code_prefers_normal_main_story_variant" time="0.357" /><testcase classname="tests.test_m11" name="test_m11_stage_census_uses_within_chapter_progression_not_chapter_number" time="0.098" /><testcase classname="tests.test_m11" name="test_m11_bottom_left_coordinates_preserve_move_and_wait_checkpoint_types" time="0.765"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">repository = &lt;arknights_planner.gamedata.repository.GameDataRepository object at 0x7347f84fa720&gt;
+
+    def test_m11_bottom_left_coordinates_preserve_move_and_wait_checkpoint_types(repository):
+        adapter = ApproximateRealSimulationAdapter(repository)
+&gt;       fixture = adapter.build_pool_fixture(
+            stage_id_or_code="6-8",
+            configurations=(RealOperatorConfiguration("char_122_beagle", 0, 40),),
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(),
+        )
+
+tests/test_m11.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f85438f0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m11" name="test_m11_second_quantized_hierarchy_is_explicit_and_deterministic" time="0.066"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">repository = &lt;arknights_planner.gamedata.repository.GameDataRepository object at 0x7347f84fa720&gt;
+
+    def test_m11_second_quantized_hierarchy_is_explicit_and_deterministic(repository):
+        adapter = ApproximateRealSimulationAdapter(repository)
+        policy = RealSimulationApproximationPolicy.m11_second_quantized()
+        args = dict(
+            stage_id_or_code="6-8",
+            configurations=(RealOperatorConfiguration("char_122_beagle", 0, 40),),
+            policy=policy,
+        )
+&gt;       first = adapter.build_pool_fixture(**args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m11.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347ef9debd0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m11" name="test_m11_bounded_cardinality_search_runs_real_fixture_and_is_honest_about_no_win" time="0.023"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">repository = &lt;arknights_planner.gamedata.repository.GameDataRepository object at 0x7347f84fa720&gt;
+
+    def test_m11_bounded_cardinality_search_runs_real_fixture_and_is_honest_about_no_win(repository):
+&gt;       search = M11MinimumSquadSearch(
+            adapter=ApproximateRealSimulationAdapter(repository),
+            stage_id_or_code="6-8",
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(),
+            operator_pool=M11MinimumSquadSearch.default_m11_pool(),
+            config=M11SearchConfig(
+                max_squad_size=2, beam_width=2, placement_options_per_operator=2,
+                coarse_deployment_frames=(0, 180, 360, 540),
+                simulation_config=SimulationConfig(dt=0.2, max_time=300.0),
+            ),
+        )
+
+tests/test_m11.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f4ceb8c0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m13_loadout" name="test_m13_loadout_uses_highest_phase_exact_keyframe" time="0.335" /><testcase classname="tests.test_m13_loadout" name="test_m13_pool_is_derived_from_full_census" time="0.672" /><testcase classname="tests.test_m13_search" name="test_m13_composition_coverage_is_complete_for_executable_pool" time="2.224"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m13_composition_coverage_is_complete_for_executable_pool():
+        repo = GameDataRepository("data/ArknightsGameData")
+        out = M13LayeredSearch(
+            adapter=ApproximateRealSimulationAdapter(repo), stage_id_or_code="6-8",
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(),
+            config=M13SearchConfig(max_tactical_teams_k2=1),
+&gt;       ).search()
+          ^^^^^^^^
+
+tests/test_m13_search.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m13.py:109: in search
+    k1_result = M11MinimumSquadSearch(adapter=self.adapter, stage_id_or_code=self.stage_id_or_code, policy=self.policy, operator_pool=pool1, config=cfg).search()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f89ee990&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m13_search" name="test_m13_team_features_are_deterministic" time="0.862" /><testcase classname="tests.test_m14_economy" name="test_opening_economy_signatures_are_full_pool_and_report_only_supported_dp_skills" time="1.380"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_opening_economy_signatures_are_full_pool_and_report_only_supported_dp_skills():
+        search = M14OpeningEconomyRepair(
+            adapter=ApproximateRealSimulationAdapter(GameDataRepository("data/ArknightsGameData")),
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(), budget=1,
+        )
+&gt;       engine = search._engine(tuple(search.configurations), opening=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m14_economy.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m14_economy.py:40: in _engine
+    return self._helper()._engine(tuple(team), opening=opening)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/search/m14_opening.py:77: in _engine
+    return M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f2c5f2f0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_economy" name="test_economy_repair_keeps_exactly_seven_operators_in_candidate_generation" time="1.401"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_economy_repair_keeps_exactly_seven_operators_in_candidate_generation():
+        search = M14OpeningEconomyRepair(
+            adapter=ApproximateRealSimulationAdapter(GameDataRepository("data/ArknightsGameData")),
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(), budget=1,
+        )
+        team = ("char_122_beagle", "char_124_kroos", "char_209_ardign", "char_192_falco", "char_211_adnach", "char_501_durin", "char_212_ansel")
+&gt;       helper = search._helper(); engine = helper._engine(team, opening=True)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m14_economy.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m14_opening.py:77: in _engine
+    return M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f0dd66c0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_fidelity" name="test_source_explicit_self_cost_talent_and_time_sp_dp_patterns_are_runtime_mapped" time="1.248"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_source_explicit_self_cost_talent_and_time_sp_dp_patterns_are_runtime_mapped():
+&gt;       _, fixture = _fixture()
+                     ^^^^^^^^^^
+
+tests/test_m14_fidelity.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m14_fidelity.py:21: in _fixture
+    return adapter, adapter.build_pool_fixture(stage_id_or_code="6-8", configurations=configurations, policy=RealSimulationApproximationPolicy.m11_second_quantized())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f3bea030&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_fidelity" name="test_auto_and_manual_dp_changes_are_distinct_and_source_amounts_are_applied_once" time="1.179"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_auto_and_manual_dp_changes_are_distinct_and_source_amounts_are_applied_once():
+&gt;       _, fixture = _fixture()
+                     ^^^^^^^^^^
+
+tests/test_m14_fidelity.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m14_fidelity.py:21: in _fixture
+    return adapter, adapter.build_pool_fixture(stage_id_or_code="6-8", configurations=configurations, policy=RealSimulationApproximationPolicy.m11_second_quantized())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347ee3fdbe0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_fidelity" name="test_m14_economy_audit_keeps_blocked_coupled_dp_effects_unsupported_and_reports_nonmaterial_deadline_result" time="1.220"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m14_economy_audit_keeps_blocked_coupled_dp_effects_unsupported_and_reports_nonmaterial_deadline_result():
+&gt;       adapter, _ = _fixture()
+                     ^^^^^^^^^^
+
+tests/test_m14_fidelity.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m14_fidelity.py:21: in _fixture
+    return adapter, adapter.build_pool_fixture(stage_id_or_code="6-8", configurations=configurations, policy=RealSimulationApproximationPolicy.m11_second_quantized())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f45ee750&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_geometry" name="test_parallel_opening_routes_have_no_shared_tiles_but_plume_can_range_interact_with_both" time="1.409"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_parallel_opening_routes_have_no_shared_tiles_but_plume_can_range_interact_with_both():
+        search = M14OpeningGeometrySearch(
+            adapter=ApproximateRealSimulationAdapter(GameDataRepository("data/ArknightsGameData")),
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(), budget=1,
+        )
+&gt;       engine = search._engine(opening=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m14_geometry.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m14_geometry.py:37: in _engine
+    return self._helper()._engine(TEAM, opening=opening)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/search/m14_opening.py:77: in _engine
+    return M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f8b69df0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_opening" name="test_opening_schedule_respects_exact_dp_for_two_r4_blockers" time="1.234"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_opening_schedule_respects_exact_dp_for_two_r4_blockers():
+        search = _search()
+&gt;       engine = search._engine(R4_IDS, opening=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m14_opening.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m14_opening.py:77: in _engine
+    return M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347ef792ff0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_opening" name="test_opening_arrival_report_records_route_margins_and_single_substitution" time="1.283"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_opening_arrival_report_records_route_margins_and_single_substitution():
+        search = _search()
+&gt;       engine = search._engine(R4_IDS, opening=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m14_opening.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/arknights_planner/search/m14_opening.py:77: in _engine
+    return M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f2bc5550&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m14_parser" name="test_hypothesis_content_forms" time="0.001" /><testcase classname="tests.test_m14_parser" name="test_hypothesis_envelope" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_malformed_content_is_distinct" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_standard_chat_envelope_and_diagnostic" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_chat_error_layers" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_response_diagnostic_is_bounded_and_sanitized" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_non_json_diagnostic" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_observed_simplified_schema_is_plan_error_not_envelope_error" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_runtime_timeout_configuration" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_out_of_scope_cardinality_is_not_silently_clamped" time="0.000" /><testcase classname="tests.test_m14_parser" name="test_cardinality_audit_preserves_full_k_and_single_k_minus_one_ablation" time="0.594" /><testcase classname="tests.test_m15" name="test_initial_constraints_are_source_derived_hard_opening_deadlines" time="1.330"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_initial_constraints_are_source_derived_hard_opening_deadlines():
+&gt;       planner = _planner()
+                  ^^^^^^^^^^
+
+tests/test_m15.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15.py:11: in _planner
+    return ConstraintGuidedFeasibilityPlanner(
+src/arknights_planner/search/m15.py:110: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347e8946de0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15" name="test_one_placement_can_satisfy_both_parallel_opening_constraints" time="1.354"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_one_placement_can_satisfy_both_parallel_opening_constraints():
+&gt;       planner = _planner()
+                  ^^^^^^^^^^
+
+tests/test_m15.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15.py:11: in _planner
+    return ConstraintGuidedFeasibilityPlanner(
+src/arknights_planner/search/m15.py:110: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347edbbf1a0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15" name="test_frontier_damage_constraint_is_a_repair_request_not_an_unproven_hard_deadline" time="1.326"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_frontier_damage_constraint_is_a_repair_request_not_an_unproven_hard_deadline():
+&gt;       planner = _planner()
+                  ^^^^^^^^^^
+
+tests/test_m15.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15.py:11: in _planner
+    return ConstraintGuidedFeasibilityPlanner(
+src/arknights_planner/search/m15.py:110: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347e8659190&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15" name="test_m15_runs_without_llm_and_reaches_the_allowed_cardinality_layer" time="1.303"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m15_runs_without_llm_and_reaches_the_allowed_cardinality_layer():
+&gt;       report = _planner(beam_width=12).run()
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_m15.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15.py:11: in _planner
+    return ConstraintGuidedFeasibilityPlanner(
+src/arknights_planner/search/m15.py:110: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347e8aa2c60&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15_repair" name="test_m15_1_preserved_parent_has_supported_route_2_interaction_timing_trace" time="1.310"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m15_1_preserved_parent_has_supported_route_2_interaction_timing_trace():
+&gt;       repair = _repair()
+                 ^^^^^^^^^
+
+tests/test_m15_repair.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15_repair.py:13: in _repair
+    return FailureFrontierRepair(
+src/arknights_planner/search/m15_repair.py:53: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347e39baa20&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15_repair" name="test_m15_1_route_capable_late_deployment_is_a_frontier_dependency" time="2.705"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m15_1_route_capable_late_deployment_is_a_frontier_dependency():
+&gt;       repair = _repair()
+                 ^^^^^^^^^
+
+tests/test_m15_repair.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15_repair.py:13: in _repair
+    return FailureFrontierRepair(
+src/arknights_planner/search/m15_repair.py:53: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347dcb55b80&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15_repair" name="test_m15_1_reassignment_generates_same_position_operator_replacements" time="1.326"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">def test_m15_1_reassignment_generates_same_position_operator_replacements():
+&gt;       repair = _repair()
+                 ^^^^^^^^^
+
+tests/test_m15_repair.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_m15_repair.py:13: in _repair
+    return FailureFrontierRepair(
+src/arknights_planner/search/m15_repair.py:53: in __init__
+    self.engine = M11MinimumSquadSearch(
+src/arknights_planner/search/m11.py:108: in __init__
+    self.fixture = adapter.build_pool_fixture(stage_id_or_code=stage_id_or_code, configurations=self.operator_pool, policy=policy)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/arknights_planner/adapters/approximate_real.py:694: in build_pool_fixture
+    devices=self._devices(adapted_stage),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;arknights_planner.adapters.approximate_real.ApproximateRealSimulationAdapter object at 0x7347f8d842f0&gt;
+stage = AdaptedRealStage(stage=Stage(stage_id='main_06-07', code=ValueWithSource(value='6-8', status=&lt;KnowledgeStatus.KNOWN: '...n', source_path='$.waves[0].fragments[2].actions[7].routeIndex'))), structurally_loadable=True, adaptation_blockers=())
+
+    def _devices(self, stage: AdaptedRealStage) -&gt; tuple[BattleDevice, ...]:
+        stage_id = stage.stage.stage_id
+        _, _, path, payload = self.repository.get_stage_level_document(stage_id)
+        characters = self.repository._table("character_table.json")
+        devices: list[BattleDevice] = []
+&gt;       for index, token in enumerate(payload.get("predefines", {}).get("tokenInsts") or []):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get'
+
+src/arknights_planner/adapters/approximate_real.py:443: AttributeError</failure></testcase><testcase classname="tests.test_m15_requirements" name="test_observed_damage_requirement_keeps_candidate_specific_evidence" time="0.000" /><testcase classname="tests.test_mechanics_audit" name="test_basic_mechanics_audit_separates_prts_access_from_project_implementation" time="0.001" /><testcase classname="tests.test_mechanics_audit" name="test_local_prts_formula_helpers_match_saved_source_formulas" time="0.000" /><testcase classname="tests.test_mechanics_rebaseline" name="test_frontier_classification_keeps_missing_history_distinct" time="0.000" /><testcase classname="tests.test_mechanics_rebaseline" name="test_frontier_classification_does_not_call_a_moved_frontier_preserved" time="0.000" /><testcase classname="tests.test_mechanics_rebaseline" name="test_absent_historical_route_does_not_create_a_false_frontier_move" time="0.000" /><testcase classname="tests.test_normal_low_star_facts" name="test_normal_low_star_boundary_cases_are_rejected" time="0.266" /><testcase classname="tests.test_normal_low_star_facts" name="test_debug_configuration_is_exact_and_low_star_scoped" time="0.268" /><testcase classname="tests.test_normal_low_star_facts" name="test_source_backed_deployment_talent_helpers_are_scoped_to_active_ranks" time="0.267" /><testcase classname="tests.test_normal_low_star_facts" name="test_generated_catalog_covers_the_whole_normal_low_star_domain" time="0.007" /><testcase classname="tests.test_normal_low_star_facts" name="test_generated_manifest_hashes_are_real" time="0.002" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_constraint_inventory_has_plan_traceable_deadlines" time="0.087" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_deadline_semantics_do_not_require_unspecified_skill_charge" time="0.001" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_exact_ledger_preserves_nonnegative_dp_events" time="0.069" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_gross_dp_bound_includes_only_legally_ready_auto_dp" time="0.000" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_minimum_cost_assignment_uses_distinct_legal_operators" time="0.003" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_old_certificate_reclassification_keeps_missing_proof_distinct" time="0.002" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_op04_and_op05_plan_specific_audits" time="0.315" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_optimistic_bounds_preserve_deadline_prefixes" time="0.312" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_proven_fixes_are_regression_backed" time="0.001" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_relaxation_sensitivity_is_diagnostic_only" time="0.485" /><testcase classname="tests.test_operational_feasibility_unsat_core_audit_v1.OperationalFeasibilityUnsatCoreAuditTests" name="test_unsat_core_reports_conflicting_set_without_false_minimality" time="0.393" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_deadline_establishment_rejects_late_deployment" time="0.001" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_earliest_phase_is_not_a_deadline_staged_noop" time="0.007" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_scheduler_does_not_double_count_cumulative_deployment_cost" time="0.006" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_unrelated_fidelity_metadata_does_not_block_operator" time="0.000" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_unsupported_decision_critical_trait_blocks_operator" time="0.000" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_unsupported_noncritical_trait_metadata_does_not_block_blocker" time="0.000" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_unsupported_selected_skill_blocks_killing_block" time="0.000" /><testcase classname="tests.test_operational_semantic_preservation_repair_v1.SemanticPreservationTests" name="test_unsupported_unused_skill_does_not_block_supported_selected_skill" time="0.000" /><testcase classname="tests.test_operator_assignment_recovery" name="test_tactical_requirements_do_not_claim_dedicated_operator_slots" time="1.998" /><testcase classname="tests.test_operator_assignment_recovery" name="test_one_operator_can_cover_multiple_requirements" time="0.000" /><testcase classname="tests.test_operator_assignment_recovery" name="test_conditional_capabilities_preserve_placement_timing_and_skill_conditions" time="0.000" /><testcase classname="tests.test_operator_assignment_recovery" name="test_multiple_operators_can_jointly_cover_block_capacity" time="0.000" /><testcase classname="tests.test_operator_assignment_recovery" name="test_assignment_alternatives_preserve_semantic_diversity" time="0.000" /><testcase classname="tests.test_operator_assignment_recovery" name="test_hypotheses_follow_coverage_alternatives_without_llm" time="0.002" /><testcase classname="tests.test_operator_assignment_recovery" name="test_high_level_failure_revision_precedes_local_repair" time="0.001" /><testcase classname="tests.test_operator_assignment_recovery" name="test_recorded_round_two_used_no_local_repair_budget" time="0.002" /><testcase classname="tests.test_operator_runtime_fidelity_v1.OperatorRuntimeFidelityV1Tests" name="test_available_low_rarity_operators_are_all_audited" time="0.002" /><testcase classname="tests.test_operator_runtime_fidelity_v1.OperatorRuntimeFidelityV1Tests" name="test_census_and_fidelity_are_complete_and_aligned" time="0.026" /><testcase classname="tests.test_operator_runtime_fidelity_v1.OperatorRuntimeFidelityV1Tests" name="test_fidelity_classification_summary_matches_records" time="0.003" /><testcase classname="tests.test_operator_runtime_fidelity_v1.OperatorRuntimeFidelityV1Tests" name="test_low_rarity_smoke_regressions_are_deterministic" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_all_revised_plans_have_proven_prefix_conflicts_and_no_simulation" time="0.002" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_compressed_llm_call_record_matches_original_hash" time="0.137" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_deadline_295_is_reclassified_as_contact_event_not_hard_deadline" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_exactly_one_completed_kimi_call_and_raw_response_is_immutable" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_experience_memory_is_conditional_and_source_bound" time="0.002" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_grounding_has_no_unknown_entities_and_records_route_warnings" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_learning_progress_reports_new_conflict_for_each_plan" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_reasoning_context_distinguishes_repetition_from_reconsideration" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_required_artifacts_and_final_status_agree" time="0.001" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_route3_contact_evidence_recomputes_from_gamedata" time="0.002" /><testcase classname="tests.test_r8_1_constraint_informed_tactical_revision_v3.ConstraintInformedTacticalRevisionV3Tests" name="test_structured_plans_are_specific_and_reference_prior_evidence" time="0.001" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_codex_command_is_argument_array_without_shell_bypass" time="0.000" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_codex_process_receives_local_proxy_defaults" time="0.002" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_empty_or_conflicting_proxy_variables_are_rejected" time="0.002" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_extra_config_is_injected_as_argument_array" time="0.000" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_failed_cli_process_is_counted_and_not_restarted" time="0.005" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_invalid_final_message_is_rejected_without_plan" time="0.217" /><testcase classname="tests.test_r8_1_gpt_c4_codex_cli_v1.GptC4CodexCliTests" name="test_jsonl_trajectory_extracts_ids_and_usage" time="0.001" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_503_recovery_requires_matching_counted_empty_failure" time="0.011" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_concurrent_entries_are_locked" time="0.002" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_gpt_completed_commentary_with_native_call_executes_tool" time="0.000" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_lock_recovers_only_before_any_model_request" time="0.001" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_missing_credential_stops_without_http_attempt" time="0.003" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_parent_hypothesis_may_reference_strategic_hypothesis_not_plan_id" time="0.006" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_prepared_payload_has_complete_low_star_catalog_and_no_credentials" time="0.003" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_provider_selection_and_bounded_request_fields" time="0.002" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_started_records_block_restart_even_without_finish_record" time="0.001" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_stream_attempt_files_continue_persisted_budget_sequence" time="0.003" /><testcase classname="tests.test_r8_1_gpt_tactical_revision_v1.GptTacticalRevisionTests" name="test_tool_continuation_keeps_call_context_before_result" time="0.002" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_call_saves_completed_response_handoff" time="0.006"><failure message="SystemExit: Kimi response failed contract validation without retry">self = &lt;test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests testMethod=test_call_saves_completed_response_handoff&gt;
+
+    def test_call_saves_completed_response_handoff(self) -&gt; None:
+        module = load_runner()
+        evidence = synthetic_evidence(module)
+        prompt = module.prompt_text(evidence)
+        payload = module.request_payload(prompt)
+        parsed = synthetic_plan()
+        envelope = {
+            "model": module.MODEL,
+            "status": "completed",
+            "output": [{"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": json.dumps(parsed)}]}],
+        }
+        sse = (
+            f"event: response.created\ndata: {json.dumps({'response': envelope})}\n\n"
+            f"event: response.output_text.delta\ndata: {json.dumps({'delta': json.dumps(parsed)})}\n\n"
+            f"event: response.output_text.done\ndata: {json.dumps({'text': json.dumps(parsed)})}\n\n"
+            f"event: response.completed\ndata: {json.dumps({'response': envelope})}\n\n"
+        )
+        captured = {}
+        def fake_urlopen(request, timeout):
+            captured["request"] = request
+            return FakeResponse([sse.encode()])
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(module, "OUT", Path(directory)):
+            module.OUT.mkdir(exist_ok=True)
+            module.OUT.joinpath("llm_request.json").write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            module.OUT.joinpath("llm_evidence_context.json").write_text(json.dumps(evidence, ensure_ascii=False), encoding="utf-8")
+            module.OUT.joinpath("llm_request_body.txt").write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+            with mock.patch.dict(os.environ, {"ARK_API_KEY_agent": "offline-test"}), mock.patch("urllib.request.urlopen", side_effect=fake_urlopen):
+&gt;               module.call()
+
+tests/test_r8_1_low_star_full_tactical_closure_v1.py:315: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def call() -&gt; None:
+        request_path = OUT / "llm_request.json"
+        evidence_path = OUT / "llm_evidence_context.json"
+        if not request_path.is_file() or not evidence_path.is_file():
+            write("final_status.json", {"kimi_call_count": 0, "status": "FINAL_PAYLOAD_NOT_PREPARED"})
+            raise SystemExit("final payload is not prepared")
+        payload = load(request_path)
+        try:
+            final_payload_validation = validate_final_payload(payload, evidence_path)
+            write("llm_final_payload_validation.json", final_payload_validation)
+        except Exception as exc:
+            write("llm_final_payload_validation.json", {"status": "FAIL", "error": str(exc)})
+            write("final_status.json", {"kimi_call_count": 0, "status": "FINAL_PAYLOAD_REJECTED_NO_CALL"})
+            raise SystemExit("final payload validation failed; no call was made") from exc
+        envelope, accumulator, raw = stream_once(payload)
+        write_text("llm_raw_response.txt", raw.decode(errors="replace") if raw else "")
+        diagnostics = {
+            "http_status": accumulator.http_status,
+            "model": accumulator.response_envelope.get("model") if accumulator.response_envelope else None,
+            "request_id": accumulator.request_id,
+            "terminal_event": accumulator.terminal_event,
+            "classification": accumulator.classify(),
+            "response_bytes": len(raw),
+        }
+        write("llm_call_record.json", diagnostics)
+        if accumulator.error or accumulator.terminal_event != "response.completed":
+            write("final_status.json", {"kimi_call_count": 1, "status": "KIMI_CALL_FAILED_NO_RETRY", **diagnostics})
+            raise SystemExit("Kimi call failed without retry")
+        if accumulator.http_status != 200:
+            write("final_status.json", {"kimi_call_count": 1, "status": "KIMI_CALL_FAILED_NO_RETRY", **diagnostics})
+            raise SystemExit("Kimi call failed without retry")
+        text = extract_response_text(accumulator.response_envelope or {})[0]
+        try:
+            parsed = json.loads(text)
+        except json.JSONDecodeError as exc:
+            write("response_completion_validation.json", {"kimi_call_count": 1, "json_parse": "FAIL", "error": str(exc)})
+            write("final_status.json", {"kimi_call_count": 1, "status": "KIMI_RESPONSE_JSON_INVALID_NO_RETRY"})
+            raise
+        evidence = load(evidence_path)
+        contract_errors = validate_operational_plan_output(parsed, evidence)
+        try:
+            schema_errors = sorted(
+                Draft7Validator(output_schema()).iter_errors(parsed),
+                key=lambda error: list(error.path),
+            )
+            contract_errors.extend(
+                f"schema: {'/'.join(map(str, error.path)) or '&lt;root&gt;'}: {error.message}"
+                for error in schema_errors
+            )
+        except Exception as exc:
+            contract_errors.append(f"schema validation unavailable: {exc}")
+        if contract_errors:
+            write("llm_invalid_structured_output.json", parsed)
+            write(
+                "response_completion_validation.json",
+                {
+                    "kimi_call_count": 1,
+                    "model": accumulator.response_envelope.get("model") if accumulator.response_envelope else MODEL,
+                    "raw_response_sha256": hashlib.sha256((OUT / "llm_raw_response.txt").read_bytes()).hexdigest(),
+                    "json_parse": "PASS",
+                    "contract_and_schema_validation": "FAIL",
+                    "errors": contract_errors,
+                },
+            )
+            write("final_status.json", {"kimi_call_count": 1, "status": "KIMI_RESPONSE_CONTRACT_INVALID_NO_RETRY"})
+&gt;           raise SystemExit("Kimi response failed contract validation without retry")
+E           SystemExit: Kimi response failed contract validation without retry
+
+scripts/run_r8_1_low_star_full_tactical_closure_v1.py:906: SystemExit</failure></testcase><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_call_sends_validated_body_and_rejects_incomplete" time="0.005" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_empty_embedded_evidence_is_rejected_against_nonempty_prepared" time="0.002" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_empty_incomplete_event_preserves_created_envelope" time="0.000" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_http_error_is_counted_and_preserves_status" time="0.003" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_prompt_embeds_evidence_json" time="0.001" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_schema_rejects_empty_multiple_and_missing_direction" time="0.001"><failure message="AssertionError: False is not true">self = &lt;test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests testMethod=test_schema_rejects_empty_multiple_and_missing_direction&gt;
+
+    def test_schema_rejects_empty_multiple_and_missing_direction(self) -&gt; None:
+        module = load_runner()
+        from jsonschema import Draft7Validator
+    
+        validator = Draft7Validator(module.output_schema())
+        evidence = synthetic_evidence(module)
+        empty = module.validate_operational_plan_output({"revised_operational_plans": []}, evidence)
+        multiple = module.validate_operational_plan_output({"revised_operational_plans": [synthetic_plan(), synthetic_plan()]}, evidence)
+        missing_direction = module.validate_operational_plan_output(synthetic_plan(missing_direction=True), evidence)
+        self.assertTrue(any("exactly one" in error for error in empty))
+        self.assertTrue(any("exactly one" in error for error in multiple))
+&gt;       self.assertTrue(any("lacks a legal direction" in error for error in missing_direction))
+E       AssertionError: False is not true
+
+tests/test_r8_1_low_star_full_tactical_closure_v1.py:189: AssertionError</failure></testcase><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_second_attempt_is_rejected_before_network" time="0.002" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_stale_cache_or_mismatched_body_is_rejected" time="0.002" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_stream_interrupt_is_counted" time="0.003" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_timeout_is_counted_without_retry" time="0.002" /><testcase classname="tests.test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests" name="test_valid_final_payload_and_contract_handoff" time="0.002"><failure message="AssertionError: Lists differ: ['stage_active_facts.active_device_tiles_col_row is required'] != []&#10;&#10;First list contains 1 additional elements.&#10;First extra element 0:&#10;'stage_active_facts.active_device_tiles_col_row is required'&#10;&#10;- ['stage_active_facts.active_device_tiles_col_row is required']&#10;+ []">self = &lt;test_r8_1_low_star_full_tactical_closure_v1.LowStarFullClosureV1Tests testMethod=test_valid_final_payload_and_contract_handoff&gt;
+
+    def test_valid_final_payload_and_contract_handoff(self) -&gt; None:
+        module = load_runner()
+        evidence = synthetic_evidence(module)
+        payload = module.request_payload(module.prompt_text(evidence))
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(module, "OUT", Path(directory)):
+            module.OUT.mkdir(exist_ok=True)
+            module.OUT.joinpath("llm_request_body.txt").write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+            evidence_path = module.OUT / "llm_evidence_context.json"
+            evidence_path.write_text(json.dumps(evidence, ensure_ascii=False), encoding="utf-8")
+            validation = module.validate_final_payload(payload, evidence_path)
+            self.assertEqual(validation["status"], "PASS")
+            parsed = synthetic_plan()
+&gt;           self.assertEqual(module.validate_operational_plan_output(parsed, evidence), [])
+E           AssertionError: Lists differ: ['stage_active_facts.active_device_tiles_col_row is required'] != []
+E           
+E           First list contains 1 additional elements.
+E           First extra element 0:
+E           'stage_active_facts.active_device_tiles_col_row is required'
+E           
+E           - ['stage_active_facts.active_device_tiles_col_row is required']
+E           + []
+
+tests/test_r8_1_low_star_full_tactical_closure_v1.py:135: AssertionError</failure></testcase><testcase classname="tests.test_r8_1_low_star_review_regressions" name="test_dp_comparison_uses_the_claimed_window_endpoint" time="0.000" /><testcase classname="tests.test_r8_1_low_star_review_regressions" name="test_narrative_discrepancy_cannot_mask_a_deployment_conflict" time="0.010" /><testcase classname="tests.test_r8_1_low_star_review_regressions" name="test_a_plan_declaration_does_not_certify_unsupported_effect_independence" time="0.001" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_auto_dp_skill_timing_cycles_and_retreat_stop" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_c2_auto_income_restores_frame_600_payment" time="0.015" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_compiler_file_record_contains_hash_and_size" time="0.005" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_compiler_reads_selected_skills_not_legacy_skills" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_declared_configuration_omits_derived_internal_fields" time="0.012" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_declared_configuration_rejects_actual_mismatch" time="0.012" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_declared_coordinate_list_targets_are_preserved_as_tool_objects" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_final_continuation_binds_schema_and_explicit_instruction" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_no_skill_operator_omits_skill_fields" time="0.012" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_query_phase_is_compact_and_not_schema_bound" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_structured_range_checks_require_exact_action_identity" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c2_compact_tool_revision_v1.CompactC2Tests" name="test_uncovered_targets_preserve_conflict_field_name" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c3_failure_revision_v1.C3FailureRevisionTests" name="test_action_outcomes_distinguish_executed_rejected_and_unreached" time="0.124" /><testcase classname="tests.test_r8_1_lowstar_c3_failure_revision_v1.C3FailureRevisionTests" name="test_c3_contract_rejects_wrong_parent_and_multiple_plans" time="0.004" /><testcase classname="tests.test_r8_1_lowstar_c3_failure_revision_v1.C3FailureRevisionTests" name="test_prepared_body_limits_and_catalog_are_complete" time="0.003" /><testcase classname="tests.test_r8_1_normal_low_star_tactical_revision_v1" name="test_exactly_one_successful_kimi_call_and_low_star_plan" time="0.003" /><testcase classname="tests.test_r8_1_normal_low_star_tactical_revision_v1" name="test_selected_ids_are_sourced_from_normal_low_star_catalog" time="0.006" /><testcase classname="tests.test_r8_1_normal_low_star_tactical_revision_v1" name="test_bounded_compile_is_legal_but_not_operationally_verified" time="0.001" /><testcase classname="tests.test_r8_1_normal_low_star_tactical_revision_v1" name="test_counterexamples_are_explicitly_avoided_and_narrative_error_is_not_hidden" time="0.001" /><testcase classname="tests.test_r8_1_normal_low_star_tactical_revision_v1" name="test_validation_artifacts_are_hashed_in_milestone_manifest" time="0.042" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_route_time_includes_waits_before_but_not_at_the_target" time="0.000" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_route_repeated_tile_visits_are_preserved" time="0.000" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_real_range_transformer_uses_bottom_left_field_orientation" time="0.000" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_synthetic_range_transformer_remains_y_down" time="0.000" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_source_endpoints_roadblocks_and_route6_inconsistency_are_recorded" time="0.001" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_wait_aware_opening_deadline_facts_are_derived_from_public_route" time="0.001" /><testcase classname="tests.test_r8_1_opening_route_spatial_facts_v1" name="test_b2_spatial_mismatches_are_explicit_without_changing_actions" time="0.000" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_action_candidate_and_no_full_witness" time="0.004" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_bounded_frontier_and_distinct_operators" time="0.000" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_changed_plan_tile_cannot_pass_unchanged_hardcoded_actions" time="0.094" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_conditional_arithmetic_is_not_ready_for_prefix_simulation" time="0.071" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_conditional_route3_and_geometry" time="0.001" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_cooperation_keeps_attack_and_sp_sequence_across_handoff" time="0.046" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_dp_ledger_assumes_no_refund_and_omits_a05" time="0.001" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_kimi_absorbs_counterexamples_without_frame_250_deadline" time="0.001" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_single_completed_kimi_call_and_single_plan" time="0.001" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1BoundedValidationTests" name="test_validation_is_not_tactical_success" time="0.000" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1ExecutionPrerequisiteTests" name="test_fixed_candidate_is_blocked_by_both_prerequisites" time="0.001" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1ExecutionPrerequisiteTests" name="test_merchant_upkeep_blocks_before_caper_and_keeps_unknown_edges" time="0.000" /><testcase classname="tests.test_r8_1_plan_a1_bounded_validation_v1.PlanA1ExecutionPrerequisiteTests" name="test_roadblock_occupancy_rejects_caper_only" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_actual_candidate_base_cost_ledger_preserves_cond_route6" time="0.038" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_bounded_scope_is_preserved" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_caper_finite_model_finds_route1_pass_and_route3_model_failure" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_false_cond_route6_branch_has_no_a05_deployment" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_full_deployment_branch_requires_distinct_duelists" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_historical_inputs_and_artifacts_are_preserved" time="0.001" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_no_fixed_combination_is_claimed_faithful" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_other_anchors_have_no_required_tile_coverage" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_refund_persists_and_ledger_conserves_dp" time="0.001" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_tests_are_not_claimed_executed_by_validator" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_fixed_candidate_contract_v1.PlanAFixedCandidateContractTests" name="test_uses_only_saved_candidates_and_combinations" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_anchor_candidates_fail_plan_capability_or_geometry" time="0.091" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_blocker_traits_and_duelist_gates_block_all_opening_candidates" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_bounded_frontier_stays_within_budget" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_cost_cap_ledger_does_not_prove_candidate_deficit" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_dp_ledger_keeps_refund_hypothetical" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_missing_generator_is_explicit_provenance_unknown" time="0.038" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_multihit_diagnostic_is_not_a_damage_bound" time="0.001" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_no_witness_is_reported_without_simulation" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_scoped_conflicts_do_not_claim_global_infeasibility" time="0.000" /><testcase classname="tests.test_r8_1_plan_a_opening_witness_v1.PlanAOpeningWitnessTests" name="test_snhunt_difference_is_explained_not_hidden" time="0.000" /><testcase classname="tests.test_r8_1_v3_source_evidence_reverification.V3SourceEvidenceReverificationTests" name="test_frame_295_is_contact_not_fire_deadline" time="0.079" /><testcase classname="tests.test_r8_1_v3_source_evidence_reverification.V3SourceEvidenceReverificationTests" name="test_missing_fidelity_inputs_are_explicit_not_an_empty_safe_pool" time="0.001" /><testcase classname="tests.test_r8_1_v3_source_evidence_reverification.V3SourceEvidenceReverificationTests" name="test_read_only_build_does_not_replace_historical_artifacts" time="0.085" /><testcase classname="tests.test_r8_1_v3_source_evidence_reverification.V3SourceEvidenceReverificationTests" name="test_three_target_contracts_are_preserved_as_unknown_feasibility" time="0.000" /><testcase classname="tests.test_r8_1_v3_source_evidence_reverification.V3SourceEvidenceReverificationTests" name="test_validation_does_not_promote_diagnostic_conflict" time="0.000" /><testcase classname="tests.test_r8_1_walk_navigation_facts_v1.WalkNavigationFactTests" name="test_public_adapter_matches_terrain_spfa_facts" time="0.001" /><testcase classname="tests.test_r8_1_walk_navigation_facts_v1.WalkNavigationFactTests" name="test_roadblock_effect_is_reported_unknown_not_hardened" time="0.000" /><testcase classname="tests.test_r8_1_walk_navigation_facts_v1.WalkNavigationFactTests" name="test_route2_repeated_cell_traversals_are_preserved" time="0.000" /><testcase classname="tests.test_r8_1_walk_navigation_facts_v1.WalkNavigationFactTests" name="test_terrain_paths_do_not_cross_fly_only_interiors" time="0.000" /><testcase classname="tests.test_real_search" name="test_real_operator_pool_is_fixed_exact_keyframe_configs" time="1.130" /><testcase classname="tests.test_real_search" name="test_candidate_generation_is_legal_pruned_and_deterministic" time="0.020" /><testcase classname="tests.test_real_search" name="test_real_score_prefers_win_and_failure_analysis_uses_observable_events" time="10.719" /><testcase classname="tests.test_real_search" name="test_real_cache_key_includes_explicit_approximation_policy" time="0.000" /><testcase classname="tests.test_real_search" name="test_search_evaluates_approximate_real_runs_and_discovers_a_win" time="0.001" /><testcase classname="tests.test_real_search" name="test_frame_candidate_generation_is_integer_and_coarse" time="0.000" /><testcase classname="tests.test_real_search" name="test_search_does_not_return_the_calibration_sequence" time="0.000" /><testcase classname="tests.test_real_search" name="test_same_configuration_produces_same_search_output" time="10.201" /><testcase classname="tests.test_real_search" name="test_local_refinement_never_worsens_best_score" time="9.157" /><testcase classname="tests.test_real_search" name="test_real_search_cli_identifies_approximate_mode_and_metrics" time="11.586" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_shaped_fixture_adapts_exact_keyframe_without_interpolation" time="0.003" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_shaped_stage_preserves_hierarchy_and_strict_mode_refuses_execution" time="0.010" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_amiya_skill_and_range_are_loaded_without_synthetic_execution" time="1.096" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_slime_and_stage_structure_retain_source_backed_facts" time="1.112" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_higher_enemy_level_unknowns_are_not_merged" time="0.276" /><testcase classname="tests.test_real_simulation_adapter" name="test_real_compatibility_cli_reports_strict_blockers" time="1.758" /><testcase classname="tests.test_repository" name="test_operator_reconstruction_retains_factual_paths" time="0.003" /><testcase classname="tests.test_repository" name="test_merchant_trait_is_parsed_from_explicit_description_and_blackboard" time="0.002" /><testcase classname="tests.test_repository" name="test_enemy_and_stage_table_joins" time="0.009" /><testcase classname="tests.test_roadblock_navigation_evidence_v1.RoadblockNavigationEvidenceTests" name="test_generic_client_chain_is_separate_from_roadblock_payload" time="0.001" /><testcase classname="tests.test_roadblock_navigation_evidence_v1.RoadblockNavigationEvidenceTests" name="test_raw_evidence_hashes_match_manifest" time="0.001" /><testcase classname="tests.test_roadblock_navigation_evidence_v1.RoadblockNavigationEvidenceTests" name="test_roadblock_navigation_effect_remains_unknown" time="0.001" /><testcase classname="tests.test_roadblock_prefab_evidence_v2.RoadblockPrefabEvidenceTests" name="test_decode_attempts_are_bounded_and_lz4ak_succeeds" time="0.001" /><testcase classname="tests.test_roadblock_prefab_evidence_v2.RoadblockPrefabEvidenceTests" name="test_exact_roadblock_tile_options_are_recorded" time="0.001" /><testcase classname="tests.test_roadblock_prefab_evidence_v2.RoadblockPrefabEvidenceTests" name="test_manifest_hashes_cover_all_extracted_artifacts" time="0.001" /><testcase classname="tests.test_roadblock_prefab_evidence_v2.RoadblockPrefabEvidenceTests" name="test_ordinary_walk_is_not_hardened_to_a_full_obstacle" time="0.001" /><testcase classname="tests.test_roadblock_prefab_evidence_v2.RoadblockPrefabEvidenceTests" name="test_unresolved_semantics_remain_unknown" time="0.001" /><testcase classname="tests.test_roadblock_walk_navigation_v3.RoadblockWalkNavigationV3Tests" name="test_classify_distinguishes_entry_failure_partial_and_complete" time="0.001" /><testcase classname="tests.test_roadblock_walk_navigation_v3.RoadblockWalkNavigationV3Tests" name="test_manifest_hashes_match" time="0.001" /><testcase classname="tests.test_roadblock_walk_navigation_v3.RoadblockWalkNavigationV3Tests" name="test_missing_route_to_spfa_edge_is_not_hardened" time="0.001" /><testcase classname="tests.test_roadblock_walk_navigation_v3.RoadblockWalkNavigationV3Tests" name="test_r8_1_walk_route_scope_is_preserved" time="0.001" /><testcase classname="tests.test_roadblock_walk_navigation_v3.RoadblockWalkNavigationV3Tests" name="test_stale_v2_conclusions_are_corrected_not_repeated" time="0.001" /><testcase classname="tests.test_route_navigation_decodability_v4.RouteNavigationDecodabilityV4Tests" name="test_entry_decode_failure_is_not_whole_range_invalid" time="0.001" /><testcase classname="tests.test_route_navigation_decodability_v4.RouteNavigationDecodabilityV4Tests" name="test_invalid_binary_fails_before_creating_output" time="0.071" /><testcase classname="tests.test_route_navigation_decodability_v4.RouteNavigationDecodabilityV4Tests" name="test_manifest_hashes_match" time="0.004" /><testcase classname="tests.test_route_navigation_decodability_v4.RouteNavigationDecodabilityV4Tests" name="test_route_boundary_and_unknown_call_edge_are_preserved" time="0.003" /><testcase classname="tests.test_route_navigation_decodability_v4.RouteNavigationDecodabilityV4Tests" name="test_synthetic_invalid_entry_keeps_later_aligned_candidates_as_clues" time="0.002"><skipped type="pytest.skip" message="capstone optional dependency is unavailable">/home/bigdata/Desktop/arknights-auto-planner/tests/test_route_navigation_decodability_v4.py:60: capstone optional dependency is unavailable</skipped></testcase><testcase classname="tests.test_route_revisit_review_regressions" name="test_latest_model_interception_considers_the_last_revisit" time="0.001" /><testcase classname="tests.test_route_revisit_review_regressions" name="test_late_deployment_can_block_a_revisited_tile_in_the_public_runtime" time="0.001" /><testcase classname="tests.test_spatial_timing" name="test_tactical_regions_are_generated_from_stage_understanding" time="1.305" /><testcase classname="tests.test_spatial_timing" name="test_skeletons_preserve_semantic_diversity" time="0.016" /><testcase classname="tests.test_spatial_timing" name="test_facing_candidates_are_coverage_aware" time="0.003"><failure message="AssertionError: assert 1 &gt;= 2&#10; +  where 1 = len({'DOWN'})">def test_facing_candidates_are_coverage_aware():
+        engine, _, _, _, search = spatial_fixture()
+        candidates = search.tile_candidates(
+            "char_501_durin",
+            "RANGED_DPS",
+        )
+    
+        assert candidates
+&gt;       assert len({item.direction for item in candidates}) &gt;= 2
+E       AssertionError: assert 1 &gt;= 2
+E        +  where 1 = len({'DOWN'})
+
+tests/test_spatial_timing.py:105: AssertionError</failure></testcase><testcase classname="tests.test_spatial_timing" name="test_timing_candidates_use_event_relative_integer_frames" time="0.015" /><testcase classname="tests.test_spatial_timing" name="test_coarse_to_fine_timing_is_bounded" time="0.016" /><testcase classname="tests.test_spatial_timing" name="test_dp_legality_rejects_infeasible_or_duplicate_deployments" time="0.015" /><testcase classname="tests.test_spatial_timing" name="test_assignment_to_skeleton_to_timing_reaches_simulator" time="0.296" /><testcase classname="tests.test_spatial_timing" name="test_generic_logic_has_no_stage_or_operator_literals" time="0.001" /><testcase classname="tests.test_spatial_timing" name="test_experiment_bounds_and_timing_are_not_broadened" time="0.000" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_all_executable_pool_is_not_rarity_restricted" time="0.521" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_eligibility_is_task_dependent_for_fixed_squad" time="0.365" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_fixed_squad_stage_is_rejected_for_team_selection" time="0.005" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_free_team_stage_with_unsupported_mechanics_is_rejected" time="0.004" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_internal_and_display_stage_codes_are_both_resolved" time="0.011" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_normal_free_team_stage_is_accepted" time="0.004" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_planner_rejects_ineligible_stage_before_operator_configuration" time="0.005" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_preset_unit_special_stage_is_rejected" time="0.003" /><testcase classname="tests.test_stage_eligibility.StageEligibilityTests" name="test_validation_builder_rejects_predefined_stage" time="0.289" /><testcase classname="tests.test_stage_eligibility.FeasibilityFirstAssignmentTests" name="test_feasibility_first_prefers_robust_teams_over_minimal_teams" time="1.407" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_complete_fidelity_supports_bounded_inference" time="0.585" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_enemy_fidelity_alone_cannot_restore_high_fidelity" time="0.002" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_inactive_path_blocker_does_not_cap_stage_mechanics" time="0.001" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_low_priority_device_attack_event_order_and_destruction" time="0.001" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_no_mechanic_stage_with_full_enemy_support_is_high" time="0.001" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_partial_enemy_fidelity_still_caps_complete_fidelity" time="0.001" /><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_r8_1_pool_fixture_instantiates_five_source_backed_devices" time="1.013"><failure message="AssertionError: Items in the first set but not the second:&#10;(1, 2)&#10;(3, 5)&#10;(7, 2)&#10;(9, 4)&#10;Items in the second set but not the first:&#10;(3, 1)&#10;(7, 4)&#10;(9, 2)&#10;(1, 4)">self = &lt;test_stage_mechanics_fidelity.StageMechanicsFidelityTests testMethod=test_r8_1_pool_fixture_instantiates_five_source_backed_devices&gt;
+
+    def test_r8_1_pool_fixture_instantiates_five_source_backed_devices(self):
+        repository = GameDataRepository(ROOT / "data/ArknightsGameData")
+        adapter = ApproximateRealSimulationAdapter(repository)
+        fixture = adapter.build_pool_fixture(
+            stage_id_or_code="main_08-01", configurations=(),
+            policy=RealSimulationApproximationPolicy.m11_second_quantized(),
+        )
+        self.assertEqual(len(fixture.stage.devices), 5)
+&gt;       self.assertEqual({item.tile for item in fixture.stage.devices}, {(5, 3), (9, 2), (7, 4), (1, 4), (3, 1)})
+E       AssertionError: Items in the first set but not the second:
+E       (1, 2)
+E       (3, 5)
+E       (7, 2)
+E       (9, 4)
+E       Items in the second set but not the first:
+E       (3, 1)
+E       (7, 4)
+E       (9, 2)
+E       (1, 4)
+
+tests/test_stage_mechanics_fidelity.py:99: AssertionError</failure></testcase><testcase classname="tests.test_stage_mechanics_fidelity.StageMechanicsFidelityTests" name="test_r8_1_predeployed_roadblocks_are_observed_not_inferred" time="0.002" /><testcase classname="tests.test_synthetic_search" name="test_dense_score_prefers_a_near_win_over_obviously_bad_strategy" time="0.007" /><testcase classname="tests.test_synthetic_search" name="test_failure_analysis_classifies_observable_failures" time="0.008" /><testcase classname="tests.test_synthetic_search" name="test_candidate_generation_is_deterministic_and_bounded" time="0.001" /><testcase classname="tests.test_synthetic_search" name="test_search_is_deterministic_for_same_seed_and_finds_synthetic_win" time="3.528" /><testcase classname="tests.test_synthetic_search" name="test_local_timing_refinement_never_regresses_best_score" time="3.474" /><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_concurrency_and_sharing_distinguish_distinct_resources" time="4.381" /><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_failure_trace_alignment_uses_stage_first_requirements" time="0.001"><failure message="AssertionError: 'REQUIREMENT_PRESENT_BUT_NOT_REALIZED' != 'NOT_EXPLAINED_BY_REQUIREMENT_MODEL'&#10;- REQUIREMENT_PRESENT_BUT_NOT_REALIZED&#10;+ NOT_EXPLAINED_BY_REQUIREMENT_MODEL">self = &lt;test_tactical_demand.TacticalDemandTests testMethod=test_failure_trace_alignment_uses_stage_first_requirements&gt;
+
+    def test_failure_trace_alignment_uses_stage_first_requirements(self):
+        record = {
+            "record_id": "test-record",
+            "leak_routes": ("route-1", "route-10"),
+        }
+        rows = build_failure_trace_requirement_alignment(
+            (record,), self.clusters, self.windows, self.atoms,
+        )
+        by_route = {item["route_id"]: item for item in rows[0]["route_alignments"]}
+        self.assertEqual(by_route["route-1"]["status"], "REQUIREMENT_PRESENT_BUT_NOT_REALIZED")
+        self.assertEqual(by_route["route-10"]["status"], "REQUIREMENT_PRESENT_BUT_NOT_REALIZED")
+&gt;       self.assertEqual(by_route["route-10"]["old_model_status"], "NOT_EXPLAINED_BY_REQUIREMENT_MODEL")
+E       AssertionError: 'REQUIREMENT_PRESENT_BUT_NOT_REALIZED' != 'NOT_EXPLAINED_BY_REQUIREMENT_MODEL'
+E       - REQUIREMENT_PRESENT_BUT_NOT_REALIZED
+E       + NOT_EXPLAINED_BY_REQUIREMENT_MODEL
+
+tests/test_tactical_demand.py:126: AssertionError</failure></testcase><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_hypothesis_certificates_reject_uncovered_hard_requirements" time="0.000" /><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_pressure_transitions_preserve_persistence_and_new_demand" time="0.000" /><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_pressure_windows_are_event_gap_derived" time="0.000" /><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_requirement_atoms_have_complete_scope_and_evidence" time="0.000"><failure message="AssertionError: False is not true">self = &lt;test_tactical_demand.TacticalDemandTests testMethod=test_requirement_atoms_have_complete_scope_and_evidence&gt;
+
+    def test_requirement_atoms_have_complete_scope_and_evidence(self):
+        for atom in self.atoms:
+            self.assertTrue(atom.clusters)
+            self.assertTrue(atom.why)
+            self.assertTrue(atom.evidence)
+            self.assertIn(atom.necessity, {"HARD", "CONDITIONAL", "OPTIONAL"})
+            self.assertIn(atom.shareable, {"NO", "MAY_SHARE_RESOURCE", "SHARE_IF_GEOMETRY_ALLOWS"})
+        self.assertTrue(any(item.necessity == "HARD" for item in self.atoms))
+        self.assertFalse(all(item.necessity == "HARD" for item in self.atoms))
+&gt;       self.assertTrue(any(item.family == "PRECONTACT_DAMAGE" for item in self.atoms))
+E       AssertionError: False is not true
+
+tests/test_tactical_demand.py:82: AssertionError</failure></testcase><testcase classname="tests.test_tactical_demand.TacticalDemandTests" name="test_route_rows_are_grouped_by_exact_corridor" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_category_scoped_retrieval_excludes_invalidated_and_marks_status" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_exact_plan_counterexample_wins_over_older_id" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_stale_mechanics_experience_is_marked_for_revalidation" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_changed_game_data_requires_revalidation_even_with_current_mechanics" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_real_event_protocol_and_alias_semantics" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_operator_death_subject_semantics_rejects_targeted_query" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_protected_target_last_hit_is_not_assumed_artillery" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_branch_slots_use_context_and_win_hard_gate" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_incompatible_win_context_is_not_silently_merged" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_parent_plan_id_extracts_root_and_nested_forms" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_previous_plan_id_and_declared_parent_are_separate" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_one_of_two_protected_targets_is_not_perfect_and_unknown_count_is_unknown" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_authorization_rejects_medium_without_subprocess" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_real_build_command_high_authorization_is_accepted" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_real_build_command_medium_or_conflict_is_rejected_before_start" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_m26_experience_store_is_valid_and_has_correction" time="0.001" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_prompt_contains_schema_and_mandatory_revision_fields" time="0.000" /><testcase classname="tests.test_tactical_experience_loop_v1" name="test_prompt_declares_protected_target_perfect_scope" time="0.000" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_deployment_order_prefers_low_cost_openers" time="7.961" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_dp_risk_is_flagged_without_discarding_uncertain_assignments" time="0.000" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_early_pressure_uses_route_contact_not_spawn_time_alone" time="0.001" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_early_threat_model_includes_observed_leak_routes" time="4.293" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_frontier_preserves_temporal_responsibilities_and_fingerprints" time="0.000" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_hypotheses_bind_to_distinct_assignment_frontier" time="0.013" /><testcase classname="tests.test_temporal_assignment.TemporalAssignmentTests" name="test_simultaneity_and_overload_audit_are_deterministic" time="0.001" /><testcase classname="tests.test_top_down_semantics" name="test_stage_understanding_uses_only_spawn_timeline_routes" time="2.439" /><testcase classname="tests.test_top_down_semantics" name="test_stage_understanding_preserves_derivation_provenance" time="1.147" /><testcase classname="tests.test_top_down_semantics" name="test_tactical_requirements_are_grounded_and_hypothesized" time="1.191" /><testcase classname="tests.test_top_down_semantics" name="test_operator_assignment_is_capability_based_and_source_backed" time="1.222" /><testcase classname="tests.test_top_down_semantics" name="test_plan_hypotheses_respond_to_stage_structure" time="0.000" /><testcase classname="tests.test_top_down_semantics" name="test_top_down_runtime_integrates_mechanics_gates" time="1.707" /><testcase classname="tests.test_top_down_semantics" name="test_failure_revision_prefers_high_level_layers_over_local_repair" time="2.282" /><testcase classname="tests.test_top_down_semantics" name="test_generic_planner_modules_do_not_embed_6_8_literals" time="0.002" /><testcase classname="tests.test_top_down_semantics" name="test_experiment_scope_accepts_a_non_6_8_real_stage" time="0.000" /><testcase classname="tests.test_top_down_semantics" name="test_top_down_validation_selects_three_supported_real_stage_categories" time="6.715" /><testcase classname="tests.test_v3_frame295_review_regression.Frame295ProofDisciplineTests" name="test_empty_pool_is_not_a_numeric_dp_proof" time="0.004" /><testcase classname="tests.test_v3_frame295_review_regression.Frame295ProofDisciplineTests" name="test_lowercase_retreat_basis_is_not_lost" time="0.003" /><testcase classname="tests.test_v3_frame295_review_regression.Frame295ProofDisciplineTests" name="test_missing_dependencies_do_not_partially_overwrite_evidence" time="0.003" /><testcase classname="tests.test_v3_frame295_review_regression.Frame295ProofDisciplineTests" name="test_three_295_conflicts_do_not_prove_three_plan_failures" time="0.003" /><testcase classname="tests.test_v3_frame295_review_regression.Frame295ProofDisciplineTests" name="test_unknown_deadline_does_not_become_spawn_deadline" time="0.002" /><testcase classname="tests.test_walk_navigation_v1.WalkNavigationTests" name="test_bresenham_corner_rule_rejects_a_blocked_side_tile" time="0.001" /><testcase classname="tests.test_walk_navigation_v1.WalkNavigationTests" name="test_bresenham_smoothing_may_omit_collinear_centre_tile" time="0.000" /><testcase classname="tests.test_walk_navigation_v1.WalkNavigationTests" name="test_disabled_diagonal_uses_row_and_column_raycast" time="0.000" /><testcase classname="tests.test_walk_navigation_v1.WalkNavigationTests" name="test_obstacle_like_tile_has_source_backed_penalty" time="0.000" /><testcase classname="tests.test_walk_navigation_v1.WalkNavigationTests" name="test_spfa_smooths_to_a_seen_ancestor_without_crossing_an_unseen_one" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_ansel_skill_changes_actual_range" time="0.446" /><testcase classname="test_behavioral_regressions" name="test_midnight_active_skill_deals_arts_damage" time="0.004" /><testcase classname="test_behavioral_regressions" name="test_spot_skill_uses_source_heal_range" time="0.002" /><testcase classname="test_behavioral_regressions" name="test_beagle_unlocked_defense_talent_applied" time="0.002" /><testcase classname="test_behavioral_regressions" name="test_circle_wholly_beyond_endpoint_has_no_contact" time="0.000" /><testcase classname="test_behavioral_regressions" name="test_artillery_never_damages_hostile_enemies" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_artillery_neutral_damage_respects_defense" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_artillery_can_fire_again_after_first_impact" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_artillery_has_no_extra_instant_single_target_attack" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_artillery_acquisition_range_not_explosion_radius" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_static_refund_cannot_exceed_stage_max_dp" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_cold_changes_enemy_actual_attack_interval" time="0.001" /><testcase classname="test_behavioral_regressions" name="test_friendly_device_uses_source_x1_not_circle_one" time="0.002" /><testcase classname="test_review_regressions" name="test_static_sp_uses_first_deploy_until_retreat" time="0.060" /><testcase classname="test_review_regressions" name="test_zero_duration_auto_does_not_lose_recovery_tick" time="0.002" /><testcase classname="test_review_regressions" name="test_civilian_bind_applies_at_point_five_tiles" time="0.289" /><testcase classname="test_review_regressions" name="test_circle_intersection_segment_endpoint" time="0.000" /><testcase classname="test_robot_compiler" name="test_robot_can_deploy_when_normal_slots_full_in_complete_compiler" time="0.026" /><testcase classname="test_robot_compiler" name="test_normal_operator_rejected_when_normal_slots_full_in_complete_compiler" time="0.021" /><testcase classname="test_robot_compiler" name="test_one_star_does_not_consume_normal_deployment_slot" time="0.022" /><testcase classname="test_robot_compiler" name="test_retreat_restores_normal_deployment_slot" time="0.021" /><testcase classname="test_robot_compiler" name="test_missing_rarity_does_not_bypass_deployment_limit" time="0.022" /></testsuite></testsuites>

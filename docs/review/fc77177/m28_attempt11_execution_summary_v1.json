@@ -1,0 +1,72 @@
+{
+  "schema_version": "KIMIARK_M28_R8_7_EXECUTION_RECONCILIATION_V1",
+  "cli_budget": {
+    "max_cli_starts": 4,
+    "successful_or_completed_cli_starts": 3,
+    "started_and_counted_attempts": [
+      "attempt_03_cli",
+      "attempt_07_cli",
+      "attempt_11_cli"
+    ],
+    "cumulative_cli_process_starts": 64,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "simulation_budget": {
+    "max_stage_simulations": 4,
+    "started_stage_simulations": 4,
+    "completed_candidates": [
+      "attempt_06_diagnostic",
+      "attempt_12_diagnostic"
+    ],
+    "consumed_but_not_completed": 2
+  },
+  "attempt_07": {
+    "plan_id": "R8_7_GPT_M28_V3",
+    "result": "CONTRACT_PASS_STATIC_CONFLICT",
+    "conflict": {
+      "action_index": 28,
+      "frame": 5700,
+      "operator_id": "char_4227_gallus",
+      "reason": "REDEPLOY_COOLDOWN_ACTIVE"
+    },
+    "prompt_sha256": "8e1fd2e8fd88ee096ad8490d718ed6f0f000974f898fcc6b4e93f91bce3e63b8",
+    "plan_sha256": "235af26c3d18cb587fb896b1c91c52a48d0190de92d7cee37a9b2d64290f90f7",
+    "static_result_sha256": "2dd03d84a9711286bf5adbcabf472b21369f309b2364b77ce6e7557bcda5c0b6"
+  },
+  "prestart_failures": [
+    {
+      "output_dir": "attempt_08_cli",
+      "reason": "PROMPT_LIMIT_EXCEEDED",
+      "prompt_bytes": 149501,
+      "counted_cli_start": false
+    },
+    {
+      "output_dir": "attempt_09_cli",
+      "reason": "PROMPT_LIMIT_EXCEEDED",
+      "prompt_bytes": 140755,
+      "counted_cli_start": false
+    },
+    {
+      "output_dir": "attempt_10_cli",
+      "reason": "PROMPT_LIMIT_EXCEEDED",
+      "prompt_bytes": 140498,
+      "counted_cli_start": false
+    }
+  ],
+  "attempt_11": {
+    "plan_id": "R8_7_GPT_M28_V4",
+    "parent_plan_id": "R8_7_GPT_M28_V3",
+    "result": "CONTRACT_PASS_STATIC_PASS_SIMULATION_COMPLETED_LOSS",
+    "prompt_sha256": "d0fce4eeca9ff719a412b14445409c604eeba900e78f77f449ed0a4474df3011",
+    "structured_plan_sha256": "2b013108b63ff1a6c35fb12c58f8f21fce9fe2fe82eb1452c6c7579acc5305a9",
+    "final_message_sha256": "72d7179ee4016848ebc5055ffe770622aab5a59bfb037d5ca7d52b247f8a089d",
+    "static_result_sha256": "87610d1c9556d0a0f5309ad2dbfe68bbaf62f0aee58674bad01c02163496ec79",
+    "simulation_events_sha256": "5cb4eb38f250b9d30e3ffb1304746e71d38006c1accc6ae627cd3f3f0d9534d3",
+    "simulation_summary_sha256": "600354978313e6c2384c2d41cd2146647f66979e15d91eaeed8f5da6e3d9f233"
+  },
+  "entry_fix": {
+    "path": "scripts/run_gpt_tactical_stage_session_v1.py",
+    "change": "Remove four prompt-only metadata blocks already stated in the mandatory prompt; retain stage facts, routes, schedule, operator facts, mechanisms, feedback, plan and schema.",
+    "reason": "The static-conflict revision exceeded the fixed 140000-byte Codex body limit before any process start."
+  }
+}

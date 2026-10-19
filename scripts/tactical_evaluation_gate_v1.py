@@ -164,7 +164,9 @@ def consume_evaluation(
         temporary.write_text(json.dumps(budget, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         os.replace(temporary, budget_path)
         diagnostic_output_dir.mkdir(parents=True, exist_ok=True)
-        reservation_path = diagnostic_output_dir / "simulation_reservation.json"
+        reservation_path = diagnostic_output_dir.with_name(
+            diagnostic_output_dir.name + ".simulation_reservation.json"
+        )
         reservation = {
             "schema_version": "KIMIARK_STAGE_SIMULATION_RESERVATION_V1",
             "stage_id": budget["stage_id"],

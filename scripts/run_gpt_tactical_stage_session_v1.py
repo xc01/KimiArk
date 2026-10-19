@@ -327,6 +327,13 @@ def prepare() -> dict[str, Any]:
         evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
         evidence = copy.deepcopy(evidence)
         schema = evidence["output_schema"]
+        for redundant_policy_key in (
+            "authoritative_policy",
+            "codex_cli_run_policy",
+            "hard_policy",
+            "normal_low_star_support_counts",
+        ):
+            evidence.pop(redundant_policy_key, None)
         evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
         evidence["tactical_provider"] = {
             "provider": "codex-cli", "model": codex_runner.MODEL,

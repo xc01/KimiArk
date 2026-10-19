@@ -282,8 +282,10 @@ def test_real_build_command_medium_or_conflict_is_rejected_before_start() -> Non
 
 def test_m26_experience_store_is_valid_and_has_correction() -> None:
     records = experience.load_experience_records(Path("docs/review/fc77177/m26_tactical_experience_records_v1.json"))
-    assert len(records) == 8
-    assert {record["experience_id"] for record in records} == {f"M26-EXP-{index:04d}" for index in range(1, 9)}
+    assert len(records) == 10
+    assert {record["experience_id"] for record in records} == {f"M26-EXP-{index:04d}" for index in range(1, 9)} | {"M28-EXP-0001", "M28-EXP-0002"}
+    newest = next(record for record in records if record["experience_id"] == "M28-EXP-0002")
+    assert newest["failure_category"] == "LEGAL_BATTLE_LOSS"
 
 
 def test_prompt_contains_schema_and_mandatory_revision_fields() -> None:
