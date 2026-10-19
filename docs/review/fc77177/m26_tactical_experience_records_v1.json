@@ -1,0 +1,186 @@
+{
+  "schema_version": "KIMIARK_TACTICAL_EXPERIENCE_STORE_V1",
+  "records": [
+    {
+      "experience_id": "M26-EXP-0001",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M25_V4",
+      "source_artifact_sha256": "3f52ae196d4c2a4adbb2c1a1b9a552310d1300c8516a1ce69c1a879dec3b69f5",
+      "failure_category": "LEGAL_BATTLE_LOSS",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": [
+        "same mechanics and GameData versions",
+        "artillery is active and ordinary allies can be locked into repeated impact columns",
+        "protected target can be restrained by roadblock #4"
+      ],
+      "verified_events": [
+        {"operator_id": "char_212_ansel", "hit_frames": [1980, 2130, 2280], "amount": 891, "death_frame": 2280},
+        {"target_id": "enemy_3001_upeopl#14", "restraint_frame": 3251, "artillery_frames": [3780, 3930], "death_frame": 3966}
+      ],
+      "evidence_paths": [
+        "docs/review/fc77177/m25_r8_7_attempt06_diagnostic_events.json.gz",
+        "docs/review/fc77177/m25_r8_7_attempt06_diagnostic_summary.json.gz",
+        "docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json"
+      ],
+      "supported_hypotheses": [
+        "three repeated artillery impacts can kill Ansel despite self-healing",
+        "restrained protected target #14 died from overlapping officer and artillery pressure"
+      ],
+      "refuted_hypotheses": [
+        "self-healing alone established a durable Ansel survival responsibility under this structure",
+        "moving the first leak later alone guaranteed protected-target survival"
+      ],
+      "unproven": [
+        "client-faithful artillery lock timing",
+        "whether another structure can safely change exposure without these exact frames"
+      ],
+      "responsibility_tags": ["artillery_survival", "healing", "protected_target", "roadblock_clearance"],
+      "relevant_operator_ids": ["char_212_ansel", "enemy_3001_upeopl#14", "enemy_1112_emppnt#0"]
+    },
+    {
+      "experience_id": "M26-EXP-0002",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M25_V2",
+      "source_artifact_sha256": "bf2409690c362072324188db010abe42627db5142ba1f2fae9267f21567d369c",
+      "failure_category": "CONTRACT_INVALID",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": ["R8-7 full-stage output contract"],
+      "verified_events": [
+        "attempt04 omitted five required plan sections and had action[48] out of frame order"
+      ],
+      "evidence_paths": ["docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json"],
+      "supported_hypotheses": ["the required output schema must be explicitly supplied and enforced before tactical evaluation"],
+      "refuted_hypotheses": ["attempt04 represents a simulated tactical failure"],
+      "unproven": ["whether a valid revision of its tactical idea can pass"],
+      "responsibility_tags": ["contract", "action_order"],
+      "relevant_operator_ids": []
+    },
+    {
+      "experience_id": "M26-EXP-0003",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M25_V3",
+      "source_artifact_sha256": "3be7a8b7d084aff40bf16e12a4fa287014cd0ecae95c1eebf160a372c2f6118a",
+      "failure_category": "CONTRACT_INVALID",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": ["R8-7 full-stage output contract"],
+      "verified_events": [
+        "attempt05 omitted formation_transitions and corridor_responsibilities; all mandatory tactical invariants were strings instead of objects"
+      ],
+      "evidence_paths": ["docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json"],
+      "supported_hypotheses": ["explicit schema delivery and typed invariant objects are required"],
+      "refuted_hypotheses": ["attempt05 represents a simulated tactical failure"],
+      "unproven": ["whether its tactical idea can pass after valid formatting"],
+      "responsibility_tags": ["contract", "formation_transitions", "corridor_responsibilities"],
+      "relevant_operator_ids": []
+    },
+    {
+      "experience_id": "M26-EXP-0004",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M25_V5",
+      "source_artifact_sha256": "1ed9ff60484c092d6da533461b8bc24c3a992a2dace7fa3075ba97dcdcd75b1b",
+      "failure_category": "CONTRACT_INVALID",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": ["R8-7 full-stage output contract"],
+      "verified_events": ["attempt07 omitted six required tactical sections"],
+      "evidence_paths": ["docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json"],
+      "supported_hypotheses": ["contract failures must not become tactical conclusions"],
+      "refuted_hypotheses": ["attempt07 represents a simulated tactical failure"],
+      "unproven": ["whether its opening and clearance structure can pass when complete"],
+      "responsibility_tags": ["contract"],
+      "relevant_operator_ids": []
+    },
+    {
+      "experience_id": "M26-EXP-0005",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M25_V6",
+      "source_artifact_sha256": "d1b5eea5959e30d09c9bf4664973cac2c33efb12345ae391a6348adc345f2dd0",
+      "failure_category": "CONTRACT_INVALID",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": ["R8-7 full-stage output contract"],
+      "verified_events": [
+        "attempt08 omitted revised_stage_understanding, plan lineage fields and selected operators; the parent hypothesis reference was invalid"
+      ],
+      "evidence_paths": ["docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json"],
+      "supported_hypotheses": ["plan lineage must explicitly reference a declared strategic hypothesis"],
+      "refuted_hypotheses": ["attempt08 represents a simulated tactical failure"],
+      "unproven": ["whether its action timeline can pass after valid lineage"],
+      "responsibility_tags": ["contract", "lineage"],
+      "relevant_operator_ids": []
+    },
+    {
+      "experience_id": "M26-EXP-0006",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M26_V1",
+      "source_artifact_sha256": "b8f0f3479ca650e93843400ab45ddf75948161f66e19bb30902b3c4a4065f44a",
+      "failure_category": "CONTRACT_INVALID",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": ["R8-7 full-stage output contract"],
+      "verified_events": [
+        "attempt01 referenced undeclared parent_hypothesis_id R8-7-M26-V1; declared ids were R8-7-M26-OPENING, R8-7-M26-PATROL, R8-7-M26-PROTECTION and R8-7-M26-CLEANUP"
+      ],
+      "evidence_paths": ["docs/review/fc77177/m26_attempt01_contract_feedback_v1.json"],
+      "supported_hypotheses": ["plan lineage must reference exactly one declared strategic hypothesis id"],
+      "refuted_hypotheses": ["attempt01 represents a simulated tactical failure"],
+      "unproven": ["whether its opening and protection structure would survive after the lineage reference is corrected"],
+      "responsibility_tags": ["contract", "lineage"],
+      "relevant_operator_ids": []
+    },
+    {
+      "experience_id": "M26-EXP-0007",
+      "stage_id": "main_08-07",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "source_plan_id": "R8_7_GPT_M26_V3",
+      "source_artifact_sha256": "47f5767fa5eef8b4faaaa93a0f8a4e84828191e0fd5f541fb6562a2a3c124548",
+      "failure_category": "LEGAL_BATTLE_LOSS",
+      "status": "EVIDENCE_SUPPORTED",
+      "applicable_conditions": [
+        "same mechanics and GameData versions",
+        "artillery survives and can strike opening/upper positions",
+        "future skill or retreat commands depend on source-operator survival"
+      ],
+      "verified_events": [
+        "artillery hit Midnight at 1530 and 1680; Midnight died at 1680",
+        "first leak was enemy_1107_uoffcr#9 at frame 1925",
+        "artillery killed Falco and Durin at frame 2280",
+        "artillery killed protected targets #3 and #14 at frames 3180 and 3966",
+        "artillery unit survived through frame 5759 and then leaked",
+        "12 later skill/retreat commands encountered an already absent source operator"
+      ],
+      "evidence_paths": ["docs/review/fc77177/m26_attempt04_feedback_v1.json"],
+      "supported_hypotheses": [
+        "the patrol-removal hypothesis did not occur before frame 3419",
+        "a static SP fix can still fail if the source operator dies before a later command"
+      ],
+      "refuted_hypotheses": [
+        "treating the V2 static SP conflict as a simulated battle failure",
+        "assuming V3's overlapping healing alone solved artillery survival"
+      ],
+      "unproven": [
+        "whether a different structure can solve artillery survival and protected-target clearance",
+        "exact client timing beyond the current model"
+      ],
+      "responsibility_tags": ["artillery_survival", "healing", "protected_target", "roadblock_clearance", "source_operator_survival"],
+      "relevant_operator_ids": ["char_283_midn", "char_192_falco", "char_501_durin", "char_212_ansel"]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "actual_usage": {
+    "cumulative_cli_starts_after_attempt04": 61,
+    "full_fixed_simulations": 1,
+    "reasoning_effort_mismatch_aborts_counted": 1,
+    "tactical_cli_starts": 4
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "classification": "A_CONTRACT_INVALID",
+      "cumulative_cli_starts": 58,
+      "error": "parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id",
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_01_cli/invalid_final_plan.json.parsed",
+      "plan_id": "R8_7_GPT_M26_V1",
+      "prompt_sha256": "a5e16ece335dc7b20d74602b52ed090e6af3533094e1259a0b344646d4b0a880",
+      "reasoning_effort": "high",
+      "status": "FAILED_INVALID_PLAN_NO_RETRY"
+    },
+    {
+      "attempt": 2,
+      "classification": "OPERATIONAL_ABORT_NOT_TACTICAL",
+      "cumulative_cli_starts": 59,
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_02_cli/final_status.json",
+      "prompt_sha256": "ad60bef22df660a769801d4690b7ebb881fc0c716bb64cd19a8e121b65e290c8",
+      "reasoning_effort": "medium",
+      "status": "OPERATOR_ABORTED_REASONING_EFFORT_MISMATCH"
+    },
+    {
+      "attempt": 3,
+      "classification": "B_STATIC_CONFLICT",
+      "cumulative_cli_starts": 60,
+      "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli/static_compile_results.json",
+      "plan_id": "R8_7_GPT_M26_V2",
+      "plan_sha256": "af14610064afb319b7345ebfdba9ead555b9621e2239644cd5e0f436bf0e10ff",
+      "prompt_sha256": "dc3c6072b388f2308f0ef418302f47eb3e13bdcca33d9dd20225906495ebad3d",
+      "reasoning_effort": "high",
+      "static_conflict": {
+        "available_sp": 69.5,
+        "frame": 2490,
+        "operator_id": "char_283_midn",
+        "required_sp": 70.0
+      },
+      "status": "STATIC_CONFLICT_NO_SIMULATION"
+    },
+    {
+      "action_snapshot_sha256": "99304fc2c38a1fb4e6405c34e6a232138ea171e825c2a8d39802671e5d384c46",
+      "attempt": 4,
+      "causal_feedback": "docs/review/fc77177/m26_attempt04_feedback_v1.json",
+      "classification": "C_LEGAL_BATTLE_LOSS",
+      "compressed_events_sha256": "f7db08e383082ed9a76079dd3311bf040277adddc5b811dc76aeb6d5a861ac90",
+      "compressed_summary_sha256": "970980ab5234bc7da731749d5d34e34b923a27568800dd6f9209d73700535307",
+      "cumulative_cli_starts": 61,
+      "plan_id": "R8_7_GPT_M26_V3",
+      "plan_sha256": "7ac58015c485f29000f33cf486eb16f12f323a8079e790fcbc28f5f4ed55084d",
+      "plan_snapshot_sha256": "47f5767fa5eef8b4faaaa93a0f8a4e84828191e0fd5f541fb6562a2a3c124548",
+      "prompt_sha256": "a5295b70cd6c942e474813931be8042e31f19ff4ccaa85359b3cf10c847b63be",
+      "reasoning_effort": "high",
+      "result": {
+        "enemies_killed": 16,
+        "enemies_leaked": 17,
+        "operator_deaths": 10,
+        "protected_target_deaths": 2,
+        "protected_targets_reached": 0,
+        "runtime_action_errors": 12,
+        "win": false
+      },
+      "revision_hypothesis_evaluation": "NOT_VERIFIED",
+      "status": "COMPLETED_LOSS"
+    }
+  ],
+  "authorized_budget": {
+    "carried_from_m25": false,
+    "full_fixed_simulations": 6,
+    "tactical_cli_starts": 4
+  },
+  "base_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+  "engineering_changes_verified": [
+    "output schema is embedded in the tactical prompt",
+    "revision_hypothesis is schema-required and event-verified",
+    "contract failures are stored separately from tactical failures",
+    "experience retrieval has a three-record cap and mechanics applicability tagging",
+    "branch state preserves frozen baselines and separates current-best/exploration"
+  ],
+  "full_test_comparison": {
+    "comparison": "docs/review/fc77177/m26_full_test_comparison_v1.json",
+    "current_only_failures": 0,
+    "errors": 0,
+    "failures": 31,
+    "junit": "docs/review/fc77177/m26_full_test_junit.xml",
+    "junit_sha256": "3c0a394a72e790744a4b07b5b0c1ad39e52a58832117c50f0014bafdb6cbd7ff",
+    "resolved_historical_failures": 0,
+    "skipped": 2,
+    "tests": 538,
+    "unresolved_historical_failures": 31
+  },
+  "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "schema_version": "M26_DETERMINISTIC_FEEDBACK_LOOP_RESULTS_V1",
+  "state": {
+    "frozen_baselines_preserved": [
+      "R8_1 two-targeting WIN",
+      "R8_2 V15 WIN",
+      "R8_4 V4 WIN"
+    ],
+    "m26_cli_budget_exhausted": true,
+    "m26_simulation_budget_remaining": 5,
+    "r8_7_current_best": "M25_ATTEMPT06_LEGAL_BATTLE_LOSS",
+    "r8_7_exploration": "R8_7_GPT_M26_V3_LEGAL_BATTLE_LOSS"
+  }
+}

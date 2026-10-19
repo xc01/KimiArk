@@ -1,0 +1,49 @@
+{
+  "schema_version": "M26_ATTEMPT04_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M26_V3",
+  "failure_category": "LEGAL_BATTLE_LOSS",
+  "simulation_status": "COMPLETED_LOSS",
+  "result": {
+    "win": false,
+    "enemies_killed": 16,
+    "enemies_leaked": 17,
+    "operator_deaths": 10,
+    "protected_target_deaths": 2,
+    "protected_targets_reached": 0
+  },
+  "revision_hypothesis": {
+    "status": "NOT_VERIFIED",
+    "expected_event": {
+      "event_type": "ENEMY_DEATH",
+      "target_id": "enemy_1112_emppnt#0",
+      "earliest_frame": 1740,
+      "latest_frame": 3419
+    },
+    "observed": "The artillery unit survived; it leaked at frame 5759."
+  },
+  "causal_window": [
+    {"frame": 1440, "event": "enemy_1112_emppnt#0 launched artillery at [3,6]"},
+    {"frame": 1530, "event": "artillery hit char_283_midn for 718"},
+    {"frame": 1680, "event": "artillery hit char_283_midn again and caused operator death"},
+    {"frame": 1925, "event": "enemy_1107_uoffcr#9 became the first leak"},
+    {"frame": 2280, "event": "artillery at [5,4] killed char_192_falco and char_501_durin"},
+    {"frame": 3045, "event": "char_208_melan destroyed roadblock#1"},
+    {"frame": 3180, "event": "enemy_1112_emppnt#0 killed protected target enemy_3001_upeopl#3"},
+    {"frame": 3966, "event": "enemy_1107_uoffcr#18 killed protected target enemy_3001_upeopl#14"},
+    {"frame": 5759, "event": "enemy_1112_emppnt#0 leaked"}
+  ],
+  "runtime_action_errors": [
+    "12 ACTIVATE_SKILL or RETREAT commands encountered an already absent source operator; the first was char_283_midn ACTIVATE_SKILL at frame 2520 after death at frame 1680.",
+    "Static check passed because legality was deployment/SP generation based; survival was only observable at runtime."
+  ],
+  "source_evidence": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_04_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_04_diagnostic/diagnostic_summary.json",
+    "plan_snapshot_sha256": "47f5767fa5eef8b4faaaa93a0f8a4e84828191e0fd5f541fb6562a2a3c124548",
+    "action_snapshot_sha256": "99304fc2c38a1fb4e6405c34e6a232138ea171e825c2a8d39802671e5d384c46"
+  },
+  "unproven": [
+    "exact client timing and spawn-order behavior beyond current model",
+    "whether another GPT structure can satisfy all objectives; no search was performed"
+  ]
+}

@@ -433,6 +433,18 @@ solving both protected arrivals by broadening clearance/redeployment can collaps
 route defense; the next structure must preserve V10's line and selectively clear
 #4.
 
+## 2026-10-19 M26 separates contract, operational abort, static and battle failure
+
+R8-7 M26 V1 failed only because its `parent_hypothesis_id` referenced an
+undeclared strategic hypothesis; this is not a tactical result. The V2 static
+SP conflict was also not a battle result. V3 became a legal battle LOSS:
+Midnight died to artillery at frame 1680, the first leak followed at 1925,
+Falco/Durin died at 2280, protected targets died at 3180 and 3966, and the
+artillery unit leaked at 5759. Twelve later skill/retreat commands had an absent
+source operator. Therefore a later SP-time repair cannot substitute for source
+operator survival, and contract/static failures must not feed back as tactical
+losses.
+
 ## 2026-10-15 m21 invalidates R8-1 C7 as a robust current result
 
 The center-line roadblock approximation was too weak. Under m21's radius model,

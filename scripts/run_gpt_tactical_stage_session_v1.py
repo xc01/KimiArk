@@ -13,6 +13,7 @@ import run_r8_1_gpt_c4_codex_cli_v1 as codex_runner
 from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
 from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
+import tactical_experience_v1 as experience
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +30,8 @@ DIAGNOSTIC_SUMMARY: str | None = None
 TACTICAL_FEEDBACK: str | None = None
 STATIC_CONFLICT_SUMMARY: str | None = None
 SAVED_INPUT_DIR: str | None = None
+EXPERIENCE_STORE_PATH: str | None = None
+BRANCH_STATE_PATH: str | None = None
 
 
 def load(path: Path) -> Any:
@@ -51,7 +54,7 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR, EXPERIENCE_STORE_PATH, BRANCH_STATE_PATH
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -64,6 +67,8 @@ def configure(arguments: argparse.Namespace) -> None:
     TACTICAL_FEEDBACK = arguments.tactical_feedback
     STATIC_CONFLICT_SUMMARY = arguments.static_conflict_summary
     SAVED_INPUT_DIR = arguments.saved_input_dir
+    EXPERIENCE_STORE_PATH = arguments.experience_store
+    BRANCH_STATE_PATH = arguments.branch_state
     codex_runner.configure_run(
         arguments.output_dir,
         arguments.diagnostic_output_dir,
@@ -180,10 +185,18 @@ def build_static_feedback(revision_source: Path, static_summary_path: Path) -> d
                 if check.get("operator_id") == conflict.get("operator_id")
                 and check.get("frame") == conflict.get("frame")
             ),
-            None,
+            next(
+                (
+                    index
+                    for index, action in enumerate(candidate.get("action_timeline") or [])
+                    if action.get("operator_id") == conflict.get("operator_id")
+                    and action.get("frame") == conflict.get("frame")
+                ),
+                None,
+            ),
         )
         conflict_frame = conflict.get("frame")
-        previous_economic_events = [
+        previous_economic_events = [] if conflict.get("reason") == "SP_NOT_READY" else [
             {
                 "event": row.get("event"),
                 "frame": row.get("frame"),
@@ -206,11 +219,11 @@ def build_static_feedback(revision_source: Path, static_summary_path: Path) -> d
         conflicts.append({
             "candidate_plan_id": candidate.get("operational_plan_id"),
             "action_index": action_index,
-            "conflict": conflict.get("conflict"),
+            "conflict": conflict.get("reason") or conflict.get("conflict"),
             "frame": conflict_frame,
             "operator_id": conflict.get("operator_id"),
-            "required_value": conflict.get("cost"),
-            "available_value": conflict.get("balance_before"),
+            "required_value": conflict.get("required_sp") if conflict.get("required_sp") is not None else conflict.get("cost"),
+            "available_value": conflict.get("available_sp_model") if conflict.get("available_sp_model") is not None else conflict.get("balance_before"),
             "previous_economic_events": previous_economic_events,
             "conditional_income_sources": (dp_ledger.get("automatic_skill_income_model") or {}).get(
                 "conditions"
@@ -290,7 +303,25 @@ def prepare() -> dict[str, Any]:
             if revision_evidence.get("stage_id") != evidence.get("stage_id"):
                 raise RuntimeError("revision source belongs to a different stage")
             evidence["previous_plan_to_revise"] = load(revision_source / "llm_structured_output.json")
-            evidence["prior_diagnostic_feedback"] = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+            parent_plan = evidence["previous_plan_to_revise"]
+            if isinstance(parent_plan, dict) and isinstance(parent_plan.get("revised_operational_plans"), list) and len(parent_plan["revised_operational_plans"]) == 1:
+                parent_candidate = parent_plan["revised_operational_plans"][0]
+                evidence["previous_plan_to_revise"] = {
+                    key: parent_candidate[key]
+                    for key in (
+                        "operational_plan_id", "parent_hypothesis_id", "tactical_thesis",
+                        "selected_low_star_operator_ids", "deployment_positions_and_directions",
+                        "formation_structure", "formation_transitions", "corridor_responsibilities",
+                        "pressure_window_responsibilities", "skill_intents",
+                    )
+                    if key in parent_candidate
+                }
+                evidence["provenance"]["parent_plan_complete_artifact"] = str(
+                    (revision_source / "llm_structured_output.json").relative_to(ROOT)
+                )
+            prior_diagnostic = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+            prior_diagnostic.pop("leaking_route_summaries", None)
+            evidence["prior_diagnostic_feedback"] = prior_diagnostic
             if TACTICAL_FEEDBACK:
                 evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)
             if STATIC_CONFLICT_SUMMARY:
@@ -314,9 +345,53 @@ def prepare() -> dict[str, Any]:
                 "relationship": "prior_simulated_candidate_not_parent_hypothesis",
                 "revision_policy": "GPT decides tactical changes; deterministic checks may only reject the original fixed actions",
             }
+        if EXPERIENCE_STORE_PATH is not None:
+            records = experience.load_experience_records(ROOT / EXPERIENCE_STORE_PATH)
+            battle_experiences = experience.retrieve_experiences(
+                records, stage_id=STAGE_ID, mechanics_version=ACTIVE_MECHANICS_VERSION,
+                failure_category="LEGAL_BATTLE_LOSS", responsibility_tags={
+                    "artillery_survival", "healing", "protected_target", "roadblock_clearance"
+                }, operator_ids={"char_212_ansel"}, limit=2,
+            )
+            contract_experiences = experience.retrieve_experiences(
+                records, stage_id=STAGE_ID, mechanics_version=ACTIVE_MECHANICS_VERSION,
+                failure_category="CONTRACT_INVALID", responsibility_tags={"contract"},
+                limit=max(1, len(records)),
+            )
+            prior_invalid_plan_id = next(
+                (
+                    feedback.get("source_plan_id")
+                    for feedback in (
+                        evidence.get("prior_tactical_feedback"),
+                        evidence.get("prior_static_feedback"),
+                    )
+                    if isinstance(feedback, dict) and feedback.get("source_plan_id")
+                ),
+                None,
+            )
+            exact_contract_experiences = [
+                record for record in contract_experiences
+                if record.get("source_plan_id") == prior_invalid_plan_id
+            ]
+            if exact_contract_experiences:
+                contract_experiences = exact_contract_experiences
+            else:
+                contract_experiences = contract_experiences[:1]
+            retrieved = battle_experiences + contract_experiences
+            evidence["tactical_experience"] = {
+                "schema_version": experience.EXPERIENCE_SCHEMA_VERSION,
+                "retrieval_limit": 3,
+                "records": retrieved,
+                "usage_policy": [
+                    "Treat each record as conditional evidence, not a universal deadline.",
+                    "Do not infer a tactical failure from a contract-invalid candidate.",
+                    "A different mechanics version is REQUIRES_REVALIDATION, not current fact.",
+                ],
+            }
+        schema = experience.add_revision_hypothesis_schema(schema)
         write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
         write_json(codex_runner.OUT / "revision_output_schema.json", schema)
-        prompt = build_prompt(evidence)
+        prompt = build_prompt(evidence, schema)
     prompt_bytes = len(prompt.encode("utf-8"))
     if prompt_bytes > BODY_LIMIT:
         raise RuntimeError(f"Codex prompt exceeds {BODY_LIMIT} bytes: {prompt_bytes}")
@@ -353,8 +428,13 @@ def prepare() -> dict[str, Any]:
     return {"prompt": prompt, "schema": schema, "budget": budget}
 
 
-def build_prompt(evidence: dict[str, Any]) -> str:
+def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None) -> str:
     evidence_json = json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))
+    schema_json = json.dumps(schema or {}, ensure_ascii=False, separators=(",", ":"))
+    schema_required = schema.get("required") if schema else []
+    plan_schema = ((schema or {}).get("properties") or {}).get("revised_operational_plans", {}).get("items", {})
+    plan_required = plan_schema.get("required") if plan_schema else []
+    revision_required = (((schema or {}).get("properties") or {}).get("revision_hypothesis", {}) or {}).get("required", [])
     active = evidence["stage_active_facts"]
     forbidden_plan_tiles = active.get("roadblock_plan_tiles_row_col")
     if not isinstance(forbidden_plan_tiles, list):
@@ -393,6 +473,14 @@ Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity`
 
 {clearance_instruction}
 
+MANDATORY OUTPUT CONTRACT
+- Root required fields: {json.dumps(schema_required)}.
+- revised_operational_plans[0] required fields: {json.dumps(plan_required)}.
+- revision_hypothesis required fields: {json.dumps(revision_required)}.
+- mandatory_tactical_invariants entries must be objects, not strings.
+- parent_hypothesis_id must equal one of revised_strategic_hypotheses[*].hypothesis_id.
+- action_timeline frames must be nondecreasing.
+
 {"Revise the prior {STAGE_ID} candidate using the saved simulated failure evidence. Explain changed hypotheses in the plan, but do not preserve an action merely because it existed. Python/GLM will not choose tactics for you." if "prior_diagnostic_feedback" in evidence else "This is an initial {STAGE_ID} plan; do not copy R8-1 routes, deadlines, tactics or facts. Use only this stage's routes, spawn schedule, map, devices, enemies and mechanisms. Mark unresolved stage-specific mechanics UNKNOWN. You decide opening structure, route responsibilities, simultaneous blocking, fire support, healing, skills, retreats and economic order. Python/GLM will not choose tactics for you."}
 {"IMPORTANT: prior_static_feedback is from the immediately preceding candidate and has battle_result_status=NO_SIMULATION. prior_diagnostic_feedback and prior_tactical_feedback come from their separately recorded source_plan_id values, not from the unexecuted static candidate. Resolve every prior static conflict exactly without letting Python alter tactical actions." if "prior_static_feedback" in evidence else ""}
 {"IMPORTANT: prior_tactical_feedback is the verified causal history. Treat failed conditional economic dependencies as survival/handoff failures, not arithmetic bugs. Preserve demonstrated improvements only when the structure that produced them remains supported; redesign the opening survival, interception, protection, and clearance responsibilities yourself." if "prior_tactical_feedback" in evidence else ""}
@@ -401,6 +489,9 @@ Use read-only helper functions when needed to verify ranges, timing or mechanics
 
 EVIDENCE_JSON
 {evidence_json}
+
+OUTPUT_SCHEMA_JSON
+{schema_json}
 """
 
 
@@ -415,6 +506,22 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
         errors.append(f"schema validation unavailable: {exc}")
     errors.extend(validate_operational_plan_output(parsed, evidence))
     if isinstance(parsed, dict):
+        hypothesis = parsed.get("revision_hypothesis")
+        if isinstance(hypothesis, dict):
+            plans = parsed.get("revised_operational_plans")
+            plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
+            if hypothesis.get("operational_plan_id") != plan.get("operational_plan_id"):
+                errors.append("revision_hypothesis.operational_plan_id must match revised_operational_plans[0]")
+            experience_ids = {
+                record.get("experience_id")
+                for record in (evidence.get("tactical_experience") or {}).get("records") or []
+            }
+            missing_references = sorted(set(hypothesis.get("referenced_experience_ids") or []) - experience_ids)
+            if missing_references:
+                errors.append(f"revision_hypothesis references unavailable experiences: {missing_references}")
+            expected = hypothesis.get("expected_first_observable_event") or {}
+            if expected and expected.get("latest_frame", 0) < expected.get("earliest_frame", 0):
+                errors.append("expected_first_observable_event latest_frame precedes earliest_frame")
         plans = parsed.get("revised_operational_plans")
         plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
         hypothesis_ids = {
@@ -441,6 +548,23 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
             "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
             "new_operational_plans": 0, "stage_simulations_started": 0,
         })
+        if BRANCH_STATE_PATH is not None:
+            branch_path = ROOT / BRANCH_STATE_PATH
+            parent_plan = evidence.get("previous_plan_to_revise")
+            parent_plan_id = None
+            if isinstance(parent_plan, dict) and isinstance(parent_plan.get("revised_operational_plans"), list) and len(parent_plan["revised_operational_plans"]) == 1:
+                parent_plan_id = parent_plan["revised_operational_plans"][0].get("operational_plan_id")
+            branch_state = experience.update_branch_state(load(branch_path), {
+                "candidate_id": PLAN_ID,
+                "parent_plan_id": parent_plan_id or "UNKNOWN_PARENT_PLAN",
+                "operational_plan_id": PLAN_ID,
+                "classification": "A_CONTRACT_INVALID",
+                "revision_hypothesis": parsed.get("revision_hypothesis") or {},
+                "validation_status": "FAIL",
+                "errors": errors,
+                "invalid_plan_artifact_sha256": sha256(codex_runner.OUT / "invalid_final_plan.json.parsed"),
+            })
+            write_json(branch_path, branch_state)
         raise SystemExit(f"Codex {PLAN_LABEL} failed schema/contract validation: {errors}")
     write_json(codex_runner.OUT / "llm_structured_output.json", parsed)
     write_json(codex_runner.OUT / "final_status.json", {
@@ -513,7 +637,19 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = codex_
 def static_check() -> dict[str, Any]:
     if load(codex_runner.OUT / "llm_plan_validation.json").get("status") != "PASS":
         raise RuntimeError(f"static check requires locally validated {PLAN_LABEL}")
-    return compile_plan(codex_runner.OUT)
+    result = compile_plan(codex_runner.OUT)
+    if result.get("conflicts") and BRANCH_STATE_PATH is not None:
+        branch_path = ROOT / BRANCH_STATE_PATH
+        branch_state = experience.update_branch_state(load(branch_path), {
+            "candidate_id": PLAN_ID,
+            "parent_plan_id": (load(codex_runner.OUT / "llm_structured_output.json").get("revision_hypothesis") or {}).get("parent_plan_id") or "UNKNOWN_PARENT_PLAN",
+            "operational_plan_id": PLAN_ID,
+            "classification": "B_STATIC_CONFLICT",
+            "revision_hypothesis": (load(codex_runner.OUT / "llm_structured_output.json") or {}).get("revision_hypothesis") or {},
+            "static_conflicts": result["conflicts"],
+        })
+        write_json(branch_path, branch_state)
+    return result
 
 
 def simulate() -> dict[str, Any]:
@@ -535,13 +671,51 @@ def simulate() -> dict[str, Any]:
         stage_id=STAGE_ID, plan_id=PLAN_ID,
     )
     summary = load(codex_runner.DIAGNOSTIC_OUT / "diagnostic_summary.json")
+    events = load(codex_runner.DIAGNOSTIC_OUT / "diagnostic_events.json").get("events") or []
+    parsed = load(codex_runner.OUT / "llm_structured_output.json")
+    hypothesis_evaluation = experience.evaluate_revision_hypothesis(parsed, events)
+    runtime_action_errors = summary.get("result", {}).get("deployment_errors") or []
+    evidence = load(codex_runner.OUT / "llm_evidence_context.json")
+    parent_plan = evidence.get("previous_plan_to_revise")
+    parent_plan_id = "UNKNOWN_PARENT_PLAN"
+    if isinstance(parent_plan, dict) and isinstance(parent_plan.get("revised_operational_plans"), list) and len(parent_plan["revised_operational_plans"]) == 1:
+        parent_plan_id = parent_plan["revised_operational_plans"][0].get("operational_plan_id")
+    write_json(codex_runner.OUT / "revision_hypothesis_evaluation.json", hypothesis_evaluation)
     write_json(codex_runner.OUT / "simulation_gate.json", {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_SIMULATION_GATE",
         "status": "COMPLETED", "result_classification": summary["classification"],
         "faithful_certificate": summary["faithful_certificate"],
         "simulator_win": summary["result"]["win"],
+        "runtime_action_errors": runtime_action_errors,
         "real_game_win_claim": False,
+        "revision_hypothesis_evaluation": hypothesis_evaluation,
     })
+    if BRANCH_STATE_PATH is not None:
+        branch_path = ROOT / BRANCH_STATE_PATH
+        branch_state = experience.update_branch_state(load(branch_path), {
+            "candidate_id": PLAN_ID,
+            "parent_plan_id": parent_plan_id,
+            "operational_plan_id": PLAN_ID,
+            "classification": experience.classify_candidate(
+                validation=load(codex_runner.OUT / "llm_plan_validation.json"),
+                static_conflicts=static.get("conflicts") or [],
+                simulation_gate=load(codex_runner.OUT / "simulation_gate.json"),
+            ),
+            "revision_hypothesis": parsed.get("revision_hypothesis") or {},
+            "hypothesis_evaluation": hypothesis_evaluation,
+            "plan_snapshot_sha256": sha256(codex_runner.DIAGNOSTIC_OUT / "plan_snapshot.json"),
+            "action_snapshot_sha256": sha256(codex_runner.DIAGNOSTIC_OUT / "action_snapshot.json"),
+            "result": {
+                "win": summary["result"]["win"],
+                "enemies_killed": summary["result"].get("enemies_killed"),
+                "enemies_leaked": summary["result"].get("enemies_leaked"),
+                "operator_deaths": summary["result"].get("operator_deaths"),
+                "runtime_action_errors": runtime_action_errors,
+                "protected_target_deaths": len(summary.get("protected_target_deaths") or []),
+                "protected_targets_reached": len(summary.get("protected_target_reached_events") or []),
+            },
+        })
+        write_json(branch_path, branch_state)
     return summary
 
 
@@ -566,6 +740,8 @@ def main() -> None:
     parser.add_argument("--tactical-feedback")
     parser.add_argument("--static-conflict-summary")
     parser.add_argument("--saved-input-dir")
+    parser.add_argument("--experience-store")
+    parser.add_argument("--branch-state")
     arguments = parser.parse_args()
     configure(arguments)
     if arguments.phase == "session":

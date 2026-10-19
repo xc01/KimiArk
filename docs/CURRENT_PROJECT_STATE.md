@@ -239,3 +239,18 @@ restrained by roadblock #4, received officer attacks and two 950-damage artiller
 hits, then died at frame 3966. The scheduler was not running despite a stale
 WAITING state; reconcile now marks it STOPPED because the R8-7 stage budget is
 exhausted.
+
+## 2026-10-19 M26 deterministic feedback loop and R8-7 status
+
+The M26 loop added a bounded machine-readable experience store, a mandatory
+revision hypothesis, deterministic event verification, capped retrieval, and a
+two-slot branch manager. It records contract-invalid, operational, static-conflict
+and legal battle failures separately.
+
+R8-1 remains a current-model WIN on the frozen timeline under both saved
+roadblock-targeting interpretations. R8-2 V15 and R8-4 V4 remain frozen current
+model wins. R8-3/5/6 remain mechanism BLOCKED. R8-7 remains LOSS: M26 V3 reached
+a legal fixed simulation and lost at 16/17 with 10 operator deaths, remaining
+life -16, two protected deaths, and no protected arrivals. The patrol-removal
+hypothesis was not verified; the artillery unit leaked at frame 5759. M26 CLI
+budget is exhausted, so no further GPT call may be made without new authorization.

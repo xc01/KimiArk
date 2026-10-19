@@ -612,3 +612,27 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - R8-7 V13: LOSS, 17/16/life -15; 11 operator deaths and 2 protected deaths.
 - Focused tests: 5 compiler deployment-slot cases and 17 deep mechanism cases pass.
 - Full tests after the fix: 497 passed / 31 failed / 2 skipped; exact failure IDs match m23 with no additions.
+
+## 2026-10-19 M26 deterministic-feedback R8-7 loop
+
+- New authorization: 4 tactical CLI starts and 6 full fixed simulations.
+- Actual usage: 4 CLI starts (cumulative 61) and 1 full fixed simulation.
+- Attempt01: contract invalid (`parent_hypothesis_id` did not reference a declared
+  strategic hypothesis); no simulation.
+- Attempt02: real CLI start, then operator abort because it used `medium` rather
+  than authorized `high`; no model output was accepted as a plan.
+- Attempt03: schema/contract PASS, static FAIL at Midnight SP 69.5/70 on frame
+  2490; no simulation.
+- Attempt04: schema/contract PASS, static PASS, one fixed simulation LOSS. Result:
+  16 kills / 17 leaks / 10 operator deaths / remaining life -16 / 2 protected
+  deaths / 0 protected arrivals. The hypothesis expected `enemy_1112_emppnt#0`
+  death by frame 3419, but it leaked at frame 5759. Twelve later skill/retreat
+  commands encountered an absent source operator, first Midnight's frame-2520
+  skill after frame-1680 death.
+- Evidence and hashes: `docs/review/fc77177/m26_loop_results_v1.json`,
+  `docs/review/fc77177/m26_attempt04_feedback_v1.json`, and the attempt04 gzip
+  events/summary under `docs/review/fc77177/`.
+- Full tests: 538 collected, 497 passed, 31 failed, 2 skipped. The stored JUnit
+  is `docs/review/fc77177/m26_full_test_junit.xml`; exact-ID comparison with the
+  m23 baseline has zero current-only failures and 31 unchanged historical
+  failures.

@@ -338,3 +338,13 @@ deployment-limit gate. Rarity 2/3 consumes a slot, rarity 1 does not, a missing
 or invalid rarity produces an explicit conflict instead of being treated as a
 robot, and retreat restores capacity. This prevents a full normal squad from
 being misclassified while preserving the documented robot exception.
+
+## 2026-10-19 deterministic tactical experience loop
+
+The tactical loop uses a bounded JSON experience store, not weight updates or a
+vector database. Retrieval is stage/category/role/operator-conditioned and capped
+at three records. Every candidate carries a revision hypothesis, and the simulator
+checks its expected event against actual events. Contract-invalid, static-conflict,
+legal battle-loss and current-model-WIN outcomes remain separate. The branch state
+keeps frozen baselines plus one current-best and one exploration slot; it does not
+perform frame search or alter GPT actions.

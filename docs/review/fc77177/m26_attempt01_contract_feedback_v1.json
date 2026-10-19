@@ -1,0 +1,24 @@
+{
+  "schema_version": "KIMIARK_CONTRACT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M26_V1",
+  "failure_category": "CONTRACT_INVALID",
+  "simulation_status": "NO_SIMULATION",
+  "errors": [
+    "parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id"
+  ],
+  "exact_counterexample": {
+    "operational_plan_id": "R8_7_GPT_M26_V1",
+    "declared_parent_hypothesis_id": "R8-7-M26-V1",
+    "declared_strategic_hypothesis_ids": [
+      "R8-7-M26-OPENING",
+      "R8-7-M26-PATROL",
+      "R8-7-M26-PROTECTION",
+      "R8-7-M26-CLEANUP"
+    ]
+  },
+  "required_correction": "Replace parent_hypothesis_id with exactly one declared strategic hypothesis_id. Do not change tactics merely to satisfy this reference repair.",
+  "evidence_paths": [
+    "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_01_cli/invalid_final_plan.json.parsed",
+    "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_01_cli/llm_plan_validation.json"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "M26_OFFLINE_VALIDATION_V1",
+  "validated_at_local": "2026-10-19T14:20:00+08:00",
+  "code_commit_sha256": "ac56e51d5dfa40722c9ef37f705434ed0a4e4683",
+  "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "attempt_classification": {
+    "R8_7_GPT_M25_V2": "A_CONTRACT_INVALID",
+    "R8_7_GPT_M25_V3": "A_CONTRACT_INVALID",
+    "R8_7_GPT_M25_V4": "C_LEGAL_BATTLE_LOSS",
+    "R8_7_GPT_M25_V5": "A_CONTRACT_INVALID",
+    "R8_7_GPT_M25_V6": "A_CONTRACT_INVALID"
+  },
+  "attempt06_counterexamples": {
+    "status": "VERIFIED_FROM_SAVED_EVENTS",
+    "event_count": 31405,
+    "ansel_artillery_hits": [
+      {"frame": 1980, "amount": 891, "locked_position": [5, 5]},
+      {"frame": 2130, "amount": 891, "locked_position": [5, 4]},
+      {"frame": 2280, "amount": 891, "locked_position": [5, 4]}
+    ],
+    "ansel_death_frame": 2280,
+    "civilian_14_restraint_frame": 3251,
+    "civilian_14_artillery_frames": [3780, 3930],
+    "civilian_14_death_frame": 3966,
+    "civilian_3_arrival_frame": 3947
+  },
+  "hash_verification": {
+    "plan_snapshot": "4cd09f1225128b3ab5f1343d895b1312e933d7880fb54f1facbbcb536e779e01",
+    "action_snapshot": "929f961fc825e739688ed7ccb1670ff698220b0bd6aff90f5ac23532ad4ab284",
+    "diagnostic_events": "9960ece660f8b73357b5a287a383e39892f1d6b7662d71842aee96e6e285a270",
+    "committed_events_gz": "6fa462dde8ff1e62b489f7a4b51c123e75cf40e4e36aa9bcc2b8b35ae7a130c9",
+    "committed_summary_gz": "a86a7cc18e963b39278093f569fb3e292c32758b860e5e3f5e8b0ee60c9a3620"
+  },
+  "m25_cli_reconciliation": {
+    "prior_base": 46,
+    "r8_1_stage_starts": 2,
+    "r8_7_stage_starts": 8,
+    "minimal_probe": 1,
+    "total": 57,
+    "discrepancy_explanation": "The missing start is the one non-stage minimal probe recorded by R8-1 attempt03's correction after prestart proxy validation prevented the stage CLI from starting.",
+    "evidence_path": "output/r8_1_r8_7_batch_v1/main_08-01/m25_tactical_revision_v1/attempt_03_cli/final_status_correction.json"
+  },
+  "found_interface_error": {
+    "status": "FIXED",
+    "finding": "The prompt did not include the output schema despite demanding schema conformance.",
+    "fix": "runner now embeds the exact output schema and explicit required fields; revision_hypothesis is enforced."
+  },
+  "offline_prompt_check": {
+    "path": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_01_cli/codex_prompt.txt",
+    "bytes": 137505,
+    "limit": 140000,
+    "contains_output_schema": true,
+    "retrieved_experience_ids": ["M26-EXP-0001", "M26-EXP-0002"],
+    "applicability_statuses": ["CURRENT_MECHANICS", "CURRENT_MECHANICS"]
+  }
+}

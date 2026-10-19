@@ -1,0 +1,39 @@
+{
+  "schema_version": "KIMIARK_TACTICAL_FEEDBACK_V2",
+  "source_plan_id": "R8_7_GPT_M25_V4",
+  "simulation_status": "LEGAL_BATTLE_LOSS",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "result": {
+    "win": false,
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "operator_deaths": 10,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1
+  },
+  "verified_causal_events": [
+    {"event": "ARTILLERY_HIT", "frame": 1980, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891, "locked_position": [5, 5]},
+    {"event": "ARTILLERY_HIT", "frame": 2130, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891, "locked_position": [5, 4]},
+    {"event": "ARTILLERY_HIT", "frame": 2280, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891, "locked_position": [5, 4]},
+    {"event": "OPERATOR_DEATH", "frame": 2280, "target_id": "char_212_ansel"},
+    {"event": "ROADBLOCK_RESTRAINT", "frame": 3251, "target_id": "enemy_3001_upeopl#14", "device": "trap_020_roadblock#4"},
+    {"event": "ARTILLERY_HIT", "frame": 3780, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950},
+    {"event": "ARTILLERY_HIT", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950},
+    {"event": "PROTECTED_TARGET_DEATH", "frame": 3966, "target_id": "enemy_3001_upeopl#14"}
+  ],
+  "what_changed_from_m25_v1": [
+    "first leak moved from frame 941 to 1282",
+    "protected target #3 no longer died from direct artillery and reached at frame 3947",
+    "the new bottleneck moved to protected target #14 and repeated artillery survival"
+  ],
+  "what_remains_failed": [
+    "16 leaks",
+    "protected target #14 death",
+    "10 operator deaths and later deployment/retreat dependencies became invalid"
+  ],
+  "design_freedom": "GPT decides all tactical changes. Do not hard-code frame 2280 or 3966 as universal deadlines.",
+  "evidence_paths": [
+    "docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json",
+    "docs/review/fc77177/m25_r8_7_attempt06_diagnostic_events.json.gz"
+  ]
+}
