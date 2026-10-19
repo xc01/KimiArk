@@ -10,8 +10,14 @@
     "Regenerated through the current prepare entry instead of copying the prior prompt.",
     "Added explicit project-perfect target: zero leaks, zero protected-target deaths, all 2 protected targets safely arrived.",
     "Retained operator deaths as separately recorded facts and did not add a zero-death hard gate.",
-    "Bound the corrected shared budget gate path docs/review/fc77177/m28_simulation_budget_v1.json."
+    "Bound the corrected shared budget gate path docs/review/fc77177/m28_simulation_budget_v1.json.",
+    "Rebuilt attempt03 with features.apps=false after offline prestart authorization rejected the missing override in attempt02."
   ],
+  "codex_command": {
+    "bytes": 657,
+    "path": "docs/review/fc77177/m28_payload_v2/codex_command.json",
+    "sha256": "d800cf8921dc00e5e704c603e9ff0cb1480e1b1157b6dab06b4e660b7df8f28e"
+  },
   "durable_payload_files": {
     "budget_usage.json": {
       "bytes": 556,
@@ -40,8 +46,9 @@
     }
   },
   "entrypoints": {
-    "cli": "PYTHONPATH=src:scripts CODEX_REASONING_EFFORT=high python3 scripts/run_gpt_tactical_stage_session_v1.py session --stage-id main_08-07 --facts-dir output/r8_1_r8_7_batch_v1/main_08-07/m25_runner_input_v1/attempt_01_source --output-dir output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli --diagnostic-output-dir output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_diagnostic --plan-id R8_7_GPT_M28_V2 --plan-label R8-7-M28-V2 --plan-id-prefix R8_7_GPT_M28_V2 --cli-attempt 2 --prior-cli-starts 61 --revision-source output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli --diagnostic-summary output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_04_diagnostic/diagnostic_summary.json --tactical-feedback docs/review/fc77177/m26_attempt04_feedback_v1.json --static-conflict-summary output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli/static_compile_results.json --experience-store docs/review/fc77177/m26_tactical_experience_records_v1.json --branch-state docs/review/fc77177/m28_branch_state_v1.json --authorization-config docs/review/fc77177/m27_model_authorization_v1.json --simulation-budget-path docs/review/fc77177/m28_simulation_budget_v1.json",
-    "mcp": "python3 scripts/kimiark_mcp_server.py"
+    "cli": "PYTHONPATH=src:scripts CODEX_REASONING_EFFORT=high python3 scripts/run_gpt_tactical_stage_session_v1.py session --stage-id main_08-07 --facts-dir output/r8_1_r8_7_batch_v1/main_08-07/m25_runner_input_v1/attempt_01_source --output-dir output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli --diagnostic-output-dir output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_diagnostic --plan-id R8_7_GPT_M28_V2 --plan-label R8-7-M28-V2 --plan-id-prefix R8_7_GPT_M28_V2 --cli-attempt 2 --prior-cli-starts 61 --revision-source output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli --diagnostic-summary output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_04_diagnostic/diagnostic_summary.json --tactical-feedback docs/review/fc77177/m26_attempt04_feedback_v1.json --static-conflict-summary output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli/static_compile_results.json --experience-store docs/review/fc77177/m26_tactical_experience_records_v1.json --branch-state docs/review/fc77177/m28_branch_state_v1.json --authorization-config docs/review/fc77177/m27_model_authorization_v1.json --simulation-budget-path docs/review/fc77177/m28_simulation_budget_v1.json",
+    "mcp": "python3 scripts/kimiark_mcp_server.py",
+    "prestart_authorization": "AUTHORIZED"
   },
   "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
   "mechanics_version": "m23-behavioral-mechanics-v1",
@@ -57,32 +64,45 @@
   "payload_files": {
     "budget_usage.json": {
       "bytes": 556,
-      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli/budget_usage.json",
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli/budget_usage.json",
       "sha256": "c5964fff70ebfb90be216832391ca481d0a3a0de1f5a518f9c448576409754f6"
     },
     "codex_prompt.txt": {
       "bytes": 138284,
-      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli/codex_prompt.txt",
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli/codex_prompt.txt",
       "sha256": "fb96dfef7abddb84d81dbef7342896375eeecdd11aded8b9a85223662bad0ec1"
     },
     "evidence_completeness.json": {
       "bytes": 250,
-      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli/evidence_completeness.json",
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli/evidence_completeness.json",
       "sha256": "fa00a5846c955c957b3ece85c9c1a53bcdc422989a55fffce544c2e738dca314"
     },
     "llm_evidence_context.json": {
       "bytes": 224824,
-      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli/llm_evidence_context.json",
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli/llm_evidence_context.json",
       "sha256": "4cfe81a2169904e1a2b403e8db8f371cf3d7f4810a2fe30ddc22f590ed099eb8"
     },
     "revision_output_schema.json": {
       "bytes": 10012,
-      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_02_cli/revision_output_schema.json",
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_03_cli/revision_output_schema.json",
       "sha256": "3aaa974250c6247c25549b03496ca9db8210c080006a6c61108034a70600837a"
     }
   },
   "plan_id": "R8_7_GPT_M28_V2",
   "plan_label": "R8-7-M28-V2",
+  "prepared_attempt_preflights": {
+    "attempt_02": {
+      "counts_as_cli_start": false,
+      "prompt_sha256": "fb96dfef7abddb84d81dbef7342896375eeecdd11aded8b9a85223662bad0ec1",
+      "reason": "missing features.apps=false override",
+      "status": "REJECTED_BEFORE_START"
+    },
+    "attempt_03": {
+      "command_sha256": "d800cf8921dc00e5e704c603e9ff0cb1480e1b1157b6dab06b4e660b7df8f28e",
+      "prompt_sha256": "fb96dfef7abddb84d81dbef7342896375eeecdd11aded8b9a85223662bad0ec1",
+      "status": "AUTHORIZED_BEFORE_START"
+    }
+  },
   "revision_source": {
     "operational_plan_id": "R8_7_GPT_M26_V3",
     "path": "output/r8_1_r8_7_batch_v1/main_08-07/m26_tactical_revision_v1/attempt_03_cli/llm_structured_output.json"
