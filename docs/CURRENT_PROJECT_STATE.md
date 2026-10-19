@@ -254,3 +254,17 @@ a legal fixed simulation and lost at 16/17 with 10 operator deaths, remaining
 life -16, two protected deaths, and no protected arrivals. The patrol-removal
 hypothesis was not verified; the artillery unit leaked at frame 5759. M26 CLI
 budget is exhausted, so no further GPT call may be made without new authorization.
+
+## 2026-10-19 M27 closes offline feedback defects and prepares M28
+
+The M27 loop now filters invalid experience, enforces the real event protocol,
+compares candidates by compatible stage/mechanics/objective context, records
+objective scope separately from simulator WIN, and rejects unauthorized model
+configuration before `STARTED`. A minimal MCP stdio server and Skill expose
+mechanism facts, experience retrieval, contract checking, frozen-evaluation gate,
+and saved-status feedback. The M27 simulation budget remains zero.
+
+R8-1, R8-2 and R8-4 frozen baselines are unchanged. R8-7 remains a legal
+battle LOSS and is not a faithful, robust or real-game result. R8-3/5/6 remain
+mechanism BLOCKED, and no probabilistic WIN is claimed. The ready but unsent M28
+prompt is documented in `docs/review/fc77177/m28_payload_manifest_v1.json`.

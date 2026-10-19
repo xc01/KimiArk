@@ -17,6 +17,7 @@ from urllib.parse import urlparse
 
 from jsonschema import Draft7Validator
 
+from codex_model_authorization_v1 import validate_cli_authorization
 import run_r8_1_gpt_tactical_revision_v1 as prior_runner
 from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
 from run_r8_1_low_star_full_tactical_closure_v1 import output_schema
@@ -39,6 +40,7 @@ CLI_TIMEOUT_SECONDS = 3600
 PRIOR_CLI_STARTS = 0
 CLI_ATTEMPT_NUMBER = 1
 EXTRA_CONFIG_VALUES: list[str] = []
+AUTHORIZATION_CONFIG_PATH = ROOT / "docs/review/fc77177/m27_model_authorization_v1.json"
 REUSE_SAVED_CLI_INPUT = False
 FEEDBACK_SUMMARY_PATH = ROOT / "output/r8_1_gpt_c3_full_diagnostic_v1/diagnostic_summary.json"
 FEEDBACK_EVENTS_PATH = ROOT / "output/r8_1_gpt_c3_full_diagnostic_v1/diagnostic_events.json"
@@ -129,6 +131,9 @@ def assert_run_lock() -> None:
 
 
 def claim_cli_start(command: list[str]) -> dict[str, Any]:
+    prompt_path = OUT / "codex_prompt.txt"
+    prompt_sha256 = sha256(prompt_path) if prompt_path.is_file() else None
+    authorization = validate_cli_authorization(AUTHORIZATION_CONFIG_PATH, command, prompt_sha256=prompt_sha256)
     environment = codex_environment()
     record = {
         "schema_version": "R8_1_GPT_TACTICAL_CODEX_CLI_V1_PROCESS_ATTEMPT",
@@ -150,6 +155,7 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
             "no_proxy": environment.get("no_proxy"),
         },
         "codex_home": environment.get("CODEX_HOME"),
+        "authorization": authorization,
         "codex_home_mode": "RUNTIME_WRITABLE_HOME" if environment.get("CODEX_HOME") == str(RUNTIME_CODEX_HOME) else "INHERITED",
         "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
     }

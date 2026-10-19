@@ -488,3 +488,15 @@ but is no longer perfect in the broader user sense because Ansel dies. R8-7 V13
 remains a survival failure and is not evidence against a different tactical
 structure. Do not attribute all R8-7 losses to GPT before confirming that
 artillery, checkpoints, device lifecycle and ability coverage are closed.
+# M27 corrected experience notes — 2026-10-19
+
+The original M26 V3 experience incorrectly attributed both protected-target
+deaths to artillery. Saved events separate final impact from accumulated
+pressure: protected target #14 received artillery hits at 3780 and 3930, then
+the fatal officer hit at 3966. The old record remains invalid for traceability
+and is superseded by `M26-EXP-0008`; retrieval no longer returns it.
+
+Contract-invalid and static-conflict experiences remain valid only for interface
+discipline. They must not be used as evidence that a tactical idea failed in
+battle. Mechanics-version mismatch is `REQUIRES_REVALIDATION`; an unrelated code
+commit alone does not invalidate a record.

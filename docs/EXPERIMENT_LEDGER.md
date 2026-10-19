@@ -636,3 +636,16 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   is `docs/review/fc77177/m26_full_test_junit.xml`; exact-ID comparison with the
   m23 baseline has zero current-only failures and 31 unchanged historical
   failures.
+# M27 offline verification ledger — 2026-10-19
+
+- New tactical Codex CLI starts: 0. New full-stage simulations: 0.
+- `M26-EXP-0007` is `INVALIDATED`; `M26-EXP-0008` records the corrected last-hit
+  chain from saved events: #3 at frame 3180 was last hit by artillery, while #14
+  at frame 3966 was last hit by `enemy_1107_uoffcr#18`.
+- The M27 offline replay is
+  `docs/review/fc77177/m27_r8_7_attempt04_offline_replay_v1.json`; it records
+  Midnight's pre-death damage and absence of healing, the artillery lifecycle,
+  both protected-target chains, first leak and 12 absent-source commands.
+- Same-environment full pytest comparison: parent 34 failures, M27 child 31
+  failures, zero child-only failures; two architecture failures no longer occur.
+  Evidence: `docs/review/fc77177/m27_full_test_parent_child_comparison_v1.json`.

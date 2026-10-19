@@ -348,3 +348,15 @@ checks its expected event against actual events. Contract-invalid, static-confli
 legal battle-loss and current-model-WIN outcomes remain separate. The branch state
 keeps frozen baselines plus one current-best and one exploration slot; it does not
 perform frame search or alter GPT actions.
+
+## 2026-10-19 M27 hardens feedback and gate reuse
+
+Experience retrieval now excludes `INVALIDATED` records, preserves
+`CANDIDATE_REFLECTION` versus `EVIDENCE_SUPPORTED`, prioritizes exact plan
+counterexamples, and marks stale mechanics rather than inferring invalidity from
+ordinary commits. Event queries use a declared protocol with aliases, complete
+window coverage and separate `EVENT_NOT_OBSERVED`, `UNKNOWN` and
+`INVALID_QUERY` outcomes. Codex starts validate the persisted model, provider,
+reasoning effort, overrides and frozen prompt before `STARTED`. The MCP entry
+reuses KimiArk checks and permits simulation only through a persistent stage
+budget, exclusive lock and immutable diagnostic directory.

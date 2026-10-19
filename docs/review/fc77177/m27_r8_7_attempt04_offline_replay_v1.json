@@ -1,0 +1,861 @@
+{
+  "evidence": {
+    "event_count": 33906,
+    "events_path": "docs/review/fc77177/m26_r8_7_attempt04_diagnostic_events.json.gz",
+    "events_sha256": "f7db08e383082ed9a76079dd3311bf040277adddc5b811dc76aeb6d5a861ac90",
+    "summary_path": "docs/review/fc77177/m26_r8_7_attempt04_diagnostic_summary.json.gz",
+    "summary_sha256": "970980ab5234bc7da731749d5d34e34b923a27568800dd6f9209d73700535307"
+  },
+  "failure_category": "LEGAL_BATTLE_LOSS",
+  "interpretation": {
+    "causal_explanations": [
+      "Midnight death broke later conditional commands that assumed its survival.",
+      "The failure to remove artillery persisted enemy area pressure and prolonged opening/upper position exposure.",
+      "Roadblock restraint concentrated protected-target exposure; officer and artillery pressure together preceded both deaths.",
+      "First leak and protected-target loss can interact through objective life, but they are distinct failure chains."
+    ],
+    "observed": [
+      "Midnight was deployed at 1305 and died at 1680; no HEAL event targeted Midnight before death.",
+      "Artillery enemy_1112_emppnt#0 survived through frame 5759 and then leaked.",
+      "Protected target #3 died at 3180 with artillery as last hit.",
+      "Protected target #14 died at 3966 with enemy_1107_uoffcr#18 as last hit after earlier officer and artillery pressure.",
+      "Twelve later ACTIVATE_SKILL or RETREAT commands failed because their source operators were absent."
+    ],
+    "unproven_or_unknown": [
+      "Exact client artillery locking, visibility and target selection outside the current model.",
+      "Whether another GPT structure can satisfy zero leaks, zero protected-target deaths and safe arrival.",
+      "A general low-star strategy conclusion cannot be inferred from this single fixed-action loss."
+    ]
+  },
+  "objective_scope": {
+    "enemies_killed": 16,
+    "enemies_leaked": 17,
+    "faithful_certificate_status": "NOT_ISSUED",
+    "operator_deaths": 10,
+    "project_perfect_target": false,
+    "protected_target_deaths": 2,
+    "protected_targets_reached": 0,
+    "real_game_status": "NOT_PLAYED",
+    "remaining_life": -16,
+    "simulator_win": false,
+    "targeting_variant_results": "NOT_EVALUATED_IN_SOURCE_RUN"
+  },
+  "observed_causal_chain": {
+    "artillery_unit": {
+      "ability_hits": [
+        {
+          "details": {
+            "amount": 718.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 1530,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_283_midn"
+        },
+        {
+          "details": {
+            "amount": 718.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 1680,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_283_midn"
+        },
+        {
+          "details": {
+            "amount": 721.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2130,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_192_falco"
+        },
+        {
+          "details": {
+            "amount": 647.2,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2130,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_500_noirc"
+        },
+        {
+          "details": {
+            "amount": 938.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2130,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_501_durin"
+        },
+        {
+          "details": {
+            "amount": 721.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2280,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_192_falco"
+        },
+        {
+          "details": {
+            "amount": 647.2,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2280,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_500_noirc"
+        },
+        {
+          "details": {
+            "amount": 938.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2280,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_501_durin"
+        },
+        {
+          "details": {
+            "amount": 910.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              7,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2880,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_210_stward"
+        },
+        {
+          "details": {
+            "amount": 948.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              7,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 2880,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_4227_gallus"
+        },
+        {
+          "details": {
+            "amount": 910.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              6.6,
+              1.0
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 3030,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_210_stward"
+        },
+        {
+          "details": {
+            "amount": 973.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              5,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 3330,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_285_medic2"
+        },
+        {
+          "details": {
+            "amount": 845.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 4980,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_208_melan"
+        },
+        {
+          "details": {
+            "amount": 890.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 4980,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_120_hibisc"
+        },
+        {
+          "details": {
+            "amount": 845.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 5130,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_208_melan"
+        },
+        {
+          "details": {
+            "amount": 890.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 5130,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_120_hibisc"
+        },
+        {
+          "details": {
+            "amount": 845.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 5280,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_208_melan"
+        },
+        {
+          "details": {
+            "amount": 890.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 5280,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_120_hibisc"
+        }
+      ],
+      "ability_starts": [
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 1440,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 1590,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 2040,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              5,
+              4
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 2190,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              7,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 2790,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              6.6,
+              1.0
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 2940,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              6.6,
+              1.0
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 3090,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              5,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 3240,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              6.6,
+              6.0
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 3690,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              6.6,
+              6.0
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 3840,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 4890,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 5040,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              2
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 5190,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        },
+        {
+          "details": {
+            "ability": "enemy_1112_emppnt_artillery",
+            "delay": 3.0,
+            "radius": 1.2,
+            "target_position": [
+              3,
+              1
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_START",
+          "frame": 5340,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null
+        }
+      ],
+      "death": null,
+      "incoming_damage": [
+        {
+          "amount": 510.0,
+          "frames": [
+            2151,
+            2199,
+            2247
+          ],
+          "hit_count": 3,
+          "kinds": {
+            "arts": 3
+          },
+          "source_id": "char_501_durin"
+        },
+        {
+          "amount": 4658.17,
+          "frames": [
+            2281,
+            2329,
+            2377,
+            2425,
+            2473,
+            2521,
+            2569,
+            2617,
+            2665,
+            2713,
+            2761,
+            2809,
+            2857,
+            2905,
+            2953,
+            3001
+          ],
+          "hit_count": 16,
+          "kinds": {
+            "arts": 16
+          },
+          "source_id": "char_210_stward"
+        },
+        {
+          "amount": 582.0,
+          "frames": [
+            4935,
+            5022
+          ],
+          "hit_count": 2,
+          "kinds": {
+            "arts": 2
+          },
+          "source_id": "char_121_lava"
+        }
+      ],
+      "leak": {
+        "details": {
+          "amount": 1
+        },
+        "event_type": "ENEMY_LEAK",
+        "frame": 5759,
+        "source_id": "enemy_1112_emppnt#0",
+        "target_id": null
+      }
+    },
+    "first_leak": {
+      "details": {
+        "amount": 1
+      },
+      "event_type": "ENEMY_LEAK",
+      "frame": 1925,
+      "source_id": "enemy_1107_uoffcr#9",
+      "target_id": null,
+      "time": 64.1666666667
+    },
+    "later_command_failures": [
+      "char_283_midn@84.0: operator is not deployed",
+      "char_4227_gallus@109.0: operator is not deployed",
+      "char_210_stward@114.0: operator is not deployed",
+      "char_500_noirc@134.5: operator is not deployed",
+      "char_192_falco@149.0: operator is not deployed",
+      "char_285_medic2@164.5: operator is not deployed",
+      "char_192_falco@182.5: operator is not deployed",
+      "char_283_midn@195.0: operator is not deployed",
+      "char_208_melan@196.0: operator is not deployed",
+      "char_120_hibisc@198.0: operator is not deployed",
+      "char_120_hibisc@249.0: operator is not deployed",
+      "char_208_melan@257.0: operator is not deployed"
+    ],
+    "midnight": {
+      "ability_hits": [
+        {
+          "details": {
+            "amount": 718.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 1530,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_283_midn"
+        },
+        {
+          "details": {
+            "amount": 718.0,
+            "kind": "PHYSICAL",
+            "locked_position": [
+              3,
+              6
+            ]
+          },
+          "event_type": "ENEMY_ABILITY_HIT",
+          "frame": 1680,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_283_midn"
+        }
+      ],
+      "damage_groups": [
+        {
+          "amount": 588.0,
+          "frames": [
+            1322,
+            1367,
+            1412,
+            1457,
+            1502,
+            1547
+          ],
+          "hits": 6,
+          "kind": "enemy_physical",
+          "source_id": "enemy_1108_uterer#5"
+        }
+      ],
+      "death": null,
+      "last_hit_source_id": null,
+      "roadblock_restraints": [],
+      "spawn": null
+    },
+    "operator_deaths": [
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 1680,
+        "source_id": "char_283_midn",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 2280,
+        "source_id": "char_192_falco",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 2280,
+        "source_id": "char_501_durin",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 2859,
+        "source_id": "char_500_noirc",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 2880,
+        "source_id": "char_4227_gallus",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 3030,
+        "source_id": "char_210_stward",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 3330,
+        "source_id": "char_285_medic2",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 5280,
+        "source_id": "char_120_hibisc",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 5368,
+        "source_id": "char_208_melan",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 6720,
+        "source_id": "char_209_ardign",
+        "target_id": null
+      }
+    ],
+    "protected_targets": {
+      "enemy_3001_upeopl#14": {
+        "ability_hits": [],
+        "damage_groups": [
+          {
+            "amount": 840.0,
+            "frames": [
+              3546,
+              3606,
+              3666
+            ],
+            "hits": 3,
+            "kind": "enemy_physical",
+            "source_id": "enemy_1107_uoffcr#16"
+          },
+          {
+            "amount": 1900.0,
+            "frames": [
+              3780,
+              3930
+            ],
+            "hits": 2,
+            "kind": "PHYSICAL",
+            "source_id": "enemy_1112_emppnt#0"
+          },
+          {
+            "amount": 840.0,
+            "frames": [
+              3846,
+              3906,
+              3966
+            ],
+            "hits": 3,
+            "kind": "enemy_physical",
+            "source_id": "enemy_1107_uoffcr#18"
+          }
+        ],
+        "death": {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 3966,
+          "source_id": "enemy_1107_uoffcr#18",
+          "target_id": "enemy_3001_upeopl#14"
+        },
+        "last_hit_source_id": "enemy_1107_uoffcr#18",
+        "roadblock_restraints": [
+          {
+            "details": {
+              "blocking_radius": 0.6,
+              "rule": "PRTS_ROADBLOCK_PROTECTED_RESTRAINT_RADIUS_0_6"
+            },
+            "event_type": "BLOCK",
+            "frame": 3251,
+            "source_id": "trap_020_roadblock#4",
+            "target_id": "enemy_3001_upeopl#14"
+          }
+        ],
+        "spawn": {
+          "details": {
+            "enemy_id": "enemy_3001_upeopl",
+            "route_id": "route-15"
+          },
+          "event_type": "SPAWN",
+          "frame": 3030,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null
+        }
+      },
+      "enemy_3001_upeopl#3": {
+        "ability_hits": [],
+        "damage_groups": [
+          {
+            "amount": 840.0,
+            "frames": [
+              1296,
+              1356,
+              1416
+            ],
+            "hits": 3,
+            "kind": "enemy_physical",
+            "source_id": "enemy_1107_uoffcr#8"
+          },
+          {
+            "amount": 2850.0,
+            "frames": [
+              2880,
+              3030,
+              3180
+            ],
+            "hits": 3,
+            "kind": "PHYSICAL",
+            "source_id": "enemy_1112_emppnt#0"
+          }
+        ],
+        "death": {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 3180,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3"
+        },
+        "last_hit_source_id": "enemy_1112_emppnt#0",
+        "roadblock_restraints": [
+          {
+            "details": {
+              "blocking_radius": 0.6,
+              "rule": "PRTS_ROADBLOCK_PROTECTED_RESTRAINT_RADIUS_0_6"
+            },
+            "event_type": "BLOCK",
+            "frame": 761,
+            "source_id": "trap_020_roadblock#3",
+            "target_id": "enemy_3001_upeopl#3"
+          }
+        ],
+        "spawn": {
+          "details": {
+            "enemy_id": "enemy_3001_upeopl",
+            "route_id": "route-2"
+          },
+          "event_type": "SPAWN",
+          "frame": 540,
+          "source_id": "enemy_3001_upeopl#3",
+          "target_id": null
+        }
+      }
+    }
+  },
+  "revision_boundary": "This evidence is feedback only; Python/GLM may not choose or edit tactical actions.",
+  "schema_version": "M27_OFFLINE_EVENT_REPLAY_V1",
+  "simulation_status": "COMPLETED_LOSS",
+  "source_plan_id": "R8_7_GPT_M26_V3",
+  "source_stage_id": "main_08-07"
+}
