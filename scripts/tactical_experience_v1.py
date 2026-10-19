@@ -57,10 +57,16 @@ def load_experience_records(path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def applicability_status(record: dict[str, Any], mechanics_version: str) -> str:
+def applicability_status(
+    record: dict[str, Any], mechanics_version: str, game_data_sha256: str | None = None
+) -> str:
     if record["status"] == "INVALIDATED":
         return "INVALIDATED"
-    if record["mechanics_version"] == mechanics_version:
+    mechanics_current = record["mechanics_version"] == mechanics_version
+    game_data_current = (
+        game_data_sha256 is None or record.get("game_data_sha256") == game_data_sha256
+    )
+    if mechanics_current and game_data_current:
         return "CURRENT_MECHANICS"
     return "REQUIRES_REVALIDATION"
 
@@ -69,6 +75,7 @@ def retrieve_experiences(
     records: list[dict[str, Any]], *, stage_id: str, mechanics_version: str,
     failure_category: str | None = None, responsibility_tags: set[str] | None = None,
     operator_ids: set[str] | None = None, source_plan_id: str | None = None,
+    game_data_sha256: str | None = None,
     limit: int = 3,
 ) -> list[dict[str, Any]]:
     tags = responsibility_tags or set()
@@ -90,7 +97,9 @@ def retrieve_experiences(
             score = 1
         candidate = dict(record)
         candidate["retrieval_score"] = score
-        candidate["applicability_status"] = applicability_status(record, mechanics_version)
+        candidate["applicability_status"] = applicability_status(
+            record, mechanics_version, game_data_sha256
+        )
         scored.append((score, record["experience_id"], record["status"], candidate))
     scored.sort(key=lambda row: (-row[0], row[2] != "EVIDENCE_SUPPORTED", row[1], row[2]))
     unique: dict[str, dict[str, Any]] = {}
@@ -173,6 +182,10 @@ def normalize_event_query(expected: dict[str, Any] | None) -> dict[str, Any]:
     result = {**expected, "event_type": EVENT_ALIASES.get(event_type, event_type), "event_type_declared": event_type}
     if result["event_type"] not in OBSERVED_EVENT_TYPES:
         return {**result, "status": "INVALID_QUERY", "reason": "EVENT_TYPE_NOT_DECLARED_SUPPORTED"}
+    if result["event_type"] == "OPERATOR_DEATH" and not isinstance(result.get("source_id"), str):
+        return {**result, "status": "INVALID_QUERY", "reason": "OPERATOR_DEATH_REQUIRES_SOURCE_OPERATOR"}
+    if result["event_type"] == "OPERATOR_DEATH" and result.get("target_id") is not None:
+        return {**result, "status": "INVALID_QUERY", "reason": "OPERATOR_DEATH_TARGET_MUST_BE_NULL"}
     return {**result, "status": "VALID_QUERY"}
 
 
@@ -215,6 +228,17 @@ def evaluate_revision_hypothesis(
     return result
 
 
+def extract_operational_plan_id(plan_object: dict[str, Any] | None) -> str | None:
+    if not isinstance(plan_object, dict):
+        return None
+    candidate = plan_object
+    plans = plan_object.get("revised_operational_plans")
+    if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
+        candidate = plans[0]
+    value = candidate.get("operational_plan_id")
+    return value if isinstance(value, str) and value else None
+
+
 def extract_parent_plan_id(plan_object: dict[str, Any] | None) -> str | None:
     if not isinstance(plan_object, dict):
         return None
@@ -222,20 +246,47 @@ def extract_parent_plan_id(plan_object: dict[str, Any] | None) -> str | None:
     plans = plan_object.get("revised_operational_plans")
     if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
         candidate = plans[0]
-    value = candidate.get("parent_plan_id") or candidate.get("revision_hypothesis", {}).get("parent_plan_id")
+    revision = candidate.get("revision_hypothesis") if isinstance(candidate.get("revision_hypothesis"), dict) else {}
+    value = candidate.get("parent_plan_id") or revision.get("parent_plan_id")
     return value if isinstance(value, str) and value else None
 
 
-def objective_scope(result: dict[str, Any]) -> dict[str, Any]:
+def extract_declared_parent_plan_id(parsed: dict[str, Any] | None) -> str | None:
+    if not isinstance(parsed, dict):
+        return None
+    root_revision = parsed.get("revision_hypothesis") if isinstance(parsed.get("revision_hypothesis"), dict) else {}
+    root_parent = root_revision.get("parent_plan_id")
+    if isinstance(root_parent, str) and root_parent:
+        return root_parent
+    plans = parsed.get("revised_operational_plans")
+    if isinstance(plans, list) and len(plans) == 1:
+        return extract_parent_plan_id(plans[0])
+    return extract_parent_plan_id(parsed)
+
+
+def objective_scope(
+    result: dict[str, Any], *, expected_protected_target_count: int | None = None
+) -> dict[str, Any]:
+    expected_protected_target_count = (
+        result.get("expected_protected_target_count")
+        if expected_protected_target_count is None else expected_protected_target_count
+    )
     leaks = result.get("enemies_leaked")
     deaths = result.get("protected_target_deaths")
     reached = result.get("protected_targets_reached")
+    if expected_protected_target_count is None:
+        protected_targets_all_reached = None
+        perfect = None
+    else:
+        protected_targets_all_reached = reached == expected_protected_target_count
+        perfect = bool(result.get("win")) and leaks == 0 and deaths == 0 and protected_targets_all_reached
     return {
         "win": bool(result.get("win")),
         "zero_leaks": leaks == 0,
         "protected_targets_zero_deaths": deaths == 0,
-        "protected_targets_all_reached": bool(reached) and reached > 0,
-        "perfect": bool(result.get("win")) and leaks == 0 and deaths == 0 and bool(reached) and reached > 0,
+        "expected_protected_target_count": expected_protected_target_count,
+        "protected_targets_all_reached": protected_targets_all_reached,
+        "perfect": perfect,
     }
 
 
@@ -250,6 +301,7 @@ def _battle_loss_rank(candidate: dict[str, Any]) -> tuple[Any, ...]:
         result.get("enemies_leaked") if isinstance(result.get("enemies_leaked"), int) else 2**31,
         result.get("protected_target_deaths") if isinstance(result.get("protected_target_deaths"), int) else 2**31,
         result.get("operator_deaths") if isinstance(result.get("operator_deaths"), int) else 2**31,
+        candidate.get("action_count") if isinstance(candidate.get("action_count"), int) else None,
         candidate.get("candidate_id", ""),
     )
 
@@ -284,13 +336,38 @@ def update_branch_state(state: dict[str, Any], candidate: dict[str, Any]) -> dic
             updated["current_best"] = candidate
         else:
             old_scope, new_scope = objective_scope(current.get("result") or {}), objective_scope(candidate.get("result") or {})
-            old_key = (not old_scope["perfect"], old_scope["win"], len(current.get("action_timeline") or []), current["candidate_id"])
-            new_key = (not new_scope["perfect"], new_scope["win"], len(candidate.get("action_timeline") or []), candidate["candidate_id"])
-            updated["current_best"] = candidate if new_key < old_key else current
+            old_action_count = current.get("action_count")
+            new_action_count = candidate.get("action_count")
+            if (
+                old_scope["perfect"] is True and new_scope["perfect"] is not True
+            ) or (old_scope["perfect"] is not True and new_scope["perfect"] is True):
+                updated["current_best"] = candidate if new_scope["perfect"] is True else current
+            elif not isinstance(old_action_count, int) or not isinstance(new_action_count, int):
+                updated.setdefault("comparison_conflicts", []).append({
+                    "reason": "MISSING_ACTION_COUNT_FOR_WIN_RANKING",
+                    "kept_candidate_id": current["candidate_id"],
+                    "rejected_candidate_id": candidate["candidate_id"],
+                })
+            else:
+                old_key = (
+                    old_scope["perfect"] is True, old_scope["win"], old_action_count,
+                    current["candidate_id"],
+                )
+                new_key = (
+                    new_scope["perfect"] is True, new_scope["win"], new_action_count,
+                    candidate["candidate_id"],
+                )
+                updated["current_best"] = candidate if new_key < old_key else current
     elif candidate["classification"] == "C_LEGAL_BATTLE_LOSS":
         current = updated.get("exploration")
         if current is None or _candidate_context(current) != _candidate_context(candidate):
             updated["exploration"] = candidate
         elif _battle_loss_rank(candidate) < _battle_loss_rank(current):
             updated["exploration"] = candidate
+    else:
+        updated.setdefault("comparison_conflicts", []).append({
+            "reason": "CANDIDATE_NOT_ELIGIBLE_FOR_BRANCH_PROMOTION",
+            "classification": candidate["classification"],
+            "candidate_id": candidate["candidate_id"],
+        })
     return updated

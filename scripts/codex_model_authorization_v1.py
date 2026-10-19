@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shlex
 from pathlib import Path
 from typing import Any
 
@@ -44,16 +45,41 @@ def validate_cli_authorization(
     if model_values != [config["model"]]:
         errors.append(f"model authorization mismatch: observed {model_values!r}, required {config['model']!r}")
 
-    overrides = [command[index + 1] for index, value in enumerate(command) if value == "-c" and index + 1 < len(command)]
-    required_overrides = [
-        'model_provider="openai"',
-        f'model_reasoning_effort="{config["reasoning_effort"]}"',
-        *config["extra_config_values"],
-    ]
-    if overrides != required_overrides:
-        errors.append(f"configuration override authorization mismatch: observed {overrides!r}, required {required_overrides!r}")
-    if overrides and any(overrides.count(value) > 1 for value in overrides):
-        errors.append("duplicate configuration override is forbidden")
+    raw_overrides = [command[index + 1] for index, value in enumerate(command) if value == "-c" and index + 1 < len(command)]
+    overrides: dict[str, str] = {}
+    duplicate_override_keys: set[str] = set()
+    malformed_overrides: list[str] = []
+    for override in raw_overrides:
+        try:
+            parsed = shlex.split(override)
+        except ValueError:
+            malformed_overrides.append(override)
+            continue
+        if len(parsed) != 1 or parsed[0].count("=") != 1:
+            malformed_overrides.append(override)
+            continue
+        key, value = parsed[0].split("=", 1)
+        if key in overrides:
+            duplicate_override_keys.add(key)
+        overrides[key] = value
+    expected = {
+        "model_provider": config["provider"],
+        "model_reasoning_effort": config["reasoning_effort"],
+        **{
+            key: value.strip('"')
+            for key, value in (item.split("=", 1) for item in config["extra_config_values"])
+        },
+    }
+    if malformed_overrides:
+        errors.append(f"malformed configuration override: {malformed_overrides!r}")
+    if duplicate_override_keys:
+        errors.append(f"duplicate configuration override key: {sorted(duplicate_override_keys)!r}")
+    if set(overrides) != set(expected):
+        missing, unexpected = sorted(set(expected) - set(overrides)), sorted(set(overrides) - set(expected))
+        errors.append(f"configuration key mismatch: missing={missing}, unexpected={unexpected}")
+    elif any(overrides[key] != value for key, value in expected.items()):
+        conflicts = {key: [overrides[key], value] for key, value in expected.items() if overrides[key] != value}
+        errors.append(f"configuration value mismatch: {conflicts!r}")
 
     if config.get("prompt_sha256") is not None and config["prompt_sha256"] != prompt_sha256:
         errors.append("frozen prompt hash does not match authorization")
@@ -68,4 +94,5 @@ def validate_cli_authorization(
         "model": config["model"],
         "reasoning_effort": config["reasoning_effort"],
         "prompt_sha256": prompt_sha256,
+        "effective_configuration": expected,
     }

@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from unittest import mock
+import pytest
 
 import codex_model_authorization_v1 as authorization
 import run_gpt_tactical_stage_session_v1 as runner
@@ -72,6 +73,15 @@ def test_stale_mechanics_experience_is_marked_for_revalidation() -> None:
     assert retrieved[0]["applicability_status"] == "REQUIRES_REVALIDATION"
 
 
+def test_changed_game_data_requires_revalidation_even_with_current_mechanics() -> None:
+    record = _record("DATA", "LEGAL_BATTLE_LOSS", mechanics="m23")
+    retrieved = experience.retrieve_experiences(
+        [record], stage_id="main_08-07", mechanics_version="m23",
+        game_data_sha256="different", limit=1,
+    )
+    assert retrieved[0]["applicability_status"] == "REQUIRES_REVALIDATION"
+
+
 def test_real_event_protocol_and_alias_semantics() -> None:
     parsed = {
         "revision_hypothesis": {
@@ -106,6 +116,20 @@ def test_real_event_protocol_and_alias_semantics() -> None:
     assert invalid["status"] == "INVALID_QUERY"
 
 
+def test_operator_death_subject_semantics_rejects_targeted_query() -> None:
+    parsed = {
+        "revision_hypothesis": {
+            "expected_first_observable_event": {
+                "event_type": "OPERATOR_DEATH", "source_id": "char_283_midn",
+                "target_id": "char_283_midn", "earliest_frame": 0, "latest_frame": 1,
+            }
+        }
+    }
+    evaluated = experience.evaluate_revision_hypothesis(parsed, [], observation_complete=True)
+    assert evaluated["status"] == "INVALID_QUERY"
+    assert evaluated["reason"] == "OPERATOR_DEATH_TARGET_MUST_BE_NULL"
+
+
 def test_protected_target_last_hit_is_not_assumed_artillery() -> None:
     path = Path("docs/review/fc77177/m26_tactical_experience_records_v1.json")
     records = experience.load_experience_records(path)
@@ -134,8 +158,14 @@ def test_branch_slots_use_context_and_win_hard_gate() -> None:
         }
     loss = candidate("LOSS", "C_LEGAL_BATTLE_LOSS", {"win": False, "enemies_leaked": 17})
     loss_less = candidate("LOSS_LESS", "C_LEGAL_BATTLE_LOSS", {"win": False, "enemies_leaked": 5})
-    win = candidate("WIN", "D_CURRENT_MODEL_WIN", {"win": True, "enemies_leaked": 1, "protected_target_deaths": 0, "protected_targets_reached": 2})
-    win_perfect = candidate("WIN_PERFECT", "D_CURRENT_MODEL_WIN", {"win": True, "enemies_leaked": 0, "protected_target_deaths": 0, "protected_targets_reached": 2})
+    win = candidate("WIN", "D_CURRENT_MODEL_WIN", {
+        "win": True, "enemies_leaked": 1, "protected_target_deaths": 0,
+        "protected_targets_reached": 2, "expected_protected_target_count": 2,
+    })
+    win_perfect = candidate("WIN_PERFECT", "D_CURRENT_MODEL_WIN", {
+        "win": True, "enemies_leaked": 0, "protected_target_deaths": 0,
+        "protected_targets_reached": 2, "expected_protected_target_count": 2,
+    })
     state = experience.update_branch_state(state, loss)
     assert state["current_best"] is None
     assert state["exploration"]["candidate_id"] == "LOSS"
@@ -170,6 +200,38 @@ def test_parent_plan_id_extracts_root_and_nested_forms() -> None:
     }) == "ROOT"
 
 
+def test_previous_plan_id_and_declared_parent_are_separate() -> None:
+    previous = {"operational_plan_id": "PARENT"}
+    current = {
+        "revision_hypothesis": {"parent_plan_id": "PARENT"},
+        "revised_operational_plans": [{"operational_plan_id": "CHILD", "parent_plan_id": "PARENT"}],
+    }
+    assert experience.extract_operational_plan_id(previous) == "PARENT"
+    assert experience.extract_declared_parent_plan_id(current) == "PARENT"
+    assert experience.extract_parent_plan_id(current["revised_operational_plans"][0]) == "PARENT"
+
+
+def test_one_of_two_protected_targets_is_not_perfect_and_unknown_count_is_unknown() -> None:
+    one = experience.objective_scope({
+        "win": True, "enemies_leaked": 0, "protected_target_deaths": 0,
+        "protected_targets_reached": 1,
+    }, expected_protected_target_count=2)
+    assert one["protected_targets_all_reached"] is False
+    assert one["perfect"] is False
+    unknown = experience.objective_scope({
+        "win": True, "enemies_leaked": 0, "protected_target_deaths": 0,
+        "protected_targets_reached": 1,
+    })
+    assert unknown["protected_targets_all_reached"] is None
+    assert unknown["perfect"] is None
+    none_required = experience.objective_scope({
+        "win": True, "enemies_leaked": 0, "protected_target_deaths": 0,
+        "protected_targets_reached": 0,
+    }, expected_protected_target_count=0)
+    assert none_required["protected_targets_all_reached"] is True
+    assert none_required["perfect"] is True
+
+
 def test_authorization_rejects_medium_without_subprocess() -> None:
     with tempfile.TemporaryDirectory() as temporary:
         config_path = Path(temporary) / "auth.json"
@@ -183,6 +245,39 @@ def test_authorization_rejects_medium_without_subprocess() -> None:
             with __import__("pytest").raises(RuntimeError, match="reasoning_effort"):
                 authorization.validate_cli_authorization(config_path, command)
             assert process.call_count == 0
+
+
+def test_real_build_command_high_authorization_is_accepted() -> None:
+    config_path = Path("docs/review/fc77177/m27_model_authorization_v1.json")
+    with (
+        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
+        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+    ):
+        command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+    result = authorization.validate_cli_authorization(config_path, command)
+    assert result["status"] == "AUTHORIZED"
+    assert result["effective_configuration"]["features.apps"] == "false"
+
+
+def test_real_build_command_medium_or_conflict_is_rejected_before_start() -> None:
+    config_path = Path("docs/review/fc77177/m27_model_authorization_v1.json")
+    with (
+        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "medium"),
+        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+    ):
+        command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+    with pytest.raises(RuntimeError, match="configuration value mismatch"):
+        authorization.validate_cli_authorization(config_path, command)
+    with (
+        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
+        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+    ):
+        conflict_command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+    conflict_command[conflict_command.index("-m") - 2:conflict_command.index("-m") - 2] = [
+        "-c", 'model_reasoning_effort="medium"',
+    ]
+    with pytest.raises(RuntimeError, match="duplicate configuration override key"):
+        authorization.validate_cli_authorization(config_path, conflict_command)
 
 
 def test_m26_experience_store_is_valid_and_has_correction() -> None:
@@ -208,4 +303,16 @@ def test_prompt_contains_schema_and_mandatory_revision_fields() -> None:
     assert "revision_hypothesis" in prompt
     assert "parent_hypothesis_id must equal one of revised_strategic_hypotheses[*].hypothesis_id" in prompt
     assert '"latest_frame"' in prompt
+
+
+def test_prompt_declares_protected_target_perfect_scope() -> None:
+    prompt = runner.build_prompt({
+        "stage_active_facts": {"roadblock_plan_tiles_row_col": [[5, 2]]},
+        "model_spawn_timeline": {"events": [
+            {"enemy_id": "enemy_3001_upeopl", "count": 1},
+            {"enemy_id": "enemy_3001_upeopl", "count": 1},
+        ]},
+    }, {})
+    assert "all 2 expected protected targets safely reaching" in prompt
+    assert "operator deaths are recorded separately" in prompt
     assert "OUTPUT_SCHEMA_JSON" in prompt

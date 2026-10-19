@@ -51,6 +51,7 @@ TOOLS = [
                 "responsibility_tags": {"type": "array", "items": {"type": "string"}},
                 "operator_ids": {"type": "array", "items": {"type": "string"}},
                 "source_plan_id": {"type": ["string", "null"]},
+                "game_data_sha256": {"type": ["string", "null"]},
             },
             "additionalProperties": False,
         },
@@ -70,7 +71,7 @@ TOOLS = [
         "description": "Check immutable simulation gate, exclusive lock and persistent stage budget without running a battle.",
         "inputSchema": {
             "type": "object",
-            "required": ["source_dir", "diagnostic_output_dir", "budget_path"],
+            "required": ["source_dir", "diagnostic_output_dir", "budget_path", "stage_id", "plan_id"],
             "properties": {
                 "source_dir": {"type": "string"},
                 "diagnostic_output_dir": {"type": "string"},
@@ -132,6 +133,7 @@ def query_applicable_experience(arguments: dict[str, Any]) -> dict[str, Any]:
         responsibility_tags=set(arguments.get("responsibility_tags") or []),
         operator_ids=set(arguments.get("operator_ids") or []),
         source_plan_id=arguments.get("source_plan_id"),
+        game_data_sha256=arguments.get("game_data_sha256"),
         limit=3,
     )
     return {"schema_version": experience.EXPERIENCE_SCHEMA_VERSION, "records": retrieved, "limit": 3}
@@ -139,19 +141,46 @@ def query_applicable_experience(arguments: dict[str, Any]) -> dict[str, Any]:
 
 def check_plan_contract(arguments: dict[str, Any]) -> dict[str, Any]:
     source_dir = repo_path(arguments["source_dir"])
-    from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
+    from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
+    from run_gpt_tactical_stage_session_v1 import validate_plan_payload
 
     structured = gate.load_json(source_dir / "llm_structured_output.json")
     evidence = gate.load_json(source_dir / "llm_evidence_context.json")
-    errors = validate_operational_plan_output(structured, evidence)
-    return {"status": "PASS" if not errors else "FAIL", "errors": errors}
+    schema = gate.load_json(source_dir / "revision_output_schema.json")
+    layered = validate_plan_payload(structured, evidence, schema)
+    static_errors: list[str] = []
+    static_result: Any = None
+    try:
+        static_result = compile_plan(source_dir)
+        static_errors = static_result.get("conflicts") or []
+    except Exception as exc:
+        static_errors = [f"{type(exc).__name__}: {exc}"]
+    import hashlib
+
+    def file_sha(path: Path) -> str | None:
+        return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+    return {
+        "status": "PASS" if not (
+            layered["schema_errors"] + layered["semantic_errors"]
+            + layered["event_query_errors"] + layered["lineage_errors"] + static_errors
+        ) else "FAIL",
+        "layers": {**layered, "static_errors": static_errors},
+        "static_result": static_result,
+        "input_sha256": {
+            "llm_structured_output.json": file_sha(source_dir / "llm_structured_output.json"),
+            "llm_evidence_context.json": file_sha(source_dir / "llm_evidence_context.json"),
+            "revision_output_schema.json": file_sha(source_dir / "revision_output_schema.json"),
+        },
+    }
 
 
 def prepare_frozen_plan_evaluation(arguments: dict[str, Any]) -> dict[str, Any]:
     gate_result = gate.prepare_evaluation(
         source_dir=repo_path(arguments["source_dir"]),
         diagnostic_output_dir=repo_path(arguments["diagnostic_output_dir"]),
-        budget_path=repo_path(arguments["budget_path"]),
+        budget_path=repo_path(arguments["budget_path"]), stage_id=arguments["stage_id"],
+        expected_plan_id=arguments["plan_id"],
     )
     return gate_result
 
@@ -161,7 +190,8 @@ def evaluate_frozen_plan(arguments: dict[str, Any]) -> dict[str, Any]:
         repo_path, (arguments["source_dir"], arguments["diagnostic_output_dir"], arguments["budget_path"])
     )
     gate_result = gate.prepare_evaluation(
-        source_dir=source_dir, diagnostic_output_dir=diagnostic_output_dir, budget_path=budget_path
+        source_dir=source_dir, diagnostic_output_dir=diagnostic_output_dir, budget_path=budget_path,
+        stage_id=arguments["stage_id"], expected_plan_id=arguments["plan_id"],
     )
     if gate_result["status"] != "AUTHORIZED":
         return {**gate_result, "simulation_started": False}
@@ -172,17 +202,9 @@ def evaluate_frozen_plan(arguments: dict[str, Any]) -> dict[str, Any]:
         "--diagnostic-output-dir", str(diagnostic_output_dir.relative_to(ROOT)),
         "--plan-id", arguments["plan_id"], "--plan-label", arguments["plan_label"],
         "--plan-id-prefix", arguments["plan_id_prefix"],
+        "--simulation-budget-path", str(budget_path.relative_to(gate.ROOT)),
     ]
-    with gate.exclusive_evaluation_lock(source_dir):
-        gate_result = gate.prepare_evaluation(
-            source_dir=source_dir, diagnostic_output_dir=diagnostic_output_dir, budget_path=budget_path
-        )
-        if gate_result["status"] != "AUTHORIZED":
-            return {**gate_result, "simulation_started": False}
-        budget = gate.load_budget(budget_path)
-        budget["started_stage_simulations"] += 1
-        budget_path.write_text(json.dumps(budget, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-        completed = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
+    completed = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
     return {
         **gate_result, "simulation_started": True, "exit_code": completed.returncode,
         "stdout_tail": completed.stdout[-4000:], "stderr_tail": completed.stderr[-4000:],

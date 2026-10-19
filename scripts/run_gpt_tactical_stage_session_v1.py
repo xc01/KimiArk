@@ -16,6 +16,7 @@ from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
 from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
 import tactical_experience_v1 as experience
+import tactical_evaluation_gate_v1 as gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,7 @@ SAVED_INPUT_DIR: str | None = None
 EXPERIENCE_STORE_PATH: str | None = None
 BRANCH_STATE_PATH: str | None = None
 AUTHORIZATION_CONFIG_PATH = ROOT / "docs/review/fc77177/m27_model_authorization_v1.json"
+SIMULATION_BUDGET_PATH = ROOT / "docs/review/fc77177/m28_simulation_budget_v1.json"
 
 
 def load(path: Path) -> Any:
@@ -57,7 +59,7 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR, EXPERIENCE_STORE_PATH, BRANCH_STATE_PATH, AUTHORIZATION_CONFIG_PATH
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR, EXPERIENCE_STORE_PATH, BRANCH_STATE_PATH, AUTHORIZATION_CONFIG_PATH, SIMULATION_BUDGET_PATH
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -73,6 +75,8 @@ def configure(arguments: argparse.Namespace) -> None:
     EXPERIENCE_STORE_PATH = arguments.experience_store
     BRANCH_STATE_PATH = arguments.branch_state
     AUTHORIZATION_CONFIG_PATH = ROOT / arguments.authorization_config
+    SIMULATION_BUDGET_PATH = ROOT / arguments.simulation_budget_path
+    codex_runner.AUTHORIZATION_CONFIG_PATH = AUTHORIZATION_CONFIG_PATH
     codex_runner.configure_run(
         arguments.output_dir,
         arguments.diagnostic_output_dir,
@@ -96,6 +100,48 @@ def compact_runtime_event(event: dict[str, Any]) -> dict[str, Any]:
         "source_id": event.get("source_id"),
         "target_id": event.get("target_id"),
         "details": event.get("details"),
+    }
+
+
+def validate_plan_payload(parsed: Any, evidence: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
+    schema_errors = [
+        f"{'/'.join(map(str, error.absolute_path)) or '<root>'}: {error.message}"
+        for error in sorted(Draft7Validator(schema).iter_errors(parsed), key=lambda item: list(item.absolute_path))
+    ]
+    semantic_errors: list[str] = []
+    if isinstance(parsed, dict):
+        from run_r8_1_low_star_full_tactical_closure_v1 import validate_operational_plan_output
+
+        semantic_errors.extend(validate_operational_plan_output(parsed, evidence))
+    else:
+        semantic_errors.append("response is not a JSON object")
+
+    event_query_errors: list[str] = []
+    revision = parsed.get("revision_hypothesis") if isinstance(parsed, dict) else None
+    if isinstance(revision, dict) and "expected_first_observable_event" in revision:
+        query = experience.normalize_event_query(revision["expected_first_observable_event"])
+        if query["status"] != "VALID_QUERY":
+            event_query_errors.append(f"{query.get('reason')}: {query.get('event_type_declared') or query.get('event_type')}")
+
+    plans = parsed.get("revised_operational_plans") if isinstance(parsed, dict) else None
+    plan = plans[0] if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict) else None
+    previous_plan_id = experience.extract_operational_plan_id(evidence.get("previous_plan_to_revise"))
+    declared_parent_plan_id = experience.extract_declared_parent_plan_id(parsed)
+    plan_parent_plan_id = experience.extract_parent_plan_id(plan)
+    lineage_errors: list[str] = []
+    if previous_plan_id and plan_parent_plan_id and previous_plan_id != plan_parent_plan_id:
+        lineage_errors.append("previous plan operational_plan_id does not match declared parent_plan_id")
+    if plan_parent_plan_id and declared_parent_plan_id and plan_parent_plan_id != declared_parent_plan_id:
+        lineage_errors.append("plan parent_plan_id and revision_hypothesis parent_plan_id disagree")
+    return {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_LAYERED_PLAN_VALIDATION",
+        "schema_errors": schema_errors,
+        "semantic_errors": semantic_errors,
+        "event_query_errors": event_query_errors,
+        "lineage_errors": lineage_errors,
+        "previous_plan_id": previous_plan_id,
+        "declared_parent_plan_id": declared_parent_plan_id,
+        "plan_parent_plan_id": plan_parent_plan_id,
     }
 
 
@@ -389,7 +435,8 @@ def prepare() -> dict[str, Any]:
             contract_experiences = experience.retrieve_experiences(
                 records, stage_id=STAGE_ID, mechanics_version=ACTIVE_MECHANICS_VERSION,
                 failure_category="CONTRACT_INVALID", responsibility_tags={"contract"},
-                source_plan_id=prior_invalid_plan_id, limit=1,
+                source_plan_id=prior_invalid_plan_id,
+                game_data_sha256=evidence.get("gamedata_commit"), limit=1,
             )
             battle_experiences = experience.retrieve_experiences(
                 records, stage_id=STAGE_ID, mechanics_version=ACTIVE_MECHANICS_VERSION,
@@ -397,11 +444,13 @@ def prepare() -> dict[str, Any]:
                 operator_ids=relevant_operator_ids, source_plan_id=(
                     battle_feedback.get("source_plan_id") if isinstance(battle_feedback, dict) else None
                 ),
+                game_data_sha256=evidence.get("gamedata_commit"),
                 limit=3 - len(contract_experiences),
             )
             retrieved = experience.retrieve_experiences(
                 contract_experiences + battle_experiences, stage_id=STAGE_ID,
-                mechanics_version=ACTIVE_MECHANICS_VERSION, limit=3,
+                mechanics_version=ACTIVE_MECHANICS_VERSION,
+                game_data_sha256=evidence.get("gamedata_commit"), limit=3,
             )
             evidence["tactical_experience"] = {
                 "schema_version": experience.EVENT_QUERY_SCHEMA_VERSION,
@@ -468,6 +517,12 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
     forbidden_plan_tiles = active.get("roadblock_plan_tiles_row_col")
     if not isinstance(forbidden_plan_tiles, list):
         raise RuntimeError("stage_active_facts.roadblock_plan_tiles_row_col is required")
+    protected_spawn_rows = [
+        event for event in ((evidence.get("model_spawn_timeline") or {}).get("events") or [])
+        if isinstance(event, dict) and isinstance(event.get("enemy_id"), str)
+        and event["enemy_id"].startswith("enemy_3001_upeopl")
+    ]
+    expected_protected_target_count = sum(int(event.get("count", 1)) for event in protected_spawn_rows)
     clearance_instruction = ""
     clearance = evidence.get("roadblock_clearance_evidence")
     if clearance:
@@ -498,7 +553,7 @@ Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operat
 
 You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
 
-Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies.
+Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies. Project acceptance additionally requires zero leaks, zero protected-target deaths, and all {expected_protected_target_count} expected protected targets safely reaching their objectives; operator deaths are recorded separately and are not automatically forbidden.
 
 {clearance_instruction}
 
@@ -528,12 +583,11 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
     evidence = load(codex_runner.OUT / "llm_evidence_context.json")
     schema = load(codex_runner.OUT / "revision_output_schema.json")
     errors: list[str] = []
-    try:
-        schema_errors = sorted(Draft7Validator(schema).iter_errors(parsed), key=lambda item: list(item.path))
-        errors.extend(f"schema: {'/'.join(map(str, item.path)) or '<root>'}: {item.message}" for item in schema_errors)
-    except Exception as exc:
-        errors.append(f"schema validation unavailable: {exc}")
-    errors.extend(validate_operational_plan_output(parsed, evidence))
+    layered = validate_plan_payload(parsed, evidence, schema)
+    errors.extend(f"schema: {error}" for error in layered["schema_errors"])
+    errors.extend(f"semantic: {error}" for error in layered["semantic_errors"])
+    errors.extend(f"event: {error}" for error in layered["event_query_errors"])
+    errors.extend(f"lineage: {error}" for error in layered["lineage_errors"])
     if isinstance(parsed, dict):
         hypothesis = parsed.get("revision_hypothesis")
         if isinstance(hypothesis, dict):
@@ -566,6 +620,7 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
+        "layers": layered,
     }
     write_json(codex_runner.OUT / "llm_plan_validation.json", validation)
     if errors:
@@ -579,10 +634,7 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
         })
         if BRANCH_STATE_PATH is not None:
             branch_path = ROOT / BRANCH_STATE_PATH
-            parent_plan = evidence.get("previous_plan_to_revise")
-            parent_plan_id = None
-            if isinstance(parent_plan, dict) and isinstance(parent_plan.get("revised_operational_plans"), list) and len(parent_plan["revised_operational_plans"]) == 1:
-                parent_plan_id = parent_plan["revised_operational_plans"][0].get("operational_plan_id")
+            parent_plan_id = layered["previous_plan_id"] or "UNKNOWN_PARENT_PLAN"
             branch_state = experience.update_branch_state(load(branch_path), {
                 "candidate_id": PLAN_ID,
                 "parent_plan_id": parent_plan_id or "UNKNOWN_PARENT_PLAN",
@@ -696,35 +748,52 @@ def simulate() -> dict[str, Any]:
             "status": "BLOCKED_STATIC_CONFLICT", "conflicts": static["conflicts"],
         })
         raise SystemExit(f"{PLAN_LABEL} static conflicts block diagnostic simulation")
-    budget = load(codex_runner.OUT / "budget_usage.json")
-    if budget["stage_simulations_started"]:
-        raise RuntimeError("stage simulation budget already consumed")
-    budget["stage_simulations_started"] = 1
-    write_json(codex_runner.OUT / "budget_usage.json", budget)
-    run_full_diagnostic(
-        source=codex_runner.OUT, out=codex_runner.DIAGNOSTIC_OUT,
-        stage_id=STAGE_ID, plan_id=PLAN_ID,
-    )
+    with gate.consume_evaluation(
+        source_dir=codex_runner.OUT, diagnostic_output_dir=codex_runner.DIAGNOSTIC_OUT,
+        budget_path=SIMULATION_BUDGET_PATH, stage_id=STAGE_ID, expected_plan_id=PLAN_ID,
+    ) as evaluation_gate:
+        if evaluation_gate["status"] != "AUTHORIZED":
+            return evaluation_gate
+        run_full_diagnostic(
+            source=codex_runner.OUT, out=codex_runner.DIAGNOSTIC_OUT,
+            stage_id=STAGE_ID, plan_id=PLAN_ID,
+        )
     summary = load(codex_runner.DIAGNOSTIC_OUT / "diagnostic_summary.json")
     events = load(codex_runner.DIAGNOSTIC_OUT / "diagnostic_events.json").get("events") or []
     parsed = load(codex_runner.OUT / "llm_structured_output.json")
-    hypothesis_evaluation = experience.evaluate_revision_hypothesis(parsed, events)
+    plans = parsed.get("revised_operational_plans") if isinstance(parsed, dict) else None
+    plan = plans[0] if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict) else None
+    manifest_path = codex_runner.DIAGNOSTIC_OUT / "manifest.json"
+    attempt_path = codex_runner.DIAGNOSTIC_OUT / "simulation_attempt.json"
+    observation_complete = (
+        manifest_path.is_file() and attempt_path.is_file()
+        and load(attempt_path).get("status") == "COMPLETED"
+        and load(attempt_path).get("result_saved") is True
+    )
+    hypothesis_evaluation = experience.evaluate_revision_hypothesis(
+        parsed, events, observation_complete=observation_complete
+    )
     runtime_action_errors = summary.get("result", {}).get("deployment_errors") or []
     evidence = load(codex_runner.OUT / "llm_evidence_context.json")
     parent_plan = evidence.get("previous_plan_to_revise")
-    parent_plan_id = experience.extract_parent_plan_id(parent_plan) or "UNKNOWN_PARENT_PLAN"
+    parent_plan_id = experience.extract_operational_plan_id(parent_plan) or "UNKNOWN_PARENT_PLAN"
+    expected_protected_target_count = evaluation_gate["expected_protected_target_count"]
+    protected_result = {
+        "win": summary["result"]["win"],
+        "enemies_leaked": summary["result"].get("enemies_leaked"),
+        "protected_target_deaths": len(summary.get("protected_target_deaths") or []),
+        "protected_targets_reached": len(summary.get("protected_target_reached_events") or []),
+    }
+    scope = experience.objective_scope(
+        protected_result, expected_protected_target_count=expected_protected_target_count
+    )
     write_json(codex_runner.OUT / "revision_hypothesis_evaluation.json", hypothesis_evaluation)
     write_json(codex_runner.OUT / "simulation_gate.json", {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_SIMULATION_GATE",
         "status": "COMPLETED", "result_classification": summary["classification"],
         "faithful_certificate": summary["faithful_certificate"],
         "simulator_win": summary["result"]["win"],
-        "objective_scope": experience.objective_scope({
-            "win": summary["result"]["win"],
-            "enemies_leaked": summary["result"].get("enemies_leaked"),
-            "protected_target_deaths": len(summary.get("protected_target_deaths") or []),
-            "protected_targets_reached": len(summary.get("protected_target_reached_events") or []),
-        }),
+        "objective_scope": scope,
         "runtime_action_errors": runtime_action_errors,
         "targeting_variant_results": "NOT_EVALUATED_UNLESS_SEPARATELY_FROZEN",
         "faithful_certificate_status": summary["faithful_certificate"].get("status") if isinstance(summary.get("faithful_certificate"), dict) else "UNKNOWN",
@@ -745,16 +814,12 @@ def simulate() -> dict[str, Any]:
             ),
             "stage_id": STAGE_ID,
             "mechanics_version": ACTIVE_MECHANICS_VERSION,
-            "objective_scope": experience.objective_scope({
-                "win": summary["result"]["win"],
-                "enemies_leaked": summary["result"].get("enemies_leaked"),
-                "protected_target_deaths": len(summary.get("protected_target_deaths") or []),
-                "protected_targets_reached": len(summary.get("protected_target_reached_events") or []),
-            }),
+            "objective_scope": scope,
             "revision_hypothesis": parsed.get("revision_hypothesis") or {},
             "hypothesis_evaluation": hypothesis_evaluation,
             "plan_snapshot_sha256": sha256(codex_runner.DIAGNOSTIC_OUT / "plan_snapshot.json"),
             "action_snapshot_sha256": sha256(codex_runner.DIAGNOSTIC_OUT / "action_snapshot.json"),
+            "action_count": len(plan.get("action_timeline") or []) if isinstance(plan, dict) else None,
             "result": {
                 "win": summary["result"]["win"],
                 "enemies_killed": summary["result"].get("enemies_killed"),
@@ -793,6 +858,7 @@ def main() -> None:
     parser.add_argument("--experience-store")
     parser.add_argument("--branch-state")
     parser.add_argument("--authorization-config", default=str(AUTHORIZATION_CONFIG_PATH))
+    parser.add_argument("--simulation-budget-path", default=str(SIMULATION_BUDGET_PATH))
     arguments = parser.parse_args()
     configure(arguments)
     if arguments.phase == "session":

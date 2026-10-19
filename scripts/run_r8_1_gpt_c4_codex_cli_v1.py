@@ -134,6 +134,14 @@ def claim_cli_start(command: list[str]) -> dict[str, Any]:
     prompt_path = OUT / "codex_prompt.txt"
     prompt_sha256 = sha256(prompt_path) if prompt_path.is_file() else None
     authorization = validate_cli_authorization(AUTHORIZATION_CONFIG_PATH, command, prompt_sha256=prompt_sha256)
+    configured_authorization = validate_cli_authorization(AUTHORIZATION_CONFIG_PATH, command, prompt_sha256=prompt_sha256)
+    authorization["output_dir"] = (
+        str(OUT.resolve().relative_to(ROOT)) if OUT.resolve().is_relative_to(ROOT) else str(OUT.resolve())
+    )
+    actual_output = authorization["output_dir"]
+    output_prefix = configured_authorization.get("output_dir_prefix")
+    if output_prefix is not None and not actual_output.startswith(output_prefix.rstrip("/") + "/"):
+        raise RuntimeError(f"output directory does not match authorization prefix: {actual_output!r}")
     environment = codex_environment()
     record = {
         "schema_version": "R8_1_GPT_TACTICAL_CODEX_CLI_V1_PROCESS_ATTEMPT",
