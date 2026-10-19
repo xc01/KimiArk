@@ -220,3 +220,22 @@ simulations; their m23/m24 baselines remain the newest tactical evidence.
 The resulting m25 commit was also not pushable: SSH closed before key exchange.
 A verified incremental bundle based on `21f2914...` is saved in
 `output/r8_1_r8_7_batch_v1/KimiArk_m25_unpushed_21f2914_9f6992a_20261016004824.bundle`.
+
+## 2026-10-19 m25 R8-1 closes; R8-7 budget is exhausted
+
+CONFIRMED_FROM_SAVED_ARTIFACTS: R8-1 M25 V1 (`R8_1_LOWSTAR_PLAN_C7_M25_GPT_V1`)
+is a current-model simulator WIN at 56 kills, 0 leaks, 0 operator deaths, and
+life 5. The same frozen 22-action timeline also wins under both saved
+roadblock-targeting interpretations. This remains a conditional model result,
+not a faithful, broadly robust, or real-game claim.
+
+R8-7 used all eight authorized single-stage CLI starts. Attempts 04, 05, 07 and
+08 failed contract validation without simulation; attempt 06 passed static
+checks and simulated as a LOSS with 17 kills, 16 leaks, 10 operator deaths, one
+protected death, and one protected arrival. Its fatal chain is recorded in
+`docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json`: Ansel survived two
+artillery hits but died to the third at frame 2280; protected target #14 was
+restrained by roadblock #4, received officer attacks and two 950-damage artillery
+hits, then died at frame 3966. The scheduler was not running despite a stale
+WAITING state; reconcile now marks it STOPPED because the R8-7 stage budget is
+exhausted.

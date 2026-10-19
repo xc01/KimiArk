@@ -152,6 +152,22 @@ def build_static_feedback(revision_source: Path, static_summary_path: Path) -> d
     plans = structured.get("revised_operational_plans") or []
     candidate = plans[0] if len(plans) == 1 else {}
     static = load(static_summary_path)
+    if static.get("schema_version") == "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION":
+        return {
+            "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_SCHEMA_CONTRACT_FEEDBACK",
+            "source": str(static_summary_path),
+            "source_plan_id": candidate.get("operational_plan_id"),
+            "simulation_status": "NO_SIMULATION",
+            "errors": static.get("errors") or [],
+            "action_order_rule": "action_timeline must be nondecreasing by frame; same-frame actions retain their intended execution order",
+            "required_plan_sections": [
+                "deployment_positions_and_directions",
+                "formation_structure",
+                "pressure_window_responsibilities",
+                "skill_intents",
+                "mandatory_tactical_invariants",
+            ],
+        }
     deployment_checks = (static.get("checks") or {}).get("deployment") or []
     dp_ledger = static.get("dp_ledger") or {}
     ledger_entries = dp_ledger.get("entries") or []

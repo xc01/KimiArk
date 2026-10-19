@@ -61,6 +61,12 @@ def write_state(state: dict[str, Any]) -> None:
     os.replace(temporary, STATE_PATH)
 
 
+def log_event(message: str) -> None:
+    stamp = iso_local(local_now())
+    with LOG_PATH.open("a", encoding="utf-8") as handle:
+        handle.write(f"{stamp} {message}\n")
+
+
 def load_state() -> dict[str, Any]:
     return json.loads(STATE_PATH.read_text(encoding="utf-8"))
 
@@ -230,6 +236,7 @@ def scheduler_loop() -> None:
         state["scheduler_pid"] = os.getpid()
         state["last_wakeup_at_local"] = iso_local(local_now())
         write_state(state)
+        log_event(f"scheduler started pid={os.getpid()} next_run={state['next_run_local']}")
         stopping = False
 
         def request_stop(signum: int, frame: Any) -> None:
@@ -269,6 +276,7 @@ def scheduler_loop() -> None:
             state["starts_used"] = int(state.get("starts_used", 0)) + 1
             state["remaining_budget_after_started_attempt"] = MAX_NEW_CLI_STARTS - int(state["starts_used"])
             write_state(state)
+            log_event(f"attempt={attempt} start prior_cli={prior_cli_starts}")
             try:
                 record = run_attempt(state, attempt, prior_cli_starts)
             except Exception as exc:
@@ -295,6 +303,7 @@ def scheduler_loop() -> None:
             state["last_updated_local"] = iso_local(local_now())
             state["last_updated_utc"] = utc_now()
             write_state(state)
+            log_event(f"attempt={attempt} finished status={classification} details={json.dumps(details,ensure_ascii=False,sort_keys=True)} next_run={state.get('next_run_local')}")
 
         state = load_state()
         state["scheduler_stopped_at_local"] = iso_local(local_now())
@@ -329,9 +338,49 @@ def initialize_state(next_run: dt.datetime) -> None:
     write_state(state)
 
 
+def lock_is_held() -> bool:
+    with LOCK_PATH.open("a+", encoding="utf-8") as lock_handle:
+        try:
+            fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            return True
+        fcntl.flock(lock_handle.fileno(), fcntl.LOCK_UN)
+        return False
+
+
+def reconcile(stop_reason: str | None) -> dict[str, Any]:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    if not STATE_PATH.is_file():
+        return {"status": "NOT_INITIALIZED"}
+    state = load_state()
+    executor_alive = lock_is_held()
+    if executor_alive:
+        state["executor_alive"] = True
+        state["last_checked_local"] = iso_local(local_now())
+        state["last_checked_utc"] = utc_now()
+        write_state(state)
+        return {"status": state.get("status"), "executor_alive": True}
+    if state.get("status") not in {"COMPLETE", "STOPPED"}:
+        state["status"] = "INTERRUPTED" if not stop_reason else "STOPPED"
+        state["stop_reason"] = stop_reason or "EXECUTOR_NOT_RUNNING"
+        state["interrupted_at_local"] = iso_local(local_now())
+        state["interrupted_at_utc"] = utc_now()
+    state["executor_alive"] = False
+    state["last_checked_local"] = iso_local(local_now())
+    state["last_checked_utc"] = utc_now()
+    write_state(state)
+    return {
+        "status": state.get("status"),
+        "stop_reason": state.get("stop_reason"),
+        "executor_alive": False,
+        "state_file": str(STATE_PATH),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["start", "status", "stop"])
+    parser.add_argument("command", choices=["start", "status", "stop", "reconcile"])
+    parser.add_argument("--stop-reason")
     parser.add_argument("--wait-hours", type=float, default=5.0)
     arguments = parser.parse_args()
     STATE_DIR.mkdir(parents=True, exist_ok=True)
@@ -340,6 +389,9 @@ def main() -> None:
             print(json.dumps({"status": "NOT_INITIALIZED"}, sort_keys=True))
             return
         print(json.dumps(load_state(), ensure_ascii=False, indent=2, sort_keys=True))
+        return
+    if arguments.command == "reconcile":
+        print(json.dumps(reconcile(arguments.stop_reason), ensure_ascii=False, indent=2, sort_keys=True))
         return
     if arguments.command == "stop":
         if not PID_PATH.is_file():

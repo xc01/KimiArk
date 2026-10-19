@@ -1,0 +1,211 @@
+{
+  "schema_version": "M25_ATTEMPT04_08_RECONCILIATION_V1",
+  "generated_at_local": "2026-10-19T10:03:56+08:00",
+  "stage_budgets": {
+    "r8_1": {
+      "stage_id": "main_08-01",
+      "max_new_cli_starts": 8,
+      "used_stage_cli_starts": 2,
+      "remaining_stage_cli_starts": 6,
+      "non_stage_minimal_probe_counted_globally": 1,
+      "status": "COMPLETE_TWO_TARGETING_MODEL_WIN"
+    },
+    "r8_7": {
+      "stage_id": "main_08-07",
+      "max_new_cli_starts": 8,
+      "used_stage_cli_starts": 8,
+      "remaining_stage_cli_starts": 0,
+      "status": "BUDGET_EXHAUSTED"
+    },
+    "global_after_prior_46": {
+      "actual_cli_process_starts": 11,
+      "cumulative_after_last_start": 57,
+      "note": "One minimal probe plus 10 stage starts; prestart validation failures are not CLI starts."
+    }
+  },
+  "r8_1_result": {
+    "plan_id": "R8_1_LOWSTAR_PLAN_C7_M25_GPT_V1",
+    "first_pass_cli": "attempt_04_cli",
+    "result": {
+      "simulator_win": true,
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_WIN",
+      "enemies_killed": 56,
+      "enemies_leaked": 0,
+      "remaining_life": 5,
+      "operator_deaths": 0
+    },
+    "two_roadblock_targeting_replay": {
+      "same_action_timeline": true,
+      "action_count": 22,
+      "all_variants_win": true,
+      "variants": {
+        "A_NOT_ORDINARILY_TARGETABLE": {
+          "win": true,
+          "enemies_killed": 56,
+          "enemies_leaked": 0
+        },
+        "B_LOW_PRIORITY_NO_ENEMY_ONLY": {
+          "win": true,
+          "enemies_killed": 56,
+          "enemies_leaked": 0
+        }
+      },
+      "claim_boundary": "CONDITIONAL_MODEL_ROADBLOCK_TARGETING_REPLAY; not faithful, robust beyond two variants, or real-game evidence."
+    }
+  },
+  "r8_7_attempts": [
+    {
+      "attempt": 4,
+      "plan_id": "R8_7_GPT_M25_V2",
+      "process": {"started": true, "status": "COMPLETED", "exit_code": 0, "timed_out": false},
+      "validation": {"status": "FAIL", "simulated": false},
+      "violations": [
+        "schema: revised_operational_plans/0 requires deployment_positions_and_directions",
+        "schema: revised_operational_plans/0 requires formation_structure",
+        "schema: revised_operational_plans/0 requires pressure_window_responsibilities",
+        "schema: revised_operational_plans/0 requires skill_intents",
+        "schema: revised_operational_plans/0 requires mandatory_tactical_invariants",
+        "action[48] frame is out of order"
+      ],
+      "candidate_plan_id": "R8_7_GPT_M25_V2",
+      "action_count": 49
+    },
+    {
+      "attempt": 5,
+      "plan_id": "R8_7_GPT_M25_V3",
+      "process": {"started": true, "status": "COMPLETED", "exit_code": 0, "timed_out": false},
+      "validation": {"status": "FAIL", "simulated": false},
+      "violations": [
+        "schema: revised_operational_plans/0 requires formation_transitions",
+        "schema: revised_operational_plans/0 requires corridor_responsibilities",
+        "all 15 mandatory_tactical_invariants entries are strings, but schema requires objects"
+      ],
+      "candidate_plan_id": "R8_7_GPT_M25_V3",
+      "action_count": 39
+    },
+    {
+      "attempt": 6,
+      "plan_id": "R8_7_GPT_M25_V4",
+      "process": {"started": true, "status": "COMPLETED", "exit_code": 0, "timed_out": false},
+      "validation": {"status": "PASS", "static_conflict_count": 0, "simulated": true},
+      "simulation": {
+        "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+        "simulator_win": false,
+        "enemies_killed": 17,
+        "enemies_leaked": 16,
+        "operator_deaths": 10,
+        "protected_target_deaths": 1,
+        "protected_targets_reached": 1
+      }
+    },
+    {
+      "attempt": 7,
+      "plan_id": "R8_7_GPT_M25_V5",
+      "process": {"started": true, "status": "COMPLETED", "exit_code": 0, "timed_out": false},
+      "validation": {"status": "FAIL", "simulated": false},
+      "violations": [
+        "schema: revised_operational_plans/0 requires formation_structure",
+        "schema: revised_operational_plans/0 requires formation_transitions",
+        "schema: revised_operational_plans/0 requires corridor_responsibilities",
+        "schema: revised_operational_plans/0 requires pressure_window_responsibilities",
+        "schema: revised_operational_plans/0 requires skill_intents",
+        "schema: revised_operational_plans/0 requires mandatory_tactical_invariants"
+      ],
+      "candidate_plan_id": "R8_7_GPT_M25_V5",
+      "action_count": 52
+    },
+    {
+      "attempt": 8,
+      "plan_id": "R8_7_GPT_M25_V6",
+      "process": {"started": true, "status": "COMPLETED", "exit_code": 0, "timed_out": false},
+      "validation": {"status": "FAIL", "simulated": false},
+      "violations": [
+        "schema: root requires revised_stage_understanding",
+        "schema: revised_operational_plans/0 requires parent_hypothesis_id",
+        "schema: revised_operational_plans/0 requires tactical_thesis",
+        "schema: revised_operational_plans/0 requires selected_low_star_operator_ids",
+        "selected_low_star_operator_ids is empty or missing",
+        "parent_hypothesis_id does not reference revised_strategic_hypotheses"
+      ],
+      "candidate_plan_id": "R8_7_GPT_M25_V6",
+      "action_count": 44
+    }
+  ],
+  "attempt06_evidence": {
+    "plan_snapshot_sha256": "4cd09f1225128b3ab5f1343d895b1312e933d7880fb54f1facbbcb536e779e01",
+    "action_snapshot_sha256": "929f961fc825e739688ed7ccb1670ff698220b0bd6aff90f5ac23532ad4ab284",
+    "diagnostic_events_sha256": "9960ece660f8b73357b5a287a383e39892f1d6b7662d71842aee96e6e285a270",
+    "diagnostic_summary_sha256": "0b4ad3c503fcc798e450196ab6665c16ecb4db4d709a4c88343e91e788512358",
+    "committed_events_gz_sha256": "6fa462dde8ff1e62b489f7a4b51c123e75cf40e4e36aa9bcc2b8b35ae7a130c9",
+    "committed_summary_gz_sha256": "a86a7cc18e963b39278093f569fb3e292c32758b860e5e3f5e8b0ee60c9a3620",
+    "mechanics_version": "m23-behavioral-mechanics-v1",
+    "paths": {
+      "plan": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_06_diagnostic/plan_snapshot.json",
+      "actions": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_06_diagnostic/action_snapshot.json",
+      "events_gz": "docs/review/fc77177/m25_r8_7_attempt06_diagnostic_events.json.gz",
+      "summary_gz": "docs/review/fc77177/m25_r8_7_attempt06_diagnostic_summary.json.gz"
+    }
+  },
+  "attempt06_causal_feedback": {
+    "new_vs_old": {
+      "v13_m23_first_leak_frame": 1931,
+      "v4_first_leak_frame": 1282,
+      "v13_operator_deaths": 11,
+      "v4_operator_deaths": 10,
+      "v1_to_v4_improvement": "V4 moved the first leak later than M25 V1 (frame 941) and avoided the direct artillery death of protected target #3 at frame 5280.",
+      "v4_remaining_failure": "Protected target #14 was restrained at roadblock #4, accumulated officer damage, and died at frame 3966; the artillery at frames 3780 and 3930 struck the same civilian."
+    },
+    "operator_casualty_chain": [
+      {
+        "operator": "char_212_ansel",
+        "deploy_frame": 1320,
+        "first_artillery_hit": {"frame": 1980, "amount": 891, "locked_position": [5, 5]},
+        "second_artillery_hit": {"frame": 2130, "amount": 891, "locked_position": [5, 4]},
+        "deaths_after": {"frame": 2280, "amount": 891, "locked_position": [5, 4]},
+        "death_frame": 2280,
+        "healing_context": "Received 247 at 1320 and 99 at 1922, then self-healed 362 at 2008, 2094, 2180, and 2266; the third 891 artillery hit was fatal."
+      }
+    ],
+    "protected_target_chain": {
+      "target_id": "enemy_3001_upeopl#14",
+      "spawn_frame": 3030,
+      "route_id": "route-15",
+      "restrained_at_frame": 3251,
+      "restraint_device": "trap_020_roadblock#4",
+      "officer_hits": [
+        {"source": "enemy_1107_uoffcr#16", "frame": 3546, "amount": 280},
+        {"source": "enemy_1107_uoffcr#16", "frame": 3606, "amount": 280},
+        {"source": "enemy_1107_uoffcr#16", "frame": 3666, "amount": 280},
+        {"source": "enemy_1107_uoffcr#18", "frame": 3846, "amount": 280},
+        {"source": "enemy_1107_uoffcr#18", "frame": 3906, "amount": 280},
+        {"source": "enemy_1107_uoffcr#18", "frame": 3966, "amount": 280}
+      ],
+      "artillery_hits": [
+        {"frame": 3780, "amount": 950, "locked_position": [6.6, 6]},
+        {"frame": 3930, "amount": 950, "locked_position": [6.6, 6]}
+      ],
+      "death_frame": 3966,
+      "life_delta": -1
+    },
+    "protected_target_arrival": {
+      "target_id": "enemy_3001_upeopl#3",
+      "frame": 3947,
+      "route_id": "route-2"
+    },
+    "later_cascade": [
+      {"frame": 3957, "event_type": "ENEMY_LEAK", "source_id": "enemy_1107_uoffcr#13"},
+      {"frame": 4080, "event_type": "OPERATOR_DEATH", "source_id": "char_121_lava"},
+      {"frame": 4230, "event_type": "OPERATOR_DEATH", "source_id": "char_210_stward"},
+      {"frame": 4584, "event_type": "OPERATOR_DEATH", "source_id": "char_209_ardign"}
+    ],
+    "interpretation": "The opening had three artillery impacts in the Ansel position, while #14 was exposed to two overlapping pressure sources while restrained. The final loss is therefore a simultaneous protection/interception/clearance-structure problem, not a single DP arithmetic failure."
+  },
+  "scheduler_lifecycle": {
+    "executor_alive": false,
+    "status_after_reconcile": "STOPPED",
+    "stop_reason": "R8_7_SINGLE_STAGE_BUDGET_EXHAUSTED",
+    "previous_state_warning": "The old state said WAITING with next_run 2026-10-19T07:23:19+08:00, but the executor was gone; this has been corrected rather than treated as an active wait.",
+    "host_restart_command": "cd /home/bigdata/Desktop/arknights-auto-planner && nohup /usr/bin/python3 /home/bigdata/Desktop/arknights-auto-planner/scripts/schedule_kimiark_usage_retry_v1.py daemon >> /home/bigdata/Desktop/arknights-auto-planner/output/kimiark_usage_retry_scheduler/scheduler.nohup.log 2>&1 & echo $! > /home/bigdata/Desktop/arknights-auto-planner/output/kimiark_usage_retry_scheduler/scheduler.host.pid",
+    "restart_condition": "Only after preparing a new resume state and confirming an active per-stage CLI budget; do not restart for exhausted R8-7."
+  }
+}
