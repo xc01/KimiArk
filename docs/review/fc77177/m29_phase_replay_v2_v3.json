@@ -3,6 +3,10 @@
   "scope": "Offline replay of saved events only; no new model call and no new stage simulation.",
   "mechanics_version": "m23-behavioral-mechanics-v1",
   "claim_boundary": "Direct observations are saved-event facts. Causal interpretation and phase responsibility attribution are explained inferences; unknown client target priority and continuous-frame timing remain UNKNOWN.",
+  "operator_name_corrections": [
+    {"operator_id": "char_240_wyvern", "name": "香草", "evidence": "docs/review/48fa985/normal_debug_1_to_3_star_roster.json"},
+    {"operator_id": "char_192_falco", "name": "翎羽", "evidence": "docs/review/48fa985/normal_debug_1_to_3_star_roster.json"}
+  ],
   "plans": [
     {
       "plan_id": "R8_7_GPT_M29_V2",
@@ -34,16 +38,16 @@
         {
           "phase_id": "EASTERN_RELEASE",
           "declared_completion": "#3 is destroyed before frame 2610 and #4 before frame 3270; both medics remain active.",
-          "observation": "CLEARANCE_PASS_MEDIC_FAIL",
+          "observation": "ROADBLOCK_3_NOT_DESTROYED_MEDIC_FAIL",
           "direct_evidence": [
-            {"event_type": "DEVICE_DESTROYED", "frame": 1860, "source_id": "char_124_kroos", "target_id": "trap_020_roadblock#3"},
+            {"event_type": "DEVICE_DAMAGE", "frame": 1860, "source_id": "char_124_kroos", "target_id": "trap_020_roadblock#3", "details": {"amount": 175.0, "kind": "physical"}},
             {"event_type": "OPERATOR_DEATH", "frame": 1380, "source_id": "char_285_medic2", "target_id": null},
             {"event_type": "DEVICE_DESTROYED", "frame": 2970, "source_id": "char_192_falco", "target_id": "trap_020_roadblock#4"},
             {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel", "target_id": null},
             {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "target_id": null}
           ],
-          "interpretation": "Both named eastern restraints were cleared inside the declared windows, but the completion sentence's 'both medics remain active' was false: Lancet had died and Ansel died by frame 3180.",
-          "unknown": "The precise pre-1380 artillery targeting rule and whether its first shot can be redirected are UNKNOWN from this saved event set."
+          "interpretation": "Roadblock #3 was not destroyed before its declared deadline: Kroos damaged it repeatedly through frame 2580 but no DEVICE_DESTROYED event exists. Roadblock #4 was cleared inside its window. The completion sentence's 'both medics remain active' was also false: Lancet had died and Ansel died by frame 3180.",
+          "unknown": "The exact roadblock #3 HP threshold and whether Kroos could have redirected damage in time are UNKNOWN from this saved event set."
         },
         {
           "phase_id": "ARTILLERY",
@@ -51,7 +55,7 @@
           "observation": "FAIL",
           "direct_evidence": [
             {"event_type": "DAMAGE", "frame": 2610, "source_id": "char_210_stward", "target_id": "enemy_1112_emppnt#0", "amount": 249.1},
-            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3030, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
+            {"event_type": "DAMAGE", "frame": 3030, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
             {"event_type": "ENEMY_ABILITY_HIT", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891.0},
             {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel", "target_id": null},
             {"event_type": "ENEMY_ABILITY_HIT", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "char_210_stward", "amount": 910.0},

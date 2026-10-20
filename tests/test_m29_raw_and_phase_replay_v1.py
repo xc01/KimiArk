@@ -11,6 +11,12 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 REPLAY = ROOT / "docs/review/fc77177/m29_phase_replay_v2_v3.json"
 MANIFEST = ROOT / "docs/review/fc77177/m29_iteration_raw_manifest_v1.json"
+BUDGET = ROOT / "docs/review/fc77177/m29_simulation_budget_v1.json"
+V4_FEEDBACK = ROOT / "docs/review/fc77177/m29_v4_causal_feedback_v1.json"
+V4_EVENTS = ROOT / (
+    "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/"
+    "m29_v4_evaluation_v1/diagnostic/diagnostic_events.json.gz"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -80,7 +86,7 @@ def test_raw_manifest_hashes_match_compressed_and_available_files() -> None:
     assert manifest["schema_version"] == "KIMIARK_M29_RAW_MATERIAL_MANIFEST_V2"
     checked = 0
     for row in manifest["files"]:
-        compressed = ROOT / row.get("compressed_path", "")
+        compressed = ROOT / (row.get("compressed_path") or "")
         if compressed.is_file():
             assert _sha256(compressed) == row["compressed_sha256"]
             digest = hashlib.sha256()
@@ -95,3 +101,70 @@ def test_raw_manifest_hashes_match_compressed_and_available_files() -> None:
                 assert _sha256(original) == row["sha256"]
                 checked += 1
     assert checked >= 100
+
+
+def test_phase_replay_evidence_corrections_are_bound_to_saved_events() -> None:
+    replay = json.loads(REPLAY.read_text(encoding="utf-8"))
+    names = {row["operator_id"]: row["name"] for row in replay["operator_name_corrections"]}
+    assert names == {"char_240_wyvern": "香草", "char_192_falco": "翎羽"}
+
+    v2 = next(row for row in replay["plans"] if row["plan_id"] == "R8_7_GPT_M29_V2")
+    eastern = next(phase for phase in v2["phase_replay"] if phase["phase_id"] == "EASTERN_RELEASE")
+    assert eastern["observation"] == "ROADBLOCK_3_NOT_DESTROYED_MEDIC_FAIL"
+    assert any(
+        evidence["event_type"] == "DEVICE_DAMAGE"
+        and evidence["frame"] == 1860
+        and evidence["target_id"] == "trap_020_roadblock#3"
+        for evidence in eastern["direct_evidence"]
+    )
+    assert all(
+        not (evidence["event_type"] == "DEVICE_DESTROYED" and evidence["frame"] == 1860)
+        for evidence in eastern["direct_evidence"]
+    )
+
+    artillery = next(phase for phase in v2["phase_replay"] if phase["phase_id"] == "ARTILLERY")
+    civilian_hit = next(
+        evidence
+        for evidence in artillery["direct_evidence"]
+        if evidence.get("frame") == 3030 and evidence.get("target_id") == "enemy_3001_upeopl#3"
+    )
+    assert civilian_hit["event_type"] == "DAMAGE"
+
+    events_path = ROOT / v2["source_events"]
+    with gzip.open(events_path.with_suffix(".json.gz"), "rt", encoding="utf-8") as handle:
+        events = json.load(handle)["events"]
+    assert not any(
+        event["event_type"] == "DEVICE_DESTROYED"
+        and event["frame"] == 1860
+        and event.get("target_id") == "trap_020_roadblock#3"
+        for event in events
+    )
+    assert any(
+        event["event_type"] == "DAMAGE"
+        and event["frame"] == 3030
+        and event.get("source_id") == "enemy_1112_emppnt#0"
+        and event.get("target_id") == "enemy_3001_upeopl#3"
+        for event in events
+    )
+
+
+def test_v4_feedback_tracks_completed_loss_and_key_saved_events() -> None:
+    assert json.loads(BUDGET.read_text(encoding="utf-8"))["started_stage_simulations"] == 3
+    feedback = json.loads(V4_FEEDBACK.read_text(encoding="utf-8"))
+    assert feedback["validation"]["static_conflicts"] == 0
+    assert feedback["validation"]["battle_classification"] == "LEGAL_BATTLE_LOSS"
+    assert feedback["result"]["simulator_win"] is False
+    assert feedback["result"]["enemies_leaked"] == 12
+    assert feedback["result"]["operator_deaths"] == 10
+    assert feedback["predicted_enemy_death"]["status"] == "EVENT_OBSERVED"
+
+    with gzip.open(V4_EVENTS, "rt", encoding="utf-8") as handle:
+        events = json.load(handle)["events"]
+    expected = [
+        {"event_type": "ENEMY_DEATH", "frame": 1080, "source_id": "char_124_kroos", "target_id": "enemy_1108_uterer#4"},
+        {"event_type": "ENEMY_DEATH", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+        {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": None},
+        {"event_type": "BLOCK", "frame": 3620, "source_id": "trap_020_roadblock#2", "target_id": "enemy_3001_upeopl#14"},
+        {"event_type": "PROTECTED_TARGET_REACHED", "frame": 8774, "source_id": "enemy_3001_upeopl#14", "target_id": None},
+    ]
+    assert all(_has_event(events, item) for item in expected)
