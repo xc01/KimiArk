@@ -759,6 +759,17 @@ def static_check() -> dict[str, Any]:
     return result
 
 
+def load_or_init_branch_state(path: Path) -> dict[str, Any]:
+    if path.is_file():
+        return load(path)
+    return {
+        "schema_version": experience.BRANCH_SCHEMA_VERSION,
+        "stage_id": STAGE_ID,
+        "frozen_baselines": {},
+        "candidates": [],
+    }
+
+
 def simulate() -> dict[str, Any]:
     from run_gpt_tactical_stage_diagnostic_v1 import run_full_diagnostic
 
@@ -823,7 +834,7 @@ def simulate() -> dict[str, Any]:
     })
     if BRANCH_STATE_PATH is not None:
         branch_path = ROOT / BRANCH_STATE_PATH
-        branch_state = experience.update_branch_state(load(branch_path), {
+        branch_state = experience.update_branch_state(load_or_init_branch_state(branch_path), {
             "candidate_id": PLAN_ID,
             "parent_plan_id": parent_plan_id,
             "operational_plan_id": PLAN_ID,

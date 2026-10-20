@@ -1,0 +1,32 @@
+{
+  "schema_version": "KIMIARK_M29_V4_NEXT_REVISION_FEEDBACK_COMPACT_V1",
+  "source_plan_id": "R8_7_GPT_M29_V4",
+  "battle_result": {"simulator_win": false, "classification": "LEGAL_BATTLE_LOSS", "enemies_killed": 21, "enemies_leaked": 12, "operator_deaths": 10, "remaining_life": -10, "first_leak_frame": 5235},
+  "full_feedback_path": "docs/review/fc77177/m29_v4_causal_feedback_v1.json",
+  "mechanics_support": {
+    "ordinary_operators_do_not_attack_or_block_neutral_civilians": true,
+    "roadblock_release_requires_device_destruction": true,
+    "operator_death_recorded_separately": true
+  },
+  "confirmed_facts": [
+    {"event_type": "ENEMY_DEATH", "frame": 1080, "source_id": "char_124_kroos", "target_id": "enemy_1108_uterer#4", "meaning": "Kroos-supported upper bridge worked for its declared local target."},
+    {"event_type": "HEAL", "frame": 1320, "source_id": "char_212_ansel", "target_id": "char_123_fang", "amount": 362.0, "meaning": "Ansel deployment and actual treatment occurred."},
+    {"event_type": "HEAL", "frame": 1680, "source_id": "char_120_hibisc", "target_id": "char_240_wyvern", "amount": 372.6, "meaning": "Hibiscus deployment and actual treatment occurred; Ansel and Hibiscus were both alive at 1680."},
+    {"event_type": "OPERATOR_DEATH", "frame": 630, "source_id": "char_285_medic2", "meaning": "Lancet's early lower medical support was interrupted after a 973 physical artillery hit."},
+    {"event_type": "OPERATOR_DEATH", "frame": 2580, "source_id": "char_120_hibisc", "meaning": "The regular-medic chain lost Hibiscus."},
+    {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "meaning": "Artillery damage responsibility and surrounding survival failed."},
+    {"meaning": "Roadblock #3 was attacked repeatedly but never destroyed; DAMAGE is not clearance.", "roadblock_id": "trap_020_roadblock#3"},
+    {"event_type": "ENEMY_DEATH", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "meaning": "Civilian #3 received earlier officer damage, then three 950 physical artillery hits, and died."},
+    {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "meaning": "Artillery survived and leaked."},
+    {"event_type": "PROTECTED_TARGET_REACHED", "frame": 8774, "source_id": "enemy_3001_upeopl#14", "meaning": "A local late success, not complete protected-target acceptance."},
+    {"meaning": "14 later commands failed with 'operator is not deployed', so downstream dependencies became invalid."}
+  ],
+  "required_revision_questions": [
+    "Which V4 failure hypothesis changes?",
+    "Which output, clearance, artillery, medical and survival responsibilities must hold simultaneously?",
+    "Why will key operators survive to the end of each responsibility window?",
+    "How do actual device destruction and protected-target exposure connect?",
+    "What is the first observable prediction, and what does it not prove?"
+  ],
+  "boundary": "Candidate-specific current-model evidence. Do not infer universal deadlines, strategic infeasibility, robustness or real-game behavior."
+}

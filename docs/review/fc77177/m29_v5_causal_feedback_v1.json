@@ -1,0 +1,191 @@
+{
+  "schema_version": "KIMIARK_M29_V5_CAUSAL_FEEDBACK_V1",
+  "scope": "One saved current-model diagnostic run. Direct observations are saved-event facts; causal chain statements are interpretations. No faithful, robust or real-game claim.",
+  "plan_id": "R8_7_GPT_M29_V5",
+  "parent_plan_id": "R8_7_GPT_M29_V4",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "source": {
+    "attempt": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_09_cli",
+    "diagnostic": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_09_diagnostic",
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_09_diagnostic/diagnostic_events.json.gz",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_09_diagnostic/diagnostic_summary.json.gz"
+  },
+  "validation": {
+    "schema_contract_lineage": "PASS",
+    "static_classification": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+    "static_conflicts": 0,
+    "simulation_status": "COMPLETED",
+    "battle_classification": "LEGAL_BATTLE_LOSS"
+  },
+  "result": {
+    "simulator_win": false,
+    "perfect_project_win": false,
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_deaths": 9,
+    "remaining_life": -8,
+    "final_dp": 99,
+    "score": -700,
+    "protected_target_deaths": 2,
+    "protected_target_arrivals": 0,
+    "remaining_hostiles_at_run_end": 0,
+    "first_leak_frame": 5319,
+    "first_leak_enemy": "enemy_1110_uamord#21",
+    "first_objective_failure_frame": 5385,
+    "run_end_time": 301.0
+  },
+  "hypothesis_comparison": {
+    "v4_failure_addressed": {
+      "roadblock_3_cleared": true,
+      "evidence": {"event_type": "DEVICE_DESTROYED", "frame": 1815, "source_id": "char_208_melan", "target_id": "trap_020_roadblock#3"},
+      "regular_medics_established": true,
+      "evidence": [
+        {"event_type": "DEPLOY", "frame": 1680, "source_id": "char_212_ansel"},
+        {"event_type": "HEAL", "frame": 1680, "source_id": "char_212_ansel", "target_id": "char_240_wyvern", "amount": 362.0},
+        {"event_type": "DEPLOY", "frame": 2010, "source_id": "char_120_hibisc"},
+        {"event_type": "HEAL", "frame": 2010, "source_id": "char_120_hibisc", "target_id": "char_240_wyvern", "amount": 372.6}
+      ]
+    },
+    "new_or_repeated_failure": "The artillery-death gate failed. Steward and Durin dealt recorded arts damage but did not kill it; artillery later killed #14 and #3 and leaked at 5759. The western/lower release therefore happened after protected targets were lost.",
+    "result_tradeoff": "V5 improved kills and leaks versus V4 and cleared roadblock #3, but lost both protected targets. These are not comparable as unique best; project perfect acceptance failed for both."
+  },
+  "predicted_enemy_death": {
+    "expected": {"event_type": "ENEMY_DEATH", "target_id": "enemy_1108_uterer#4", "earliest_frame": 900, "latest_frame": 1410, "source_id": "char_208_melan"},
+    "status": "EVENT_OBSERVED",
+    "frame": 1095,
+    "source_id": "char_208_melan",
+    "target_id": "enemy_1108_uterer#4",
+    "meaning": "The declared local opening prediction occurred. It does not prove device clearance, artillery death, medical persistence or complete protection."
+  },
+  "phase_replay": [
+    {
+      "phase_id": "P1",
+      "status": "PASS_LOCAL_ONLY",
+      "observations": [
+        {"event_type": "DEPLOY", "frame": 0, "source_id": "char_123_fang"},
+        {"event_type": "DEPLOY", "frame": 330, "source_id": "char_240_wyvern"},
+        {"event_type": "DEPLOY", "frame": 420, "source_id": "char_285_medic2"},
+        {"event_type": "HEAL", "frame": 472, "source_id": "char_285_medic2", "target_id": "char_123_fang", "amount": 70.0},
+        {"event_type": "DEPLOY", "frame": 690, "source_id": "char_208_melan"},
+        {"event_type": "DEPLOY", "frame": 840, "source_id": "char_192_falco"},
+        {"event_type": "DEPLOY", "frame": 1680, "source_id": "char_212_ansel"},
+        {"event_type": "HEAL", "frame": 1680, "source_id": "char_212_ansel", "target_id": "char_240_wyvern", "amount": 362.0},
+        {"event_type": "ENEMY_DEATH", "frame": 1095, "source_id": "char_208_melan", "target_id": "enemy_1108_uterer#4"}
+      ],
+      "direct_conclusion": "The local kill prediction and initial central healing occurred. No opening enemy leaked in the recorded run."
+    },
+    {
+      "phase_id": "P2",
+      "status": "FAILED",
+      "observations": [
+        {"event_type": "DEVICE_DESTROYED", "frame": 1815, "source_id": "char_208_melan", "target_id": "trap_020_roadblock#3"},
+        {"event_type": "DEPLOY", "frame": 2010, "source_id": "char_120_hibisc"},
+        {"event_type": "HEAL", "frame": 2010, "source_id": "char_120_hibisc", "target_id": "char_240_wyvern", "amount": 372.6},
+        {"event_type": "ENEMY_ABILITY_HIT", "frame": 1980, "source_id": "enemy_1112_emppnt#0", "target_id": "char_285_medic2", "amount": 973.0},
+        {"event_type": "OPERATOR_DEATH", "frame": 1980, "source_id": "char_285_medic2"},
+        {"event_type": "ENEMY_ABILITY_HIT", "frame": 1980, "source_id": "enemy_1112_emppnt#0", "target_id": "char_192_falco", "amount": 721.0},
+        {"event_type": "OPERATOR_DEATH", "frame": 1980, "source_id": "char_192_falco"},
+        {"event_type": "BLOCK", "frame": 3251, "source_id": "trap_020_roadblock#4", "target_id": "enemy_3001_upeopl#14"}
+      ],
+      "direct_conclusion": "Roadblock #3 was destroyed and both regular medics delivered treatment, but the artillery salvo killed Lancet and Plume at 1980. Roadblock #4 was never destroyed; #14 became restrained there at 3251.",
+      "interpretation": "The plan's simultaneous outer survival, eastern clearance and medical handoff failed before Plume could complete #4."
+    },
+    {
+      "phase_id": "P3",
+      "status": "FAILED",
+      "observations": [
+        {"event_type": "DAMAGE", "frame": 2281, "source_id": "char_210_stward", "target_id": "enemy_1112_emppnt#0", "amount": 249.1},
+        {"event_type": "DAMAGE", "frame": 3522, "source_id": "char_501_durin", "target_id": "enemy_1112_emppnt#0", "amount": 170.0},
+        {"event_type": "ENEMY_ABILITY_HIT", "frame": 3030, "source_id": "enemy_1112_emppnt#0", "target_id": "char_210_stward", "amount": 910.0},
+        {"event_type": "ENEMY_ABILITY_HIT", "frame": 3030, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891.0},
+        {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel"},
+        {"event_type": "OPERATOR_DEATH", "frame": 3480, "source_id": "char_210_stward"},
+        {"event_type": "OPERATOR_DEATH", "frame": 3780, "source_id": "char_120_hibisc"}
+      ],
+      "direct_conclusion": "The required artillery death before 4800 did not occur. Steward and Durin supplied sustained arts damage, but artillery remained alive and killed the core at 3180/3480/3780.",
+      "interpretation": "Damage throughput and survival were not jointly sufficient. Repeated medical coverage changed the failure frame but did not remove the artillery threat."
+    },
+    {
+      "phase_id": "P4",
+      "status": "FAILED",
+      "observations": [
+        {"event_type": "DAMAGE", "frame": 3546, "source_id": "enemy_1107_uoffcr#16", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+        {"event_type": "DAMAGE", "frame": 3606, "source_id": "enemy_1107_uoffcr#16", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+        {"event_type": "DAMAGE", "frame": 3630, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+        {"event_type": "DAMAGE", "frame": 3666, "source_id": "enemy_1107_uoffcr#16", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+        {"event_type": "DAMAGE", "frame": 3780, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+        {"event_type": "DAMAGE", "frame": 3846, "source_id": "enemy_1107_uoffcr#18", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+        {"event_type": "DAMAGE", "frame": 3906, "source_id": "enemy_1107_uoffcr#18", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+        {"event_type": "DAMAGE", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+        {"event_type": "ENEMY_DEATH", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14"}
+      ],
+      "direct_conclusion": "#14 was restrained at roadblock #4, received officer damage at 3546/3606/3666/3846/3906 and artillery at 3630/3780/3930, then died at 3930. The western upper release phase never established its safe precondition.",
+      "interpretation": "Last hit was artillery, but officer pressure and unresolved roadblock #4 formed the earlier exposure chain."
+    },
+    {
+      "phase_id": "P5",
+      "status": "FAILED",
+      "observations": [
+        {"event_type": "BLOCK", "frame": 2184, "source_id": "trap_020_roadblock#1", "target_id": "enemy_3001_upeopl#3"},
+        {"event_type": "DAMAGE", "frame": 5130, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
+        {"event_type": "DAMAGE", "frame": 5280, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
+        {"event_type": "DAMAGE", "frame": 5430, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
+        {"event_type": "ENEMY_DEATH", "frame": 5430, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+        {"event_type": "DEVICE_DESTROYED", "frame": 8388, "source_id": "char_501_durin", "target_id": "trap_020_roadblock#2"},
+        {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0"},
+        {"event_type": "OBJECTIVE_FAILURE", "frame": 6996, "details": {"reason": "ENEMY_LEAK", "remaining_life": -8}}
+      ],
+      "direct_conclusion": "#3 was restrained again by roadblock #1, received three 950 physical artillery hits, and died at 5430. No protected target arrived. Roadblock #2 was destroyed at 8388 after #14 was already dead. Artillery leaked at 5759; nine total leaks made perfect acceptance impossible.",
+      "interpretation": "Terminal release was disconnected from the earlier eastern clearance chain. Clearing roadblock #3 did not protect #3 through its next restraint or the surviving artillery."
+    }
+  ],
+  "operator_deaths": [
+    {"frame": 1980, "operator_id": "char_285_medic2", "context": "Artillery hit 973"},
+    {"frame": 1980, "operator_id": "char_192_falco", "context": "Artillery hit 721"},
+    {"frame": 3180, "operator_id": "char_212_ansel", "context": "Artillery pressure"},
+    {"frame": 3480, "operator_id": "char_210_stward", "context": "Artillery hit 910"},
+    {"frame": 3780, "operator_id": "char_120_hibisc", "context": "Artillery pressure"},
+    {"frame": 4920, "operator_id": "char_284_spot", "context": "Central collapse"},
+    {"frame": 4986, "operator_id": "char_283_midn", "context": "Central collapse"},
+    {"frame": 5130, "operator_id": "char_286_cast3", "context": "Artillery hit 901"},
+    {"frame": 6470, "operator_id": "char_121_lava", "context": "Late central pressure"}
+  ],
+  "failed_commands": [
+    {"time": 73.0, "operator_id": "char_192_falco", "reason": "operator is not deployed"},
+    {"time": 79.0, "operator_id": "char_192_falco", "reason": "operator is not deployed"},
+    {"time": 103.0, "operator_id": "char_285_medic2", "reason": "operator is not deployed"},
+    {"time": 141.0, "operator_id": "char_212_ansel", "reason": "operator is not deployed"},
+    {"time": 156.0, "operator_id": "char_120_hibisc", "reason": "operator is not deployed"},
+    {"time": 160.0, "operator_id": "char_210_stward", "reason": "operator is not deployed"},
+    {"time": 201.0, "operator_id": "char_212_ansel", "reason": "operator is not deployed"},
+    {"time": 206.0, "operator_id": "char_120_hibisc", "reason": "operator is not deployed"},
+    {"time": 230.0, "operator_id": "char_121_lava", "reason": "operator is not deployed"},
+    {"time": 230.0, "operator_id": "char_286_cast3", "reason": "operator is not deployed"},
+    {"time": 256.0, "operator_id": "char_120_hibisc", "reason": "operator is not deployed"},
+    {"time": 260.0, "operator_id": "char_283_midn", "reason": "operator is not deployed"},
+    {"time": 261.0, "operator_id": "char_212_ansel", "reason": "operator is not deployed"},
+    {"time": 290.0, "operator_id": "char_121_lava", "reason": "operator is not deployed"}
+  ],
+  "next_revision_input": {
+    "confirmed_successes": [
+      "Melantha killed the predicted upper runner at 1095.",
+      "Roadblock #3 was actually destroyed at 1815.",
+      "Both regular medics established and delivered treatment.",
+      "Kills rose to 24 and leaks fell to 9 relative to V4."
+    ],
+    "confirmed_failures": [
+      "Artillery was not killed and leaked at 5759.",
+      "Roadblock #4 was never destroyed; #14 was restrained and died at 3930.",
+      "#3 was restrained by roadblock #1 and died at 5430 after three artillery hits.",
+      "No protected target reached its objective.",
+      "Fourteen later commands targeted operators that were not deployed."
+    ],
+    "questions_for_gpt": [
+      "How should artillery death and protected-route clearance be made concurrent rather than gated behind central survival?",
+      "How should #3's roadblock #1 exposure and #14's roadblock #4 exposure be separated from officer and artillery windows?",
+      "How should the command timeline stop depending on operators that have already died or were never deployed?",
+      "Which structure can retain V5's kill/leak gain without sacrificing both protected targets?"
+    ],
+    "boundary": "Candidate-specific current-model facts. They do not establish universal deadlines, strategic infeasibility, robustness or real-game behavior."
+  }
+}

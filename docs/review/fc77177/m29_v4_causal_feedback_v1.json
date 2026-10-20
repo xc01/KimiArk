@@ -51,6 +51,24 @@
     "source_id": "char_124_kroos",
     "details": {"kill_counted": true, "life_delta": 0}
   },
+  "medical_support_replay": {
+    "deployment_established": [
+      {"operator_id": "char_212_ansel", "frame": 1320, "direction_source": "FROZEN_ACTION", "direction": "RIGHT", "tile_row_col": [2, 5]},
+      {"operator_id": "char_120_hibisc", "frame": 1680, "direction_source": "FROZEN_ACTION", "direction": "DOWN", "tile_row_col": [5, 6]}
+    ],
+    "deployment_direct_observation": [
+      {"event_type": "DEPLOY", "frame": 1320, "source_id": "char_212_ansel", "direction_observation": "NOT_RECORDED"},
+      {"event_type": "DEPLOY", "frame": 1680, "source_id": "char_120_hibisc", "direction_observation": "NOT_RECORDED"}
+    ],
+    "actual_treatment": [
+      {"event_type": "HEAL", "frame": 1320, "source_id": "char_212_ansel", "target_id": "char_123_fang", "details": {"amount": 362.0}},
+      {"event_type": "HEAL", "frame": 1680, "source_id": "char_120_hibisc", "target_id": "char_240_wyvern", "details": {"amount": 372.6}}
+    ],
+    "status_at_1680": "BOTH_ANSEL_AND_HIBISCUS_ALIVE_AND_HEALING",
+    "throughput_survival_conclusion": "Range coverage and treatment occurred, but measured throughput did not preserve Hibiscus through frame 2580 or Steward through frame 3180. This does not prove Ansel and Hibiscus lacked initial range coverage; it proves combined treatment plus survival was insufficient for the later artillery window.",
+    "interrupted_early_support": {"operator_id": "char_285_medic2", "last_deploy_or_support_frame": 622, "death_frame": 630, "fatal_hit": {"event_type": "ENEMY_ABILITY_HIT", "frame": 630, "source_id": "enemy_1112_emppnt#0", "amount": 973.0}},
+    "unknown": "Sustained coverage adequacy outside observed heal events and whether a different support structure could preserve both responsibilities are UNKNOWN."
+  },
   "phase_replay": [
     {
       "phase_id": "P1_OPENING",
@@ -69,8 +87,8 @@
         {"event_type": "DEPLOY", "frame": 1680, "source_id": "char_120_hibisc", "details": {"tile": "6,5", "direction": "UP", "legal": true}},
         {"event_type": "ENEMY_DEATH", "frame": 1080, "source_id": "char_124_kroos", "target_id": "enemy_1108_uterer#4"}
       ],
-      "direct_conclusion": "Hibiscus did deploy at frame 1680 (second 56), but Lancet had already died at frame 630. Therefore the gate's two-medical and established-support condition was not met even though the deployment frame was reached. Kroos killed expected target #4 inside 900-1260.",
-      "interpretation": "The upper bridge achieved its immediate target, but the early medical premise failed at frame 630. The loss of Lancet made the later 'two medic' structure incomplete before Hibiscus arrived.",
+      "direct_conclusion": "Ansel deployed at 1320 and Hibiscus at 1680; both were alive and healing at 1680. Lancet's frame-630 death did interrupt its early lower-support responsibility. Kroos killed expected target #4 inside 900-1260. Thus the phase gate failed on one member's survival/handoff, not on whether the two named regular medics established deployment and initial treatment.",
+      "interpretation": "The upper bridge achieved its immediate target. Early medical support was established at two levels, but one lower-support member was lost; later throughput and survival still failed under artillery pressure.",
       "unknown": "Whether Hibiscus's same-frame arrival would have been accepted as completing the deployment gate in isolation is a plan-semantic interpretation; the two-live-medics condition clearly failed from the saved events."
     },
     {

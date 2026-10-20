@@ -1,0 +1,269 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M29_V5",
+      "parent_hypothesis_id": "R8-7-M29-H5",
+      "tactical_thesis": "Replace the fragile outer bridges with Melantha and Plume, move Lancet into central healing coverage, and establish mutually covered medics before eastern artillery exposure. Steward supplies sustained artillery damage; Durin adds damage during its upper eastern stop. Keep western restraints until artillery destruction is recorded, then clear them without removing central defense. Device destruction, interceptor survival and artillery destruction are explicit handoff prerequisites, not assumed consequences of scheduled damage.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_240_wyvern",
+        "char_285_medic2",
+        "char_208_melan",
+        "char_192_falco",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_209_ardign",
+        "char_122_beagle",
+        "char_501_durin",
+        "char_283_midn",
+        "char_284_spot",
+        "char_121_lava",
+        "char_286_cast3",
+        "char_500_noirc"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"UP","role":"Opening upper central interception and mutual vanguard damage."},
+        {"operator_id":"char_240_wyvern","tile":[4,5],"direction":"DOWN","role":"Opening lower central interception, mutual damage and conditional DP."},
+        {"operator_id":"char_285_medic2","tile":[5,5],"direction":"DOWN","role":"Opening healing covering both central positions."},
+        {"operator_id":"char_208_melan","tile":[1,5],"direction":"RIGHT","role":"Upper outer runner and officer interception; eastern upper restraint damage."},
+        {"operator_id":"char_192_falco","tile":[6,5],"direction":"RIGHT","role":"Lower outer interception and eastern lower restraint damage."},
+        {"operator_id":"char_210_stward","tile":[2,7],"direction":"UP","role":"Sustained damage across the eastern artillery vertical."},
+        {"operator_id":"char_212_ansel","tile":[2,6],"direction":"UP","role":"Heal both central positions, both artillery casters and Hibiscus."},
+        {"operator_id":"char_120_hibisc","tile":[5,6],"direction":"DOWN","role":"Heal both central positions, both artillery casters and Ansel."},
+        {"operator_id":"char_209_ardign","tile":[6,5],"direction":"RIGHT","role":"Replace Plume with three-block lower outer retention; ordinary attacks only."},
+        {"operator_id":"char_122_beagle","tile":[1,5],"direction":"RIGHT","role":"Replace Melantha; absorb paired upper officers and artillery exposure."},
+        {"operator_id":"char_501_durin","tile":[5,5],"direction":"RIGHT","role":"Supplement artillery damage during its upper eastern stop; assist lower central clearance."},
+        {"operator_id":"char_283_midn","tile":[4,5],"direction":"DOWN","role":"Lower central interception, cross-lane assistance and scheduled arts damage."},
+        {"operator_id":"char_284_spot","tile":[3,5],"direction":"RIGHT","role":"Three-block upper central retention; ordinary attacks only."},
+        {"operator_id":"char_121_lava","tile":[5,5],"direction":"DOWN","role":"Post-artillery single-target arts support covering both central positions."},
+        {"operator_id":"char_286_cast3","tile":[1,3],"direction":"LEFT","role":"Post-artillery western upper restraint clearance."},
+        {"operator_id":"char_500_noirc","tile":[1,5],"direction":"RIGHT","role":"Fresh upper outer defender for the final three officers."},
+        {"operator_id":"char_501_durin","tile":[5,2],"direction":"UP","role":"Final western lower restraint clearance after redeployment cooldown."}
+      ],
+      "formation_structure": {
+        "opening": "Fang and Vanilla face across adjacent central lanes. Lancet faces downward from [5,5], covering both. Melantha and Plume supply substantially stronger independent opening duels than the former temporary defenders.",
+        "medical": "Ansel at [2,6] UP and Hibiscus at [5,6] DOWN share the rectangle spanning rows 2-5 and columns 5-7. Each can heal the other, Steward, the first Durin position and both central blockers. Their assigned baseline coverage does not include the outer blockers.",
+        "artillery": "Steward covers the eastern vertical from [2,7] UP. Durin at [5,5] RIGHT adds a separate damage position during the stop at [5,7]. Neither highest-defense targeting nor prescribed target ordering is assumed.",
+        "outer": "Melantha hands upper interception to Beagle; Plume hands lower interception to Cardigan. After paired upper officers are cleared, Noir Corne replaces Beagle for the final upper officers. These defenders do not depend on unsupported healing skills.",
+        "terminal": "Spot, Midnight, Lava and both medics retain central defense. Castle clears the western upper restraint, then its slot passes to redeployed Durin for the western lower restraint."
+      },
+      "formation_transitions": [
+        {"frame":2370,"transition":"Plume yields [6,5] to Cardigan. Eastern lower restraint destruction must already be recorded; Cardigan does not inherit adjacent-device clearance."},
+        {"frame":2730,"transition":"Melantha yields [1,5] to Beagle. Eastern upper restraint destruction and the opening upper hostile kills must already be recorded."},
+        {"frame":3090,"transition":"Lancet yields [5,5] to Durin only after both regular medics are deployed and healing."},
+        {"frame":3300,"transition":"Vanilla yields lower central interception to Midnight; no later Vanilla DP is credited."},
+        {"frame":3900,"transition":"Fang yields upper central interception to Spot; no later Fang DP is credited."},
+        {"frame":4800,"transition":"After recorded artillery death, Steward yields its slot to Castle and Durin yields [5,5] to downward-facing Lava. Surviving artillery invalidates both handoffs."},
+        {"frame":5250,"transition":"Beagle yields upper outer interception to fresh Noir Corne after both paired upper officers have been killed."},
+        {"frame":6900,"transition":"After recorded western upper restraint destruction, Castle yields its slot to Durin at [5,2]. Durin has completed at least 70 seconds off field."}
+      ],
+      "corridor_responsibilities": [
+        {"routes":["route-0"],"responsibility":"No scheduled hostile duty."},
+        {"routes":["route-1"],"responsibility":"Steward sustains eastern vertical damage; Durin supplements the upper eastern stop. Both medics must remain alive and deliver treatment through confirmed artillery destruction before frame 4800."},
+        {"routes":["route-2"],"responsibility":"Melantha clears eastern restraint #3 while intercepting upper hostiles. The civilian travels to western restraint #1; Castle releases it after artillery destruction. Record its actual safe arrival."},
+        {"routes":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],"responsibility":"Fang hands upper central retention to Spot. Cross-lane attacks, Midnight arts and later Lava clear accumulated enemies under both medics."},
+        {"routes":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],"responsibility":"Vanilla hands lower central retention to Midnight. Durin supplies temporary assistance; Lava assumes sustained arts support after artillery destruction."},
+        {"routes":["route-7","route-8","route-17","route-22","route-23","route-24"],"responsibility":"Melantha clears opening pressure, Beagle retains the paired officers, and Noir Corne retains the final three. Western upper civilian exposure is protected by maintained eastern interception."},
+        {"routes":["route-9","route-10","route-16","route-25","route-26","route-27"],"responsibility":"Plume clears opening pressure and eastern restraint #4. Cardigan retains all later officers with Ansel's extended-range windows available as supplemental healing."},
+        {"routes":["route-15"],"responsibility":"Eastern restraint #4 must be destroyed before civilian contact. Maintain lower interception while it reaches western restraint #2; release it with redeployed Durin after artillery destruction and verified separation from surviving officers."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_seconds":[0,56],"responsibility":"Preserve the mutually covering vanguards, keep opening healing active, and establish both stronger outer interceptors before runner passage. Ansel must deploy and begin actual treatment."},
+        {"window_seconds":[56,103],"responsibility":"Complete mutual medic coverage, finish both eastern restraints, replace wounded outer interceptors, and establish sustained artillery damage."},
+        {"window_seconds":[103,160],"responsibility":"Both medics sustain artillery casters and central blockers simultaneously. Replace central vanguards without losing conditional economy. Confirm artillery destruction before withdrawing either artillery caster."},
+        {"window_seconds":[160,230],"responsibility":"Lava and Midnight clear central armor; fresh Noir Corne assumes final upper pressure. Castle clears the western upper restraint while every hostile corridor remains staffed."},
+        {"window_seconds":[230,null],"responsibility":"Durin clears the western lower restraint. Retain both central blockers, both medics, Lava and outer defenders until all hostiles are dead and both protected targets have safely arrived."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","intent":"Credit automatic +6 DP only at modeled seconds 19,44,69,94,119 while alive and deployed."},
+        {"operator_id":"char_240_wyvern","frames":[750,1680,2610],"intent":"Supported manual ATK and +6 DP. Each grant depends on survival, deployment and SP readiness."},
+        {"operator_id":"char_192_falco","frames":[2190],"intent":"Supported ATK and attack-speed enhancement before the lower defender handoff; survival and actual device destruction remain prerequisites."},
+        {"operator_id":"char_212_ansel","frames":[2430,4230,6030,7830,9630,11430],"intent":"Supported healing enhancement and range extension; include the 25-second active SP pause. Baseline coverage already includes the entire medical core."},
+        {"operator_id":"char_120_hibisc","frames":[3180,4680,6180,7680,9180,10680],"intent":"Supported healing enhancement, staggered against Ansel's first window. Include the 20-second active SP pause; no talent multiplier is credited."},
+        {"operator_id":"char_122_beagle","frames":[3930],"intent":"Supported DEF enhancement from seconds 131-161; this mitigates exposure without claiming immunity or guaranteed targeting."},
+        {"operator_id":"char_283_midn","frames":[4500,7800],"intent":"Supported arts conversion at seconds 150 and 260, including the 40-second active period and 70-second subsequent recharge."},
+        {"operator_id":"char_121_lava","frames":[5100,6900,8700,10500],"intent":"Deployment supplies 30 SP; first activation follows 10 seconds later. Subsequent activations include active SP pauses. Count single-target damage only."},
+        {"operator_id":"char_210_stward","intent":"Use supported automatic enhanced attacks; exclude talent ATK and highest-defense priority."},
+        {"operator_id":"char_285_medic2","intent":"Credit supported deployment recovery and ordinary central healing; do not assume civilian healing."},
+        {"operator_id":"char_209_ardign","intent":"Ordinary blocking and attacks only; exclude unsupported self-healing."},
+        {"operator_id":"char_284_spot","intent":"Ordinary blocking and attacks only; exclude unsupported healing mode."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"id":"LEGALITY","requirement":"Use only the selected catalog operators, each with rarity 1-3 and normal_mode true. No reserve units. Every deployment uses a legal unoccupied tile and cardinal direction."},
+        {"id":"FORBIDDEN_TILES","requirement":"Never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"id":"CAPACITY","requirement":"Maintain at most eight deployed operators, counting Lancet conservatively. Each replacement retreats its predecessor before deployment."},
+        {"id":"ECONOMY","requirement":"Fund actions from natural DP and the stated surviving-vanguard grants. Do not credit refunds, unsupported DP talents or grants after retirement. A missing grant is a survival/handoff failure."},
+        {"id":"MEDICAL","requirement":"Both regular medics must actually heal the core and survive through artillery destruction. Static range coverage alone does not establish sustainable healing under artillery impacts."},
+        {"id":"EASTERN_RELEASE","requirement":"Record actual destruction of #3 before Melantha's retirement and #4 before Plume's retirement. Damage events alone do not satisfy clearance."},
+        {"id":"CIVILIAN_SAFETY","requirement":"Ordinary operators neither attack nor block civilians. Prevent fatal officer or artillery exposure; a restrained civilian is not automatically safe."},
+        {"id":"ARTILLERY_HANDOFF","requirement":"Record artillery death before frame 4800. Do not execute the caster-to-clearance handoffs merely because their scheduled time has arrived."},
+        {"id":"OUTER_RETENTION","requirement":"Keep both outer lanes staffed through their final hostile kills. The Beagle-to-Noir handoff additionally requires the paired upper officers to be dead."},
+        {"id":"WESTERN_RELEASE","requirement":"Clear western restraints only after artillery death and verified hostile separation. Keep all remaining hostile interception responsibilities staffed during clearance."},
+        {"id":"ACCEPTANCE","requirement":"Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two protected-target safe arrivals. Record operator deaths separately."},
+        {"id":"FAILED_GATE","requirement":"A failed prerequisite invalidates the dependent fixed schedule. No automatic retargeting, navigation change or fallback executor is assumed."}
+      ],
+      "action_timeline": [
+        {"frame":0,"action_type":"DEPLOY","operator_id":"char_123_fang","tile":[3,5],"direction":"UP"},
+        {"frame":330,"action_type":"DEPLOY","operator_id":"char_240_wyvern","tile":[4,5],"direction":"DOWN"},
+        {"frame":420,"action_type":"DEPLOY","operator_id":"char_285_medic2","tile":[5,5],"direction":"DOWN"},
+        {"frame":690,"action_type":"DEPLOY","operator_id":"char_208_melan","tile":[1,5],"direction":"RIGHT"},
+        {"frame":750,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":840,"action_type":"DEPLOY","operator_id":"char_192_falco","tile":[6,5],"direction":"RIGHT"},
+        {"frame":1350,"action_type":"DEPLOY","operator_id":"char_210_stward","tile":[2,7],"direction":"UP"},
+        {"frame":1680,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":1680,"action_type":"DEPLOY","operator_id":"char_212_ansel","tile":[2,6],"direction":"UP"},
+        {"frame":2010,"action_type":"DEPLOY","operator_id":"char_120_hibisc","tile":[5,6],"direction":"DOWN"},
+        {"frame":2190,"action_type":"ACTIVATE_SKILL","operator_id":"char_192_falco"},
+        {"frame":2370,"action_type":"RETREAT","operator_id":"char_192_falco","rationale":"Requires recorded restraint #4 destruction and a survivable immediate handoff."},
+        {"frame":2370,"action_type":"DEPLOY","operator_id":"char_209_ardign","tile":[6,5],"direction":"RIGHT"},
+        {"frame":2430,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":2610,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":2730,"action_type":"RETREAT","operator_id":"char_208_melan","rationale":"Requires recorded restraint #3 destruction and opening upper hostile clearance."},
+        {"frame":2730,"action_type":"DEPLOY","operator_id":"char_122_beagle","tile":[1,5],"direction":"RIGHT"},
+        {"frame":3090,"action_type":"RETREAT","operator_id":"char_285_medic2","rationale":"Requires both regular medics alive and delivering treatment."},
+        {"frame":3090,"action_type":"DEPLOY","operator_id":"char_501_durin","tile":[5,5],"direction":"RIGHT"},
+        {"frame":3180,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":3300,"action_type":"RETREAT","operator_id":"char_240_wyvern"},
+        {"frame":3300,"action_type":"DEPLOY","operator_id":"char_283_midn","tile":[4,5],"direction":"DOWN"},
+        {"frame":3900,"action_type":"RETREAT","operator_id":"char_123_fang"},
+        {"frame":3900,"action_type":"DEPLOY","operator_id":"char_284_spot","tile":[3,5],"direction":"RIGHT"},
+        {"frame":3930,"action_type":"ACTIVATE_SKILL","operator_id":"char_122_beagle"},
+        {"frame":4230,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":4500,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":4680,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":4800,"action_type":"RETREAT","operator_id":"char_210_stward","rationale":"Requires recorded artillery death; otherwise this handoff fails."},
+        {"frame":4800,"action_type":"RETREAT","operator_id":"char_501_durin","rationale":"Requires recorded artillery death."},
+        {"frame":4800,"action_type":"DEPLOY","operator_id":"char_286_cast3","tile":[1,3],"direction":"LEFT","rationale":"Clear western upper restraint after artillery destruction."},
+        {"frame":4800,"action_type":"DEPLOY","operator_id":"char_121_lava","tile":[5,5],"direction":"DOWN"},
+        {"frame":5100,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"},
+        {"frame":5250,"action_type":"RETREAT","operator_id":"char_122_beagle","rationale":"Requires both paired upper officers dead and an immediate fresh-defender handoff."},
+        {"frame":5250,"action_type":"DEPLOY","operator_id":"char_500_noirc","tile":[1,5],"direction":"RIGHT"},
+        {"frame":6030,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":6180,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":6900,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"},
+        {"frame":6900,"action_type":"RETREAT","operator_id":"char_286_cast3","rationale":"Requires recorded western upper restraint destruction."},
+        {"frame":6900,"action_type":"DEPLOY","operator_id":"char_501_durin","tile":[5,2],"direction":"UP","rationale":"Requires cooldown readiness, actual redeployment affordability, artillery death and lower civilian isolation."},
+        {"frame":7680,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":7800,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":7830,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":8700,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"},
+        {"frame":9180,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":9630,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":10500,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"},
+        {"frame":10680,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":11430,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id":"P1",
+          "goal":"Establish four-corridor opening survival and central healing.",
+          "start_condition":"Battle begins with 10 DP and no deployed operators.",
+          "completion_condition":"Ansel is deployed, actual central healing is recorded, and no opening runner has passed its assigned interceptor.",
+          "responsibilities":["Fang and Vanilla contribute mutual central damage.","Lancet heals both central positions from its revised tile.","Melantha and Plume intercept outer runners while damaging eastern restraints.","Steward establishes the later artillery damage position."],
+          "survival_dependencies":["Central healing must arrive before lethal accumulated runner damage.","Outer duel survival depends on actual damage allocation and artillery exposure; no defensive robot talent is credited."],
+          "handoff_requirements":["Both vanguards survive their credited DP grants.","Record Melantha's upper runner kill; this establishes only that local duel."],
+          "failure_effect_on_later_phases":"Loss of a vanguard or an uncontained runner invalidates later economy and corridor coverage; later affordability is not evidence that this phase succeeded."
+        },
+        {
+          "phase_id":"P2",
+          "goal":"Complete eastern releases and establish the mutually covered medical core.",
+          "start_condition":"Ansel is deployed and opening interception remains intact.",
+          "completion_condition":"Both eastern restraints are destroyed, Cardigan and Beagle hold the outer lanes, both regular medics are treating allies, and Durin replaces Lancet.",
+          "responsibilities":["Melantha destroys #3 before retiring.","Plume destroys #4 before retiring and before the second civilian reaches it.","Both medics sustain each other, central blockers and artillery casters.","Outer defender replacements preserve interception throughout each exchange."],
+          "survival_dependencies":["Ansel and Hibiscus share healing coverage; they are not assigned independent self-healing survival chains.","Melantha and Plume must survive until their replacements; outer baseline healing is not assumed.","Device attacks may compete with hostile attacks, so actual destruction is required."],
+          "handoff_requirements":["Verify device destruction events and civilian movement away from eastern restraints.","Do not replace Lancet until both regular medics actually deliver treatment."],
+          "failure_effect_on_later_phases":"An eastern restraint left intact can expose a stationary civilian to officers or artillery; a dead interceptor invalidates the release and protection structure."
+        },
+        {
+          "phase_id":"P3",
+          "goal":"Destroy artillery while preserving medical support and central interception.",
+          "start_condition":"The medical core is established and eastern artillery exposure begins.",
+          "completion_condition":"Artillery death is recorded before frame 4800, both medics survive, and Spot and Midnight hold the central lanes.",
+          "responsibilities":["Steward supplies sustained arts damage across the eastern vertical.","Durin adds damage during the upper eastern stop.","Both medics treat artillery casualties and central blockers.","Beagle and Cardigan retain outer officers while central vanguards hand off."],
+          "survival_dependencies":["Two medics provide greater aggregate healing and mutual coverage, but impact geometry and competing patients can still defeat the chain.","Casters must survive repeated impacts and spend sufficient attacks on artillery.","Artillery damage estimates cannot assume target priority or ignore device competition."],
+          "handoff_requirements":["Record artillery death before withdrawing either caster.","Confirm both medics and central replacements remain deployed.","Do not credit vanguard DP after its retirement."],
+          "failure_effect_on_later_phases":"Surviving artillery prevents western civilian release and invalidates the planned transition to Lava and Castle; downstream commands cannot repair this by assumption."
+        },
+        {
+          "phase_id":"P4",
+          "goal":"Clear late hostile pressure while releasing the upper civilian.",
+          "start_condition":"Artillery destruction has authorized the frame-4800 handoffs.",
+          "completion_condition":"Western upper restraint destruction and the upper civilian's safe arrival are recorded; final outer hostiles are contained and central armor remains blocked.",
+          "responsibilities":["Lava and Midnight provide supported single-target arts damage.","Spot retains upper central enemies while both medics sustain the core.","Castle destroys western upper restraint #1.","Noir Corne replaces Beagle after paired upper officer clearance; Cardigan retains lower officers."],
+          "survival_dependencies":["Central blocking must outlast armor clearance rather than merely survive the final spawn.","Noir Corne uses fresh HP and three-block capacity; no unsupported talent bonus is credited.","Lower outer healing from Ansel's extended range is supplemental and requires actual treatment."],
+          "handoff_requirements":["Verify paired upper officer deaths before the Beagle replacement.","Verify actual western upper device destruction before Castle withdraws.","Do not treat the last spawn at 211 seconds as hostile exhaustion."],
+          "failure_effect_on_later_phases":"A central or outer collapse can leak surviving enemies or expose a released civilian, invalidating otherwise successful artillery and device work."
+        },
+        {
+          "phase_id":"P5",
+          "goal":"Release the lower civilian and finish complete hostile clearance.",
+          "start_condition":"Castle's clearance is confirmed, Durin is redeployable, and artillery is dead.",
+          "completion_condition":"Both protected targets have safely arrived, all scheduled spawns are exhausted, no active enemies remain, zero leaks and zero protected-target deaths are recorded, and remaining life is positive.",
+          "responsibilities":["Durin destroys western lower restraint #2.","Keep all remaining hostile corridors staffed during civilian transit.","Continue central healing and scheduled arts windows until terminal acceptance is recorded."],
+          "survival_dependencies":["The lower civilian must be separated from surviving officers before release.","No remaining defender is retired merely because its final spawn has occurred.","Ordinary attacks and healing continue after the final listed skill if the battle remains active."],
+          "handoff_requirements":["Require actual lower device destruction and safe-arrival events.","Reconcile both expected protected targets separately from enemy kills and leaks."],
+          "failure_effect_on_later_phases":"A missing arrival, protected-target death, leak or surviving enemy prevents acceptance even if the other objectives succeeded."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "stage_id":"main_08-07",
+    "revision_basis":"V4's local upper bridge and actual medic deployment were demonstrated; its sustained medical chain, artillery clearance and upper civilian protection failed. Those local successes do not validate downstream survival.",
+    "GameData":"The stage has four active roadblocks, four hostile walking corridors, a flying artillery route and two neutral protected targets.",
+    "current_model":"Ordinary operators neither attack nor block civilians. Roadblocks specially restrain them until destruction. Officers can attack civilians within 1.2. Safe arrival is distinct from a leak; civilian death deducts objective life.",
+    "coordinate_contract":"All plan tiles are [row,col]. The exact forbidden set is [[1,2],[6,2],[1,6],[6,6]].",
+    "artillery_revision":"Remove the western Lancet placement and isolated eastern medic chain. Use mutual medic coverage and sustained eastern arts damage before western release.",
+    "clearance_revision":"Assign eastern device work to the outer melee interceptors and require destruction before their handoffs. Preserve western restraints until artillery death.",
+    "timing_boundary":"Spawn seconds are diagnostic-model timings. The frame-4800 artillery deadline is this candidate's required handoff, not a demonstrated universal deadline.",
+    "UNKNOWN":["Exact artillery targeting and impact geometry under the revised formation.","Client target priority between operators, devices and protected targets.","Device durability and resulting destruction frames from the supplied compact evidence.","Ordinary WALK navigation changes caused by active devices.","Whether the revised healing throughput survives simultaneous impact casualties."]
+  },
+  "revised_tactical_requirements": {
+    "simultaneous_duties":"Four-corridor interception, actual eastern device destruction, mutual medical survival and artillery damage must hold together; one local kill does not discharge the others.",
+    "economy":"With all stated grants, conservative income is 185 DP at second 130 and 218 at second 160. Listed first-deployment spending through Spot is 182 DP; Castle and Lava bring it to 215. No retreat refund funds these actions.",
+    "economic_dependencies":"The calculation requires Fang grants through second 119 and Vanilla activations at seconds 25,56,87. Their absence is a failed survival or skill handoff.",
+    "survival_basis":"Mutual medic coverage replaces independent self-healing assumptions. Outer defenders use fresh HP and high DEF after opening damage. Ordinary officer hits against Cardigan or Beagle reach the model's 16.5 minimum physical damage; this does not bound artillery exposure or prove survival.",
+    "artillery_basis":"Steward's full vertical coverage and Durin's supplementary stop coverage create a stronger damage obligation. Its completion remains an observed enemy death, not a static DPS assertion.",
+    "protection_basis":"Actual eastern releases reduce prolonged eastern restraint exposure. Western release waits for artillery death and hostile separation; restraint alone is not protection.",
+    "verification_boundary":"This is an unvalidated fixed candidate. Prerequisites are acceptance checks, not a claim that the runtime implements conditional fallback actions."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id":"R8-7-M29-H5",
+      "parent_plan_id":"R8_7_GPT_M29_V4",
+      "hypothesis":"Stronger opening outer duelists, revised central Lancet coverage, mutually covered regular medics and supplementary eastern arts damage can preserve artillery clearance through its handoff while eastern device releases move civilians away from the former lethal exposure.",
+      "changed_from_V4":"Replace the temporary outer bridges, independent medic survival chain, unsupported downstream survival assumptions and damage-as-clearance inference.",
+      "falsifiers":["An opening interceptor dies before its handoff.","Either eastern restraint survives its assigned interceptor's retirement.","The medical core loses a member before artillery destruction.","Artillery remains alive at frame 4800.","Either civilian dies or any enemy leaks."],
+      "status":"UNVALIDATED_TACTICAL_HYPOTHESIS"
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id":"R8-7-M29-H5",
+    "parent_plan_id":"R8_7_GPT_M29_V4",
+    "operational_plan_id":"R8_7_GPT_M29_V5",
+    "referenced_experience_ids":["M26-EXP-0001","M26-EXP-0002","M28-EXP-0002"],
+    "tactical_hypothesis":"Replace V4's interrupted medical and artillery chain with mutual medic coverage, stronger opening outer interception, explicit eastern restraint destruction and a verified artillery-death gate before western protected-target release.",
+    "changed_responsibilities":[
+      "Lancet heals both central lanes from [5,5] instead of repeating the demonstrated fatal western placement.",
+      "Melantha and Plume own opening outer duels and eastern device destruction; fresh defenders assume later retention.",
+      "Ansel and Hibiscus cover each other and both artillery damage positions rather than relying on isolated self-healing.",
+      "Steward and Durin must jointly finish artillery before Lava and Castle take their slots.",
+      "Castle and redeployed Durin clear western restraints only after artillery destruction and maintained hostile isolation."
+    ],
+    "expected_first_observable_event": {
+      "event_type":"ENEMY_DEATH",
+      "source_id":"char_208_melan",
+      "target_id":"enemy_1108_uterer#4",
+      "earliest_frame":900,
+      "latest_frame":1410
+    },
+    "if_expected_event_absent":"Reject the opening upper-duel prediction and inspect actual targeting, health and restraint competition before trusting later handoffs. If it occurs, it confirms only that local kill; device destruction, medical survival, artillery death and both protected arrivals remain independently required."
+  },
+  "explicit_assumptions": [
+    "Read-only shell inspection was unavailable because the sandbox failed before command execution; this candidate uses only the supplied evidence.",
+    "No files were changed, no stage simulation was run and no other AI provider was invoked.",
+    "No splash geometry, random talent, refund, device navigation change or civilian healing is credited.",
+    "Durin's final deployment requires the runtime's actual redeployment price and cooldown; no unsupported price formula is assumed."
+  ]
+}

@@ -17,6 +17,11 @@ V4_EVENTS = ROOT / (
     "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/"
     "m29_v4_evaluation_v1/diagnostic/diagnostic_events.json.gz"
 )
+V5_FEEDBACK = ROOT / "docs/review/fc77177/m29_v5_causal_feedback_v1.json"
+V5_EVENTS = ROOT / (
+    "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/"
+    "attempt_09_diagnostic/diagnostic_events.json.gz"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -149,8 +154,14 @@ def test_phase_replay_evidence_corrections_are_bound_to_saved_events() -> None:
 
 
 def test_v4_feedback_tracks_completed_loss_and_key_saved_events() -> None:
-    assert json.loads(BUDGET.read_text(encoding="utf-8"))["started_stage_simulations"] == 3
+    assert json.loads(BUDGET.read_text(encoding="utf-8"))["started_stage_simulations"] >= 3
     feedback = json.loads(V4_FEEDBACK.read_text(encoding="utf-8"))
+    medical = feedback["medical_support_replay"]
+    assert [row["operator_id"] for row in medical["deployment_established"]] == ["char_212_ansel", "char_120_hibisc"]
+    assert medical["deployment_established"][1]["direction"] == "DOWN"
+    assert medical["deployment_established"][1]["direction_source"] == "FROZEN_ACTION"
+    assert all(row["direction_observation"] == "NOT_RECORDED" for row in medical["deployment_direct_observation"])
+    assert medical["status_at_1680"] == "BOTH_ANSEL_AND_HIBISCUS_ALIVE_AND_HEALING"
     assert feedback["validation"]["static_conflicts"] == 0
     assert feedback["validation"]["battle_classification"] == "LEGAL_BATTLE_LOSS"
     assert feedback["result"]["simulator_win"] is False
@@ -168,3 +179,44 @@ def test_v4_feedback_tracks_completed_loss_and_key_saved_events() -> None:
         {"event_type": "PROTECTED_TARGET_REACHED", "frame": 8774, "source_id": "enemy_3001_upeopl#14", "target_id": None},
     ]
     assert all(_has_event(events, item) for item in expected)
+
+
+def test_v5_feedback_tracks_revised_hypothesis_and_saved_loss() -> None:
+    assert json.loads(BUDGET.read_text(encoding="utf-8"))["started_stage_simulations"] == 4
+    feedback = json.loads(V5_FEEDBACK.read_text(encoding="utf-8"))
+    assert feedback["validation"]["battle_classification"] == "LEGAL_BATTLE_LOSS"
+    assert feedback["predicted_enemy_death"]["status"] == "EVENT_OBSERVED"
+    assert feedback["hypothesis_comparison"]["v4_failure_addressed"]["roadblock_3_cleared"] is True
+    assert feedback["result"] == {
+        "simulator_win": False,
+        "perfect_project_win": False,
+        "enemies_killed": 24,
+        "enemies_leaked": 9,
+        "operator_deaths": 9,
+        "remaining_life": -8,
+        "final_dp": 99,
+        "score": -700,
+        "protected_target_deaths": 2,
+        "protected_target_arrivals": 0,
+        "remaining_hostiles_at_run_end": 0,
+        "first_leak_frame": 5319,
+        "first_leak_enemy": "enemy_1110_uamord#21",
+        "first_objective_failure_frame": 5385,
+        "run_end_time": 301.0,
+    }
+
+    with gzip.open(V5_EVENTS, "rt", encoding="utf-8") as handle:
+        events = json.load(handle)["events"]
+    expected = [
+        {"event_type": "ENEMY_DEATH", "frame": 1095, "source_id": "char_208_melan", "target_id": "enemy_1108_uterer#4"},
+        {"event_type": "DEVICE_DESTROYED", "frame": 1815, "source_id": "char_208_melan", "target_id": "trap_020_roadblock#3"},
+        {"event_type": "ENEMY_DEATH", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14"},
+        {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": None},
+        {"event_type": "ENEMY_DEATH", "frame": 5430, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+    ]
+    assert all(_has_event(events, item) for item in expected)
+    assert not any(
+        event["event_type"] == "DEVICE_DESTROYED"
+        and event.get("target_id") == "trap_020_roadblock#4"
+        for event in events
+    )

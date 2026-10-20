@@ -143,6 +143,19 @@ def test_static_conflict_feedback_is_structured_and_not_battle_result(tmp_path: 
     assert conflict["battle_result_status"] == "NO_SIMULATION"
 
 
+def test_missing_branch_state_does_not_block_completed_result_postprocessing(tmp_path: Path) -> None:
+    original = runner.STAGE_ID
+    runner.STAGE_ID = "main_test"
+    try:
+        path = tmp_path / "missing.json"
+        state = runner.load_or_init_branch_state(path)
+        assert state["schema_version"] == runner.experience.BRANCH_SCHEMA_VERSION
+        assert state["stage_id"] == "main_test"
+        assert state["candidates"] == []
+    finally:
+        runner.STAGE_ID = original
+
+
 def test_prompt_keeps_static_and_battle_feedback_sources_distinct() -> None:
     prompt = runner.build_prompt({
         "stage_active_facts": {"roadblock_plan_tiles_row_col": [[2, 5], [4, 7]]},
