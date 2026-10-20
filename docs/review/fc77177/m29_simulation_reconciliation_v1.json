@@ -15,7 +15,8 @@
     "max_cli_process_starts": 4,
     "started_cli_process_starts": 4,
     "completed_cli_process_starts": 3,
-    "started_without_saved_output": 1,
+    "started_without_saved_output": 0,
+    "completed_plan_not_statically_checked": 1,
     "remaining_cli_process_starts": 0,
     "cumulative_cli_process_starts_after_last_attempt": 68,
     "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
@@ -74,11 +75,13 @@
       "attempt_index": 4,
       "status": "COMPLETED",
       "prompt_sha256": "6d1bb253547ae09675ca484c5028bdd5ca4947023e385922691c819a8362fd7c",
-      "contract_validation": "UNKNOWN_NO_MODEL_OUTPUT",
-      "static_classification": "UNKNOWN_NO_MODEL_OUTPUT",
+      "plan_id": "R8_7_GPT_M29_V4",
+      "structured_output_sha256": "3a1ae2458ac566e94d59464cf0eb953abc2dff6d1397a4800c0e3ab16adfa09e",
+      "contract_validation": "PASS",
+      "static_classification": "UNKNOWN_NOT_RUN",
       "simulation": "NOT_RUN",
       "cumulative_cli_process_starts": 68,
-      "failure_classification": "FAILED_AFTER_START_WITHOUT_SAVED_RESULT"
+      "record_correction": "The subprocess completed after the earlier no-output check. This is not a tactical battle failure; it is a valid received plan that was not advanced under the exhausted M29 model budget."
     }
   ],
   "simulation_attempts": [
@@ -117,7 +120,7 @@
   ],
   "classification_rules": {
     "battle_loss_or_win_requires": "simulation_attempt.json status COMPLETED, result_saved=true, manifest.json and diagnostic_summary.json present",
-    "started_without_saved_output": "cli_process_attempt.json exists with STARTED but no final output/validation; do not treat as a tactical failure",
+    "started_without_saved_output": "No M29 attempt currently has this final state; attempt_08's earlier no-output observation was superseded by completed model output",
     "automatic_retry": false
   }
 }

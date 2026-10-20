@@ -1,5 +1,6 @@
 {
-  "schema_version": "KIMIARK_CLI_START_WITHOUT_SAVED_RESULT_V1",
+  "schema_version": "KIMIARK_CLI_START_WITHOUT_SAVED_RESULT_V1_CORRECTION_V2",
+  "record_status": "SUPERSEDED_BY_COMPLETED_OUTPUT",
   "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_08_cli",
   "stage_id": "main_08-07",
   "failure_classification": "FAILED_AFTER_START_WITHOUT_SAVED_RESULT",
@@ -45,5 +46,18 @@
     "counts_as_stage_simulation": false,
     "automatic_retry": false,
     "remaining_cli_process_starts": 0
+  },
+  "correction": {
+    "status": "OUTPUT_COMPLETED_AFTER_INITIAL_CHECK",
+    "checked_against": [
+      "codex_exec.jsonl",
+      "codex_final_message.txt",
+      "codex_trajectory_summary.json",
+      "llm_structured_output.json",
+      "llm_plan_validation.json",
+      "cli_process_result.json",
+      "final_status.json"
+    ],
+    "result": "The subprocess later completed and saved a full model output. R8_7_GPT_M29_V4 has contract_validation=PASS but no static check and no simulation. The original 15:27+08:00 check remains the record of an intermediate observation, not the final attempt state."
   }
 }

@@ -275,8 +275,9 @@ The M29 loop added mandatory `battle_phases` and budget reconciliation of
 `FAILED_BEFORE_START`, `FAILED_AFTER_START_WITHOUT_SAVED_RESULT`, and completed
 legal battles. Four real Codex starts were used: V1 completed but failed static
 redeploy-cooldown checking; V2 and V3 passed contract/static checks and each
-simulated once; the fourth attempt started but left no model output. The budget
-reconciliation is `docs/review/fc77177/m29_simulation_reconciliation_v1.json`.
+simulated once; V4 later completed a contract-valid plan but was not statically
+checked or simulated. The budget reconciliation is
+`docs/review/fc77177/m29_simulation_reconciliation_v1.json`.
 
 R8-7 M29 V2 is a legal LOSS at 19 kills, 14 leaks, 13 operator deaths, life -12,
 one protected death and one protected arrival. It moved #14 to a safe arrival but

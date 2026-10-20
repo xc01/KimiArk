@@ -1,0 +1,280 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M29_V1",
+      "parent_hypothesis_id": "R8-7-M29-H1",
+      "plan_label": "R8-7-M29-V1",
+      "tactical_thesis": "Preserve the supported opening duels while separating interception from clearance. Replace upper eastern clearance with Kroos, advance Midnight's lower eastern clearance, and move both medics to column 3 with baseline coverage of their own outer blocker, central blocker and caster. Concentrate arts damage on the artillery's eastern exposures, then finish western restraints while officers remain intercepted at column 5. Artillery destruction and caster survival are unverified requirements, not demonstrated outcomes.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_240_wyvern",
+        "char_208_melan",
+        "char_192_falco",
+        "char_285_medic2",
+        "char_212_ansel",
+        "char_124_kroos",
+        "char_4227_gallus",
+        "char_120_hibisc",
+        "char_283_midn",
+        "char_210_stward",
+        "char_121_lava",
+        "char_122_beagle",
+        "char_284_spot",
+        "char_501_durin"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT","role":"Opening upper central interception and automatic DP."},
+        {"operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT","role":"Opening lower central interception and supported skill DP."},
+        {"operator_id":"char_208_melan","tile":[1,5],"direction":"LEFT","role":"Permanent upper outer duels; eastern restraint excluded from attack range."},
+        {"operator_id":"char_192_falco","tile":[6,5],"direction":"LEFT","role":"Opening lower outer duels; eastern restraint excluded from attack range."},
+        {"operator_id":"char_285_medic2","tile":[5,3],"direction":"RIGHT","role":"Deployment heal for Fang and temporary lower-lane healing."},
+        {"operator_id":"char_212_ansel","tile":[2,3],"direction":"RIGHT","role":"Upper medic covering Melantha, upper central interception and Steward within baseline range."},
+        {"operator_id":"char_124_kroos","tile":[2,7],"direction":"DOWN","role":"Dedicated upper eastern restraint #3 clearance before artillery reaches the upper eastern area."},
+        {"operator_id":"char_4227_gallus","tile":[2,2],"direction":"DOWN","role":"Upper western restraint #1 clearance in two scheduled working periods; no talent credit."},
+        {"operator_id":"char_120_hibisc","tile":[5,3],"direction":"RIGHT","role":"Lower medic covering lower central interception, Midnight and Lava within baseline range."},
+        {"operator_id":"char_283_midn","tile":[6,5],"direction":"RIGHT","role":"Early lower eastern restraint #4 clearance followed by permanent two-block lower outer interception."},
+        {"operator_id":"char_210_stward","tile":[2,6],"direction":"UP","role":"Eastern artillery damage and arts support for both central blocking tiles."},
+        {"operator_id":"char_121_lava","tile":[5,6],"direction":"DOWN","role":"Eastern artillery damage, followed by later central cleanup after redeployment; single-target damage credit only."},
+        {"operator_id":"char_122_beagle","tile":[3,5],"direction":"RIGHT","role":"Permanent upper central three-block defense replacing Fang."},
+        {"operator_id":"char_284_spot","tile":[4,5],"direction":"RIGHT","role":"Permanent lower central three-block defense replacing Vanilla; basic attacks only."},
+        {"operator_id":"char_501_durin","tile":[5,2],"direction":"UP","role":"Lower western restraint #2 clearance after the artillery fight and main hostile rush."}
+      ],
+      "formation_structure": {
+        "opening": "Fang and Vanilla intercept centrally; Melantha and Plume face LEFT so their opening duels cannot be diverted onto eastern restraints.",
+        "healing": "Ansel [2,3] RIGHT covers [1,5], [3,5] and [2,6]. Hibiscus [5,3] RIGHT covers [6,5], [4,5] and [5,6]. Each medic can heal itself. Cross-healing between medics is not assumed.",
+        "clearance": "Kroos handles #3 independently. Midnight replaces Plume during the lower outer spawn gap and starts #4 ten seconds earlier than the prior candidate. GALLUS works #1 before and after the artillery fight; Durin finishes #2 later.",
+        "artillery": "Steward and Lava attack during their actual rotated eastern ranges. No forced target, highest-defense priority, splash geometry or guaranteed artillery lock is assumed.",
+        "final": "Melantha, Beagle, Spot and Midnight hold four corridors with two dedicated medics. Steward remains through clearance; Lava temporarily yields its slot to western clearers and returns for residual central enemies."
+      },
+      "formation_transitions": [
+        {"frame":1890,"transition":"Replace Lancet with Hibiscus after Ansel has established upper healing."},
+        {"frame":2190,"transition":"Replace Plume with Midnight during the lower outer gap, advancing #4 clearance."},
+        {"frame":2490,"transition":"Release Kroos's slot only on the hypothesis that #3 has been destroyed."},
+        {"frame":2610,"transition":"Establish Steward while both medics and all four interception lanes remain occupied."},
+        {"frame":3390,"transition":"Establish Lava and activate lower healing and Midnight's arts window."},
+        {"frame":4080,"transition":"Replace Fang with Beagle in listed order on the same tile."},
+        {"frame":4350,"transition":"Replace Vanilla with Spot in listed order on the same tile."},
+        {"frame":5220,"transition":"Withdraw Lava after the required artillery destruction deadline; Steward retains central arts responsibility."},
+        {"frame":5250,"transition":"Redeploy GALLUS to complete #1 without reopening a hostile corridor."},
+        {"frame":6600,"transition":"Hand the clearance slot from GALLUS to Durin after #1 destruction."},
+        {"frame":8700,"transition":"Hand the clearance slot from Durin back to Lava after #2 destruction."}
+      ],
+      "corridor_responsibilities": [
+        {"routes":["route-0"],"responsibility":"No scheduled hostile spawn."},
+        {"routes":["route-1"],"responsibility":"Steward and Lava must destroy the artillery before its western return can threaten restrained civilians. Proposed deadline: frame 4920. Their medics must survive and sustain actual incoming damage."},
+        {"routes":["route-2"],"responsibility":"Kroos clears eastern restraint #3; GALLUS clears western restraint #1. Melantha intercepts officers at column 5. Confirm safe civilian arrival independently of enemy kills."},
+        {"routes":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],"responsibility":"Fang hands upper central blocking to Beagle. Ansel supplies baseline healing; Steward and deployed Lava supply supported arts damage."},
+        {"routes":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],"responsibility":"Vanilla hands lower central blocking to Spot. Hibiscus supplies baseline healing; Steward retains arts support while Lava's slot is used for clearance."},
+        {"routes":["route-7","route-8","route-17","route-22","route-23","route-24"],"responsibility":"Melantha remains the upper outer interceptor, supported by Ansel. Its LEFT orientation excludes eastern device competition."},
+        {"routes":["route-9","route-10","route-16","route-25","route-26","route-27"],"responsibility":"Plume finishes opening duels before the frame-2190 handoff. Midnight then supplies two-block interception under Hibiscus healing."},
+        {"routes":["route-15"],"responsibility":"Midnight clears #4 early enough to avoid prolonged eastern restraint. Durin later clears #2. Ordinary operators permit civilian passage; officers must remain intercepted sufficiently far east of the western restraint."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_seconds":[0,44],"responsibility":"Survive all opening approaches, execute Vanilla's first DP skill, and use Lancet's deployment heal to bridge Fang to Ansel."},
+        {"window_seconds":[44,87],"responsibility":"Establish separate medic coverage, clear #3 with Kroos, advance Midnight's #4 work, and begin #1 clearance."},
+        {"window_seconds":[87,164],"responsibility":"Maintain both arts sources and their medics, complete eastern release, replace central vanguards and destroy artillery before western exposure."},
+        {"window_seconds":[164,220],"responsibility":"Hold all four corridors through the last spawn at modeled second 211. Keep Steward supporting central armor while GALLUS completes #1."},
+        {"window_seconds":[220,290],"responsibility":"Maintain interception and basic healing while Durin destroys #2. Record both civilian arrivals rather than inferring them from device destruction."},
+        {"window_seconds":[290,null],"responsibility":"Restore Lava for residual armor and retain the formation until spawns are exhausted, no active enemies remain, both civilians have safely arrived, life is positive and objective losses remain zero."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","intent":"Budget automatic +6 DP only at modeled seconds 19, 44, 69, 94 and 119, conditional on uninterrupted survival."},
+        {"operator_id":"char_240_wyvern","frames":[750,1680,2610,3540],"intent":"Supported attack enhancement and +6 DP. These grants require a living source; no refund or later grant is budgeted."},
+        {"operator_id":"char_212_ansel","frames":[2700,4500,6300,8100],"intent":"Boost upper healing around artillery exposure and central pressure. Required coverage already exists in baseline range; no extra-target talent credit."},
+        {"operator_id":"char_120_hibisc","frames":[3390,4890,6390,7890],"intent":"Boost lower healing during Lava's first exposure and later pressure; no talent bonus credited."},
+        {"operator_id":"char_208_melan","frames":[3480,5280],"intent":"Increase officer clearance during the paired upper arrivals and later outer pressure."},
+        {"operator_id":"char_283_midn","frames":[3390],"intent":"Supported arts conversion across the first paired lower officers, also finishing #4 if necessary. No critical-hit credit."},
+        {"operator_id":"char_121_lava","frames":[3690,9000],"intent":"Use supported deployment SP to reach readiness ten seconds after each deployment. Attack-speed enhancement receives single-target credit only."},
+        {"operator_id":"char_122_beagle","frames":[5280,7380],"intent":"Reduce central attrition during armor pressure and any residual queue."},
+        {"operator_id":"char_124_kroos","intent":"Automatic supported double shots for #3 clearance; no random critical-hit credit."},
+        {"operator_id":"char_210_stward","intent":"Automatic enhanced attacks; no highest-defense targeting or player-selected target."},
+        {"operator_id":"char_284_spot","intent":"Three-block defense and basic attacks only; unsupported healing skill excluded."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"id":"LEGALITY","requirement":"Every selected operator belongs to normal_low_star_catalog, has identity.rarity 1-3 and qualification.normal_mode true. No mode-specific reserve unit is allowed."},
+        {"id":"PLACEMENT","requirement":"All DEPLOY tiles are integer [row,col] with cardinal directions. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"id":"CAPACITY","requirement":"At most eight operators are deployed. Same-tile replacements and clearance-slot exchanges execute RETREAT before DEPLOY."},
+        {"id":"ECONOMIC_SURVIVAL","requirement":"Opening funding uses natural DP and explicitly scheduled supported vanguard grants. Source death invalidates its economic and interception handoff; it is not repaired by an arithmetic adjustment. No refunds are credited."},
+        {"id":"NEUTRALS","requirement":"Ordinary operators neither attack nor block civilians. Medic recovery of civilians is not assumed."},
+        {"id":"EASTERN_RELEASE","requirement":"Destroy #3 by frame 2490 and #4 by proposed frame 3300. A surviving device at either deadline invalidates the intended civilian exposure reduction."},
+        {"id":"ARTILLERY","requirement":"Destroy artillery by proposed frame 4920. Do not treat the frame-5220 Lava withdrawal as evidence that destruction occurred."},
+        {"id":"SOURCE_SURVIVAL","requirement":"Both medics, Steward and Lava must survive their assigned artillery duties. Skill readiness alone does not establish survival; missed healing or caster death breaks the damage handoff."},
+        {"id":"WESTERN_HANDOFFS","requirement":"GALLUS's frame-3150 withdrawal permits unfinished #1 work; its return is explicit. Require #1 destroyed before frame 6600 and #2 destroyed before frame 8700. Scheduled withdrawal never substitutes for destruction evidence."},
+        {"id":"PROTECTION","requirement":"During western restraint, hostiles must remain intercepted away from civilians. Any hostile damage capable of exhausting civilian HP invalidates the holding arrangement."},
+        {"id":"ACCEPTANCE","requirement":"Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two protected targets safely reaching objectives. Record operator deaths separately."}
+      ],
+      "action_timeline": [
+        {"frame":0,"action_type":"DEPLOY","operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT"},
+        {"frame":330,"action_type":"DEPLOY","operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT"},
+        {"frame":600,"action_type":"DEPLOY","operator_id":"char_208_melan","tile":[1,5],"direction":"LEFT"},
+        {"frame":750,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":750,"action_type":"DEPLOY","operator_id":"char_192_falco","tile":[6,5],"direction":"LEFT"},
+        {"frame":870,"action_type":"DEPLOY","operator_id":"char_285_medic2","tile":[5,3],"direction":"RIGHT"},
+        {"frame":1320,"action_type":"DEPLOY","operator_id":"char_212_ansel","tile":[2,3],"direction":"RIGHT"},
+        {"frame":1470,"action_type":"DEPLOY","operator_id":"char_124_kroos","tile":[2,7],"direction":"DOWN"},
+        {"frame":1680,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":1680,"action_type":"DEPLOY","operator_id":"char_4227_gallus","tile":[2,2],"direction":"DOWN"},
+        {"frame":1890,"action_type":"RETREAT","operator_id":"char_285_medic2"},
+        {"frame":1890,"action_type":"DEPLOY","operator_id":"char_120_hibisc","tile":[5,3],"direction":"RIGHT"},
+        {"frame":2190,"action_type":"RETREAT","operator_id":"char_192_falco"},
+        {"frame":2190,"action_type":"DEPLOY","operator_id":"char_283_midn","tile":[6,5],"direction":"RIGHT"},
+        {"frame":2490,"action_type":"RETREAT","operator_id":"char_124_kroos","rationale":"Requires completed #3 clearance; otherwise the phase has failed."},
+        {"frame":2610,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":2610,"action_type":"DEPLOY","operator_id":"char_210_stward","tile":[2,6],"direction":"UP"},
+        {"frame":2700,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":3150,"action_type":"RETREAT","operator_id":"char_4227_gallus","rationale":"Pause #1 clearance to fund and accommodate the artillery battery; return is scheduled."},
+        {"frame":3390,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":3390,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":3390,"action_type":"DEPLOY","operator_id":"char_121_lava","tile":[5,6],"direction":"DOWN"},
+        {"frame":3480,"action_type":"ACTIVATE_SKILL","operator_id":"char_208_melan"},
+        {"frame":3540,"action_type":"ACTIVATE_SKILL","operator_id":"char_240_wyvern"},
+        {"frame":3690,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"},
+        {"frame":4080,"action_type":"RETREAT","operator_id":"char_123_fang"},
+        {"frame":4080,"action_type":"DEPLOY","operator_id":"char_122_beagle","tile":[3,5],"direction":"RIGHT"},
+        {"frame":4350,"action_type":"RETREAT","operator_id":"char_240_wyvern"},
+        {"frame":4350,"action_type":"DEPLOY","operator_id":"char_284_spot","tile":[4,5],"direction":"RIGHT"},
+        {"frame":4500,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":4890,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":5220,"action_type":"RETREAT","operator_id":"char_121_lava","rationale":"Requires artillery already destroyed; Steward retains central arts coverage."},
+        {"frame":5250,"action_type":"DEPLOY","operator_id":"char_4227_gallus","tile":[2,2],"direction":"DOWN"},
+        {"frame":5280,"action_type":"ACTIVATE_SKILL","operator_id":"char_122_beagle"},
+        {"frame":5280,"action_type":"ACTIVATE_SKILL","operator_id":"char_208_melan"},
+        {"frame":6300,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":6390,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":6600,"action_type":"RETREAT","operator_id":"char_4227_gallus","rationale":"Requires #1 destroyed and upper civilian arrival tracked separately."},
+        {"frame":6600,"action_type":"DEPLOY","operator_id":"char_501_durin","tile":[5,2],"direction":"UP"},
+        {"frame":7380,"action_type":"ACTIVATE_SKILL","operator_id":"char_122_beagle"},
+        {"frame":7890,"action_type":"ACTIVATE_SKILL","operator_id":"char_120_hibisc"},
+        {"frame":8100,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":8700,"action_type":"RETREAT","operator_id":"char_501_durin","rationale":"Requires #2 destroyed; safe lower civilian arrival remains a separate completion condition."},
+        {"frame":8700,"action_type":"DEPLOY","operator_id":"char_121_lava","tile":[5,6],"direction":"DOWN"},
+        {"frame":9000,"action_type":"ACTIVATE_SKILL","operator_id":"char_121_lava"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id":"P1_OPENING",
+          "goal":"Establish four surviving interception lanes and bridge into sustained healing.",
+          "start_condition":"Stage begins at frame 0.",
+          "completion_condition":"By frame 1890, opening terers and outer opening duels are resolved, with both medics deployed and no leak.",
+          "responsibilities":["Fang and Vanilla hold central approaches.","Melantha and Plume duel while facing away from eastern devices.","Lancet provides deployment healing; Ansel assumes upper healing before Hibiscus replaces Lancet."],
+          "survival_dependencies":["Fang survives to its automatic DP grants and Ansel's deployment.","Vanilla survives to its first skill and subsequent grants.","Outer duelists finish without relying on device target priority."],
+          "handoff_requirements":["Ansel is alive before Lancet withdrawal.","Hibiscus immediately occupies Lancet's released tile and lower-healing responsibility."],
+          "failure_effect_on_later_phases":"A dead vanguard removes both blocking and expected funding; a surviving outer enemy makes the later Midnight handoff unsafe."
+        },
+        {
+          "phase_id":"P2_EASTERN_RELEASE",
+          "goal":"Remove eastern civilian restraints without diverting opening duelists.",
+          "start_condition":"Kroos begins #3 work at frame 1470; four hostile lanes remain covered.",
+          "completion_condition":"#3 is destroyed by frame 2490 and #4 by proposed frame 3300; both civilians can leave the eastern restraint area.",
+          "responsibilities":["Kroos independently attacks #3.","Midnight replaces Plume at frame 2190 and begins #4 during the lower outer spawn gap.","GALLUS begins #1 clearance without assuming civilian targetability."],
+          "survival_dependencies":["Plume's opening opponents are dead before withdrawal.","Kroos survives its clearance period.","Midnight's actual attacks complete #4 before prolonged eastern civilian exposure."],
+          "handoff_requirements":["Kroos withdrawal requires observed #3 destruction.","Midnight retains lower outer blocking after #4 destruction.","Any unfinished #1 work is explicitly retained for GALLUS's second deployment."],
+          "failure_effect_on_later_phases":"An eastern restraint surviving its deadline exposes civilians to the officer and artillery mechanisms already implicated in prior failures."
+        },
+        {
+          "phase_id":"P3_ARTILLERY_AND_DEFENDERS",
+          "goal":"Preserve the healing and damage sources while destroying artillery before western return.",
+          "start_condition":"Steward deploys at frame 2610; Lava joins at frame 3390.",
+          "completion_condition":"Artillery is destroyed by proposed frame 4920 and both central defenders are established without a leak.",
+          "responsibilities":["Ansel sustains the upper caster and both upper blockers.","Hibiscus sustains the lower caster and both lower blockers.","Steward and Lava deliver arts damage within actual ranges.","Beagle and Spot replace central vanguards in listed order."],
+          "survival_dependencies":["Caster healing must withstand actual repeated impacts, including intervals outside medic skills.","Medics must survive their relocated positions.","Damage competition with other enemies must still leave sufficient artillery damage."],
+          "handoff_requirements":["Fang and Vanilla remain alive until their replacements.","Lava's frame-5220 withdrawal requires artillery destruction, not merely elapsed time.","Steward survives to retain both central arts responsibilities."],
+          "failure_effect_on_later_phases":"Caster or medic death breaks the clearance damage chain; surviving artillery invalidates western civilian holding and the scheduled slot exchange."
+        },
+        {
+          "phase_id":"P4_FINAL_HOSTILE_RUSH",
+          "goal":"Maintain every corridor through the final hostile spawns while completing upper western clearance.",
+          "start_condition":"Artillery has been destroyed and GALLUS returns at frame 5250.",
+          "completion_condition":"The modeled last spawn at frame 6330 has occurred, no route has leaked and #1 is destroyed by frame 6600.",
+          "responsibilities":["Melantha and Midnight hold outer officers.","Beagle and Spot contain central officers, terers and armor.","Steward supplies central arts damage while Lava is withdrawn.","GALLUS finishes #1 and the upper civilian's arrival is tracked."],
+          "survival_dependencies":["Both medics retain their baseline lane coverage.","Central queues remain within three-block capacity.","Officers remain far enough east that western-restraint civilians cannot be attacked."],
+          "handoff_requirements":["GALLUS yields its slot only after #1 destruction.","Durin inherits clearance duty without removing a hostile blocker or medic."],
+          "failure_effect_on_later_phases":"A late blocker death can create leaks despite earlier clearance success; an unsafe western hold can still kill a protected target."
+        },
+        {
+          "phase_id":"P5_PROTECTED_ARRIVAL_AND_CLEANUP",
+          "goal":"Finish lower western clearance, escort both neutral targets by eliminating threats and clear remaining enemies.",
+          "start_condition":"Durin deploys at frame 6600 with the four hostile corridors still controlled.",
+          "completion_condition":"Both protected targets have safely reached objectives, spawns are exhausted, no active enemies remain, remaining life is positive, and leaks and protected deaths are zero.",
+          "responsibilities":["Durin destroys #2 by proposed frame 8700.","Ordinary operators allow civilian passage and continue hostile interception.","Lava returns after the clearance slot is released to assist residual central armor.","Both medics continue basic healing throughout the tail."],
+          "survival_dependencies":["No active hostile can exhaust a restrained civilian's remaining HP.","Steward and the central blockers survive until residual armor is cleared.","Device destruction is verified before each clearer withdrawal."],
+          "handoff_requirements":["Durin yields its slot only after #2 destruction.","Civilian arrival events are required separately from roadblock destruction and enemy exhaustion."],
+          "failure_effect_on_later_phases":"An unfinished restraint or missing arrival prevents project acceptance even if hostile combat otherwise ends successfully."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "facts": [
+      "GameData supplies operator stats, RIGHT-oriented ranges, skills, routes, devices and wave offsets; the public runtime supplies its own quantized timing and approximated combat rules.",
+      "The corrected model treats civilians as neutral, rejects ordinary operator attacks and blocking against them, and gives roadblocks a special 0.4472 restraint radius.",
+      "Officers can attack civilians within 1.2. Protected-target death costs one life; safe arrival costs none.",
+      "The verified opening Fang kill established one event. Subsequent loss of medics, casters and defenders invalidated their later duties and skills.",
+      "The prior upper civilian was killed by artillery after officer damage. The lower civilian did not have a recorded safe arrival."
+    ],
+    "changed_understanding": [
+      "Healing must cover outer interception as well as the central battery. The new column-3 medic orientations provide that baseline coverage without depending on Ansel's extension.",
+      "Eastern release and western release have different pressure requirements. Early eastern clearance reduces pursuit exposure; western restraint may remain temporarily only while hostile interception and artillery destruction make that holding arrangement safe.",
+      "Clearance withdrawal is a handoff requiring device destruction evidence, except the explicitly scheduled pause and return for #1."
+    ],
+    "evidence_boundary": "No simulation was run. Read-only shell inspection failed before process launch, so this revision uses the supplied evidence summaries. Exact client targeting, artillery impact geometry, roadblock durability and the proposed clearance and damage margins remain unverified."
+  },
+  "revised_tactical_requirements": {
+    "opening": "Retain range-separated outer duels and supported vanguard economics. Treat any lost source as a survival and handoff failure.",
+    "protection": "Clear eastern #3 and #4 early, keep officers intercepted at column 5, destroy artillery before western return and verify both civilian arrivals.",
+    "sustain": "Each half has a dedicated medic covering its outer blocker, central blocker and caster in baseline range. Relocation is an exposure-reduction hypothesis, not immunity.",
+    "clearance": "Kroos replaces the previous upper eastern clearer; Midnight starts earlier; GALLUS has an explicit second deployment; Durin receives a protected late clearance period.",
+    "verification": "Check device destruction, source survival, artillery death, block occupancy, civilian HP and both arrival events. A passed early observable does not validate later phases.",
+    "acceptance": {
+      "remaining_life_minimum": 1,
+      "enemies_leaked": 0,
+      "active_enemies": 0,
+      "spawns_exhausted": true,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "operator_deaths": "Recorded separately; any death that removes an unfulfilled mandatory duty invalidates that duty."
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-7-M29-H1",
+      "status": "UNTESTED_REVISION",
+      "claim": "Separate outer duels from device targeting, move medics into baseline coverage of all three duties in their half, advance eastern release and finish western clearance after the artillery fight. This can preserve interception and protected-target survival through full-stage cleanup.",
+      "retained_support": "The opening Fang kill and the prior isolated Midnight clearance support limited responsibilities under comparable conditions.",
+      "changed_from_parent": "Permanent outer sustain replaces unhealed outer defense; Kroos replaces upper eastern GALLUS; GALLUS replaces weak western physical clearance; Midnight starts earlier; western completion has explicit later slot handoffs.",
+      "critical_tests": [
+        "Kroos destroys #3 before withdrawal.",
+        "Earlier Midnight deployment clears #4 before prolonged civilian restraint.",
+        "Relocated medics and both casters survive actual artillery pressure.",
+        "Artillery dies before frame 4920 despite target competition.",
+        "All western clearance handoffs complete and both civilians arrive."
+      ]
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id": "R8-7-M29-H1",
+    "parent_plan_id": "R8_7_GPT_M28_V4",
+    "operational_plan_id": "R8_7_GPT_M29_V1",
+    "referenced_experience_ids": [
+      "M26-EXP-0001",
+      "M26-EXP-0002",
+      "M28-EXP-0002"
+    ],
+    "tactical_hypothesis": "Earlier independent eastern clearance, baseline medic coverage of each half's outer blocker and caster, and explicit post-artillery western-clearance handoffs can prevent the prior protected-target exposure and source-death cascade while maintaining all four hostile corridors.",
+    "changed_responsibilities": [
+      "Kroos receives upper eastern device clearance while Melantha retains device-free opening duels.",
+      "Midnight replaces Plume earlier to advance lower eastern release before the second civilian's dangerous restraint period.",
+      "Ansel and Hibiscus move to column 3 and each sustain their own outer blocker, central blocker and caster.",
+      "GALLUS receives a scheduled return to finish upper western clearance; Durin receives the later lower western clearance slot.",
+      "Artillery destruction becomes a mandatory prerequisite for Lava withdrawal and western holding, rather than an assumed consequence of deploying two casters."
+    ],
+    "expected_first_observable_event": {
+      "event_type": "DAMAGE",
+      "source_id": "char_124_kroos",
+      "target_id": "trap_020_roadblock#3",
+      "earliest_frame": 1470,
+      "latest_frame": 1500
+    },
+    "if_expected_event_absent": "Reject the upper eastern clearance responsibility and inspect actual placement, rotated range and available targets. Do not postpone withdrawal while declaring the same hypothesis successful. Even if this damage event occurs, independently require device destruction, source survival, artillery destruction and both protected arrivals."
+  }
+}

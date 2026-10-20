@@ -5,8 +5,8 @@
 - 本地 HEAD：`243a45665bb224884a52041757ccf949afd808b3`。
 - 推送后远端 `refs/heads/master`：`243a45665bb224884a52041757ccf949afd808b3`。
 - R8-7：未通关；V2/V3 是当前模型固定模拟下的合法战斗 LOSS。
-- M29真实战术CLI：4/4。V1、V2、V3收到完整输出并完成；V4启动后无模型输出，按基础设施失败记录。
-- M29固定模拟：2/4。V2/V3各一次，均COMPLETED；V1静态冲突未模拟，V4无计划未模拟。
+- M29真实战术CLI：4/4。V1、V2、V3、V4均收到完整输出并完成contract；仅V1/V2/V3进入静态/模拟路径。
+- M29固定模拟：2/4。V2/V3各一次，均COMPLETED；V1静态冲突未模拟，V4 contract PASS后未静态检查、未模拟。
 - 内部模型请求数：`UNKNOWN_CLI_INTERNAL`。
 
 ## 逐次执行
@@ -16,7 +16,7 @@
 | V1 | 收到，contract PASS | Gallus frame5250再部署冷却冲突 | 未运行 | B_STATIC_CONFLICT |
 | V2 | 收到，contract PASS | PASS | COMPLETED LOSS | 19杀、14漏、13干员死亡、life -12、#3死亡、#14到达 |
 | V3 | 收到，contract PASS | PASS | COMPLETED LOSS | 8杀、25漏、11干员死亡、life -23、#3到达、#14死亡 |
-| V4 | STARTED后无输出 | UNKNOWN | 未运行 | FAILED_AFTER_START_WITHOUT_SAVED_RESULT |
+| V4 | 收到，contract PASS | 未运行/UNKNOWN | 未运行 | 完整计划未推进 |
 
 关键事件与哈希见：
 
@@ -24,6 +24,25 @@
 - `docs/review/fc77177/m29_attempt07_causal_feedback_v1.json`
 - `docs/review/fc77177/m29_attempt08_infrastructure_failure_v1.json`
 - `docs/review/fc77177/m29_simulation_reconciliation_v1.json`
+
+原始材料与离线回放见：
+
+- `docs/review/fc77177/m29_iteration_raw_manifest_v1.json`：104个输入/过程/计划/动作/模拟记录的路径、字节数、SHA-256和压缩索引。
+- `docs/review/fc77177/m29_phase_replay_v2_v3.json`：V2/V3每个声明phase的职责、条件、直接事件、解释和UNKNOWN。
+- V2/V3的`diagnostic_events.json`与`diagnostic_summary.json`以`gzip -9`入库，原文件哈希和解压后哈希均记录在manifest中。
+- attempt08的`llm_structured_output.json` SHA-256为`3a1ae2458ac566e94d59464cf0eb953abc2dff6d1397a4800c0e3ab16adfa09e`；contract PASS，静态结果UNKNOWN（未运行）。
+
+测试复现条件：
+
+```bash
+PYTHONPATH=src:scripts .venv/bin/python -m pytest -q \
+  tests/test_m29_raw_and_phase_replay_v1.py \
+  tests/test_tactical_experience_loop_v1.py \
+  tests/test_tactical_evaluation_gate_v1.py \
+  test_behavioral_regressions.py test_robot_compiler.py test_review_regressions.py
+```
+
+新增的raw/phase测试会验证manifest哈希、gzip解压哈希、计划phase绑定和保存事件中的关键反例。大事件通过压缩文件自包含；不影响本测试但可能影响部分历史全库测试的本地未跟踪output依赖。
 
 ## 因果结论
 

@@ -1,0 +1,235 @@
+{
+  "schema_version": "KIMIARK_M29_SAVED_EVENT_PHASE_REPLAY_V1",
+  "scope": "Offline replay of saved events only; no new model call and no new stage simulation.",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "claim_boundary": "Direct observations are saved-event facts. Causal interpretation and phase responsibility attribution are explained inferences; unknown client target priority and continuous-frame timing remain UNKNOWN.",
+  "plans": [
+    {
+      "plan_id": "R8_7_GPT_M29_V2",
+      "source_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/plan_snapshot.json",
+      "source_events": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/diagnostic_events.json",
+      "result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 13,
+        "remaining_life": -12
+      },
+      "phase_replay": [
+        {
+          "phase_id": "OPENING",
+          "declared_completion": "Ansel is deployed at frame 1440 with all four interception lanes occupied.",
+          "observation": "PASS_WITH_CASCADE_RISK",
+          "direct_evidence": [
+            {"event_type": "DEPLOY", "frame": 0, "source_id": "char_123_fang"},
+            {"event_type": "DEPLOY", "frame": 330, "source_id": "char_240_wyvern"},
+            {"event_type": "DEPLOY", "frame": 690, "source_id": "char_122_beagle"},
+            {"event_type": "DEPLOY", "frame": 1020, "source_id": "char_284_spot"},
+            {"event_type": "DEPLOY", "frame": 1110, "source_id": "char_285_medic2"},
+            {"event_type": "DEPLOY", "frame": 1440, "source_id": "char_212_ansel"}
+          ],
+          "interpretation": "The declared opening layout materialized, but Lancet died immediately afterward at frame 1380, before Ansel's frame-1440 deployment. Thus the static phase gate passed while one medical survival dependency failed.",
+          "unknown": "Whether a different opening deployment could keep four lanes and Lancet alive is UNKNOWN without a new simulation."
+        },
+        {
+          "phase_id": "EASTERN_RELEASE",
+          "declared_completion": "#3 is destroyed before frame 2610 and #4 before frame 3270; both medics remain active.",
+          "observation": "CLEARANCE_PASS_MEDIC_FAIL",
+          "direct_evidence": [
+            {"event_type": "DEVICE_DESTROYED", "frame": 1860, "source_id": "char_124_kroos", "target_id": "trap_020_roadblock#3"},
+            {"event_type": "OPERATOR_DEATH", "frame": 1380, "source_id": "char_285_medic2", "target_id": null},
+            {"event_type": "DEVICE_DESTROYED", "frame": 2970, "source_id": "char_192_falco", "target_id": "trap_020_roadblock#4"},
+            {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "target_id": null}
+          ],
+          "interpretation": "Both named eastern restraints were cleared inside the declared windows, but the completion sentence's 'both medics remain active' was false: Lancet had died and Ansel died by frame 3180.",
+          "unknown": "The precise pre-1380 artillery targeting rule and whether its first shot can be redirected are UNKNOWN from this saved event set."
+        },
+        {
+          "phase_id": "ARTILLERY",
+          "declared_completion": "Artillery is destroyed before frame 4500 with both medics sustaining patients.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "DAMAGE", "frame": 2610, "source_id": "char_210_stward", "target_id": "enemy_1112_emppnt#0", "amount": 249.1},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3030, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "amount": 950.0},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "char_212_ansel", "amount": 891.0},
+            {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel", "target_id": null},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3180, "source_id": "enemy_1112_emppnt#0", "target_id": "char_210_stward", "amount": 910.0},
+            {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "target_id": null},
+            {"event_type": "ENEMY_DEATH", "frame": 3330, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3", "details": {"kill_counted": false, "life_delta": -1}},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3630, "source_id": "enemy_1112_emppnt#0", "target_id": "char_120_hibisc", "amount": 890.0},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3630, "source_id": "enemy_1112_emppnt#0", "target_id": "char_121_lava", "amount": 905.0},
+            {"event_type": "OPERATOR_DEATH", "frame": 3780, "source_id": "char_120_hibisc", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 3780, "source_id": "char_121_lava", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null}
+          ],
+          "interpretation": "Steward dealt repeated supported arts damage but did not kill the artillery. The artillery survived, killed #3 at 3330, killed both medics/casters in separate salvos, and eventually leaked at 5759. The later late-defense phase started from a lost medical/damage base.",
+          "unknown": "The exact final artillery HP and counterfactual damage needed before frame 3030 are not reconstructed here; client target selection and continuous timing remain UNKNOWN."
+        },
+        {
+          "phase_id": "LATE_INTERCEPTION",
+          "declared_completion": "Schedule exhausted after second 211 and frame-6630 arts reinforcement established.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "OPERATOR_DEATH", "frame": 4389, "source_id": "char_123_fang", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4473, "source_id": "char_284_spot", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4650, "source_id": "char_240_wyvern", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 4731, "source_id": "enemy_1107_uoffcr#19", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4818, "source_id": "char_500_noirc", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4836, "source_id": "char_124_kroos", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 5130, "source_id": "char_122_beagle", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 5196, "source_id": "enemy_1110_uamord#22", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 6569, "source_id": "char_209_ardign", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 6702, "source_id": "char_192_falco", "target_id": null}
+          ],
+          "interpretation": "The replacement schedule fired, but the already-decayed formation could not hold all corridors. The first leak at 4731 was followed by sustained blocker deaths and 14 total leaks."
+        },
+        {
+          "phase_id": "HOSTILE_CLEARANCE",
+          "declared_completion": "No active hostile remains before frame 9900, with zero leaks.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "ENEMY_LEAK", "frame": 4805, "details": {"remaining_life": 0}},
+            {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null},
+            {"event_type": "OBJECTIVE_FAILURE", "frame": 6996, "details": {"reason": "ENEMY_LEAK", "remaining_life": -12}}
+          ],
+          "interpretation": "The zero-leak completion condition was already impossible before frame 9900. Artillery and other hostiles leaked, so the hostile-clearance gate failed despite later device work."
+        },
+        {
+          "phase_id": "FINAL_RELEASE",
+          "declared_completion": "Both western restraints destroyed, both civilians safely arrive, remaining life positive, no leaks or protected deaths.",
+          "observation": "PARTIAL",
+          "direct_evidence": [
+            {"event_type": "DEPLOY", "frame": 9900, "source_id": "char_124_kroos", "target_id": null},
+            {"event_type": "DEPLOY", "frame": 9900, "source_id": "char_501_durin", "target_id": null},
+            {"event_type": "DEVICE_DESTROYED", "frame": 10770, "source_id": "char_124_kroos", "target_id": "trap_020_roadblock#1"},
+            {"event_type": "DEVICE_DESTROYED", "frame": 11292, "source_id": "char_501_durin", "target_id": "trap_020_roadblock#2"},
+            {"event_type": "ENEMY_DEATH", "frame": 3330, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+            {"event_type": "PROTECTED_TARGET_REACHED", "frame": 11624, "source_id": "enemy_3001_upeopl#14", "target_id": null}
+          ],
+          "interpretation": "Both western restraints were destroyed and #14 safely arrived, but #3 had already died at 3330. The protected-zero-death and remaining-life/zero-leak requirements therefore failed."
+        }
+      ],
+      "earliest_failure_chain": {
+        "first_operator_death": {"frame": 1380, "operator": "char_285_medic2"},
+        "first_artillery_protected_hit": {"frame": 3030, "target": "enemy_3001_upeopl#3"},
+        "first_protected_death": {"frame": 3330, "target": "enemy_3001_upeopl#3", "last_attacker": "enemy_1112_emppnt#0"},
+        "first_leak": {"frame": 4731, "enemy": "enemy_1107_uoffcr#19"},
+        "interpretation": "The first direct decisive observation is Lancet's death. Artillery survival then converted early medical loss into #3's death and later medical/caster collapse; leak is the downstream route-control failure."
+      }
+    },
+    {
+      "plan_id": "R8_7_GPT_M29_V3",
+      "source_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/plan_snapshot.json",
+      "source_events": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/diagnostic_events.json",
+      "result": {
+        "win": false,
+        "enemies_killed": 8,
+        "enemies_leaked": 25,
+        "operator_deaths": 11,
+        "remaining_life": -23
+      },
+      "phase_replay": [
+        {
+          "phase_id": "P1",
+          "declared_theme": "Early economy, interception, upper-eastern clearance and lower handoff.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "DEPLOY", "frame": 0, "source_id": "char_123_fang"},
+            {"event_type": "DEPLOY", "frame": 330, "source_id": "char_240_wyvern"},
+            {"event_type": "DEPLOY", "frame": 570, "source_id": "char_124_kroos"},
+            {"event_type": "DEPLOY", "frame": 900, "source_id": "char_500_noirc"},
+            {"event_type": "DEPLOY", "frame": 990, "source_id": "char_4093_frston"},
+            {"event_type": "OPERATOR_DEATH", "frame": 1269, "source_id": "char_123_fang", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 1599, "source_id": "char_240_wyvern", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 1611, "source_id": "enemy_1107_uoffcr#6", "target_id": null}
+          ],
+          "interpretation": "The opening intentionally spent less on a dedicated medic and more on early roles, but Fang and Vanilla died before the first leak. This invalidated the phase's handoff premise; the frame-1680 Ansel action was illegal due to insufficient DP."
+        },
+        {
+          "phase_id": "P2",
+          "declared_theme": "Upper evacuation, lower-eastern release and sustained artillery damage.",
+          "observation": "MIXED_FALSE_COMPLETION",
+          "direct_evidence": [
+            {"event_type": "DEVICE_DESTROYED", "frame": 1860, "source_id": "char_124_kroos", "target_id": "trap_020_roadblock#3"},
+            {"event_type": "DEVICE_DESTROYED", "frame": 2535, "source_id": "char_208_melan", "target_id": "trap_020_roadblock#1"},
+            {"event_type": "ENEMY_LEAK", "frame": 1941, "source_id": "enemy_1107_uoffcr#7", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 2280, "source_id": "char_192_falco", "target_id": null},
+            {"event_type": "DEPLOY", "frame": 2610, "source_id": "char_210_stward"},
+            {"event_type": "DEPLOY", "frame": 2850, "source_id": "char_120_hibisc"},
+            {"event_type": "PROTECTED_TARGET_REACHED", "frame": 2867, "source_id": "enemy_3001_upeopl#3", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 2945, "source_id": "enemy_1107_uoffcr#10", "target_id": null}
+          ],
+          "interpretation": "The upper civilian #3 reached safety and two restraints were cleared, but leaks and Falco's death meant the declared sustained artillery-damage precondition did not actually hold."
+        },
+        {
+          "phase_id": "P3",
+          "declared_theme": "Preserve Steward and both medics, transfer artillery finishing, and upgrade central defense.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3630, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+            {"event_type": "DAMAGE", "frame": 3666, "source_id": "enemy_1107_uoffcr#16", "target_id": "enemy_3001_upeopl#14", "amount": 280.0},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3780, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+            {"event_type": "ENEMY_ABILITY_HIT", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "amount": 950.0},
+            {"event_type": "ENEMY_DEATH", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14", "details": {"kill_counted": false, "life_delta": -1}},
+            {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "target_id": null}
+          ],
+          "interpretation": "Artillery finishing did not occur. #14 received officer pressure and three 950-damage artillery hits, then died at 3930. The direct final blow was artillery; accumulated officer pressure and missing survivability remain causal context."
+        },
+        {
+          "phase_id": "P4",
+          "declared_theme": "Exhaust final waves, retain central interception and prepare outer-slot release.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "OPERATOR_DEATH", "frame": 4218, "source_id": "char_122_beagle", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4230, "source_id": "char_120_hibisc", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 4475, "source_id": "enemy_1107_uoffcr#19", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4920, "source_id": "char_284_spot", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 4980, "source_id": "char_281_popka", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 5004, "source_id": "char_283_midn", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 5130, "source_id": "char_501_durin", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null},
+            {"event_type": "OBJECTIVE_FAILURE", "frame": 4475, "details": {"reason": "ENEMY_LEAK", "remaining_life": -5}}
+          ],
+          "interpretation": "P4 could not satisfy its outer/central clearance gate: Popukar, Spot, Midnight and Durin all died before the final wave ended, and leaks continued. The declared start condition—artillery dead and Lancet supporting—was false."
+        },
+        {
+          "phase_id": "P5",
+          "declared_theme": "Release lower civilian and satisfy all terminal predicates.",
+          "observation": "FAIL",
+          "direct_evidence": [
+            {"event_type": "ENEMY_LEAK", "frame": 5403, "source_id": "enemy_1110_uamord#22", "target_id": null},
+            {"event_type": "OPERATOR_DEATH", "frame": 6600, "source_id": "char_285_medic2", "target_id": null},
+            {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null},
+            {"event_type": "ENEMY_DEATH", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14"},
+            {"event_type": "OBJECTIVE_FAILURE", "frame": 6996, "details": {"reason": "ENEMY_LEAK", "remaining_life": -23}}
+          ],
+          "interpretation": "The terminal release never established its required precondition: lower outer clearance, Durin restraint destruction and both-civilians-safe all failed. The run ended with 25 leaks, life -23, one protected death and one protected arrival."
+        }
+      ],
+      "earliest_failure_chain": {
+        "first_operator_death": {"frame": 1269, "operator": "char_123_fang"},
+        "second_operator_death": {"frame": 1599, "operator": "char_240_wyvern"},
+        "first_leak": {"frame": 1611, "enemy": "enemy_1107_uoffcr#6"},
+        "first_protected_arrival": {"frame": 2867, "target": "enemy_3001_upeopl#3"},
+        "protected_death": {"frame": 3930, "target": "enemy_3001_upeopl#14", "last_attacker": "enemy_1112_emppnt#0"},
+        "interpretation": "V3 accepted a harder early economic risk, which collapsed before #3's arrival. The local #3 success cannot be transplanted into V2 because its protection depended on a different, already-failed opening survival/economy base."
+      }
+    }
+  ],
+  "next_decision_inputs": {
+    "shared_constraints": [
+      "Ordinary 1-3 star operators only; no mode-exclusive reserves.",
+      "At least one medical survival source must remain active across the artillery window; V2 lost Lancet at 1380 and Ansel at 3180.",
+      "Artillery removal and protected-target separation must be treated as concurrent duties, not sequential phases.",
+      "V2 supplied a verified #14 safe-arrival structure; V3 supplied a verified #3 safe-arrival structure, but neither supplies a full combined plan.",
+      "Deployment slots, DP timing, retreat refunds, roadblock clearance windows and officer queues must be checked against the fixed GameData before simulation."
+    ],
+    "questions_for_gpt": [
+      "How should early medical survival be provided while retaining enough interception and economy?",
+      "How should artillery damage and protected-target exposure be handled when their windows overlap?",
+      "How should the verified V2/V3 route observations be redesigned into one coherent survival/economy structure rather than stitched?",
+      "Which phase dependency should be changed first if early survival and clearance conflict?"
+    ]
+  }
+}

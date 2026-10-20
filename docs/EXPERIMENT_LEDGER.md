@@ -654,8 +654,9 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 
 - Real Codex CLI starts: 4 of 4. V1 (`attempt_01_cli`, cumulative 65), V2
   (`attempt_04_cli`, 66), and V3 (`attempt_06_cli`, 67) completed. V4
-  (`attempt_08_cli`, 68) started but saved no model output; its infrastructure
-  classification is in
+  (`attempt_08_cli`, 68) completed a contract-valid plan but was not statically
+  checked or simulated. The earlier no-output intermediate check is preserved
+  and superseded in
   `docs/review/fc77177/m29_attempt08_infrastructure_failure_v1.json`. The
   non-starting `attempt_03_cli` is explicitly reconciled and not counted.
 - Full-stage simulations: 2 of 4. Both completed legal battles. V2 lost at
@@ -663,7 +664,7 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   #14 arrived. V3 lost at 8 kills/25 leaks/11 operator deaths/life -23 with #3
   arrived and #14 killed by artillery at frame 3930.
 - V1 had no simulation because Gallus redeployed at frame 5250 while still in
-  cooldown. V4 is not a tactical failure because no plan was received.
+  cooldown. V4 is not a tactical failure; it was a received but unadvanced plan.
 - Evidence and hashes: `docs/review/fc77177/m29_simulation_reconciliation_v1.json`,
   `docs/review/fc77177/m29_attempt05_causal_feedback_v1.json`, and
   `docs/review/fc77177/m29_attempt07_causal_feedback_v1.json`.
@@ -673,3 +674,7 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   failures are local untracked-output availability differences. Evidence:
   `docs/review/fc77177/m29_full_test_parent_child_comparison_v1.json`.
 - M29 simulation budget remains 2/4, but its real-model budget is exhausted.
+- Phase replay of the two saved legal losses is
+  `docs/review/fc77177/m29_phase_replay_v2_v3.json`; raw prompt/command/output/
+  action/event/summary material is indexed by
+  `docs/review/fc77177/m29_iteration_raw_manifest_v1.json`.
