@@ -1,0 +1,123 @@
+{
+  "schema_version": "KIMIARK_M29_BUDGET_RECONCILIATION_V1",
+  "stage_id": "main_08-07",
+  "budget": {
+    "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+    "budget_path": "docs/review/fc77177/m29_simulation_budget_v1.json",
+    "max_stage_simulations": 4,
+    "started_stage_simulations": 2,
+    "completed_stage_simulations": 2,
+    "consumed_without_completed_result": 0,
+    "remaining_stage_simulations": 2
+  },
+  "cli_budget": {
+    "schema_version": "M29_REAL_CODEX_CLI_BUDGET_RECONCILIATION_V1",
+    "max_cli_process_starts": 4,
+    "started_cli_process_starts": 4,
+    "completed_cli_process_starts": 3,
+    "started_without_saved_output": 1,
+    "remaining_cli_process_starts": 0,
+    "cumulative_cli_process_starts_after_last_attempt": 68,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "cli_attempts": [
+    {
+      "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_01_cli",
+      "attempt_index": 1,
+      "status": "COMPLETED",
+      "prompt_sha256": "c38879858c045e511c79276463b1170fbeeaf4c897f36ee443a4fae4019502ad",
+      "plan_id": "R8_7_GPT_M29_V1",
+      "contract_validation": "PASS",
+      "static_classification": "STATIC_CONFLICT",
+      "static_conflict": {
+        "action_index": 32,
+        "frame": 5250,
+        "operator_id": "char_4227_gallus",
+        "reason": "REDEPLOY_COOLDOWN_ACTIVE"
+      },
+      "simulation": "NOT_RUN",
+      "cumulative_cli_process_starts": 65
+    },
+    {
+      "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_03_cli",
+      "attempt_index": "NOT_A_NEW_CLI_ATTEMPT",
+      "status": "FAILED_BEFORE_START",
+      "counts_as_cli_process_start": false,
+      "reason": "The directory contains preparation records but no cli_process_attempt.json; its recorded prior count is 65."
+    },
+    {
+      "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_04_cli",
+      "attempt_index": 2,
+      "status": "COMPLETED",
+      "prompt_sha256": "fd4ab4b5c760861c54128c94680aeb100f4e2015e9fe24d783986ecb5f79f6dc",
+      "plan_id": "R8_7_GPT_M29_V2",
+      "contract_validation": "PASS",
+      "static_classification": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+      "simulation": "COMPLETED",
+      "result_classification": "C_LEGAL_BATTLE_LOSS",
+      "cumulative_cli_process_starts": 66
+    },
+    {
+      "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_06_cli",
+      "attempt_index": 3,
+      "status": "COMPLETED",
+      "prompt_sha256": "af8601b0ca446df95626b77d56487a356ed1dc5a1598517a67c532dfff33594b",
+      "plan_id": "R8_7_GPT_M29_V3",
+      "contract_validation": "PASS",
+      "static_classification": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+      "simulation": "COMPLETED",
+      "result_classification": "C_LEGAL_BATTLE_LOSS",
+      "cumulative_cli_process_starts": 67
+    },
+    {
+      "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_08_cli",
+      "attempt_index": 4,
+      "status": "COMPLETED",
+      "prompt_sha256": "6d1bb253547ae09675ca484c5028bdd5ca4947023e385922691c819a8362fd7c",
+      "contract_validation": "UNKNOWN_NO_MODEL_OUTPUT",
+      "static_classification": "UNKNOWN_NO_MODEL_OUTPUT",
+      "simulation": "NOT_RUN",
+      "cumulative_cli_process_starts": 68,
+      "failure_classification": "FAILED_AFTER_START_WITHOUT_SAVED_RESULT"
+    }
+  ],
+  "simulation_attempts": [
+    {
+      "budget_index": 1,
+      "reservation_path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic.simulation_reservation.json",
+      "reservation_status": "COMPLETED",
+      "execution_status": "COMPLETED",
+      "source_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_04_cli",
+      "diagnostic_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic",
+      "plan_id": "R8_7_GPT_M29_V2",
+      "result_classification": "C_LEGAL_BATTLE_LOSS",
+      "action_snapshot_sha256": "c2cfc4aaaabaeb5794732317b49f8411bdab02dd2cc256bef873ccee3b5efe92",
+      "plan_snapshot_sha256": "4efc91a0951a2be358f9c8efad59b500fb4fbf41715953296af4dc6e8d8c972f",
+      "manifest_sha256": "c69e2fc83165e2f634a57f366c8c49e2bcbf50eb3eed04e0dffe033b17b95318",
+      "diagnostic_events_sha256": "48c9a427dc42eca992ed5d3358141fc4084c1687824e6a8bbb6c3d1696254ebc",
+      "diagnostic_summary_sha256": "0b837ab2350d44ff8eb53491e1d1a33efe6612f37c0795808aecb54ed08a0c5d",
+      "causal_feedback_path": "docs/review/fc77177/m29_attempt05_causal_feedback_v1.json"
+    },
+    {
+      "budget_index": 2,
+      "reservation_path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic.simulation_reservation.json",
+      "reservation_status": "COMPLETED",
+      "execution_status": "COMPLETED",
+      "source_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_06_cli",
+      "diagnostic_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic",
+      "plan_id": "R8_7_GPT_M29_V3",
+      "result_classification": "C_LEGAL_BATTLE_LOSS",
+      "action_snapshot_sha256": "1749eeacb5d0707d43d207767a26925be675022f70bd94c36306aba9b9daf9ea",
+      "plan_snapshot_sha256": "d8e602d5c145bcac69a18834382daf5806eaf28af795d0a3ad919bf9b9d837e9",
+      "manifest_sha256": "0c2b1043d99437a613b082633321f72d4d7374c94f866ef5cc7ee3a021a30e7f",
+      "diagnostic_events_sha256": "b1f14fff02637e6f67fc0140eb937aad63f2bf9bc7db15aa9cc662589819915b",
+      "diagnostic_summary_sha256": "d5f57fcd5a87940ffc58f6e663f0b11c2f8210b14cb38e4f54cc2b875483f609",
+      "causal_feedback_path": "docs/review/fc77177/m29_attempt07_causal_feedback_v1.json"
+    }
+  ],
+  "classification_rules": {
+    "battle_loss_or_win_requires": "simulation_attempt.json status COMPLETED, result_saved=true, manifest.json and diagnostic_summary.json present",
+    "started_without_saved_output": "cli_process_attempt.json exists with STARTED but no final output/validation; do not treat as a tactical failure",
+    "automatic_retry": false
+  }
+}

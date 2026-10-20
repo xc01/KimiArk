@@ -268,3 +268,24 @@ R8-1, R8-2 and R8-4 frozen baselines are unchanged. R8-7 remains a legal
 battle LOSS and is not a faithful, robust or real-game result. R8-3/5/6 remain
 mechanism BLOCKED, and no probabilistic WIN is claimed. The ready but unsent M28
 prompt is documented in `docs/review/fc77177/m28_payload_manifest_v1.json`.
+
+## 2026-10-20 M29 phase planning reaches two valid R8-7 losses
+
+The M29 loop added mandatory `battle_phases` and budget reconciliation of
+`FAILED_BEFORE_START`, `FAILED_AFTER_START_WITHOUT_SAVED_RESULT`, and completed
+legal battles. Four real Codex starts were used: V1 completed but failed static
+redeploy-cooldown checking; V2 and V3 passed contract/static checks and each
+simulated once; the fourth attempt started but left no model output. The budget
+reconciliation is `docs/review/fc77177/m29_simulation_reconciliation_v1.json`.
+
+R8-7 M29 V2 is a legal LOSS at 19 kills, 14 leaks, 13 operator deaths, life -12,
+one protected death and one protected arrival. It moved #14 to a safe arrival but
+lost the early medical layer and leaked after frame 4731. R8-7 M29 V3 is a legal
+LOSS at 8 kills, 25 leaks, 11 operator deaths, life -23, one protected death and
+one protected arrival; its opening survival and upper-corridor coverage failed
+earlier. These are conditional current-model simulator results only. R8-1/R8-2/
+R8-4 frozen baselines remain unchanged; R8-3/5/6 remain mechanism BLOCKED.
+
+The full parent/child pytest comparison has zero M29-only failures: 31
+historical failures remain in both runs, while 16 parent-only failures came from
+the isolated parent worktree lacking local untracked output artifacts.

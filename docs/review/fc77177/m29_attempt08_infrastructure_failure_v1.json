@@ -1,0 +1,49 @@
+{
+  "schema_version": "KIMIARK_CLI_START_WITHOUT_SAVED_RESULT_V1",
+  "attempt_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_08_cli",
+  "stage_id": "main_08-07",
+  "failure_classification": "FAILED_AFTER_START_WITHOUT_SAVED_RESULT",
+  "evidence": {
+    "cli_process_attempt": {
+      "status": "STARTED",
+      "started_at_utc": "2026-10-20T07:25:09.847868+00:00",
+      "authorization_status": "AUTHORIZED",
+      "model": "gpt-6.1-sol",
+      "provider": "openai",
+      "reasoning_effort": "high",
+      "timeout_seconds": 3600
+    },
+    "proxy_prestart": {
+      "connect_target": "chatgpt.com:443",
+      "proxy": "http://127.0.0.1:7890",
+      "status": 200,
+      "counts_as_cli_start": false
+    },
+    "frozen_input": {
+      "prompt_bytes": 137424,
+      "prompt_sha256": "6d1bb253547ae09675ca484c5028bdd5ca4947023e385922691c819a8362fd7c"
+    },
+    "missing_outputs": [
+      "codex_exec.jsonl",
+      "codex_final_message.txt",
+      "codex_stderr.txt",
+      "cli_process_result.json",
+      "llm_structured_output.json",
+      "llm_plan_validation.json",
+      "static_compile_results.json",
+      "final_status.json"
+    ],
+    "post_start_process_check": {
+      "checked_at_local": "2026-10-20T15:27:13+08:00",
+      "codex_like_process_found": false,
+      "interpretation": "The subprocess did not remain alive and did not save a partial or final model output; no automatic retry or partial-output recovery was performed."
+    }
+  },
+  "rules_applied": {
+    "counts_as_real_cli_start": true,
+    "is_tactical_failure": false,
+    "counts_as_stage_simulation": false,
+    "automatic_retry": false,
+    "remaining_cli_process_starts": 0
+  }
+}

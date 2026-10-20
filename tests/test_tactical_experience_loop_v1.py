@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import subprocess
 import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from unittest import mock
 import pytest
@@ -247,37 +248,49 @@ def test_authorization_rejects_medium_without_subprocess() -> None:
             assert process.call_count == 0
 
 
+@contextmanager
+def temp_authorization_config():
+    with tempfile.TemporaryDirectory() as temporary:
+        config_path = Path(temporary) / "auth.json"
+        config_path.write_text(json.dumps({
+            "schema_version": authorization.AUTHORIZATION_SCHEMA_VERSION,
+            "provider": "openai", "model": "gpt-6.1-sol", "reasoning_effort": "high",
+            "extra_config_values": ["features.apps=false"],
+        }))
+        yield config_path
+
+
 def test_real_build_command_high_authorization_is_accepted() -> None:
-    config_path = Path("docs/review/fc77177/m27_model_authorization_v1.json")
-    with (
-        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
-        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
-    ):
-        command = runner.codex_runner.build_command(Path("output/test/final.txt"))
-    result = authorization.validate_cli_authorization(config_path, command)
+    with temp_authorization_config() as config_path:
+        with (
+            mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
+            mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+        ):
+            command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+        result = authorization.validate_cli_authorization(config_path, command)
     assert result["status"] == "AUTHORIZED"
     assert result["effective_configuration"]["features.apps"] == "false"
 
 
 def test_real_build_command_medium_or_conflict_is_rejected_before_start() -> None:
-    config_path = Path("docs/review/fc77177/m27_model_authorization_v1.json")
-    with (
-        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "medium"),
-        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
-    ):
-        command = runner.codex_runner.build_command(Path("output/test/final.txt"))
-    with pytest.raises(RuntimeError, match="configuration value mismatch"):
-        authorization.validate_cli_authorization(config_path, command)
-    with (
-        mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
-        mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
-    ):
-        conflict_command = runner.codex_runner.build_command(Path("output/test/final.txt"))
-    conflict_command[conflict_command.index("-m") - 2:conflict_command.index("-m") - 2] = [
-        "-c", 'model_reasoning_effort="medium"',
-    ]
-    with pytest.raises(RuntimeError, match="duplicate configuration override key"):
-        authorization.validate_cli_authorization(config_path, conflict_command)
+    with temp_authorization_config() as config_path:
+        with (
+            mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "medium"),
+            mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+        ):
+            command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+        with pytest.raises(RuntimeError, match="configuration value mismatch"):
+            authorization.validate_cli_authorization(config_path, command)
+        with (
+            mock.patch.object(runner.codex_runner, "REASONING_EFFORT", "high"),
+            mock.patch.object(runner.codex_runner, "EXTRA_CONFIG_VALUES", ["features.apps=false"]),
+        ):
+            conflict_command = runner.codex_runner.build_command(Path("output/test/final.txt"))
+        conflict_command[conflict_command.index("-m") - 2:conflict_command.index("-m") - 2] = [
+            "-c", 'model_reasoning_effort="medium"',
+        ]
+        with pytest.raises(RuntimeError, match="duplicate configuration override key"):
+            authorization.validate_cli_authorization(config_path, conflict_command)
 
 
 def test_m26_experience_store_is_valid_and_has_correction() -> None:

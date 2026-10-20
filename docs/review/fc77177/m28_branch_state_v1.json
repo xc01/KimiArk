@@ -136,7 +136,14 @@
     {
       "action_count": 39,
       "action_snapshot_sha256": "2848e2e96802d77ae066b5b339a2bbe2194a27a0089875db8f2c154ad06189b3",
-      "candidate_id": "R8_2_GPT_V3",
+      "archive_migration": {
+        "corrected_candidate_id": "R8_7_GPT_M28_V2",
+        "original_candidate_id": "R8_2_GPT_V3",
+        "reason": "The plan/action/result hashes match the saved R8-7 M28 V2 diagnostic; the prior record incorrectly retained an R8-2 plan identifier and stage.",
+        "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m28_iteration_v1/attempt_06_diagnostic/manifest.json",
+        "status": "CORRECTED_FROM_SAVED_MANIFEST"
+      },
+      "candidate_id": "R8_7_GPT_M28_V2",
       "classification": "C_LEGAL_BATTLE_LOSS",
       "hypothesis_evaluation": {
         "interpretation": "The event log does not establish coverage of the complete declared window.",
@@ -162,7 +169,7 @@
         "win": false,
         "zero_leaks": false
       },
-      "operational_plan_id": "R8_2_GPT_V3",
+      "operational_plan_id": "R8_7_GPT_M28_V2",
       "parent_plan_id": "R8_7_GPT_M26_V2",
       "plan_snapshot_sha256": "10ef9e2391a7523170d9f139439011cc12a81c4d9aa9e53f3c8c98f9fcf0bf98",
       "result": {
@@ -216,7 +223,7 @@
         ],
         "tactical_hypothesis": "Moving healing and upper restraint attacks into the opening can produce the first safe civilian arrival, while preserved eastern arts coverage and a western finishing caster prevent the previous surviving-artillery leak."
       },
-      "stage_id": "main_08-02"
+      "stage_id": "main_08-07"
     },
     {
       "candidate_id": "R8_7_GPT_M28_V3",
@@ -379,6 +386,259 @@
         "tactical_hypothesis": "Opening survival and subsequent handoffs must produce the economic grants, civilian releases and sustained battery operation. Dedicated clearance and retained healing address the verified causal failures without treating static acceptance as battle evidence."
       },
       "stage_id": "main_08-07"
+    },
+    {
+      "candidate_id": "R8_7_GPT_M29_V1",
+      "classification": "B_STATIC_CONFLICT",
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "objective_scope": {
+        "win": false
+      },
+      "operational_plan_id": "R8_7_GPT_M29_V1",
+      "parent_plan_id": "UNKNOWN_PARENT_PLAN",
+      "revision_hypothesis": {
+        "changed_responsibilities": [
+          "Kroos receives upper eastern device clearance while Melantha retains device-free opening duels.",
+          "Midnight replaces Plume earlier to advance lower eastern release before the second civilian's dangerous restraint period.",
+          "Ansel and Hibiscus move to column 3 and each sustain their own outer blocker, central blocker and caster.",
+          "GALLUS receives a scheduled return to finish upper western clearance; Durin receives the later lower western clearance slot.",
+          "Artillery destruction becomes a mandatory prerequisite for Lava withdrawal and western holding, rather than an assumed consequence of deploying two casters."
+        ],
+        "expected_first_observable_event": {
+          "earliest_frame": 1470,
+          "event_type": "DAMAGE",
+          "latest_frame": 1500,
+          "source_id": "char_124_kroos",
+          "target_id": "trap_020_roadblock#3"
+        },
+        "hypothesis_id": "R8-7-M29-H1",
+        "if_expected_event_absent": "Reject the upper eastern clearance responsibility and inspect actual placement, rotated range and available targets. Do not postpone withdrawal while declaring the same hypothesis successful. Even if this damage event occurs, independently require device destruction, source survival, artillery destruction and both protected arrivals.",
+        "operational_plan_id": "R8_7_GPT_M29_V1",
+        "parent_plan_id": "R8_7_GPT_M28_V4",
+        "referenced_experience_ids": [
+          "M26-EXP-0001",
+          "M26-EXP-0002",
+          "M28-EXP-0002"
+        ],
+        "tactical_hypothesis": "Earlier independent eastern clearance, baseline medic coverage of each half's outer blocker and caster, and explicit post-artillery western-clearance handoffs can prevent the prior protected-target exposure and source-death cascade while maintaining all four hostile corridors."
+      },
+      "stage_id": "main_08-07",
+      "static_conflicts": [
+        {
+          "action_index": 32,
+          "active_roadblock": false,
+          "declaration_match": true,
+          "direction": "DOWN",
+          "frame": 5250,
+          "operator_id": "char_4227_gallus",
+          "position": "RANGED",
+          "reasons": [
+            "REDEPLOY_COOLDOWN_ACTIVE"
+          ],
+          "redeploy_available": false,
+          "status": "CONFLICT",
+          "tile_json_row_col": [
+            2,
+            2
+          ],
+          "tile_legal_for_position": true,
+          "tile_occupied": false,
+          "tile_runtime_col_row": [
+            2,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "action_count": 47,
+      "action_snapshot_sha256": "c2cfc4aaaabaeb5794732317b49f8411bdab02dd2cc256bef873ccee3b5efe92",
+      "candidate_id": "R8_7_GPT_M29_V2",
+      "classification": "C_LEGAL_BATTLE_LOSS",
+      "hypothesis_evaluation": {
+        "interpretation": "The declared observable occurred; the full tactical hypothesis is not thereby proven.",
+        "matches": [
+          {
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            },
+            "event_type": "ENEMY_DEATH",
+            "frame": 899,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1108_uterer#1",
+            "time": 29.9666666667
+          }
+        ],
+        "observation_complete": true,
+        "query": {
+          "earliest_frame": 870,
+          "event_type": "ENEMY_DEATH",
+          "event_type_declared": "ENEMY_DEATH",
+          "latest_frame": 1050,
+          "source_id": "char_123_fang",
+          "status": "VALID_QUERY",
+          "target_id": "enemy_1108_uterer#1"
+        },
+        "status": "VERIFIED"
+      },
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "objective_scope": {
+        "expected_protected_target_count": 2,
+        "perfect": false,
+        "protected_targets_all_reached": false,
+        "protected_targets_zero_deaths": false,
+        "win": false,
+        "zero_leaks": false
+      },
+      "operational_plan_id": "R8_7_GPT_M29_V2",
+      "parent_plan_id": "R8_7_GPT_M29_V1",
+      "plan_snapshot_sha256": "4efc91a0951a2be358f9c8efad59b500fb4fbf41715953296af4dc6e8d8c972f",
+      "result": {
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 13,
+        "protected_target_deaths": 1,
+        "protected_targets_reached": 1,
+        "runtime_action_errors": [
+          "char_285_medic2@82.0: operator is not deployed",
+          "char_123_fang@150.0: operator is not deployed",
+          "char_210_stward@150.0: operator is not deployed",
+          "char_212_ansel@160.0: operator is not deployed",
+          "char_240_wyvern@165.0: operator is not deployed",
+          "char_120_hibisc@175.0: operator is not deployed",
+          "char_284_spot@180.0: operator is not deployed",
+          "char_121_lava@180.0: operator is not deployed",
+          "char_124_kroos@220.0: operator is not deployed",
+          "char_212_ansel@220.0: operator is not deployed",
+          "char_120_hibisc@225.0: operator is not deployed",
+          "char_121_lava@240.0: operator is not deployed",
+          "char_120_hibisc@275.0: operator is not deployed",
+          "char_212_ansel@280.0: operator is not deployed",
+          "char_121_lava@300.0: operator is not deployed",
+          "char_120_hibisc@325.0: operator is not deployed",
+          "char_121_lava@330.0: operator is not deployed"
+        ],
+        "win": false
+      },
+      "revision_hypothesis": {
+        "changed_responsibilities": [
+          "Beagle and Spot take opening outer interception; their survival no longer assumes permanent outer medic coverage.",
+          "Kroos and temporary Plume own eastern device clearance independently of the permanent blockers.",
+          "Ansel and Hibiscus mutually cover the eastern medics and casters; Ansel alone directly covers central blockers.",
+          "Steward and Lava must actually destroy artillery before the scheduled withdrawal.",
+          "Noir Corne, Cardigan, late Kroos and fresh Plume own the final interception workload.",
+          "Western clearers receive their slots only after the required hostile-clearance gate."
+        ],
+        "expected_first_observable_event": {
+          "earliest_frame": 870,
+          "event_type": "ENEMY_DEATH",
+          "latest_frame": 1050,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1108_uterer#1"
+        },
+        "hypothesis_id": "R8-7-M29-H2",
+        "if_expected_event_absent": "Treat the opening regression check as failed and inspect Fang's actual contact, attacks and survival before trusting later income or handoffs. Do not repair the plan through invented DP or retimed actions. If it occurs, it verifies only this early event; eastern clearance, medic survival, artillery destruction and both safe arrivals still require independent evidence.",
+        "operational_plan_id": "R8_7_GPT_M29_V2",
+        "parent_plan_id": "R8_7_GPT_M29_V1",
+        "referenced_experience_ids": [
+          "M26-EXP-0001",
+          "M26-EXP-0002",
+          "M28-EXP-0002"
+        ],
+        "tactical_hypothesis": "Replacing fragile outer duels with armored interception permits mutual medic coverage and sustained eastern arts damage. Independent eastern restraint clearance, explicit live-source economy, late blocker refreshes and a hostile-free western-clearance handoff can prevent the verified survival cascade and complete both civilian objectives."
+      },
+      "stage_id": "main_08-07"
+    },
+    {
+      "action_count": 52,
+      "action_snapshot_sha256": "1749eeacb5d0707d43d207767a26925be675022f70bd94c36306aba9b9daf9ea",
+      "candidate_id": "R8_7_GPT_M29_V3",
+      "classification": "C_LEGAL_BATTLE_LOSS",
+      "hypothesis_evaluation": {
+        "interpretation": "No matching event was observed over the complete declared window.",
+        "matches": [],
+        "observation_complete": true,
+        "query": {
+          "earliest_frame": 1500,
+          "event_type": "ENEMY_DEATH",
+          "event_type_declared": "ENEMY_DEATH",
+          "latest_frame": 1950,
+          "source_id": "char_500_noirc",
+          "status": "VALID_QUERY",
+          "target_id": "enemy_1108_uterer#4"
+        },
+        "status": "EVENT_NOT_OBSERVED"
+      },
+      "mechanics_version": "m23-behavioral-mechanics-v1",
+      "objective_scope": {
+        "expected_protected_target_count": 2,
+        "perfect": false,
+        "protected_targets_all_reached": false,
+        "protected_targets_zero_deaths": false,
+        "win": false,
+        "zero_leaks": false
+      },
+      "operational_plan_id": "R8_7_GPT_M29_V3",
+      "parent_plan_id": "R8_7_GPT_M29_V2",
+      "plan_snapshot_sha256": "d8e602d5c145bcac69a18834382daf5806eaf28af795d0a3ad919bf9b9d837e9",
+      "result": {
+        "enemies_killed": 8,
+        "enemies_leaked": 25,
+        "operator_deaths": 11,
+        "protected_target_deaths": 1,
+        "protected_targets_reached": 1,
+        "runtime_action_errors": [
+          "char_240_wyvern@56.0: operator is not deployed",
+          "char_212_ansel@56.0: insufficient DP",
+          "char_212_ansel@81.0: operator is not deployed",
+          "char_240_wyvern@87.0: operator is not deployed",
+          "char_192_falco@110.0: operator is not deployed",
+          "char_240_wyvern@118.0: operator is not deployed",
+          "char_123_fang@140.0: operator is not deployed",
+          "char_212_ansel@141.0: operator is not deployed",
+          "char_240_wyvern@145.0: operator is not deployed",
+          "char_122_beagle@155.0: operator is not deployed",
+          "char_210_stward@160.0: operator is not deployed",
+          "char_121_lava@160.0: insufficient DP",
+          "char_121_lava@170.0: operator is not deployed",
+          "char_120_hibisc@175.0: operator is not deployed",
+          "char_283_midn@185.0: operator is not deployed",
+          "char_501_durin@190.0: operator is not deployed",
+          "char_212_ansel@201.0: operator is not deployed",
+          "char_120_hibisc@225.0: operator is not deployed",
+          "char_121_lava@230.0: operator is not deployed"
+        ],
+        "win": false
+      },
+      "revision_hypothesis": {
+        "changed_responsibilities": [
+          "Upper western restraint clearance moves into the opening evacuation instead of waiting for hostile exhaustion.",
+          "Noir Corne receives opening upper interception, then hands damage throughput to Popukar before paired officers accumulate.",
+          "Friston provides only a brief lower bridge; Beagle receives the durable lower outer duty and later Lancet healing.",
+          "Steward receives a bounded eastern artillery assignment with western Durin explicitly responsible for the remaining HP.",
+          "Spot, Midnight and Lava assume central survival and armor clearance before the previous collapse interval.",
+          "Every economic dependency remains conditional on source survival; no missing grant is treated as an arithmetic defect."
+        ],
+        "expected_first_observable_event": {
+          "earliest_frame": 1500,
+          "event_type": "ENEMY_DEATH",
+          "latest_frame": 1950,
+          "source_id": "char_500_noirc",
+          "target_id": "enemy_1108_uterer#4"
+        },
+        "hypothesis_id": "R8-7-M29-H3",
+        "if_expected_event_absent": "Reject the proposed upper outer opening handoff and inspect interception, competing Kroos damage and Noir Corne survival. Do not infer successful upper release, later DP availability or full-stage viability from the preserved Fang opening kill.",
+        "operational_plan_id": "R8_7_GPT_M29_V3",
+        "parent_plan_id": "R8_7_GPT_M29_V2",
+        "referenced_experience_ids": [
+          "M26-EXP-0001",
+          "M26-EXP-0002",
+          "M28-EXP-0002"
+        ],
+        "tactical_hypothesis": "Reassign protection to early complete upper release, sustain eastern Steward from separated medical positions, finish surviving artillery in the west, and replace slow outer damage before paired waves while central arts prevent capacity overflow."
+      },
+      "stage_id": "main_08-07"
     }
   ],
   "comparison_conflicts": [
@@ -386,12 +646,24 @@
       "candidate_id": "R8_7_GPT_M28_V3",
       "classification": "B_STATIC_CONFLICT",
       "reason": "CANDIDATE_NOT_ELIGIBLE_FOR_BRANCH_PROMOTION"
+    },
+    {
+      "candidate_id": "R8_7_GPT_M29_V1",
+      "classification": "B_STATIC_CONFLICT",
+      "reason": "CANDIDATE_NOT_ELIGIBLE_FOR_BRANCH_PROMOTION"
     }
   ],
   "current_best": {
     "action_snapshot_sha256": "929f961fc825e739688ed7ccb1670ff698220b0bd6aff90f5ac23532ad4ab284",
+    "archive_context": {
+      "diagnostic_events_path": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_06_diagnostic/diagnostic_events.json",
+      "diagnostic_summary_path": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_06_diagnostic/diagnostic_summary.json",
+      "manifest_path": "output/r8_1_r8_7_batch_v1/main_08-07/m25_tactical_revision_v1/attempt_06_diagnostic/manifest.json",
+      "mechanics_version": "m23-behavioral-mechanics-v1"
+    },
     "candidate_id": "M25_ATTEMPT06",
     "classification": "C_LEGAL_BATTLE_LOSS",
+    "mechanics_version": "m23-behavioral-mechanics-v1",
     "operational_plan_id": "R8_7_GPT_M25_V4",
     "parent_plan_id": "R8_7_GPT_M25_V3",
     "plan_snapshot_sha256": "4cd09f1225128b3ab5f1343d895b1312e933d7880fb54f1facbbcb536e779e01",
@@ -399,8 +671,12 @@
       "enemies_killed": 17,
       "enemies_leaked": 16,
       "operator_deaths": 10,
+      "protected_target_deaths": 1,
+      "protected_targets_reached": 1,
+      "remaining_life": -14,
       "win": false
-    }
+    },
+    "stage_id": "main_08-07"
   },
   "exploration": {
     "action_count": 53,
@@ -515,7 +791,7 @@
       "result": "CURRENT_MODEL_WIN_BASELINE"
     }
   },
-  "last_updated_candidate_id": "R8_7_GPT_M28_V4",
+  "last_updated_candidate_id": "R8_7_GPT_M29_V3",
   "schema_version": "KIMIARK_TACTICAL_BRANCH_STATE_V2",
   "stage_id": "main_08-07"
 }

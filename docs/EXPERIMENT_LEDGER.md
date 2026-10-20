@@ -649,3 +649,27 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Same-environment full pytest comparison: parent 34 failures, M27 child 31
   failures, zero child-only failures; two architecture failures no longer occur.
   Evidence: `docs/review/fc77177/m27_full_test_parent_child_comparison_v1.json`.
+
+# M29 phase-plan iteration ledger — 2026-10-20
+
+- Real Codex CLI starts: 4 of 4. V1 (`attempt_01_cli`, cumulative 65), V2
+  (`attempt_04_cli`, 66), and V3 (`attempt_06_cli`, 67) completed. V4
+  (`attempt_08_cli`, 68) started but saved no model output; its infrastructure
+  classification is in
+  `docs/review/fc77177/m29_attempt08_infrastructure_failure_v1.json`. The
+  non-starting `attempt_03_cli` is explicitly reconciled and not counted.
+- Full-stage simulations: 2 of 4. Both completed legal battles. V2 lost at
+  19 kills/14 leaks/13 operator deaths/life -12 with protected target #3 dead and
+  #14 arrived. V3 lost at 8 kills/25 leaks/11 operator deaths/life -23 with #3
+  arrived and #14 killed by artillery at frame 3930.
+- V1 had no simulation because Gallus redeployed at frame 5250 while still in
+  cooldown. V4 is not a tactical failure because no plan was received.
+- Evidence and hashes: `docs/review/fc77177/m29_simulation_reconciliation_v1.json`,
+  `docs/review/fc77177/m29_attempt05_causal_feedback_v1.json`, and
+  `docs/review/fc77177/m29_attempt07_causal_feedback_v1.json`.
+- Full same-environment parent/child pytest run: child 547 passed, 31 failed,
+  2 skipped; parent 529 passed, 47 failed, 2 skipped. ID-level comparison has
+  zero M29-only failures and 31 shared historical failures. The 16 parent-only
+  failures are local untracked-output availability differences. Evidence:
+  `docs/review/fc77177/m29_full_test_parent_child_comparison_v1.json`.
+- M29 simulation budget remains 2/4, but its real-model budget is exhausted.

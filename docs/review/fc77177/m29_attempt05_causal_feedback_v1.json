@@ -1,0 +1,90 @@
+{
+  "schema_version": "KIMIARK_SIMULATED_CANDIDATE_CAUSAL_FEEDBACK_V1",
+  "stage_id": "main_08-07",
+  "source_plan_id": "R8_7_GPT_M29_V2",
+  "parent_plan_id": "R8_7_GPT_M29_V1",
+  "mechanics_version": "m23-behavioral-mechanics-v1",
+  "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "result_classification": "C_LEGAL_BATTLE_LOSS",
+  "simulator_result": {
+    "win": false,
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 13,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1,
+    "remaining_life": -12
+  },
+  "comparison_to_m28_v4": {
+    "improved": ["protected target #14 safely arrived at frame11624"],
+    "unchanged": ["protected target #3 was last hit by artillery at frame3330"],
+    "worse": ["first operator death moved earlier to frame1380", "operator deaths increased from 7 to 13", "leaks increased from 13 to 14"]
+  },
+  "verified_causal_events": [
+    {"event_type": "OPERATOR_DEATH", "frame": 1380, "source_id": "char_285_medic2", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_212_ansel", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 3180, "source_id": "char_210_stward", "target_id": null},
+    {"event_type": "ENEMY_DEATH", "frame": 3330, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+    {"event_type": "OPERATOR_DEATH", "frame": 3780, "source_id": "char_120_hibisc", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 3780, "source_id": "char_121_lava", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 4389, "source_id": "char_123_fang", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 4473, "source_id": "char_284_spot", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 4650, "source_id": "char_240_wyvern", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 4731, "source_id": "enemy_1107_uoffcr#19", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 4805, "source_id": "enemy_1107_uoffcr#18", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 4818, "source_id": "char_500_noirc", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 4836, "source_id": "char_124_kroos", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null},
+    {"event_type": "PROTECTED_TARGET_REACHED", "frame": 11624, "source_id": "enemy_3001_upeopl#14", "target_id": null}
+  ],
+  "protected_target_observations": {
+    "enemy_3001_upeopl#3": {
+      "roadblock_block_frame": 761,
+      "officer_damage_frames": [1296, 1356, 1416],
+      "artillery_damage_frames": [3030, 3180, 3330],
+      "death_frame": 3330,
+      "last_attacker": "enemy_1112_emppnt#0",
+      "causal_boundary": "The last hit is verified; complete attribution may include the earlier roadblock, officer pressure and healing/source-survival chain."
+    },
+    "enemy_3001_upeopl#14": {
+      "roadblock_block_frame": 3620,
+      "officer_damage_frames": [4533, 4593, 4653],
+      "arrival_frame": 11624,
+      "outcome": "SAFE_ARRIVAL"
+    }
+  },
+  "hypothesis_evaluation": {
+    "status": "VERIFIED",
+    "query": {"event_type": "ENEMY_DEATH", "earliest_frame": 870, "latest_frame": 1050, "source_id": "char_123_fang", "target_id": "enemy_1108_uterer#1"},
+    "observed_match_frame": 899,
+    "interpretation": "Only this declared early event was verified. The full opening-survival, clearance, artillery-removal and completion hypothesis failed."
+  },
+  "causal_interpretation": {
+    "direct_failure": "Lancet died at frame1380; Ansel and Steward died together at frame3180 before artillery's final hit; Hibiscus and Lava died together at frame3780.",
+    "chain": "The surviving artillery retained its route pressure while central healing, arts output and blocker support collapsed. Officer and armor queues then leaked from frame4731 onward.",
+    "structural_question": "The plan changed #14 clearance and arrival but did not preserve the early medical/source layer or eliminate the surviving artillery before the route collapse.",
+    "unknown": "Client target priority, continuous-frame timing, AoE targeting and whether a different duty assignment can preserve all phases remain UNKNOWN."
+  },
+  "artifacts": {
+    "diagnostic_events": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/diagnostic_events.json",
+      "bytes": 13178812,
+      "sha256": "48c9a427dc42eca992ed5d3358141fc4084c1687824e6a8bbb6c3d1696254ebc"
+    },
+    "diagnostic_summary": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/diagnostic_summary.json",
+      "bytes": 17061861,
+      "sha256": "0b837ab2350d44ff8eb53491e1d1a33efe6612f37c0795808aecb54ed08a0c5d"
+    },
+    "action_snapshot": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/action_snapshot.json",
+      "bytes": 6637,
+      "sha256": "c2cfc4aaaabaeb5794732317b49f8411bdab02dd2cc256bef873ccee3b5efe92"
+    },
+    "plan_snapshot": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_05_diagnostic/plan_snapshot.json",
+      "bytes": 31160,
+      "sha256": "4efc91a0951a2be358f9c8efad59b500fb4fbf41715953296af4dc6e8d8c972f"
+    }
+  }
+}

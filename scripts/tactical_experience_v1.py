@@ -124,6 +124,41 @@ def add_revision_hypothesis_schema(schema: dict[str, Any]) -> dict[str, Any]:
     updated = dict(schema)
     properties = dict(updated.get("properties") or {})
     required = list(updated.get("required") or [])
+    plans = properties.get("revised_operational_plans")
+    if isinstance(plans, dict) and isinstance(plans.get("items"), dict):
+        plan = dict(plans["items"])
+        plan_required = list(plan.get("required") or [])
+        if "battle_phases" not in plan_required:
+            plan_required.append("battle_phases")
+        plan["required"] = plan_required
+        plan["properties"] = {
+            **(plan.get("properties") or {}),
+            "battle_phases": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": True,
+                    "required": [
+                        "phase_id", "goal", "start_condition", "completion_condition",
+                        "responsibilities", "survival_dependencies", "handoff_requirements",
+                        "failure_effect_on_later_phases",
+                    ],
+                    "properties": {
+                        "phase_id": {"type": "string", "minLength": 1},
+                        "goal": {"type": "string", "minLength": 5},
+                        "start_condition": {"type": "string", "minLength": 5},
+                        "completion_condition": {"type": "string", "minLength": 5},
+                        "responsibilities": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 5}},
+                        "survival_dependencies": {"type": "array", "items": {"type": "string", "minLength": 5}},
+                        "handoff_requirements": {"type": "array", "items": {"type": "string", "minLength": 5}},
+                        "failure_effect_on_later_phases": {"type": "string", "minLength": 5},
+                    },
+                },
+            },
+        }
+        plans["items"] = plan
+        properties["revised_operational_plans"] = plans
     properties["revision_hypothesis"] = {
         "type": "object",
         "additionalProperties": False,
@@ -159,6 +194,7 @@ def add_revision_hypothesis_schema(schema: dict[str, Any]) -> dict[str, Any]:
         },
     }
     updated["properties"] = properties
+    updated = dict(updated)
     if "revision_hypothesis" not in required:
         required.append("revision_hypothesis")
     updated["required"] = required

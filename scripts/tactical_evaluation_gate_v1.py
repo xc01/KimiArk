@@ -144,6 +144,23 @@ def _write_reservation(path: Path, record: dict[str, Any], status: str) -> None:
     os.replace(temporary, path)
 
 
+def _failure_outcome(diagnostic_output_dir: Path) -> str:
+    attempt_path = diagnostic_output_dir / "simulation_attempt.json"
+    manifest_path = diagnostic_output_dir / "manifest.json"
+    summary_path = diagnostic_output_dir / "diagnostic_summary.json"
+    if not attempt_path.is_file():
+        return "FAILED_BEFORE_START"
+    try:
+        attempt = load_json(attempt_path)
+    except (OSError, json.JSONDecodeError):
+        return "UNKNOWN"
+    if attempt.get("status") != "STARTED":
+        return "UNKNOWN"
+    if manifest_path.is_file() and summary_path.is_file():
+        return "FAILED_AFTER_START"
+    return "FAILED_AFTER_START_WITHOUT_SAVED_RESULT"
+
+
 @contextmanager
 def consume_evaluation(
     *, source_dir: Path, diagnostic_output_dir: Path, budget_path: Path,
@@ -180,11 +197,22 @@ def consume_evaluation(
             yield gate_result
         except BaseException as exc:
             _write_reservation(reservation_path, reservation, "FAILED", )
+            reservation["failure_outcome"] = _failure_outcome(diagnostic_output_dir)
+            _write_reservation(reservation_path, reservation, "FAILED")
             reservation_path.with_suffix(".error.txt").write_text(
                 f"{type(exc).__name__}: {exc}\n", encoding="utf-8"
             )
             raise
         else:
+            manifest = diagnostic_output_dir / "manifest.json"
+            summary = diagnostic_output_dir / "diagnostic_summary.json"
+            attempt_path = diagnostic_output_dir / "simulation_attempt.json"
+            result_complete = (
+                manifest.is_file() and summary.is_file() and attempt_path.is_file()
+                and load_json(attempt_path).get("status") == "COMPLETED"
+                and load_json(attempt_path).get("result_saved") is True
+            )
+            reservation["result_saved"] = result_complete
             _write_reservation(reservation_path, reservation, "COMPLETED")
 
 

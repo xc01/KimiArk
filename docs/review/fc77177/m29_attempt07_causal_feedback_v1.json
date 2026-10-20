@@ -1,0 +1,45 @@
+{
+  "schema_version": "KIMIARK_SIMULATED_CANDIDATE_CAUSAL_FEEDBACK_V1",
+  "stage_id": "main_08-07",
+  "source_plan_id": "R8_7_GPT_M29_V3",
+  "parent_plan_id": "R8_7_GPT_M29_V2",
+  "result_classification": "C_LEGAL_BATTLE_LOSS",
+  "simulator_result": {
+    "win": false,
+    "enemies_killed": 8,
+    "enemies_leaked": 25,
+    "operator_deaths": 11,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1,
+    "remaining_life": -23
+  },
+  "hypothesis_evaluation": {
+    "status": "EVENT_NOT_OBSERVED",
+    "query": {"event_type": "ENEMY_DEATH", "earliest_frame": 1500, "latest_frame": 1950, "source_id": "char_500_noirc", "target_id": "enemy_1108_uterer#4"},
+    "observation_complete": true
+  },
+  "verified_causal_events": [
+    {"event_type": "OPERATOR_DEATH", "frame": 1269, "source_id": "char_123_fang", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 1599, "source_id": "char_240_wyvern", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 1611, "source_id": "enemy_1107_uoffcr#6", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 1941, "source_id": "enemy_1107_uoffcr#7", "target_id": null},
+    {"event_type": "OPERATOR_DEATH", "frame": 2280, "source_id": "char_192_falco", "target_id": null},
+    {"event_type": "PROTECTED_TARGET_REACHED", "frame": 2867, "source_id": "enemy_3001_upeopl#3", "target_id": null},
+    {"event_type": "ENEMY_DEATH", "frame": 3930, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14"},
+    {"event_type": "OPERATOR_DEATH", "frame": 4218, "source_id": "char_122_beagle", "target_id": null},
+    {"event_type": "ENEMY_LEAK", "frame": 5759, "source_id": "enemy_1112_emppnt#0", "target_id": null}
+  ],
+  "comparison": {
+    "regressed_vs_v2": ["kills 19 to 8", "leaks 14 to 25", "first leak 4731 to 1611", "protected target #14 was lost at frame3930"],
+    "improved_vs_v2": ["protected target #3 arrived at frame2867"]
+  },
+  "direct_interpretation": "The opening did not establish sufficient outer survival: Fang and Wyvern died before or at the first leak window, then the upper corridor leaked. The plan also left #14 exposed to artillery.",
+  "structural_requirement": "Redesign the opening survival/blocking and protected-target coverage responsibilities together; do not merely move skill times or rename phases.",
+  "unknown": "Exact client target priority, continuous-frame timing, AoE targeting and all unsupported mechanics remain UNKNOWN.",
+  "artifacts": {
+    "diagnostic_events": {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/diagnostic_events.json", "sha256": "b1f14fff02637e6f67fc0140eb937aad63f2bf9bc7db15aa9cc662589819915b"},
+    "diagnostic_summary": {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/diagnostic_summary.json", "sha256": "d5f57fcd5a87940ffc58f6e663f0b11c2f8210b14cb38e4f54cc2b875483f609"},
+    "plan_snapshot": {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/plan_snapshot.json", "sha256": "d8e602d5c145bcac69a18834382daf5806eaf28af795d0a3ad919bf9b9d837e9"},
+    "action_snapshot": {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_07_diagnostic/action_snapshot.json", "sha256": "1749eeacb5d0707d43d207767a26925be675022f70bd94c36306aba9b9daf9ea"}
+  }
+}

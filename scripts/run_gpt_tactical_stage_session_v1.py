@@ -513,7 +513,20 @@ def prepare() -> dict[str, Any]:
 
 
 def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None) -> str:
-    evidence_json = json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))
+    prompt_only_metadata = {"codex_cli_run_policy", "decision_task", "provenance", "tactical_provider"}
+    prompt_evidence = {key: value for key, value in evidence.items() if key not in prompt_only_metadata}
+    stage_support = copy.deepcopy(prompt_evidence.get("stage_mechanism_support"))
+    if isinstance(stage_support, dict):
+        for row in stage_support.get("enemy_semantics") or []:
+            if isinstance(row, dict):
+                for field in ("counts_as_kill", "counts_as_leak", "death_life_point_reduce", "is_friendly"):
+                    if isinstance(row.get(field), dict):
+                        row[field] = {
+                            key: value for key, value in row[field].items()
+                            if key not in {"source_file", "source_path"}
+                        }
+        prompt_evidence["stage_mechanism_support"] = stage_support
+    evidence_json = json.dumps(prompt_evidence, ensure_ascii=False, separators=(",", ":"))
     schema_json = json.dumps(schema or {}, ensure_ascii=False, separators=(",", ":"))
     schema_required = schema.get("required") if schema else []
     plan_schema = ((schema or {}).get("properties") or {}).get("revised_operational_plans", {}).get("items", {})
@@ -568,6 +581,7 @@ MANDATORY OUTPUT CONTRACT
 - revised_operational_plans[0] required fields: {json.dumps(plan_required)}.
 - revision_hypothesis required fields: {json.dumps(revision_required)}.
 - mandatory_tactical_invariants entries must be objects, not strings.
+- battle_phases must explain each phase goal, start/completion condition, duties, survival dependencies, handoffs and the consequence of that phase failing.
 - parent_hypothesis_id must equal one of revised_strategic_hypotheses[*].hypothesis_id.
 - action_timeline frames must be nondecreasing.
 

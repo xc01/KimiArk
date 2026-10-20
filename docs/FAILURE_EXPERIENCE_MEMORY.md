@@ -500,3 +500,18 @@ Contract-invalid and static-conflict experiences remain valid only for interface
 discipline. They must not be used as evidence that a tactical idea failed in
 battle. Mechanics-version mismatch is `REQUIRES_REVALIDATION`; an unrelated code
 commit alone does not invalidate a record.
+
+## 2026-10-20 M29 separates phase declarations from phase proof
+
+The two M29 completed plans show that a valid phase contract does not prove
+duty survival or coverage. V2 moved #14 to safe arrival but lost Lancet at frame
+1380, Ansel and Steward at 3180, then arts support at 3780; route control
+collapsed from frame 4731. V3 inverted the protected-target outcome (#3 arrived,
+#14 died) but paid an earlier opening failure: Fang died at 1269, Wyvern at 1599,
+and the first leak followed at 1611.
+
+Only legal battle results enter tactical experience. The V1 static cooldown
+conflict and the V4 start-without-output infrastructure failure must not be
+recorded as GPT strategic failures. Phase text can explain dependencies, but the
+next feedback must still check the named phase's observable survival or clearance
+event before crediting it.
