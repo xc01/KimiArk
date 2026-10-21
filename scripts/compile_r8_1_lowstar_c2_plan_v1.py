@@ -192,6 +192,7 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
     deployment_limit = int(evidence["stage_options"]["deployment_limit"])
     deployment_limit_conflicts: list[dict[str, Any]] = []
     tile_conflicts: list[dict[str, Any]] = []
+    conditional_redeploys: list[dict[str, Any]] = []
 
     for index, action in enumerate(actions):
         action_type = action.get("action_type")
@@ -240,8 +241,37 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
                 status = "CONFLICT"; reasons.append("TILE_NOT_LEGAL_FOR_POSITION")
             if not not_already_deployed:
                 reasons.append("CONDITIONAL_REDEPLOY_AWAITING_EXIT")
-                occupied = False
-                redeploy_ready = True
+                observed_occupant = tile_occupancy.get(runtime_tile)
+                if observed_occupant not in {None, operator_id}:
+                    status = "CONFLICT"
+                    reasons.append("TILE_OCCUPIED_BY_ANOTHER_OPERATOR")
+                else:
+                    cooldown_frame = redeploy_available.get(operator_id)
+                    conditional_redeploys.append({
+                        "action_index": index,
+                        "operator_id": operator_id,
+                        "frame": frame,
+                        "tile_runtime_col_row": list(runtime_tile),
+                        "exit_condition": "RETREAT_OR_DEATH_BEFORE_DEPLOY",
+                        "exit_deadline_frame": frame,
+                        "cooldown_start_frame": "UNKNOWN_RETREAT_OR_DEATH_TIME",
+                        "cooldown_end_frame": cooldown_frame,
+                        "cooldown_end_frame_status": (
+                            "KNOWN_AFTER_EXPLICIT_RETREAT"
+                            if cooldown_frame is not None
+                            else "UNKNOWN_UNTIL_RUNTIME_EXIT"
+                        ),
+                        "base_redeploy_cost": actual_cost(operator, support),
+                        "cost_growth_and_special_rules": "UNKNOWN_REQUIRES_RUNTIME_VERIFICATION",
+                        "tile_condition": (
+                            "SELF_OCCUPIED_TILE_MUST_RELEASE"
+                            if observed_occupant == operator_id
+                            else "TARGET_TILE_MUST_BE_FREE"
+                        ),
+                        "deployment_slot_condition": "PRIOR_DEPLOYMENT_MUST_RELEASE_SLOT",
+                        "generation_state": "HP_SP_SKILL_AND_COOLDOWN_RESET_REQUIRES_RUNTIME_VERIFICATION",
+                        "dp_ledger_status": "CONDITIONAL_REDEPLOY_DP_RESERVED",
+                    })
             else:
                 if occupied:
                     status = "CONFLICT"; reasons.append("TILE_OCCUPIED")
@@ -253,6 +283,8 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
                 "direction": direction, "declaration_match": declaration_match,
                 "position": position, "active_roadblock": roadblock,
                 "tile_legal_for_position": legal_tile, "tile_occupied": occupied,
+                "tile_occupied_by_other": occupied and tile_occupancy.get(runtime_tile) != operator_id,
+                "tile_occupant": tile_occupancy.get(runtime_tile),
                 "redeploy_available": redeploy_ready, "status": status,
                 "reasons": reasons,
             })
@@ -368,7 +400,9 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
     ])
     unknowns = [row for row in range_checks if row.get("status") == "UNKNOWN"]
     classification = "STATIC_CONFLICT" if conflicts else (
-        "STATIC_CONTRACT_CHECKED_CONDITIONAL" if unknowns else "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN"
+        "STATIC_CONTRACT_CHECKED_CONDITIONAL_REDEPLOY" if conditional_redeploys else (
+            "STATIC_CONTRACT_CHECKED_CONDITIONAL" if unknowns else "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN"
+        )
     )
     operational_verified = not conflicts and not unknowns
     certificate = {
@@ -390,10 +424,12 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
                 "processed_actions": len([row for row in actions if row.get("action_type") == "RETREAT"]),
                 "redeploy_cooldown_model": "redeploy_time * 30 frames; refund UNKNOWN and not counted",
             },
+            "conditional_redeploys": conditional_redeploys,
         },
         "dp_ledger": ledger,
         "conflicts": conflicts,
         "unknowns": unknowns,
+        "conditional_redeploys": conditional_redeploys,
         "phase_semantics": {
             "status": "UNKNOWN_NOT_PROVEN_FROM_ACTIONS",
             "limitations": [
@@ -466,6 +502,7 @@ def build_dp_ledger(
     max_dp = float(stage_options.get("max_cost") or 99)
     deployment_limit = int(stage_options.get("deployment_limit") or 99)
     previous_frame = 0
+    conditional_dp_reservations: list[dict[str, Any]] = []
     for frame in scheduled_frames:
         if frame < previous_frame:
             conflicts.append({"frame": frame, "conflict": "ACTION_FRAME_OUT_OF_ORDER"})
@@ -489,8 +526,31 @@ def build_dp_ledger(
             if action_type == "DEPLOY":
                 rarity = int((catalog.get(operator_id, {}).get("identity") or {}).get("rarity") or 1)
                 if operator_id in active_operators:
-                    rows.append({"frame": frame, "event": "CONDITIONAL_REDEPLOY", "operator_id": operator_id,
-                                 "status": "CONDITIONAL_ON_EXIT_BEFORE_FRAME_AND_VALID_COOLDOWN_DP_AND_TILE"})
+                    base_cost = actual_cost(catalog[operator_id], supports[operator_id])
+                    reservation_status = "CONDITIONAL_ON_EXIT_COOLDOWN_TILE_AND_DP"
+                    if dp + 1e-9 < base_cost:
+                        reservation_status = "CONFLICT"
+                        conflicts.append({
+                            "frame": frame, "operator_id": operator_id,
+                            "conflict": "CONDITIONAL_REDEPLOY_BASE_COST_UNAVAILABLE",
+                            "balance_before": dp, "base_cost": base_cost,
+                        })
+                    row = {
+                        "frame": frame, "event": "CONDITIONAL_REDEPLOY_DP_RESERVATION",
+                        "operator_id": operator_id, "base_cost": base_cost,
+                        "balance_before": dp, "balance_after": dp,
+                        "status": reservation_status,
+                        "cost_growth_and_special_rules": "UNKNOWN_REQUIRES_RUNTIME_VERIFICATION",
+                        "conditions": [
+                            "operator exits by retreat or death before this frame",
+                            "redeploy cooldown has elapsed",
+                            "target tile and deployment slot are free",
+                            "actual redeploy cost is paid; growth and special rules UNKNOWN",
+                        ],
+                    }
+                    rows.append(row)
+                    if reservation_status != "CONFLICT":
+                        conditional_dp_reservations.append(row)
                     continue
                 if rarity >= 2 and deployment_slot_count >= deployment_limit:
                     conflicts.append({"frame": frame, "operator_id": operator_id,
@@ -590,6 +650,11 @@ def build_dp_ledger(
         "skill_readiness": readiness,
         "entries": rows,
         "final_balance": dp,
+        "final_balance_status": (
+            "UNKNOWN_UNTIL_CONDITIONAL_REDEPLOY_DP_RESOLVED"
+            if conditional_dp_reservations else "KNOWN_WITH_STATIC_MODEL_ASSUMPTIONS"
+        ),
+        "conditional_dp_reservations": conditional_dp_reservations,
         "conflicts": conflicts,
     }
 

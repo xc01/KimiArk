@@ -131,6 +131,23 @@ lineage validation and has no simulation. The seven-stage table is
 Codex start count is 46; the latest start used a writable runtime `CODEX_HOME`
 but stopped after service-side `workspace routing discovery failed`. The fix
 matrix is `docs/review/fc77177/deep_mechanism_fix_matrix_v1.json`.
+
+## 2026-10-21 M32 deterministic re-check is current
+
+CONFIRMED_FROM_CODE: the static compiler no longer treats a repeated deploy while the same
+operator is still deployed as an unconditional redeploy. Another occupant conflicts; self-exit,
+cooldown, tile/slot release, generation reset, and actual DP payment remain conditions. Future
+death is not assumed. The corrected ledger reserves base redeploy cost without claiming final DP.
+
+CONFIRMED_FROM_SIMULATION: M30 V2 and M31 V3 were replayed once with unchanged action snapshot
+hashes. M30 V2 is 23 kills/10 leaks/10 operator deaths/life -7 with both civilians arrived; M31
+V3 is 22/11/10/life -9 with #3 killed by artillery and #14 arrived. Both artillery instances
+leaked at frame 5759. These losses are still not simulator WINs, perfect objective results,
+faithful results, robust results, or real-game results.
+
+R8-7 is suitable for a bounded GPT structural revision, but it must solve artillery damage and
+complete route protection as simultaneous constraints. The evidence table is
+`docs/mechanics/R8_7_MECHANISM_COVERAGE_V1.md`.
 ## 2026-10-15 m22 mechanism repair is partial, not full closure
 
 CONFIRMED_FROM_CODE: mechanics `m22-deep-mechanics-partial-v1` fixes static DP

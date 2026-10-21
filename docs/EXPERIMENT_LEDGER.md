@@ -678,3 +678,20 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `docs/review/fc77177/m29_phase_replay_v2_v3.json`; raw prompt/command/output/
   action/event/summary material is indexed by
   `docs/review/fc77177/m29_iteration_raw_manifest_v1.json`.
+
+# M32 mechanism restoration ledger — 2026-10-21
+
+- New tactical CLI starts: 0 of 0. New full-stage simulations: 2 of 4; 2 remain reserved.
+- Fixed the static conditional-redeploy defect: another occupant now conflicts, self-occupancy
+  remains conditional on observed exit/cooldown/tile/slot/DP, future death is not assumed, and
+  conditional DP is not bypassed. Explicit retreat keeps deterministic cooldown and a new
+  deployment generation.
+- Re-verified M30 V2 and M31 V3 from copied source directories. Their action snapshot hashes and
+  tactical results were unchanged. M30 V2 remains 23/10/10/life -7 with both civilians arriving;
+  M31 V3 remains 22/11/10/life -9 with #3 dead and #14 arriving. Both artillery instances leaked
+  at frame 5759.
+- Evidence: `docs/review/fc77177/m32_final_report_v1.md`,
+  `docs/mechanics/R8_7_MECHANISM_COVERAGE_V1.md`,
+  `docs/review/fc77177/m32_simulation_budget_v1.json`, and
+  `output/r8_1_r8_7_batch_v1/main_08-07/m32_mechanism_reverification_v1/m32_reverification_manifest_v1.json`.
+- Full pytest: current 31 failure IDs versus parent 47 failure IDs; zero current-only failures.
