@@ -695,3 +695,19 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `docs/review/fc77177/m32_simulation_budget_v1.json`, and
   `output/r8_1_r8_7_batch_v1/main_08-07/m32_mechanism_reverification_v1/m32_reverification_manifest_v1.json`.
 - Full pytest: current 31 failure IDs versus parent 47 failure IDs; zero current-only failures.
+
+# M34 manifest decode ledger — 2026-10-21
+
+- New tactical CLI starts: 0. New full-stage simulations: 0; M32's reserve remains 2/4.
+- Recovered the build-2771 `FlatBufferSignedConverter` path: `EnableCodeOpts=SIGN`, so the
+  `.idx` payload is a 128-byte RSA signature followed directly by FlatBuffer data. No AES
+  key/IV, padding, or decompression is required for these manifests.
+- Decoded `main.idx` to 2,528 bundles and 56,001 asset mappings; decoded the committed
+  small fixture to 35 bundles and 365 mappings. The existing 15,166/194,002-entry
+  GameData manifest is a separate reference, not build-2771 equivalence.
+- The decoded initial manifest contains `projectile_enemy_emppnt`; it does not contain the
+  artillery body prefab. The larger reference manifest names `battle/enm_pfb_6.ab` plus
+  four missing dependencies, but that remote set is not yet confirmed for build 2771.
+- Focused M32/M33/M34 tests: 11/11 PASS. Evidence is under
+  `docs/review/fc77177/m34_manifest_decoder_v1/`; the reproducible decoder is
+  `scripts/decode_build2771_resource_manifest_idx_v1.py`.

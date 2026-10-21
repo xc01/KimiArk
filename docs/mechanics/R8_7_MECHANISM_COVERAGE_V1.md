@@ -43,11 +43,19 @@ The reproducible extraction and resource-index scripts are
 local scratch location. Build 2771 and the fixed GameData commit are recorded
 together, but their semantic versions are not inferred to be equivalent.
 
+M34 additionally decoded both build-2771 `.idx` resource manifests. The
+`main.idx` payload is a signed but unencrypted FlatBuffer with 2,528 bundles and
+56,001 asset mappings; no AES key or IV is needed. It contains
+`projectile_enemy_emppnt` but not the artillery body prefab. The larger
+`resource_manifest_idx.json` in the fixed GameData tree is a separate reference
+manifest, not the build-2771 manifest. Details and hashes are in
+`docs/review/fc77177/m34_manifest_decoder_v1/m34_manifest_decoder_report.md`.
+
 ## R8-7 chain status
 
 | Mechanism | GameData | Client evidence | Python implementation | Cross-validation | Difference / impact | Status |
 |---|---|---|---|---|---|---|
-| Artillery attributes | `enemy_1112_emppnt` level 0: HP 13000, ATK 1000, DEF 800, RES 50%, radius 2.0, base attack time 5.0, FLY/RANGED. | No `enemy_1112_emppnt` prefab was found in the indexed APK bundles. Attributes are GameData-only. | Loads these values from GameData. | Attribute values only; no client runtime attributes checked. | No known difference, but client application of the values is not independently checked. | `CONFIRMED_FROM_GAMEDATA; PROJECT_CODE_ONLY` |
+| Artillery attributes | `enemy_1112_emppnt` level 0: HP 13000, ATK 1000, DEF 800, RES 50%, radius 2.0, base attack time 5.0, FLY/RANGED. | No `enemy_1112_emppnt` prefab was found in the indexed APK bundles or decoded build-2771 initial manifest. Attributes are GameData-only. | Loads these values from GameData. | Attribute values only; no client runtime attributes checked. | No known difference, but client application of the values is not independently checked. | `CONFIRMED_FROM_GAMEDATA; PROJECT_CODE_ONLY` |
 | Artillery delayed projectile | Enemy `skills` is `null`; no ability blackboard identifies the delayed attack. | Exact `projectile_enemy_emppnt.prefab` exists in `[uc]projectiles.ab`: path ID `-619213101382661339`. Movement component has `_delayToStart=3.0`, `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`; collision component has `_onlyCheckHitWhenReachTarget=1` and `_goThroughWall=1`; main component has `_lifeTime=10.0` and `_maxHitNum=1`. Trail effect has `_delayTime=2.75`. | Uses hardcoded `DELAYED_LOCKED_AREA_ATTACK` with a 3.0-second hit delay and 1.2 blast radius. | 3.0-second delayed, fixed-point, one-hit projectile matches. Blast radius 1.2 and damage/action-node details are not in the extracted projectile fields. | Specific artillery ability prefab is still missing, so the Python cooldown, radius, damage conversion, and action sequence cannot be promoted to client rules. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
 | Protected-target acquisition priority | Neutral protected target is in GameData. | Generic `EnemyTraceTargetByPriorityAbility` exists at metadata RVA `0x2e2bfc4..0x2e2c290`; its priority path calls `TargetSelector$$FindTargets_DISPOSE`. Generic existence is not a binding. | Chooses neutral protected targets first, otherwise deployed operators. | No specific artillery ability binding was found. | Python priority may or may not match this enemy's configured selector. | `UNKNOWN_SPECIFIC_BINDING` |
 | Locked blast position | None. | Projectile `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`. | Locks target position when ability starts and hits that position after 3.0 seconds. | Fixed position and persistence after target death match. | Client may have an extra interval between ability decision and projectile creation; exact lock-frame origin remains unknown. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
