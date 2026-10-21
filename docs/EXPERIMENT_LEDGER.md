@@ -711,3 +711,23 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Focused M32/M33/M34 tests: 11/11 PASS. Evidence is under
   `docs/review/fc77177/m34_manifest_decoder_v1/`; the reproducible decoder is
   `scripts/decode_build2771_resource_manifest_idx_v1.py`.
+
+# M35 artillery resource ledger — 2026-10-22
+
+- New tactical CLI starts: 0. New full-stage simulations: 0; M32's reserve remains 2/4.
+- The manifest decoder now treats a missing optional field beyond the complete
+  two-byte vtable slot as absent, records `signature_verification=NOT_PERFORMED`,
+  and supersedes the M33 allocated-block sizes with logical sizes.
+- The 2.7.81 hot list resource version is `26-10-14-13-45-10-99469376`. Its body
+  bundle `battle/enm_pfb_6.ab` binds `enemy_1112_emppnt.prefab` to an attack
+  object with `_projectileKey='projectile_enemy_emppnt'`, destination
+  `INPUT_VECTOR3`, target timing `BEFORE_SPELL_START`, a hatred-descending
+  post-filter, and taunt-last sorting. Its projectile has the saved 3-second
+  delay, fixed position, 10-second lifetime, one hit, and 1.2 collider radius.
+- `HitBehaviour.OnProjectileReached` calls `Box2dPhysicsUtil.FindTargets_DISPOSE`;
+  `RangedAttack.CreateProjectile` calls `BattleController.CreateProjectile`.
+  This is a migration-candidate chain, not build-2771 proof.
+- Build-2771 body binding remains unavailable. No runtime change was made.
+- Evidence: `docs/review/fc77177/m35_artillery_resource_v1/` and
+  `scripts/build_m35_artillery_resource_behavior_evidence_v1.py`. Focused
+  M32/M33/M34/M35 resource tests: 14/14 PASS.

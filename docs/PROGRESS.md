@@ -2390,3 +2390,20 @@ targeted unit tests             = 17/17 PASS
 Kimi calls                      = 0
 real-stage simulations          = 0
 ```
+
+## 2026-10-22 Artillery resource migration evidence
+
+The build-2771 manifest remains signed but unverified, and its artillery body
+bundle remains unavailable. The 2.7.81 migration resource set now provides the
+exact enemy body and binds it to `projectile_enemy_emppnt`. Resource hashes,
+path IDs, selector/projectile fields, and focused client call edges are recorded
+in `docs/review/fc77177/m35_artillery_resource_v1/`.
+
+```text
+2.7.81 body-to-projectile chain = CONFIRMED_FROM_RESOURCES_AND_CODE
+build-2771 body binding         = UNAVAILABLE
+runtime behavior change         = NONE
+new tactical calls              = 0
+new full-stage simulations      = 0
+focused resource tests          = 14/14 PASS
+```

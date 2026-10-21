@@ -62,7 +62,7 @@ class Build2771ResourceManifestDecoder:
         if vtable < self.SIGNATURE_LENGTH or vtable + 4 > len(self.data):
             raise ManifestDecodeError(f"vtable for table {table} is outside the input")
         table_vtable_length = self._read_u16(vtable)
-        if 4 + 2 * slot > table_vtable_length:
+        if 4 + 2 * slot + 2 > table_vtable_length:
             return 0
         return self._read_u16(vtable + 4 + 2 * slot)
 
@@ -167,6 +167,7 @@ def build_summary(source: Path, manifest: dict[str, Any]) -> dict[str, Any]:
         "source_size": len(data),
         "source_sha256": hashlib.sha256(data).hexdigest(),
         "signature_length": Build2771ResourceManifestDecoder.SIGNATURE_LENGTH,
+        "signature_verification": "NOT_PERFORMED",
         "rawCount": manifest["rawCount"],
         "bundle_count": len(manifest["bundles"]),
         "asset_to_bundle_count": len(manifest["assetToBundleList"]),

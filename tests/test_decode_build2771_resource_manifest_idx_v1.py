@@ -37,6 +37,15 @@ def test_small_idx_framing_and_counts_are_decoded() -> None:
     assert manifest["assetToBundleList"][0]["path"] == "dyn/config/config.json"
 
 
+def test_optional_field_beyond_last_vtable_slot_is_absent() -> None:
+    decoder = Build2771ResourceManifestDecoder(FIXTURE.read_bytes())
+    manifest = decoder.decode()
+
+    assert decoder._slot_offset(decoder.root, 10) == 0
+    assert decoder._int(decoder.root, 10) == 0
+    assert all(bundle["sccIndex"] != 0 or "sccIndex" in bundle for bundle in manifest["bundles"])
+
+
 def test_decoder_rejects_truncated_input_before_flatbuffer_access() -> None:
     with pytest.raises(ManifestDecodeError, match="shorter than signature"):
         Build2771ResourceManifestDecoder(b"\0" * 64)
@@ -68,4 +77,5 @@ def test_cli_supports_summary_and_query(tmp_path: Path) -> None:
     assert decoded["query_matches"][0]["assetName"] == "config/config"
     recorded = json.loads(summary.read_text())
     assert recorded["source_sha256"] == decoded["source_sha256"]
+    assert recorded["signature_verification"] == "NOT_PERFORMED"
     assert output.read_text(encoding="utf-8").startswith("{")

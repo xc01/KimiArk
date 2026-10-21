@@ -59,10 +59,16 @@ The implementation is `scripts/decode_build2771_resource_manifest_idx_v1.py`.
 The committed 78,996-byte small `.idx` fixture is the APK member
 `assets/AB/Android/613696e0b7f401be75f635e43560cf93.idx`. The decoder reads:
 
-| Input | SHA-256 | rawCount | Bundles | Assets |
-|---|---|---:|---:|---:|
-| `main.idx` | `11898eef33eecef9f4ac015863944df305531f8fcd6f0fa1d2274d5b0b23fad9` | 0 | 2,528 | 56,001 |
-| small fixture | `67c47a74e01cf6418b08dbc4cf1443bb5c0cba8fa3b3f35b6bdc41580559f43c` | 0 | 35 | 365 |
+| Input | SHA-256 | Size | rawCount | Bundles | Assets |
+|---|---|---:|---:|---:|---:|
+| `main.idx` | `11898eef33eecef9f4ac015863944df305531f8fcd6f0fa1d2274d5b0b23fad9` | 9,875,736 | 0 | 2,528 | 56,001 |
+| small fixture | `67c47a74e01cf6418b08dbc4cf1443bb5c0cba8fa3b3f35b6bdc41580559f43c` | 78,996 | 0 | 35 | 365 |
+
+M33 had recorded 9,961,472 and 79,872 bytes for the same SHA-256 values. Those
+numbers are `stat -c %b*512` allocated-block sizes, not `stat -c %s` logical
+file sizes. The incorrect M33 `size_bytes` fields are retained as historical
+records and superseded by the logical sizes above. Successful FlatBuffer parsing
+does not imply RSA signature verification; its status is `NOT_PERFORMED`.
 
 Known strings and mappings survive the parse, including the first small fixture
 asset `config/config -> dyn/config/config.json` and the main fixture asset
