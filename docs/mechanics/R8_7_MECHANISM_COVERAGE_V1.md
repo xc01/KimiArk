@@ -1,57 +1,95 @@
 # R8-7 decisive mechanism coverage
 
+## Evidence discipline
+
+This table deliberately separates the five evidence layers:
+
+1. **GameData** — configuration fact in the fixed JSON files.
+2. **Client behavior** — build 2771 resource payload, disassembly, or PRTS
+   supplementary evidence. `CONFIRMED_FROM_CODE` is qualified as
+   `CLIENT_CODE`; a project function is never promoted to client fact.
+3. **Python implementation** — what the current simulator does.
+4. **Cross-validation** — whether those two behavior layers have been checked.
+5. **Difference and experiment impact** — the known or unresolved mismatch.
+
+Old simulation results remain valid as records of the **current Python model**.
+They do not become client-behavior evidence merely because their inputs are
+frozen or their hashes are known.
+
 ## Fixed inputs and provenance
 
-| Input | SHA-256 | Evidence status |
-|---|---|---|
-| `data/ArknightsGameData/zh_CN/gamedata/levels/obt/main/level_main_08-07.json` | `c9c376e3d5b37e5f764006fce5d1c94f12f233c995545adfe36c2beb8573cdc8` | CONFIRMED_FROM_GAMEDATA; upstream commit UNKNOWN because the working data tree is untracked |
-| `data/ArknightsGameData/zh_CN/gamedata/levels/enemydata/enemy_database.json` | `7175461f03c2b29d0dc336d34d7b717dc0e33403b649b745ff852af7aef731bd` | CONFIRMED_FROM_GAMEDATA; upstream commit UNKNOWN |
-| `data/ArknightsGameData/zh_CN/gamedata/excel/character_table.json` | `42708ca01b1938df4e2c3ed9e9efeadbf0e35533411907dadb37b80315e69ae8` | CONFIRMED_FROM_GAMEDATA; upstream commit UNKNOWN |
-| `data/client/lib/arm64-v8a/libil2cpp.so` | `3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259` | CONFIRMED_CLIENT_BUILD_2771_STATIC_EVIDENCE |
-| `data/client/assets/bin/Data/Managed/Metadata/global-metadata.dat` | `bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8` | CONFIRMED_DECRYPTED_METADATA_INPUT; semantic mapping remains partial |
-| `data/prts/roadblock.html` | `794dc86948bb7915912e3f69bd9ba9b41bfa77d1ee67a9fc2898986fa268e3cc` | SUPPLEMENTARY_PRTS |
-| `data/prts/hatred.html` | `4ea6e1ccac2276b4d8d89479a2e5cf6e056834c01f0807e08b453fd31c4c17f7` | SUPPLEMENTARY_PRTS |
-| `data/prts/battle-mechanics.html` | `d0523c8f259c6521f9ee8143e70d00d0a7ae4f14b9ac82ee3799d3106372b61a` | SUPPLEMENTARY_PRTS |
+The GameData working tree matches the contents identified by the comment in
+`ArknightsGameData-master.zip`:
 
-Client-side extraction used UnityPy 1.23.0, LZ4AK decoding, and Capstone AArch64. The
-authoritative saved artifacts are `output/r8_1_roadblock_prefab_evidence_v2/` and
-`output/r8_1_roadblock_walk_navigation_v3/`; their saved provenance records the tool versions.
+| Input | SHA-256 |
+|---|---|
+| `ArknightsGameData-master.zip` commit | `0ef7f952dfd018392200157a5c79a6511ba69122` |
+| `zh_CN/gamedata/levels/obt/main/level_main_08-07.json` | `c9c376e3d5b37e5f764006fce5d1c94f12f233c995545adfe36c2beb8573cdc8` |
+| `zh_CN/gamedata/levels/enemydata/enemy_database.json` | `7175461f03c2b29d0dc336d34d7b717dc0e33403b649b745ff852af7aef731bd` |
+| `zh_CN/gamedata/excel/character_table.json` | `42708ca01b1938df4e2c3ed9e9efeadbf0e35533411907dadb37b80315e69ae8` |
+
+Client inputs:
+
+| Input | SHA-256 |
+|---|---|
+| `arknights-hg-2771.apk` | `0b79b85383e21a6343283bc6bfd7a9d24eb4134abf901115f757da6a5d50f6db` |
+| `lib/arm64-v8a/libil2cpp.so` | `3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259` |
+| `assets/bin/Data/Managed/Metadata/global-metadata.dat` | `bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8` |
+
+The reproducible extraction and resource-index scripts are
+`scripts/extract_m32_client_evidence_v1.py` and
+`scripts/extract_m32_resource_index_v1.py`. Committed artifacts are in
+`docs/review/fc77177/m32_external_mechanism_evidence_v1/`; `output/` remains a
+local scratch location. Build 2771 and the fixed GameData commit are recorded
+together, but their semantic versions are not inferred to be equivalent.
 
 ## R8-7 chain status
 
-| Mechanism | Status | Implementation/source | Boundary |
-|---|---|---|---|
-| Artillery attributes and delayed area attack | CONFIRMED_FROM_CODE_AND_GAMEDATA | `src/arknights_planner/gamedata/repository.py:294`, `src/arknights_planner/simulator/simulator.py:710` | GameData gives HP 13000, ATK 1000, DEF 800, MR 50%, radius 2.0, base attack time 5.0; current runtime uses ability cooldown 5.0 and blast radius 1.2 |
-| Protected-target acquisition priority | CONFIRMED_FROM_CODE | `simulator.py:_enemy_ability_outputs` | Neutral protected targets inside acquisition radius are chosen first; otherwise deployed operators |
-| Locked blast position and delayed hit | CONFIRMED_FROM_CODE | `simulator.py:_enemy_ability_outputs`, `_process_area_hit` | Position is locked when ability starts; hit applies after 3.0 seconds |
-| Normal-attack suppression for artillery | CONFIRMED_FROM_CODE | `simulator.py:_enemy_outputs` | A `DELAYED_LOCKED_AREA_ATTACK` ability suppresses ordinary enemy projectile output |
-| Ability clock | CONFIRMED_FROM_CODE | `simulator.py:_enemy_ability_outputs` | Next-fire time is set after the ability output scheduling pass; exact client lock/interval framing is not separately disassembled |
-| Operator enemy targeting and devices | CONFIRMED_FROM_CODE | `simulator.py:_target_enemy_for`, `_target_device_for` | Enemies take precedence; devices are selected only when no enemy is eligible |
-| Healing target and amount | CONFIRMED_FROM_CODE | `simulator.py:_target_ally_for`, operator output | Lowest-HP covered ally; current model applies base ATK without unknown external modifiers |
-| Physical/Arts damage | CONFIRMED_FROM_CODE_AND_PRTS | `simulator.py:physical_damage`, `arts_damage` | 5% floor; DEF and MR do not cross-combine |
-| Civilian protection | CONFIRMED_FROM_CODE_AND_GAMEDATA | Neutral `enemy_3001_upeopl`; protected route arrival and death scoring | Operator ordinary targeting rejects neutrals; officer attack has a separate protected-target radius |
-| Roadblock block/release | CONFIRMED_FROM_CODE_AND_GAMEDATA | `trap_020_roadblock`; saved LZ4AK prefab evidence | Taunt -1, radius 0.4472, HP 8000, DEF 200, RES 20; destruction refreshes route state |
-| Route refresh chain | PARTIALLY_CONFIRMED_FROM_CLIENT | `output/r8_1_roadblock_walk_navigation_v3/ordinary_walk_navigation_evidence.json` | `Route.ReconstructNextMap -> SPFA` remains `UNKNOWN_MISSING_STATIC_EDGE` in build 2771 |
-| Redeployment cooldown | CONFIRMED_FROM_CODE | `simulator.py:_deploy`, `_retreat`, `_remove_operator` | Current runtime sets cooldown at exit time and resets runtime operator state; cost growth/special rules remain UNKNOWN in static ledger |
-| Conditional static redeployment | FIXED_AND_REGRESSION_COVERED | `scripts/compile_r8_1_lowstar_c2_plan_v1.py` | Static now distinguishes self/other occupancy and does not treat future death as fact or bypass DP |
-| Dodge/shield/barrier/status defenses | NOT_IMPLEMENTED | Mechanics audit | Do not infer炮击 dodge from “physical damage” alone; no probabilistic win is claimable |
-| Chapter 6-11 broad enemy/Boss coverage | NOT_CLOSED | No broad audit in this milestone | R8-7-only chain closure does not imply complete chapter support |
+| Mechanism | GameData | Client evidence | Python implementation | Cross-validation | Difference / impact | Status |
+|---|---|---|---|---|---|---|
+| Artillery attributes | `enemy_1112_emppnt` level 0: HP 13000, ATK 1000, DEF 800, RES 50%, radius 2.0, base attack time 5.0, FLY/RANGED. | No `enemy_1112_emppnt` prefab was found in the indexed APK bundles. Attributes are GameData-only. | Loads these values from GameData. | Attribute values only; no client runtime attributes checked. | No known difference, but client application of the values is not independently checked. | `CONFIRMED_FROM_GAMEDATA; PROJECT_CODE_ONLY` |
+| Artillery delayed projectile | Enemy `skills` is `null`; no ability blackboard identifies the delayed attack. | Exact `projectile_enemy_emppnt.prefab` exists in `[uc]projectiles.ab`: path ID `-619213101382661339`. Movement component has `_delayToStart=3.0`, `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`; collision component has `_onlyCheckHitWhenReachTarget=1` and `_goThroughWall=1`; main component has `_lifeTime=10.0` and `_maxHitNum=1`. Trail effect has `_delayTime=2.75`. | Uses hardcoded `DELAYED_LOCKED_AREA_ATTACK` with a 3.0-second hit delay and 1.2 blast radius. | 3.0-second delayed, fixed-point, one-hit projectile matches. Blast radius 1.2 and damage/action-node details are not in the extracted projectile fields. | Specific artillery ability prefab is still missing, so the Python cooldown, radius, damage conversion, and action sequence cannot be promoted to client rules. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
+| Protected-target acquisition priority | Neutral protected target is in GameData. | Generic `EnemyTraceTargetByPriorityAbility` exists at metadata RVA `0x2e2bfc4..0x2e2c290`; its priority path calls `TargetSelector$$FindTargets_DISPOSE`. Generic existence is not a binding. | Chooses neutral protected targets first, otherwise deployed operators. | No specific artillery ability binding was found. | Python priority may or may not match this enemy's configured selector. | `UNKNOWN_SPECIFIC_BINDING` |
+| Locked blast position | None. | Projectile `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`. | Locks target position when ability starts and hits that position after 3.0 seconds. | Fixed position and persistence after target death match. | Client may have an extra interval between ability decision and projectile creation; exact lock-frame origin remains unknown. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
+| Blast geometry | None. | Projectile exposes collision and reach fields, but no radius scalar in the extracted components. | Uses 1.2-unit circular radius with inclusive boundary epsilon. | Not validated. | A radius could live in a missing ability/action node. | `UNKNOWN_MISSING_RESOURCE_OR_BINDING` |
+| Normal attack versus special artillery | None. | No specific enemy ability prefab or action-node payload found. | Suppresses ordinary projectile output while `DELAYED_LOCKED_AREA_ATTACK` exists. | Not validated. | Cannot infer whether client allows ordinary attacks during/inside the special-ability cycle. | `UNKNOWN_SPECIFIC_BINDING` |
+| Ability clock | Base attack time 5.0. | Generic `get_cooldown` is at RVA `0x2e2a6cc..0x2e2a76c`; no specific ability config bound. | Schedules next special ability at `state.time + 5.0` when it starts. | Not validated. | Start/finish-frame framing and interaction with projectile delay remain unknown. | `UNKNOWN_SPECIFIC_BINDING` |
+| Operator enemy targeting and devices | None. | Not traced in this increment. | Enemies are preferred; devices are fallback targets. | Not validated. | Project-code behavior only. | `PROJECT_CODE_ONLY` |
+| Medic target selection | Ansel is MEDIC in GameData. | Ansel prefab attack component references `projectile_ansel`; selector has ally side, category 1, `_limitTargetNum=1`, `_postFilter=3`, and `_sortByTauntAtLast=0`. Generic `AdvancedSelector.OnPostFilter` is at RVA `0x288a898..0x288ae08` and calls `FilterUtil$$Filter`. | Covered allies with HP below max are ranked by HP ratio, then operator ID. | Client selector fields conflict in interpretation without decoding the exact `_postFilter=3` filter implementation. | `lowest-HP-ratio` is not proven to be the client's universal medic rule. | `UNKNOWN_CLIENT_FILTER_DECODING` |
+| Heal amount | Operator ATK comes from GameData. | Generic `BattleFormula.CalculateHeal` is at RVA `0x253f684..0x253f770`; not decoded to a complete formula. | Uses effective ATK with a minimum of 1 and caps at missing HP. | Not validated. | No confirmed mismatch, but modifiers/skill variants are not closed. | `PROJECT_CODE_ONLY; GENERIC_CLIENT_METHOD_UNRESOLVED` |
+| Physical/Arts damage | Attack/DEF/RES values come from GameData. | PRTS is supplementary only; client formula not decoded. | Uses 5% floor; DEF and MR do not cross-combine. | Not client validated. | Adequate for current-model diagnosis, not client fidelity. | `PROJECT_CODE_AND_PRTS_ONLY` |
+| Civilian protection | Neutral entity and route/life rules come from GameData. | Not specifically traced. | Operator ordinary targeting rejects neutrals; officer has separate protected-target radius. | Not client validated. | Project behavior only. | `PROJECT_CODE_ONLY` |
+| Roadblock block/release | Roadblock HP/DEF/RES/taunt come from GameData. | `trap_020_roadblock` LZ4AK fields and route-refresh disassembly are saved. | Uses roadblock as a targetable neutral device and refreshes routes on destruction. | Local saved evidence matches project implementation at a structural level. | Static-edge decode remains partially open. | `CONFIRMED_FROM_CLIENT_AND_GAMEDATA` |
+| Route refresh chain | Roadblock route changes come from GameData. | Client `Tile/Rewrite/SPFA` methods are saved. | Refreshes route state on roadblock destruction. | Partial client evidence; exact static-edge decode remains open. | Keep UNKNOWN for undecodable edges. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
+| Redeployment cooldown | `respawnTime` and phase cost are GameData facts. | Not traced in this increment. | Cooldown starts at exit, state resets per deployment generation. | Not client validated. | Cost growth and special redeploy rules remain unknown. | `PROJECT_CODE_ONLY; FIXED_BY_M32_REGRESSION` |
+| Conditional static redeployment | None. | Not applicable. | Static compiler distinguishes current/self/other occupancy, future death, cooldown, tile, and DP reservation. | Covered by behavioral regression. | Runtime cost growth and special rules still require verification. | `PROJECT_CODE_ONLY; FIXED_BY_M32_REGRESSION` |
+| Dodge/shield/barrier/status defenses | Some statuses appear in data but are not implemented for R8-7. | Not implemented or verified. | Not present for relevant defense calculations. | Not applicable. | Do not infer that physical artillery can be dodged. | `NOT_IMPLEMENTED` |
+| Probability branches | None. | Not verified. | No probabilistic-success evaluator. | Not applicable. | A successful run cannot be called probabilistic WIN without a joint lower bound. | `NOT_IMPLEMENTED` |
+| Chapter 6–11 broad coverage | Multiple stages not audited. | No broad client audit. | Partial runtime support only. | Not applicable. | R8-7 closure does not imply chapter support. | `NOT_CLOSED` |
 
 ## Static redeployment correction
 
-Old behavior: a repeated `DEPLOY` while an operator was still active cleared occupancy and
-cooldown, and the DP ledger skipped cost. This conflated current deployment, explicit retreat,
-observed death, and an assumed future exit.
+The M32 correction remains a project-code fix and regression-covered behavior,
+not a client-behavior proof. A repeated deploy while an operator is still active
+is conditional only when the same operator is self-occupying; another occupant
+is a conflict. The static ledger reserves base redeploy cost without silently
+paying it. Explicit retreat has a known cooldown and starts a new deployment
+generation. Actual cost growth and special rules remain
+`UNKNOWN_REQUIRES_RUNTIME_VERIFICATION`.
 
-Correct behavior:
+## APK binding gap
 
-- Another occupant of the target tile is a static conflict.
-- Self-occupancy is only a conditional redeploy: exit must occur before the new deploy, cooldown
-  and tile/slot release must hold, and death remains unknown rather than assumed.
-- The static ledger reserves attention on base redeploy cost without silently paying it; actual
-  cost growth and special rules are `UNKNOWN_REQUIRES_RUNTIME_VERIFICATION`.
-- Explicit retreat still gives a known cooldown and pays a fresh deployment generation on the
-  next legal deploy.
+The resource index scanned 619 `battle/` and `pkgrps/` members plus 501
+`charpack/`, `npcpack/`, `refs/`, and `config/` members. The only exact
+`enemy_1112_emppnt` / `emppnt` hits were:
 
-Behavioral regressions cover self-occupancy, another occupant, exact cooldown boundary, one frame
-early, explicit-retreat generation, and base-cost unavailability.
+- `assets/AB/Android/pkgrps/btl_pfb_fx_enemy_5.ab`
+- `assets/AB/Android/battle/prefabs/[uc]projectiles.ab`
+- `assets/AB/Android/refs/fx/sharedbattle.ab`
+- `assets/AB/Android/refs/fx/texture/star.ab`
+
+No indexed bundle contains an `enemy_1112_emppnt` prefab or a serialized
+reference to `projectile_enemy_emppnt`. The next bounded extraction task is to
+obtain the build-2771 enemy-prefab bundle containing that prefab and dump its
+ability/action/action-node graph. Until then, the generic trace-target function
+must not be claimed as this enemy's configured behavior.

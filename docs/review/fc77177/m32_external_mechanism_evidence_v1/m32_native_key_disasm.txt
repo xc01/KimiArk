@@ -1,0 +1,2771 @@
+=== EnemyTraceTargetByPriorityAbility.get_cooldown 0x2e2a6cc-0x2e2a76c (160 bytes) ===
+2e2a6cc: str      d8, [sp, #-0x30]!
+2e2a6d0: stp      x21, x20, [sp, #0x10]
+2e2a6d4: stp      x19, x30, [sp, #0x20]
+2e2a6d8: adrp     x20, #0xc8cf000
+2e2a6dc: adrp     x21, #0xc067000
+2e2a6e0: ldrb     w8, [x20, #0x48a]
+2e2a6e4: ldr      x21, [x21, #0x8d8]
+2e2a6e8: mov      x19, x0
+2e2a6ec: tbnz     w8, #0, #0x2e2a710
+2e2a6f0: adrp     x0, #0xc067000
+2e2a6f4: ldr      x0, [x0, #0x8d8]
+2e2a6f8: bl       #0x231052c
+2e2a6fc: adrp     x0, #0xc073000
+2e2a700: ldr      x0, [x0, #0xe8]
+2e2a704: bl       #0x231052c
+2e2a708: mov      w8, #1
+2e2a70c: strb     w8, [x20, #0x48a]
+2e2a710: ldr      x8, [x21]
+2e2a714: ldr      x8, [x8, #0xb8]
+2e2a718: ldr      x0, [x8, #0x10]
+2e2a71c: cbz      x0, #0x2e2a738
+2e2a720: mov      x1, x19
+2e2a724: ldp      x19, x30, [sp, #0x20]
+2e2a728: ldp      x21, x20, [sp, #0x10]
+2e2a72c: mov      x2, xzr
+2e2a730: ldr      d8, [sp], #0x30
+2e2a734: b        #0x4ec30b4 ; XLua.DelegateBridge$$__Gen_Delegate_Imp2588
+2e2a738: adrp     x8, #0xc073000
+2e2a73c: ldr      x8, [x8, #0xe8]
+2e2a740: ldr      s8, [x19, #0x110]
+2e2a744: ldr      x0, [x8]
+2e2a748: ldr      w8, [x0, #0xe0]
+2e2a74c: cbnz     w8, #0x2e2a754
+2e2a750: bl       #0x231062c
+2e2a754: ldp      x19, x30, [sp, #0x20]
+2e2a758: ldp      x21, x20, [sp, #0x10]
+2e2a75c: mov      v0.16b, v8.16b
+2e2a760: mov      x0, xzr
+2e2a764: ldr      d8, [sp], #0x30
+2e2a768: b        #0x8ff3de4 ; Torappu.FP$$op_Implicit
+
+=== EnemyTraceTargetByPriorityAbility.CastToTarget 0x2e2b3e0-0x2e2b54c (364 bytes) ===
+2e2b3e0: str      x24, [sp, #-0x40]!
+2e2b3e4: stp      x23, x22, [sp, #0x10]
+2e2b3e8: stp      x21, x20, [sp, #0x20]
+2e2b3ec: stp      x19, x30, [sp, #0x30]
+2e2b3f0: adrp     x23, #0xc8cf000
+2e2b3f4: adrp     x24, #0xc067000
+2e2b3f8: ldrb     w8, [x23, #0x49a]
+2e2b3fc: ldr      x24, [x24, #0x8d8]
+2e2b400: mov      w22, w3
+2e2b404: mov      x20, x2
+2e2b408: mov      x21, x1
+2e2b40c: mov      x19, x0
+2e2b410: tbnz     w8, #0, #0x2e2b458
+2e2b414: adrp     x0, #0xc159000
+2e2b418: ldr      x0, [x0, #0x6d0]
+2e2b41c: bl       #0x231052c
+2e2b420: adrp     x0, #0xc0fc000
+2e2b424: ldr      x0, [x0, #0x480]
+2e2b428: bl       #0x231052c
+2e2b42c: adrp     x0, #0xc067000
+2e2b430: ldr      x0, [x0, #0x8d8]
+2e2b434: bl       #0x231052c
+2e2b438: adrp     x0, #0xc0f0000
+2e2b43c: ldr      x0, [x0, #0xf60]
+2e2b440: bl       #0x231052c
+2e2b444: adrp     x0, #0xc0fe000
+2e2b448: ldr      x0, [x0, #0xd70]
+2e2b44c: bl       #0x231052c
+2e2b450: mov      w8, #1
+2e2b454: strb     w8, [x23, #0x49a]
+2e2b458: ldr      x8, [x24]
+2e2b45c: ldr      x8, [x8, #0xb8]
+2e2b460: ldr      x0, [x8, #0x90]
+2e2b464: cbz      x0, #0x2e2b490
+2e2b468: and      w4, w22, #1
+2e2b46c: mov      x1, x19
+2e2b470: mov      x2, x21
+2e2b474: mov      x3, x20
+2e2b478: ldp      x19, x30, [sp, #0x30]
+2e2b47c: ldp      x21, x20, [sp, #0x20]
+2e2b480: ldp      x23, x22, [sp, #0x10]
+2e2b484: mov      x5, xzr
+2e2b488: ldr      x24, [sp], #0x40
+2e2b48c: b        #0x4db8524 ; XLua.DelegateBridge$$__Gen_Delegate_Imp649
+2e2b490: adrp     x8, #0xc159000
+2e2b494: ldr      x8, [x8, #0x6d0]
+2e2b498: adrp     x20, #0xc0f0000
+2e2b49c: ldr      x0, [x8]
+2e2b4a0: ldr      w8, [x0, #0xe0]
+2e2b4a4: ldr      x20, [x20, #0xf60]
+2e2b4a8: cbnz     w8, #0x2e2b4b0
+2e2b4ac: bl       #0x231062c
+2e2b4b0: mov      x0, xzr
+2e2b4b4: bl       #0x2506eec ; Torappu.Battle.BattleController$$get_fixedFrameCnt
+2e2b4b8: ldr      x8, [x20]
+2e2b4bc: str      w0, [sp, #0xc]
+2e2b4c0: add      x1, sp, #0xc
+2e2b4c4: mov      x0, x8
+2e2b4c8: bl       #0x2310634
+2e2b4cc: mov      x20, x0
+2e2b4d0: mov      x0, x19
+2e2b4d4: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2b4d8: cbz      x0, #0x2e2b548
+2e2b4dc: adrp     x19, #0xc0fe000
+2e2b4e0: adrp     x21, #0xc0fc000
+2e2b4e4: ldr      x19, [x19, #0xd70]
+2e2b4e8: ldr      x21, [x21, #0x480]
+2e2b4ec: mov      x1, xzr
+2e2b4f0: bl       #0x9283870 ; UnityEngine.Object$$get_name
+2e2b4f4: ldr      x8, [x19]
+2e2b4f8: mov      x2, x0
+2e2b4fc: mov      x1, x20
+2e2b500: mov      x3, xzr
+2e2b504: mov      x0, x8
+2e2b508: bl       #0x869ad10 ; System.String$$Format
+2e2b50c: ldr      x8, [x21]
+2e2b510: mov      x19, x0
+2e2b514: ldr      w9, [x8, #0xe0]
+2e2b518: cbnz     w9, #0x2e2b524
+2e2b51c: mov      x0, x8
+2e2b520: bl       #0x231062c
+2e2b524: mov      x0, x19
+2e2b528: mov      x1, xzr
+2e2b52c: bl       #0x8fda114 ; UnityEngine.DLog$$LogError
+2e2b530: ldp      x19, x30, [sp, #0x30]
+2e2b534: ldp      x21, x20, [sp, #0x20]
+2e2b538: ldp      x23, x22, [sp, #0x10]
+2e2b53c: mov      w0, wzr
+2e2b540: ldr      x24, [sp], #0x40
+2e2b544: ret
+2e2b548: bl       #0x2310650
+
+=== EnemyTraceTargetByPriorityAbility.OnTick 0x2e2b54c-0x2e2c454 (3848 bytes) ===
+2e2b54c: str      x26, [sp, #-0x50]!
+2e2b550: stp      x25, x24, [sp, #0x10]
+2e2b554: stp      x23, x22, [sp, #0x20]
+2e2b558: stp      x21, x20, [sp, #0x30]
+2e2b55c: stp      x19, x30, [sp, #0x40]
+2e2b560: adrp     x21, #0xc8cf000
+2e2b564: adrp     x22, #0xc067000
+2e2b568: ldrb     w8, [x21, #0x49b]
+2e2b56c: ldr      x22, [x22, #0x8d8]
+2e2b570: mov      x20, x1
+2e2b574: mov      x19, x0
+2e2b578: tbnz     w8, #0, #0x2e2b5a8
+2e2b57c: adrp     x0, #0xc067000
+2e2b580: ldr      x0, [x0, #0x8d8]
+2e2b584: bl       #0x231052c
+2e2b588: adrp     x0, #0xc009000
+2e2b58c: ldr      x0, [x0, #0x8b0]
+2e2b590: bl       #0x231052c
+2e2b594: adrp     x0, #0xc0d0000
+2e2b598: ldr      x0, [x0, #0xf18]
+2e2b59c: bl       #0x231052c
+2e2b5a0: mov      w8, #1
+2e2b5a4: strb     w8, [x21, #0x49b]
+2e2b5a8: ldr      x8, [x22]
+2e2b5ac: ldr      x8, [x8, #0xb8]
+2e2b5b0: ldr      x0, [x8, #0x98]
+2e2b5b4: cbz      x0, #0x2e2b5dc
+2e2b5b8: mov      x1, x19
+2e2b5bc: mov      x2, x20
+2e2b5c0: ldp      x19, x30, [sp, #0x40]
+2e2b5c4: ldp      x21, x20, [sp, #0x30]
+2e2b5c8: ldp      x23, x22, [sp, #0x20]
+2e2b5cc: ldp      x25, x24, [sp, #0x10]
+2e2b5d0: mov      x3, xzr
+2e2b5d4: ldr      x26, [sp], #0x50
+2e2b5d8: b        #0x4d9a644 ; XLua.DelegateBridge$$__Gen_Delegate_Imp421
+2e2b5dc: adrp     x21, #0xc0d0000
+2e2b5e0: ldr      x21, [x21, #0xf18]
+2e2b5e4: mov      x0, x19
+2e2b5e8: mov      x1, x20
+2e2b5ec: mov      x2, xzr
+2e2b5f0: bl       #0x24cfa80 ; Torappu.Battle.AbilityStandard$$OnTick
+2e2b5f4: ldr      x0, [x21]
+2e2b5f8: bl       #0x7b5c50c
+2e2b5fc: cbz      x0, #0x2e2b984
+2e2b600: mov      x1, xzr
+2e2b604: bl       #0x25058bc ; Torappu.Battle.BattleController$$get_gameMode
+2e2b608: mov      x21, x0
+2e2b60c: mov      x0, x19
+2e2b610: mov      x1, xzr
+2e2b614: bl       #0x24c79a4 ; Torappu.Battle.Ability$$get_owner
+2e2b618: cbz      x0, #0x2e2b984
+2e2b61c: adrp     x26, #0xc095000
+2e2b620: ldr      x26, [x26, #0xb18]
+2e2b624: mov      x22, x0
+2e2b628: ldrb     w8, [x26]
+2e2b62c: cbz      w8, #0x2e2b638
+2e2b630: ldr      x0, [x22]
+2e2b634: bl       #0x235bd9c
+2e2b638: ldr      x8, [x22]
+2e2b63c: mov      x0, x22
+2e2b640: ldr      x9, [x8, #0x478]
+2e2b644: ldr      x1, [x8, #0x480]
+2e2b648: blr      x9
+2e2b64c: cbz      x0, #0x2e2b984
+2e2b650: mov      x1, xzr
+2e2b654: bl       #0x299be64 ; Torappu.Battle.VisualObject$$get_row
+2e2b658: mov      w22, w0
+2e2b65c: mov      x0, x19
+2e2b660: mov      x1, xzr
+2e2b664: bl       #0x24c79a4 ; Torappu.Battle.Ability$$get_owner
+2e2b668: cbz      x0, #0x2e2b984
+2e2b66c: ldrb     w8, [x26]
+2e2b670: mov      x23, x0
+2e2b674: cbz      w8, #0x2e2b680
+2e2b678: ldr      x0, [x23]
+2e2b67c: bl       #0x235bd9c
+2e2b680: ldr      x8, [x23]
+2e2b684: mov      x0, x23
+2e2b688: ldr      x9, [x8, #0x478]
+2e2b68c: ldr      x1, [x8, #0x480]
+2e2b690: blr      x9
+2e2b694: cbz      x0, #0x2e2b984
+2e2b698: mov      x1, xzr
+2e2b69c: bl       #0x299be9c ; Torappu.Battle.VisualObject$$get_col
+2e2b6a0: cbz      x21, #0x2e2b984
+2e2b6a4: adrp     x8, #0xc009000
+2e2b6a8: ldr      x8, [x8, #0x8b0]
+2e2b6ac: ldrb     w9, [x26]
+2e2b6b0: ldr      x25, [x21]
+2e2b6b4: mov      w23, w0
+2e2b6b8: ldr      x24, [x8]
+2e2b6bc: cbz      w9, #0x2e2b6c8
+2e2b6c0: mov      x0, x25
+2e2b6c4: bl       #0x235bd9c
+2e2b6c8: ldrh     w8, [x25, #0x12a]
+2e2b6cc: cbz      x8, #0x2e2b6f0
+2e2b6d0: ldr      x9, [x25, #0xb0]
+2e2b6d4: add      x9, x9, #8
+2e2b6d8: ldur     x10, [x9, #-8]
+2e2b6dc: cmp      x10, x24
+2e2b6e0: b.eq     #0x2e2b704
+2e2b6e4: subs     x8, x8, #1
+2e2b6e8: add      x9, x9, #0x10
+2e2b6ec: b.ne     #0x2e2b6d8
+2e2b6f0: mov      w2, #0x40
+2e2b6f4: mov      x0, x21
+2e2b6f8: mov      x1, x24
+2e2b6fc: bl       #0x235bda8
+2e2b700: b        #0x2e2b714
+2e2b704: ldr      w8, [x9]
+2e2b708: add      w8, w8, #0x40
+2e2b70c: add      x8, x25, w8, sxtw #4
+2e2b710: add      x0, x8, #0x138
+2e2b714: ldp      x8, x3, [x0]
+2e2b718: mov      x0, x21
+2e2b71c: mov      w1, w22
+2e2b720: mov      w2, w23
+2e2b724: blr      x8
+2e2b728: tbz      w0, #0, #0x2e2b8e0
+2e2b72c: ldrb     w8, [x26]
+2e2b730: cbz      w8, #0x2e2b73c
+2e2b734: ldr      x0, [x19]
+2e2b738: bl       #0x235bd9c
+2e2b73c: ldr      x8, [x19]
+2e2b740: mov      x0, x19
+2e2b744: ldr      x9, [x8, #0x7b8]
+2e2b748: ldr      x1, [x8, #0x7c0]
+2e2b74c: blr      x9
+2e2b750: cbz      x0, #0x2e2b984
+2e2b754: mov      x1, xzr
+2e2b758: bl       #0x27695d8 ; Torappu.Battle.TracePositionCursor$$get_isMarkReached
+2e2b75c: tbnz     w0, #0, #0x2e2b76c
+2e2b760: mov      x0, x19
+2e2b764: bl       #0x2e2b988 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CheckCurrentTraceTile
+2e2b768: tbnz     w0, #0, #0x2e2b7e0
+2e2b76c: ldr      x0, [x19, #0x68]
+2e2b770: cbz      x0, #0x2e2b984
+2e2b774: mov      w1, wzr
+2e2b778: mov      x2, xzr
+2e2b77c: bl       #0x3c58314 ; Torappu.PeriodicTimer$$Reset
+2e2b780: ldr      x0, [x19, #0x168]
+2e2b784: cbz      x0, #0x2e2b984
+2e2b788: mov      w1, wzr
+2e2b78c: mov      x2, xzr
+2e2b790: bl       #0x3c58314 ; Torappu.PeriodicTimer$$Reset
+2e2b794: ldrb     w8, [x19, #0x160]
+2e2b798: cbz      w8, #0x2e2b7c4
+2e2b79c: ldrb     w8, [x26]
+2e2b7a0: cbz      w8, #0x2e2b7ac
+2e2b7a4: ldr      x0, [x19]
+2e2b7a8: bl       #0x235bd9c
+2e2b7ac: ldr      x8, [x19]
+2e2b7b0: mov      x0, x19
+2e2b7b4: mov      x1, xzr
+2e2b7b8: ldr      x9, [x8, #0x7a8]
+2e2b7bc: ldr      x2, [x8, #0x7b0]
+2e2b7c0: blr      x9
+2e2b7c4: ldrb     w8, [x19, #0x161]
+2e2b7c8: cbz      w8, #0x2e2b7e0
+2e2b7cc: add      x0, x19, #0x130
+2e2b7d0: mov      x1, xzr
+2e2b7d4: str      xzr, [x19, #0x130]
+2e2b7d8: bl       #0x23104e0
+2e2b7dc: strb     wzr, [x19, #0x178]
+2e2b7e0: ldr      x21, [x19, #0x168]
+2e2b7e4: cbz      x21, #0x2e2b984
+2e2b7e8: ldrb     w8, [x26]
+2e2b7ec: cbz      w8, #0x2e2b7f8
+2e2b7f0: ldr      x0, [x21]
+2e2b7f4: bl       #0x235bd9c
+2e2b7f8: ldr      x8, [x21]
+2e2b7fc: mov      x0, x21
+2e2b800: mov      x1, x20
+2e2b804: ldp      x9, x2, [x8, #0x188]
+2e2b808: blr      x9
+2e2b80c: ldr      x0, [x19, #0x68]
+2e2b810: cbz      x0, #0x2e2b984
+2e2b814: mov      x1, xzr
+2e2b818: bl       #0x3c5802c ; Torappu.PeriodicTimer$$get_isValid
+2e2b81c: tbz      w0, #0, #0x2e2b8e0
+2e2b820: ldr      x20, [x19, #0x68]
+2e2b824: cbz      x20, #0x2e2b984
+2e2b828: ldrb     w8, [x26]
+2e2b82c: cbz      w8, #0x2e2b838
+2e2b830: ldr      x0, [x20]
+2e2b834: bl       #0x235bd9c
+2e2b838: ldr      x8, [x20]
+2e2b83c: mov      x0, x20
+2e2b840: ldp      x9, x1, [x8, #0x178]
+2e2b844: blr      x9
+2e2b848: tbz      w0, #0, #0x2e2b8e0
+2e2b84c: ldrb     w8, [x19, #0x178]
+2e2b850: cbnz     w8, #0x2e2b888
+2e2b854: ldrb     w8, [x26]
+2e2b858: cbz      w8, #0x2e2b864
+2e2b85c: ldr      x0, [x19]
+2e2b860: bl       #0x235bd9c
+2e2b864: ldr      x8, [x19]
+2e2b868: mov      x0, x19
+2e2b86c: ldr      x9, [x8, #0x7c8]
+2e2b870: ldr      x1, [x8, #0x7d0]
+2e2b874: blr      x9
+2e2b878: tbz      w0, #0, #0x2e2b888
+2e2b87c: mov      x0, x19
+2e2b880: bl       #0x2e2ba6c ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CheckCurrentTraceTarget
+2e2b884: tbnz     w0, #0, #0x2e2b8e0
+2e2b888: mov      x0, x19
+2e2b88c: bl       #0x2e2bfc4 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_DoFindTargetByPriority
+2e2b890: ldr      x20, [x19, #0x68]
+2e2b894: cbz      x20, #0x2e2b984
+2e2b898: ldrb     w8, [x26]
+2e2b89c: cbz      w8, #0x2e2b8a8
+2e2b8a0: ldr      x0, [x20]
+2e2b8a4: bl       #0x235bd9c
+2e2b8a8: ldr      x8, [x20]
+2e2b8ac: mov      x0, x20
+2e2b8b0: ldp      x9, x1, [x8, #0x1a8]
+2e2b8b4: blr      x9
+2e2b8b8: ldrb     w8, [x26]
+2e2b8bc: cbz      w8, #0x2e2b8c8
+2e2b8c0: ldr      x0, [x19]
+2e2b8c4: bl       #0x235bd9c
+2e2b8c8: ldr      x8, [x19]
+2e2b8cc: mov      x0, x19
+2e2b8d0: ldr      x9, [x8, #0x7c8]
+2e2b8d4: ldr      x1, [x8, #0x7d0]
+2e2b8d8: blr      x9
+2e2b8dc: tbz      w0, #0, #0x2e2b8f8
+2e2b8e0: ldp      x19, x30, [sp, #0x40]
+2e2b8e4: ldp      x21, x20, [sp, #0x30]
+2e2b8e8: ldp      x23, x22, [sp, #0x20]
+2e2b8ec: ldp      x25, x24, [sp, #0x10]
+2e2b8f0: ldr      x26, [sp], #0x50
+2e2b8f4: ret
+2e2b8f8: ldrb     w8, [x19, #0x178]
+2e2b8fc: cbz      w8, #0x2e2b940
+2e2b900: ldr      x0, [x19, #0x168]
+2e2b904: cbz      x0, #0x2e2b984
+2e2b908: mov      x1, xzr
+2e2b90c: bl       #0x3c5802c ; Torappu.PeriodicTimer$$get_isValid
+2e2b910: tbz      w0, #0, #0x2e2b940
+2e2b914: ldr      x20, [x19, #0x168]
+2e2b918: cbz      x20, #0x2e2b984
+2e2b91c: ldrb     w8, [x26]
+2e2b920: cbz      w8, #0x2e2b92c
+2e2b924: ldr      x0, [x20]
+2e2b928: bl       #0x235bd9c
+2e2b92c: ldr      x8, [x20]
+2e2b930: mov      x0, x20
+2e2b934: ldp      x9, x1, [x8, #0x178]
+2e2b938: blr      x9
+2e2b93c: tbz      w0, #0, #0x2e2b8e0
+2e2b940: mov      x0, x19
+2e2b944: bl       #0x2e2c290 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_DoFindTileByDefault
+2e2b948: ldr      x19, [x19, #0x168]
+2e2b94c: cbz      x19, #0x2e2b984
+2e2b950: ldrb     w8, [x26]
+2e2b954: cbz      w8, #0x2e2b960
+2e2b958: ldr      x0, [x19]
+2e2b95c: bl       #0x235bd9c
+2e2b960: ldr      x8, [x19]
+2e2b964: mov      x0, x19
+2e2b968: ldp      x19, x30, [sp, #0x40]
+2e2b96c: ldp      x21, x20, [sp, #0x30]
+2e2b970: ldp      x2, x1, [x8, #0x1a8]
+2e2b974: ldp      x23, x22, [sp, #0x20]
+2e2b978: ldp      x25, x24, [sp, #0x10]
+2e2b97c: ldr      x26, [sp], #0x50
+2e2b980: br       x2
+2e2b984: bl       #0x2310650
+2e2b988: stp      x21, x20, [sp, #-0x20]!
+2e2b98c: stp      x19, x30, [sp, #0x10]
+2e2b990: adrp     x20, #0xc8cf000
+2e2b994: adrp     x21, #0xc067000
+2e2b998: ldrb     w8, [x20, #0x49f]
+2e2b99c: ldr      x21, [x21, #0x8d8]
+2e2b9a0: mov      x19, x0
+2e2b9a4: tbnz     w8, #0, #0x2e2b9c8
+2e2b9a8: adrp     x0, #0xc067000
+2e2b9ac: ldr      x0, [x0, #0x8d8]
+2e2b9b0: bl       #0x231052c
+2e2b9b4: adrp     x0, #0xc0c1000
+2e2b9b8: ldr      x0, [x0, #0x2a0]
+2e2b9bc: bl       #0x231052c
+2e2b9c0: mov      w8, #1
+2e2b9c4: strb     w8, [x20, #0x49f]
+2e2b9c8: ldr      x8, [x21]
+2e2b9cc: ldr      x8, [x8, #0xb8]
+2e2b9d0: ldr      x0, [x8, #0xb8]
+2e2b9d4: cbz      x0, #0x2e2b9ec
+2e2b9d8: mov      x1, x19
+2e2b9dc: ldp      x19, x30, [sp, #0x10]
+2e2b9e0: mov      x2, xzr
+2e2b9e4: ldp      x21, x20, [sp], #0x20
+2e2b9e8: b        #0x4d68350 ; XLua.DelegateBridge$$__Gen_Delegate_Imp21
+2e2b9ec: adrp     x8, #0xc095000
+2e2b9f0: ldr      x8, [x8, #0xb18]
+2e2b9f4: adrp     x20, #0xc0c1000
+2e2b9f8: ldrb     w8, [x8]
+2e2b9fc: ldr      x20, [x20, #0x2a0]
+2e2ba00: cbz      w8, #0x2e2ba0c
+2e2ba04: ldr      x0, [x19]
+2e2ba08: bl       #0x235bd9c
+2e2ba0c: ldr      x8, [x19]
+2e2ba10: mov      x0, x19
+2e2ba14: ldr      x9, [x8, #0x788]
+2e2ba18: ldr      x1, [x8, #0x790]
+2e2ba1c: blr      x9
+2e2ba20: ldr      x8, [x20]
+2e2ba24: mov      x20, x0
+2e2ba28: ldr      w9, [x8, #0xe0]
+2e2ba2c: cbnz     w9, #0x2e2ba38
+2e2ba30: mov      x0, x8
+2e2ba34: bl       #0x231062c
+2e2ba38: mov      x0, x20
+2e2ba3c: mov      x1, xzr
+2e2ba40: mov      x2, xzr
+2e2ba44: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2e2ba48: tbz      w0, #0, #0x2e2ba5c
+2e2ba4c: ldp      x19, x30, [sp, #0x10]
+2e2ba50: mov      w0, wzr
+2e2ba54: ldp      x21, x20, [sp], #0x20
+2e2ba58: ret
+2e2ba5c: mov      x0, x19
+2e2ba60: ldp      x19, x30, [sp, #0x10]
+2e2ba64: ldp      x21, x20, [sp], #0x20
+2e2ba68: b        #0x2e2c6b4 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_IsTraceTileReachable
+2e2ba6c: stp      x27, x26, [sp, #-0x50]!
+2e2ba70: stp      x25, x24, [sp, #0x10]
+2e2ba74: stp      x23, x22, [sp, #0x20]
+2e2ba78: stp      x21, x20, [sp, #0x30]
+2e2ba7c: stp      x19, x30, [sp, #0x40]
+2e2ba80: adrp     x20, #0xc8cf000
+2e2ba84: adrp     x21, #0xc067000
+2e2ba88: ldrb     w8, [x20, #0x4a0]
+2e2ba8c: ldr      x21, [x21, #0x8d8]
+2e2ba90: mov      x19, x0
+2e2ba94: tbnz     w8, #0, #0x2e2baf4
+2e2ba98: adrp     x0, #0xc091000
+2e2ba9c: ldr      x0, [x0, #0x1c8]
+2e2baa0: bl       #0x231052c
+2e2baa4: adrp     x0, #0xc067000
+2e2baa8: ldr      x0, [x0, #0x8d8]
+2e2baac: bl       #0x231052c
+2e2bab0: adrp     x0, #0xc0a4000
+2e2bab4: ldr      x0, [x0, #0xff0]
+2e2bab8: bl       #0x231052c
+2e2babc: adrp     x0, #0xc15b000
+2e2bac0: ldr      x0, [x0, #0x1c0]
+2e2bac4: bl       #0x231052c
+2e2bac8: adrp     x0, #0xc165000
+2e2bacc: ldr      x0, [x0, #0x4a0]
+2e2bad0: bl       #0x231052c
+2e2bad4: adrp     x0, #0xc0c1000
+2e2bad8: ldr      x0, [x0, #0x2a0]
+2e2badc: bl       #0x231052c
+2e2bae0: adrp     x0, #0xc0bb000
+2e2bae4: ldr      x0, [x0, #0x468]
+2e2bae8: bl       #0x231052c
+2e2baec: mov      w8, #1
+2e2baf0: strb     w8, [x20, #0x4a0]
+2e2baf4: ldr      x8, [x21]
+2e2baf8: ldr      x8, [x8, #0xb8]
+2e2bafc: ldr      x0, [x8, #0xc0]
+2e2bb00: cbz      x0, #0x2e2bb24
+2e2bb04: mov      x1, x19
+2e2bb08: ldp      x19, x30, [sp, #0x40]
+2e2bb0c: ldp      x21, x20, [sp, #0x30]
+2e2bb10: ldp      x23, x22, [sp, #0x20]
+2e2bb14: ldp      x25, x24, [sp, #0x10]
+2e2bb18: mov      x2, xzr
+2e2bb1c: ldp      x27, x26, [sp], #0x50
+2e2bb20: b        #0x4d68350 ; XLua.DelegateBridge$$__Gen_Delegate_Imp21
+2e2bb24: adrp     x25, #0xc095000
+2e2bb28: ldr      x25, [x25, #0xb18]
+2e2bb2c: ldrb     w8, [x25]
+2e2bb30: cbz      w8, #0x2e2bb3c
+2e2bb34: ldr      x0, [x19]
+2e2bb38: bl       #0x235bd9c
+2e2bb3c: ldr      x8, [x19]
+2e2bb40: mov      x0, x19
+2e2bb44: ldr      x9, [x8, #0x798]
+2e2bb48: ldr      x1, [x8, #0x7a0]
+2e2bb4c: blr      x9
+2e2bb50: ldrb     w8, [x25]
+2e2bb54: mov      x20, x0
+2e2bb58: cbz      w8, #0x2e2bb64
+2e2bb5c: ldr      x0, [x19]
+2e2bb60: bl       #0x235bd9c
+2e2bb64: ldr      x8, [x19]
+2e2bb68: adrp     x26, #0xc0c1000
+2e2bb6c: mov      x0, x19
+2e2bb70: ldr      x9, [x8, #0x798]
+2e2bb74: ldr      x1, [x8, #0x7a0]
+2e2bb78: ldr      x26, [x26, #0x2a0]
+2e2bb7c: blr      x9
+2e2bb80: mov      x21, x0
+2e2bb84: cbz      x0, #0x2e2bbdc
+2e2bb88: adrp     x8, #0xc0bb000
+2e2bb8c: ldr      x8, [x8, #0x468]
+2e2bb90: ldrb     w9, [x25]
+2e2bb94: ldr      x0, [x21]
+2e2bb98: ldr      x1, [x8]
+2e2bb9c: cbz      w9, #0x2e2bbb0
+2e2bba0: bl       #0x235bda4
+2e2bba4: tst      w0, #1
+2e2bba8: csel     x21, x21, xzr, ne
+2e2bbac: b        #0x2e2bbdc
+2e2bbb0: ldrb     w9, [x0, #0x12c]
+2e2bbb4: ldrb     w8, [x1, #0x12c]
+2e2bbb8: cmp      w9, w8
+2e2bbbc: b.hs     #0x2e2bbc8
+2e2bbc0: mov      x21, xzr
+2e2bbc4: b        #0x2e2bbdc
+2e2bbc8: ldr      x9, [x0, #0xc8]
+2e2bbcc: add      x8, x9, x8, lsl #3
+2e2bbd0: ldur     x8, [x8, #-8]
+2e2bbd4: cmp      x8, x1
+2e2bbd8: csel     x21, x21, xzr, eq
+2e2bbdc: ldr      x0, [x26]
+2e2bbe0: ldr      w8, [x0, #0xe0]
+2e2bbe4: cbnz     w8, #0x2e2bbec
+2e2bbe8: bl       #0x231062c
+2e2bbec: mov      x0, x20
+2e2bbf0: mov      x1, xzr
+2e2bbf4: mov      x2, xzr
+2e2bbf8: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2e2bbfc: tbnz     w0, #0, #0x2e2be58
+2e2bc00: mov      x0, x19
+2e2bc04: mov      x1, x20
+2e2bc08: bl       #0x2e2c87c ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CanTargetBeTraced
+2e2bc0c: tbz      w0, #0, #0x2e2be58
+2e2bc10: mov      x0, x19
+2e2bc14: bl       #0x2e2c6b4 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_IsTraceTileReachable
+2e2bc18: tbz      w0, #0, #0x2e2be58
+2e2bc1c: ldr      x0, [x26]
+2e2bc20: ldr      w8, [x0, #0xe0]
+2e2bc24: cbnz     w8, #0x2e2bc2c
+2e2bc28: bl       #0x231062c
+2e2bc2c: mov      x0, x21
+2e2bc30: mov      x1, xzr
+2e2bc34: mov      x2, xzr
+2e2bc38: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2bc3c: tbz      w0, #0, #0x2e2bc54
+2e2bc40: cbz      x21, #0x2e2bedc
+2e2bc44: mov      x0, x21
+2e2bc48: mov      x1, xzr
+2e2bc4c: bl       #0x25d9690 ; Torappu.Battle.Entity$$get_shouldRenderFlag
+2e2bc50: tbz      w0, #0, #0x2e2be58
+2e2bc54: mov      x0, x19
+2e2bc58: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2bc5c: cbz      x0, #0x2e2bedc
+2e2bc60: mov      x1, x20
+2e2bc64: mov      x2, xzr
+2e2bc68: bl       #0x2928618 ; Torappu.Battle.Enemy$$CheckTargetInAttackRange
+2e2bc6c: tbz      w0, #0, #0x2e2bc9c
+2e2bc70: ldrb     w8, [x25]
+2e2bc74: cbz      w8, #0x2e2bc80
+2e2bc78: ldr      x0, [x19]
+2e2bc7c: bl       #0x235bd9c
+2e2bc80: ldr      x8, [x19]
+2e2bc84: mov      x0, x19
+2e2bc88: ldr      x9, [x8, #0x7f8]
+2e2bc8c: ldr      x1, [x8, #0x800]
+2e2bc90: blr      x9
+2e2bc94: mov      w0, #1
+2e2bc98: b        #0x2e2be5c
+2e2bc9c: adrp     x8, #0xc165000
+2e2bca0: ldr      x8, [x8, #0x4a0]
+2e2bca4: ldr      x21, [x19, #0x150]
+2e2bca8: add      x0, x19, #0x48
+2e2bcac: ldr      x1, [x8]
+2e2bcb0: bl       #0x774c474 ; Torappu.ObjectPtr<object>$$Lock
+2e2bcb4: cbz      x21, #0x2e2bedc
+2e2bcb8: adrp     x22, #0xc091000
+2e2bcbc: adrp     x24, #0xc0a4000
+2e2bcc0: ldr      x22, [x22, #0x1c8]
+2e2bcc4: ldr      x24, [x24, #0xff0]
+2e2bcc8: mov      x1, x0
+2e2bccc: mov      x0, x21
+2e2bcd0: mov      x2, xzr
+2e2bcd4: bl       #0x28c43f0 ; Torappu.Battle.TargetSelector$$FindTargets_DISPOSE
+2e2bcd8: ldr      x1, [x22]
+2e2bcdc: mov      x21, x0
+2e2bce0: bl       #0x61d9f88
+2e2bce4: cmp      w0, #1
+2e2bce8: b.lt     #0x2e2bd80
+2e2bcec: cbz      x21, #0x2e2bee8
+2e2bcf0: adrp     x23, #0xc15b000
+2e2bcf4: ldr      x23, [x23, #0x1c0]
+2e2bcf8: ldr      x2, [x23]
+2e2bcfc: mov      x0, x21
+2e2bd00: mov      w1, wzr
+2e2bd04: bl       #0x6edbc0c
+2e2bd08: mov      x22, x0
+2e2bd0c: ldr      x0, [x26]
+2e2bd10: ldr      w8, [x0, #0xe0]
+2e2bd14: cbnz     w8, #0x2e2bd1c
+2e2bd18: bl       #0x231062c
+2e2bd1c: mov      x0, x22
+2e2bd20: mov      x1, xzr
+2e2bd24: mov      x2, xzr
+2e2bd28: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2bd2c: tbz      w0, #0, #0x2e2bd74
+2e2bd30: ldr      x2, [x23]
+2e2bd34: mov      x0, x21
+2e2bd38: mov      w1, wzr
+2e2bd3c: bl       #0x6edbc0c
+2e2bd40: mov      x22, x0
+2e2bd44: ldr      x0, [x26]
+2e2bd48: ldr      w8, [x0, #0xe0]
+2e2bd4c: cbnz     w8, #0x2e2bd54
+2e2bd50: bl       #0x231062c
+2e2bd54: mov      x0, x22
+2e2bd58: mov      x1, x20
+2e2bd5c: mov      x2, xzr
+2e2bd60: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2bd64: tbz      w0, #0, #0x2e2bd74
+2e2bd68: mov      x22, xzr
+2e2bd6c: mov      w27, #8
+2e2bd70: b        #0x2e2bd8c
+2e2bd74: mov      x22, xzr
+2e2bd78: mov      w27, #9
+2e2bd7c: b        #0x2e2bd8c
+2e2bd80: mov      x22, xzr
+2e2bd84: mov      w27, #9
+2e2bd88: cbz      x21, #0x2e2bdf8
+2e2bd8c: ldr      x23, [x24]
+2e2bd90: ldrb     w8, [x25]
+2e2bd94: ldr      x24, [x21]
+2e2bd98: cbz      w8, #0x2e2bda4
+2e2bd9c: mov      x0, x24
+2e2bda0: bl       #0x235bd9c
+2e2bda4: ldrh     w8, [x24, #0x12a]
+2e2bda8: cbz      x8, #0x2e2bdcc
+2e2bdac: ldr      x9, [x24, #0xb0]
+2e2bdb0: add      x9, x9, #8
+2e2bdb4: ldur     x10, [x9, #-8]
+2e2bdb8: cmp      x10, x23
+2e2bdbc: b.eq     #0x2e2bde0
+2e2bdc0: subs     x8, x8, #1
+2e2bdc4: add      x9, x9, #0x10
+2e2bdc8: b.ne     #0x2e2bdb4
+2e2bdcc: mov      x0, x21
+2e2bdd0: mov      x1, x23
+2e2bdd4: mov      w2, wzr
+2e2bdd8: bl       #0x235bda8
+2e2bddc: b        #0x2e2bdec
+2e2bde0: ldrsw    x8, [x9]
+2e2bde4: add      x8, x24, x8, lsl #4
+2e2bde8: add      x0, x8, #0x138
+2e2bdec: ldp      x8, x1, [x0]
+2e2bdf0: mov      x0, x21
+2e2bdf4: blr      x8
+2e2bdf8: cbnz     x22, #0x2e2bee0
+2e2bdfc: cmp      w27, #9
+2e2be00: b.eq     #0x2e2be08
+2e2be04: cbnz     w27, #0x2e2be58
+2e2be08: ldrb     w8, [x25]
+2e2be0c: cbz      w8, #0x2e2be18
+2e2be10: ldr      x0, [x19]
+2e2be14: bl       #0x235bd9c
+2e2be18: ldr      x8, [x19]
+2e2be1c: mov      x0, x19
+2e2be20: ldr      x9, [x8, #0x7b8]
+2e2be24: ldr      x1, [x8, #0x7c0]
+2e2be28: blr      x9
+2e2be2c: cbz      x0, #0x2e2bedc
+2e2be30: ldrb     w8, [x25]
+2e2be34: mov      x21, x0
+2e2be38: cbz      w8, #0x2e2be44
+2e2be3c: ldr      x0, [x21]
+2e2be40: bl       #0x235bd9c
+2e2be44: ldr      x8, [x21]
+2e2be48: mov      x0, x21
+2e2be4c: ldp      x9, x1, [x8, #0x1c8]
+2e2be50: blr      x9
+2e2be54: tbz      w0, #0, #0x2e2be74
+2e2be58: mov      w0, wzr
+2e2be5c: ldp      x19, x30, [sp, #0x40]
+2e2be60: ldp      x21, x20, [sp, #0x30]
+2e2be64: ldp      x23, x22, [sp, #0x20]
+2e2be68: ldp      x25, x24, [sp, #0x10]
+2e2be6c: ldp      x27, x26, [sp], #0x50
+2e2be70: ret
+2e2be74: cbz      x20, #0x2e2bedc
+2e2be78: ldrb     w8, [x25]
+2e2be7c: cbz      w8, #0x2e2be88
+2e2be80: ldr      x0, [x20]
+2e2be84: bl       #0x235bd9c
+2e2be88: ldr      x8, [x20]
+2e2be8c: mov      x0, x20
+2e2be90: ldr      x9, [x8, #0x478]
+2e2be94: ldr      x1, [x8, #0x480]
+2e2be98: blr      x9
+2e2be9c: ldr      x8, [x26]
+2e2bea0: ldr      x21, [x19, #0x130]
+2e2bea4: mov      x22, x0
+2e2bea8: ldr      w9, [x8, #0xe0]
+2e2beac: cbnz     w9, #0x2e2beb8
+2e2beb0: mov      x0, x8
+2e2beb4: bl       #0x231062c
+2e2beb8: mov      x0, x22
+2e2bebc: mov      x1, x21
+2e2bec0: mov      x2, xzr
+2e2bec4: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2bec8: tbz      w0, #0, #0x2e2bc94
+2e2becc: mov      x0, x19
+2e2bed0: mov      x1, x20
+2e2bed4: bl       #0x2e2c970 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_UpdateTraceTargetRoute
+2e2bed8: b        #0x2e2bc94
+2e2bedc: bl       #0x2310650
+2e2bee0: mov      x0, x22
+2e2bee4: bl       #0x2379f38
+2e2bee8: bl       #0x2310650
+2e2beec: b        #0x2e2bf04
+2e2bef0: b        #0x2e2bf04
+2e2bef4: b        #0x2e2bf04
+2e2bef8: b        #0x2e2bf04
+2e2befc: b        #0x2e2bf04
+2e2bf00: b        #0x2e2bf04
+2e2bf04: mov      x23, x0
+2e2bf08: cmp      w1, #1
+2e2bf0c: b.ne     #0x2e2bf2c
+2e2bf10: mov      x0, x23
+2e2bf14: bl       #0x1d2a520
+2e2bf18: ldr      x22, [x0]
+2e2bf1c: bl       #0x1d2b470
+2e2bf20: mov      w27, wzr
+2e2bf24: cbnz     x21, #0x2e2bd8c
+2e2bf28: b        #0x2e2bdf8
+2e2bf2c: mov      x22, xzr
+2e2bf30: cbz      x21, #0x2e2bfa0
+2e2bf34: ldr      x19, [x24]
+2e2bf38: ldrb     w8, [x25]
+2e2bf3c: ldr      x20, [x21]
+2e2bf40: cbz      w8, #0x2e2bf4c
+2e2bf44: mov      x0, x20
+2e2bf48: bl       #0x235bd9c
+2e2bf4c: ldrh     w8, [x20, #0x12a]
+2e2bf50: cbz      x8, #0x2e2bf74
+2e2bf54: ldr      x9, [x20, #0xb0]
+2e2bf58: add      x9, x9, #8
+2e2bf5c: ldur     x10, [x9, #-8]
+2e2bf60: cmp      x10, x19
+2e2bf64: b.eq     #0x2e2bf88
+2e2bf68: subs     x8, x8, #1
+2e2bf6c: add      x9, x9, #0x10
+2e2bf70: b.ne     #0x2e2bf5c
+2e2bf74: mov      x0, x21
+2e2bf78: mov      x1, x19
+2e2bf7c: mov      w2, wzr
+2e2bf80: bl       #0x235bda8
+2e2bf84: b        #0x2e2bf94
+2e2bf88: ldrsw    x8, [x9]
+2e2bf8c: add      x8, x20, x8, lsl #4
+2e2bf90: add      x0, x8, #0x138
+2e2bf94: ldp      x8, x1, [x0]
+2e2bf98: mov      x0, x21
+2e2bf9c: blr      x8
+2e2bfa0: cbnz     x22, #0x2e2bfac
+2e2bfa4: mov      x0, x23
+2e2bfa8: bl       #0x1d2b410
+2e2bfac: mov      x0, x22
+2e2bfb0: bl       #0x2379f38
+2e2bfb4: mov      x23, x0
+2e2bfb8: cbnz     x21, #0x2e2bf34
+2e2bfbc: b        #0x2e2bfa0
+2e2bfc0: bl       #0x1d2cc68
+2e2bfc4: stp      x23, x22, [sp, #-0x30]!
+2e2bfc8: stp      x21, x20, [sp, #0x10]
+2e2bfcc: stp      x19, x30, [sp, #0x20]
+2e2bfd0: adrp     x19, #0xc8cf000
+2e2bfd4: adrp     x21, #0xc067000
+2e2bfd8: ldrb     w8, [x19, #0x49d]
+2e2bfdc: ldr      x21, [x21, #0x8d8]
+2e2bfe0: mov      x20, x0
+2e2bfe4: tbnz     w8, #0, #0x2e2c038
+2e2bfe8: adrp     x0, #0xc091000
+2e2bfec: ldr      x0, [x0, #0x1c8]
+2e2bff0: bl       #0x231052c
+2e2bff4: adrp     x0, #0xc067000
+2e2bff8: ldr      x0, [x0, #0x8d8]
+2e2bffc: bl       #0x231052c
+2e2c000: adrp     x0, #0xc0a4000
+2e2c004: ldr      x0, [x0, #0xff0]
+2e2c008: bl       #0x231052c
+2e2c00c: adrp     x0, #0xc15b000
+2e2c010: ldr      x0, [x0, #0x1c0]
+2e2c014: bl       #0x231052c
+2e2c018: adrp     x0, #0xc165000
+2e2c01c: ldr      x0, [x0, #0x4a0]
+2e2c020: bl       #0x231052c
+2e2c024: adrp     x0, #0xc0c1000
+2e2c028: ldr      x0, [x0, #0x2a0]
+2e2c02c: bl       #0x231052c
+2e2c030: mov      w8, #1
+2e2c034: strb     w8, [x19, #0x49d]
+2e2c038: ldr      x8, [x21]
+2e2c03c: ldr      x8, [x8, #0xb8]
+2e2c040: ldr      x0, [x8, #0xa8]
+2e2c044: cbz      x0, #0x2e2c060
+2e2c048: mov      x1, x20
+2e2c04c: ldp      x19, x30, [sp, #0x20]
+2e2c050: ldp      x21, x20, [sp, #0x10]
+2e2c054: mov      x2, xzr
+2e2c058: ldp      x23, x22, [sp], #0x30
+2e2c05c: b        #0x4d68da8 ; XLua.DelegateBridge$$__Gen_Delegate_Imp27
+2e2c060: adrp     x8, #0xc165000
+2e2c064: ldr      x8, [x8, #0x4a0]
+2e2c068: ldr      x19, [x20, #0x150]
+2e2c06c: add      x0, x20, #0x48
+2e2c070: ldr      x1, [x8]
+2e2c074: bl       #0x774c474 ; Torappu.ObjectPtr<object>$$Lock
+2e2c078: cbz      x19, #0x2e2c1b0
+2e2c07c: adrp     x21, #0xc091000
+2e2c080: adrp     x22, #0xc0a4000
+2e2c084: ldr      x21, [x21, #0x1c8]
+2e2c088: ldr      x22, [x22, #0xff0]
+2e2c08c: mov      x1, x0
+2e2c090: mov      x0, x19
+2e2c094: mov      x2, xzr
+2e2c098: bl       #0x28c43f0 ; Torappu.Battle.TargetSelector$$FindTargets_DISPOSE
+2e2c09c: ldr      x1, [x21]
+2e2c0a0: mov      x19, x0
+2e2c0a4: bl       #0x61d9f88
+2e2c0a8: cmp      w0, #1
+2e2c0ac: b.lt     #0x2e2c120
+2e2c0b0: cbz      x19, #0x2e2c1bc
+2e2c0b4: adrp     x23, #0xc15b000
+2e2c0b8: ldr      x23, [x23, #0x1c0]
+2e2c0bc: ldr      x2, [x23]
+2e2c0c0: mov      x0, x19
+2e2c0c4: mov      w1, wzr
+2e2c0c8: bl       #0x6edbc0c
+2e2c0cc: adrp     x8, #0xc0c1000
+2e2c0d0: ldr      x8, [x8, #0x2a0]
+2e2c0d4: mov      x21, x0
+2e2c0d8: ldr      x0, [x8]
+2e2c0dc: ldr      w8, [x0, #0xe0]
+2e2c0e0: cbnz     w8, #0x2e2c0e8
+2e2c0e4: bl       #0x231062c
+2e2c0e8: mov      x0, x21
+2e2c0ec: mov      x1, xzr
+2e2c0f0: mov      x2, xzr
+2e2c0f4: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2c0f8: tbz      w0, #0, #0x2e2c118
+2e2c0fc: ldr      x2, [x23]
+2e2c100: mov      x0, x19
+2e2c104: mov      w1, wzr
+2e2c108: bl       #0x6edbc0c
+2e2c10c: mov      x1, x0
+2e2c110: mov      x0, x20
+2e2c114: bl       #0x2e2c584 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_RegisterTraceTarget
+2e2c118: mov      x20, xzr
+2e2c11c: b        #0x2e2c128
+2e2c120: mov      x20, xzr
+2e2c124: cbz      x19, #0x2e2c19c
+2e2c128: adrp     x8, #0xc095000
+2e2c12c: ldr      x21, [x22]
+2e2c130: ldr      x8, [x8, #0xb18]
+2e2c134: ldr      x22, [x19]
+2e2c138: ldrb     w8, [x8]
+2e2c13c: cbz      w8, #0x2e2c148
+2e2c140: mov      x0, x22
+2e2c144: bl       #0x235bd9c
+2e2c148: ldrh     w8, [x22, #0x12a]
+2e2c14c: cbz      x8, #0x2e2c170
+2e2c150: ldr      x9, [x22, #0xb0]
+2e2c154: add      x9, x9, #8
+2e2c158: ldur     x10, [x9, #-8]
+2e2c15c: cmp      x10, x21
+2e2c160: b.eq     #0x2e2c184
+2e2c164: subs     x8, x8, #1
+2e2c168: add      x9, x9, #0x10
+2e2c16c: b.ne     #0x2e2c158
+2e2c170: mov      x0, x19
+2e2c174: mov      x1, x21
+2e2c178: mov      w2, wzr
+2e2c17c: bl       #0x235bda8
+2e2c180: b        #0x2e2c190
+2e2c184: ldrsw    x8, [x9]
+2e2c188: add      x8, x22, x8, lsl #4
+2e2c18c: add      x0, x8, #0x138
+2e2c190: ldp      x8, x1, [x0]
+2e2c194: mov      x0, x19
+2e2c198: blr      x8
+2e2c19c: cbnz     x20, #0x2e2c1b4
+2e2c1a0: ldp      x19, x30, [sp, #0x20]
+2e2c1a4: ldp      x21, x20, [sp, #0x10]
+2e2c1a8: ldp      x23, x22, [sp], #0x30
+2e2c1ac: ret
+2e2c1b0: bl       #0x2310650
+2e2c1b4: mov      x0, x20
+2e2c1b8: bl       #0x2379f38
+2e2c1bc: bl       #0x2310650
+2e2c1c0: b        #0x2e2c1d0
+2e2c1c4: b        #0x2e2c1d0
+2e2c1c8: b        #0x2e2c1d0
+2e2c1cc: b        #0x2e2c1d0
+2e2c1d0: mov      x21, x0
+2e2c1d4: cmp      w1, #1
+2e2c1d8: b.ne     #0x2e2c1f0
+2e2c1dc: mov      x0, x21
+2e2c1e0: bl       #0x1d2a520
+2e2c1e4: ldr      x20, [x0]
+2e2c1e8: bl       #0x1d2b470
+2e2c1ec: b        #0x2e2c124
+2e2c1f0: mov      x20, xzr
+2e2c1f4: cbz      x19, #0x2e2c26c
+2e2c1f8: adrp     x8, #0xc095000
+2e2c1fc: ldr      x23, [x22]
+2e2c200: ldr      x8, [x8, #0xb18]
+2e2c204: ldr      x22, [x19]
+2e2c208: ldrb     w8, [x8]
+2e2c20c: cbz      w8, #0x2e2c218
+2e2c210: mov      x0, x22
+2e2c214: bl       #0x235bd9c
+2e2c218: ldrh     w8, [x22, #0x12a]
+2e2c21c: mov      x1, x23
+2e2c220: cbz      x8, #0x2e2c244
+2e2c224: ldr      x9, [x22, #0xb0]
+2e2c228: add      x9, x9, #8
+2e2c22c: ldur     x10, [x9, #-8]
+2e2c230: cmp      x10, x1
+2e2c234: b.eq     #0x2e2c254
+2e2c238: subs     x8, x8, #1
+2e2c23c: add      x9, x9, #0x10
+2e2c240: b.ne     #0x2e2c22c
+2e2c244: mov      x0, x19
+2e2c248: mov      w2, wzr
+2e2c24c: bl       #0x235bda8
+2e2c250: b        #0x2e2c260
+2e2c254: ldrsw    x8, [x9]
+2e2c258: add      x8, x22, x8, lsl #4
+2e2c25c: add      x0, x8, #0x138
+2e2c260: ldp      x8, x1, [x0]
+2e2c264: mov      x0, x19
+2e2c268: blr      x8
+2e2c26c: cbnz     x20, #0x2e2c278
+2e2c270: mov      x0, x21
+2e2c274: bl       #0x1d2b410
+2e2c278: mov      x0, x20
+2e2c27c: bl       #0x2379f38
+2e2c280: mov      x21, x0
+2e2c284: cbnz     x19, #0x2e2c1f8
+2e2c288: b        #0x2e2c26c
+2e2c28c: bl       #0x1d2cc68
+2e2c290: stp      d9, d8, [sp, #-0x30]!
+2e2c294: stp      x21, x20, [sp, #0x10]
+2e2c298: stp      x19, x30, [sp, #0x20]
+2e2c29c: adrp     x20, #0xc8cf000
+2e2c2a0: adrp     x21, #0xc067000
+2e2c2a4: ldrb     w8, [x20, #0x49e]
+2e2c2a8: ldr      x21, [x21, #0x8d8]
+2e2c2ac: mov      x19, x0
+2e2c2b0: tbnz     w8, #0, #0x2e2c2f8
+2e2c2b4: adrp     x0, #0xc0cb000
+2e2c2b8: ldr      x0, [x0, #0xda0]
+2e2c2bc: bl       #0x231052c
+2e2c2c0: adrp     x0, #0xc067000
+2e2c2c4: ldr      x0, [x0, #0x8d8]
+2e2c2c8: bl       #0x231052c
+2e2c2cc: adrp     x0, #0xc01d000
+2e2c2d0: ldr      x0, [x0, #0xd70]
+2e2c2d4: bl       #0x231052c
+2e2c2d8: adrp     x0, #0xc160000
+2e2c2dc: ldr      x0, [x0, #0xb58]
+2e2c2e0: bl       #0x231052c
+2e2c2e4: adrp     x0, #0xc0c1000
+2e2c2e8: ldr      x0, [x0, #0x2a0]
+2e2c2ec: bl       #0x231052c
+2e2c2f0: mov      w8, #1
+2e2c2f4: strb     w8, [x20, #0x49e]
+2e2c2f8: ldr      x8, [x21]
+2e2c2fc: ldr      x8, [x8, #0xb8]
+2e2c300: ldr      x0, [x8, #0xb0]
+2e2c304: cbz      x0, #0x2e2c320
+2e2c308: mov      x1, x19
+2e2c30c: ldp      x19, x30, [sp, #0x20]
+2e2c310: ldp      x21, x20, [sp, #0x10]
+2e2c314: mov      x2, xzr
+2e2c318: ldp      d9, d8, [sp], #0x30
+2e2c31c: b        #0x4d68da8 ; XLua.DelegateBridge$$__Gen_Delegate_Imp27
+2e2c320: adrp     x21, #0xc095000
+2e2c324: ldr      x21, [x21, #0xb18]
+2e2c328: ldrb     w8, [x21]
+2e2c32c: cbz      w8, #0x2e2c338
+2e2c330: ldr      x0, [x19]
+2e2c334: bl       #0x235bd9c
+2e2c338: ldr      x8, [x19]
+2e2c33c: mov      x0, x19
+2e2c340: ldr      x9, [x8, #0x7c8]
+2e2c344: ldr      x1, [x8, #0x7d0]
+2e2c348: blr      x9
+2e2c34c: tbz      w0, #0, #0x2e2c35c
+2e2c350: mov      x0, x19
+2e2c354: bl       #0x2e2ba6c ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CheckCurrentTraceTarget
+2e2c358: tbnz     w0, #0, #0x2e2c440
+2e2c35c: adrp     x8, #0xc0c1000
+2e2c360: ldr      x8, [x8, #0x2a0]
+2e2c364: ldr      x20, [x19, #0x158]
+2e2c368: ldr      x0, [x8]
+2e2c36c: ldr      w8, [x0, #0xe0]
+2e2c370: cbnz     w8, #0x2e2c378
+2e2c374: bl       #0x231062c
+2e2c378: mov      x0, x20
+2e2c37c: mov      x1, xzr
+2e2c380: mov      x2, xzr
+2e2c384: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2c388: tbz      w0, #0, #0x2e2c440
+2e2c38c: adrp     x8, #0xc160000
+2e2c390: ldr      x8, [x8, #0xb58]
+2e2c394: add      x0, x19, #0x48
+2e2c398: ldr      x1, [x8]
+2e2c39c: bl       #0x774c1c8 ; Torappu.ObjectPtr<object>$$get_isValid
+2e2c3a0: tbz      w0, #0, #0x2e2c440
+2e2c3a4: ldr      x20, [x19, #0x158]
+2e2c3a8: mov      x0, x19
+2e2c3ac: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2c3b0: cbz      x0, #0x2e2c450
+2e2c3b4: mov      x1, xzr
+2e2c3b8: bl       #0x299bd28 ; Torappu.Battle.VisualObject$$get_mapPosition
+2e2c3bc: cbz      x20, #0x2e2c450
+2e2c3c0: ldrb     w8, [x21]
+2e2c3c4: adrp     x21, #0xc0cb000
+2e2c3c8: ldr      x21, [x21, #0xda0]
+2e2c3cc: mov      v8.16b, v0.16b
+2e2c3d0: mov      v9.16b, v1.16b
+2e2c3d4: cbz      w8, #0x2e2c3e0
+2e2c3d8: ldr      x0, [x20]
+2e2c3dc: bl       #0x235bd9c
+2e2c3e0: ldr      x8, [x20]
+2e2c3e4: mov      x0, x20
+2e2c3e8: mov      v0.16b, v8.16b
+2e2c3ec: mov      v1.16b, v9.16b
+2e2c3f0: ldr      x9, [x8, #0x278]
+2e2c3f4: ldr      x1, [x8, #0x280]
+2e2c3f8: blr      x9
+2e2c3fc: ldr      x1, [x21]
+2e2c400: mov      x20, x0
+2e2c404: bl       #0x61d9f88
+2e2c408: cmp      w0, #1
+2e2c40c: b.lt     #0x2e2c440
+2e2c410: cbz      x20, #0x2e2c450
+2e2c414: adrp     x8, #0xc01d000
+2e2c418: ldr      x8, [x8, #0xd70]
+2e2c41c: mov      x0, x20
+2e2c420: mov      w1, wzr
+2e2c424: ldr      x2, [x8]
+2e2c428: bl       #0x6edbc0c
+2e2c42c: mov      x1, x0
+2e2c430: mov      x0, x19
+2e2c434: bl       #0x2e19b54 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$RegisterTraceTile
+2e2c438: mov      w8, #1
+2e2c43c: strb     w8, [x19, #0x178]
+2e2c440: ldp      x19, x30, [sp, #0x20]
+2e2c444: ldp      x21, x20, [sp, #0x10]
+2e2c448: ldp      d9, d8, [sp], #0x30
+2e2c44c: ret
+2e2c450: bl       #0x2310650
+
+=== EnemyTraceTargetByPriorityAbility._DoFindTargetByPriority 0x2e2bfc4-0x2e2c290 (716 bytes) ===
+2e2bfc4: stp      x23, x22, [sp, #-0x30]!
+2e2bfc8: stp      x21, x20, [sp, #0x10]
+2e2bfcc: stp      x19, x30, [sp, #0x20]
+2e2bfd0: adrp     x19, #0xc8cf000
+2e2bfd4: adrp     x21, #0xc067000
+2e2bfd8: ldrb     w8, [x19, #0x49d]
+2e2bfdc: ldr      x21, [x21, #0x8d8]
+2e2bfe0: mov      x20, x0
+2e2bfe4: tbnz     w8, #0, #0x2e2c038
+2e2bfe8: adrp     x0, #0xc091000
+2e2bfec: ldr      x0, [x0, #0x1c8]
+2e2bff0: bl       #0x231052c
+2e2bff4: adrp     x0, #0xc067000
+2e2bff8: ldr      x0, [x0, #0x8d8]
+2e2bffc: bl       #0x231052c
+2e2c000: adrp     x0, #0xc0a4000
+2e2c004: ldr      x0, [x0, #0xff0]
+2e2c008: bl       #0x231052c
+2e2c00c: adrp     x0, #0xc15b000
+2e2c010: ldr      x0, [x0, #0x1c0]
+2e2c014: bl       #0x231052c
+2e2c018: adrp     x0, #0xc165000
+2e2c01c: ldr      x0, [x0, #0x4a0]
+2e2c020: bl       #0x231052c
+2e2c024: adrp     x0, #0xc0c1000
+2e2c028: ldr      x0, [x0, #0x2a0]
+2e2c02c: bl       #0x231052c
+2e2c030: mov      w8, #1
+2e2c034: strb     w8, [x19, #0x49d]
+2e2c038: ldr      x8, [x21]
+2e2c03c: ldr      x8, [x8, #0xb8]
+2e2c040: ldr      x0, [x8, #0xa8]
+2e2c044: cbz      x0, #0x2e2c060
+2e2c048: mov      x1, x20
+2e2c04c: ldp      x19, x30, [sp, #0x20]
+2e2c050: ldp      x21, x20, [sp, #0x10]
+2e2c054: mov      x2, xzr
+2e2c058: ldp      x23, x22, [sp], #0x30
+2e2c05c: b        #0x4d68da8 ; XLua.DelegateBridge$$__Gen_Delegate_Imp27
+2e2c060: adrp     x8, #0xc165000
+2e2c064: ldr      x8, [x8, #0x4a0]
+2e2c068: ldr      x19, [x20, #0x150]
+2e2c06c: add      x0, x20, #0x48
+2e2c070: ldr      x1, [x8]
+2e2c074: bl       #0x774c474 ; Torappu.ObjectPtr<object>$$Lock
+2e2c078: cbz      x19, #0x2e2c1b0
+2e2c07c: adrp     x21, #0xc091000
+2e2c080: adrp     x22, #0xc0a4000
+2e2c084: ldr      x21, [x21, #0x1c8]
+2e2c088: ldr      x22, [x22, #0xff0]
+2e2c08c: mov      x1, x0
+2e2c090: mov      x0, x19
+2e2c094: mov      x2, xzr
+2e2c098: bl       #0x28c43f0 ; Torappu.Battle.TargetSelector$$FindTargets_DISPOSE
+2e2c09c: ldr      x1, [x21]
+2e2c0a0: mov      x19, x0
+2e2c0a4: bl       #0x61d9f88
+2e2c0a8: cmp      w0, #1
+2e2c0ac: b.lt     #0x2e2c120
+2e2c0b0: cbz      x19, #0x2e2c1bc
+2e2c0b4: adrp     x23, #0xc15b000
+2e2c0b8: ldr      x23, [x23, #0x1c0]
+2e2c0bc: ldr      x2, [x23]
+2e2c0c0: mov      x0, x19
+2e2c0c4: mov      w1, wzr
+2e2c0c8: bl       #0x6edbc0c
+2e2c0cc: adrp     x8, #0xc0c1000
+2e2c0d0: ldr      x8, [x8, #0x2a0]
+2e2c0d4: mov      x21, x0
+2e2c0d8: ldr      x0, [x8]
+2e2c0dc: ldr      w8, [x0, #0xe0]
+2e2c0e0: cbnz     w8, #0x2e2c0e8
+2e2c0e4: bl       #0x231062c
+2e2c0e8: mov      x0, x21
+2e2c0ec: mov      x1, xzr
+2e2c0f0: mov      x2, xzr
+2e2c0f4: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2c0f8: tbz      w0, #0, #0x2e2c118
+2e2c0fc: ldr      x2, [x23]
+2e2c100: mov      x0, x19
+2e2c104: mov      w1, wzr
+2e2c108: bl       #0x6edbc0c
+2e2c10c: mov      x1, x0
+2e2c110: mov      x0, x20
+2e2c114: bl       #0x2e2c584 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_RegisterTraceTarget
+2e2c118: mov      x20, xzr
+2e2c11c: b        #0x2e2c128
+2e2c120: mov      x20, xzr
+2e2c124: cbz      x19, #0x2e2c19c
+2e2c128: adrp     x8, #0xc095000
+2e2c12c: ldr      x21, [x22]
+2e2c130: ldr      x8, [x8, #0xb18]
+2e2c134: ldr      x22, [x19]
+2e2c138: ldrb     w8, [x8]
+2e2c13c: cbz      w8, #0x2e2c148
+2e2c140: mov      x0, x22
+2e2c144: bl       #0x235bd9c
+2e2c148: ldrh     w8, [x22, #0x12a]
+2e2c14c: cbz      x8, #0x2e2c170
+2e2c150: ldr      x9, [x22, #0xb0]
+2e2c154: add      x9, x9, #8
+2e2c158: ldur     x10, [x9, #-8]
+2e2c15c: cmp      x10, x21
+2e2c160: b.eq     #0x2e2c184
+2e2c164: subs     x8, x8, #1
+2e2c168: add      x9, x9, #0x10
+2e2c16c: b.ne     #0x2e2c158
+2e2c170: mov      x0, x19
+2e2c174: mov      x1, x21
+2e2c178: mov      w2, wzr
+2e2c17c: bl       #0x235bda8
+2e2c180: b        #0x2e2c190
+2e2c184: ldrsw    x8, [x9]
+2e2c188: add      x8, x22, x8, lsl #4
+2e2c18c: add      x0, x8, #0x138
+2e2c190: ldp      x8, x1, [x0]
+2e2c194: mov      x0, x19
+2e2c198: blr      x8
+2e2c19c: cbnz     x20, #0x2e2c1b4
+2e2c1a0: ldp      x19, x30, [sp, #0x20]
+2e2c1a4: ldp      x21, x20, [sp, #0x10]
+2e2c1a8: ldp      x23, x22, [sp], #0x30
+2e2c1ac: ret
+2e2c1b0: bl       #0x2310650
+2e2c1b4: mov      x0, x20
+2e2c1b8: bl       #0x2379f38
+2e2c1bc: bl       #0x2310650
+2e2c1c0: b        #0x2e2c1d0
+2e2c1c4: b        #0x2e2c1d0
+2e2c1c8: b        #0x2e2c1d0
+2e2c1cc: b        #0x2e2c1d0
+2e2c1d0: mov      x21, x0
+2e2c1d4: cmp      w1, #1
+2e2c1d8: b.ne     #0x2e2c1f0
+2e2c1dc: mov      x0, x21
+2e2c1e0: bl       #0x1d2a520
+2e2c1e4: ldr      x20, [x0]
+2e2c1e8: bl       #0x1d2b470
+2e2c1ec: b        #0x2e2c124
+2e2c1f0: mov      x20, xzr
+2e2c1f4: cbz      x19, #0x2e2c26c
+2e2c1f8: adrp     x8, #0xc095000
+2e2c1fc: ldr      x23, [x22]
+2e2c200: ldr      x8, [x8, #0xb18]
+2e2c204: ldr      x22, [x19]
+2e2c208: ldrb     w8, [x8]
+2e2c20c: cbz      w8, #0x2e2c218
+2e2c210: mov      x0, x22
+2e2c214: bl       #0x235bd9c
+2e2c218: ldrh     w8, [x22, #0x12a]
+2e2c21c: mov      x1, x23
+2e2c220: cbz      x8, #0x2e2c244
+2e2c224: ldr      x9, [x22, #0xb0]
+2e2c228: add      x9, x9, #8
+2e2c22c: ldur     x10, [x9, #-8]
+2e2c230: cmp      x10, x1
+2e2c234: b.eq     #0x2e2c254
+2e2c238: subs     x8, x8, #1
+2e2c23c: add      x9, x9, #0x10
+2e2c240: b.ne     #0x2e2c22c
+2e2c244: mov      x0, x19
+2e2c248: mov      w2, wzr
+2e2c24c: bl       #0x235bda8
+2e2c250: b        #0x2e2c260
+2e2c254: ldrsw    x8, [x9]
+2e2c258: add      x8, x22, x8, lsl #4
+2e2c25c: add      x0, x8, #0x138
+2e2c260: ldp      x8, x1, [x0]
+2e2c264: mov      x0, x19
+2e2c268: blr      x8
+2e2c26c: cbnz     x20, #0x2e2c278
+2e2c270: mov      x0, x21
+2e2c274: bl       #0x1d2b410
+2e2c278: mov      x0, x20
+2e2c27c: bl       #0x2379f38
+2e2c280: mov      x21, x0
+2e2c284: cbnz     x19, #0x2e2c1f8
+2e2c288: b        #0x2e2c26c
+2e2c28c: bl       #0x1d2cc68
+
+=== EnemyTraceTargetByPriorityAbility.CheckTraceTargetInAttackRange 0x2e2c454-0x2e2c584 (304 bytes) ===
+2e2c454: stp      x21, x20, [sp, #-0x20]!
+2e2c458: stp      x19, x30, [sp, #0x10]
+2e2c45c: adrp     x20, #0xc8cf000
+2e2c460: adrp     x21, #0xc067000
+2e2c464: ldrb     w8, [x20, #0x49c]
+2e2c468: ldr      x21, [x21, #0x8d8]
+2e2c46c: mov      x19, x0
+2e2c470: tbnz     w8, #0, #0x2e2c494
+2e2c474: adrp     x0, #0xc067000
+2e2c478: ldr      x0, [x0, #0x8d8]
+2e2c47c: bl       #0x231052c
+2e2c480: adrp     x0, #0xc0c1000
+2e2c484: ldr      x0, [x0, #0x2a0]
+2e2c488: bl       #0x231052c
+2e2c48c: mov      w8, #1
+2e2c490: strb     w8, [x20, #0x49c]
+2e2c494: ldr      x8, [x21]
+2e2c498: ldr      x8, [x8, #0xb8]
+2e2c49c: ldr      x0, [x8, #0xa0]
+2e2c4a0: cbz      x0, #0x2e2c4b8
+2e2c4a4: mov      x1, x19
+2e2c4a8: ldp      x19, x30, [sp, #0x10]
+2e2c4ac: mov      x2, xzr
+2e2c4b0: ldp      x21, x20, [sp], #0x20
+2e2c4b4: b        #0x4d68350 ; XLua.DelegateBridge$$__Gen_Delegate_Imp21
+2e2c4b8: adrp     x21, #0xc095000
+2e2c4bc: ldr      x21, [x21, #0xb18]
+2e2c4c0: ldrb     w8, [x21]
+2e2c4c4: cbz      w8, #0x2e2c4d0
+2e2c4c8: ldr      x0, [x19]
+2e2c4cc: bl       #0x235bd9c
+2e2c4d0: ldr      x8, [x19]
+2e2c4d4: mov      x0, x19
+2e2c4d8: ldr      x9, [x8, #0x7c8]
+2e2c4dc: ldr      x1, [x8, #0x7d0]
+2e2c4e0: blr      x9
+2e2c4e4: tbz      w0, #0, #0x2e2c570
+2e2c4e8: adrp     x20, #0xc0c1000
+2e2c4ec: ldr      x20, [x20, #0x2a0]
+2e2c4f0: mov      x0, x19
+2e2c4f4: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2c4f8: ldr      x8, [x20]
+2e2c4fc: mov      x20, x0
+2e2c500: ldr      w9, [x8, #0xe0]
+2e2c504: cbnz     w9, #0x2e2c510
+2e2c508: mov      x0, x8
+2e2c50c: bl       #0x231062c
+2e2c510: mov      x0, x20
+2e2c514: mov      x1, xzr
+2e2c518: mov      x2, xzr
+2e2c51c: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2c520: tbz      w0, #0, #0x2e2c570
+2e2c524: mov      x0, x19
+2e2c528: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2c52c: ldrb     w8, [x21]
+2e2c530: mov      x20, x0
+2e2c534: cbz      w8, #0x2e2c540
+2e2c538: ldr      x0, [x19]
+2e2c53c: bl       #0x235bd9c
+2e2c540: ldr      x8, [x19]
+2e2c544: mov      x0, x19
+2e2c548: ldr      x9, [x8, #0x798]
+2e2c54c: ldr      x1, [x8, #0x7a0]
+2e2c550: blr      x9
+2e2c554: cbz      x20, #0x2e2c580
+2e2c558: ldp      x19, x30, [sp, #0x10]
+2e2c55c: mov      x1, x0
+2e2c560: mov      x0, x20
+2e2c564: mov      x2, xzr
+2e2c568: ldp      x21, x20, [sp], #0x20
+2e2c56c: b        #0x2928618 ; Torappu.Battle.Enemy$$CheckTargetInAttackRange
+2e2c570: ldp      x19, x30, [sp, #0x10]
+2e2c574: mov      w0, wzr
+2e2c578: ldp      x21, x20, [sp], #0x20
+2e2c57c: ret
+2e2c580: bl       #0x2310650
+
+=== EnemyTraceTargetByPriorityAbility._RegisterTraceTarget 0x2e2c584-0x2e2c6b4 (304 bytes) ===
+2e2c584: str      x22, [sp, #-0x30]!
+2e2c588: stp      x21, x20, [sp, #0x10]
+2e2c58c: stp      x19, x30, [sp, #0x20]
+2e2c590: adrp     x21, #0xc8cf000
+2e2c594: adrp     x22, #0xc067000
+2e2c598: ldrb     w8, [x21, #0x4a6]
+2e2c59c: ldr      x22, [x22, #0x8d8]
+2e2c5a0: mov      x20, x1
+2e2c5a4: mov      x19, x0
+2e2c5a8: tbnz     w8, #0, #0x2e2c5cc
+2e2c5ac: adrp     x0, #0xc067000
+2e2c5b0: ldr      x0, [x0, #0x8d8]
+2e2c5b4: bl       #0x231052c
+2e2c5b8: adrp     x0, #0xc0c1000
+2e2c5bc: ldr      x0, [x0, #0x2a0]
+2e2c5c0: bl       #0x231052c
+2e2c5c4: mov      w8, #1
+2e2c5c8: strb     w8, [x21, #0x4a6]
+2e2c5cc: ldr      x8, [x22]
+2e2c5d0: ldr      x8, [x8, #0xb8]
+2e2c5d4: ldr      x0, [x8, #0xf0]
+2e2c5d8: cbz      x0, #0x2e2c5f8
+2e2c5dc: mov      x1, x19
+2e2c5e0: mov      x2, x20
+2e2c5e4: ldp      x19, x30, [sp, #0x20]
+2e2c5e8: ldp      x21, x20, [sp, #0x10]
+2e2c5ec: mov      x3, xzr
+2e2c5f0: ldr      x22, [sp], #0x30
+2e2c5f4: b        #0x4d68730 ; XLua.DelegateBridge$$__Gen_Delegate_Imp23
+2e2c5f8: adrp     x8, #0xc0c1000
+2e2c5fc: ldr      x8, [x8, #0x2a0]
+2e2c600: ldr      x0, [x8]
+2e2c604: ldr      w8, [x0, #0xe0]
+2e2c608: cbnz     w8, #0x2e2c610
+2e2c60c: bl       #0x231062c
+2e2c610: mov      x0, x20
+2e2c614: mov      x1, xzr
+2e2c618: mov      x2, xzr
+2e2c61c: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2e2c620: tbz      w0, #0, #0x2e2c660
+2e2c624: adrp     x8, #0xc095000
+2e2c628: ldr      x8, [x8, #0xb18]
+2e2c62c: ldrb     w8, [x8]
+2e2c630: cbz      w8, #0x2e2c63c
+2e2c634: ldr      x0, [x19]
+2e2c638: bl       #0x235bd9c
+2e2c63c: ldr      x8, [x19]
+2e2c640: mov      x0, x19
+2e2c644: ldp      x19, x30, [sp, #0x20]
+2e2c648: ldp      x21, x20, [sp, #0x10]
+2e2c64c: ldr      x3, [x8, #0x7a8]
+2e2c650: ldr      x2, [x8, #0x7b0]
+2e2c654: mov      x1, xzr
+2e2c658: ldr      x22, [sp], #0x30
+2e2c65c: br       x3
+2e2c660: mov      x0, x19
+2e2c664: mov      x1, x20
+2e2c668: bl       #0x2e2c970 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_UpdateTraceTargetRoute
+2e2c66c: tbz      w0, #0, #0x2e2c6a4
+2e2c670: adrp     x8, #0xc095000
+2e2c674: ldr      x8, [x8, #0xb18]
+2e2c678: ldrb     w8, [x8]
+2e2c67c: cbz      w8, #0x2e2c688
+2e2c680: ldr      x0, [x19]
+2e2c684: bl       #0x235bd9c
+2e2c688: ldr      x8, [x19]
+2e2c68c: mov      x0, x19
+2e2c690: mov      x1, x20
+2e2c694: ldr      x9, [x8, #0x7a8]
+2e2c698: ldr      x2, [x8, #0x7b0]
+2e2c69c: blr      x9
+2e2c6a0: strb     wzr, [x19, #0x178]
+2e2c6a4: ldp      x19, x30, [sp, #0x20]
+2e2c6a8: ldp      x21, x20, [sp, #0x10]
+2e2c6ac: ldr      x22, [sp], #0x30
+2e2c6b0: ret
+
+=== EnemyTraceTargetByPriorityAbility._UpdateTraceTargetRoute 0x2e2c970-0x2e2cc14 (676 bytes) ===
+2e2c970: sub      sp, sp, #0x40
+2e2c974: stp      x23, x22, [sp, #0x10]
+2e2c978: stp      x21, x20, [sp, #0x20]
+2e2c97c: stp      x19, x30, [sp, #0x30]
+2e2c980: adrp     x21, #0xc8cf000
+2e2c984: adrp     x22, #0xc067000
+2e2c988: ldrb     w8, [x21, #0x4a7]
+2e2c98c: ldr      x22, [x22, #0x8d8]
+2e2c990: mov      x19, x1
+2e2c994: mov      x20, x0
+2e2c998: tbnz     w8, #0, #0x2e2c9ec
+2e2c99c: adrp     x0, #0xc159000
+2e2c9a0: ldr      x0, [x0, #0x6d0]
+2e2c9a4: bl       #0x231052c
+2e2c9a8: adrp     x0, #0xc0fc000
+2e2c9ac: ldr      x0, [x0, #0x480]
+2e2c9b0: bl       #0x231052c
+2e2c9b4: adrp     x0, #0xc067000
+2e2c9b8: ldr      x0, [x0, #0x8d8]
+2e2c9bc: bl       #0x231052c
+2e2c9c0: adrp     x0, #0xc0c1000
+2e2c9c4: ldr      x0, [x0, #0x2a0]
+2e2c9c8: bl       #0x231052c
+2e2c9cc: adrp     x0, #0xc0f0000
+2e2c9d0: ldr      x0, [x0, #0xf60]
+2e2c9d4: bl       #0x231052c
+2e2c9d8: adrp     x0, #0xc0e4000
+2e2c9dc: ldr      x0, [x0, #0x138]
+2e2c9e0: bl       #0x231052c
+2e2c9e4: mov      w8, #1
+2e2c9e8: strb     w8, [x21, #0x4a7]
+2e2c9ec: ldr      x8, [x22]
+2e2c9f0: ldr      x8, [x8, #0xb8]
+2e2c9f4: ldr      x0, [x8, #0xf8]
+2e2c9f8: cbz      x0, #0x2e2ca1c
+2e2c9fc: mov      x1, x20
+2e2ca00: mov      x2, x19
+2e2ca04: ldp      x19, x30, [sp, #0x30]
+2e2ca08: ldp      x21, x20, [sp, #0x20]
+2e2ca0c: ldp      x23, x22, [sp, #0x10]
+2e2ca10: mov      x3, xzr
+2e2ca14: add      sp, sp, #0x40
+2e2ca18: b        #0x4d690e4 ; XLua.DelegateBridge$$__Gen_Delegate_Imp29
+2e2ca1c: adrp     x8, #0xc0c1000
+2e2ca20: ldr      x8, [x8, #0x2a0]
+2e2ca24: ldr      x0, [x8]
+2e2ca28: ldr      w8, [x0, #0xe0]
+2e2ca2c: cbnz     w8, #0x2e2ca34
+2e2ca30: bl       #0x231062c
+2e2ca34: mov      x0, x19
+2e2ca38: mov      x1, xzr
+2e2ca3c: mov      x2, xzr
+2e2ca40: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2e2ca44: tbnz     w0, #0, #0x2e2cafc
+2e2ca48: mov      x0, x20
+2e2ca4c: mov      x1, x19
+2e2ca50: bl       #0x2e2c87c ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CanTargetBeTraced
+2e2ca54: tbz      w0, #0, #0x2e2cafc
+2e2ca58: mov      x0, x20
+2e2ca5c: mov      x1, x19
+2e2ca60: bl       #0x2e2cc14 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_CanUseAttack
+2e2ca64: adrp     x22, #0xc095000
+2e2ca68: ldr      x22, [x22, #0xb18]
+2e2ca6c: tbz      w0, #0, #0x2e2cbcc
+2e2ca70: mov      x0, x20
+2e2ca74: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2ca78: cbz      x0, #0x2e2cc10
+2e2ca7c: mov      x1, x19
+2e2ca80: mov      x2, xzr
+2e2ca84: bl       #0x2928618 ; Torappu.Battle.Enemy$$CheckTargetInAttackRange
+2e2ca88: tbz      w0, #0, #0x2e2cbcc
+2e2ca8c: mov      x0, x20
+2e2ca90: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2ca94: cbz      x0, #0x2e2cc10
+2e2ca98: ldrb     w8, [x22]
+2e2ca9c: mov      x21, x0
+2e2caa0: cbz      w8, #0x2e2caac
+2e2caa4: ldr      x0, [x21]
+2e2caa8: bl       #0x235bd9c
+2e2caac: ldr      x8, [x21]
+2e2cab0: mov      x0, x21
+2e2cab4: ldr      x9, [x8, #0x478]
+2e2cab8: ldr      x1, [x8, #0x480]
+2e2cabc: blr      x9
+2e2cac0: mov      x1, x0
+2e2cac4: mov      x0, x20
+2e2cac8: bl       #0x2e19b54 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$RegisterTraceTile
+2e2cacc: tbz      w0, #0, #0x2e2cbcc
+2e2cad0: ldrb     w8, [x22]
+2e2cad4: cbz      w8, #0x2e2cae0
+2e2cad8: ldr      x0, [x20]
+2e2cadc: bl       #0x235bd9c
+2e2cae0: ldr      x8, [x20]
+2e2cae4: mov      x0, x20
+2e2cae8: ldr      x9, [x8, #0x7f8]
+2e2caec: ldr      x1, [x8, #0x800]
+2e2caf0: blr      x9
+2e2caf4: mov      w0, #1
+2e2caf8: b        #0x2e2cbb8
+2e2cafc: adrp     x8, #0xc159000
+2e2cb00: ldr      x8, [x8, #0x6d0]
+2e2cb04: adrp     x21, #0xc0f0000
+2e2cb08: ldr      x0, [x8]
+2e2cb0c: ldr      w8, [x0, #0xe0]
+2e2cb10: ldr      x21, [x21, #0xf60]
+2e2cb14: cbnz     w8, #0x2e2cb1c
+2e2cb18: bl       #0x231062c
+2e2cb1c: mov      x0, xzr
+2e2cb20: bl       #0x2506eec ; Torappu.Battle.BattleController$$get_fixedFrameCnt
+2e2cb24: ldr      x8, [x21]
+2e2cb28: str      w0, [sp, #0xc]
+2e2cb2c: add      x1, sp, #0xc
+2e2cb30: mov      x0, x8
+2e2cb34: bl       #0x2310634
+2e2cb38: mov      x21, x0
+2e2cb3c: mov      x0, x20
+2e2cb40: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2cb44: cbz      x0, #0x2e2cc10
+2e2cb48: mov      x1, xzr
+2e2cb4c: bl       #0x9283870 ; UnityEngine.Object$$get_name
+2e2cb50: cbz      x19, #0x2e2cc10
+2e2cb54: adrp     x22, #0xc0e4000
+2e2cb58: adrp     x23, #0xc0fc000
+2e2cb5c: ldr      x22, [x22, #0x138]
+2e2cb60: ldr      x23, [x23, #0x480]
+2e2cb64: mov      x20, x0
+2e2cb68: mov      x0, x19
+2e2cb6c: mov      x1, xzr
+2e2cb70: bl       #0x9283870 ; UnityEngine.Object$$get_name
+2e2cb74: ldr      x8, [x22]
+2e2cb78: mov      x3, x0
+2e2cb7c: mov      x1, x21
+2e2cb80: mov      x2, x20
+2e2cb84: mov      x0, x8
+2e2cb88: mov      x4, xzr
+2e2cb8c: bl       #0x869ad54 ; System.String$$Format
+2e2cb90: ldr      x8, [x23]
+2e2cb94: mov      x19, x0
+2e2cb98: ldr      w9, [x8, #0xe0]
+2e2cb9c: cbnz     w9, #0x2e2cba8
+2e2cba0: mov      x0, x8
+2e2cba4: bl       #0x231062c
+2e2cba8: mov      x0, x19
+2e2cbac: mov      x1, xzr
+2e2cbb0: bl       #0x8fda114 ; UnityEngine.DLog$$LogError
+2e2cbb4: mov      w0, wzr
+2e2cbb8: ldp      x19, x30, [sp, #0x30]
+2e2cbbc: ldp      x21, x20, [sp, #0x20]
+2e2cbc0: ldp      x23, x22, [sp, #0x10]
+2e2cbc4: add      sp, sp, #0x40
+2e2cbc8: ret
+2e2cbcc: cbz      x19, #0x2e2cc10
+2e2cbd0: ldrb     w8, [x22]
+2e2cbd4: cbz      w8, #0x2e2cbe0
+2e2cbd8: ldr      x0, [x19]
+2e2cbdc: bl       #0x235bd9c
+2e2cbe0: ldr      x8, [x19]
+2e2cbe4: mov      x0, x19
+2e2cbe8: ldr      x9, [x8, #0x478]
+2e2cbec: ldr      x1, [x8, #0x480]
+2e2cbf0: blr      x9
+2e2cbf4: mov      x1, x0
+2e2cbf8: mov      x0, x20
+2e2cbfc: ldp      x19, x30, [sp, #0x30]
+2e2cc00: ldp      x21, x20, [sp, #0x20]
+2e2cc04: ldp      x23, x22, [sp, #0x10]
+2e2cc08: add      sp, sp, #0x40
+2e2cc0c: b        #0x2e19b54 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$RegisterTraceTile
+2e2cc10: bl       #0x2310650
+
+=== EnemyTraceTargetByPriorityAbility._CanUseAttack 0x2e2cc14-0x2e2ce70 (604 bytes) ===
+2e2cc14: stp      x23, x22, [sp, #-0x30]!
+2e2cc18: stp      x21, x20, [sp, #0x10]
+2e2cc1c: stp      x19, x30, [sp, #0x20]
+2e2cc20: adrp     x21, #0xc8cf000
+2e2cc24: adrp     x22, #0xc067000
+2e2cc28: ldrb     w8, [x21, #0x4a1]
+2e2cc2c: ldr      x22, [x22, #0x8d8]
+2e2cc30: mov      x19, x1
+2e2cc34: mov      x20, x0
+2e2cc38: tbnz     w8, #0, #0x2e2cc5c
+2e2cc3c: adrp     x0, #0xc067000
+2e2cc40: ldr      x0, [x0, #0x8d8]
+2e2cc44: bl       #0x231052c
+2e2cc48: adrp     x0, #0xc0c1000
+2e2cc4c: ldr      x0, [x0, #0x2a0]
+2e2cc50: bl       #0x231052c
+2e2cc54: mov      w8, #1
+2e2cc58: strb     w8, [x21, #0x4a1]
+2e2cc5c: ldr      x8, [x22]
+2e2cc60: ldr      x8, [x8, #0xb8]
+2e2cc64: ldr      x0, [x8, #0xc8]
+2e2cc68: cbz      x0, #0x2e2cc88
+2e2cc6c: mov      x1, x20
+2e2cc70: mov      x2, x19
+2e2cc74: ldp      x19, x30, [sp, #0x20]
+2e2cc78: ldp      x21, x20, [sp, #0x10]
+2e2cc7c: mov      x3, xzr
+2e2cc80: ldp      x23, x22, [sp], #0x30
+2e2cc84: b        #0x4d690e4 ; XLua.DelegateBridge$$__Gen_Delegate_Imp29
+2e2cc88: mov      x0, x20
+2e2cc8c: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2cc90: cbz      x0, #0x2e2ce6c
+2e2cc94: adrp     x22, #0xc095000
+2e2cc98: ldr      x22, [x22, #0xb18]
+2e2cc9c: adrp     x23, #0xc0c1000
+2e2cca0: mov      x21, x0
+2e2cca4: ldrb     w8, [x22]
+2e2cca8: ldr      x23, [x23, #0x2a0]
+2e2ccac: cbz      w8, #0x2e2ccb8
+2e2ccb0: ldr      x0, [x21]
+2e2ccb4: bl       #0x235bd9c
+2e2ccb8: ldr      x8, [x21]
+2e2ccbc: mov      x0, x21
+2e2ccc0: ldr      x9, [x8, #0xa88]
+2e2ccc4: ldr      x1, [x8, #0xa90]
+2e2ccc8: blr      x9
+2e2cccc: ldr      x8, [x23]
+2e2ccd0: mov      x21, x0
+2e2ccd4: ldr      w9, [x8, #0xe0]
+2e2ccd8: cbnz     w9, #0x2e2cce4
+2e2ccdc: mov      x0, x8
+2e2cce0: bl       #0x231062c
+2e2cce4: mov      x0, x21
+2e2cce8: mov      x1, xzr
+2e2ccec: mov      x2, xzr
+2e2ccf0: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2ccf4: tbz      w0, #0, #0x2e2ce58
+2e2ccf8: mov      x0, x20
+2e2ccfc: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2cd00: cbz      x0, #0x2e2ce6c
+2e2cd04: ldrb     w8, [x22]
+2e2cd08: mov      x21, x0
+2e2cd0c: cbz      w8, #0x2e2cd18
+2e2cd10: ldr      x0, [x21]
+2e2cd14: bl       #0x235bd9c
+2e2cd18: ldr      x8, [x21]
+2e2cd1c: mov      x0, x21
+2e2cd20: ldr      x9, [x8, #0xa98]
+2e2cd24: ldr      x1, [x8, #0xaa0]
+2e2cd28: blr      x9
+2e2cd2c: ldr      x8, [x23]
+2e2cd30: mov      x21, x0
+2e2cd34: ldr      w9, [x8, #0xe0]
+2e2cd38: cbnz     w9, #0x2e2cd44
+2e2cd3c: mov      x0, x8
+2e2cd40: bl       #0x231062c
+2e2cd44: mov      x0, x21
+2e2cd48: mov      x1, xzr
+2e2cd4c: mov      x2, xzr
+2e2cd50: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2cd54: tbz      w0, #0, #0x2e2ce58
+2e2cd58: mov      x0, x20
+2e2cd5c: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2cd60: cbz      x0, #0x2e2ce6c
+2e2cd64: ldrb     w8, [x22]
+2e2cd68: mov      x21, x0
+2e2cd6c: cbz      w8, #0x2e2cd78
+2e2cd70: ldr      x0, [x21]
+2e2cd74: bl       #0x235bd9c
+2e2cd78: ldr      x8, [x21]
+2e2cd7c: mov      x0, x21
+2e2cd80: ldr      x9, [x8, #0xa98]
+2e2cd84: ldr      x1, [x8, #0xaa0]
+2e2cd88: blr      x9
+2e2cd8c: cbz      x0, #0x2e2ce6c
+2e2cd90: ldrb     w8, [x22]
+2e2cd94: mov      x21, x0
+2e2cd98: cbz      w8, #0x2e2cda4
+2e2cd9c: ldr      x0, [x21]
+2e2cda0: bl       #0x235bd9c
+2e2cda4: ldr      x8, [x21]
+2e2cda8: mov      x0, x21
+2e2cdac: ldp      x9, x1, [x8, #0x1d8]
+2e2cdb0: blr      x9
+2e2cdb4: ldr      x8, [x23]
+2e2cdb8: mov      x21, x0
+2e2cdbc: ldr      w9, [x8, #0xe0]
+2e2cdc0: cbnz     w9, #0x2e2cdcc
+2e2cdc4: mov      x0, x8
+2e2cdc8: bl       #0x231062c
+2e2cdcc: mov      x0, x21
+2e2cdd0: mov      x1, xzr
+2e2cdd4: mov      x2, xzr
+2e2cdd8: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+2e2cddc: tbz      w0, #0, #0x2e2ce58
+2e2cde0: mov      x0, x20
+2e2cde4: bl       #0x2e1e840 ; Torappu.Battle.Abilities.BaseTraceTargetAbility$$get_ownerE
+2e2cde8: cbz      x0, #0x2e2ce6c
+2e2cdec: ldrb     w8, [x22]
+2e2cdf0: mov      x21, x0
+2e2cdf4: cbz      w8, #0x2e2ce00
+2e2cdf8: ldr      x0, [x21]
+2e2cdfc: bl       #0x235bd9c
+2e2ce00: ldr      x8, [x21]
+2e2ce04: mov      x0, x21
+2e2ce08: ldr      x9, [x8, #0xa98]
+2e2ce0c: ldr      x1, [x8, #0xaa0]
+2e2ce10: blr      x9
+2e2ce14: cbz      x0, #0x2e2ce6c
+2e2ce18: ldrb     w8, [x22]
+2e2ce1c: mov      x21, x0
+2e2ce20: cbz      w8, #0x2e2ce2c
+2e2ce24: ldr      x0, [x21]
+2e2ce28: bl       #0x235bd9c
+2e2ce2c: ldr      x8, [x21]
+2e2ce30: mov      x0, x21
+2e2ce34: ldp      x9, x1, [x8, #0x1d8]
+2e2ce38: blr      x9
+2e2ce3c: mov      x1, x0
+2e2ce40: mov      x0, x20
+2e2ce44: mov      x2, x19
+2e2ce48: ldp      x19, x30, [sp, #0x20]
+2e2ce4c: ldp      x21, x20, [sp, #0x10]
+2e2ce50: ldp      x23, x22, [sp], #0x30
+2e2ce54: b        #0x2e2ce70 ; Torappu.Battle.Abilities.EnemyTraceTargetByPriorityAbility$$_SelectorVerifyTarget
+2e2ce58: ldp      x19, x30, [sp, #0x20]
+2e2ce5c: ldp      x21, x20, [sp, #0x10]
+2e2ce60: mov      w0, wzr
+2e2ce64: ldp      x23, x22, [sp], #0x30
+2e2ce68: ret
+2e2ce6c: bl       #0x2310650
+
+=== AdvancedSelector.OnPostFilter.Entities 0x288a898-0x288ae08 (1392 bytes) ===
+288a898: sub      sp, sp, #0x80
+288a89c: str      x26, [sp, #0x30]
+288a8a0: stp      x25, x24, [sp, #0x40]
+288a8a4: stp      x23, x22, [sp, #0x50]
+288a8a8: stp      x21, x20, [sp, #0x60]
+288a8ac: stp      x19, x30, [sp, #0x70]
+288a8b0: adrp     x22, #0xc8cb000
+288a8b4: adrp     x21, #0xc0af000
+288a8b8: ldrb     w8, [x22, #0xad8]
+288a8bc: ldr      x21, [x21, #0xfd0]
+288a8c0: mov      x19, x1
+288a8c4: mov      x20, x0
+288a8c8: tbnz     w8, #0, #0x288a94c
+288a8cc: adrp     x0, #0xc06a000
+288a8d0: ldr      x0, [x0, #0x668]
+288a8d4: bl       #0x231052c
+288a8d8: adrp     x0, #0xc0af000
+288a8dc: ldr      x0, [x0, #0xfd0]
+288a8e0: bl       #0x231052c
+288a8e4: adrp     x0, #0xc108000
+288a8e8: ldr      x0, [x0, #0xb8]
+288a8ec: bl       #0x231052c
+288a8f0: adrp     x0, #0xc004000
+288a8f4: ldr      x0, [x0, #0x938]
+288a8f8: bl       #0x231052c
+288a8fc: adrp     x0, #0xc03a000
+288a900: ldr      x0, [x0, #0xc18]
+288a904: bl       #0x231052c
+288a908: adrp     x0, #0xc0e3000
+288a90c: ldr      x0, [x0, #0x728]
+288a910: bl       #0x231052c
+288a914: adrp     x0, #0xc165000
+288a918: ldr      x0, [x0, #0x4a0]
+288a91c: bl       #0x231052c
+288a920: adrp     x0, #0xc0c1000
+288a924: ldr      x0, [x0, #0x2a0]
+288a928: bl       #0x231052c
+288a92c: adrp     x0, #0xc104000
+288a930: ldr      x0, [x0, #0xe18]
+288a934: bl       #0x231052c
+288a938: adrp     x0, #0xc0ab000
+288a93c: ldr      x0, [x0, #0x3a8]
+288a940: bl       #0x231052c
+288a944: mov      w8, #1
+288a948: strb     w8, [x22, #0xad8]
+288a94c: ldr      x8, [x21]
+288a950: stp      xzr, xzr, [sp, #0x20]
+288a954: ldr      x8, [x8, #0xb8]
+288a958: ldr      x0, [x8, #0xd0]
+288a95c: cbz      x0, #0x288a974
+288a960: mov      x1, x20
+288a964: mov      x2, x19
+288a968: mov      x3, xzr
+288a96c: bl       #0x4d68730 ; XLua.DelegateBridge$$__Gen_Delegate_Imp23
+288a970: b        #0x288abec
+288a974: mov      x0, x20
+288a978: bl       #0x288a4f0 ; Torappu.Battle.AdvancedSelector$$get_isAlly
+288a97c: tbz      w0, #0, #0x288a9f0
+288a980: ldrb     w8, [x20, #0xe4]
+288a984: cbz      w8, #0x288a9f0
+288a988: adrp     x21, #0xc0c1000
+288a98c: ldr      x21, [x21, #0x2a0]
+288a990: mov      x0, x20
+288a994: mov      x1, xzr
+288a998: bl       #0x28b3fa0 ; Torappu.Battle.TargetSelector$$get_owner
+288a99c: ldr      x8, [x21]
+288a9a0: mov      x21, x0
+288a9a4: ldr      w9, [x8, #0xe0]
+288a9a8: cbnz     w9, #0x288a9b4
+288a9ac: mov      x0, x8
+288a9b0: bl       #0x231062c
+288a9b4: mov      x0, x21
+288a9b8: mov      x1, xzr
+288a9bc: mov      x2, xzr
+288a9c0: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+288a9c4: tbz      w0, #0, #0x288a9f0
+288a9c8: mov      x0, x20
+288a9cc: mov      x1, xzr
+288a9d0: bl       #0x28b3fa0 ; Torappu.Battle.TargetSelector$$get_owner
+288a9d4: cbz      x19, #0x288ac08
+288a9d8: adrp     x8, #0xc0e3000
+288a9dc: ldr      x8, [x8, #0x728]
+288a9e0: mov      x1, x0
+288a9e4: mov      x0, x19
+288a9e8: ldr      x2, [x8]
+288a9ec: bl       #0x6edd93c
+288a9f0: mov      x0, x20
+288a9f4: mov      x1, xzr
+288a9f8: bl       #0x28b3fa0 ; Torappu.Battle.TargetSelector$$get_owner
+288a9fc: ldrb     w8, [x20, #0xec]
+288aa00: mov      x21, x0
+288aa04: cbz      w8, #0x288aaf0
+288aa08: mov      x0, x20
+288aa0c: bl       #0x288ac0c ; Torappu.Battle.AdvancedSelector$$_CheckAbilityInputTargetValid
+288aa10: tbz      w0, #0, #0x288aaf0
+288aa14: mov      x0, x20
+288aa18: mov      x1, xzr
+288aa1c: bl       #0x28bc81c ; Torappu.Battle.TargetSelector$$get_ability
+288aa20: cbz      x0, #0x288ac08
+288aa24: adrp     x22, #0xc06a000
+288aa28: adrp     x23, #0xc095000
+288aa2c: ldr      x22, [x22, #0x668]
+288aa30: ldr      x23, [x23, #0xb18]
+288aa34: mov      x21, x0
+288aa38: ldr      x0, [x0]
+288aa3c: ldr      x1, [x22]
+288aa40: ldrb     w8, [x23]
+288aa44: cbz      w8, #0x288aa54
+288aa48: bl       #0x235bda4
+288aa4c: tbnz     w0, #0, #0x288aa78
+288aa50: b        #0x288ac08
+288aa54: ldrb     w9, [x0, #0x12c]
+288aa58: ldrb     w8, [x1, #0x12c]
+288aa5c: cmp      w9, w8
+288aa60: b.lo     #0x288ac08
+288aa64: ldr      x9, [x0, #0xc8]
+288aa68: add      x8, x9, x8, lsl #3
+288aa6c: ldur     x8, [x8, #-8]
+288aa70: cmp      x8, x1
+288aa74: b.ne     #0x288ac08
+288aa78: ldr      x1, [x22]
+288aa7c: adrp     x22, #0xc165000
+288aa80: ldrb     w8, [x23]
+288aa84: ldr      x0, [x21]
+288aa88: ldr      x22, [x22, #0x4a0]
+288aa8c: cbz      w8, #0x288aaa0
+288aa90: bl       #0x235bda4
+288aa94: tst      w0, #1
+288aa98: csel     x0, x21, xzr, ne
+288aa9c: b        #0x288aacc
+288aaa0: ldrb     w9, [x0, #0x12c]
+288aaa4: ldrb     w8, [x1, #0x12c]
+288aaa8: cmp      w9, w8
+288aaac: b.hs     #0x288aab8
+288aab0: mov      x0, xzr
+288aab4: b        #0x288aacc
+288aab8: ldr      x9, [x0, #0xc8]
+288aabc: add      x8, x9, x8, lsl #3
+288aac0: ldur     x8, [x8, #-8]
+288aac4: cmp      x8, x1
+288aac8: csel     x0, x21, xzr, eq
+288aacc: add      x8, sp, #8
+288aad0: mov      x1, xzr
+288aad4: bl       #0x24cb8d0 ; Torappu.Battle.AbilityStandard$$get_inputTarget
+288aad8: ldp      x8, x9, [sp, #0x10]
+288aadc: ldr      x1, [x22]
+288aae0: add      x0, sp, #0x20
+288aae4: stp      x8, x9, [sp, #0x20]
+288aae8: bl       #0x774c474 ; Torappu.ObjectPtr<object>$$Lock
+288aaec: mov      x21, x0
+288aaf0: adrp     x25, #0xc004000
+288aaf4: ldrb     w23, [x20, #0xe5]
+288aaf8: ldr      x25, [x25, #0x938]
+288aafc: mov      x0, x20
+288ab00: bl       #0x2889e0c ; Torappu.Battle.AdvancedSelector$$get_maxTargetNum
+288ab04: ldr      w20, [x20, #0xac]
+288ab08: mov      w22, w0
+288ab0c: cbz      w23, #0x288abc4
+288ab10: adrp     x26, #0xc0ab000
+288ab14: ldr      x26, [x26, #0x3a8]
+288ab18: ldr      x0, [x26]
+288ab1c: ldr      w8, [x0, #0xe0]
+288ab20: cbnz     w8, #0x288ab2c
+288ab24: bl       #0x231062c
+288ab28: ldr      x0, [x26]
+288ab2c: ldr      x8, [x0, #0xb8]
+288ab30: ldr      x23, [x8, #8]
+288ab34: cbnz     x23, #0x288ab94
+288ab38: adrp     x23, #0xc108000
+288ab3c: ldr      w8, [x0, #0xe0]
+288ab40: ldr      x23, [x23, #0xb8]
+288ab44: cbnz     w8, #0x288ab50
+288ab48: bl       #0x231062c
+288ab4c: ldr      x0, [x26]
+288ab50: ldr      x8, [x0, #0xb8]
+288ab54: ldr      x0, [x23]
+288ab58: ldr      x24, [x8]
+288ab5c: bl       #0x2310640
+288ab60: cbz      x0, #0x288ac08
+288ab64: adrp     x8, #0xc104000
+288ab68: ldr      x8, [x8, #0xe18]
+288ab6c: mov      x1, x24
+288ab70: mov      x3, xzr
+288ab74: mov      x23, x0
+288ab78: ldr      x2, [x8]
+288ab7c: bl       #0x8004da0
+288ab80: ldr      x8, [x26]
+288ab84: mov      x1, x23
+288ab88: ldr      x0, [x8, #0xb8]
+288ab8c: str      x23, [x0, #8]!
+288ab90: bl       #0x23104e0
+288ab94: ldr      x0, [x25]
+288ab98: ldr      w8, [x0, #0xe0]
+288ab9c: cbnz     w8, #0x288aba4
+288aba0: bl       #0x231062c
+288aba4: mov      x0, x19
+288aba8: mov      x1, x21
+288abac: mov      w2, w22
+288abb0: mov      w3, w20
+288abb4: mov      x4, x23
+288abb8: mov      x5, xzr
+288abbc: bl       #0x28a48d8 ; Torappu.Battle.FilterUtil$$FilterWithFilterByPriorCompFunc
+288abc0: b        #0x288abec
+288abc4: ldr      x0, [x25]
+288abc8: ldr      w8, [x0, #0xe0]
+288abcc: cbnz     w8, #0x288abd4
+288abd0: bl       #0x231062c
+288abd4: mov      x0, x19
+288abd8: mov      x1, x21
+288abdc: mov      w2, w22
+288abe0: mov      w3, w20
+288abe4: mov      x4, xzr
+288abe8: bl       #0x2898c04 ; Torappu.Battle.FilterUtil$$Filter
+288abec: ldp      x19, x30, [sp, #0x70]
+288abf0: ldp      x21, x20, [sp, #0x60]
+288abf4: ldp      x23, x22, [sp, #0x50]
+288abf8: ldp      x25, x24, [sp, #0x40]
+288abfc: ldr      x26, [sp, #0x30]
+288ac00: add      sp, sp, #0x80
+288ac04: ret
+288ac08: bl       #0x2310650
+288ac0c: sub      sp, sp, #0x70
+288ac10: stp      x21, x20, [sp, #0x50]
+288ac14: stp      x19, x30, [sp, #0x60]
+288ac18: adrp     x21, #0xc8cb000
+288ac1c: adrp     x20, #0xc0af000
+288ac20: ldrb     w8, [x21, #0xadc]
+288ac24: ldr      x20, [x20, #0xfd0]
+288ac28: mov      x19, x0
+288ac2c: tbnz     w8, #0, #0x288ac8c
+288ac30: adrp     x0, #0xc06a000
+288ac34: ldr      x0, [x0, #0x668]
+288ac38: bl       #0x231052c
+288ac3c: adrp     x0, #0xc0af000
+288ac40: ldr      x0, [x0, #0xfd0]
+288ac44: bl       #0x231052c
+288ac48: adrp     x0, #0xc03a000
+288ac4c: ldr      x0, [x0, #0xc18]
+288ac50: bl       #0x231052c
+288ac54: adrp     x0, #0xc160000
+288ac58: ldr      x0, [x0, #0xcd0]
+288ac5c: bl       #0x231052c
+288ac60: adrp     x0, #0xc0aa000
+288ac64: ldr      x0, [x0, #0xfb0]
+288ac68: bl       #0x231052c
+288ac6c: adrp     x0, #0xc160000
+288ac70: ldr      x0, [x0, #0xb58]
+288ac74: bl       #0x231052c
+288ac78: adrp     x0, #0xc0c1000
+288ac7c: ldr      x0, [x0, #0x2a0]
+288ac80: bl       #0x231052c
+288ac84: mov      w8, #1
+288ac88: strb     w8, [x21, #0xadc]
+288ac8c: ldr      x8, [x20]
+288ac90: stp      xzr, xzr, [sp, #0x40]
+288ac94: ldr      x8, [x8, #0xb8]
+288ac98: ldr      x0, [x8, #0xf0]
+288ac9c: cbz      x0, #0x288acb0
+288aca0: mov      x1, x19
+288aca4: mov      x2, xzr
+288aca8: bl       #0x4d68350 ; XLua.DelegateBridge$$__Gen_Delegate_Imp21
+288acac: b        #0x288adf0
+288acb0: adrp     x20, #0xc0c1000
+288acb4: ldr      x20, [x20, #0x2a0]
+288acb8: mov      x0, x19
+288acbc: mov      x1, xzr
+288acc0: bl       #0x28bc81c ; Torappu.Battle.TargetSelector$$get_ability
+288acc4: mov      x19, x0
+288acc8: cbz      x0, #0x288ad28
+288accc: adrp     x8, #0xc06a000
+288acd0: adrp     x9, #0xc095000
+288acd4: ldr      x8, [x8, #0x668]
+288acd8: ldr      x9, [x9, #0xb18]
+288acdc: ldr      x0, [x19]
+288ace0: ldr      x1, [x8]
+288ace4: ldrb     w8, [x9]
+288ace8: cbz      w8, #0x288acfc
+288acec: bl       #0x235bda4
+288acf0: tst      w0, #1
+288acf4: csel     x19, x19, xzr, ne
+288acf8: b        #0x288ad28
+288acfc: ldrb     w9, [x0, #0x12c]
+288ad00: ldrb     w8, [x1, #0x12c]
+288ad04: cmp      w9, w8
+288ad08: b.hs     #0x288ad14
+288ad0c: mov      x19, xzr
+288ad10: b        #0x288ad28
+288ad14: ldr      x9, [x0, #0xc8]
+288ad18: add      x8, x9, x8, lsl #3
+288ad1c: ldur     x8, [x8, #-8]
+288ad20: cmp      x8, x1
+288ad24: csel     x19, x19, xzr, eq
+288ad28: ldr      x0, [x20]
+288ad2c: ldr      w8, [x0, #0xe0]
+288ad30: cbnz     w8, #0x288ad38
+288ad34: bl       #0x231062c
+288ad38: mov      x0, x19
+288ad3c: mov      x1, xzr
+288ad40: mov      x2, xzr
+288ad44: bl       #0x927f3d8 ; UnityEngine.Object$$op_Inequality
+288ad48: tbz      w0, #0, #0x288adbc
+288ad4c: cbz      x19, #0x288ae04
+288ad50: adrp     x20, #0xc160000
+288ad54: adrp     x21, #0xc0aa000
+288ad58: ldr      x20, [x20, #0xcd0]
+288ad5c: ldr      x21, [x21, #0xfb0]
+288ad60: mov      x8, sp
+288ad64: mov      x0, x19
+288ad68: mov      x1, xzr
+288ad6c: bl       #0x24cb8d0 ; Torappu.Battle.AbilityStandard$$get_inputTarget
+288ad70: ldr      q0, [sp]
+288ad74: ldr      x8, [sp, #0x10]
+288ad78: ldr      x0, [x20]
+288ad7c: mov      x1, sp
+288ad80: str      q0, [sp, #0x20]
+288ad84: str      x8, [sp, #0x30]
+288ad88: str      q0, [sp]
+288ad8c: str      x8, [sp, #0x10]
+288ad90: bl       #0x2310634
+288ad94: ldr      x8, [x21]
+288ad98: mov      x20, x0
+288ad9c: ldr      w9, [x8, #0xe0]
+288ada0: cbnz     w9, #0x288adac
+288ada4: mov      x0, x8
+288ada8: bl       #0x231062c
+288adac: mov      x0, x20
+288adb0: mov      x1, xzr
+288adb4: bl       #0x8fded60 ; Torappu.ObjectExtensions$$IsDestroyedOrNull
+288adb8: tbz      w0, #0, #0x288adc4
+288adbc: mov      w0, wzr
+288adc0: b        #0x288adf0
+288adc4: adrp     x20, #0xc160000
+288adc8: ldr      x20, [x20, #0xb58]
+288adcc: add      x8, sp, #0x20
+288add0: mov      x0, x19
+288add4: mov      x1, xzr
+288add8: bl       #0x24cb8d0 ; Torappu.Battle.AbilityStandard$$get_inputTarget
+288addc: ldp      x8, x9, [sp, #0x28]
+288ade0: ldr      x1, [x20]
+288ade4: add      x0, sp, #0x40
+288ade8: stp      x8, x9, [sp, #0x40]
+288adec: bl       #0x774c1c8 ; Torappu.ObjectPtr<object>$$get_isValid
+288adf0: ldp      x19, x30, [sp, #0x60]
+288adf4: ldp      x21, x20, [sp, #0x50]
+288adf8: and      w0, w0, #1
+288adfc: add      sp, sp, #0x70
+288ae00: ret
+288ae04: bl       #0x2310650
+
+=== AdvancedSelector.OnPostFilter.Compare 0x288b21c-0x288b294 (120 bytes) ===
+288b21c: str      x20, [sp, #-0x20]!
+288b220: stp      x19, x30, [sp, #0x10]
+288b224: adrp     x19, #0xc8cb000
+288b228: adrp     x20, #0xc0ab000
+288b22c: ldrb     w8, [x19, #0xae0]
+288b230: ldr      x20, [x20, #0x3a8]
+288b234: tbnz     w8, #0, #0x288b24c
+288b238: adrp     x0, #0xc0ab000
+288b23c: ldr      x0, [x0, #0x3a8]
+288b240: bl       #0x231052c
+288b244: mov      w8, #1
+288b248: strb     w8, [x19, #0xae0]
+288b24c: ldr      x0, [x20]
+288b250: bl       #0x2310640
+288b254: cbz      x0, #0x288b288
+288b258: mov      x1, xzr
+288b25c: mov      x19, x0
+288b260: bl       #0x889fe78 ; System.Object$$.ctor
+288b264: ldr      x8, [x20]
+288b268: mov      x1, x19
+288b26c: ldr      x8, [x8, #0xb8]
+288b270: str      x19, [x8]
+288b274: ldr      x8, [x20]
+288b278: ldp      x19, x30, [sp, #0x10]
+288b27c: ldr      x0, [x8, #0xb8]
+288b280: ldr      x20, [sp], #0x20
+288b284: b        #0x23104e0
+288b288: bl       #0x2310650
+288b28c: mov      x1, xzr
+288b290: b        #0x889fe78 ; System.Object$$.ctor
+
+=== FilterUtil.Filter 0x2898c04-0x28990f8 (1268 bytes) ===
+2898c04: stp      x27, x26, [sp, #-0x50]!
+2898c08: stp      x25, x24, [sp, #0x10]
+2898c0c: stp      x23, x22, [sp, #0x20]
+2898c10: stp      x21, x20, [sp, #0x30]
+2898c14: stp      x19, x30, [sp, #0x40]
+2898c18: adrp     x24, #0xc8cb000
+2898c1c: adrp     x23, #0xc004000
+2898c20: ldrb     w8, [x24, #0xbe4]
+2898c24: ldr      x23, [x23, #0x938]
+2898c28: mov      w22, w3
+2898c2c: mov      w19, w2
+2898c30: mov      x20, x1
+2898c34: mov      x21, x0
+2898c38: tbnz     w8, #0, #0x2899058
+2898c3c: adrp     x0, #0xc14b000
+2898c40: ldr      x0, [x0, #0x6a0]
+2898c44: bl       #0x231052c
+2898c48: adrp     x0, #0xc140000
+2898c4c: ldr      x0, [x0, #0x670]
+2898c50: bl       #0x231052c
+2898c54: adrp     x0, #0xc0c1000
+2898c58: ldr      x0, [x0, #0x568]
+2898c5c: bl       #0x231052c
+2898c60: adrp     x0, #0xc040000
+2898c64: ldr      x0, [x0, #0xd0]
+2898c68: bl       #0x231052c
+2898c6c: adrp     x0, #0xc16f000
+2898c70: ldr      x0, [x0, #0xc00]
+2898c74: bl       #0x231052c
+2898c78: adrp     x0, #0xc12a000
+2898c7c: ldr      x0, [x0, #0x178]
+2898c80: bl       #0x231052c
+2898c84: adrp     x0, #0xc03c000
+2898c88: ldr      x0, [x0, #0x5a0]
+2898c8c: bl       #0x231052c
+2898c90: adrp     x0, #0xc0af000
+2898c94: ldr      x0, [x0, #0xd30]
+2898c98: bl       #0x231052c
+2898c9c: adrp     x0, #0xc0b2000
+2898ca0: ldr      x0, [x0, #0x6b0]
+2898ca4: bl       #0x231052c
+2898ca8: adrp     x0, #0xc16e000
+2898cac: ldr      x0, [x0, #0x6f0]
+2898cb0: bl       #0x231052c
+2898cb4: adrp     x0, #0xc16a000
+2898cb8: ldr      x0, [x0, #0x780]
+2898cbc: bl       #0x231052c
+2898cc0: adrp     x0, #0xc050000
+2898cc4: ldr      x0, [x0, #0xa58]
+2898cc8: bl       #0x231052c
+2898ccc: adrp     x0, #0xc0fc000
+2898cd0: ldr      x0, [x0, #0x6d8]
+2898cd4: bl       #0x231052c
+2898cd8: adrp     x0, #0xc153000
+2898cdc: ldr      x0, [x0, #0x718]
+2898ce0: bl       #0x231052c
+2898ce4: adrp     x0, #0xc105000
+2898ce8: ldr      x0, [x0, #0x6e8]
+2898cec: bl       #0x231052c
+2898cf0: adrp     x0, #0xc041000
+2898cf4: ldr      x0, [x0, #0x7e8]
+2898cf8: bl       #0x231052c
+2898cfc: adrp     x0, #0xc083000
+2898d00: ldr      x0, [x0, #0xed8]
+2898d04: bl       #0x231052c
+2898d08: adrp     x0, #0xc14a000
+2898d0c: ldr      x0, [x0, #0x210]
+2898d10: bl       #0x231052c
+2898d14: adrp     x0, #0xc128000
+2898d18: ldr      x0, [x0, #0xdc0]
+2898d1c: bl       #0x231052c
+2898d20: adrp     x0, #0xc15f000
+2898d24: ldr      x0, [x0, #0x778]
+2898d28: bl       #0x231052c
+2898d2c: adrp     x0, #0xc14f000
+2898d30: ldr      x0, [x0, #0x818]
+2898d34: bl       #0x231052c
+2898d38: adrp     x0, #0xbfdf000
+2898d3c: ldr      x0, [x0, #0xff8]
+2898d40: bl       #0x231052c
+2898d44: adrp     x0, #0xc159000
+2898d48: ldr      x0, [x0, #0x58]
+2898d4c: bl       #0x231052c
+2898d50: adrp     x0, #0xc137000
+2898d54: ldr      x0, [x0, #0x300]
+2898d58: bl       #0x231052c
+2898d5c: adrp     x0, #0xc0c3000
+2898d60: ldr      x0, [x0, #0xcb8]
+2898d64: bl       #0x231052c
+2898d68: adrp     x0, #0xc01b000
+2898d6c: ldr      x0, [x0, #0xbb8]
+2898d70: bl       #0x231052c
+2898d74: adrp     x0, #0xc03b000
+2898d78: ldr      x0, [x0, #0x448]
+2898d7c: bl       #0x231052c
+2898d80: adrp     x0, #0xc139000
+2898d84: ldr      x0, [x0, #0x1d0]
+2898d88: bl       #0x231052c
+2898d8c: adrp     x0, #0xc020000
+2898d90: ldr      x0, [x0, #0x280]
+2898d94: bl       #0x231052c
+2898d98: adrp     x0, #0xc03d000
+2898d9c: ldr      x0, [x0, #0xb28]
+2898da0: bl       #0x231052c
+2898da4: adrp     x0, #0xc130000
+2898da8: ldr      x0, [x0, #0xfc0]
+2898dac: bl       #0x231052c
+2898db0: adrp     x0, #0xc0e6000
+2898db4: ldr      x0, [x0, #0xeb0]
+2898db8: bl       #0x231052c
+2898dbc: adrp     x0, #0xc0b0000
+2898dc0: ldr      x0, [x0, #0x988]
+2898dc4: bl       #0x231052c
+2898dc8: adrp     x0, #0xc0da000
+2898dcc: ldr      x0, [x0, #0xea0]
+2898dd0: bl       #0x231052c
+2898dd4: adrp     x0, #0xc04d000
+2898dd8: ldr      x0, [x0, #0x698]
+2898ddc: bl       #0x231052c
+2898de0: adrp     x0, #0xc002000
+2898de4: ldr      x0, [x0, #0xaa0]
+2898de8: bl       #0x231052c
+2898dec: adrp     x0, #0xc155000
+2898df0: ldr      x0, [x0, #0x700]
+2898df4: bl       #0x231052c
+2898df8: adrp     x0, #0xc164000
+2898dfc: ldr      x0, [x0, #0xb60]
+2898e00: bl       #0x231052c
+2898e04: adrp     x0, #0xc137000
+2898e08: ldr      x0, [x0, #0x920]
+2898e0c: bl       #0x231052c
+2898e10: adrp     x0, #0xc041000
+2898e14: ldr      x0, [x0, #0xdb8]
+2898e18: bl       #0x231052c
+2898e1c: adrp     x0, #0xbfed000
+2898e20: ldr      x0, [x0, #0x10]
+2898e24: bl       #0x231052c
+2898e28: adrp     x0, #0xc060000
+2898e2c: ldr      x0, [x0, #0xf38]
+2898e30: bl       #0x231052c
+2898e34: adrp     x0, #0xc0ee000
+2898e38: ldr      x0, [x0, #0x490]
+2898e3c: bl       #0x231052c
+2898e40: adrp     x0, #0xc0da000
+2898e44: ldr      x0, [x0, #0xf0]
+2898e48: bl       #0x231052c
+2898e4c: adrp     x0, #0xc075000
+2898e50: ldr      x0, [x0, #0x588]
+2898e54: bl       #0x231052c
+2898e58: adrp     x0, #0xc125000
+2898e5c: ldr      x0, [x0, #0x9e0]
+2898e60: bl       #0x231052c
+2898e64: adrp     x0, #0xc0f7000
+2898e68: ldr      x0, [x0, #0x5e8]
+2898e6c: bl       #0x231052c
+2898e70: adrp     x0, #0xc058000
+2898e74: ldr      x0, [x0, #0x6c8]
+2898e78: bl       #0x231052c
+2898e7c: adrp     x0, #0xc0da000
+2898e80: ldr      x0, [x0, #0xd90]
+2898e84: bl       #0x231052c
+2898e88: adrp     x0, #0xc139000
+2898e8c: ldr      x0, [x0, #0xd30]
+2898e90: bl       #0x231052c
+2898e94: adrp     x0, #0xc044000
+2898e98: ldr      x0, [x0, #0x778]
+2898e9c: bl       #0x231052c
+2898ea0: adrp     x0, #0xc153000
+2898ea4: ldr      x0, [x0, #0x500]
+2898ea8: bl       #0x231052c
+2898eac: adrp     x0, #0xc0ae000
+2898eb0: ldr      x0, [x0, #0x198]
+2898eb4: bl       #0x231052c
+2898eb8: adrp     x0, #0xc01c000
+2898ebc: ldr      x0, [x0, #0xca0]
+2898ec0: bl       #0x231052c
+2898ec4: adrp     x0, #0xbfe4000
+2898ec8: ldr      x0, [x0, #0x9a0]
+2898ecc: bl       #0x231052c
+2898ed0: adrp     x0, #0xc159000
+2898ed4: ldr      x0, [x0, #0x788]
+2898ed8: bl       #0x231052c
+2898edc: adrp     x0, #0xc0e0000
+2898ee0: ldr      x0, [x0, #0x1c8]
+2898ee4: bl       #0x231052c
+2898ee8: adrp     x0, #0xc12c000
+2898eec: ldr      x0, [x0, #0xb90]
+2898ef0: bl       #0x231052c
+2898ef4: adrp     x0, #0xc17d000
+2898ef8: ldr      x0, [x0, #0x698]
+2898efc: bl       #0x231052c
+2898f00: adrp     x0, #0xc07b000
+2898f04: ldr      x0, [x0, #0xad8]
+2898f08: bl       #0x231052c
+2898f0c: adrp     x0, #0xc089000
+2898f10: ldr      x0, [x0, #0x510]
+2898f14: bl       #0x231052c
+2898f18: adrp     x0, #0xc01e000
+2898f1c: ldr      x0, [x0, #0xb00]
+2898f20: bl       #0x231052c
+2898f24: adrp     x0, #0xc173000
+2898f28: ldr      x0, [x0, #0x1c8]
+2898f2c: bl       #0x231052c
+2898f30: adrp     x0, #0xc0a3000
+2898f34: ldr      x0, [x0, #0x498]
+2898f38: bl       #0x231052c
+2898f3c: adrp     x0, #0xbfe4000
+2898f40: ldr      x0, [x0, #0x360]
+2898f44: bl       #0x231052c
+2898f48: adrp     x0, #0xc086000
+2898f4c: ldr      x0, [x0, #0x4a0]
+2898f50: bl       #0x231052c
+2898f54: adrp     x0, #0xc174000
+2898f58: ldr      x0, [x0, #0x628]
+2898f5c: bl       #0x231052c
+2898f60: adrp     x0, #0xc031000
+2898f64: ldr      x0, [x0, #0xf98]
+2898f68: bl       #0x231052c
+2898f6c: adrp     x0, #0xc04f000
+2898f70: ldr      x0, [x0, #0xfb8]
+2898f74: bl       #0x231052c
+2898f78: adrp     x0, #0xc0c2000
+2898f7c: ldr      x0, [x0, #0x5a0]
+2898f80: bl       #0x231052c
+2898f84: adrp     x0, #0xc06b000
+2898f88: ldr      x0, [x0, #0xb8]
+2898f8c: bl       #0x231052c
+2898f90: adrp     x0, #0xc092000
+2898f94: ldr      x0, [x0, #0xb58]
+2898f98: bl       #0x231052c
+2898f9c: adrp     x0, #0xc011000
+2898fa0: ldr      x0, [x0, #0x1b0]
+2898fa4: bl       #0x231052c
+2898fa8: adrp     x0, #0xc0f3000
+2898fac: ldr      x0, [x0, #0x5d0]
+2898fb0: bl       #0x231052c
+2898fb4: adrp     x0, #0xc086000
+2898fb8: ldr      x0, [x0, #0x5c0]
+2898fbc: bl       #0x231052c
+2898fc0: adrp     x0, #0xc0c6000
+2898fc4: ldr      x0, [x0, #0xc40]
+2898fc8: bl       #0x231052c
+2898fcc: adrp     x0, #0xc0b7000
+2898fd0: ldr      x0, [x0, #0x890]
+2898fd4: bl       #0x231052c
+2898fd8: adrp     x0, #0xc09c000
+2898fdc: ldr      x0, [x0, #0xe78]
+2898fe0: bl       #0x231052c
+2898fe4: adrp     x0, #0xc0bf000
+2898fe8: ldr      x0, [x0, #0x9a0]
+2898fec: bl       #0x231052c
+2898ff0: adrp     x0, #0xc084000
+2898ff4: ldr      x0, [x0, #8]
+2898ff8: bl       #0x231052c
+2898ffc: adrp     x0, #0xc027000
+2899000: ldr      x0, [x0, #0x898]
+2899004: bl       #0x231052c
+2899008: adrp     x0, #0xbfdf000
+289900c: ldr      x0, [x0, #0xb10]
+2899010: bl       #0x231052c
+2899014: adrp     x0, #0xc0a9000
+2899018: ldr      x0, [x0, #0xb40]
+289901c: bl       #0x231052c
+2899020: adrp     x0, #0xc171000
+2899024: ldr      x0, [x0, #0xc10]
+2899028: bl       #0x231052c
+289902c: adrp     x0, #0xc06e000
+2899030: ldr      x0, [x0, #0x208]
+2899034: bl       #0x231052c
+2899038: adrp     x0, #0xc004000
+289903c: ldr      x0, [x0, #0x938]
+2899040: bl       #0x231052c
+2899044: adrp     x0, #0xbfe4000
+2899048: ldr      x0, [x0, #0x9b8]
+289904c: bl       #0x231052c
+2899050: mov      w8, #1
+2899054: strb     w8, [x24, #0xbe4]
+2899058: ldr      x0, [x23]
+289905c: ldr      w8, [x0, #0xe0]
+2899060: cbnz     w8, #0x289906c
+2899064: bl       #0x231062c
+2899068: ldr      x0, [x23]
+289906c: ldr      x8, [x0, #0xb8]
+2899070: ldr      x0, [x8, #0xb0]
+2899074: cbz      x0, #0x28990a4
+2899078: mov      x1, x21
+289907c: mov      x2, x20
+2899080: mov      w3, w19
+2899084: mov      w4, w22
+2899088: ldp      x19, x30, [sp, #0x40]
+289908c: ldp      x21, x20, [sp, #0x30]
+2899090: ldp      x23, x22, [sp, #0x20]
+2899094: ldp      x25, x24, [sp, #0x10]
+2899098: mov      x5, xzr
+289909c: ldp      x27, x26, [sp], #0x50
+28990a0: b        #0x53d54dc ; XLua.DelegateBridge$$__Gen_Delegate_Imp12047
+28990a4: cmp      w22, #0x4e
+28990a8: b.hi     #0x2899a18
+28990ac: adrp     x11, #0x94cf000
+28990b0: adrp     x8, #0xc14b000
+28990b4: adrp     x24, #0xc12a000
+28990b8: adrp     x26, #0xc16f000
+28990bc: adrp     x9, #0xc140000
+28990c0: adrp     x27, #0xc0c1000
+28990c4: mov      w10, w22
+28990c8: add      x11, x11, #0x294
+28990cc: adrp     x25, #0xc040000
+28990d0: ldr      x8, [x8, #0x6a0]
+28990d4: ldr      x24, [x24, #0x178]
+28990d8: ldr      x26, [x26, #0xc00]
+28990dc: ldr      x9, [x9, #0x670]
+28990e0: ldr      x27, [x27, #0x568]
+28990e4: adr      x12, #0x28990f8
+28990e8: ldrh     w13, [x11, x10, lsl #1]
+28990ec: add      x12, x12, x13, lsl #2
+28990f0: ldr      x25, [x25, #0xd0]
+28990f4: br       x12
+
+=== FilterUtil._Filter_HpRatioAsc 0x28a4edc-0x28a4f8c (176 bytes) ===
+28a4edc: stp      x23, x22, [sp, #-0x30]!
+28a4ee0: stp      x21, x20, [sp, #0x10]
+28a4ee4: stp      x19, x30, [sp, #0x20]
+28a4ee8: adrp     x23, #0xc8cb000
+28a4eec: adrp     x22, #0xc004000
+28a4ef0: ldrb     w8, [x23, #0xbea]
+28a4ef4: ldr      x22, [x22, #0x938]
+28a4ef8: mov      x19, x2
+28a4efc: mov      x21, x1
+28a4f00: mov      x20, x0
+28a4f04: tbnz     w8, #0, #0x28a4f1c
+28a4f08: adrp     x0, #0xc004000
+28a4f0c: ldr      x0, [x0, #0x938]
+28a4f10: bl       #0x231052c
+28a4f14: mov      w8, #1
+28a4f18: strb     w8, [x23, #0xbea]
+28a4f1c: ldr      x0, [x22]
+28a4f20: ldr      w8, [x0, #0xe0]
+28a4f24: cbnz     w8, #0x28a4f30
+28a4f28: bl       #0x231062c
+28a4f2c: ldr      x0, [x22]
+28a4f30: ldr      x8, [x0, #0xb8]
+28a4f34: ldr      x0, [x8, #0xe0]
+28a4f38: cbz      x0, #0x28a4f5c
+28a4f3c: mov      x1, x20
+28a4f40: mov      x2, x21
+28a4f44: mov      x3, x19
+28a4f48: ldp      x19, x30, [sp, #0x20]
+28a4f4c: ldp      x21, x20, [sp, #0x10]
+28a4f50: mov      x4, xzr
+28a4f54: ldp      x23, x22, [sp], #0x30
+28a4f58: b        #0x4de01e4 ; XLua.DelegateBridge$$__Gen_Delegate_Imp922
+28a4f5c: cbz      x20, #0x28a4f88
+28a4f60: mov      x0, x20
+28a4f64: mov      x1, xzr
+28a4f68: bl       #0x25da978 ; Torappu.Battle.Entity$$get_hpRatio
+28a4f6c: mov      x8, x0
+28a4f70: str      x8, [x19]
+28a4f74: ldp      x19, x30, [sp, #0x20]
+28a4f78: ldp      x21, x20, [sp, #0x10]
+28a4f7c: mov      w0, #1
+28a4f80: ldp      x23, x22, [sp], #0x30
+28a4f84: ret
+28a4f88: bl       #0x2310650
+
+=== BattleFormula.CalculateHeal 0x253f684-0x253f770 (236 bytes) ===
+253f684: .byte    0x64, 0xec, 0x22, 0x9d
+253f688: .byte    0xca, 0xa7, 0x91, 0xf3
+253f68c: .byte    0xec, 0x66, 0x24, 0x9d
+253f690: .byte    0x65, 0x65, 0x24, 0x9d
+253f694: .byte    0xdc, 0xa0, 0x91, 0xf3
+253f698: .byte    0x24, 0x60, 0x64, 0x52
+253f69c: .byte    0xf1, 0x66, 0x24, 0x9d
+253f6a0: .byte    0x10, 0x4b, 0xba, 0xf3
+253f6a4: bl       #0x3d6d734
+253f6a8: .byte    0x64, 0x3c, 0x26, 0x9d
+253f6ac: .byte    0xc1, 0xa7, 0x91, 0xf3
+253f6b0: adrp     x17, #0xcb209000
+253f6b4: bl       #0x3d6d744
+253f6b8: .byte    0x64, 0x3c, 0x26, 0x9d
+253f6bc: .byte    0xc5, 0xa7, 0x91, 0xf3
+253f6c0: cbz      x12, #0x2600d38
+253f6c4: .byte    0x6c, 0xe9, 0x21, 0x9d
+253f6c8: .byte    0x90, 0x67, 0x64, 0xce
+253f6cc: .byte    0x6c, 0x65, 0x24, 0x5d
+253f6d0: adr      x12, #0x2608352
+253f6d4: .byte    0xc4, 0x66, 0x24, 0x9d
+253f6d8: .byte    0xd5, 0x95, 0x92, 0xf3
+253f6dc: .byte    0xcc, 0x66, 0x24, 0x9d
+253f6e0: .byte    0x84, 0x67, 0x71, 0xce
+253f6e4: .byte    0x6d, 0xe1, 0x32, 0xcd
+253f6e8: orr      x4, x10, #0x7fffffe000000000
+253f6ec: .byte    0x85, 0x67, 0x64, 0xce
+253f6f0: adr      x7, #0x260837f
+253f6f4: .byte    0x90, 0x67, 0x64, 0xce
+253f6f8: .byte    0x85, 0x67, 0x7b, 0xce
+253f6fc: .byte    0x84, 0x67, 0x70, 0xce
+253f700: .byte    0x86, 0x67, 0x7b, 0xce
+253f704: .byte    0x60, 0xcf, 0xe7, 0xf1
+253f708: .byte    0x85, 0x67, 0x64, 0xce
+253f70c: .byte    0x84, 0x67, 0x77, 0xce
+253f710: .byte    0x97, 0x1f, 0x25, 0xcd
+253f714: .byte    0x86, 0x67, 0x7b, 0xce
+253f718: .byte    0x91, 0x37, 0xa6, 0xcc
+253f71c: adr      x8, #0x24ad08b
+253f720: tbz      w4, #0x1c, #0x25383cc
+253f724: .byte    0xab, 0x4a, 0xba, 0xf3
+253f728: .byte    0xec, 0x66, 0x24, 0x9d
+253f72c: .byte    0x6c, 0x64, 0x64, 0x9d
+253f730: bl       #0x3d72ec4
+253f734: .byte    0x45, 0x84, 0x60, 0xf5
+253f738: .byte    0x86, 0x67, 0x7b, 0xce
+253f73c: .byte    0x65, 0x4d, 0xba, 0xf3
+253f740: .byte    0x90, 0x67, 0x64, 0xce
+253f744: .byte    0x2f, 0x4b, 0xba, 0xf3
+253f748: .byte    0x84, 0x67, 0x70, 0xce
+253f74c: .byte    0x55, 0x4b, 0xba, 0xf3
+253f750: .byte    0x22, 0x51, 0xba, 0xf3
+253f754: ldr      q28, #0x26304c4
+253f758: .byte    0x93, 0x3f, 0x65, 0xcd
+253f75c: .byte    0x91, 0x37, 0x66, 0xcd
+253f760: .byte    0x97, 0x1f, 0x67, 0xcd
+253f764: bl       #0x3d9ec24
+253f768: .byte    0xec, 0x42, 0x27, 0x5d
+253f76c: .byte    0x97, 0x67, 0x64, 0xce
+
+=== Action.Nodes.ApplyHeal.Execute 0x2f66508-0x2f66830 (808 bytes) ===
+2f66508: sub      sp, sp, #0x160
+2f6650c: str      d8, [sp, #0x110]
+2f66510: stp      x28, x24, [sp, #0x120]
+2f66514: stp      x23, x22, [sp, #0x130]
+2f66518: stp      x21, x20, [sp, #0x140]
+2f6651c: stp      x19, x30, [sp, #0x150]
+2f66520: adrp     x24, #0xc8d0000
+2f66524: adrp     x23, #0xc072000
+2f66528: ldrb     w8, [x24, #0x29e]
+2f6652c: ldr      x23, [x23, #0x130]
+2f66530: mov      x19, x3
+2f66534: mov      w22, w2
+2f66538: mov      x21, x1
+2f6653c: mov      x20, x0
+2f66540: tbnz     w8, #0, #0x2f66594
+2f66544: adrp     x0, #0xc072000
+2f66548: ldr      x0, [x0, #0x130]
+2f6654c: bl       #0x231052c
+2f66550: adrp     x0, #0xbff3000
+2f66554: ldr      x0, [x0, #0x878]
+2f66558: bl       #0x231052c
+2f6655c: adrp     x0, #0xc073000
+2f66560: ldr      x0, [x0, #0xe8]
+2f66564: bl       #0x231052c
+2f66568: adrp     x0, #0xc068000
+2f6656c: ldr      x0, [x0, #0xff8]
+2f66570: bl       #0x231052c
+2f66574: adrp     x0, #0xc0c1000
+2f66578: ldr      x0, [x0, #0x2a0]
+2f6657c: bl       #0x231052c
+2f66580: adrp     x0, #0xc0eb000
+2f66584: ldr      x0, [x0, #0x170]
+2f66588: bl       #0x231052c
+2f6658c: mov      w8, #1
+2f66590: strb     w8, [x24, #0x29e]
+2f66594: add      x0, sp, #0x88
+2f66598: mov      w2, #0x88
+2f6659c: mov      w1, wzr
+2f665a0: str      wzr, [sp, #0x11c]
+2f665a4: bl       #0x1d2a2c0
+2f665a8: ldr      x8, [x23]
+2f665ac: ldr      x8, [x8, #0xb8]
+2f665b0: ldr      x0, [x8, #0x20]
+2f665b4: cbz      x0, #0x2f665d4
+2f665b8: mov      x1, x20
+2f665bc: mov      x2, x21
+2f665c0: mov      w3, w22
+2f665c4: mov      x4, x19
+2f665c8: mov      x5, xzr
+2f665cc: bl       #0x533f254 ; XLua.DelegateBridge$$__Gen_Delegate_Imp10980
+2f665d0: b        #0x2f667e0
+2f665d4: adrp     x23, #0xc0c1000
+2f665d8: ldr      x23, [x23, #0x2a0]
+2f665dc: ldr      x22, [x19, #8]
+2f665e0: ldr      x0, [x23]
+2f665e4: ldr      w8, [x0, #0xe0]
+2f665e8: cbnz     w8, #0x2f665f0
+2f665ec: bl       #0x231062c
+2f665f0: mov      x0, x22
+2f665f4: mov      x1, xzr
+2f665f8: mov      x2, xzr
+2f665fc: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2f66600: tbz      w0, #0, #0x2f6660c
+2f66604: mov      w0, wzr
+2f66608: b        #0x2f667e0
+2f6660c: ldr      x0, [x23]
+2f66610: ldr      x22, [x19]
+2f66614: ldr      w8, [x0, #0xe0]
+2f66618: cbnz     w8, #0x2f66620
+2f6661c: bl       #0x231062c
+2f66620: adrp     x24, #0xc073000
+2f66624: ldr      x24, [x24, #0xe8]
+2f66628: mov      x0, x22
+2f6662c: mov      x1, xzr
+2f66630: mov      x2, xzr
+2f66634: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2f66638: tbz      w0, #0, #0x2f66678
+2f6663c: ldr      x0, [x24]
+2f66640: ldr      x22, [x20, #0x28]
+2f66644: ldr      w8, [x0, #0xe0]
+2f66648: cbnz     w8, #0x2f66650
+2f6664c: bl       #0x231062c
+2f66650: mov      w0, wzr
+2f66654: mov      x1, xzr
+2f66658: bl       #0x8ff5148 ; Torappu.FP$$op_Implicit
+2f6665c: mov      x1, x0
+2f66660: mov      x0, x22
+2f66664: mov      x2, xzr
+2f66668: bl       #0x8ff4d38 ; Torappu.FP$$op_LessThan
+2f6666c: mov      w8, w0
+2f66670: mov      w0, wzr
+2f66674: tbnz     w8, #0, #0x2f667e0
+2f66678: ldrb     w8, [x20, #0x12]
+2f6667c: ldr      x22, [x20, #0x18]
+2f66680: cbz      w8, #0x2f666cc
+2f66684: cbz      x21, #0x2f6682c
+2f66688: adrp     x8, #0xc0eb000
+2f6668c: ldr      x8, [x8, #0x170]
+2f66690: add      x2, sp, #0x11c
+2f66694: mov      x0, x21
+2f66698: mov      x3, xzr
+2f6669c: ldr      x1, [x8]
+2f666a0: bl       #0x4113958 ; Torappu.Blackboard$$TryGetFloat
+2f666a4: tbz      w0, #0, #0x2f666cc
+2f666a8: ldr      x0, [x24]
+2f666ac: ldr      s8, [sp, #0x11c]
+2f666b0: ldr      w8, [x0, #0xe0]
+2f666b4: cbnz     w8, #0x2f666bc
+2f666b8: bl       #0x231062c
+2f666bc: mov      v0.16b, v8.16b
+2f666c0: mov      x0, xzr
+2f666c4: bl       #0x8ff3de4 ; Torappu.FP$$op_Implicit
+2f666c8: mov      x22, x0
+2f666cc: ldrb     w8, [x20, #0x11]
+2f666d0: cbz      w8, #0x2f66710
+2f666d4: ldr      x0, [x19, #8]
+2f666d8: cbz      x0, #0x2f6682c
+2f666dc: mov      x1, xzr
+2f666e0: bl       #0x25d6d24 ; Torappu.Battle.Entity$$get_maxHp
+2f666e4: ldr      x8, [x24]
+2f666e8: mov      x21, x0
+2f666ec: ldr      w9, [x8, #0xe0]
+2f666f0: cbnz     w9, #0x2f666fc
+2f666f4: mov      x0, x8
+2f666f8: bl       #0x231062c
+2f666fc: mov      x0, x21
+2f66700: mov      x1, x22
+2f66704: mov      x2, xzr
+2f66708: bl       #0x8ff405c ; Torappu.FP$$op_Multiply
+2f6670c: b        #0x2f66774
+2f66710: ldr      x0, [x23]
+2f66714: ldr      x21, [x19]
+2f66718: ldr      w8, [x0, #0xe0]
+2f6671c: cbnz     w8, #0x2f66724
+2f66720: bl       #0x231062c
+2f66724: adrp     x23, #0xbff3000
+2f66728: ldr      x23, [x23, #0x878]
+2f6672c: mov      x0, x21
+2f66730: mov      x1, xzr
+2f66734: mov      x2, xzr
+2f66738: bl       #0x92835bc ; UnityEngine.Object$$op_Equality
+2f6673c: tbnz     w0, #0, #0x2f66748
+2f66740: ldrb     w8, [x20, #0x13]
+2f66744: cbz      w8, #0x2f66800
+2f66748: ldr      x0, [x23]
+2f6674c: ldr      x21, [x20, #0x28]
+2f66750: ldr      x23, [x19, #8]
+2f66754: ldr      w8, [x0, #0xe0]
+2f66758: cbnz     w8, #0x2f66760
+2f6675c: bl       #0x231062c
+2f66760: mov      x0, x21
+2f66764: mov      x1, x23
+2f66768: mov      x2, x22
+2f6676c: mov      x3, xzr
+2f66770: bl       #0x253f770 ; Torappu.Battle.BattleFormula$$CalculateHeal
+2f66774: adrp     x8, #0xc068000
+2f66778: ldr      x8, [x8, #0xff8]
+2f6677c: mov      x21, x0
+2f66780: ldp      x23, x22, [x19]
+2f66784: ldrb     w24, [x20, #0x10]
+2f66788: ldr      x0, [x8]
+2f6678c: ldr      w8, [x0, #0xe0]
+2f66790: cbnz     w8, #0x2f66798
+2f66794: bl       #0x231062c
+2f66798: cmp      w24, #0
+2f6679c: cset     w3, ne
+2f667a0: mov      x8, sp
+2f667a4: mov      x0, x21
+2f667a8: mov      x1, x23
+2f667ac: mov      x2, x22
+2f667b0: mov      x4, xzr
+2f667b4: bl       #0x279137c ; Torappu.Battle.Modifier$$NewHeal
+2f667b8: add      x0, sp, #0x88
+2f667bc: mov      x1, sp
+2f667c0: mov      w2, #0x88
+2f667c4: bl       #0x1d2ab50
+2f667c8: ldr      x0, [x19, #8]
+2f667cc: cbz      x0, #0x2f6682c
+2f667d0: ldrb     w2, [x20, #0x20]
+2f667d4: add      x1, sp, #0x88
+2f667d8: mov      x3, xzr
+2f667dc: bl       #0x25e9144 ; Torappu.Battle.Entity$$ApplyModifier
+2f667e0: ldp      x19, x30, [sp, #0x150]
+2f667e4: ldp      x21, x20, [sp, #0x140]
+2f667e8: ldp      x23, x22, [sp, #0x130]
+2f667ec: ldp      x28, x24, [sp, #0x120]
+2f667f0: ldr      d8, [sp, #0x110]
+2f667f4: and      w0, w0, #1
+2f667f8: add      sp, sp, #0x160
+2f667fc: ret
+2f66800: ldr      x0, [x23]
+2f66804: ldp      x23, x21, [x19]
+2f66808: ldr      w8, [x0, #0xe0]
+2f6680c: cbnz     w8, #0x2f66814
+2f66810: bl       #0x231062c
+2f66814: mov      x0, x23
+2f66818: mov      x1, x21
+2f6681c: mov      x2, x22
+2f66820: mov      x3, xzr
+2f66824: bl       #0x253f684 ; Torappu.Battle.BattleFormula$$CalculateHeal
+2f66828: b        #0x2f66774
+2f6682c: bl       #0x2310650
