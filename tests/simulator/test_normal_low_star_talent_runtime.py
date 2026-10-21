@@ -6,6 +6,7 @@ from arknights_planner.models.runtime import CombatOutputType, SkillEffect, SPRe
 from arknights_planner.models.simulation import EventType
 from arknights_planner.models.strategy import Action, ActionType, Strategy
 from arknights_planner.models.enemy import EnemyStats
+from arknights_planner.models.operator import OperatorPhase, OperatorStats
 from arknights_planner.models.provenance import known
 from tests.simulator.test_combat_runtime import events, runtime_enemies, runtime_operators, runtime_run
 from tests.simulator.test_low_rarity_runtime_closure import stationary_brute
@@ -75,3 +76,34 @@ def test_redeploy_time_delta_shortens_actual_cooldown():
     result = runtime_run(first, operators=operators, enemies=stationary_brute(), max_time=10.1)
     deploys = [dict(event.details)["legal"] for event in events(result, EventType.DEPLOY, source="blocker")]
     assert deploys == [True, False, True]
+
+
+def test_death_starts_redeploy_cooldown_and_release_occurs_on_death():
+    operators = runtime_operators()
+    phase = replace(
+        operators["blocker"].phases[0],
+        stats_max=replace(
+            operators["blocker"].phases[0].stats_max,
+            max_hp=known(10, "synthetic/test", "$.blocker.hp"),
+            defense=known(0, "synthetic/test", "$.blocker.def"),
+        ),
+    )
+    assert isinstance(phase, OperatorPhase)
+    assert isinstance(phase.stats_max, OperatorStats)
+    operators["blocker"] = replace(
+        operators["blocker"],
+        phases=(phase,),
+        redeploy_time=known(0.0, "synthetic/test", "$.blocker.redeploy"),
+    )
+    result = runtime_run(
+        Strategy(("blocker",), (
+            Action(ActionType.DEPLOY, 0.0, "blocker", (3, 1), "RIGHT"),
+            Action(ActionType.DEPLOY, 5.1, "blocker", (3, 1), "RIGHT"),
+        )),
+        operators=operators,
+        max_time=5.2,
+    )
+    deaths = events(result, EventType.OPERATOR_DEATH, source="blocker")
+    deploys = events(result, EventType.DEPLOY, source="blocker")
+    assert [(event.time, dict(event.details)["legal"]) for event in deploys] == [(0.0, True), (5.1, True)]
+    assert len(deaths) == 1

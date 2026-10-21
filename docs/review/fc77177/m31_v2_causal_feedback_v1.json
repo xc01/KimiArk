@@ -1,0 +1,64 @@
+{
+  "schema_version": "KIMIARK_M31_ATTEMPT_CAUSAL_FEEDBACK_V1",
+  "attempt": "attempt_02",
+  "source_plan_id": "R8_7_GPT_M31_V2",
+  "plan_snapshot_sha256": "80b52d0a67df6a6774825b3de1fd5daeb79c41f6cc27d01d54de68683ba7d698",
+  "result": {
+    "simulator_win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 8,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": [
+      {"enemy_id": "enemy_3001_upeopl#3", "frame": 3566},
+      {"enemy_id": "enemy_3001_upeopl#14", "frame": 5297}
+    ],
+    "remaining_life": -7,
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 5759}
+  },
+  "key_artillery_evidence": {
+    "max_hp": 13000,
+    "observed_damage": 5696.47,
+    "remaining_hp": 7303.53,
+    "death": false,
+    "leak_frame": 5759,
+    "hits": {
+      "char_210_stward": {"count": 19, "damage": 5405.47, "frames": [2161, 5538]},
+      "char_121_lava": {"count": 1, "damage": 291.0, "frame": 3736}
+    }
+  },
+  "prediction_evaluation": {
+    "query": {
+      "event_type": "ENEMY_DEATH",
+      "target_id": "enemy_1112_emppnt#0",
+      "earliest_frame": 3151,
+      "latest_frame": 5758
+    },
+    "status": "EVENT_NOT_OBSERVED",
+    "observation_complete": true,
+    "conclusion": "The revised survival/medical timing still failed to kill the artillery; Steward was the only sustained attacker and was already below M30 V2's 7348.45 output."
+  },
+  "failure_chain": [
+    "Ansel died frame2580; ten later skills/actions failed for absent operators.",
+    "Hibiscus died frame3180, Durin frame3330, and Lava frame3780.",
+    "First leak armor #21 frame5046; the artillery leaked frame5759 and objective failure began there.",
+    "Roadblocks #3/#4/#1/#2 were destroyed at 2025/3168/3234/4965; both protected targets still arrived."
+  ],
+  "comparison": {
+    "M30_V2": {"artillery_damage": 7348.45, "leaks": 10, "operator_deaths": 10},
+    "M31_V2": {"artillery_damage": 5696.47, "leaks": 10, "operator_deaths": 8},
+    "M30_V3": {"artillery_damage": 11728.75, "leaks": 10, "protected_arrivals": 1, "first_leak_frame": 3065},
+    "lesson": "Artillery damage and route protection are competing, simultaneous requirements. Neither a marginal survival revision nor V3's high-damage structure alone solved the joint objective."
+  },
+  "requirements_for_revision": [
+    "Change the structural allocation of damage, interception and medicine rather than only renaming roles or shifting enhancement frames.",
+    "Explain how enough total artillery damage accumulates before the 5759 leak while all armor/officer lanes remain staffed.",
+    "Account for every removal/redeployment gap and who holds each responsibility during it.",
+    "If probability is used, provide a verifiable joint lower bound at least 0.0001; otherwise use deterministic mechanics."
+  ],
+  "source_artifacts": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_02_diagnostic/diagnostic_summary.json",
+    "simulation_gate": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_02_cli/simulation_gate.json"
+  }
+}

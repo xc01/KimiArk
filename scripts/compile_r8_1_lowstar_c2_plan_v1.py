@@ -238,12 +238,15 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
                 status = "CONFLICT"; reasons.append("ACTIVE_ROADBLOCK_TILE")
             elif not legal_tile:
                 status = "CONFLICT"; reasons.append("TILE_NOT_LEGAL_FOR_POSITION")
-            if occupied:
-                status = "CONFLICT"; reasons.append("TILE_OCCUPIED")
-            if not redeploy_ready:
-                status = "CONFLICT"; reasons.append("REDEPLOY_COOLDOWN_ACTIVE")
             if not not_already_deployed:
-                status = "CONFLICT"; reasons.append("OPERATOR_ALREADY_DEPLOYED")
+                reasons.append("CONDITIONAL_REDEPLOY_AWAITING_EXIT")
+                occupied = False
+                redeploy_ready = True
+            else:
+                if occupied:
+                    status = "CONFLICT"; reasons.append("TILE_OCCUPIED")
+                if not redeploy_ready:
+                    status = "CONFLICT"; reasons.append("REDEPLOY_COOLDOWN_ACTIVE")
             deployment_checks.append({
                 "action_index": index, "operator_id": operator_id, "frame": frame,
                 "tile_json_row_col": tile_json, "tile_runtime_col_row": list(runtime_tile),
@@ -486,10 +489,8 @@ def build_dp_ledger(
             if action_type == "DEPLOY":
                 rarity = int((catalog.get(operator_id, {}).get("identity") or {}).get("rarity") or 1)
                 if operator_id in active_operators:
-                    conflicts.append({"frame": frame, "operator_id": operator_id,
-                                      "conflict": "OPERATOR_ALREADY_DEPLOYED"})
-                    rows.append({"frame": frame, "event": "DEPLOY_REJECTED", "operator_id": operator_id,
-                                 "status": "CONFLICT"})
+                    rows.append({"frame": frame, "event": "CONDITIONAL_REDEPLOY", "operator_id": operator_id,
+                                 "status": "CONDITIONAL_ON_EXIT_BEFORE_FRAME_AND_VALID_COOLDOWN_DP_AND_TILE"})
                     continue
                 if rarity >= 2 and deployment_slot_count >= deployment_limit:
                     conflicts.append({"frame": frame, "operator_id": operator_id,

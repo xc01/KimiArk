@@ -1,0 +1,86 @@
+{
+  "schema_version": "KIMIARK_M31_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M30_V2",
+  "source_artifacts": {
+    "m30_report": "docs/review/fc77177/m30_final_report_v1.md",
+    "v2_events": "output/r8_1_r8_7_batch_v1/main_08-07/m30_iteration_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "v3_events": "output/r8_1_r8_7_batch_v1/main_08-07/m30_iteration_v1/attempt_03_diagnostic/diagnostic_events.json"
+  },
+  "confirmed_result": {
+    "v2": {
+      "win": false,
+      "enemies_killed": 23,
+      "enemies_leaked": 10,
+      "operator_deaths": 10,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": -7,
+      "roadblocks_destroyed": {
+        "#1": 3234,
+        "#2": 4965,
+        "#3": 2025,
+        "#4": 2820
+      }
+    },
+    "v3_comparison": {
+      "artillery_damage": 11728.75,
+      "artillery_max_hp": 13000,
+      "artillery_still_leaked_frame": 5759,
+      "first_leak": {
+        "enemy_id": "enemy_1107_uoffcr#11",
+        "frame": 3065
+      },
+      "protected_arrivals": {
+        "#3": 3566,
+        "#14": null
+      }
+    }
+  },
+  "survival_and_redeployment_facts": {
+    "CONFIRMED_FROM_CURRENT_RUNTIME": [
+      "Death and manual retreat both use the operator's effective redeploy time, including redeploy_time_delta.",
+      "At removal time the tile and blocked enemies are released; manual retreat refunds half the deployment cost, while death refunds zero.",
+      "A later explicit DEPLOY is required; HP, SP, skill state and a fresh deployment cost begin from phase data. Skills issued while dead or undeployed are invalid.",
+      "Static checking cannot know when death occurs. A duplicate DEPLOY without an earlier RETREAT must be treated as conditional redeployment, then verified by simulation."
+    ],
+    "V4_COUNTEREXAMPLE": "Gallus withdrew at frame3120; its 200 s cooldown was not complete at frame5223, so the static and runtime rejection is correct.",
+    "UNKNOWN": [
+      "No physical-dodge runtime is currently implemented; physical damage type alone does not establish artillery dodge.",
+      "Damage shields and probability-triggered survival are not current-model facts and remain UNKNOWN unless runtime support is demonstrated."
+    ]
+  },
+  "v2_failure_chain": {
+    "artillery": {
+      "hits_from_steward": 25,
+      "damage_from_steward": 7348.45,
+      "attack_window": [2281, 3433],
+      "steward_death_frame": 3480,
+      "artillery_death_frame": null,
+      "artillery_leak_frame": 5759
+    },
+    "early_deaths": {
+      "Lancet": 1380,
+      "Ansel": 3180,
+      "Steward": 3480,
+      "Lava": 3630,
+      "Hibiscus": 3780
+    },
+    "first_leaks": [
+      {"enemy_id": "armor #21", "frame": 5067},
+      {"enemy_id": "armor #22", "frame": 5196},
+      {"enemy_id": "artillery", "frame": 5759},
+      {"enemy_id": "officer #23", "frame": 5781}
+    ]
+  },
+  "questions_for_revision": [
+    "How will artillery damage continue after the primary attacker's actual removal, without assuming that damage is directed only at the artillery?",
+    "Who takes each interception, healing, roadblock-clearance and protected-route duty during every removal/redeployment gap?",
+    "How are the two protected routes kept safe after different roadblock clearances, including the later western risk that remained in V2?",
+    "What exact observed event first proves that the key artillery, survival, rotation or protection bottleneck changed?"
+  ],
+  "constraints": [
+    "Do not mechanically merge V2 and V3; V3 improved artillery damage but regressed early defense and #14.",
+    "A probability WIN requires a verifiable joint success lower bound of at least 0.0001; current simulation has no reliable probability accounting, so a lucky branch cannot be declared.",
+    "Use only ordinary-mode 1-3 star operators listed in the catalog."
+  ]
+}

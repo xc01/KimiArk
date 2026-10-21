@@ -1,0 +1,78 @@
+{
+  "schema_version": "KIMIARK_M31_ATTEMPT_CAUSAL_FEEDBACK_V1",
+  "attempt": "attempt_01",
+  "source_plan_id": "R8_7_GPT_M31_V1",
+  "plan_snapshot_sha256": "8916f70ee8bbe808d9ae82abb85203becc7329ce8464e301855f6c95261d7b50",
+  "result": {
+    "simulator_win": false,
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 10,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": [
+      {"enemy_id": "enemy_3001_upeopl#3", "frame": 3566},
+      {"enemy_id": "enemy_3001_upeopl#14", "frame": 5297}
+    ],
+    "remaining_life": -11,
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 5457}
+  },
+  "key_artillery_evidence": {
+    "max_hp": 13000,
+    "observed_damage": 6071.27,
+    "observed_damage_lower_than_v2": true,
+    "death": false,
+    "leak_frame": 5759,
+    "hits": {
+      "char_210_stward": {"count": 17, "damage": 4907.27, "frames": [2280, 5538]},
+      "char_121_lava": {"count": 4, "damage": 1164.0, "frames": [2520, 3736]}
+    }
+  },
+  "prediction_evaluation": {
+    "query": {
+      "event_type": "ENEMY_DEATH",
+      "target_id": "enemy_1112_emppnt#0",
+      "earliest_frame": 3151,
+      "latest_frame": 5580
+    },
+    "status": "EVENT_NOT_OBSERVED",
+    "observation_complete": true,
+    "conclusion": "The V1 artillery kill hypothesis failed. Event observation alone does not prove why HP output was lower or why successor coverage did not hold."
+  },
+  "first_failure_chain": [
+    "Hibiscus died frame2280; its scheduled frame2820 skill therefore failed.",
+    "Ansel died frame3180 and Durin died frame3330, ending the second damage/medicine interval.",
+    "Lava died frame3780; nine later skills/actions failed for operators not deployed.",
+    "First leak armor #21 frame5046; second armor #22 frame5196; objective ended at frame5457 before the artillery leak."
+  ],
+  "artillery_hits_on_defenders": [
+    {"frame": 1980, "targets": ["char_240_wyvern", "char_120_hibisc"]},
+    {"frame": 3030, "targets": ["char_212_ansel", "char_210_stward"]},
+    {"frame": 3180, "targets": ["char_212_ansel", "char_501_durin"]},
+    {"frame": 5130, "target": "char_122_beagle"}
+  ],
+  "route_and_device_facts": {
+    "roadblocks_destroyed": {
+      "#3": 2025,
+      "#4": 2781,
+      "#1": 3234,
+      "#2": 4965
+    },
+    "protected_arrivals": {"#3": 3566, "#14": 5297}
+  },
+  "comparison_to_m30": {
+    "kept": "V2's complete four-roadblock and two-arrival route structure remained possible.",
+    "regressed": "Artillery damage fell from 7348.45 to 6071.27 and legal-battle leaks rose from 10 to 14.",
+    "hypothesis_rejected": "Relocating eastern damage into overlapping medical coverage did not by itself sustain artillery output or central survival."
+  },
+  "requirements_for_revision": [
+    "State who continues artillery damage after each actual or scheduled removal and verify the target-selection condition, not just deployment duration.",
+    "Define how central medicine and interception survive the 2280, 3180, 3330 and 3780 death interval.",
+    "Do not treat all four roadblock clearances or two protected arrivals as equivalent to zero leaks.",
+    "The first observable prediction must concern artillery death, sustained artillery damage, prevention of the armor leak, or removal/redeployment handoff; an opening kill is insufficient."
+  ],
+  "source_artifacts": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_01_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_01_diagnostic/diagnostic_summary.json",
+    "simulation_gate": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_01_cli/simulation_gate.json"
+  }
+}

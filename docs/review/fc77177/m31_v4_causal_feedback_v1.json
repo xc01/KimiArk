@@ -1,0 +1,51 @@
+{
+  "schema_version": "KIMIARK_M31_ATTEMPT_CAUSAL_FEEDBACK_V1",
+  "attempt": "attempt_04",
+  "source_plan_id": "R8_7_GPT_M31_V4",
+  "plan_snapshot_sha256": "135f53e11b56dbfc0f58a20df718aca89f77d9d887bfaccabbf46639263629dc",
+  "result": {
+    "simulator_win": false,
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "operator_deaths": 6,
+    "remaining_life": -15,
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 771},
+    "protected_targets": {
+      "enemy_3001_upeopl#3": {"death_frame": 5430, "killer": "enemy_1112_emppnt#0", "amount": 950},
+      "enemy_3001_upeopl#14": {"death_frame": 3966, "killer": "enemy_1107_uoffcr#18", "amount": null}
+    }
+  },
+  "key_artillery_evidence": {
+    "max_hp": 13000,
+    "observed_damage": 6127.86,
+    "remaining_hp": 6872.14,
+    "death": false,
+    "leak_frame": 5759,
+    "hits": {
+      "char_210_stward": {"count": 21, "damage": 6127.86, "frames": [2860, 4492]}
+    }
+  },
+  "prediction_evaluation": {
+    "query": {
+      "event_type": "ENEMY_DEATH",
+      "target_id": "enemy_1112_emppnt#0",
+      "earliest_frame": 4200,
+      "latest_frame": 5100
+    },
+    "status": "EVENT_NOT_OBSERVED",
+    "observation_complete": true,
+    "conclusion": "The final artillery kill prediction failed."
+  },
+  "early_failure_chain": [
+    "Fang and Vanilla both died frame630; the first leak was enemy_1108_uterer#1 at frame771.",
+    "Twenty later deploy/skill commands failed for missing operators or insufficient DP.",
+    "Only roadblock #3 was destroyed at frame1725; #1/#2/#4 remained active.",
+    "Both protected targets died; #14 by officer #18 at 3966 and #3 by artillery at 5430."
+  ],
+  "structural_conclusion": "The aggressive cost/redistribution structure failed the opening and route requirements before artillery damage could matter. It is not comparable to V2's complete route behavior.",
+  "source_artifacts": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_04_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_04_diagnostic/diagnostic_summary.json",
+    "simulation_gate": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_04_cli/simulation_gate.json"
+  }
+}

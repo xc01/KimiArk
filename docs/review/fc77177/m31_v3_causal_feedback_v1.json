@@ -1,0 +1,68 @@
+{
+  "schema_version": "KIMIARK_M31_ATTEMPT_CAUSAL_FEEDBACK_V1",
+  "attempt": "attempt_03",
+  "source_plan_id": "R8_7_GPT_M31_V3",
+  "plan_snapshot_sha256": "46ca3042d135abb4d78034d30e0282d2c351524e60841327b8925278c272f0fd",
+  "result": {
+    "simulator_win": false,
+    "enemies_killed": 22,
+    "enemies_leaked": 11,
+    "operator_deaths": 10,
+    "remaining_life": -9,
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 5759},
+    "protected_targets": {
+      "enemy_3001_upeopl#3": {"death_frame": 5430, "killer": "enemy_1112_emppnt#0", "amount": 950},
+      "enemy_3001_upeopl#14": {"reached_frame": 9317, "after_objective_failure": true}
+    }
+  },
+  "key_artillery_evidence": {
+    "max_hp": 13000,
+    "observed_damage": 8285.47,
+    "remaining_hp": 4714.53,
+    "death": false,
+    "leak_frame": 5759,
+    "hits": {
+      "char_4227_gallus": {"count": 2, "damage": 261.0, "frames": [990, 1038]},
+      "char_210_stward": {"count": 19, "damage": 5405.47, "frames": [2281, 3145]},
+      "char_121_lava": {"count": 9, "damage": 2619.0, "frames": [3361, 3883]}
+    },
+    "event_protocol_note": "The frame5430 ENEMY_DEATH has source artillery and target #3; it is the civilian death, not artillery death."
+  },
+  "prediction_evaluation": {
+    "query": {
+      "event_type": "ENEMY_DEATH",
+      "target_id": "enemy_1112_emppnt#0",
+      "earliest_frame": 3900,
+      "latest_frame": 4799
+    },
+    "status": "EVENT_NOT_OBSERVED",
+    "observation_complete": true,
+    "conclusion": "The 3900-4799 artillery-kill prediction failed; the artillery survived to leak and killed #3 at 5430."
+  },
+  "route_and_device_facts": {
+    "roadblocks_destroyed": {
+      "#3": 1725,
+      "#4": 2421,
+      "#2": 8985
+    },
+    "roadblocks_not_destroyed": ["#1"],
+    "late_events": "#14 reached at 9317 after the objective had already failed at 5759."
+  },
+  "failure_chain": [
+    "Gallus died frame1080; repeated eastern and central commands then failed as operators were removed.",
+    "Steward died frame3180, Ansel frame3780, Lava frame3930, Hibiscus frame4534.",
+    "First armor leak #22 frame5469; artillery leaked frame5759 and ended the objective.",
+    "Many subsequent route-clearance and medicine actions were invalid because the responsible operators were already dead."
+  ],
+  "requirements_for_revision": [
+    "Use the last attempt to change the joint structure, not tune the same V1/V2 medical timing.",
+    "Must simultaneously preserve V2's complete protected-route behavior and raise deterministic artillery output by at least 4714.53 before frame5759.",
+    "Do not copy V3's missing #1 clearance or let artillery reach the civilian route.",
+    "Every late command must have a demonstrated survival, retreat, cooldown and redeploy path."
+  ],
+  "source_artifacts": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_03_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_03_diagnostic/diagnostic_summary.json",
+    "simulation_gate": "output/r8_1_r8_7_batch_v1/main_08-07/m31_iteration_v1/attempt_03_cli/simulation_gate.json"
+  }
+}
