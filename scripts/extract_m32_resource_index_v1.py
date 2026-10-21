@@ -103,41 +103,62 @@ def scan_bundle(apk_path: Path, member: str) -> dict:
     }
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--apk", type=Path, default=Path("arknights-hg-2771.apk"))
-    parser.add_argument("--output", type=Path, default=Path("output/m32_resource_index_v1/resource_index.jsonl"))
-    parser.add_argument("--members", type=Path, help="newline-delimited bundle members; default: all battle and pkgrps bundles")
-    parser.add_argument("--force", action="store_true")
-    args = parser.parse_args()
-    register_decoder()
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    if args.members:
-        members = [line.strip() for line in args.members.read_text(encoding="utf-8").splitlines() if line.strip()]
-    else:
-        with zipfile.ZipFile(args.apk) as archive:
-            members = [
-                name
-                for name in archive.namelist()
-                if name.startswith(("assets/AB/Android/battle/", "assets/AB/Android/pkgrps/"))
-                and name.endswith(".ab")
-            ]
-    completed: set[str] = set()
-    if not args.force and args.output.exists():
-        for line in args.output.read_text(encoding="utf-8").splitlines():
+def load_existing_records(output: Path) -> dict[str, dict]:
+    records: dict[str, dict] = {}
+    if not output.exists():
+        return records
+    for line_number, line in enumerate(output.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
             record = json.loads(line)
-            if record.get("status") == "ok":
-                completed.add(record["result"]["apk_member"])
-    mode = "a" if args.output.exists() and not args.force else "w"
+            member = record["result"]["apk_member"]
+        except (KeyError, TypeError, json.JSONDecodeError) as exc:
+            raise ValueError(f"invalid scan record at {output}:{line_number}: {exc}") from exc
+        if member in records:
+            raise ValueError(f"duplicate scan record for {member} in {output}")
+        records[member] = record
+    return records
+
+
+def scan_members(
+    apk_path: Path,
+    members: list[str],
+    output: Path,
+    *,
+    force: bool = False,
+    scanner=scan_bundle,
+) -> dict:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path = output.with_name(output.name + ".manifest.json")
+    unique_members: list[str] = []
+    seen: set[str] = set()
+    for member in members:
+        if member not in seen:
+            unique_members.append(member)
+            seen.add(member)
+    requested_member_set = set(unique_members)
+    existing = {} if force else load_existing_records(output)
+    kept = {
+        member: record
+        for member, record in existing.items()
+        if record.get("status") in {"ok", "skipped"} and member in requested_member_set
+    }
+    counts = {
+        "ok": sum(record.get("status") == "ok" for record in kept.values()),
+        "error": 0,
+        "skipped": sum(record.get("status") == "skipped" for record in kept.values()),
+    }
+    pending = [member for member in unique_members if member not in kept]
     started = time.time()
-    with args.output.open(mode, encoding="utf-8") as stream:
-        for index, member in enumerate(members, 1):
-            if member in completed:
-                continue
-            print(f"[{index}/{len(members)}] {member}", flush=True)
+    with output.open("w", encoding="utf-8") as stream:
+        for member, record in sorted(kept.items()):
+            stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+        for index, member in enumerate(pending, 1):
             try:
-                result = scan_bundle(args.apk, member)
+                result = scanner(apk_path, member)
                 record = {"status": "ok", "result": result}
+                counts["ok"] += 1
             except Exception as exc:
                 record = {
                     "status": "error",
@@ -147,11 +168,50 @@ def main() -> None:
                         "message": str(exc),
                     },
                 }
+                counts["error"] += 1
             stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
             stream.flush()
-            if record["result"]["hit"]:
+            if record["result"].get("hit"):
                 print(json.dumps(record["result"], ensure_ascii=False, sort_keys=True), flush=True)
-    print(f"elapsed_seconds={time.time() - started:.3f}", flush=True)
+    manifest = {
+        "schema_version": "M32_RESOURCE_INDEX_V1",
+        "records_path": str(output),
+        "apk_path": str(apk_path),
+        "apk_sha256": hashlib.sha256(apk_path.read_bytes()).hexdigest(),
+        "requested_member_count": len(unique_members),
+        "requested_members": unique_members,
+        "counts": counts,
+        "elapsed_seconds": time.time() - started,
+        "resumed_completed_members": len(kept),
+        "freshly_scanned_members": len(pending),
+    }
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    return manifest
+
+
+def default_members(apk_path: Path) -> list[str]:
+    with zipfile.ZipFile(apk_path) as archive:
+        return [
+            name
+            for name in archive.namelist()
+            if name.startswith(("assets/AB/Android/battle/", "assets/AB/Android/pkgrps/"))
+            and name.endswith(".ab")
+        ]
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--apk", type=Path, default=Path("arknights-hg-2771.apk"))
+    parser.add_argument("--output", type=Path, default=Path("output/m32_resource_index_v1/resource_index.jsonl"))
+    parser.add_argument("--members", type=Path, help="newline-delimited bundle members; default: all battle and pkgrps bundles")
+    parser.add_argument("--force", action="store_true")
+    args = parser.parse_args()
+    register_decoder()
+    members = default_members(args.apk)
+    if args.members:
+        members = [line.strip() for line in args.members.read_text(encoding="utf-8").splitlines() if line.strip()]
+    manifest = scan_members(args.apk, members, args.output, force=args.force)
+    print(json.dumps({key: manifest[key] for key in ("requested_member_count", "counts", "elapsed_seconds")}, sort_keys=True))
 
 
 if __name__ == "__main__":

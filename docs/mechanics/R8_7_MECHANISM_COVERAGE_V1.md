@@ -51,7 +51,7 @@ together, but their semantic versions are not inferred to be equivalent.
 | Artillery delayed projectile | Enemy `skills` is `null`; no ability blackboard identifies the delayed attack. | Exact `projectile_enemy_emppnt.prefab` exists in `[uc]projectiles.ab`: path ID `-619213101382661339`. Movement component has `_delayToStart=3.0`, `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`; collision component has `_onlyCheckHitWhenReachTarget=1` and `_goThroughWall=1`; main component has `_lifeTime=10.0` and `_maxHitNum=1`. Trail effect has `_delayTime=2.75`. | Uses hardcoded `DELAYED_LOCKED_AREA_ATTACK` with a 3.0-second hit delay and 1.2 blast radius. | 3.0-second delayed, fixed-point, one-hit projectile matches. Blast radius 1.2 and damage/action-node details are not in the extracted projectile fields. | Specific artillery ability prefab is still missing, so the Python cooldown, radius, damage conversion, and action sequence cannot be promoted to client rules. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
 | Protected-target acquisition priority | Neutral protected target is in GameData. | Generic `EnemyTraceTargetByPriorityAbility` exists at metadata RVA `0x2e2bfc4..0x2e2c290`; its priority path calls `TargetSelector$$FindTargets_DISPOSE`. Generic existence is not a binding. | Chooses neutral protected targets first, otherwise deployed operators. | No specific artillery ability binding was found. | Python priority may or may not match this enemy's configured selector. | `UNKNOWN_SPECIFIC_BINDING` |
 | Locked blast position | None. | Projectile `_followTarget=0`, `_stopIfTargetDead=0`, and `_alwaysReachInTheEnd=1`. | Locks target position when ability starts and hits that position after 3.0 seconds. | Fixed position and persistence after target death match. | Client may have an extra interval between ability decision and projectile creation; exact lock-frame origin remains unknown. | `PARTIALLY_CONFIRMED_FROM_CLIENT` |
-| Blast geometry | None. | Projectile exposes collision and reach fields, but no radius scalar in the extracted components. | Uses 1.2-unit circular radius with inclusive boundary epsilon. | Not validated. | A radius could live in a missing ability/action node. | `UNKNOWN_MISSING_RESOURCE_OR_BINDING` |
+| Blast geometry | None. | `CircleCollider2D` on `projectile_enemy_emppnt` has `m_Radius=1.2000000476837158`; the same GameObject also binds `HitBehaviour`. This is a collision-radius field fact. | Uses 1.2-unit circular radius with inclusive boundary epsilon. | Radius value matches; damage qualification is not yet decoded. | Do not treat 1.2 as the acquisition range; GameData separately says enemy range radius 2.0. | `RESOURCE_FIELD_FACT; DAMAGE_SEMANTIC_UNKNOWN` |
 | Normal attack versus special artillery | None. | No specific enemy ability prefab or action-node payload found. | Suppresses ordinary projectile output while `DELAYED_LOCKED_AREA_ATTACK` exists. | Not validated. | Cannot infer whether client allows ordinary attacks during/inside the special-ability cycle. | `UNKNOWN_SPECIFIC_BINDING` |
 | Ability clock | Base attack time 5.0. | Generic `get_cooldown` is at RVA `0x2e2a6cc..0x2e2a76c`; no specific ability config bound. | Schedules next special ability at `state.time + 5.0` when it starts. | Not validated. | Start/finish-frame framing and interaction with projectile delay remain unknown. | `UNKNOWN_SPECIFIC_BINDING` |
 | Operator enemy targeting and devices | None. | Not traced in this increment. | Enemies are preferred; devices are fallback targets. | Not validated. | Project-code behavior only. | `PROJECT_CODE_ONLY` |
@@ -79,17 +79,32 @@ generation. Actual cost growth and special rules remain
 
 ## APK binding gap
 
-The resource index scanned 619 `battle/` and `pkgrps/` members plus 501
-`charpack/`, `npcpack/`, `refs/`, and `config/` members. The only exact
-`enemy_1112_emppnt` / `emppnt` hits were:
+M33 expanded the dependency scan to all 2,529 local `.ab` / `.bin` bundles.
+The only exact `enemy_1112_emppnt` / `emppnt` container hits are:
 
-- `assets/AB/Android/pkgrps/btl_pfb_fx_enemy_5.ab`
 - `assets/AB/Android/battle/prefabs/[uc]projectiles.ab`
+- `assets/AB/Android/pkgrps/btl_pfb_fx_enemy_5.ab`
 - `assets/AB/Android/refs/fx/sharedbattle.ab`
 - `assets/AB/Android/refs/fx/texture/star.ab`
+- `assets/AB/Android/spritepack/icon_enemies_2.ab`
+- `assets/AB/Android/spritepack/ui_recalrune_rune_icon_sprites_0.ab`
 
-No indexed bundle contains an `enemy_1112_emppnt` prefab or a serialized
-reference to `projectile_enemy_emppnt`. The next bounded extraction task is to
-obtain the build-2771 enemy-prefab bundle containing that prefab and dump its
+The first is the projectile logic/prefab bundle; the others contain FX, texture,
+icon, or rune assets. None contains the `enemy_1112_emppnt` body prefab.
+There are zero SerializedFile external PPtr dependencies on the projectile
+bundle `CAB-34af01ecb5d2ad63aca01b6e0d71279d`. This rules out direct serialized
+references among local bundles, but not dynamic loading by a constructed path or
+a remote resource.
+
+The missing script CAB is now identified. `CAB-658d74aab777086fc32b93f385be999a`
+is a MonoScript dependency, not ability configuration. It is contained by
+`assets/AB/Android/anon/25ca9f1e45dc03e951bc38ef8f0a3670.bin` and
+`assets/AB/Android/anon/9331724438927fc1266f8a4db7766543.bin`. The projectile's
+four MonoBehaviour script bindings resolve to `SimpleProjectile`, `EffectBehaviour`,
+`HitBehaviour`, and `AttachToTarget`. This is resource-to-script evidence only;
+it does not identify the enemy creation call.
+
+The next bounded extraction task remains obtaining the build-2771 enemy-prefab
+bundle or the build-2771 `.idx` resource manifest needed to locate its
 ability/action/action-node graph. Until then, the generic trace-target function
 must not be claimed as this enemy's configured behavior.

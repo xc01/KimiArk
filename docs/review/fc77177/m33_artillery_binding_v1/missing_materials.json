@@ -1,0 +1,55 @@
+{
+  "schema_version": "M33_ARTILLERY_MISSING_MATERIALS_V1",
+  "items": [
+    {
+      "id": "enemy_1112_emppnt_body_prefab",
+      "status": "UNKNOWN",
+      "not_found_scope": "all 2529 local APK assets/AB/Android .ab and .bin bundle container paths",
+      "absence_proof": "NOT_PROVEN",
+      "reason": "Dynamic resource manifests, remote resources, and path construction are not decoded; local absence does not prove build-2771 content absence.",
+      "blocks": "enemy body components, ability/action binding, configured targeting selector, and attack-cycle binding"
+    },
+    {
+      "id": "enemy_1112_emppnt_ability_action_graph",
+      "status": "UNKNOWN",
+      "not_found_scope": "local APK bundle dependency and container scan",
+      "absence_proof": "NOT_PROVEN",
+      "reason": "No direct enemy body or ability/action PPtr chain was found; a serialized graph may live outside the APK or be dynamically selected.",
+      "blocks": "distinction between normal attack and special artillery, ability interval clock, and action node payload"
+    },
+    {
+      "id": "projectile_enemy_emppnt_dynamic_creation_binding",
+      "status": "UNKNOWN",
+      "evidence": {
+        "projectile_cab": "CAB-34af01ecb5d2ad63aca01b6e0d71279d",
+        "serialized_external_referencing_bundle_count": 0
+      },
+      "reason": "Zero direct external PPtr references does not exclude path construction or dynamic loading.",
+      "blocks": "when the projectile is created and which target lock frame starts the 3.0-second movement delay"
+    },
+    {
+      "id": "build_2771_resource_manifest",
+      "status": "BLOCKED_BY_KEY_AND_FORMAT",
+      "files": [
+        {
+          "path": "/tmp/idx2771/main.idx",
+          "sha256": "11898eef33eecef9f4ac015863944df305531f8fcd6f0fa1d2274d5b0b23fad9",
+          "size_bytes": 9961472
+        },
+        {
+          "path": "/tmp/idx2771/small.idx",
+          "sha256": "67c47a74e01cf6418b08dbc4cf1443bb5c0cba8fa3b3f35b6bdc41580559f43c",
+          "size_bytes": 79872
+        }
+      ],
+      "client_evidence": "Torappu.FlatBufferSignedConverter extends CrypticConverter_WithSign; ResourceManifest.BundleMeta and ResourceManifest.AssetToBundleMeta exist in dump.cs.",
+      "unknowns": [
+        "exact .idx container framing",
+        "RSA/signature verification parameters",
+        "AES-CBC key",
+        "AES-CBC IV"
+      ],
+      "blocks": "asset path to bundle/CAB mapping and recovery of missing remote or dynamic resources"
+    }
+  ]
+}
