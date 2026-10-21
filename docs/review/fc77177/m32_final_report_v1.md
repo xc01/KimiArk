@@ -99,7 +99,9 @@ result, robust result, or real-game result.
 
 ## Tests
 
-Focused suite: 42 passed.
+Focused suite: 40 passed (12 combat runtime, 4 normal-low-star talent runtime,
+5 conditional redeployment, 7 tactical stage session, and 12 compact tool
+revision tests).
 
 Full suite: current tree has 31 failed test IDs; parent `a823761` has 47 failed test IDs under the
 same venv/artifact-linked worktree. Exact ID comparison has **0 current-only failures**. The 16
