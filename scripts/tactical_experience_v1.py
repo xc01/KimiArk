@@ -291,11 +291,16 @@ def extract_parent_plan_id(plan_object: dict[str, Any] | None) -> str | None:
     if not isinstance(plan_object, dict):
         return None
     candidate = plan_object
+    root_revision = (
+        plan_object.get("revision_hypothesis")
+        if isinstance(plan_object.get("revision_hypothesis"), dict)
+        else {}
+    )
     plans = plan_object.get("revised_operational_plans")
     if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
         candidate = plans[0]
     revision = candidate.get("revision_hypothesis") if isinstance(candidate.get("revision_hypothesis"), dict) else {}
-    value = candidate.get("parent_plan_id") or revision.get("parent_plan_id")
+    value = candidate.get("parent_plan_id") or revision.get("parent_plan_id") or root_revision.get("parent_plan_id")
     return value if isinstance(value, str) and value else None
 
 

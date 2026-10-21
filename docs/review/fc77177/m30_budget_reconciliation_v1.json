@@ -1,0 +1,29 @@
+{
+  "schema_version": "KIMIARK_M30_BUDGET_RECONCILIATION_V1",
+  "stage_id": "main_08-07",
+  "cli_budget": {
+    "authorized_real_starts": 4,
+    "actual_real_starts": 4,
+    "remaining": 0,
+    "offline_prepare_attempts_not_counted": 10,
+    "offline_prepare_failure_reasons": [
+      "prompt over body limit: 8",
+      "reasoning effort resolved to medium: 1",
+      "features.apps=false omitted from final argv: 1"
+    ]
+  },
+  "simulation_budget": {
+    "authorized_started_simulations": 4,
+    "actual_started_simulations": 2,
+    "remaining": 2,
+    "simulated_plan_ids": ["R8_7_GPT_M30_V2", "R8_7_GPT_M30_V3"]
+  },
+  "attempts": [
+    {"attempt": 1, "plan_id": "R8_7_GPT_M30_V1", "cli_started": 1, "contract": "PASS", "static": "STATIC_CONFLICT", "simulation": "NO_SIMULATION", "cumulative_cli": 70},
+    {"attempt": 2, "plan_id": "R8_7_GPT_M30_V2", "cli_started": 1, "contract": "PASS", "static": "PASS", "simulation": "COMPLETED_LOSS", "cumulative_cli": 71},
+    {"attempt": 3, "plan_id": "R8_7_GPT_M30_V3", "cli_started": 1, "contract": "PASS", "static": "PASS", "simulation": "COMPLETED_LOSS", "cumulative_cli": 72},
+    {"attempt": 4, "plan_id": "R8_7_GPT_M30_V4", "cli_started": 1, "contract": "PASS", "static": "STATIC_CONFLICT", "simulation": "NO_SIMULATION", "cumulative_cli": 73}
+  ],
+  "historical_frozen_cli": 69,
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+}

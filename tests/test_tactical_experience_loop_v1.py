@@ -199,6 +199,10 @@ def test_parent_plan_id_extracts_root_and_nested_forms() -> None:
     assert experience.extract_parent_plan_id({
         "revised_operational_plans": [{"operational_plan_id": "CHILD", "parent_plan_id": "ROOT"}]
     }) == "ROOT"
+    assert experience.extract_parent_plan_id({
+        "revision_hypothesis": {"parent_plan_id": "ROOT"},
+        "revised_operational_plans": [{"operational_plan_id": "CHILD", "parent_plan_id": None}],
+    }) == "ROOT"
 
 
 def test_previous_plan_id_and_declared_parent_are_separate() -> None:

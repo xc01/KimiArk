@@ -1,0 +1,172 @@
+{
+  "schema_version": "KIMIARK_M30_V5_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M29_V5",
+  "source_artifacts": {
+    "diagnostic_events_path": "output/r8_1_r8_7_batch_v1/main_08-07/m29_iteration_v1/attempt_09_diagnostic/diagnostic_events.json",
+    "diagnostic_events_sha256": "162dad43ca386a07f847d8dca6b5fed1b2d5c79d7c91552fd1d449af7c5c2169",
+    "mechanics_version": "m23-behavioral-mechanics-v1"
+  },
+  "confirmed_result": {
+    "simulator_win": false,
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_deaths": 9,
+    "protected_target_deaths": 2,
+    "protected_targets_reached": 0,
+    "remaining_life": -8,
+    "first_leak": {
+      "event_type": "ENEMY_LEAK",
+      "frame": 5319,
+      "source_id": "enemy_1110_uamord#21"
+    },
+    "runtime_action_errors": [
+      "char_192_falco@73.0: operator is not deployed",
+      "char_285_medic2@103.0: operator is not deployed",
+      "char_212_ansel@141.0: operator is not deployed",
+      "char_120_hibisc@156.0: operator is not deployed",
+      "char_210_stward@160.0: operator is not deployed",
+      "char_121_lava@230.0: operator is not deployed",
+      "char_286_cast3@230.0: operator is not deployed"
+    ]
+  },
+  "artillery_computation": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "max_hp": 13000,
+    "max_hp_source": "attempt_09_cli/llm_evidence_context.json GameData $.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData",
+    "observed_operator_damage": {
+      "char_210_stward": {
+        "damage_type": "arts",
+        "hits": 25,
+        "total_damage": 7348.45,
+        "first_hit_frame": 2281,
+        "last_hit_frame": 3433,
+        "automatic_skill_activation_frames": [
+          2473,
+          2713,
+          2953,
+          3193,
+          3433
+        ]
+      },
+      "char_501_durin": {
+        "damage_type": "arts",
+        "hits": 2,
+        "total_damage": 340,
+        "frames": [
+          3522,
+          3570
+        ]
+      },
+      "total_damage": 7688.45,
+      "remaining_if_max_hp_only": 5311.55,
+      "no_observed_hp_recovery": true
+    },
+    "durin_recorded_damage_targets": [
+      "enemy_1107_uoffcr#13: 6 hits 1632, frames3090-3330",
+      "enemy_1112_emppnt#0: 2 hits 340, frames3522-3570",
+      "trap_020_roadblock#4: 6 device hits 1632, frames3378-4626",
+      "enemy_1107_uoffcr#16: 8 hits 2176, frames3618-3954",
+      "enemy_1107_uoffcr#18: 7 hits 1904, frames4002-4290",
+      "enemy_1107_uoffcr#20: 4 hits 1088, frames4338-4482",
+      "enemy_1110_uamord#22: 3 hits 510, frames4674-4770",
+      "enemy_1110_uamord#34: 2 hits 340, frames6900-6948"
+    ],
+    "durin_device_damage_targets": [
+      "trap_020_roadblock#4: 6 hits 1632",
+      "trap_020_roadblock#2: 30 hits 8160, destroyed frame8388"
+    ],
+    "interpretation": "Low artillery hits coexisted with officer targets, #4 device damage, timing, range and route constraints; exact targeting reason UNKNOWN.",
+    "artillery_leak": {
+      "event_type": "ENEMY_LEAK",
+      "frame": 5759
+    }
+  },
+  "medic_and_damage_windows": {
+    "char_210_stward": {
+      "deploy_frame": 1350,
+      "frozen_direction": "UP",
+      "artillery_damage_window_frames": [2281, 3433],
+      "death_frame": 3480,
+      "heal_received": "5 events from char_120_hibisc, frames 3032-3376"
+    },
+    "char_212_ansel": {
+      "deploy_frame": 1680,
+      "heal_output": "16 events, 5272.8 total, frames 1680-3096"
+    },
+    "char_501_durin": {
+      "first_deploy_frame": 3090,
+      "retreat_frame": 4800,
+      "redeploy_frame": 6900,
+      "frozen_redeploy_direction": "UP"
+    },
+    "unknown_items": [
+      "complete operator HP trajectories; exact Durin targeting reason; feasible alternative placements/timings"
+    ]
+  },
+  "roadblocks_and_protected_targets": {
+    "roadblock_3": {
+      "damage_sources": [
+        "char_208_melan"
+      ],
+      "destroyed_frame": 1815
+    },
+    "roadblock_4": {
+      "damage_sources": [
+        "char_192_falco",
+        "char_501_durin"
+      ],
+      "observed_damage_total": 6682.8,
+      "destroyed_frame": null,
+      "status": "NOT_DESTROYED"
+    },
+    "roadblock_1": {
+      "damage_sources": [
+        "char_286_cast3"
+      ],
+      "observed_damage_total": 1506.4,
+      "destroyed_frame": null,
+      "status": "NOT_DESTROYED"
+    },
+    "roadblock_2": {
+      "damage_sources": [
+        "char_501_durin"
+      ],
+      "observed_damage_total": 8160,
+      "destroyed_frame": 8388,
+      "context": "Destroyed after both protected targets were dead; therefore it did not rescue V5."
+    },
+    "enemy_3001_upeopl#14": {
+      "blocked_by_roadblock_4_frame": 3251,
+      "officer_and_artillery_damage_frames": "3546/3606/3630/3666/3780/3846/3906",
+      "death_frame": 3930,
+      "last_hit_source_id": "enemy_1112_emppnt#0",
+      "arrival_frame": null
+    },
+    "enemy_3001_upeopl#3": {
+      "artillery_damage_frames": [5130, 5280, 5430],
+      "death_frame": 5430,
+      "last_hit_source_id": "enemy_1112_emppnt#0",
+      "arrival_frame": null,
+      "route_context": "Still exposed to roadblock #1 and western risks."
+    },
+    "lesson": "Destroying one roadblock is not evidence that the whole protected route is safe. Each later obstacle and hostile window must be verified."
+  },
+  "failed_handoffs": [
+    "Fourteen later commands failed because operators were not deployed.",
+    "Steward's frame-4800 retreat followed frame-3480 death.",
+    "Durin's frame-4800 retreat executed despite the intended artillery-death gate being unmet."
+  ],
+  "questions_for_revision": [
+    "Provide enough artillery damage in a viable window while preserving survival and route duties.",
+    "Reconcile target competition, range, device damage and medical coverage without assuming target priority.",
+    "Maintain concurrent duties if the primary artillery attacker dies early; handle all four roadblocks and both routes.",
+    "Specify parallel duties, verified-completion handoffs, and what fails first if an event is absent."
+  ],
+  "prediction_requirements": {
+    "first_observable_event_must_involve": [
+      "key artillery output or survival",
+      "or a decisive protected-route duty"
+    ],
+    "explicitly_not_sufficient_alone": ["one artillery hit", "one roadblock destroyed", "one release", "one opening kill"]
+  }
+}

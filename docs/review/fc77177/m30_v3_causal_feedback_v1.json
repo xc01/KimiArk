@@ -1,0 +1,85 @@
+{
+  "schema_version": "KIMIARK_M30_V3_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M30_V3",
+  "source_artifacts": {
+    "diagnostic_events_path": "output/r8_1_r8_7_batch_v1/main_08-07/m30_iteration_v1/attempt_03_diagnostic/diagnostic_events.json",
+    "diagnostic_events_sha256": "129e1b3a4181b9bde4a2e1eb07f06453c924f6f403a55b556bf077b730ba1db6",
+    "mechanics_version": "m23-behavioral-mechanics-v1"
+  },
+  "confirmed_result": {
+    "simulator_win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "enemies_remaining": 1,
+    "remaining_enemy_hp": 3500,
+    "operator_deaths": 8,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 1,
+    "remaining_life": -7,
+    "runtime_action_errors": [
+      "char_240_wyvern@85.0: operator is not deployed",
+      "char_009_12fce@173.0: operator is not deployed",
+      "char_123_fang@174.0: operator is not deployed",
+      "char_120_hibisc@190.0: operator is not deployed",
+      "char_208_melan@190.0: operator is not deployed",
+      "char_283_midn@214.0: operator is not deployed"
+    ]
+  },
+  "relative_to_v2": {
+    "eliminated": [
+      "V2's #14 protected death was already absent; V3 also kept zero protected deaths.",
+      "V3 kept roadblock #3, #4 and #1 destruction and made #3 arrive."
+    ],
+    "regressions": [
+      "First leak moved earlier from frame5067 to frame3065 (enemy_1107_uoffcr#11).",
+      "Protected target #14 did not arrive; roadblock #2 was never destroyed.",
+      "Artillery survived, leaked at frame5759, and an enemy remained with 3500 HP at the 600s cap."
+    ]
+  },
+  "artillery_failure": {
+    "max_hp": 13000,
+    "observed_operator_damage": [
+      {"operator_id": "char_210_stward", "hits": 28, "damage_total": 8095.75, "frames": [2740, 4492]},
+      {"operator_id": "char_121_lava", "hits": 11, "damage_total": 3201, "frames": [3361, 3941]},
+      {"operator_id": "char_009_12fce", "hits": 2, "damage_total": 432, "frames": [4875, 4962]}
+    ],
+    "total_damage": 11728.75,
+    "damage_deficit_if_max_hp_only": 1271.25,
+    "prediction_status": "EVENT_NOT_OBSERVED",
+    "leak_frame": 5759,
+    "causal_summary": "Steward and Lava were killed before the 12F fallback. 12F delivered only 432 damage and died at frame4980 after repeated artillery hits. Damage coverage and a future fallback must be concurrently sustainable."
+  },
+  "key_death_and_exposure_chain": [
+    {"operator_id": "char_240_wyvern", "death_frame": 2130, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 2130, "amount": 760}},
+    {"enemy_leak": {"source_id": "enemy_1107_uoffcr#11", "frame": 3065}},
+    {"enemy_leak": {"source_id": "enemy_1107_uoffcr#13", "frame": 3425}},
+    {"operator_id": "char_121_lava", "death_frame": 4230, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 4230, "amount": 905}},
+    {"operator_id": "char_210_stward", "death_frame": 4534, "last_hit": {"source_id": "enemy_1110_uamord#21", "frame": 4534, "amount": 289}},
+    {"enemy_leak": {"source_id": "enemy_1107_uoffcr#20", "frame": 4625}},
+    {"operator_id": "char_009_12fce", "death_frame": 4980, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 4980, "amount": 950}},
+    {"operator_id": "char_120_hibisc", "death_frame": 5130, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 5130, "amount": 890}}
+  ],
+  "roadblock_status": {
+    "trap_020_roadblock#1": {"destroyed_frame": 3234, "damage_total": 8143.2},
+    "trap_020_roadblock#2": {"destroyed_frame": null, "status": "NOT_DESTROYED"},
+    "trap_020_roadblock#3": {"destroyed_frame": 2025, "damage_total": 8358.56},
+    "trap_020_roadblock#4": {"destroyed_frame": 2868, "damage_total": 8162.32}
+  },
+  "protected_routes": [
+    {"source_id": "enemy_3001_upeopl#3", "reached_frame": 3566},
+    {"source_id": "enemy_3001_upeopl#14", "reached_frame": null}
+  ],
+  "questions_for_revision": [
+    "Close the frame3065 officer leak first; artillery and late route work cannot rescue an already exhausted life pool.",
+    "Keep at least one sustainable artillery attacker through the remaining damage deficit.",
+    "Restore roadblock #2 clearance and #14 arrival without losing the already demonstrated #3 route.",
+    "Use a verified fallback only if it can actually deploy, survive and deliver the remaining damage."
+  ],
+  "prediction_requirements": {
+    "first_observable_event_must_involve": [
+      "closing or preventing the early officer leak",
+      "or simultaneous artillery damage and attacker survival"
+    ],
+    "not_sufficient_alone": ["one artillery hit", "one #3 arrival", "one roadblock destroyed"]
+  }
+}

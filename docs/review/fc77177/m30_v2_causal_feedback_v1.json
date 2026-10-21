@@ -1,0 +1,86 @@
+{
+  "schema_version": "KIMIARK_M30_V2_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M30_V2",
+  "source_artifacts": {
+    "diagnostic_events_path": "output/r8_1_r8_7_batch_v1/main_08-07/m30_iteration_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "diagnostic_events_sha256": "30de7c96695a8821f661748c7fb746f03ba48e34bb1e282f856d8e0a5f40d9f7",
+    "mechanics_version": "m23-behavioral-mechanics-v1"
+  },
+  "confirmed_result": {
+    "simulator_win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 10,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 2,
+    "remaining_life": -7,
+    "runtime_action_errors": [
+      "char_285_medic2@65.0: operator is not deployed",
+      "char_212_ansel@129.0: operator is not deployed",
+      "char_120_hibisc@138.0: operator is not deployed",
+      "char_121_lava@146.0: operator is not deployed",
+      "char_240_wyvern@172.0: operator is not deployed",
+      "char_120_hibisc@188.0: operator is not deployed",
+      "char_212_ansel@189.0: operator is not deployed",
+      "char_120_hibisc@238.0: operator is not deployed",
+      "char_212_ansel@249.0: operator is not deployed"
+    ]
+  },
+  "major_v2_progress": {
+    "all_four_roadblocks_destroyed": {
+      "trap_020_roadblock#1": {"frame": 3234, "damage_total": 8143.2},
+      "trap_020_roadblock#2": {"frame": 4965, "damage_total": 8358.56},
+      "trap_020_roadblock#3": {"frame": 2025, "damage_total": 8358.56},
+      "trap_020_roadblock#4": {"frame": 2820, "damage_total": 8083.92}
+    },
+    "protected_routes": [
+      {"source_id": "enemy_3001_upeopl#3", "reached_frame": 3566},
+      {"source_id": "enemy_3001_upeopl#14", "reached_frame": 5297}
+    ],
+    "meaning": "V5's protected-target deaths and V1's occupied-tile conflict were eliminated. These local objectives still do not imply zero leaks or artillery death."
+  },
+  "artillery_failure": {
+    "operator_damage": [
+      {"operator_id": "char_210_stward", "hits": 25, "damage_total": 7348.45, "frames": [2281, 3433]}
+    ],
+    "only_artillery_attacker_observed": "char_210_stward",
+    "death_frame": 3480,
+    "predicted_death_window": [3600, 4740],
+    "prediction_status": "EVENT_NOT_OBSERVED",
+    "leak_frame": 5759,
+    "causal_summary": "Steward delivered the entire observed operator damage, but died from the frame-3480 artillery hit after frame-3180/3330 hits and four Hibiscus heals. No other operator damaged the artillery; Lava was killed at frame3630 before delivering any artillery damage. The current HP calculation is not sufficient for a kill."
+  },
+  "early_collapse_chain": [
+    {"operator_id": "char_285_medic2", "death_frame": 1380, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 1380, "amount": 973}},
+    {"operator_id": "char_212_ansel", "death_frame": 3180, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 3180, "amount": 891}},
+    {"operator_id": "char_210_stward", "death_frame": 3480, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 3480, "amount": 910}},
+    {"operator_id": "char_121_lava", "death_frame": 3630, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 3630, "amount": 905}},
+    {"operator_id": "char_120_hibisc", "death_frame": 3780, "last_hit": {"source_id": "enemy_1112_emppnt#0", "frame": 3780, "amount": 890}}
+  ],
+  "late_defense_losses": [
+    {"operator_id": "char_123_fang", "death_frame": 4668, "last_hit_source_id": "enemy_1110_uamord#21"},
+    {"operator_id": "char_240_wyvern", "death_frame": 4734, "last_hit_source_id": "enemy_1110_uamord#22"},
+    {"operator_id": "char_122_beagle", "death_frame": 5439, "last_hit_source_id": "enemy_1107_uoffcr#23"},
+    {"operator_id": "char_283_midn", "death_frame": 6450, "last_hit_source_id": "enemy_1110_uamord#34"},
+    {"operator_id": "char_501_durin", "death_frame": 6702, "last_hit_source_id": "enemy_1110_uamord#34"}
+  ],
+  "first_leaks": [
+    {"source_id": "enemy_1110_uamord#21", "frame": 5067},
+    {"source_id": "enemy_1110_uamord#22", "frame": 5196},
+    {"source_id": "enemy_1112_emppnt#0", "frame": 5759},
+    {"source_id": "enemy_1107_uoffcr#23", "frame": 5781}
+  ],
+  "questions_for_revision": [
+    "Provide enough artillery damage before the primary attacker dies, without relying on an unsupported kill after death.",
+    "Keep early and artillery-era healing alive despite repeated high physical hits.",
+    "Maintain both protected routes while closing the armored/officer leaks that begin at frame5067.",
+    "Create a verified fallback if the primary artillery attacker dies or cannot reach the required damage threshold."
+  ],
+  "prediction_requirements": {
+    "first_observable_event_must_involve": [
+      "artillery death or damage/survival threshold",
+      "or the first decisive leak/protection handoff"
+    ],
+    "not_sufficient_alone": ["one route reached", "one roadblock destroyed", "one opening kill"]
+  }
+}
