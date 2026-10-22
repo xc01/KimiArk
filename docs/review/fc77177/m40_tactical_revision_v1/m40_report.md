@@ -51,12 +51,14 @@ times for 5405.47 before dying at 3160, and Lava added one 291.00 hit at 3850.
 The model received phase/level/skill/potential/trust-specific facts for all
 eligible operators. `NOT_PLANNER_SAFE` was treated as an implementation-support
 boundary, not a strength ranking. Steward's data included ATK 470, interval 1.6,
-range `3-1`, cost 18, and the ATK-scaling auto skill; his GameData talent says
-“prioritize highest-defense,” but current runtime does not implement that
-priority. The current selector is opposing-faction hatred/distance/creation
-order. V2 selected no 1-star operator. Its late 2-star caster `char_009_12fce`
-was used for delayed roadblock #2 clearance; the plan explicitly denied splash
-or dodge credit.
+range `3-1`, cost 18, and the ATK-scaling auto skill. Runtime does implement a
+highest-defense priority for Steward: it was already configured on the R8-2
+adapter and selected a synthetic 1500-DEF candidate over a 500-DEF candidate in
+the M41 behavior regression. This label proves current runtime behavior only;
+tie-breaking and exact client semantics remain UNKNOWN. V2 selected two low-star
+operators: 1-star `char_4227_gallus` (GALLUS²) and 2-star `char_009_12fce`
+(12F). The late 12F was used for delayed roadblock #2 clearance; the plan
+explicitly denied splash or dodge credit.
 
 ## V1 static feedback
 

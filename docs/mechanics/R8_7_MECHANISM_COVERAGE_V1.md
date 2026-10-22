@@ -177,3 +177,20 @@ deliver repeated hits. M40 V2 still lost with 18 leaks and ten operator deaths.
 It destroyed all four roadblocks and brought `#14` safely late, but Steward died
 at frame 3160, artillery survived, and `#3` was killed by artillery. This is a
 candidate-model diagnostic result only.
+
+M40's capability record required correction: V2 did include 1-star GALLUS² and
+2-star 12F. Also, Steward's “prioritize highest-defense” talent is configured
+and executed by current runtime, with a synthetic two-target regression; exact
+client tie-breaking remains UNKNOWN and this is not client-equivalence evidence.
+
+## M41 survival-support result
+
+M41 used three tactical CLI starts and two simulations. V1 proved the selected
+Ansel→Steward support chain with seven actual HEAL events, but Steward still died
+after five 910.00 shell hits, artillery survived, and the run leaked 14. V2
+regressed badly and its planned opening heal was not observed. V3 remained
+contract-valid but was statically blocked because Hibiscus attempted redeploy at
+frame 6600 during cooldown. These are candidate-model diagnostic results only;
+M41 did not establish a WIN, client equality, faithfulness, robustness, or
+real-device behavior. See
+`docs/review/fc77177/m41_survival_support_revision_v1/m41_report.md`.

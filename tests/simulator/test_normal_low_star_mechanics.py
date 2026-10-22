@@ -10,10 +10,13 @@ from arknights_planner.adapters.low_rarity_skill import LowRarityBlackboardEffec
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.models.provenance import known
 from arknights_planner.models.runtime import CombatOutputType
+from arknights_planner.models.simulation import RuntimeEnemy, RuntimeOperator, SimulationState
+from arknights_planner.models.route import Route, Waypoint
 from arknights_planner.adapters.approximate_real import ApproximateRealSimulationAdapter, RealOperatorConfiguration, RealSimulationApproximationPolicy
 from arknights_planner.models.strategy import Action, ActionType, Strategy
 from arknights_planner.simulator.simulator import SimulationConfig, Simulator
 from arknights_planner.simulator import Simulator
+from arknights_planner.simulator.synthetic import runtime_stage
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -82,3 +85,42 @@ def test_named_low_star_mechanics_are_executable() -> None:
     assert fixture.operators["char_124_kroos"].anti_air_priority is True
     assert fixture.operators["char_210_stward"].prioritize_high_defense is True
     assert fixture.operators["char_210_stward"].talent_atk_ratio == pytest.approx(0.06)
+
+
+def test_runtime_high_defense_priority_selects_highest_defense_candidate() -> None:
+    stage = replace(runtime_stage(), routes=(Route("main", (Waypoint(0, 1), Waypoint(6, 1))),))
+    state = SimulationState(time=0.0, dp=10.0, remaining_life=1)
+    state.active_enemies["enemy_low_def#0"] = replace(
+        RuntimeEnemy("enemy_low_def#0", "enemy", "main", 10000.0, 1.0, 1),
+        defense=500.0,
+        distance=2.0,
+        spawn_index=0,
+    )
+    state.active_enemies["enemy_high_def#1"] = replace(
+        RuntimeEnemy("enemy_high_def#1", "enemy", "main", 10000.0, 1.0, 1),
+        defense=1500.0,
+        distance=2.0,
+        spawn_index=1,
+    )
+    operator = RuntimeOperator(
+        operator_id="test_high_defense_operator",
+        tile=(3, 1),
+        direction="RIGHT",
+        hp=100.0,
+        max_hp=100.0,
+        base_atk=10.0,
+        base_block_count=1,
+        base_attack_interval=1.0,
+        base_attack_range=((-1, 0),),
+        defense=0.0,
+        magic_resistance=0.0,
+        combat_output="DAMAGE",
+        redeploy_time=1.0,
+        position="RANGED",
+        prioritize_high_defense=True,
+    )
+    selected = Simulator()._target_enemy_for(stage, state, operator)
+    assert selected is not None
+    assert selected.instance_id == "enemy_high_def#1"
+    details = dict(state.events[-1].details)
+    assert details["rule"].startswith("OPPOSING_FACTION_ONLY")

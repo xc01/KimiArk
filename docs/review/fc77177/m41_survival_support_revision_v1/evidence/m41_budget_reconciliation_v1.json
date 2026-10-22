@@ -1,0 +1,25 @@
+{
+  "budget_scope": "M41_SURVIVAL_SUPPORT_REVISION_V1",
+  "schema_version": "M41_SIMULATION_BUDGET_RECONCILIATION_V1",
+  "historical_budgets_unchanged": {
+    "m39_tactical_cli": "4/4",
+    "m39_tactical_simulations": "2/4",
+    "m40_tactical_cli": "2/2",
+    "m40_tactical_simulations": "1/2"
+  },
+  "m41_cli_authorization": {
+    "max_real_tactical_cli_starts": 3,
+    "started": 0,
+    "remaining": 3,
+    "counting_rule": "Every session invocation counts, including infrastructure failure; no retry or resume."
+  },
+  "m41_fixed_simulation_authorization": {
+    "inherited_from_m39_remaining": 1,
+    "new": 2,
+    "maximum": 3,
+    "prior_stage_simulations_in_local_gate": 0,
+    "started": 0,
+    "remaining": 3,
+    "accounting_note": "The local budget gate exposes the combined M41 maximum as max_stage_simulations=3; this reconciliation retains the cross-round provenance."
+  }
+}

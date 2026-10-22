@@ -131,6 +131,9 @@ def talent_mechanism_support(repository: GameDataRepository, operator_id: str) -
         elif "再部署时间" in description and "-30" in description:
             status = "RUNTIME_SUPPORTED_REDEPLOY_DELTA"
             runtime_supported = True
+        elif "优先攻击防御力最高" in description:
+            status = "RUNTIME_SUPPORTED_HIGH_DEFENSE_PRIORITY"
+            runtime_supported = True
         else:
             status = "UNSUPPORTED_ACTIVE_TALENT"
             runtime_supported = False

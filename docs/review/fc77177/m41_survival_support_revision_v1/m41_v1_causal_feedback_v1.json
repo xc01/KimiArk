@@ -1,0 +1,56 @@
+{
+  "schema_version": "M41_V1_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M41_V1",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m41_survival_support_revision_v1/attempt_01_diagnostic/manifest.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "result": {
+    "status": "LOSS",
+    "kills": 19,
+    "leaks": 14,
+    "operator_deaths": 9,
+    "life": -12,
+    "action_count": 42,
+    "failed_commands": 16
+  },
+  "direct_events": {
+    "first_leak": {"frame": 3065, "source_id": "enemy_1107_uoffcr#11"},
+    "first_objective_failure_when_life_reached_zero": {"frame": 5313, "reason": "ENEMY_LEAK"},
+    "protected_targets": {
+      "safe_reached": [{"id": "enemy_3001_upeopl#14", "frame": 10133}],
+      "died": [{"id": "enemy_3001_upeopl#3", "frame": 5353, "source_id": "enemy_1112_emppnt#0"}]
+    },
+    "roadblocks_destroyed": [
+      {"frame": 2151, "id": "trap_020_roadblock#4", "source_id": "char_283_midn"},
+      {"frame": 2190, "id": "trap_020_roadblock#3", "source_id": "char_192_falco"},
+      {"frame": 9624, "id": "trap_020_roadblock#1", "source_id": "char_4227_gallus"},
+      {"frame": 9801, "id": "trap_020_roadblock#2", "source_id": "char_009_12fce"}
+    ],
+    "operator_deaths": [
+      {"frame": 1333, "id": "char_285_medic2"}, {"frame": 1930, "id": "char_120_hibisc"},
+      {"frame": 2230, "id": "char_240_wyvern"}, {"frame": 3493, "id": "char_210_stward"},
+      {"frame": 4986, "id": "char_122_beagle"}, {"frame": 5203, "id": "char_212_ansel"},
+      {"frame": 5424, "id": "char_209_ardign"}, {"frame": 5709, "id": "char_283_midn"},
+      {"frame": 6485, "id": "char_501_durin"}
+    ],
+    "artillery": {
+      "survived": true,
+      "leak_frame": 5759,
+      "damage_events": {"char_210_stward": {"hits": 19, "amount": 5629.66}, "char_501_durin": {"hits": 2, "amount": 340.0}},
+      "Steward_shell_hits_received": [{"frame": 2893, "amount": 910.0}, {"frame": 3043, "amount": 910.0}, {"frame": 3193, "amount": 910.0}, {"frame": 3343, "amount": 910.0}, {"frame": 3493, "amount": 910.0}],
+      "Steward_death_frame": 3493
+    }
+  },
+  "support_replay": {
+    "first_declared_observable": {"status": "VERIFIED", "event": "HEAL", "source_id": "char_212_ansel", "target_id": "char_210_stward", "frame": 2893, "amount": 362.0},
+    "Ansel_to_Steward": {"heal_count": 7, "total_amount": 3236.8, "first_frame": 2893, "last_frame": 3409},
+    "medic2_actual_healing": {"total_amount": 820.0, "first_frame": 840, "last_frame": 1270, "targets": {"char_240_wyvern": 480.0, "char_123_fang": 200.0, "char_283_midn": 140.0}},
+    "causal_boundary": "Actual healing verifies the selected support chain, but does not prove survival throughput was sufficient, artillery would die, or later roles would hold."
+  },
+  "earliest_failure_interpretation": {
+    "first_hard_goal_violation": "frame 3065 zero-leak failure, not absence of support.",
+    "established": "The M40 V2 support gap was closed: Ansel actually healed Steward after shell damage.",
+    "not_established": "Damage, survival, and interception remained insufficient; Steward died after five shells, artillery survived and leaked, and 14 enemies leaked.",
+    "next_revision_problem": "The candidate must make low-leak interception, artillery throughput, and protected-target exposure jointly valid instead of fixing only one support edge."
+  },
+  "python_boundary": "Do not Python-repair actions or choose the next positions. Feed these facts to GPT; only precise static反例 may be returned to a later CLI start."
+}

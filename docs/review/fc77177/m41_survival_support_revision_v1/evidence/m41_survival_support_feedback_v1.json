@@ -1,0 +1,64 @@
+{
+  "schema_version": "M41_M40_V2_SURVIVAL_SUPPORT_FEEDBACK_V1",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source_plan_id": "R8_7_GPT_M40_V2",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m40_tactical_revision_v1/attempt_02_diagnostic/manifest.json",
+  "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m40_tactical_revision_v1/attempt_02_diagnostic/diagnostic_summary.json",
+  "evidence_status": "DIRECT_SAVED_REPLAY_AND_RUNTIME_BEHAVIOR_REGRESSION",
+  "candidate_model_boundary": "2.7.81 candidate artillery timeline; build-2771 equality, interruption, and some ordering details remain UNKNOWN.",
+  "corrected_mechanism_support": {
+    "low_star_selection": "M40 V2 did select 1-star char_4227_gallus (GALLUS²) and 2-star char_009_12fce (12F).",
+    "steward_high_defense": {
+      "gamedata_fact": "Steward's active talent says prioritize the enemy with highest DEFENSE.",
+      "runtime_fact": "approximate_real adapter sets prioritize_high_defense=True for Steward and simulator selects maximum DEF before remaining path distance and creation order.",
+      "verification": "Synthetic regression selected a 1500-DEF candidate over a 500-DEF candidate at equal distance.",
+      "label": "RUNTIME_SUPPORTED_HIGH_DEFENSE_PRIORITY",
+      "client_semantics": "UNKNOWN_TIE_BREAKING_AND_EXACT_CLIENT_ORDER"
+    },
+    "support_label_boundary": "PLANNER_SAFE describes implementation support, not tactical strength or client equivalence; unsupported effects remain unsupported."
+  },
+  "m40_v2_direct_facts": {
+    "result": "LOSS",
+    "kills": 15,
+    "leaks": 18,
+    "operator_deaths": 10,
+    "life": -16,
+    "protected_targets": {"reached": 1, "deaths": 1, "safe_reached_ids": ["enemy_3001_upeopl#14"], "death_id": "enemy_3001_upeopl#3"},
+    "roadblocks_destroyed": 4,
+    "first_leak": {"frame": 3847, "source_id": "enemy_1107_uoffcr#12"},
+    "first_objective_failure": {"frame": 4625, "reason": "ENEMY_LEAK"},
+    "steward": {
+      "first_artillery_hit_frame": 2281,
+      "artillery_hit_count": 19,
+      "artillery_damage": 5405.47,
+      "heal_events": 0,
+      "artillery_hits_received": [
+        {"frame": 3010, "damage": 910.0, "damage_type": "PHYSICAL"},
+        {"frame": 3160, "damage": 910.0, "damage_type": "PHYSICAL"}
+      ],
+      "death_frame": 3160
+    },
+    "support_failure": "Both medics' basic ranges did not cover Steward, and the plan text acknowledged that fact; therefore support was absent rather than merely insufficient.",
+    "causal_boundary": "This proves the V2 support duty was unclosed and the artillery-survival/defense failure followed. It does not prove that a specific medic, tile, or battle position is mandatory."
+  },
+  "branch_facts": [
+    {"plan_id": "R8_7_GPT_M30_V2", "result": "LOSS", "kills": 20, "leaks": 13, "operator_deaths": 10, "protected_reached": 2, "roadblocks": 4, "artillery": "23 hits / 6626.06"},
+    {"plan_id": "R8_7_GPT_M31_V3", "result": "LOSS", "kills": 22, "leaks": 11, "operator_deaths": 10, "protected_reached": 1, "protected_died": 1, "roadblocks": 3, "artillery": "29 hits / 7959.67"},
+    {"plan_id": "R8_7_GPT_M39_V3", "result": "LOSS", "kills": 19, "leaks": 14, "operator_deaths": 5, "protected_reached": 2, "roadblocks": 4, "artillery": "20 hits / 5822.17"},
+    {"plan_id": "R8_7_GPT_M39_V4", "result": "LOSS", "kills": 17, "leaks": 16, "operator_deaths": 10, "protected_reached": 0, "protected_died": 2, "roadblocks": 1, "artillery": "27 hits / 7609.45; Steward 25 / 7348.45"},
+    {"plan_id": "R8_7_GPT_M40_V2", "result": "LOSS", "kills": 15, "leaks": 18, "operator_deaths": 10, "protected_reached": 1, "protected_died": 1, "roadblocks": 4, "artillery": "20 hits / 5696.47; Steward 19 / 5405.47"}
+  ],
+  "decision_requirements": [
+    "Keep WIN, zero leaks, both protected targets alive and safely reached as the hard goal; operator death is diagnostic only.",
+    "For every key output window, specify attacker, target, expected attacks, incoming pressure, support range/time, support survival, and handoff if support or attacker leaves.",
+    "Distinguish coverage, selection likelihood, and healing throughput; do not infer actual treatment from range alone.",
+    "If a key operator receives no treatment, state an explicit survival, retreat, redeploy, or replacement chain.",
+    "Do not set the next plan's artillery-HP deficit to a fixed repair task inherited from one parent.",
+    "Make the first observable test a key-support, key-survival, artillery-output, or handoff event rather than a self-evident deployment, retreat, skill activation, or early small-enemy kill."
+  ],
+  "execution_policy": {
+    "python_boundary": "Python may calculate and reject facts but must not choose tactics, repair actions, add deployments, move skills, or silently reorder the plan.",
+    "conditional_redeploy": "Requires actual leave timing, cooldown completion, DP, tile occupancy, and deployment slot; future death is not an established fact.",
+    "unsupported_luck": "Do not depend on unimplemented dodge/control or an unverified lucky branch."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "M41_V2_CAUSAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M41_V2",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m41_survival_support_revision_v1/attempt_02_diagnostic/manifest.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "result": {
+    "status": "LOSS",
+    "kills": 8,
+    "leaks": 25,
+    "operator_deaths": 11,
+    "life": -24,
+    "failed_commands": 16,
+    "final_dp": 80.2333333333
+  },
+  "direct_events": {
+    "planned_first_observable": {
+      "status": "EVENT_NOT_OBSERVED",
+      "window": [1260, 1350],
+      "event_type": "HEAL",
+      "source_id": "char_212_ansel",
+      "target_id": "char_240_wyvern"
+    },
+    "first_leak": {"frame": 881, "source_id": "enemy_1108_uterer#1"},
+    "first_objective_failure_when_life_reached_zero": {"frame": 1535, "source_id": "enemy_1107_uoffcr#6", "reason": "ENEMY_LEAK"},
+    "early_deaths": [
+      {"frame": 687, "id": "char_123_fang"},
+      {"frame": 792, "id": "char_240_wyvern"},
+      {"frame": 2023, "id": "char_283_midn"},
+      {"frame": 3043, "id": "char_212_ansel"},
+      {"frame": 3043, "id": "char_210_stward"}
+    ],
+    "protected_targets": {"safe_reached": 0, "deaths": [{"id": "enemy_3001_upeopl#14", "frame": 3853, "source_id": "enemy_1112_emppnt#0"}, {"id": "enemy_3001_upeopl#3", "frame": 5473, "source_id": "enemy_1112_emppnt#0"}]},
+    "roadblocks_destroyed": [{"frame": 2190, "id": "trap_020_roadblock#3", "source_id": "char_192_falco"}],
+    "artillery": {"survived": true, "leak_frame": 5759, "hits": 19, "damage": 4755.88, "by_source": {"char_210_stward": 10, "char_121_lava": 4, "char_4227_gallus": 5}},
+    "actual_heals": [
+      {"frame": 2893, "source_id": "char_212_ansel", "target_id": "char_210_stward", "amount": 506.8},
+      {"frame": 2979, "source_id": "char_212_ansel", "target_id": "char_212_ansel", "amount": 506.8}
+    ]
+  },
+  "branch_context": {
+    "R8_7_GPT_M41_V1": {
+      "result": "LOSS",
+      "kills": 19,
+      "leaks": 14,
+      "operator_deaths": 9,
+      "life": -12,
+      "local_advantage": "Ansel actually healed Steward 7 times for 3236.8 from frames 2893–3409; Steward dealt 19 hits / 5629.66; four roadblocks were eventually destroyed.",
+      "limit": "Steward still died at 3493, artillery survived, first leak was 3065, and #3 died at 5353."
+    },
+    "R8_7_GPT_M41_V2": {
+      "result": "LOSS",
+      "kills": 8,
+      "leaks": 25,
+      "operator_deaths": 11,
+      "life": -24,
+      "failure": "The opening support prediction and early interception both failed; neither protected target arrived."
+    }
+  },
+  "causal_boundary": "The V2 planned treatment event did not occur; its absence falsifies the opening support hypothesis but does not by itself prove every later leak was caused by that one event. V1 proves actual Steward treatment but not sufficient throughput or interception.",
+  "revision_requirement": "Do not repeat V2's early-rotation collapse. Preserve or replace V1's verified support edge only if the revised opening and zero-leak duties also remain viable. Make the next first observable a key early interception, support, or survival event whose absence identifies the decisive assumption.",
+  "python_boundary": "Python will not choose positions, operators, or action repairs."
+}
