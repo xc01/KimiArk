@@ -1,0 +1,77 @@
+{
+  "schema_version": "M39_ATTEMPT03_TACTICAL_FEEDBACK_V1",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source_plan_id": "R8_7_GPT_M39_V3",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m39_tactical_iteration_v1/attempt_03_diagnostic/manifest.json",
+  "evidence_status": "DIRECT_SAVED_REPLAY",
+  "candidate_model_boundary": "2.7.81 artillery candidate evidence; build-2771 equivalence, interruption, and ordinary/special mutual exclusion remain UNKNOWN",
+  "result": {
+    "battle_result_status": "LEGAL_BATTLE_LOSS",
+    "simulator_win": false,
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 5,
+    "remaining_life": -11,
+    "final_dp": 99.0,
+    "faithful_certificate": "NOT_ISSUED"
+  },
+  "direct_observations": {
+    "first_leak": {"frame": 3065, "source_id": "enemy_1107_uoffcr#11"},
+    "first_objective_failure": {"frame": 3711, "reason": "ENEMY_LEAK", "remaining_life": 0},
+    "protected_targets_reached": [
+      {"target_id": "enemy_3001_upeopl#3", "frame": 3566},
+      {"target_id": "enemy_3001_upeopl#14", "frame": 5297}
+    ],
+    "protected_target_deaths": [],
+    "roadblocks_destroyed": [
+      {"device_id": "trap_020_roadblock#3", "frame": 2025, "destroyer_id": "char_208_melan"},
+      {"device_id": "trap_020_roadblock#4", "frame": 2850, "destroyer_id": "char_121_lava"},
+      {"device_id": "trap_020_roadblock#1", "frame": 3234, "destroyer_id": "char_4227_gallus"},
+      {"device_id": "trap_020_roadblock#2", "frame": 4965, "destroyer_id": "char_208_melan"}
+    ],
+    "operator_deaths": [
+      {"operator_id": "char_240_wyvern", "frame": 2023},
+      {"operator_id": "char_210_stward", "frame": 3011},
+      {"operator_id": "char_212_ansel", "frame": 3311},
+      {"operator_id": "char_123_fang", "frame": 3369},
+      {"operator_id": "char_122_beagle", "frame": 5439}
+    ],
+    "retreats": [
+      {"operator_id": "char_285_medic2", "frame": 1290},
+      {"operator_id": "char_283_midn", "frame": 2115},
+      {"operator_id": "char_208_melan", "frame": 2220},
+      {"operator_id": "char_4227_gallus", "frame": 3330},
+      {"operator_id": "char_121_lava", "frame": 4380},
+      {"operator_id": "char_208_melan", "frame": 5160},
+      {"operator_id": "char_240_wyvern", "frame": 5160}
+    ]
+  },
+  "artillery_damage": {
+    "target_id": "enemy_1112_emppnt#0",
+    "hit_count": 20,
+    "total_damage": 5822.17,
+    "first_hit_frame": 2281,
+    "last_hit_frame": 3972,
+    "damagers": {"char_210_stward": 16, "char_121_lava": 4},
+    "remaining_hp_model": 7177.83,
+    "death_event_observed": false
+  },
+  "failing_commands_after_dead_or_undeployed_source": [
+    {"operator_id": "char_240_wyvern", "frame": 2550, "reason": "operator is not deployed"},
+    {"operator_id": "char_240_wyvern", "frame": 3450, "reason": "operator is not deployed"},
+    {"operator_id": "char_240_wyvern", "frame": 4350, "reason": "operator is not deployed"},
+    {"operator_id": "char_212_ansel", "frame": 4500, "reason": "operator is not deployed"},
+    {"operator_id": "char_240_wyvern", "frame": 5160, "reason": "operator is not deployed"},
+    {"operator_id": "char_212_ansel", "frame": 6300, "reason": "operator is not deployed"}
+  ],
+  "causal_boundary": {
+    "confirmed": "The named deaths and failed commands are direct events. Damage and blocking competition are saved-event observations, not exhaustive client semantics.",
+    "not_proven": "The exact targeting causes for each death, complete build-2771 equivalence, interruption behavior, and all collision/tie-break rules remain UNKNOWN."
+  },
+  "local_branch_strengths": {
+    "R8_7_GPT_M39_V3": "Both protected targets reached and all four roadblocks destroyed, but 14 leaks and 5 operator deaths caused LOSS.",
+    "R8_7_GPT_M30_V2": "Both protected targets reached, all four roadblocks destroyed, and more artillery damage, but 13 leaks and 10 operator deaths.",
+    "R8_7_GPT_M31_V3": "Different early-output/casualty tradeoff, but #3 died and roadblock #1 remained."
+  },
+  "revision_policy": "Do not mechanically splice branches or harden a damage delta into a fixed task. Treat this as conditional candidate evidence and redesign synchronized defense, clearance, healing, artillery pressure and handoffs."
+}

@@ -218,7 +218,7 @@ def build_static_feedback(revision_source: Path, static_summary_path: Path) -> d
         return {
             "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_SCHEMA_CONTRACT_FEEDBACK",
             "source": str(static_summary_path),
-            "source_plan_id": candidate.get("operational_plan_id"),
+            "source_plan_id": static.get("source_plan_id") or candidate.get("operational_plan_id"),
             "simulation_status": "NO_SIMULATION",
             "errors": static.get("errors") or [],
             "action_order_rule": "action_timeline must be nondecreasing by frame; same-frame actions retain their intended execution order",
@@ -340,6 +340,7 @@ def prepare() -> dict[str, Any]:
             "reasoning_effort": codex_runner.REASONING_EFFORT,
             "sandbox": "read-only", "compatibility": "USER_CONFIRMED_CLI_LOGIN",
         }
+        evidence["mechanics_version"] = ACTIVE_MECHANICS_VERSION
         evidence["codex_cli_run_policy"] = {
             "process_starts": 1, "automatic_retry": False, "automatic_resume": False,
             "source_modification": "FORBIDDEN", "stage_simulation_by_model": "FORBIDDEN",
@@ -355,8 +356,13 @@ def prepare() -> dict[str, Any]:
             "stage_move_multiplier": "applied once to enemy raw move speed",
             "fragment_or_wave_wait": "checkpoint time is used as the wait duration in the current model",
             "disappear_appear": "enemy is hidden between source DISAPPEAR and APPEAR_AT_POS; exact client visibility and target rules remain UNKNOWN",
+            "artillery_candidate_timeline": "Cast starts cooldown and selection; with no slowdown, OnAttack creates the fixed-point projectile about cast+0.333333 seconds, and the hit is about creation+3.0 seconds. This is 2.7.81 candidate evidence, not build-2771 equality.",
+            "medical_candidate_scope": "The confirmed ratio filter selects the lowest missing-HP-ratio in range and excludes full HP; exact equal-ratio tie-break remains UNKNOWN.",
+            "protected_target_candidate_scope": "Neutral-promotion before hatred sorting is confirmed for the 2.7.81 selector; exact hatred values and all tie-breaks remain UNKNOWN.",
             "unknowns": [
-                "exact client target priority between operators and protected targets",
+                "build-2771 equivalence",
+                "interruption and mid-cast attack-time rescheduling",
+                "ordinary/special mutual exclusion",
                 "other protected-target families and exact continuous-frame client timing",
             ],
         }
@@ -472,6 +478,24 @@ def prepare() -> dict[str, Any]:
             }
             evidence.pop("m24_tactical_revision_input", None)
             evidence.pop("roadblock_clearance_evidence", None)
+        else:
+            feedback = evidence.get("prior_tactical_feedback")
+            evidence["tactical_experience"] = {
+                "schema_version": experience.EVENT_QUERY_SCHEMA_VERSION,
+                "retrieval_limit": 0,
+                "records": [{
+                    "experience_id": feedback.get("schema_version") if isinstance(feedback, dict) else "CURRENT_FEEDBACK",
+                    "scope": {"stage_id": STAGE_ID, "mechanics_version": ACTIVE_MECHANICS_VERSION},
+                    "evidence_status": feedback.get("evidence_status") if isinstance(feedback, dict) else "UNKNOWN",
+                    "source": feedback.get("source_manifest") if isinstance(feedback, dict) else None,
+                    "summary": "Current M38b replay feedback is the available conditional evidence; do not reference unregistered plan IDs as experience IDs.",
+                }],
+                "usage_policy": [
+                    "Use only experience_id values listed in records.",
+                    "Treat this record as conditional evidence, not a universal deadline.",
+                    "A VERIFIED prediction only confirms its declared observable event; it does not prove the full plan.",
+                ],
+            }
         schema = experience.add_revision_hypothesis_schema(schema)
         write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
         write_json(codex_runner.OUT / "revision_output_schema.json", schema)
@@ -580,6 +604,7 @@ MANDATORY OUTPUT CONTRACT
 - Root required fields: {json.dumps(schema_required)}.
 - revised_operational_plans[0] required fields: {json.dumps(plan_required)}.
 - revision_hypothesis required fields: {json.dumps(revision_required)}.
+- referenced_experience_ids must be a subset of evidence.tactical_experience.records[*].experience_id.
 - mandatory_tactical_invariants entries must be objects, not strings.
 - battle_phases must explain each phase goal, start/completion condition, duties, survival dependencies, handoffs and the consequence of that phase failing.
 - parent_hypothesis_id must equal one of revised_strategic_hypotheses[*].hypothesis_id.

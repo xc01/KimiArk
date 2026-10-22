@@ -156,3 +156,14 @@ this hot list, the relevant dependency closure (including the unresolved
 GameData revision known to correspond to that client/resource version. Existing
 build-2771 disassembly may guide code reading but must be revalidated against
 the 2.7.81 binary before any runtime behavior change.
+
+## M39 tactical result under the candidate model
+
+Two legal M39 simulations used the 2.7.81 candidate timeline and both were
+LOSS. V3 kept both civilians safe, cleared all four roadblocks, and reduced
+operator deaths to five, but still leaked 14. V4 missed its Steward artillery
+output window, destroyed only roadblock #3, lost both civilians, leaked 16, and
+lost ten operators. Artillery survived both runs. These results are bounded by
+the candidate model and do not establish build-2771 equality, faithfulness, or
+real-device behavior. The detailed branch comparison is in
+`docs/review/fc77177/m39_tactical_iteration_v1/m39_report.md`.

@@ -1,0 +1,54 @@
+{
+  "schema_version": "M39_M38B_TACTICAL_FEEDBACK_V1",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source_manifest": "docs/review/fc77177/m38b_animation_speed_correction_v1/m38b_replay_manifest_v1.json",
+  "evidence_status": "DIRECT_SAVED_REPLAY",
+  "candidate_model_boundary": "2.7.81 artillery candidate evidence; build-2771 equivalence, interruption, and ordinary/special mutual exclusion remain UNKNOWN",
+  "artillery_timing": {
+    "cooldown_start": "cast start",
+    "no_target_behavior": "timer is not restarted",
+    "projectile_creation": "cast start + 0.333333 seconds when no slowdown is present",
+    "position_lock": "at projectile creation",
+    "hit": "projectile creation + 3.0 seconds",
+    "previous_0_077778_and_3_077778_values": "SUPERSEDED_DO_NOT_USE"
+  },
+  "comparison_branches": [
+    {
+      "plan_id": "R8_7_GPT_M30_V2",
+      "result": "LOSS",
+      "enemies_killed": 20,
+      "enemies_leaked": 13,
+      "operator_deaths": 10,
+      "remaining_life": -10,
+      "protected_targets_reached": ["enemy_3001_upeopl#3", "enemy_3001_upeopl#14"],
+      "protected_target_deaths": [],
+      "roadblocks_destroyed": ["trap_020_roadblock#3", "trap_020_roadblock#4", "trap_020_roadblock#1", "trap_020_roadblock#2"],
+      "artillery_damage_taken": {"amount": 6626.06, "hit_count": 23, "killed": false},
+      "first_leaks": [
+        {"frame": 4507, "source_id": "enemy_1107_uoffcr#19"},
+        {"frame": 5046, "source_id": "enemy_1110_uamord#21"}
+      ]
+    },
+    {
+      "plan_id": "R8_7_GPT_M31_V3",
+      "result": "LOSS",
+      "enemies_killed": 22,
+      "enemies_leaked": 11,
+      "operator_deaths": 10,
+      "remaining_life": -9,
+      "protected_targets_reached": ["enemy_3001_upeopl#14"],
+      "protected_target_deaths": [
+        {"frame": 5353, "target_id": "enemy_3001_upeopl#3", "source_id": "enemy_1112_emppnt#0"}
+      ],
+      "roadblocks_destroyed": ["trap_020_roadblock#3", "trap_020_roadblock#4", "trap_020_roadblock#2"],
+      "roadblocks_not_destroyed": ["trap_020_roadblock#1"],
+      "artillery_damage_taken": {"amount": 7959.67, "hit_count": 29, "killed": false},
+      "first_leaks": [
+        {"frame": 5469, "source_id": "enemy_1110_uamord#22"},
+        {"frame": 5759, "source_id": "enemy_1112_emppnt#0"},
+        {"frame": 5791, "source_id": "enemy_1110_uamord#21"}
+      ]
+    }
+  ],
+  "interpretation_rule": "M30 V2 shows full-route protection strength; M31 V3 shows a different early-output/casualty tradeoff. Damage totals are conditional results, not a fixed required incremental damage task. Do not mechanically splice the two plans."
+}

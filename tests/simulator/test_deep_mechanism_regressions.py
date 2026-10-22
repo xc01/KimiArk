@@ -518,6 +518,20 @@ def test_animation_event_time_applies_max_anim_scale_and_slow_down():
     ) == pytest.approx(0.4)
 
 
+def test_animation_event_time_does_not_apply_slowdown_cap_without_slow_status():
+    arguments = dict(
+        animation_event_time_seconds=1.0,
+        animation_duration_seconds=1.0,
+        animation_speed=1.0,
+        attack_time_seconds=3.0,
+        max_anim_scale=4.0,
+        affected_by_slow_down=True,
+    )
+    assert animation_event_real_seconds(**arguments) == pytest.approx(3.0)
+    assert animation_event_real_seconds(slow_down=0.0, **arguments) == pytest.approx(3.0)
+    assert animation_event_real_seconds(slow_down=0.5, anim_slow_down=1.0, **arguments) == pytest.approx(2.5)
+
+
 def test_emp_point_game_data_derives_uncapped_attack_event_time(tmp_path):
     excel = tmp_path / "zh_CN/gamedata/excel"
     enemydata = tmp_path / "zh_CN/gamedata/levels/enemydata"

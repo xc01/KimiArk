@@ -64,7 +64,7 @@ def animation_event_real_seconds(
     attack_time_seconds: float,
     max_anim_scale: float | None,
     affected_by_slow_down: bool = False,
-    slow_down: float = 1.0,
+    slow_down: float = 0.0,
     anim_slow_down: float = 1.0,
 ) -> float:
     """Scale a raw Spine event to real time using the candidate client formula.
@@ -80,8 +80,8 @@ def animation_event_real_seconds(
         raise ValueError("attack_time_seconds must be positive")
     if animation_duration_seconds < 0 or animation_event_time_seconds < 0:
         raise ValueError("raw animation times cannot be negative")
-    if slow_down == 0 or not affected_by_slow_down:
-        slow_down = 1.0
+    slowdown_active = affected_by_slow_down and slow_down != 0
+    if not slowdown_active:
         anim_slow_down = 1.0
     if anim_slow_down <= 0:
         raise ValueError("anim_slow_down must be positive")
@@ -89,7 +89,7 @@ def animation_event_real_seconds(
     scaled_duration = animation_duration_seconds / anim_slow_down
     animation_scale = max(attack_time_seconds / scaled_duration, 0.1)
     if max_anim_scale is not None and max_anim_scale >= 0:
-        scale_cap = min(max_anim_scale / anim_slow_down, 2.5)
+        scale_cap = min(max_anim_scale / anim_slow_down, 2.5) if slowdown_active else max_anim_scale
         animation_scale = min(animation_scale, scale_cap)
     return animation_event_time_seconds * animation_scale / (animation_speed * anim_slow_down)
 
