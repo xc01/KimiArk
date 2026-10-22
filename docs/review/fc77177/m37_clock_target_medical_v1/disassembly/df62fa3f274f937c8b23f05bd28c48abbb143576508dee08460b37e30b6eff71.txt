@@ -1,0 +1,511 @@
+0x2972c1c: stp      x25, x24, [sp, #-0x40]!
+0x2972c20: stp      x23, x22, [sp, #0x10]
+0x2972c24: stp      x21, x20, [sp, #0x20]
+0x2972c28: stp      x19, x30, [sp, #0x30]
+0x2972c2c: adrp     x21, #0xce8f000
+0x2972c30: adrp     x22, #0xc650000
+0x2972c34: ldrb     w8, [x21, #0x131]
+0x2972c38: ldr      x22, [x22, #0xfe0]
+0x2972c3c: mov      x19, x1
+0x2972c40: mov      x20, x0
+0x2972c44: tbnz     w8, #0, #0x2972cd4
+0x2972c48: adrp     x0, #0xc5d3000
+0x2972c4c: ldr      x0, [x0, #0xeb8]
+0x2972c50: bl       #0x237e160
+0x2972c54: adrp     x0, #0xc65e000
+0x2972c58: ldr      x0, [x0, #0xb48]
+0x2972c5c: bl       #0x237e160
+0x2972c60: adrp     x0, #0xc6dd000
+0x2972c64: ldr      x0, [x0, #0xb58]
+0x2972c68: bl       #0x237e160
+0x2972c6c: adrp     x0, #0xc5f5000
+0x2972c70: ldr      x0, [x0, #0xc60]
+0x2972c74: bl       #0x237e160
+0x2972c78: adrp     x0, #0xc64c000
+0x2972c7c: ldr      x0, [x0, #0x990]
+0x2972c80: bl       #0x237e160
+0x2972c84: adrp     x0, #0xc5d8000
+0x2972c88: ldr      x0, [x0, #0xff8]
+0x2972c8c: bl       #0x237e160
+0x2972c90: adrp     x0, #0xc727000
+0x2972c94: ldr      x0, [x0, #0xcd8]
+0x2972c98: bl       #0x237e160
+0x2972c9c: adrp     x0, #0xc735000
+0x2972ca0: ldr      x0, [x0, #0xb28]
+0x2972ca4: bl       #0x237e160
+0x2972ca8: adrp     x0, #0xc650000
+0x2972cac: ldr      x0, [x0, #0xfe0]
+0x2972cb0: bl       #0x237e160
+0x2972cb4: adrp     x0, #0xc634000
+0x2972cb8: ldr      x0, [x0, #0x4c0]
+0x2972cbc: bl       #0x237e160
+0x2972cc0: adrp     x0, #0xc719000
+0x2972cc4: ldr      x0, [x0, #0x3a0]
+0x2972cc8: bl       #0x237e160
+0x2972ccc: mov      w8, #1
+0x2972cd0: strb     w8, [x21, #0x131]
+0x2972cd4: ldr      x8, [x22]
+0x2972cd8: ldr      x8, [x8, #0xb8]
+0x2972cdc: ldr      x0, [x8, #0x18]
+0x2972ce0: cbz      x0, #0x2972d04
+0x2972ce4: mov      x1, x20
+0x2972ce8: mov      x2, x19
+0x2972cec: ldp      x19, x30, [sp, #0x30]
+0x2972cf0: ldp      x21, x20, [sp, #0x20]
+0x2972cf4: ldp      x23, x22, [sp, #0x10]
+0x2972cf8: mov      x3, xzr
+0x2972cfc: ldp      x25, x24, [sp], #0x40
+0x2972d00: b        #0x4e57ff4
+0x2972d04: adrp     x21, #0xc5f5000
+0x2972d08: ldr      x21, [x21, #0xc60]
+0x2972d0c: mov      x0, x20
+0x2972d10: mov      x1, xzr
+0x2972d14: bl       #0x2977b9c ; -> Torappu.Battle.TargetSelector.get_owner
+0x2972d18: ldr      x8, [x21]
+0x2972d1c: ldr      w21, [x20, #0xbc]
+0x2972d20: mov      x22, x0
+0x2972d24: ldr      w9, [x8, #0xe0]
+0x2972d28: cbnz     w9, #0x2972d34
+0x2972d2c: mov      x0, x8
+0x2972d30: bl       #0x237e260
+0x2972d34: adrp     x24, #0xc727000
+0x2972d38: adrp     x23, #0xc64c000
+0x2972d3c: ldr      x24, [x24, #0xcd8]
+0x2972d40: ldr      x23, [x23, #0x990]
+0x2972d44: mov      w2, #0x80
+0x2972d48: mov      x0, x19
+0x2972d4c: mov      x1, x22
+0x2972d50: mov      w3, w21
+0x2972d54: bl       #0x295eed4 ; -> Torappu.Battle.FilterUtil.Filter
+0x2972d58: ldr      x0, [x20, #0x138]
+0x2972d5c: mov      x1, xzr
+0x2972d60: bl       #0x8b911d8 ; -> System.String.IsNullOrEmpty
+0x2972d64: tbnz     w0, #0, #0x2972df0
+0x2972d68: cbz      x19, #0x2973014
+0x2972d6c: ldr      w8, [x19, #0x18]
+0x2972d70: subs     w21, w8, #1
+0x2972d74: b.mi     #0x2972df0
+0x2972d78: adrp     x25, #0xc677000
+0x2972d7c: ldr      x25, [x25, #0x6d0]
+0x2972d80: ldr      x2, [x24]
+0x2972d84: mov      x0, x19
+0x2972d88: mov      w1, w21
+0x2972d8c: bl       #0x71b7ce4
+0x2972d90: cbz      x0, #0x2973014
+0x2972d94: ldrb     w8, [x25]
+0x2972d98: mov      x22, x0
+0x2972d9c: cbz      w8, #0x2972da8
+0x2972da0: ldr      x0, [x22]
+0x2972da4: bl       #0x23c9be0
+0x2972da8: ldr      x8, [x22]
+0x2972dac: mov      x0, x22
+0x2972db0: ldr      x9, [x8, #0x480]
+0x2972db4: ldr      x1, [x8, #0x488]
+0x2972db8: blr      x9
+0x2972dbc: cbz      x0, #0x2973014
+0x2972dc0: mov      x1, xzr
+0x2972dc4: bl       #0x2830330 ; -> Torappu.Battle.Tile.GetEnemies
+0x2972dc8: mov      x1, x0
+0x2972dcc: mov      x0, x20
+0x2972dd0: bl       #0x2973018 ; -> Torappu.Battle.SecondaryFilterAdvancedSelector._CheckEnemies
+0x2972dd4: tbz      w0, #0, #0x2972de8
+0x2972dd8: ldr      x2, [x23]
+0x2972ddc: mov      x0, x19
+0x2972de0: mov      w1, w21
+0x2972de4: bl       #0x71ba37c
+0x2972de8: subs     w21, w21, #1
+0x2972dec: b.pl     #0x2972d80
+0x2972df0: mov      x0, x20
+0x2972df4: mov      x1, xzr
+0x2972df8: bl       #0x2943408 ; -> Torappu.Battle.AdvancedSelector.get_maxTargetNum
+0x2972dfc: cmp      w0, #1
+0x2972e00: b.gt     #0x2972e0c
+0x2972e04: ldrb     w8, [x20, #0xf5]
+0x2972e08: cbz      w8, #0x2972f88
+0x2972e0c: cbz      x19, #0x2973014
+0x2972e10: ldr      w8, [x19, #0x18]
+0x2972e14: cmp      w8, #1
+0x2972e18: b.lt     #0x2972eac
+0x2972e1c: adrp     x25, #0xc735000
+0x2972e20: ldr      x25, [x25, #0xb28]
+0x2972e24: mov      w21, wzr
+0x2972e28: mov      w22, wzr
+0x2972e2c: ldr      x2, [x24]
+0x2972e30: mov      x0, x19
+0x2972e34: mov      w1, w21
+0x2972e38: bl       #0x71b7ce4
+0x2972e3c: mov      x1, x0
+0x2972e40: mov      x0, x20
+0x2972e44: bl       #0x2973410 ; -> Torappu.Battle.SecondaryFilterAdvancedSelector._CheckSecondFilter
+0x2972e48: tbz      w0, #0, #0x2972e9c
+0x2972e4c: ldr      x2, [x24]
+0x2972e50: mov      x0, x19
+0x2972e54: mov      w1, w22
+0x2972e58: bl       #0x71b7ce4
+0x2972e5c: ldr      x2, [x24]
+0x2972e60: mov      x23, x0
+0x2972e64: mov      x0, x19
+0x2972e68: mov      w1, w21
+0x2972e6c: bl       #0x71b7ce4
+0x2972e70: ldr      x3, [x25]
+0x2972e74: mov      x2, x0
+0x2972e78: mov      x0, x19
+0x2972e7c: mov      w1, w22
+0x2972e80: bl       #0x71b7d38
+0x2972e84: ldr      x3, [x25]
+0x2972e88: mov      x0, x19
+0x2972e8c: mov      w1, w21
+0x2972e90: mov      x2, x23
+0x2972e94: bl       #0x71b7d38
+0x2972e98: add      w22, w22, #1
+0x2972e9c: ldr      w8, [x19, #0x18]
+0x2972ea0: add      w21, w21, #1
+0x2972ea4: cmp      w21, w8
+0x2972ea8: b.lt     #0x2972e2c
+0x2972eac: ldrb     w8, [x20, #0xf5]
+0x2972eb0: cbz      w8, #0x2972f54
+0x2972eb4: adrp     x23, #0xc719000
+0x2972eb8: ldr      x23, [x23, #0x3a0]
+0x2972ebc: ldr      x0, [x23]
+0x2972ec0: ldr      w8, [x0, #0xe0]
+0x2972ec4: cbnz     w8, #0x2972ed0
+0x2972ec8: bl       #0x237e260
+0x2972ecc: ldr      x0, [x23]
+0x2972ed0: ldr      x8, [x0, #0xb8]
+0x2972ed4: ldr      x21, [x8, #8]
+0x2972ed8: cbnz     x21, #0x2972f38
+0x2972edc: adrp     x21, #0xc6dd000
+0x2972ee0: ldr      w8, [x0, #0xe0]
+0x2972ee4: ldr      x21, [x21, #0xb58]
+0x2972ee8: cbnz     w8, #0x2972ef4
+0x2972eec: bl       #0x237e260
+0x2972ef0: ldr      x0, [x23]
+0x2972ef4: ldr      x8, [x0, #0xb8]
+0x2972ef8: ldr      x0, [x21]
+0x2972efc: ldr      x22, [x8]
+0x2972f00: bl       #0x237e274
+0x2972f04: cbz      x0, #0x2973014
+0x2972f08: adrp     x8, #0xc634000
+0x2972f0c: ldr      x8, [x8, #0x4c0]
+0x2972f10: mov      x1, x22
+0x2972f14: mov      x3, xzr
+0x2972f18: mov      x21, x0
+0x2972f1c: ldr      x2, [x8]
+0x2972f20: bl       #0x83b0ad0
+0x2972f24: ldr      x8, [x23]
+0x2972f28: mov      x1, x21
+0x2972f2c: ldr      x0, [x8, #0xb8]
+0x2972f30: str      x21, [x0, #8]!
+0x2972f34: bl       #0x237e114
+0x2972f38: adrp     x8, #0xc65e000
+0x2972f3c: ldr      x8, [x8, #0xb48]
+0x2972f40: mov      w2, #-1
+0x2972f44: mov      x0, x19
+0x2972f48: mov      x1, x21
+0x2972f4c: ldr      x3, [x8]
+0x2972f50: bl       #0x63bef20
+0x2972f54: adrp     x21, #0xc5d3000
+0x2972f58: ldr      x21, [x21, #0xeb8]
+0x2972f5c: mov      x0, x20
+0x2972f60: mov      x1, xzr
+0x2972f64: bl       #0x2943408 ; -> Torappu.Battle.AdvancedSelector.get_maxTargetNum
+0x2972f68: ldr      x2, [x21]
+0x2972f6c: mov      w1, w0
+0x2972f70: mov      x0, x19
+0x2972f74: ldp      x19, x30, [sp, #0x30]
+0x2972f78: ldp      x21, x20, [sp, #0x20]
+0x2972f7c: ldp      x23, x22, [sp, #0x10]
+0x2972f80: ldp      x25, x24, [sp], #0x40
+0x2972f84: b        #0x63be458
+0x2972f88: cbz      x19, #0x2973014
+0x2972f8c: ldr      w8, [x19, #0x18]
+0x2972f90: cmp      w8, #1
+0x2972f94: b.lt     #0x2972f54
+0x2972f98: mov      w21, wzr
+0x2972f9c: ldr      x2, [x24]
+0x2972fa0: mov      x0, x19
+0x2972fa4: mov      w1, w21
+0x2972fa8: bl       #0x71b7ce4
+0x2972fac: mov      x1, x0
+0x2972fb0: mov      x0, x20
+0x2972fb4: bl       #0x2973410 ; -> Torappu.Battle.SecondaryFilterAdvancedSelector._CheckSecondFilter
+0x2972fb8: ldr      w8, [x19, #0x18]
+0x2972fbc: tbnz     w0, #0, #0x2972fd0
+0x2972fc0: add      w21, w21, #1
+0x2972fc4: cmp      w21, w8
+0x2972fc8: b.lt     #0x2972f9c
+0x2972fcc: b        #0x2972f54
+0x2972fd0: subs     w21, w8, #1
+0x2972fd4: b.mi     #0x2972f54
+0x2972fd8: ldr      x2, [x24]
+0x2972fdc: mov      x0, x19
+0x2972fe0: mov      w1, w21
+0x2972fe4: bl       #0x71b7ce4
+0x2972fe8: mov      x1, x0
+0x2972fec: mov      x0, x20
+0x2972ff0: bl       #0x2973410 ; -> Torappu.Battle.SecondaryFilterAdvancedSelector._CheckSecondFilter
+0x2972ff4: tbnz     w0, #0, #0x2973008
+0x2972ff8: ldr      x2, [x23]
+0x2972ffc: mov      x0, x19
+0x2973000: mov      w1, w21
+0x2973004: bl       #0x71ba37c
+0x2973008: subs     w21, w21, #1
+0x297300c: b.pl     #0x2972fd8
+0x2973010: b        #0x2972f54
+0x2973014: bl       #0x237e284
+0x2973018: sub      sp, sp, #0x70
+0x297301c: str      x28, [sp, #0x10]
+0x2973020: stp      x27, x26, [sp, #0x20]
+0x2973024: stp      x25, x24, [sp, #0x30]
+0x2973028: stp      x23, x22, [sp, #0x40]
+0x297302c: stp      x21, x20, [sp, #0x50]
+0x2973030: stp      x19, x30, [sp, #0x60]
+0x2973034: adrp     x22, #0xce8f000
+0x2973038: adrp     x21, #0xc650000
+0x297303c: ldrb     w8, [x22, #0x132]
+0x2973040: ldr      x21, [x21, #0xfe0]
+0x2973044: mov      x19, x1
+0x2973048: mov      x20, x0
+0x297304c: tbnz     w8, #0, #0x29730ac
+0x2973050: adrp     x0, #0xc622000
+0x2973054: ldr      x0, [x0, #0x130]
+0x2973058: bl       #0x237e160
+0x297305c: adrp     x0, #0xc685000
+0x2973060: ldr      x0, [x0, #0x188]
+0x2973064: bl       #0x237e160
+0x2973068: adrp     x0, #0xc6a9000
+0x297306c: ldr      x0, [x0, #0x1f0]
+0x2973070: bl       #0x237e160
+0x2973074: adrp     x0, #0xc614000
+0x2973078: ldr      x0, [x0, #0x6d8]
+0x297307c: bl       #0x237e160
+0x2973080: adrp     x0, #0xc6a6000
+0x2973084: ldr      x0, [x0, #0xd8]
+0x2973088: bl       #0x237e160
+0x297308c: adrp     x0, #0xc6dc000
+0x2973090: ldr      x0, [x0, #0x8f0]
+0x2973094: bl       #0x237e160
+0x2973098: adrp     x0, #0xc650000
+0x297309c: ldr      x0, [x0, #0xfe0]
+0x29730a0: bl       #0x237e160
+0x29730a4: mov      w8, #1
+0x29730a8: strb     w8, [x22, #0x132]
+0x29730ac: ldr      x8, [x21]
+0x29730b0: stp      xzr, xzr, [sp]
+0x29730b4: ldr      x8, [x8, #0xb8]
+0x29730b8: ldr      x0, [x8, #0x20]
+0x29730bc: cbz      x0, #0x29730d4
+0x29730c0: mov      x1, x20
+0x29730c4: mov      x2, x19
+0x29730c8: mov      x3, xzr
+0x29730cc: bl       #0x4e589a8 ; -> XLua.DelegateBridge.__Gen_Delegate_Imp29
+0x29730d0: b        #0x29732f0
+0x29730d4: cbz      x19, #0x2973318
+0x29730d8: adrp     x8, #0xc622000
+0x29730dc: ldr      x8, [x8, #0x130]
+0x29730e0: adrp     x23, #0xc685000
+0x29730e4: mov      x0, x19
+0x29730e8: ldr      x1, [x8]
+0x29730ec: ldr      x23, [x23, #0x188]
+0x29730f0: bl       #0x87a8cf8
+0x29730f4: mov      x19, x0
+0x29730f8: cbz      x0, #0x297331c
+0x29730fc: adrp     x24, #0xc614000
+0x2973100: adrp     x25, #0xc677000
+0x2973104: adrp     x26, #0xc6a9000
+0x2973108: adrp     x27, #0xc6dc000
+0x297310c: adrp     x28, #0xc6a6000
+0x2973110: ldr      x24, [x24, #0x6d8]
+0x2973114: ldr      x25, [x25, #0x6d0]
+0x2973118: ldr      x26, [x26, #0x1f0]
+0x297311c: ldr      x27, [x27, #0x8f0]
+0x2973120: ldr      x28, [x28, #0xd8]
+0x2973124: ldr      x21, [x24]
+0x2973128: ldrb     w8, [x25]
+0x297312c: ldr      x22, [x19]
+0x2973130: cbz      w8, #0x297313c
+0x2973134: mov      x0, x22
+0x2973138: bl       #0x23c9be0
+0x297313c: ldrh     w8, [x22, #0x12e]
+0x2973140: cbz      x8, #0x2973164
+0x2973144: ldr      x9, [x22, #0xb0]
+0x2973148: add      x9, x9, #8
+0x297314c: ldur     x10, [x9, #-8]
+0x2973150: cmp      x10, x21
+0x2973154: b.eq     #0x2973178
+0x2973158: subs     x8, x8, #1
+0x297315c: add      x9, x9, #0x10
+0x2973160: b.ne     #0x297314c
+0x2973164: mov      x0, x19
+0x2973168: mov      x1, x21
+0x297316c: mov      w2, wzr
+0x2973170: bl       #0x23c9bec
+0x2973174: b        #0x2973184
+0x2973178: ldrsw    x8, [x9]
+0x297317c: add      x8, x22, x8, lsl #4
+0x2973180: add      x0, x8, #0x140
+0x2973184: ldp      x8, x1, [x0]
+0x2973188: mov      x0, x19
+0x297318c: blr      x8
+0x2973190: tbz      w0, #0, #0x297325c
+0x2973194: ldr      x21, [x26]
+0x2973198: ldrb     w8, [x25]
+0x297319c: ldr      x22, [x19]
+0x29731a0: cbz      w8, #0x29731ac
+0x29731a4: mov      x0, x22
+0x29731a8: bl       #0x23c9be0
+0x29731ac: ldrh     w8, [x22, #0x12e]
+0x29731b0: cbz      x8, #0x29731d4
+0x29731b4: ldr      x9, [x22, #0xb0]
+0x29731b8: add      x9, x9, #8
+0x29731bc: ldur     x10, [x9, #-8]
+0x29731c0: cmp      x10, x21
+0x29731c4: b.eq     #0x29731e8
+0x29731c8: subs     x8, x8, #1
+0x29731cc: add      x9, x9, #0x10
+0x29731d0: b.ne     #0x29731bc
+0x29731d4: mov      x0, x19
+0x29731d8: mov      x1, x21
+0x29731dc: mov      w2, wzr
+0x29731e0: bl       #0x23c9bec
+0x29731e4: b        #0x29731f4
+0x29731e8: ldrsw    x8, [x9]
+0x29731ec: add      x8, x22, x8, lsl #4
+0x29731f0: add      x0, x8, #0x140
+0x29731f4: ldp      x8, x1, [x0]
+0x29731f8: mov      x0, x19
+0x29731fc: blr      x8
+0x2973200: ldr      x8, [x27]
+0x2973204: stp      x0, x1, [sp]
+0x2973208: mov      x0, sp
+0x297320c: mov      x1, x8
+0x2973210: bl       #0x7af5d34
+0x2973214: tbz      w0, #0, #0x2973124
+0x2973218: ldr      x21, [x20, #0x138]
+0x297321c: ldr      x1, [x28]
+0x2973220: mov      x0, sp
+0x2973224: bl       #0x7af6340
+0x2973228: cbz      x0, #0x2973314
+0x297322c: mov      x1, xzr
+0x2973230: bl       #0x26693cc ; -> Torappu.Battle.Entity.get_id
+0x2973234: mov      x1, x0
+0x2973238: mov      x0, x21
+0x297323c: mov      x2, xzr
+0x2973240: bl       #0x8b8f858 ; -> System.String.Equals
+0x2973244: tbz      w0, #0, #0x2973124
+0x2973248: mov      x20, xzr
+0x297324c: mov      w24, #1
+0x2973250: mov      w25, #5
+0x2973254: cbnz     x19, #0x297326c
+0x2973258: b        #0x29732e0
+0x297325c: mov      x20, xzr
+0x2973260: mov      w24, wzr
+0x2973264: mov      w25, #6
+0x2973268: cbz      x19, #0x29732e0
+0x297326c: adrp     x8, #0xc677000
+0x2973270: ldr      x21, [x23]
+0x2973274: ldr      x8, [x8, #0x6d0]
+0x2973278: ldr      x22, [x19]
+0x297327c: ldrb     w8, [x8]
+0x2973280: cbz      w8, #0x297328c
+0x2973284: mov      x0, x22
+0x2973288: bl       #0x23c9be0
+0x297328c: ldrh     w8, [x22, #0x12e]
+0x2973290: cbz      x8, #0x29732b4
+0x2973294: ldr      x9, [x22, #0xb0]
+0x2973298: add      x9, x9, #8
+0x297329c: ldur     x10, [x9, #-8]
+0x29732a0: cmp      x10, x21
+0x29732a4: b.eq     #0x29732c8
+0x29732a8: subs     x8, x8, #1
+0x29732ac: add      x9, x9, #0x10
+0x29732b0: b.ne     #0x297329c
+0x29732b4: mov      x0, x19
+0x29732b8: mov      x1, x21
+0x29732bc: mov      w2, wzr
+0x29732c0: bl       #0x23c9bec
+0x29732c4: b        #0x29732d4
+0x29732c8: ldrsw    x8, [x9]
+0x29732cc: add      x8, x22, x8, lsl #4
+0x29732d0: add      x0, x8, #0x140
+0x29732d4: ldp      x8, x1, [x0]
+0x29732d8: mov      x0, x19
+0x29732dc: blr      x8
+0x29732e0: cbnz     x20, #0x2973320
+0x29732e4: cmp      w25, #5
+0x29732e8: cset     w8, eq
+0x29732ec: and      w0, w8, w24
+0x29732f0: ldp      x19, x30, [sp, #0x60]
+0x29732f4: ldp      x21, x20, [sp, #0x50]
+0x29732f8: ldp      x23, x22, [sp, #0x40]
+0x29732fc: ldp      x25, x24, [sp, #0x30]
+0x2973300: ldp      x27, x26, [sp, #0x20]
+0x2973304: ldr      x28, [sp, #0x10]
+0x2973308: and      w0, w0, #1
+0x297330c: add      sp, sp, #0x70
+0x2973310: ret      
+0x2973314: bl       #0x237e284
+0x2973318: bl       #0x237e284
+0x297331c: bl       #0x237e284
+0x2973320: mov      x0, x20
+0x2973324: bl       #0x23e7d7c
+0x2973328: b        #0x2973344
+0x297332c: b        #0x2973344
+0x2973330: b        #0x2973344
+0x2973334: b        #0x2973344
+0x2973338: b        #0x2973344
+0x297333c: b        #0x2973344
+0x2973340: b        #0x2973344
+0x2973344: mov      x21, x0
+0x2973348: cmp      w1, #1
+0x297334c: b.ne     #0x2973370
+0x2973350: mov      x0, x21
+0x2973354: bl       #0x1d4bde0
+0x2973358: ldr      x20, [x0]
+0x297335c: bl       #0x1d4cd30
+0x2973360: mov      w25, wzr
+0x2973364: mov      w24, wzr
+0x2973368: cbnz     x19, #0x297326c
+0x297336c: b        #0x29732e0
+0x2973370: mov      x20, xzr
+0x2973374: cbz      x19, #0x29733ec
+0x2973378: adrp     x8, #0xc677000
+0x297337c: ldr      x23, [x23]
+0x2973380: ldr      x8, [x8, #0x6d0]
+0x2973384: ldr      x22, [x19]
+0x2973388: ldrb     w8, [x8]
+0x297338c: cbz      w8, #0x2973398
+0x2973390: mov      x0, x22
+0x2973394: bl       #0x23c9be0
+0x2973398: ldrh     w8, [x22, #0x12e]
+0x297339c: mov      x1, x23
+0x29733a0: cbz      x8, #0x29733c4
+0x29733a4: ldr      x9, [x22, #0xb0]
+0x29733a8: add      x9, x9, #8
+0x29733ac: ldur     x10, [x9, #-8]
+0x29733b0: cmp      x10, x1
+0x29733b4: b.eq     #0x29733d4
+0x29733b8: subs     x8, x8, #1
+0x29733bc: add      x9, x9, #0x10
+0x29733c0: b.ne     #0x29733ac
+0x29733c4: mov      x0, x19
+0x29733c8: mov      w2, wzr
+0x29733cc: bl       #0x23c9bec
+0x29733d0: b        #0x29733e0
+0x29733d4: ldrsw    x8, [x9]
+0x29733d8: add      x8, x22, x8, lsl #4
+0x29733dc: add      x0, x8, #0x140
+0x29733e0: ldp      x8, x1, [x0]
+0x29733e4: mov      x0, x19
+0x29733e8: blr      x8
+0x29733ec: cbnz     x20, #0x29733f8
+0x29733f0: mov      x0, x21
+0x29733f4: bl       #0x1d4ccd0
+0x29733f8: mov      x0, x20
+0x29733fc: bl       #0x23e7d7c
+0x2973400: mov      x21, x0
+0x2973404: cbnz     x19, #0x2973378
+0x2973408: b        #0x29733ec
+0x297340c: bl       #0x1d4e528
+0x2973410: str      x28, [sp, #-0x60]!
+0x2973414: stp      x27, x26, [sp, #0x10]

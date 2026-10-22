@@ -12,6 +12,7 @@ import pytest
 from compile_r8_1_lowstar_c2_plan_v1 import build_dp_ledger
 
 from arknights_planner.models.enemy import Enemy, EnemyAbility, EnemyStats
+from arknights_planner.models.simulation import EventType, RuntimeOperator, SimulationState
 from arknights_planner.models.stage import BattleDevice
 from arknights_planner.gamedata.repository import GameDataRepository
 from arknights_planner.adapters.approximate_real import ApproximateRealSimulationAdapter, RealSimulationApproximationPolicy
@@ -387,6 +388,113 @@ def test_emp_point_attack_clock_is_not_reset_while_no_target_is_present():
     hits = [event.time for event in result.events if event.event_type.name == "DAMAGE"]
     assert starts == [pytest.approx(2.0)]
     assert hits == [pytest.approx(5.0)]
+
+
+def _static_artillery(*, attack_range: float = 10.0, atk: int = 1) -> Enemy:
+    return replace(
+        _enemy("enemy_1112_emppnt", movement_mode="FLY", speed=0.0),
+        stats=replace(
+            _enemy("enemy_1112_emppnt").stats,
+            attack_range=known(attack_range, _SOURCE, "artillery.range"),
+            atk=known(atk, _SOURCE, "artillery.atk"),
+        ),
+        abilities=(
+            EnemyAbility(
+                "artillery", "DELAYED_LOCKED_AREA_ATTACK", 5.0, 0.0, 1.2, 1.0,
+                damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True,
+            ),
+        ),
+    )
+
+
+def test_emp_point_locked_hit_survives_target_leaving_then_redeployment():
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(SpawnEvent(0.1, "enemy_1112_emppnt", "main"),),
+        dp_per_second=0.0,
+    )
+    strategy = Strategy(
+        ("guard", "rookie"),
+        (
+            Action(ActionType.DEPLOY, 0.0, "guard", (1, 1), "RIGHT"),
+            Action(ActionType.RETREAT, 0.2, "guard"),
+            Action(ActionType.DEPLOY, 3.0, "rookie", (1, 1), "RIGHT"),
+        ),
+    )
+    result = _run(
+        stage, synthetic_operators(), {"enemy_1112_emppnt": _static_artillery(attack_range=1.2, atk=50)},
+        strategy, max_time=3.2,
+    )
+    starts = [event.time for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START]
+    hits = [
+        event.time for event in result.events
+        if event.source_id == "enemy_1112_emppnt#0"
+        and event.event_type in {EventType.DAMAGE, EventType.ENEMY_ABILITY_HIT}
+    ]
+    assert starts == [pytest.approx(0.1)]
+    assert hits == [pytest.approx(3.1)]
+    assert {event.target_id for event in result.events if event.event_type == EventType.ENEMY_ABILITY_HIT} == {"rookie"}
+
+
+def test_emp_point_runs_two_consecutive_cast_start_clocks():
+    civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(
+            SpawnEvent(0.1, "enemy_1112_emppnt", "main"),
+            SpawnEvent(0.1, "civilian", "main"),
+        ),
+        dp_per_second=0.0,
+    )
+    result = _run(
+        stage, synthetic_operators(),
+        {"enemy_1112_emppnt": _static_artillery(attack_range=10.0, atk=1), "civilian": civilian},
+        Strategy((), ()), max_time=8.2,
+    )
+    starts = [event.time for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START]
+    hits = [
+        event.time for event in result.events
+        if event.source_id == "enemy_1112_emppnt#1"
+        and event.event_type in {EventType.DAMAGE, EventType.ENEMY_ABILITY_HIT}
+    ]
+    assert starts == [pytest.approx(0.1), pytest.approx(5.1)]
+    assert hits == [pytest.approx(3.1), pytest.approx(8.1)]
+
+
+def test_emp_point_marks_neutral_target_is_promoted_before_operator():
+    civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(SpawnEvent(0.1, "enemy_1112_emppnt", "main"), SpawnEvent(0.1, "civilian", "main")),
+        dp_per_second=0.0,
+    )
+    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (1, 1), "RIGHT"),))
+    result = _run(
+        stage, synthetic_operators(),
+        {"enemy_1112_emppnt": _static_artillery(attack_range=10.0, atk=1), "civilian": civilian},
+        strategy, max_time=0.2,
+    )
+    start = next(event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START)
+    assert dict(start.details)["target_position"] == pytest.approx((0.0, 1.0))
+
+
+def test_medic_filter_uses_lowest_missing_hp_ratio_and_excludes_full_hp():
+    simulator = Simulator()
+    state = SimulationState(time=0.0, dp=10.0, remaining_life=1)
+    full = RuntimeOperator(
+        "full", (1, 0), "RIGHT", 100.0, 100.0, 10.0, 1, 1.0, ((0, 0),), 0, 0, "HEAL", 3.0,
+    )
+    low_ratio = RuntimeOperator(
+        "low_ratio", (1, 0), "RIGHT", 100.0, 1000.0, 10.0, 1, 1.0, ((0, 0),), 0, 0, "DAMAGE", 3.0,
+    )
+    low_absolute = RuntimeOperator(
+        "low_absolute", (1, 0), "RIGHT", 50.0, 100.0, 10.0, 1, 1.0, ((0, 0),), 0, 0, "DAMAGE", 3.0,
+    )
+    state.deployed_operators = {"full": full, "low_absolute": low_absolute, "low_ratio": low_ratio}
+    selected = simulator._target_ally_for(state, RuntimeOperator(
+        "medic", (1, 0), "RIGHT", 100.0, 100.0, 10.0, 1, 1.0, ((0, 0),), 0, 0, "HEAL", 3.0,
+    ))
+    assert selected is low_ratio
 
 
 def test_friendly_ice_and_altar_devices_execute_source_skills():

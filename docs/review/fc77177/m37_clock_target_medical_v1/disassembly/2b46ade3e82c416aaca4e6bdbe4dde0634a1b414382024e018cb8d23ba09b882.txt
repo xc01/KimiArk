@@ -1,0 +1,66 @@
+0x29618e8: stp      x23, x22, [sp, #-0x30]!
+0x29618ec: stp      x21, x20, [sp, #0x10]
+0x29618f0: stp      x19, x30, [sp, #0x20]
+0x29618f4: adrp     x23, #0xce8f000
+0x29618f8: adrp     x22, #0xc5f5000
+0x29618fc: ldrb     w8, [x23, #0x66]
+0x2961900: ldr      x22, [x22, #0xc60]
+0x2961904: mov      x19, x2
+0x2961908: mov      x21, x1
+0x296190c: mov      x20, x0
+0x2961910: tbnz     w8, #0, #0x2961934
+0x2961914: adrp     x0, #0xc658000
+0x2961918: ldr      x0, [x0, #0x7e8]
+0x296191c: bl       #0x237e160
+0x2961920: adrp     x0, #0xc5f5000
+0x2961924: ldr      x0, [x0, #0xc60]
+0x2961928: bl       #0x237e160
+0x296192c: mov      w8, #1
+0x2961930: strb     w8, [x23, #0x66]
+0x2961934: ldr      x0, [x22]
+0x2961938: ldr      w8, [x0, #0xe0]
+0x296193c: cbnz     w8, #0x2961948
+0x2961940: bl       #0x237e260
+0x2961944: ldr      x0, [x22]
+0x2961948: ldr      x8, [x0, #0xb8]
+0x296194c: ldr      x0, [x8, #0x138]
+0x2961950: cbz      x0, #0x2961974
+0x2961954: mov      x1, x20
+0x2961958: mov      x2, x21
+0x296195c: mov      x3, x19
+0x2961960: ldp      x19, x30, [sp, #0x20]
+0x2961964: ldp      x21, x20, [sp, #0x10]
+0x2961968: mov      x4, xzr
+0x296196c: ldp      x23, x22, [sp], #0x30
+0x2961970: b        #0x4ed16dc
+0x2961974: cbz      x20, #0x29619ec
+0x2961978: adrp     x8, #0xc677000
+0x296197c: ldr      x8, [x8, #0x6d0]
+0x2961980: adrp     x21, #0xc658000
+0x2961984: ldrb     w8, [x8]
+0x2961988: ldr      x21, [x21, #0x7e8]
+0x296198c: cbz      w8, #0x2961998
+0x2961990: ldr      x0, [x20]
+0x2961994: bl       #0x23c9be0
+0x2961998: ldr      x8, [x20]
+0x296199c: mov      x0, x20
+0x29619a0: ldr      x9, [x8, #0x440]
+0x29619a4: ldr      x1, [x8, #0x448]
+0x29619a8: blr      x9
+0x29619ac: ldr      x8, [x21]
+0x29619b0: mov      x20, x0
+0x29619b4: ldr      w9, [x8, #0xe0]
+0x29619b8: cbnz     w9, #0x29619c4
+0x29619bc: mov      x0, x8
+0x29619c0: bl       #0x237e260
+0x29619c4: mov      x0, x20
+0x29619c8: mov      x1, xzr
+0x29619cc: bl       #0x9510ea8 ; -> Torappu.FP.op_UnaryNegation
+0x29619d0: mov      x8, x0
+0x29619d4: str      x8, [x19]
+0x29619d8: ldp      x19, x30, [sp, #0x20]
+0x29619dc: ldp      x21, x20, [sp, #0x10]
+0x29619e0: mov      w0, #1
+0x29619e4: ldp      x23, x22, [sp], #0x30
+0x29619e8: ret      
+0x29619ec: bl       #0x237e284

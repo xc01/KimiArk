@@ -1,0 +1,171 @@
+0x2ea6740: str      d8, [sp, #-0x30]!
+0x2ea6744: stp      x21, x20, [sp, #0x10]
+0x2ea6748: stp      x19, x30, [sp, #0x20]
+0x2ea674c: adrp     x21, #0xce92000
+0x2ea6750: adrp     x20, #0xc60c000
+0x2ea6754: ldrb     w8, [x21, #0x52a]
+0x2ea6758: ldr      x20, [x20, #0x8a8]
+0x2ea675c: mov      x19, x0
+0x2ea6760: tbnz     w8, #0, #0x2ea6790
+0x2ea6764: adrp     x0, #0xc60c000
+0x2ea6768: ldr      x0, [x0, #0x8a8]
+0x2ea676c: bl       #0x237e160
+0x2ea6770: adrp     x0, #0xc658000
+0x2ea6774: ldr      x0, [x0, #0x7e8]
+0x2ea6778: bl       #0x237e160
+0x2ea677c: adrp     x0, #0xc69e000
+0x2ea6780: ldr      x0, [x0, #0x560]
+0x2ea6784: bl       #0x237e160
+0x2ea6788: mov      w8, #1
+0x2ea678c: strb     w8, [x21, #0x52a]
+0x2ea6790: ldr      x8, [x20]
+0x2ea6794: str      xzr, [sp, #8]
+0x2ea6798: ldr      x8, [x8, #0xb8]
+0x2ea679c: ldr      x0, [x8, #0x88]
+0x2ea67a0: cbz      x0, #0x2ea67b4
+0x2ea67a4: mov      x1, x19
+0x2ea67a8: mov      x2, xzr
+0x2ea67ac: bl       #0x4fb6914 ; -> XLua.DelegateBridge.__Gen_Delegate_Imp2620
+0x2ea67b0: b        #0x2ea6970
+0x2ea67b4: ldr      w8, [x19, #0x140]
+0x2ea67b8: adrp     x21, #0xc658000
+0x2ea67bc: ldr      x21, [x21, #0x7e8]
+0x2ea67c0: sub      w9, w8, #2
+0x2ea67c4: cmp      w9, #2
+0x2ea67c8: b.lo     #0x2ea6950
+0x2ea67cc: adrp     x20, #0xc69e000
+0x2ea67d0: ldr      x20, [x20, #0x560]
+0x2ea67d4: cmp      w8, #1
+0x2ea67d8: b.eq     #0x2ea6854
+0x2ea67dc: cbnz     w8, #0x2ea6834
+0x2ea67e0: mov      x0, x19
+0x2ea67e4: mov      x1, xzr
+0x2ea67e8: bl       #0x254f33c ; -> Torappu.Battle.Ability.get_owner
+0x2ea67ec: ldr      x8, [x20]
+0x2ea67f0: mov      x20, x0
+0x2ea67f4: ldr      w9, [x8, #0xe0]
+0x2ea67f8: cbnz     w9, #0x2ea6804
+0x2ea67fc: mov      x0, x8
+0x2ea6800: bl       #0x237e260
+0x2ea6804: mov      x0, x20
+0x2ea6808: mov      x1, xzr
+0x2ea680c: mov      x2, xzr
+0x2ea6810: bl       #0x97a04d8 ; -> UnityEngine.Object.op_Inequality
+0x2ea6814: tbz      w0, #0, #0x2ea6834
+0x2ea6818: mov      x0, x19
+0x2ea681c: mov      x1, xzr
+0x2ea6820: bl       #0x254f33c ; -> Torappu.Battle.Ability.get_owner
+0x2ea6824: cbz      x0, #0x2ea6980
+0x2ea6828: mov      x1, xzr
+0x2ea682c: bl       #0x266e420 ; -> Torappu.Battle.Entity.get_attackTime
+0x2ea6830: b        #0x2ea6970
+0x2ea6834: ldr      x0, [x21]
+0x2ea6838: ldr      w8, [x0, #0xe0]
+0x2ea683c: cbnz     w8, #0x2ea6844
+0x2ea6840: bl       #0x237e260
+0x2ea6844: mov      w0, wzr
+0x2ea6848: mov      x1, xzr
+0x2ea684c: bl       #0x951134c ; -> Torappu.FP.op_Implicit
+0x2ea6850: b        #0x2ea6970
+0x2ea6854: adrp     x8, #0xc677000
+0x2ea6858: ldr      x8, [x8, #0x6d0]
+0x2ea685c: ldrb     w8, [x8]
+0x2ea6860: cbz      w8, #0x2ea686c
+0x2ea6864: ldr      x0, [x19]
+0x2ea6868: bl       #0x23c9be0
+0x2ea686c: ldr      x8, [x19]
+0x2ea6870: mov      x0, x19
+0x2ea6874: ldr      x9, [x8, #0x210]
+0x2ea6878: ldr      x1, [x8, #0x218]
+0x2ea687c: blr      x9
+0x2ea6880: tbz      w0, #0, #0x2ea6950
+0x2ea6884: mov      x0, x19
+0x2ea6888: mov      x1, xzr
+0x2ea688c: bl       #0x254f33c ; -> Torappu.Battle.Ability.get_owner
+0x2ea6890: ldr      x8, [x20]
+0x2ea6894: mov      x20, x0
+0x2ea6898: ldr      w9, [x8, #0xe0]
+0x2ea689c: cbnz     w9, #0x2ea68a8
+0x2ea68a0: mov      x0, x8
+0x2ea68a4: bl       #0x237e260
+0x2ea68a8: mov      x0, x20
+0x2ea68ac: mov      x1, xzr
+0x2ea68b0: mov      x2, xzr
+0x2ea68b4: bl       #0x97a04d8 ; -> UnityEngine.Object.op_Inequality
+0x2ea68b8: tbz      w0, #0, #0x2ea6950
+0x2ea68bc: mov      x0, x19
+0x2ea68c0: mov      x1, xzr
+0x2ea68c4: bl       #0x254f33c ; -> Torappu.Battle.Ability.get_owner
+0x2ea68c8: cbz      x0, #0x2ea6980
+0x2ea68cc: mov      x1, xzr
+0x2ea68d0: bl       #0x266f5c0 ; -> Torappu.Battle.Entity.get_slowDown
+0x2ea68d4: ldr      x8, [x21]
+0x2ea68d8: mov      x20, x0
+0x2ea68dc: ldr      w9, [x8, #0xe0]
+0x2ea68e0: cbnz     w9, #0x2ea68f0
+0x2ea68e4: mov      x0, x8
+0x2ea68e8: bl       #0x237e260
+0x2ea68ec: ldr      x8, [x21]
+0x2ea68f0: ldr      x8, [x8, #0xb8]
+0x2ea68f4: mov      x0, x20
+0x2ea68f8: mov      x2, xzr
+0x2ea68fc: ldr      x1, [x8, #0x20]
+0x2ea6900: bl       #0x9510f24 ; -> Torappu.FP.op_Inequality
+0x2ea6904: tbz      w0, #0, #0x2ea6950
+0x2ea6908: ldr      s8, [x19, #0x178]
+0x2ea690c: mov      x0, x19
+0x2ea6910: mov      x1, xzr
+0x2ea6914: bl       #0x254f33c ; -> Torappu.Battle.Ability.get_owner
+0x2ea6918: cbz      x0, #0x2ea6980
+0x2ea691c: mov      x1, xzr
+0x2ea6920: bl       #0x266f64c ; -> Torappu.Battle.Entity.get_animSlowDown
+0x2ea6924: ldr      x8, [x21]
+0x2ea6928: str      x0, [sp, #8]
+0x2ea692c: ldr      w9, [x8, #0xe0]
+0x2ea6930: cbnz     w9, #0x2ea693c
+0x2ea6934: mov      x0, x8
+0x2ea6938: bl       #0x237e260
+0x2ea693c: add      x0, sp, #8
+0x2ea6940: mov      x1, xzr
+0x2ea6944: bl       #0x950fe14 ; -> Torappu.FP.AsFloat
+0x2ea6948: fdiv     s0, s8, s0
+0x2ea694c: b        #0x2ea6968
+0x2ea6950: ldr      x0, [x21]
+0x2ea6954: ldr      s8, [x19, #0x178]
+0x2ea6958: ldr      w8, [x0, #0xe0]
+0x2ea695c: cbnz     w8, #0x2ea6964
+0x2ea6960: bl       #0x237e260
+0x2ea6964: mov      v0.16b, v8.16b
+0x2ea6968: mov      x0, xzr
+0x2ea696c: bl       #0x950ffe8 ; -> Torappu.FP.op_Implicit
+0x2ea6970: ldp      x19, x30, [sp, #0x20]
+0x2ea6974: ldp      x21, x20, [sp, #0x10]
+0x2ea6978: ldr      d8, [sp], #0x30
+0x2ea697c: ret      
+0x2ea6980: bl       #0x237e284
+0x2ea6984: stp      x21, x20, [sp, #-0x20]!
+0x2ea6988: stp      x19, x30, [sp, #0x10]
+0x2ea698c: adrp     x20, #0xce92000
+0x2ea6990: adrp     x21, #0xc60c000
+0x2ea6994: ldrb     w8, [x20, #0x52b]
+0x2ea6998: ldr      x21, [x21, #0x8a8]
+0x2ea699c: mov      x19, x0
+0x2ea69a0: tbnz     w8, #0, #0x2ea69b8
+0x2ea69a4: adrp     x0, #0xc60c000
+0x2ea69a8: ldr      x0, [x0, #0x8a8]
+0x2ea69ac: bl       #0x237e160
+0x2ea69b0: mov      w8, #1
+0x2ea69b4: strb     w8, [x20, #0x52b]
+0x2ea69b8: ldr      x8, [x21]
+0x2ea69bc: ldr      x8, [x8, #0xb8]
+0x2ea69c0: ldr      x0, [x8, #0x90]
+0x2ea69c4: cbz      x0, #0x2ea69dc
+0x2ea69c8: mov      x1, x19
+0x2ea69cc: ldp      x19, x30, [sp, #0x10]
+0x2ea69d0: mov      x2, xzr
+0x2ea69d4: ldp      x21, x20, [sp], #0x20
+0x2ea69d8: b        #0x4e57c14
+0x2ea69dc: ldrb     w0, [x19, #0x1a5]
+0x2ea69e0: ldp      x19, x30, [sp, #0x10]
+0x2ea69e4: ldp      x21, x20, [sp], #0x20
+0x2ea69e8: ret      

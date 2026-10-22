@@ -1,0 +1,88 @@
+0x2e57610: sub      sp, sp, #0x50
+0x2e57614: str      x24, [sp, #0x10]
+0x2e57618: stp      x23, x22, [sp, #0x20]
+0x2e5761c: stp      x21, x20, [sp, #0x30]
+0x2e57620: stp      x19, x30, [sp, #0x40]
+0x2e57624: adrp     x22, #0xce92000
+0x2e57628: adrp     x21, #0xc685000
+0x2e5762c: ldrb     w8, [x22, #0x25e]
+0x2e57630: ldr      x21, [x21, #0x308]
+0x2e57634: mov      x19, x1
+0x2e57638: mov      x20, x0
+0x2e5763c: tbnz     w8, #0, #0x2e57684
+0x2e57640: adrp     x0, #0xc664000
+0x2e57644: ldr      x0, [x0, #0x100]
+0x2e57648: bl       #0x237e160
+0x2e5764c: adrp     x0, #0xc63a000
+0x2e57650: ldr      x0, [x0, #0x748]
+0x2e57654: bl       #0x237e160
+0x2e57658: adrp     x0, #0xc6f8000
+0x2e5765c: ldr      x0, [x0, #0x788]
+0x2e57660: bl       #0x237e160
+0x2e57664: adrp     x0, #0xc5d0000
+0x2e57668: ldr      x0, [x0, #0x9f0]
+0x2e5766c: bl       #0x237e160
+0x2e57670: adrp     x0, #0xc685000
+0x2e57674: ldr      x0, [x0, #0x308]
+0x2e57678: bl       #0x237e160
+0x2e5767c: mov      w8, #1
+0x2e57680: strb     w8, [x22, #0x25e]
+0x2e57684: ldr      x8, [x21]
+0x2e57688: stp      xzr, xzr, [sp]
+0x2e5768c: ldr      x8, [x8, #0xb8]
+0x2e57690: ldr      x0, [x8, #0xf0]
+0x2e57694: cbz      x0, #0x2e576ac
+0x2e57698: mov      x1, x20
+0x2e5769c: mov      x2, x19
+0x2e576a0: mov      x3, xzr
+0x2e576a4: bl       #0x4e8aa84 ; -> XLua.DelegateBridge.__Gen_Delegate_Imp427
+0x2e576a8: b        #0x2e57758
+0x2e576ac: mov      x0, x20
+0x2e576b0: mov      x1, x19
+0x2e576b4: mov      x2, xzr
+0x2e576b8: bl       #0x2ea69ec ; -> Torappu.Battle.Abilities.AbstractAnimatedAbility.OnAttackTimeChanged
+0x2e576bc: ldr      x0, [x20, #0x258]
+0x2e576c0: cbz      x0, #0x2e57754
+0x2e576c4: adrp     x22, #0xc63a000
+0x2e576c8: adrp     x23, #0xc5d0000
+0x2e576cc: adrp     x24, #0xc6f8000
+0x2e576d0: ldr      x22, [x22, #0x748]
+0x2e576d4: ldr      x23, [x23, #0x9f0]
+0x2e576d8: ldr      x24, [x24, #0x788]
+0x2e576dc: mov      w21, wzr
+0x2e576e0: ldr      w8, [x0, #0x18]
+0x2e576e4: cmp      w21, w8
+0x2e576e8: b.ge     #0x2e57758
+0x2e576ec: ldr      x2, [x22]
+0x2e576f0: mov      w1, w21
+0x2e576f4: bl       #0x6f2ebd4
+0x2e576f8: ldr      x8, [x23]
+0x2e576fc: stp      x0, x1, [sp]
+0x2e57700: mov      x0, sp
+0x2e57704: mov      x1, x8
+0x2e57708: bl       #0x7af5d34
+0x2e5770c: tbz      w0, #0, #0x2e57748
+0x2e57710: ldr      x0, [x20, #0x258]
+0x2e57714: cbz      x0, #0x2e57754
+0x2e57718: ldr      x2, [x22]
+0x2e5771c: mov      w1, w21
+0x2e57720: bl       #0x6f2ebd4
+0x2e57724: ldr      x8, [x24]
+0x2e57728: stp      x0, x1, [sp]
+0x2e5772c: mov      x0, sp
+0x2e57730: mov      x1, x8
+0x2e57734: bl       #0x7af6340
+0x2e57738: cbz      x0, #0x2e57754
+0x2e5773c: mov      x1, x19
+0x2e57740: mov      x2, xzr
+0x2e57744: bl       #0x2858d88 ; -> Torappu.Battle.Projectile.OnAttackTimeChanged
+0x2e57748: ldr      x0, [x20, #0x258]
+0x2e5774c: add      w21, w21, #1
+0x2e57750: cbnz     x0, #0x2e576e0
+0x2e57754: bl       #0x237e284
+0x2e57758: ldp      x19, x30, [sp, #0x40]
+0x2e5775c: ldp      x21, x20, [sp, #0x30]
+0x2e57760: ldp      x23, x22, [sp, #0x20]
+0x2e57764: ldr      x24, [sp, #0x10]
+0x2e57768: add      sp, sp, #0x50
+0x2e5776c: ret      

@@ -1,0 +1,61 @@
+0x2559ac4: stp      x23, x22, [sp, #-0x30]!
+0x2559ac8: stp      x21, x20, [sp, #0x10]
+0x2559acc: stp      x19, x30, [sp, #0x20]
+0x2559ad0: adrp     x21, #0xce8c000
+0x2559ad4: adrp     x22, #0xc650000
+0x2559ad8: ldrb     w8, [x21, #0xba2]
+0x2559adc: ldr      x22, [x22, #0xc20]
+0x2559ae0: mov      x19, x1
+0x2559ae4: mov      x20, x0
+0x2559ae8: tbnz     w8, #0, #0x2559b00
+0x2559aec: adrp     x0, #0xc650000
+0x2559af0: ldr      x0, [x0, #0xc20]
+0x2559af4: bl       #0x237e160
+0x2559af8: mov      w8, #1
+0x2559afc: strb     w8, [x21, #0xba2]
+0x2559b00: ldr      x8, [x22]
+0x2559b04: ldr      x8, [x8, #0xb8]
+0x2559b08: ldr      x0, [x8, #0x170]
+0x2559b0c: cbz      x0, #0x2559b2c
+0x2559b10: mov      x1, x20
+0x2559b14: mov      x2, x19
+0x2559b18: ldp      x19, x30, [sp, #0x20]
+0x2559b1c: ldp      x21, x20, [sp, #0x10]
+0x2559b20: mov      x3, xzr
+0x2559b24: ldp      x23, x22, [sp], #0x30
+0x2559b28: b        #0x4e8aa84
+0x2559b2c: mov      x0, x20
+0x2559b30: mov      x1, x19
+0x2559b34: bl       #0x255213c ; -> Torappu.Battle.Ability.OnTick
+0x2559b38: ldr      x8, [x20, #0x100]
+0x2559b3c: cbz      x8, #0x2559ba0
+0x2559b40: adrp     x23, #0xc677000
+0x2559b44: ldr      x23, [x23, #0x6d0]
+0x2559b48: mov      x22, xzr
+0x2559b4c: ldr      w9, [x8, #0x18]
+0x2559b50: cmp      w22, w9
+0x2559b54: b.ge     #0x2559ba4
+0x2559b58: cmp      w22, w9
+0x2559b5c: b.hs     #0x2559bb4
+0x2559b60: add      x8, x8, x22, lsl #3
+0x2559b64: ldr      x21, [x8, #0x20]
+0x2559b68: cbz      x21, #0x2559ba0
+0x2559b6c: ldrb     w8, [x23]
+0x2559b70: cbz      w8, #0x2559b7c
+0x2559b74: ldr      x0, [x21]
+0x2559b78: bl       #0x23c9be0
+0x2559b7c: ldr      x8, [x21]
+0x2559b80: mov      x0, x21
+0x2559b84: mov      x1, x19
+0x2559b88: ldr      x9, [x8, #0x210]
+0x2559b8c: ldr      x2, [x8, #0x218]
+0x2559b90: blr      x9
+0x2559b94: ldr      x8, [x20, #0x100]
+0x2559b98: add      x22, x22, #1
+0x2559b9c: cbnz     x8, #0x2559b4c
+0x2559ba0: bl       #0x237e284
+0x2559ba4: ldp      x19, x30, [sp, #0x20]
+0x2559ba8: ldp      x21, x20, [sp, #0x10]
+0x2559bac: ldp      x23, x22, [sp], #0x30
+0x2559bb0: ret      
+0x2559bb4: bl       #0x237e28c
