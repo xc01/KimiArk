@@ -4,7 +4,13 @@ import json
 from pathlib import Path
 from typing import Any
 
-from arknights_planner.models.enemy import Enemy, EnemyAbility, EnemyAttackTiming, EnemyStats
+from arknights_planner.models.enemy import (
+    Enemy,
+    EnemyAbility,
+    EnemyAttackTiming,
+    EnemyStats,
+    animation_event_real_seconds,
+)
 from arknights_planner.models.operator import Operator, OperatorAttributeKeyframe, OperatorPhase, OperatorStats
 from arknights_planner.models.provenance import known, unknown
 from arknights_planner.models.provenance import KnowledgeStatus, ValueWithSource
@@ -292,10 +298,29 @@ class GameDataRepository:
             ),)
             break
         if enemy_id == "enemy_1112_emppnt":
+            attack_time = 5.0
+            animation_event_time = 0.333333
+            animation_duration = 1.166667
+            animation_speed = 1.0
+            max_anim_scale = 1.0
             abilities = (EnemyAbility(
                 ability_id="enemy_1112_emppnt_artillery", family="DELAYED_LOCKED_AREA_ATTACK",
-                cooldown=5.0, initial_cooldown=0.0, range_radius=1.2, atk_scale=1.0,
-                damage_type="PHYSICAL", delay_seconds=3.0, windup_seconds=0.07777777777777778,
+                cooldown=attack_time, initial_cooldown=0.0, range_radius=1.2, atk_scale=1.0,
+                damage_type="PHYSICAL", delay_seconds=3.0,
+                windup_seconds=animation_event_real_seconds(
+                    animation_event_time_seconds=animation_event_time,
+                    animation_duration_seconds=animation_duration,
+                    animation_speed=animation_speed,
+                    attack_time_seconds=attack_time,
+                    max_anim_scale=max_anim_scale,
+                    affected_by_slow_down=True,
+                ),
+                animation_event_time_seconds=animation_event_time,
+                animation_duration_seconds=animation_duration,
+                animation_speed=animation_speed,
+                attack_time_seconds=attack_time,
+                max_anim_scale=max_anim_scale,
+                affected_by_slow_down=True,
                 protected_target_priority=True,
             ),)
         return Enemy(

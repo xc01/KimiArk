@@ -46,7 +46,52 @@ class EnemyAbility:
     attack_speed_delta: float = 0.0
     delay_seconds: float = 0.0
     windup_seconds: float = 0.0
+    animation_event_time_seconds: float | None = None
+    animation_duration_seconds: float | None = None
+    animation_speed: float | None = None
+    attack_time_seconds: float | None = None
+    max_anim_scale: float | None = None
+    affected_by_slow_down: bool | None = None
+    anim_slow_down: float = 1.0
     protected_target_priority: bool = False
+
+
+def animation_event_real_seconds(
+    *,
+    animation_event_time_seconds: float,
+    animation_duration_seconds: float,
+    animation_speed: float,
+    attack_time_seconds: float,
+    max_anim_scale: float | None,
+    affected_by_slow_down: bool = False,
+    slow_down: float = 1.0,
+    anim_slow_down: float = 1.0,
+) -> float:
+    """Scale a raw Spine event to real time using the candidate client formula.
+
+    ``animation_speed`` is animation seconds advanced per real second.  The
+    returned value is seconds from cast start to the named raw event.  A slow
+    status multiplies the animation-data speed and divides both raw duration and
+    the configured max scale, matching the ``_affectedBySlowDown`` branch.
+    """
+    if animation_speed <= 0:
+        raise ValueError("animation_speed must be positive")
+    if attack_time_seconds <= 0:
+        raise ValueError("attack_time_seconds must be positive")
+    if animation_duration_seconds < 0 or animation_event_time_seconds < 0:
+        raise ValueError("raw animation times cannot be negative")
+    if slow_down == 0 or not affected_by_slow_down:
+        slow_down = 1.0
+        anim_slow_down = 1.0
+    if anim_slow_down <= 0:
+        raise ValueError("anim_slow_down must be positive")
+
+    scaled_duration = animation_duration_seconds / anim_slow_down
+    animation_scale = max(attack_time_seconds / scaled_duration, 0.1)
+    if max_anim_scale is not None and max_anim_scale >= 0:
+        scale_cap = min(max_anim_scale / anim_slow_down, 2.5)
+        animation_scale = min(animation_scale, scale_cap)
+    return animation_event_time_seconds * animation_scale / (animation_speed * anim_slow_down)
 
 
 @dataclass(frozen=True)

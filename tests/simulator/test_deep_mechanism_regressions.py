@@ -11,7 +11,12 @@ import pytest
 
 from compile_r8_1_lowstar_c2_plan_v1 import build_dp_ledger
 
-from arknights_planner.models.enemy import Enemy, EnemyAbility, EnemyStats
+from arknights_planner.models.enemy import (
+    Enemy,
+    EnemyAbility,
+    EnemyStats,
+    animation_event_real_seconds,
+)
 from arknights_planner.models.simulation import EventType, RuntimeOperator, SimulationState
 from arknights_planner.models.stage import BattleDevice
 from arknights_planner.gamedata.repository import GameDataRepository
@@ -481,6 +486,58 @@ def test_emp_point_marks_neutral_target_is_promoted_before_operator():
     assert dict(start.details)["target_position"] == pytest.approx((0.0, 1.0))
 
 
+def test_animation_event_time_scales_with_playback_speed():
+    base = dict(
+        animation_event_time_seconds=1.0,
+        animation_duration_seconds=1.0,
+        attack_time_seconds=1.0,
+        max_anim_scale=10.0,
+    )
+    assert animation_event_real_seconds(animation_speed=1.0, **base) == pytest.approx(1.0)
+    assert animation_event_real_seconds(animation_speed=2.0, **base) == pytest.approx(0.5)
+    assert animation_event_real_seconds(animation_speed=0.5, **base) == pytest.approx(2.0)
+
+
+def test_animation_event_time_applies_max_anim_scale_and_slow_down():
+    assert animation_event_real_seconds(
+        animation_event_time_seconds=0.5,
+        animation_duration_seconds=0.4,
+        animation_speed=1.0,
+        attack_time_seconds=1.0,
+        max_anim_scale=0.2,
+    ) == pytest.approx(0.1)
+    assert animation_event_real_seconds(
+        animation_event_time_seconds=0.5,
+        animation_duration_seconds=0.4,
+        animation_speed=1.0,
+        attack_time_seconds=1.0,
+        max_anim_scale=0.2,
+        affected_by_slow_down=True,
+        slow_down=0.5,
+        anim_slow_down=0.5,
+    ) == pytest.approx(0.4)
+
+
+def test_emp_point_game_data_derives_uncapped_attack_event_time(tmp_path):
+    excel = tmp_path / "zh_CN/gamedata/excel"
+    enemydata = tmp_path / "zh_CN/gamedata/levels/enemydata"
+    excel.mkdir(parents=True)
+    enemydata.mkdir(parents=True)
+    (excel / "enemy_handbook_table.json").write_text('{"enemyData": {}}', encoding="utf-8")
+    (enemydata / "enemy_database.json").write_text(
+        '{"enemies": [{"Key": "enemy_1112_emppnt", "Value": [{"level": 0, "enemyData": {}}]}]}',
+        encoding="utf-8",
+    )
+    ability = GameDataRepository(tmp_path).get_enemy("enemy_1112_emppnt").abilities[0]
+    assert ability.animation_event_time_seconds == pytest.approx(0.333333)
+    assert ability.animation_duration_seconds == pytest.approx(1.166667)
+    assert ability.animation_speed == pytest.approx(1.0)
+    assert ability.attack_time_seconds == pytest.approx(5.0)
+    assert ability.max_anim_scale == pytest.approx(1.0)
+    assert ability.affected_by_slow_down is True
+    assert ability.windup_seconds == pytest.approx(0.333333)
+
+
 def test_emp_point_projectile_creation_uses_client_attack_event_windup():
     civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
     stage = replace(
@@ -490,8 +547,8 @@ def test_emp_point_projectile_creation_uses_client_attack_event_windup():
     )
     result = Simulator().run(
         stage=stage, operators=synthetic_operators(),
-        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.07777777777777778), "civilian": civilian},
-        strategy=Strategy((), ()), config=SimulationConfig(dt=0.0001, max_time=3.1),
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.333333), "civilian": civilian},
+        strategy=Strategy((), ()), config=SimulationConfig(dt=0.0001, max_time=3.4),
     )
     starts = [event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START]
     artillery_source = starts[0].source_id
@@ -502,9 +559,9 @@ def test_emp_point_projectile_creation_uses_client_attack_event_windup():
         and event.event_type in {EventType.DAMAGE, EventType.ENEMY_ABILITY_HIT}
     ]
     assert [event.time for event in starts] == [pytest.approx(0.0)]
-    assert dict(starts[0].details)["windup_seconds"] == pytest.approx(0.07777777777777778)
-    assert [event.time for event in births] == [pytest.approx(0.0778, abs=5e-11)]
-    assert [event.time for event in hits] == [pytest.approx(3.0778, abs=5e-11)]
+    assert dict(starts[0].details)["windup_seconds"] == pytest.approx(0.333333)
+    assert [event.time for event in births] == [pytest.approx(0.3334, abs=5e-11)]
+    assert [event.time for event in hits] == [pytest.approx(3.3334, abs=5e-11)]
 
 
 def test_emp_point_locks_position_at_projectile_creation_not_at_cast_or_hit():
@@ -516,12 +573,12 @@ def test_emp_point_locks_position_at_projectile_creation_not_at_cast_or_hit():
     )
     result = Simulator().run(
         stage=stage, operators=synthetic_operators(),
-        enemies={"enemy_1112_emppnt": _static_artillery(atk=1, windup_seconds=0.07777777777777778), "civilian": civilian},
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=1, windup_seconds=0.333333), "civilian": civilian},
         strategy=Strategy((), ()), config=SimulationConfig(dt=0.01, max_time=3.2),
     )
     birth = next(event for event in result.events if event.event_type == EventType.PROJECTILE_BORN and str(event.source_id).startswith("enemy_1112_emppnt#"))
-    assert birth.time == pytest.approx(0.08)
-    assert dict(birth.details)["locked_position"] == pytest.approx((0.08, 1.0))
+    assert birth.time == pytest.approx(0.34)
+    assert dict(birth.details)["locked_position"] == pytest.approx((0.34, 1.0))
 
 
 def test_emp_point_cancels_cast_when_target_leaves_before_projectile_creation():
@@ -530,11 +587,11 @@ def test_emp_point_cancels_cast_when_target_leaves_before_projectile_creation():
         spawn_events=(SpawnEvent(0.0, "enemy_1112_emppnt", "main"),),
         dp_per_second=0.0,
     )
-    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (1, 1), "RIGHT"), Action(ActionType.RETREAT, 0.05, "guard")))
+    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (1, 1), "RIGHT"), Action(ActionType.RETREAT, 0.3, "guard")))
     result = Simulator().run(
         stage=stage, operators=synthetic_operators(),
-        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.07777777777777778)},
-        strategy=strategy, config=SimulationConfig(dt=0.01, max_time=0.2),
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.333333)},
+        strategy=strategy, config=SimulationConfig(dt=0.01, max_time=0.5),
     )
     cancellations = [event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_CANCELLED]
     births = [event for event in result.events if event.event_type == EventType.PROJECTILE_BORN and event.source_id == "enemy_1112_emppnt#0"]
