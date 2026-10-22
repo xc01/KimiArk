@@ -346,7 +346,8 @@ def test_zero_duration_auto_skill_does_not_lose_a_tick_between_cycles():
 def test_emp_point_locks_protected_target_and_hits_area_after_delay():
     artillery = replace(_enemy("enemy_1112_emppnt", movement_mode="FLY"), abilities=(
         EnemyAbility("artillery", "DELAYED_LOCKED_AREA_ATTACK", 5.0, 0.0, 1.2, 1.0,
-                     damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True),
+                     damage_type="PHYSICAL", delay_seconds=3.0, windup_seconds=0.0,
+                     protected_target_priority=True),
     ))
     artillery = replace(artillery, stats=replace(artillery.stats, atk=known(50, _SOURCE, "artillery.atk")))
     civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
@@ -370,7 +371,8 @@ def test_emp_point_attack_clock_is_not_reset_while_no_target_is_present():
         abilities=(
             EnemyAbility(
                 "artillery", "DELAYED_LOCKED_AREA_ATTACK", 5.0, 0.0, 1.2, 1.0,
-                damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True,
+                damage_type="PHYSICAL", delay_seconds=3.0, windup_seconds=0.0,
+                protected_target_priority=True,
             ),
         ),
     )
@@ -390,7 +392,7 @@ def test_emp_point_attack_clock_is_not_reset_while_no_target_is_present():
     assert hits == [pytest.approx(5.0)]
 
 
-def _static_artillery(*, attack_range: float = 10.0, atk: int = 1) -> Enemy:
+def _static_artillery(*, attack_range: float = 10.0, atk: int = 1, windup_seconds: float = 0.0) -> Enemy:
     return replace(
         _enemy("enemy_1112_emppnt", movement_mode="FLY", speed=0.0),
         stats=replace(
@@ -401,7 +403,8 @@ def _static_artillery(*, attack_range: float = 10.0, atk: int = 1) -> Enemy:
         abilities=(
             EnemyAbility(
                 "artillery", "DELAYED_LOCKED_AREA_ATTACK", 5.0, 0.0, 1.2, 1.0,
-                damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True,
+                damage_type="PHYSICAL", delay_seconds=3.0, windup_seconds=windup_seconds,
+                protected_target_priority=True,
             ),
         ),
     )
@@ -476,6 +479,72 @@ def test_emp_point_marks_neutral_target_is_promoted_before_operator():
     )
     start = next(event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START)
     assert dict(start.details)["target_position"] == pytest.approx((0.0, 1.0))
+
+
+def test_emp_point_projectile_creation_uses_client_attack_event_windup():
+    civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(SpawnEvent(0.0, "enemy_1112_emppnt", "main"), SpawnEvent(0.0, "civilian", "main")),
+        dp_per_second=0.0,
+    )
+    result = Simulator().run(
+        stage=stage, operators=synthetic_operators(),
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.07777777777777778), "civilian": civilian},
+        strategy=Strategy((), ()), config=SimulationConfig(dt=0.0001, max_time=3.1),
+    )
+    starts = [event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_START]
+    artillery_source = starts[0].source_id
+    births = [event for event in result.events if event.event_type == EventType.PROJECTILE_BORN and event.source_id == artillery_source]
+    hits = [
+        event for event in result.events
+        if event.source_id == artillery_source
+        and event.event_type in {EventType.DAMAGE, EventType.ENEMY_ABILITY_HIT}
+    ]
+    assert [event.time for event in starts] == [pytest.approx(0.0)]
+    assert dict(starts[0].details)["windup_seconds"] == pytest.approx(0.07777777777777778)
+    assert [event.time for event in births] == [pytest.approx(0.0778, abs=5e-11)]
+    assert [event.time for event in hits] == [pytest.approx(3.0778, abs=5e-11)]
+
+
+def test_emp_point_locks_position_at_projectile_creation_not_at_cast_or_hit():
+    civilian = replace(_neutral())
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(SpawnEvent(0.0, "enemy_1112_emppnt", "main"), SpawnEvent(0.0, "civilian", "main")),
+        dp_per_second=0.0,
+    )
+    result = Simulator().run(
+        stage=stage, operators=synthetic_operators(),
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=1, windup_seconds=0.07777777777777778), "civilian": civilian},
+        strategy=Strategy((), ()), config=SimulationConfig(dt=0.01, max_time=3.2),
+    )
+    birth = next(event for event in result.events if event.event_type == EventType.PROJECTILE_BORN and str(event.source_id).startswith("enemy_1112_emppnt#"))
+    assert birth.time == pytest.approx(0.08)
+    assert dict(birth.details)["locked_position"] == pytest.approx((0.08, 1.0))
+
+
+def test_emp_point_cancels_cast_when_target_leaves_before_projectile_creation():
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(SpawnEvent(0.0, "enemy_1112_emppnt", "main"),),
+        dp_per_second=0.0,
+    )
+    strategy = Strategy(("guard",), (Action(ActionType.DEPLOY, 0.0, "guard", (1, 1), "RIGHT"), Action(ActionType.RETREAT, 0.05, "guard")))
+    result = Simulator().run(
+        stage=stage, operators=synthetic_operators(),
+        enemies={"enemy_1112_emppnt": _static_artillery(atk=50, windup_seconds=0.07777777777777778)},
+        strategy=strategy, config=SimulationConfig(dt=0.01, max_time=0.2),
+    )
+    cancellations = [event for event in result.events if event.event_type == EventType.ENEMY_ABILITY_CANCELLED]
+    births = [event for event in result.events if event.event_type == EventType.PROJECTILE_BORN and event.source_id == "enemy_1112_emppnt#0"]
+    hits = [
+        event for event in result.events
+        if event.source_id == "enemy_1112_emppnt#0"
+        and event.event_type in {EventType.DAMAGE, EventType.ENEMY_ABILITY_HIT}
+    ]
+    assert len(cancellations) == 1 and dict(cancellations[0].details)["reason"] == "TARGET_UNAVAILABLE_BEFORE_PROJECTILE_CREATION"
+    assert not births and not hits
 
 
 def test_medic_filter_uses_lowest_missing_hp_ratio_and_excludes_full_hp():

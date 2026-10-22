@@ -46,6 +46,18 @@ class _PendingAreaHit:
     damage_type: str
 
 
+@dataclass(frozen=True)
+class _PendingAreaCast:
+    time: float
+    source_id: str
+    target_id: str
+    target_is_neutral: bool
+    delay_seconds: float
+    range_radius: float
+    atk_scale: float
+    damage_type: str
+
+
 class Simulator:
     """A deterministic synthetic combat runtime with deliberately explicit limits."""
 
@@ -625,11 +637,12 @@ class Simulator:
                     operator.skill_ready = True
                     operator.pending_next_attack = True
 
-    def _enemy_outputs(self, state: SimulationState, stage: Stage, pending_area_hits: list[_PendingAreaHit]) -> None:
+    def _enemy_outputs(self, state: SimulationState, stage: Stage, pending_area_hits: list[_PendingAreaHit],
+                       pending_area_casts: list[_PendingAreaCast]) -> None:
         for enemy in tuple(sorted(state.active_enemies.values(), key=lambda item: item.spawn_index)):
             if enemy.hidden:
                 continue
-            self._enemy_ability_outputs(state, stage, enemy, pending_area_hits)
+            self._enemy_ability_outputs(state, stage, enemy, pending_area_hits, pending_area_casts)
             if any(ability.family == "DELAYED_LOCKED_AREA_ATTACK" for ability in enemy.abilities):
                 continue
             if enemy.atk <= self._EPSILON and enemy.attack_interval <= self._EPSILON:
@@ -707,7 +720,8 @@ class Simulator:
             self._emit(state, EventType.HEAL, source=enemy.instance_id, target=enemy.instance_id,
                        amount=amount, reason="GAME_DATA_PASSIVE_HP_REGENERATION")
 
-    def _enemy_ability_outputs(self, state: SimulationState, stage: Stage, enemy: RuntimeEnemy, pending_area_hits: list[_PendingAreaHit]) -> None:
+    def _enemy_ability_outputs(self, state: SimulationState, stage: Stage, enemy: RuntimeEnemy,
+                               pending_area_hits: list[_PendingAreaHit], pending_area_casts: list[_PendingAreaCast]) -> None:
         if not enemy.abilities:
             return
         if state.time + self._EPSILON < enemy.ability_next_fire_time:
@@ -732,17 +746,19 @@ class Simulator:
                 if not candidates:
                     continue
                 candidate = min(candidates, key=lambda item: getattr(item, "spawn_index", 0) if isinstance(item, RuntimeEnemy) else getattr(item, "operator_id"))
-                target_position = self._enemy_position(stage, candidate) if isinstance(candidate, RuntimeEnemy) else candidate.tile
-                enemy.area_hit_time = state.time + ability.delay_seconds
-                enemy.area_hit_position = target_position
+                cast_position = self._enemy_position(stage, candidate) if isinstance(candidate, RuntimeEnemy) else candidate.tile
+                enemy.area_hit_time = state.time + ability.windup_seconds + ability.delay_seconds
                 enemy.area_hit_radius = ability.range_radius
                 self._emit(state, EventType.ENEMY_ABILITY_START, source=enemy.instance_id,
-                           ability=ability.ability_id, target_position=target_position,
-                           delay=ability.delay_seconds, radius=ability.range_radius)
+                           ability=ability.ability_id, target_position=cast_position,
+                           windup_seconds=ability.windup_seconds, delay=ability.delay_seconds,
+                           radius=ability.range_radius)
                 enemy.ability_next_fire_time = state.time + ability.cooldown
-                pending_area_hits.append(_PendingAreaHit(
-                    enemy.area_hit_time or state.time, enemy.instance_id, target_position,
-                    ability.range_radius, enemy.atk * ability.atk_scale, ability.damage_type,
+                pending_area_casts.append(_PendingAreaCast(
+                    state.time + ability.windup_seconds, enemy.instance_id,
+                    candidate.instance_id if isinstance(candidate, RuntimeEnemy) else candidate.operator_id,
+                    isinstance(candidate, RuntimeEnemy), ability.delay_seconds,
+                    ability.range_radius, ability.atk_scale, ability.damage_type,
                 ))
                 continue
             if ability.family != "PERIODIC_AREA_ATTACK":
@@ -768,6 +784,34 @@ class Simulator:
             break
         if not any(ability.family == "DELAYED_LOCKED_AREA_ATTACK" for ability in enemy.abilities):
             enemy.ability_next_fire_time = state.time + max(ability.cooldown for ability in enemy.abilities)
+
+    def _process_area_cast(self, state: SimulationState, stage: Stage, cast: _PendingAreaCast,
+                           pending_area_hits: list[_PendingAreaHit]) -> None:
+        source = state.active_enemies.get(cast.source_id)
+        if source is None or source.hidden:
+            self._emit(state, EventType.ENEMY_ABILITY_CANCELLED, source=cast.source_id,
+                       target=cast.target_id, reason="SOURCE_UNAVAILABLE")
+            return
+        candidate = (
+            state.active_enemies.get(cast.target_id)
+            if cast.target_is_neutral
+            else state.deployed_operators.get(cast.target_id)
+        )
+        if candidate is None or (cast.target_is_neutral and candidate.hidden):
+            self._emit(state, EventType.ENEMY_ABILITY_CANCELLED, source=cast.source_id,
+                       target=cast.target_id, reason="TARGET_UNAVAILABLE_BEFORE_PROJECTILE_CREATION")
+            if source.area_hit_time is not None and source.area_hit_time <= cast.time + cast.delay_seconds + self._EPSILON:
+                source.area_hit_time = None
+                source.area_hit_radius = None
+            return
+        locked_position = self._enemy_position(stage, candidate) if cast.target_is_neutral else candidate.tile
+        source.area_hit_position = locked_position
+        self._emit(state, EventType.PROJECTILE_BORN, source=cast.source_id, target=cast.target_id,
+                   locked_position=locked_position, delay=cast.delay_seconds, radius=cast.range_radius)
+        pending_area_hits.append(_PendingAreaHit(
+            cast.time + cast.delay_seconds, cast.source_id, locked_position,
+            cast.range_radius, source.atk * cast.atk_scale, cast.damage_type,
+        ))
 
     def _process_area_hit(self, state: SimulationState, stage: Stage, hit: _PendingAreaHit) -> None:
         for enemy in tuple(state.active_enemies.values()):
@@ -1003,11 +1047,18 @@ class Simulator:
         tick_index = 0
         pending_hits: list[_PendingHit] = []
         pending_area_hits: list[_PendingAreaHit] = []
+        pending_area_casts: list[_PendingAreaCast] = []
         last_spawn_time = max((time for time, _, _ in spawns), default=0.0)
         while state.time <= config.max_time + self._EPSILON:
             for hit in sorted([item for item in pending_hits if item.time <= state.time + self._EPSILON], key=lambda item: (item.time, item.source_id, item.target_id)):
                 self._process_projectile_hit(state, hit.source_id, hit.target_id, raw_override=hit.raw_override)
                 pending_hits.remove(hit)
+            for cast in sorted(
+                [item for item in pending_area_casts if item.time <= state.time + self._EPSILON],
+                key=lambda item: (item.time, item.source_id, item.target_id),
+            ):
+                self._process_area_cast(state, stage, cast, pending_area_hits)
+                pending_area_casts.remove(cast)
             for hit in sorted([item for item in pending_area_hits if item.time <= state.time + self._EPSILON], key=lambda item: (item.time, item.source_id, item.position)):
                 self._process_area_hit(state, stage, hit)
                 pending_area_hits.remove(hit)
@@ -1026,10 +1077,10 @@ class Simulator:
                 spawn_index += 1; enemy_index += 1
             self._apply_maintenance(state)
             self._apply_device_effects(state, stage)
-            self._enemy_outputs(state, stage, pending_area_hits)
+            self._enemy_outputs(state, stage, pending_area_hits, pending_area_casts)
             self._operator_outputs(state, stage, pending_hits)
             self._advance_enemy_passives(state, config.dt)
-            if spawn_index == len(spawns) and not state.active_enemies and not pending_hits and not pending_area_hits and state.time + self._EPSILON >= last_spawn_time:
+            if spawn_index == len(spawns) and not state.active_enemies and not pending_hits and not pending_area_hits and not pending_area_casts and state.time + self._EPSILON >= last_spawn_time:
                 break
             self._advance_enemies(state, stage, config.dt)
             state.dp += stage.dp_per_second * config.dt

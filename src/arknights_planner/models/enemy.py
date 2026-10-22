@@ -45,6 +45,7 @@ class EnemyAbility:
     status_duration: float = 0.0
     attack_speed_delta: float = 0.0
     delay_seconds: float = 0.0
+    windup_seconds: float = 0.0
     protected_target_priority: bool = False
 
 
