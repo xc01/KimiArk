@@ -1,0 +1,68 @@
+{
+  "schema_version": "M42_TACTICAL_CASUAL_FEEDBACK_V1",
+  "candidate_plan_id": "R8_7_GPT_M42_V1",
+  "status": "LOSS",
+  "result": {
+    "kills": 16,
+    "leaks": 17,
+    "remaining_life": -16,
+    "operator_deaths": 8,
+    "protected_targets_reached": 0,
+    "protected_target_deaths": 2,
+    "protected_death_frames": [3285, 3945]
+  },
+  "opening_failure": {
+    "deployed": [
+      {"frame": 240, "operator_id": "char_122_beagle", "tile": [3, 4], "cost": 18},
+      {"frame": 570, "operator_id": "char_240_wyvern", "tile": [4, 3], "cost": 11},
+      {"frame": 660, "operator_id": "char_285_medic2", "tile": [3, 2], "cost": 3}
+    ],
+    "artillery_chain": [
+      {"frame": 570, "event": "ENEMY_ABILITY_START", "locked_position": [3, 4]},
+      {"frame": 670, "event": "ENEMY_ABILITY_HIT", "target_id": "char_240_wyvern", "locked_position": [3, 4], "damage": 760},
+      {"frame": 720, "event": "ENEMY_ABILITY_START", "locked_position": [3, 4]},
+      {"frame": 820, "event": "ENEMY_ABILITY_HIT", "target_id": "char_240_wyvern", "locked_position": [3, 4], "damage": 760, "operator_death": true},
+      {"frame": 870, "event": "ENEMY_ABILITY_START", "locked_position": [3, 2]},
+      {"frame": 970, "event": "ENEMY_ABILITY_HIT", "target_id": "char_285_medic2", "locked_position": [3, 2], "damage": 973, "operator_death": true}
+    ],
+    "first_leak": {"frame": 961, "enemy_id": "enemy_1108_uterer#2"},
+    "causal_chain": "Wyvern was adjacent to Beagle and died to the second shell before its planned first skill. Medic2 was itself within the third shell geometry and died before establishing durable support. Later skills on the dead Wyvern/Medic2 were invalid and central interception collapsed."
+  },
+  "prediction_evaluation": {
+    "expected_first_artillery_hit_window_frames": [400, 620],
+    "actual_first_hit_frame": 670,
+    "status": "EVENT_NOT_OBSERVED_IN_DECLARED_WINDOW",
+    "boundary": "The hit was only 50 frames late; the decisive failure was not timing alone but shared shell geometry killing Wyvern and Medic2."
+  },
+  "support_observation": {
+    "medic2_heals": [
+      {"target_id": "char_122_beagle", "count": 4, "amount": 152, "times": [660, 687, 773, 859]},
+      {"target_id": "char_240_wyvern", "count": 1, "amount": 0, "times": [660]},
+      {"target_id": "char_4093_frston", "count": 1, "amount": 70, "times": [945]}
+    ],
+    "boundary": "Medic2 did heal, but treatment throughput and placement did not prevent its own or Wyvern's death."
+  },
+  "retreat_redeploy_observation": {
+    "successful": [
+      {"operator_id": "char_122_beagle", "leave_frame": 1110, "refund": 9, "replacement": "char_500_noirc", "replacement_frame": 1110},
+      {"operator_id": "char_500_noirc", "leave_frame": 3210, "refund": 7},
+      {"operator_id": "char_4227_gallus", "leave_frame": 3690, "refund": 1}
+    ],
+    "invalid_because_dead_or_missing": [
+      "char_4000_jnight@1710",
+      "char_4093_frston@2520",
+      "char_192_falco@2880",
+      "char_285_medic2@3300",
+      "char_240_wyvern@4050"
+    ],
+    "boundary": "The first Beagle-to-Noir-Corne handoff executed with refund, but the broader handoff plan depended on units already lost to the opening."
+  },
+  "next_revision_requirements": [
+    "Separate the artillery lock point from adjacent splash victims; do not place the key blocker and another unit within radius 1.2 of the same locked point.",
+    "Move Medic2 outside observed shell geometry while retaining coverage, or choose a survivable early support replacement.",
+    "Rebuild skill and handoff timings on operators that are actually alive at each leave frame.",
+    "Keep upper/lower interception and roadblock duties jointly assigned; the first leak occurred at frame 961 while opening support died.",
+    "Preserve the confirmed successful retreat refund behavior and cooldown, but do not credit failed retreats."
+  ],
+  "python_boundary": "Python replayed saved events only; it did not choose or edit replacement tactics."
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "M42_STATIC_CONTRACT_FEEDBACK_V1",
+  "candidate_plan_id": "R8_7_GPT_M42_V2",
+  "status": "STATIC_BLOCKED_NOT_SIMULATED",
+  "lineage": {
+    "parent_plan_id": "R8_7_GPT_M42_V1",
+    "schema_validation": "PASS",
+    "static_conflicts": 2
+  },
+  "precise_conflicts": [
+    {
+      "operator_id": "char_209_ardign",
+      "action_type": "DEPLOY",
+      "frame": 2070,
+      "cost": 18.0,
+      "balance_before": 12.0,
+      "missing_dp": 6.0,
+      "conflict": "INSUFFICIENT_DP"
+    },
+    {
+      "operator_id": "char_284_spot",
+      "action_type": "DEPLOY",
+      "frame": 3000,
+      "cost": 17.0,
+      "balance_before": 15.0,
+      "missing_dp": 2.0,
+      "conflict": "INSUFFICIENT_DP"
+    }
+  ],
+  "required_revision": [
+    "Rebuild the DP ledger through both failed debits using only confirmed income and successful retreat refunds.",
+    "Choose one per conflict: delay the same deployment until affordable, move the debit earlier/later only when the duty remains covered, or replace it with an affordable operator while preserving the responsibility.",
+    "Do not assume future death, invented vanguard grants, refund from a failed retreat, or a hidden replacement deployment.",
+    "Retain the separated shell geometry and living handoff chain that V2 introduced."
+  ],
+  "python_boundary": "Python reported exact static conflicts only and did not select or edit tactical replacements."
+}

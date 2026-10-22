@@ -1,0 +1,33 @@
+{
+  "budget_scope": "M42_RETREAT_REDEPLOY_ARTILLERY_WINDOW_V1",
+  "schema_version": "M42_SIMULATION_BUDGET_RECONCILIATION_V1",
+  "historical_budgets_unchanged": {
+    "m39_tactical_cli": "4/4",
+    "m39_tactical_simulations": "2/4",
+    "m40_tactical_cli": "2/2",
+    "m40_tactical_simulations": "1/2",
+    "m41_original_tactical_cli": "3/3",
+    "m41_original_fixed_simulations": "2/3",
+    "m41_saved_v3_completion_tactical_cli": "1/2",
+    "m41_saved_v3_completion_fixed_simulations": "1/1"
+  },
+  "m42_cli_authorization": {
+    "max_real_tactical_cli_starts": 4,
+    "started": 4,
+    "remaining": 0,
+    "counting_rule": "Every session invocation counts, including infrastructure failure; no retry or resume.",
+    "non_stackable_note": "M41 saved-V3 completion's unused second CLI is not carried into M42."
+  },
+  "m42_cli_attempt_01": {
+    "status": "LATE_COMPLETED_VALID_CONTRACT_BRANCH",
+    "counted": true,
+    "source": "attempt_01_cli/final_status.json",
+    "late_return_correction": "The earlier no-output interim record counted the start correctly; the process later returned a complete contract-valid candidate. It was retained as V1_ALT, not retried or resumed."
+  },
+  "m42_simulation_authorization": {
+    "max": 4,
+    "started": 3,
+    "remaining": 1,
+    "accounting_note": "V1_ALT, V1 and V3 were each simulated once. V2 was not simulated after static conflicts. One fixed simulation remains, but no CLI remains to generate a revision."
+  }
+}

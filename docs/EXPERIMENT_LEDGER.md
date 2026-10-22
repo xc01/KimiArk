@@ -731,3 +731,13 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Evidence: `docs/review/fc77177/m35_artillery_resource_v1/` and
   `scripts/build_m35_artillery_resource_behavior_evidence_v1.py`. Focused
   M32/M33/M34/M35 resource tests: 14/14 PASS.
+
+# M42 retreat/redeploy tactical ledger — 2026-10-23
+
+- New tactical CLI starts: 4 of 4. New fixed simulations: 3 of 4; one simulation remains but cannot be paired with a new tactical CLI. Historical M39–M41 budgets were not reset or borrowed.
+- Attempt 1 was initially recorded as an infrastructure interruption after it produced no immediate output; it later returned normally. The start remains counted and the late branch was retained as `R8_7_GPT_M42_V1_ALT`. It lost 10/23/9/life -22.
+- `R8_7_GPT_M42_V1` lost 16/17/8/life -16. Its opening died because Wyvern and Medic2 were inside artillery splash geometry around Beagle; first leak was frame 961. The first Beagle retreat/refund and Noir Corne replacement did execute.
+- `R8_7_GPT_M42_V2` passed schema but was correctly `STATIC_BLOCKED_NOT_SIMULATED` for exact DP conflicts at frames 2070 and 3000.
+- `R8_7_GPT_M42_V3` passed static checks and was the best local branch: 19/14/9/life -13. Steward dealt 23 hits / 6850.25 to artillery, seven successful retreat refunds executed, but only one roadblock was destroyed and both protected targets were killed by artillery.
+- No WIN was obtained. Evidence, hashes, causal feedback and budget reconciliation are under
+  `docs/review/fc77177/m42_retreat_redeploy_artillery_window_v1/`; the full report is `m42_tactical_report_v1.md`.

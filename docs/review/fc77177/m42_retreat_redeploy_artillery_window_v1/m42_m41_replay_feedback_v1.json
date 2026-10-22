@@ -1,0 +1,87 @@
+{
+  "schema_version": "M42_M41_REPLAY_FEEDBACK_V1",
+  "evidence_status": "DIRECT_SAVED_EVENT_REPLAY_AND_PROJECT_CODE_READ",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "candidate_model_boundary": "This is current simulator and 2.7.81 candidate evidence; build-2771 equality, interruption, probability talents and some ordering remain UNKNOWN.",
+  "retreat_rule_current_model": {
+    "code_status": "CONFIRMED_FROM_PROJECT_CODE",
+    "source": "src/arknights_planner/simulator/simulator.py: _remove_operator",
+    "facts": [
+      "Only an actual successful RETREAT grants refund floor(deployment_cost*0.5); death grants zero.",
+      "Cooldown starts at actual leave time as time + redeploy_time + redeploy_time_delta.",
+      "Redeploy cost is operator base cost plus deployment_cost_delta; it is not auto-free or reconstructed from refund.",
+      "Retreat unblocks enemies held by the operator and releases the tile.",
+      "DP refund is capped by the stage max cost (R8-7 max_cost=99)."
+    ],
+    "observed_example": "M41 V4 Hibiscus deployed at frame 2400 for 17 DP, successfully retreated at frame 4650 for refund 8 DP, and returned at frame 6750."
+  },
+  "m41_v4_direct_replay": {
+    "first_prediction": {
+      "status": "OBSERVED",
+      "event": "HEAL",
+      "frame": 516,
+      "source_id": "char_285_medic2",
+      "target_id": "char_123_fang",
+      "amount": 70.0,
+      "boundary": "This proves only the selected treatment occurred; it does not prove survival or interception."
+    },
+    "artillery_chain": [
+      {"frame": 330, "event": "ENEMY_ABILITY_START", "locked_position": [3, 4], "delay": 3.0, "radius": 1.2},
+      {"frame": 340, "event": "PROJECTILE_BORN", "locked_position": [3, 4]},
+      {"frame": 430, "event": "ENEMY_ABILITY_HIT", "victims": [{"id": "char_123_fang", "amount": 740.0}, {"id": "char_240_wyvern", "amount": 760.0}]},
+      {"frame": 480, "event": "ENEMY_ABILITY_START", "locked_position": [3, 3], "delay": 3.0, "radius": 1.2},
+      {"frame": 490, "event": "PROJECTILE_BORN", "locked_position": [3, 3]},
+      {"frame": 580, "event": "ENEMY_ABILITY_HIT", "victims": [{"id": "char_123_fang", "amount": 740.0}, {"id": "char_240_wyvern", "amount": 760.0}, {"id": "char_285_medic2", "amount": 973.0}]}
+    ],
+    "opening_failure": {
+      "operator_deaths_frame": 580,
+      "first_leak": {"frame": 721, "source_id": "enemy_1108_uterer#1"},
+      "life_first_zero": {"frame": 1132, "reason": "ENEMY_LEAK"},
+      "failed_command_count_before_later_collapse": 14,
+      "meaning": "The opening treatment existed but died with its patients; early blocking and survival did not hold."
+    },
+    "hibiscus_correction": {
+      "previous_report_error": "The M41 completion report incorrectly said Hibiscus had died by frame 580 and therefore her frame-4650 retreat was invalid.",
+      "corrected_event": "Hibiscus deployed successfully at frame 2400, survived until frame 4650, retreated successfully for 8 DP refund, and returned at frame 6750.",
+      "corrected_effect": "Lava failed at 4650 only because its observed cost was 27 while DP after refund was 26; not because Hibiscus had died."
+    },
+    "key_output": {
+      "char_210_stward": {
+        "deploy_frame": 2070,
+        "all_damage": {"attacks": 25, "amount": 9993.89},
+        "artillery_damage": {"attacks": 7, "amount": 1967.89, "frames": [4825, 4873, 4921, 4969, 5017, 5065, 5113]},
+        "incoming": [{"frame": 5138, "source_id": "enemy_1110_uamord#21", "amount": 289.0, "kind": "ARTS"}, {"frame": 5143, "source_id": "enemy_1112_emppnt#0", "amount": 910.0, "kind": "PHYSICAL"}],
+        "death_frame": 5143,
+        "heal_events": 0,
+        "lesson": "Total output overstates artillery progress; officers and armored targets displaced the key artillery window."
+      }
+    },
+    "outcomes": {
+      "result": "LOSS",
+      "kills": 10,
+      "leaks": 23,
+      "operator_deaths": 9,
+      "life": -21,
+      "protected": {"safe_reached": ["enemy_3001_upeopl#3"], "died": [{"id": "enemy_3001_upeopl#14", "frame": 3945, "source_id": "enemy_1112_emppnt#0"}]},
+      "roadblocks_destroyed": ["trap_020_roadblock#3", "trap_020_roadblock#1"],
+      "artillery_survived_and_leaked": true
+    }
+  },
+  "m41_v1_direct_replay": {
+    "actual_support": "Ansel healed Steward 7 times for 3236.8 total at frames 2893, 2979, 3065, 3151, 3237, 3323, 3409.",
+    "steward_artillery_output": "19 hits / 5629.66 damage from frames 2161–3460.",
+    "steward_shells": "Five 910.0 hits at frames 2893, 3043, 3193, 3343, 3493; death at 3493.",
+    "first_leak": {"frame": 3065, "source_id": "enemy_1107_uoffcr#11"},
+    "causal_boundary": "Treatment and artillery output occurred, but first leak preceded output death; treatment does not substitute for interception."
+  },
+  "decision_requirements": [
+    "Do not rebuild a full unrelated plan; revise from these verified failure chains.",
+    "Treat active retreat as a real option, but plan the replacement before leaving.",
+    "Keep opening survival/interception, artillery targeting/throughput, protected safety, roadblocks and handoff DP jointly observable.",
+    "Provide three distinct predictions: opening survival/interception, artillery output or avoidance, and retreat-replacement-redeploy handoff.",
+    "A prediction may not be merely that a self-scheduled action executed; it must observe a battle outcome.",
+    "Leave explicit margin before lethal shells; same-frame retreat ordering is not a universal guarantee.",
+    "Do not harden a fixed artillery kill deadline; choose the artillery policy from evidence."
+  ],
+  "python_boundary": "Python may compute facts, check legality and replay events but must not choose tactics, edit actions, or create a hidden life-saving controller."
+}
