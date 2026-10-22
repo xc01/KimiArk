@@ -16,7 +16,7 @@
 |---:|---|---|---|---|---|
 | 1 | `R8_7_GPT_M41_V1` | PASS | PASS | LOSS | 19 kills / 14 leaks / 9 operator deaths / life -12 |
 | 2 | `R8_7_GPT_M41_V2` | PASS | PASS | LOSS | 8 kills / 25 leaks / 11 operator deaths / life -24 |
-| 3 | `R8_7_GPT_M41_V3` | PASS | FAIL | none | Hibiscus redeploy at frame 6600 had cooldown active |
+| 3 | `R8_7_GPT_M41_V3` | PASS | FAIL | NOT_SIMULATED | Hibiscus redeploy at frame 6600 had cooldown active |
 
 Prompt SHA-256 values:
 
@@ -62,10 +62,12 @@ support hypothesis and its early survivability arrangement.
 
 ## V3 static stop
 
-V3 was contract-valid, but the frozen static check found exactly one conflict:
+V3 was contract-valid but must be recorded as `STATIC_BLOCKED_NOT_SIMULATED`.
+The frozen static check found exactly one conflict:
 action index 33, `char_120_hibisc` redeploy at frame 6600 on JSON tile `[2,3]`,
 reported `REDEPLOY_COOLDOWN_ACTIVE`. The action was not repaired or simulated.
-One simulation remains unused.
+The one then-remaining simulation was retained for the separate saved-V3
+completion round.
 
 ## Branch comparison
 
@@ -78,7 +80,7 @@ One simulation remains unused.
 | M40 V2 | LOSS | 15 | 18 | `#3` died; `#14` reached | all four | 10 | -16 | 20 / 5696.47 |
 | M41 V1 | LOSS | 19 | 14 | `#3` died; `#14` reached | all four | 9 | -12 | 21 / 5969.66 |
 | M41 V2 | LOSS | 8 | 25 | both died | one | 11 | -24 | 19 / 4755.88 |
-| M41 V3 | LOSS | — | — | — | — | — | — | no simulation |
+| M41 V3 | STATIC_BLOCKED | — | — | — | — | — | — | no simulation |
 
 M41 V1 is the locally useful branch because it produced verified key support and
 the best M41 result, but it is not promoted to a WIN and should not be treated as

@@ -1,0 +1,60 @@
+{
+  "schema_version": "M41_V3_STATIC_REVISION_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M41_V3",
+  "source_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m41_survival_support_revision_v1/attempt_03_cli/llm_structured_output.json",
+  "source_static": "output/r8_1_r8_7_batch_v1/main_08-07/m41_survival_support_revision_v1/attempt_03_cli/static_compile_results.json",
+  "source_plan_sha256": "b0127261b0113a4feb1a7ddc50bbfc712f815d43b7b0d45c685ce844a984bd36",
+  "source_evidence_sha256": "c5d196aeaecebc2b70f85244068d9f0a6a4fb34e3a4ef430d9a484029355a021",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "static_status": "STATIC_BLOCKED_NOT_SIMULATED",
+  "exact_conflict": {
+    "action_index": 33,
+    "operator_id": "char_120_hibisc",
+    "operator_name": "芙蓉",
+    "action_type": "DEPLOY",
+    "frame": 6600,
+    "tile_json_row_col": [2, 3],
+    "tile_runtime_col_row": [3, 2],
+    "reason": "REDEPLOY_COOLDOWN_ACTIVE",
+    "prior_action_index": 18,
+    "prior_action_type": "RETREAT",
+    "prior_action_frame": 4650
+  },
+  "cooldown_calculation": {
+    "gamedata_fact": "char_120_hibisc phase-0 level-40 attributesKeyFrames has respawnTime=70 seconds.",
+    "source_path": "data/ArknightsGameData/zh_CN/gamedata/excel/character_table.json: $.char_120_hibisc.phases[0].attributesKeyFrames[-1].data.respawnTime",
+    "leave_frame": 4650,
+    "cooldown_seconds": 70.0,
+    "cooldown_frames": 2100,
+    "earliest_deploy_frame": 6750,
+    "planned_deploy_frame": 6600,
+    "deficit_frames": 150,
+    "planned_deploy_status": "CONFIRMED_STATIC_CONFLICT"
+  },
+  "parent_state_boundary": {
+    "original_v3_status": "STATIC_BLOCKED_NOT_SIMULATED",
+    "why": "The sole static conflict prevents the frozen plan from entering simulation; absence of simulation is not LOSS evidence."
+  },
+  "revision_requirements": [
+    "Eliminate the confirmed Hibiscus cooldown conflict first. Permitted choices are earlier retreat, delayed deployment, another handoff, or cancellation of that deployment; the model decides.",
+    "Preserve unrelated tactical decisions unless a connected adjustment is required; list and justify each connected change.",
+    "Recheck SP, DP, tile, deployment slot, skill timing and role gaps after the change; moving one timestamp alone is not complete repair.",
+    "Do not replace the concrete conflict with a vague conditional future-deploy claim.",
+    "Make the first observable tied to opening support or survival before the known early danger window, not merely a legal deployment."
+  ],
+  "retained_v1_conditions": {
+    "actual_support": "Ansel healed Steward 7 times for 3236.8 total from frames 2893–3409.",
+    "survival_limit": "Steward still received five 910.0 shell hits and died at frame 3493.",
+    "first_leak": "frame 3065 enemy_1107_uoffcr#11 occurred before Steward's death.",
+    "boundary": "Treatment occurring, throughput being sufficient, and interception holding are separate judgments."
+  },
+  "retained_v2_conditions": {
+    "early_failure": "Fang died at frame 687, Vanilla died at frame 792, and the first leak was frame 881.",
+    "support_timing_limit": "A support event after frame 1260 cannot retroactively repair the opening.",
+    "boundary": "A new opening must be validated; legality of deployment does not establish survival."
+  },
+  "execution_policy": {
+    "python_boundary": "Python may return the exact static conflict and calculate facts, but must not choose the tactical fix or repair actions.",
+    "candidate_policy": "First produce a contract/static-valid revision. Only then freeze code, mechanics version and direction-complete actions and use the one remaining M41 simulation."
+  }
+}

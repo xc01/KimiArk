@@ -389,8 +389,16 @@ def prepare() -> dict[str, Any]:
                 evidence["provenance"]["parent_plan_complete_artifact"] = str(
                     (revision_source / "llm_structured_output.json").relative_to(ROOT)
                 )
-            prior_diagnostic = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
-            prior_diagnostic.pop("leaking_route_summaries", None)
+            if DIAGNOSTIC_SUMMARY is None:
+                prior_diagnostic = {
+                    "source_plan_id": experience.extract_operational_plan_id(parent_plan) or "UNKNOWN_SOURCE_PLAN",
+                    "classification": "STATIC_BLOCKED_NO_SIMULATION",
+                    "result_metrics": {"win": None, "enemies_killed": None, "enemies_leaked": None, "operator_deaths": None, "remaining_life": None, "final_dp": None},
+                    "objective_failure_summary": {"count": 0, "reason_counts": {}},
+                }
+            else:
+                prior_diagnostic = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
+                prior_diagnostic.pop("leaking_route_summaries", None)
             evidence["prior_diagnostic_feedback"] = prior_diagnostic
             if TACTICAL_FEEDBACK:
                 evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)

@@ -1,0 +1,25 @@
+{
+  "budget_scope": "M41_SAVED_V3_COMPLETION_V1",
+  "schema_version": "M41_SAVED_V3_COMPLETION_BUDGET_RECONCILIATION_V1",
+  "historical_budgets_unchanged": {
+    "m39_tactical_cli": "4/4",
+    "m39_tactical_simulations": "2/4",
+    "m40_tactical_cli": "2/2",
+    "m40_tactical_simulations": "1/2",
+    "m41_original_tactical_cli": "3/3",
+    "m41_original_fixed_simulations": "2/3"
+  },
+  "saved_v3_completion_authorization": {
+    "max_real_tactical_cli_starts": 2,
+    "started": 1,
+    "remaining": 1,
+    "counting_rule": "Every session invocation counts, including infrastructure failure; no retry or resume."
+  },
+  "saved_v3_simulation_authorization": {
+    "maximum": 1,
+    "source": "M41 original remaining slot",
+    "started": 1,
+    "remaining": 0,
+    "accounting_note": "The copied gate uses max=3 and started=2 so exactly the original M41 remaining slot is exposed; no simulation quota is added."
+  }
+}
