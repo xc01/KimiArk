@@ -1,0 +1,66 @@
+{
+  "schema_version": "M40_M39_V4_WINDOW_FEEDBACK_V1",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source_plan_id": "R8_7_GPT_M39_V4",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m39_tactical_iteration_v1/attempt_04_diagnostic/manifest.json",
+  "evidence_status": "DIRECT_SAVED_REPLAY_AND_DETERMINISTIC_ROUTE_CALCULATION",
+  "candidate_model_boundary": "2.7.81 artillery candidate evidence; build-2771 equality, interruption, and ordinary/special mutual exclusion remain UNKNOWN",
+  "steward_window_analysis": {
+    "plan_deploy": {"frame": 1680, "tile_json_row_col": [2, 7], "runtime_tile_col_row": [7, 2], "direction": "UP", "cost": 18},
+    "route_wait": {"artillery_route_id": "route-1", "route_length": 29.0, "spawn_time_seconds": 3.0, "move_speed": 0.5, "stage_move_multiplier": 0.5, "effective_speed": 0.25, "early_waits": [[2.0, 3.0], [5.0, 10.0], [8.0, 10.0]]},
+    "coverage": {
+      "direction": "UP",
+      "covered_runtime_col_row": [[6, 2], [6, 3], [6, 4], [7, 2], [7, 3], [7, 4], [7, 5], [8, 2], [8, 3], [8, 4]],
+      "first_coverage_entry_distance": 12.5,
+      "first_coverage_entry_time_seconds": 76.0,
+      "first_coverage_entry_frame": 2280
+    },
+    "corrected_observation": {
+      "first_target_selection_frame": 2281,
+      "first_attack_frame": 2281,
+      "first_projectile_born_frame": 2281,
+      "first_damage_frame": 2281,
+      "first_target_id": "enemy_1112_emppnt#0",
+      "first_remaining_path_distance": 16.491666666666923,
+      "predicted_1680_to_1830_damage_window": "NOT_OBSERVED",
+      "window_failure_cause": "The artillery spent the planned window on route waits and a loop away from Steward's UP-facing coverage; legal deployment alone did not establish an output window."
+    },
+    "steward_output": {
+      "target_id": "enemy_1112_emppnt#0",
+      "hit_count": 25,
+      "total_damage": 7348.45,
+      "first_hit_frame": 2281,
+      "last_hit_frame": 3433,
+      "other_target_damage_events": 0,
+      "retreat_frame": 3480,
+      "operator_death_frame": null
+    },
+    "support": "Steward was healed at frames 3075 (362) and 3191 (548); saved DAMAGE-to-Steward events were 0.",
+    "ability_boundary": {
+      "stats_source": "normal_low_star_catalog phase 1 / level 55 / skill level 7 / potential 1 / trust 0",
+      "steward_stats": {"rarity": 3, "cost": 18, "max_hp": 1100, "atk": 470, "def": 90, "res": 15.0, "attack_interval": 1.6, "redeploy_time": 70},
+      "talent": "GameData says ATK +6% and prioritize highest-defense enemy, but current runtime does not implement the priority talent.",
+      "current_selection_rule": "OPPOSING_FACTION_ONLY_HATRED_DES_remaining_path_distance_then_creation_order",
+      "support_label_warning": "NOT_PLANNER_SAFE marks current implementation support, not weaker tactical value; unsupported priority must be marked as absent, not relabeled as present."
+    }
+  },
+  "saved_result": {
+    "simulator_win": false,
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "operator_deaths": 10,
+    "remaining_life": -15,
+    "first_leak": {"frame": 3786, "source_id": "enemy_1107_uoffcr#13"},
+    "first_objective_failure": {"frame": 3920, "reason": "ENEMY_LEAK", "remaining_life": 0},
+    "protected_targets": {"reached": [], "deaths": [{"target_id": "enemy_3001_upeopl#14", "frame": 3966, "source_id": "enemy_1107_uoffcr#18"}, {"target_id": "enemy_3001_upeopl#3", "frame": 5203, "source_id": "enemy_1112_emppnt#0"}]},
+    "roadblocks_destroyed": [{"frame": 2025, "source_id": "char_208_melan"}],
+    "operator_death_summary": "10 deaths, beginning with char_283_midn at 2023; the saved manifest and events retain the full list."
+  },
+  "branch_facts": [
+    {"plan_id": "R8_7_GPT_M30_V2", "result": "LOSS", "kills": 20, "leaks": 13, "operator_deaths": 10, "protected_reached": 2, "roadblocks": 4, "artillery": "23 hits / 6626.06"},
+    {"plan_id": "R8_7_GPT_M39_V3", "result": "LOSS", "kills": 19, "leaks": 14, "operator_deaths": 5, "protected_reached": 2, "roadblocks": 4, "artillery": "20 hits / 5822.17"},
+    {"plan_id": "R8_7_GPT_M31_V3", "result": "LOSS", "kills": 22, "leaks": 11, "operator_deaths": 10, "protected_deaths": 1, "roadblocks": 3, "artillery": "29 hits / 7959.67"},
+    {"plan_id": "R8_7_GPT_M39_V4", "result": "LOSS", "kills": 17, "leaks": 16, "operator_deaths": 10, "protected_deaths": 2, "roadblocks": 1, "artillery": "27 total / 7609.45; Steward 25 / 7348.45"}
+  ],
+  "revision_policy": "Compare actual capability and duty duration; do not mechanically splice branches or harden a remaining-HP delta into a required damage task. A verified prediction only proves its declared event, not full-stage success."
+}

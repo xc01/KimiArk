@@ -167,3 +167,13 @@ lost ten operators. Artillery survived both runs. These results are bounded by
 the candidate model and do not establish build-2771 equality, faithfulness, or
 real-device behavior. The detailed branch comparison is in
 `docs/review/fc77177/m39_tactical_iteration_v1/m39_report.md`.
+
+## M40 capability comparison result
+
+The saved M39 V4 events corrected the Steward interpretation: legal deployment
+at frame 1680 did not create an immediate output window. Route-1 waits and
+looping delayed first artillery damage to frame 2281, after which Steward did
+deliver repeated hits. M40 V2 still lost with 18 leaks and ten operator deaths.
+It destroyed all four roadblocks and brought `#14` safely late, but Steward died
+at frame 3160, artillery survived, and `#3` was killed by artillery. This is a
+candidate-model diagnostic result only.
