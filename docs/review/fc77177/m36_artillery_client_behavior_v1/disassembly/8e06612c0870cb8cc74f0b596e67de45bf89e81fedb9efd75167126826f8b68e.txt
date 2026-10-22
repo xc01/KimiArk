@@ -1,0 +1,613 @@
+### Torappu.Battle.Projectiles.HitBehaviour.OnProjectileReached token=0x60150fe RVA=0x2cd2b8c end<= 0x2cd303c
+0x2cd2b8c: sub      sp, sp, #0x110
+0x2cd2b90: str      x28, [sp, #0xc0]
+0x2cd2b94: stp      x25, x24, [sp, #0xd0]
+0x2cd2b98: stp      x23, x22, [sp, #0xe0]
+0x2cd2b9c: stp      x21, x20, [sp, #0xf0]
+0x2cd2ba0: stp      x19, x30, [sp, #0x100]
+0x2cd2ba4: adrp     x20, #0xce91000
+0x2cd2ba8: adrp     x24, #0xc633000
+0x2cd2bac: ldrb     w8, [x20, #0x3d0]
+0x2cd2bb0: ldr      x24, [x24, #0xce0]
+0x2cd2bb4: mov      x19, x0
+0x2cd2bb8: tbnz     w8, #0, #0x2cd2c30
+0x2cd2bbc: adrp     x0, #0xc70a000
+0x2cd2bc0: ldr      x0, [x0, #0x638]
+0x2cd2bc4: bl       #0x237e160
+0x2cd2bc8: adrp     x0, #0xc5d7000
+0x2cd2bcc: ldr      x0, [x0, #0x4f8]
+0x2cd2bd0: bl       #0x237e160
+0x2cd2bd4: adrp     x0, #0xc633000
+0x2cd2bd8: ldr      x0, [x0, #0xce0]
+0x2cd2bdc: bl       #0x237e160
+0x2cd2be0: adrp     x0, #0xc685000
+0x2cd2be4: ldr      x0, [x0, #0x188]
+0x2cd2be8: bl       #0x237e160
+0x2cd2bec: adrp     x0, #0xc686000
+0x2cd2bf0: ldr      x0, [x0, #0x88]
+0x2cd2bf4: bl       #0x237e160
+0x2cd2bf8: adrp     x0, #0xc6cc000
+0x2cd2bfc: ldr      x0, [x0, #0x5e8]
+0x2cd2c00: bl       #0x237e160
+0x2cd2c04: adrp     x0, #0xc5d8000
+0x2cd2c08: ldr      x0, [x0, #0xff8]
+0x2cd2c0c: bl       #0x237e160
+0x2cd2c10: adrp     x0, #0xc727000
+0x2cd2c14: ldr      x0, [x0, #0xcd8]
+0x2cd2c18: bl       #0x237e160
+0x2cd2c1c: adrp     x0, #0xc69e000
+0x2cd2c20: ldr      x0, [x0, #0x560]
+0x2cd2c24: bl       #0x237e160
+0x2cd2c28: mov      w8, #1
+0x2cd2c2c: strb     w8, [x20, #0x3d0]
+0x2cd2c30: ldr      x0, [x24]
+0x2cd2c34: ldr      w8, [x0, #0xe0]
+0x2cd2c38: cbnz     w8, #0x2cd2c44
+0x2cd2c3c: bl       #0x237e260
+0x2cd2c40: ldr      x0, [x24]
+0x2cd2c44: ldr      x8, [x0, #0xb8]
+0x2cd2c48: ldr      x0, [x8, #0x18]
+0x2cd2c4c: cbz      x0, #0x2cd2c74
+0x2cd2c50: mov      x1, x19
+0x2cd2c54: ldp      x19, x30, [sp, #0x100]
+0x2cd2c58: ldp      x21, x20, [sp, #0xf0]
+0x2cd2c5c: ldp      x23, x22, [sp, #0xe0]
+0x2cd2c60: ldp      x25, x24, [sp, #0xd0]
+0x2cd2c64: ldr      x28, [sp, #0xc0]
+0x2cd2c68: mov      x2, xzr
+0x2cd2c6c: add      sp, sp, #0x110
+0x2cd2c70: b        #0x4e5866c
+0x2cd2c74: mov      x0, x19
+0x2cd2c78: mov      x1, xzr
+0x2cd2c7c: bl       #0x2845c48 ; -> .Behaviour.OnProjectileReached
+0x2cd2c80: ldrb     w8, [x19, #0x89]
+0x2cd2c84: cbz      w8, #0x2cd2f54
+0x2cd2c88: ldr      x0, [x24]
+0x2cd2c8c: ldr      w8, [x0, #0xe0]
+0x2cd2c90: cbnz     w8, #0x2cd2c9c
+0x2cd2c94: bl       #0x237e260
+0x2cd2c98: ldr      x0, [x24]
+0x2cd2c9c: ldr      x8, [x0, #0xb8]
+0x2cd2ca0: ldr      x8, [x8]
+0x2cd2ca4: cbz      x8, #0x2cd2f70
+0x2cd2ca8: ldp      w2, w9, [x8, #0x18]
+0x2cd2cac: adrp     x20, #0xc5d7000
+0x2cd2cb0: adrp     x21, #0xc70a000
+0x2cd2cb4: ldr      x20, [x20, #0x4f8]
+0x2cd2cb8: ldr      x21, [x21, #0x638]
+0x2cd2cbc: add      w9, w9, #1
+0x2cd2cc0: cmp      w2, #1
+0x2cd2cc4: stp      wzr, w9, [x8, #0x18]
+0x2cd2cc8: b.lt     #0x2cd2cdc
+0x2cd2ccc: ldr      x0, [x8, #0x10]
+0x2cd2cd0: mov      w1, wzr
+0x2cd2cd4: mov      x3, xzr
+0x2cd2cd8: bl       #0x8d7a5b8 ; -> System.Array.Clear
+0x2cd2cdc: ldr      x1, [x20]
+0x2cd2ce0: mov      x0, x19
+0x2cd2ce4: bl       #0x63c9630
+0x2cd2ce8: mov      x20, x0
+0x2cd2cec: add      x1, x19, #0x28
+0x2cd2cf0: add      x0, sp, #0x60
+0x2cd2cf4: mov      w2, #0x60
+0x2cd2cf8: bl       #0x1d4c410
+0x2cd2cfc: ldr      x0, [x21]
+0x2cd2d00: ldr      w8, [x0, #0xe0]
+0x2cd2d04: cbnz     w8, #0x2cd2d0c
+0x2cd2d08: bl       #0x237e260
+0x2cd2d0c: adrp     x23, #0xc685000
+0x2cd2d10: ldr      x23, [x23, #0x188]
+0x2cd2d14: mov      x0, sp
+0x2cd2d18: add      x1, sp, #0x60
+0x2cd2d1c: mov      w2, #0x60
+0x2cd2d20: bl       #0x1d4c410
+0x2cd2d24: mov      x1, sp
+0x2cd2d28: mov      x0, x20
+0x2cd2d2c: mov      x2, xzr
+0x2cd2d30: mov      x3, xzr
+0x2cd2d34: bl       #0x292b5d0 ; -> Torappu.Battle.Box2dPhysicsUtil.FindTargets_DISPOSE
+0x2cd2d38: mov      x20, x0
+0x2cd2d3c: ldr      x0, [x24]
+0x2cd2d40: adrp     x25, #0xc677000
+0x2cd2d44: ldr      w8, [x0, #0xe0]
+0x2cd2d48: ldr      x25, [x25, #0x6d0]
+0x2cd2d4c: cbnz     w8, #0x2cd2d58
+0x2cd2d50: bl       #0x237e260
+0x2cd2d54: ldr      x0, [x24]
+0x2cd2d58: ldr      x8, [x0, #0xb8]
+0x2cd2d5c: ldr      x0, [x8]
+0x2cd2d60: cbz      x0, #0x2cd2f74
+0x2cd2d64: adrp     x8, #0xc686000
+0x2cd2d68: ldr      x8, [x8, #0x88]
+0x2cd2d6c: ldr      x2, [x8]
+0x2cd2d70: mov      x1, x20
+0x2cd2d74: bl       #0x71b82d4
+0x2cd2d78: mov      x21, xzr
+0x2cd2d7c: cbz      x20, #0x2cd2dec
+0x2cd2d80: ldr      x22, [x23]
+0x2cd2d84: ldrb     w8, [x25]
+0x2cd2d88: ldr      x23, [x20]
+0x2cd2d8c: cbz      w8, #0x2cd2d98
+0x2cd2d90: mov      x0, x23
+0x2cd2d94: bl       #0x23c9be0
+0x2cd2d98: ldrh     w8, [x23, #0x12e]
+0x2cd2d9c: cbz      x8, #0x2cd2dc0
+0x2cd2da0: ldr      x9, [x23, #0xb0]
+0x2cd2da4: add      x9, x9, #8
+0x2cd2da8: ldur     x10, [x9, #-8]
+0x2cd2dac: cmp      x10, x22
+0x2cd2db0: b.eq     #0x2cd2dd4
+0x2cd2db4: subs     x8, x8, #1
+0x2cd2db8: add      x9, x9, #0x10
+0x2cd2dbc: b.ne     #0x2cd2da8
+0x2cd2dc0: mov      x0, x20
+0x2cd2dc4: mov      x1, x22
+0x2cd2dc8: mov      w2, wzr
+0x2cd2dcc: bl       #0x23c9bec
+0x2cd2dd0: b        #0x2cd2de0
+0x2cd2dd4: ldrsw    x8, [x9]
+0x2cd2dd8: add      x8, x23, x8, lsl #4
+0x2cd2ddc: add      x0, x8, #0x140
+0x2cd2de0: ldp      x8, x1, [x0]
+0x2cd2de4: mov      x0, x20
+0x2cd2de8: blr      x8
+0x2cd2dec: cbnz     x21, #0x2cd2f78
+0x2cd2df0: adrp     x20, #0xc69e000
+0x2cd2df4: ldr      x20, [x20, #0x560]
+0x2cd2df8: mov      x0, x19
+0x2cd2dfc: mov      x1, xzr
+0x2cd2e00: bl       #0x284dea8 ; -> .Behaviour.get_source
+0x2cd2e04: ldr      x8, [x20]
+0x2cd2e08: mov      x20, x0
+0x2cd2e0c: ldr      w9, [x8, #0xe0]
+0x2cd2e10: cbnz     w9, #0x2cd2e1c
+0x2cd2e14: mov      x0, x8
+0x2cd2e18: bl       #0x237e260
+0x2cd2e1c: mov      x0, x20
+0x2cd2e20: mov      x1, xzr
+0x2cd2e24: mov      x2, xzr
+0x2cd2e28: bl       #0x97a04d8 ; -> UnityEngine.Object.op_Inequality
+0x2cd2e2c: tbz      w0, #0, #0x2cd2eb8
+0x2cd2e30: ldr      x0, [x24]
+0x2cd2e34: ldr      w8, [x0, #0xe0]
+0x2cd2e38: cbnz     w8, #0x2cd2e44
+0x2cd2e3c: bl       #0x237e260
+0x2cd2e40: ldr      x0, [x24]
+0x2cd2e44: ldr      x8, [x0, #0xb8]
+0x2cd2e48: ldr      x8, [x8]
+0x2cd2e4c: cbz      x8, #0x2cd2f70
+0x2cd2e50: ldr      w8, [x8, #0x18]
+0x2cd2e54: cmp      w8, #1
+0x2cd2e58: b.lt     #0x2cd2eb8
+0x2cd2e5c: mov      x0, x19
+0x2cd2e60: mov      x1, xzr
+0x2cd2e64: bl       #0x284dea8 ; -> .Behaviour.get_source
+0x2cd2e68: mov      x20, x0
+0x2cd2e6c: mov      x0, x19
+0x2cd2e70: mov      x1, xzr
+0x2cd2e74: bl       #0x2845db4 ; -> .Behaviour.get_projectile
+0x2cd2e78: ldr      x8, [x24]
+0x2cd2e7c: mov      x21, x0
+0x2cd2e80: ldr      w9, [x8, #0xe0]
+0x2cd2e84: cbnz     w9, #0x2cd2e94
+0x2cd2e88: mov      x0, x8
+0x2cd2e8c: bl       #0x237e260
+0x2cd2e90: ldr      x8, [x24]
+0x2cd2e94: ldr      x8, [x8, #0xb8]
+0x2cd2e98: ldr      x8, [x8]
+0x2cd2e9c: cbz      x8, #0x2cd2f70
+0x2cd2ea0: cbz      x20, #0x2cd2f70
+0x2cd2ea4: ldr      w2, [x8, #0x18]
+0x2cd2ea8: mov      x0, x20
+0x2cd2eac: mov      x1, x21
+0x2cd2eb0: mov      x3, xzr
+0x2cd2eb4: bl       #0x267cd64 ; -> Torappu.Battle.Entity.OnProjectileSelectTargets
+0x2cd2eb8: adrp     x22, #0xc727000
+0x2cd2ebc: ldr      x22, [x22, #0xcd8]
+0x2cd2ec0: mov      w20, wzr
+0x2cd2ec4: ldr      x0, [x24]
+0x2cd2ec8: ldr      w8, [x0, #0xe0]
+0x2cd2ecc: cbnz     w8, #0x2cd2ed8
+0x2cd2ed0: bl       #0x237e260
+0x2cd2ed4: ldr      x0, [x24]
+0x2cd2ed8: ldr      x8, [x0, #0xb8]
+0x2cd2edc: ldr      x8, [x8]
+0x2cd2ee0: cbz      x8, #0x2cd2f70
+0x2cd2ee4: ldr      w9, [x8, #0x18]
+0x2cd2ee8: cmp      w20, w9
+0x2cd2eec: b.ge     #0x2cd2f54
+0x2cd2ef0: ldr      w9, [x0, #0xe0]
+0x2cd2ef4: cbnz     w9, #0x2cd2f0c
+0x2cd2ef8: bl       #0x237e260
+0x2cd2efc: ldr      x8, [x24]
+0x2cd2f00: ldr      x8, [x8, #0xb8]
+0x2cd2f04: ldr      x8, [x8]
+0x2cd2f08: cbz      x8, #0x2cd2f70
+0x2cd2f0c: ldr      x2, [x22]
+0x2cd2f10: mov      x0, x8
+0x2cd2f14: mov      w1, w20
+0x2cd2f18: bl       #0x71b7ce4
+0x2cd2f1c: ldrb     w8, [x25]
+0x2cd2f20: mov      x21, x0
+0x2cd2f24: cbz      w8, #0x2cd2f30
+0x2cd2f28: ldr      x0, [x19]
+0x2cd2f2c: bl       #0x23c9be0
+0x2cd2f30: ldr      x8, [x19]
+0x2cd2f34: mov      x0, x19
+0x2cd2f38: mov      x1, x21
+0x2cd2f3c: mov      w2, wzr
+0x2cd2f40: ldr      x9, [x8, #0x230]
+0x2cd2f44: ldr      x3, [x8, #0x238]
+0x2cd2f48: blr      x9
+0x2cd2f4c: add      w20, w20, #1
+0x2cd2f50: b        #0x2cd2ec4
+0x2cd2f54: ldp      x19, x30, [sp, #0x100]
+0x2cd2f58: ldp      x21, x20, [sp, #0xf0]
+0x2cd2f5c: ldp      x23, x22, [sp, #0xe0]
+0x2cd2f60: ldp      x25, x24, [sp, #0xd0]
+0x2cd2f64: ldr      x28, [sp, #0xc0]
+0x2cd2f68: add      sp, sp, #0x110
+0x2cd2f6c: ret      
+0x2cd2f70: bl       #0x237e284
+0x2cd2f74: bl       #0x237e284
+0x2cd2f78: mov      x0, x21
+0x2cd2f7c: bl       #0x23e7d7c
+0x2cd2f80: b        #0x2cd2f84
+0x2cd2f84: mov      x22, x0
+0x2cd2f88: cmp      w1, #1
+0x2cd2f8c: b.ne     #0x2cd2fa4
+0x2cd2f90: mov      x0, x22
+0x2cd2f94: bl       #0x1d4bde0
+0x2cd2f98: ldr      x21, [x0]
+0x2cd2f9c: bl       #0x1d4cd30
+0x2cd2fa0: b        #0x2cd2d7c
+0x2cd2fa4: mov      x21, xzr
+0x2cd2fa8: cbz      x20, #0x2cd3018
+0x2cd2fac: ldr      x19, [x23]
+0x2cd2fb0: ldrb     w8, [x25]
+0x2cd2fb4: ldr      x23, [x20]
+0x2cd2fb8: cbz      w8, #0x2cd2fc4
+0x2cd2fbc: mov      x0, x23
+0x2cd2fc0: bl       #0x23c9be0
+0x2cd2fc4: ldrh     w8, [x23, #0x12e]
+0x2cd2fc8: cbz      x8, #0x2cd2fec
+0x2cd2fcc: ldr      x9, [x23, #0xb0]
+0x2cd2fd0: add      x9, x9, #8
+0x2cd2fd4: ldur     x10, [x9, #-8]
+0x2cd2fd8: cmp      x10, x19
+0x2cd2fdc: b.eq     #0x2cd3000
+0x2cd2fe0: subs     x8, x8, #1
+0x2cd2fe4: add      x9, x9, #0x10
+0x2cd2fe8: b.ne     #0x2cd2fd4
+0x2cd2fec: mov      x0, x20
+0x2cd2ff0: mov      x1, x19
+0x2cd2ff4: mov      w2, wzr
+0x2cd2ff8: bl       #0x23c9bec
+0x2cd2ffc: b        #0x2cd300c
+0x2cd3000: ldrsw    x8, [x9]
+0x2cd3004: add      x8, x23, x8, lsl #4
+0x2cd3008: add      x0, x8, #0x140
+0x2cd300c: ldp      x8, x1, [x0]
+0x2cd3010: mov      x0, x20
+0x2cd3014: blr      x8
+0x2cd3018: cbnz     x21, #0x2cd3024
+0x2cd301c: mov      x0, x22
+0x2cd3020: bl       #0x1d4ccd0
+0x2cd3024: mov      x0, x21
+0x2cd3028: bl       #0x23e7d7c
+0x2cd302c: mov      x22, x0
+0x2cd3030: cbnz     x20, #0x2cd2fac
+0x2cd3034: b        #0x2cd3018
+0x2cd3038: bl       #0x1d4e528
+### Torappu.Battle.Projectiles.HitBehaviour.OnProjectileStop token=0x60150ff RVA=0x2cd303c end<= 0x2cd3518
+0x2cd303c: sub      sp, sp, #0x110
+0x2cd3040: str      x28, [sp, #0xc0]
+0x2cd3044: stp      x25, x24, [sp, #0xd0]
+0x2cd3048: stp      x23, x22, [sp, #0xe0]
+0x2cd304c: stp      x21, x20, [sp, #0xf0]
+0x2cd3050: stp      x19, x30, [sp, #0x100]
+0x2cd3054: adrp     x20, #0xce91000
+0x2cd3058: adrp     x24, #0xc633000
+0x2cd305c: ldrb     w8, [x20, #0x3d1]
+0x2cd3060: ldr      x24, [x24, #0xce0]
+0x2cd3064: mov      x19, x0
+0x2cd3068: tbnz     w8, #0, #0x2cd30e0
+0x2cd306c: adrp     x0, #0xc70a000
+0x2cd3070: ldr      x0, [x0, #0x638]
+0x2cd3074: bl       #0x237e160
+0x2cd3078: adrp     x0, #0xc5d7000
+0x2cd307c: ldr      x0, [x0, #0x4f8]
+0x2cd3080: bl       #0x237e160
+0x2cd3084: adrp     x0, #0xc633000
+0x2cd3088: ldr      x0, [x0, #0xce0]
+0x2cd308c: bl       #0x237e160
+0x2cd3090: adrp     x0, #0xc685000
+0x2cd3094: ldr      x0, [x0, #0x188]
+0x2cd3098: bl       #0x237e160
+0x2cd309c: adrp     x0, #0xc686000
+0x2cd30a0: ldr      x0, [x0, #0x88]
+0x2cd30a4: bl       #0x237e160
+0x2cd30a8: adrp     x0, #0xc6cc000
+0x2cd30ac: ldr      x0, [x0, #0x5e8]
+0x2cd30b0: bl       #0x237e160
+0x2cd30b4: adrp     x0, #0xc5d8000
+0x2cd30b8: ldr      x0, [x0, #0xff8]
+0x2cd30bc: bl       #0x237e160
+0x2cd30c0: adrp     x0, #0xc727000
+0x2cd30c4: ldr      x0, [x0, #0xcd8]
+0x2cd30c8: bl       #0x237e160
+0x2cd30cc: adrp     x0, #0xc69e000
+0x2cd30d0: ldr      x0, [x0, #0x560]
+0x2cd30d4: bl       #0x237e160
+0x2cd30d8: mov      w8, #1
+0x2cd30dc: strb     w8, [x20, #0x3d1]
+0x2cd30e0: ldr      x0, [x24]
+0x2cd30e4: ldr      w8, [x0, #0xe0]
+0x2cd30e8: cbnz     w8, #0x2cd30f4
+0x2cd30ec: bl       #0x237e260
+0x2cd30f0: ldr      x0, [x24]
+0x2cd30f4: ldr      x8, [x0, #0xb8]
+0x2cd30f8: ldr      x0, [x8, #0x20]
+0x2cd30fc: cbz      x0, #0x2cd3124
+0x2cd3100: mov      x1, x19
+0x2cd3104: ldp      x19, x30, [sp, #0x100]
+0x2cd3108: ldp      x21, x20, [sp, #0xf0]
+0x2cd310c: ldp      x23, x22, [sp, #0xe0]
+0x2cd3110: ldp      x25, x24, [sp, #0xd0]
+0x2cd3114: ldr      x28, [sp, #0xc0]
+0x2cd3118: mov      x2, xzr
+0x2cd311c: add      sp, sp, #0x110
+0x2cd3120: b        #0x4e5866c
+0x2cd3124: mov      x0, x19
+0x2cd3128: mov      x1, xzr
+0x2cd312c: bl       #0x2845d50 ; -> .Behaviour.OnProjectileStop
+0x2cd3130: mov      x0, x19
+0x2cd3134: mov      x1, xzr
+0x2cd3138: bl       #0x2845db4 ; -> .Behaviour.get_projectile
+0x2cd313c: cbz      x0, #0x2cd344c
+0x2cd3140: mov      x1, xzr
+0x2cd3144: bl       #0x284e230 ; -> Torappu.Battle.Projectile.get_isEliminated
+0x2cd3148: tbnz     w0, #0, #0x2cd3420
+0x2cd314c: ldrb     w8, [x19, #0x8a]
+0x2cd3150: cbz      w8, #0x2cd3420
+0x2cd3154: ldr      x0, [x24]
+0x2cd3158: ldr      w8, [x0, #0xe0]
+0x2cd315c: cbnz     w8, #0x2cd3168
+0x2cd3160: bl       #0x237e260
+0x2cd3164: ldr      x0, [x24]
+0x2cd3168: ldr      x8, [x0, #0xb8]
+0x2cd316c: ldr      x8, [x8]
+0x2cd3170: cbz      x8, #0x2cd344c
+0x2cd3174: ldp      w2, w9, [x8, #0x18]
+0x2cd3178: adrp     x20, #0xc5d7000
+0x2cd317c: adrp     x21, #0xc70a000
+0x2cd3180: ldr      x20, [x20, #0x4f8]
+0x2cd3184: ldr      x21, [x21, #0x638]
+0x2cd3188: add      w9, w9, #1
+0x2cd318c: cmp      w2, #1
+0x2cd3190: stp      wzr, w9, [x8, #0x18]
+0x2cd3194: b.lt     #0x2cd31a8
+0x2cd3198: ldr      x0, [x8, #0x10]
+0x2cd319c: mov      w1, wzr
+0x2cd31a0: mov      x3, xzr
+0x2cd31a4: bl       #0x8d7a5b8 ; -> System.Array.Clear
+0x2cd31a8: ldr      x1, [x20]
+0x2cd31ac: mov      x0, x19
+0x2cd31b0: bl       #0x63c9630
+0x2cd31b4: mov      x20, x0
+0x2cd31b8: add      x1, x19, #0x28
+0x2cd31bc: add      x0, sp, #0x60
+0x2cd31c0: mov      w2, #0x60
+0x2cd31c4: bl       #0x1d4c410
+0x2cd31c8: ldr      x0, [x21]
+0x2cd31cc: ldr      w8, [x0, #0xe0]
+0x2cd31d0: cbnz     w8, #0x2cd31d8
+0x2cd31d4: bl       #0x237e260
+0x2cd31d8: adrp     x23, #0xc685000
+0x2cd31dc: ldr      x23, [x23, #0x188]
+0x2cd31e0: mov      x0, sp
+0x2cd31e4: add      x1, sp, #0x60
+0x2cd31e8: mov      w2, #0x60
+0x2cd31ec: bl       #0x1d4c410
+0x2cd31f0: mov      x1, sp
+0x2cd31f4: mov      x0, x20
+0x2cd31f8: mov      x2, xzr
+0x2cd31fc: mov      x3, xzr
+0x2cd3200: bl       #0x292b5d0 ; -> Torappu.Battle.Box2dPhysicsUtil.FindTargets_DISPOSE
+0x2cd3204: mov      x20, x0
+0x2cd3208: ldr      x0, [x24]
+0x2cd320c: adrp     x25, #0xc677000
+0x2cd3210: ldr      w8, [x0, #0xe0]
+0x2cd3214: ldr      x25, [x25, #0x6d0]
+0x2cd3218: cbnz     w8, #0x2cd3224
+0x2cd321c: bl       #0x237e260
+0x2cd3220: ldr      x0, [x24]
+0x2cd3224: ldr      x8, [x0, #0xb8]
+0x2cd3228: ldr      x0, [x8]
+0x2cd322c: cbz      x0, #0x2cd3450
+0x2cd3230: adrp     x8, #0xc686000
+0x2cd3234: ldr      x8, [x8, #0x88]
+0x2cd3238: ldr      x2, [x8]
+0x2cd323c: mov      x1, x20
+0x2cd3240: bl       #0x71b82d4
+0x2cd3244: mov      x21, xzr
+0x2cd3248: cbz      x20, #0x2cd32b8
+0x2cd324c: ldr      x22, [x23]
+0x2cd3250: ldrb     w8, [x25]
+0x2cd3254: ldr      x23, [x20]
+0x2cd3258: cbz      w8, #0x2cd3264
+0x2cd325c: mov      x0, x23
+0x2cd3260: bl       #0x23c9be0
+0x2cd3264: ldrh     w8, [x23, #0x12e]
+0x2cd3268: cbz      x8, #0x2cd328c
+0x2cd326c: ldr      x9, [x23, #0xb0]
+0x2cd3270: add      x9, x9, #8
+0x2cd3274: ldur     x10, [x9, #-8]
+0x2cd3278: cmp      x10, x22
+0x2cd327c: b.eq     #0x2cd32a0
+0x2cd3280: subs     x8, x8, #1
+0x2cd3284: add      x9, x9, #0x10
+0x2cd3288: b.ne     #0x2cd3274
+0x2cd328c: mov      x0, x20
+0x2cd3290: mov      x1, x22
+0x2cd3294: mov      w2, wzr
+0x2cd3298: bl       #0x23c9bec
+0x2cd329c: b        #0x2cd32ac
+0x2cd32a0: ldrsw    x8, [x9]
+0x2cd32a4: add      x8, x23, x8, lsl #4
+0x2cd32a8: add      x0, x8, #0x140
+0x2cd32ac: ldp      x8, x1, [x0]
+0x2cd32b0: mov      x0, x20
+0x2cd32b4: blr      x8
+0x2cd32b8: cbnz     x21, #0x2cd3454
+0x2cd32bc: adrp     x20, #0xc69e000
+0x2cd32c0: ldr      x20, [x20, #0x560]
+0x2cd32c4: mov      x0, x19
+0x2cd32c8: mov      x1, xzr
+0x2cd32cc: bl       #0x284dea8 ; -> .Behaviour.get_source
+0x2cd32d0: ldr      x8, [x20]
+0x2cd32d4: mov      x20, x0
+0x2cd32d8: ldr      w9, [x8, #0xe0]
+0x2cd32dc: cbnz     w9, #0x2cd32e8
+0x2cd32e0: mov      x0, x8
+0x2cd32e4: bl       #0x237e260
+0x2cd32e8: mov      x0, x20
+0x2cd32ec: mov      x1, xzr
+0x2cd32f0: mov      x2, xzr
+0x2cd32f4: bl       #0x97a04d8 ; -> UnityEngine.Object.op_Inequality
+0x2cd32f8: tbz      w0, #0, #0x2cd3384
+0x2cd32fc: ldr      x0, [x24]
+0x2cd3300: ldr      w8, [x0, #0xe0]
+0x2cd3304: cbnz     w8, #0x2cd3310
+0x2cd3308: bl       #0x237e260
+0x2cd330c: ldr      x0, [x24]
+0x2cd3310: ldr      x8, [x0, #0xb8]
+0x2cd3314: ldr      x8, [x8]
+0x2cd3318: cbz      x8, #0x2cd344c
+0x2cd331c: ldr      w8, [x8, #0x18]
+0x2cd3320: cmp      w8, #1
+0x2cd3324: b.lt     #0x2cd3384
+0x2cd3328: mov      x0, x19
+0x2cd332c: mov      x1, xzr
+0x2cd3330: bl       #0x284dea8 ; -> .Behaviour.get_source
+0x2cd3334: mov      x20, x0
+0x2cd3338: mov      x0, x19
+0x2cd333c: mov      x1, xzr
+0x2cd3340: bl       #0x2845db4 ; -> .Behaviour.get_projectile
+0x2cd3344: ldr      x8, [x24]
+0x2cd3348: mov      x21, x0
+0x2cd334c: ldr      w9, [x8, #0xe0]
+0x2cd3350: cbnz     w9, #0x2cd3360
+0x2cd3354: mov      x0, x8
+0x2cd3358: bl       #0x237e260
+0x2cd335c: ldr      x8, [x24]
+0x2cd3360: ldr      x8, [x8, #0xb8]
+0x2cd3364: ldr      x8, [x8]
+0x2cd3368: cbz      x8, #0x2cd344c
+0x2cd336c: cbz      x20, #0x2cd344c
+0x2cd3370: ldr      w2, [x8, #0x18]
+0x2cd3374: mov      x0, x20
+0x2cd3378: mov      x1, x21
+0x2cd337c: mov      x3, xzr
+0x2cd3380: bl       #0x267cd64 ; -> Torappu.Battle.Entity.OnProjectileSelectTargets
+0x2cd3384: adrp     x22, #0xc727000
+0x2cd3388: ldr      x22, [x22, #0xcd8]
+0x2cd338c: mov      w20, wzr
+0x2cd3390: ldr      x0, [x24]
+0x2cd3394: ldr      w8, [x0, #0xe0]
+0x2cd3398: cbnz     w8, #0x2cd33a4
+0x2cd339c: bl       #0x237e260
+0x2cd33a0: ldr      x0, [x24]
+0x2cd33a4: ldr      x8, [x0, #0xb8]
+0x2cd33a8: ldr      x8, [x8]
+0x2cd33ac: cbz      x8, #0x2cd344c
+0x2cd33b0: ldr      w9, [x8, #0x18]
+0x2cd33b4: cmp      w20, w9
+0x2cd33b8: b.ge     #0x2cd3420
+0x2cd33bc: ldr      w9, [x0, #0xe0]
+0x2cd33c0: cbnz     w9, #0x2cd33d8
+0x2cd33c4: bl       #0x237e260
+0x2cd33c8: ldr      x8, [x24]
+0x2cd33cc: ldr      x8, [x8, #0xb8]
+0x2cd33d0: ldr      x8, [x8]
+0x2cd33d4: cbz      x8, #0x2cd344c
+0x2cd33d8: ldr      x2, [x22]
+0x2cd33dc: mov      x0, x8
+0x2cd33e0: mov      w1, w20
+0x2cd33e4: bl       #0x71b7ce4
+0x2cd33e8: ldrb     w8, [x25]
+0x2cd33ec: mov      x21, x0
+0x2cd33f0: cbz      w8, #0x2cd33fc
+0x2cd33f4: ldr      x0, [x19]
+0x2cd33f8: bl       #0x23c9be0
+0x2cd33fc: ldr      x8, [x19]
+0x2cd3400: mov      x0, x19
+0x2cd3404: mov      x1, x21
+0x2cd3408: mov      w2, wzr
+0x2cd340c: ldr      x9, [x8, #0x230]
+0x2cd3410: ldr      x3, [x8, #0x238]
+0x2cd3414: blr      x9
+0x2cd3418: add      w20, w20, #1
+0x2cd341c: b        #0x2cd3390
+0x2cd3420: ldrb     w8, [x19, #0x9c]
+0x2cd3424: cbz      w8, #0x2cd3430
+0x2cd3428: ldr      w8, [x19, #0xa4]
+0x2cd342c: str      w8, [x19, #0x2c]
+0x2cd3430: ldp      x19, x30, [sp, #0x100]
+0x2cd3434: ldp      x21, x20, [sp, #0xf0]
+0x2cd3438: ldp      x23, x22, [sp, #0xe0]
+0x2cd343c: ldp      x25, x24, [sp, #0xd0]
+0x2cd3440: ldr      x28, [sp, #0xc0]
+0x2cd3444: add      sp, sp, #0x110
+0x2cd3448: ret      
+0x2cd344c: bl       #0x237e284
+0x2cd3450: bl       #0x237e284
+0x2cd3454: mov      x0, x21
+0x2cd3458: bl       #0x23e7d7c
+0x2cd345c: b        #0x2cd3460
+0x2cd3460: mov      x22, x0
+0x2cd3464: cmp      w1, #1
+0x2cd3468: b.ne     #0x2cd3480
+0x2cd346c: mov      x0, x22
+0x2cd3470: bl       #0x1d4bde0
+0x2cd3474: ldr      x21, [x0]
+0x2cd3478: bl       #0x1d4cd30
+0x2cd347c: b        #0x2cd3248
+0x2cd3480: mov      x21, xzr
+0x2cd3484: cbz      x20, #0x2cd34f4
+0x2cd3488: ldr      x19, [x23]
+0x2cd348c: ldrb     w8, [x25]
+0x2cd3490: ldr      x23, [x20]
+0x2cd3494: cbz      w8, #0x2cd34a0
+0x2cd3498: mov      x0, x23
+0x2cd349c: bl       #0x23c9be0
+0x2cd34a0: ldrh     w8, [x23, #0x12e]
+0x2cd34a4: cbz      x8, #0x2cd34c8
+0x2cd34a8: ldr      x9, [x23, #0xb0]
+0x2cd34ac: add      x9, x9, #8
+0x2cd34b0: ldur     x10, [x9, #-8]
+0x2cd34b4: cmp      x10, x19
+0x2cd34b8: b.eq     #0x2cd34dc
+0x2cd34bc: subs     x8, x8, #1
+0x2cd34c0: add      x9, x9, #0x10
+0x2cd34c4: b.ne     #0x2cd34b0
+0x2cd34c8: mov      x0, x20
+0x2cd34cc: mov      x1, x19
+0x2cd34d0: mov      w2, wzr
+0x2cd34d4: bl       #0x23c9bec
+0x2cd34d8: b        #0x2cd34e8
+0x2cd34dc: ldrsw    x8, [x9]
+0x2cd34e0: add      x8, x23, x8, lsl #4
+0x2cd34e4: add      x0, x8, #0x140
+0x2cd34e8: ldp      x8, x1, [x0]
+0x2cd34ec: mov      x0, x20
+0x2cd34f0: blr      x8
+0x2cd34f4: cbnz     x21, #0x2cd3500
+0x2cd34f8: mov      x0, x22
+0x2cd34fc: bl       #0x1d4ccd0
+0x2cd3500: mov      x0, x21
+0x2cd3504: bl       #0x23e7d7c
+0x2cd3508: mov      x22, x0
+0x2cd350c: cbnz     x20, #0x2cd3488
+0x2cd3510: b        #0x2cd34f4
+0x2cd3514: bl       #0x1d4e528

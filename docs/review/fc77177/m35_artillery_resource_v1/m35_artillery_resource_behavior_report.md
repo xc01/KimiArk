@@ -122,3 +122,11 @@ The single bounded next step is to obtain the 2.7.81 client binary/metadata and
 re-run the focused `RangedAttack -> Projectile -> HitBehaviour` disassembly
 against that version, then compare the action/action-node payload. Only after
 that comparison can a version-unified runtime rule be changed.
+
+## M36 follow-up
+
+The 2.7.81 client and metadata were subsequently obtained and the focused attack
+clock was checked. See
+`docs/review/fc77177/m36_artillery_client_behavior_v1/m36_report.md`. That
+report supersedes the clock-related boundary above, but not the build-2771
+equality boundary or the remaining selector, damage, and medical rules.

@@ -362,6 +362,33 @@ def test_emp_point_locks_protected_target_and_hits_area_after_delay():
     assert len(hits) == 1 and hits[0].time == pytest.approx(3.0)
 
 
+def test_emp_point_attack_clock_is_not_reset_while_no_target_is_present():
+    artillery = replace(
+        _enemy("enemy_1112_emppnt", movement_mode="FLY", speed=0.0),
+        stats=replace(_enemy("enemy_1112_emppnt").stats, attack_range=known(10.0, _SOURCE, "artillery.range")),
+        abilities=(
+            EnemyAbility(
+                "artillery", "DELAYED_LOCKED_AREA_ATTACK", 5.0, 0.0, 1.2, 1.0,
+                damage_type="PHYSICAL", delay_seconds=3.0, protected_target_priority=True,
+            ),
+        ),
+    )
+    civilian = replace(_neutral(), stats=replace(_neutral().stats, move_speed=known(0.0, _SOURCE, "civilian.speed")))
+    stage = replace(
+        synthetic_stage(),
+        spawn_events=(
+            SpawnEvent(0.0, "enemy_1112_emppnt", "main"),
+            SpawnEvent(2.0, "civilian", "main"),
+        ),
+        dp_per_second=0.0,
+    )
+    result = _run(stage, synthetic_operators(), {"enemy_1112_emppnt": artillery, "civilian": civilian}, Strategy((), ()), max_time=5.2)
+    starts = [event.time for event in result.events if event.event_type.name == "ENEMY_ABILITY_START"]
+    hits = [event.time for event in result.events if event.event_type.name == "DAMAGE"]
+    assert starts == [pytest.approx(2.0)]
+    assert hits == [pytest.approx(5.0)]
+
+
 def test_friendly_ice_and_altar_devices_execute_source_skills():
     stage = replace(
         synthetic_stage(),

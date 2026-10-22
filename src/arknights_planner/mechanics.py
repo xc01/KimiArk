@@ -5,11 +5,15 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m23-behavioral-mechanics-v1"
+ACTIVE_MECHANICS_VERSION = "m36-2781-artillery-clock-v1"
 
 MECHANICS_VERSION_HISTORY = {
-    "m23-behavioral-mechanics-v1": {
+    "m36-2781-artillery-clock-v1": {
         "status": "ACTIVE",
+        "summary": "Uses 2.7.81 candidate-model evidence to keep the delayed locked-area artillery clock tied to attack-time changes rather than resetting while no target exists. Build-2771 identity is not claimed.",
+    },
+    "m23-behavioral-mechanics-v1": {
+        "status": "SUPERSEDED",
         "summary": "Connects skill range/damage/heal behavior to runtime, fixes route blocker intersection, artillery launch-impact cycles, COLD attack interval, friendly device x-1 geometry, and static refund/deployment semantics. Full mechanism closure is not claimed.",
     },
     "m18-targeting-v1": {

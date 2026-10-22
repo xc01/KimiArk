@@ -1,0 +1,270 @@
+### Torappu.Battle.FilterUtil.FilterWithFilterByPriorCompFunc RVA=0x295f234 end=0x295f368
+0x295f234: stp      x25, x24, [sp, #-0x40]!
+0x295f238: stp      x23, x22, [sp, #0x10]
+0x295f23c: stp      x21, x20, [sp, #0x20]
+0x295f240: stp      x19, x30, [sp, #0x30]
+0x295f244: adrp     x25, #0xce8f000
+0x295f248: adrp     x24, #0xc5f5000
+0x295f24c: ldrb     w8, [x25, #0x58]
+0x295f250: ldr      x24, [x24, #0xc60]
+0x295f254: mov      x21, x4
+0x295f258: mov      w22, w3
+0x295f25c: mov      w20, w2
+0x295f260: mov      x23, x1
+0x295f264: mov      x19, x0
+0x295f268: tbnz     w8, #0, #0x295f2a4
+0x295f26c: adrp     x0, #0xc5d3000
+0x295f270: ldr      x0, [x0, #0xeb8]
+0x295f274: bl       #0x237e160
+0x295f278: adrp     x0, #0xc65e000
+0x295f27c: ldr      x0, [x0, #0xb48]
+0x295f280: bl       #0x237e160
+0x295f284: adrp     x0, #0xc5f5000
+0x295f288: ldr      x0, [x0, #0xc60]
+0x295f28c: bl       #0x237e160
+0x295f290: adrp     x0, #0xc5d8000
+0x295f294: ldr      x0, [x0, #0xff8]
+0x295f298: bl       #0x237e160
+0x295f29c: mov      w8, #1
+0x295f2a0: strb     w8, [x25, #0x58]
+0x295f2a4: ldr      x0, [x24]
+0x295f2a8: ldr      w8, [x0, #0xe0]
+0x295f2ac: cbnz     w8, #0x295f2b8
+0x295f2b0: bl       #0x237e260
+0x295f2b4: ldr      x0, [x24]
+0x295f2b8: ldr      x8, [x0, #0xb8]
+0x295f2bc: ldr      x8, [x8, #0xc8]
+0x295f2c0: cbz      x8, #0x295f2f4
+0x295f2c4: mov      x1, x19
+0x295f2c8: mov      x2, x23
+0x295f2cc: mov      w3, w20
+0x295f2d0: mov      w4, w22
+0x295f2d4: mov      x5, x21
+0x295f2d8: ldp      x19, x30, [sp, #0x30]
+0x295f2dc: ldp      x21, x20, [sp, #0x20]
+0x295f2e0: ldp      x23, x22, [sp, #0x10]
+0x295f2e4: mov      x0, x8
+0x295f2e8: mov      x6, xzr
+0x295f2ec: ldp      x25, x24, [sp], #0x40
+0x295f2f0: b        #0x54d04b0
+0x295f2f4: adrp     x25, #0xc65e000
+0x295f2f8: adrp     x24, #0xc5d3000
+0x295f2fc: ldr      w8, [x0, #0xe0]
+0x295f300: ldr      x25, [x25, #0xb48]
+0x295f304: ldr      x24, [x24, #0xeb8]
+0x295f308: cbnz     w8, #0x295f310
+0x295f30c: bl       #0x237e260
+0x295f310: mov      w2, #0x80
+0x295f314: mov      x0, x19
+0x295f318: mov      x1, x23
+0x295f31c: mov      w3, w22
+0x295f320: bl       #0x295eed4 ; -> Torappu.Battle.FilterUtil.Filter
+0x295f324: ldr      x3, [x25]
+0x295f328: mov      w2, #-1
+0x295f32c: mov      x0, x19
+0x295f330: mov      x1, x21
+0x295f334: bl       #0x63bef20
+0x295f338: ldr      x2, [x24]
+0x295f33c: mov      x0, x19
+0x295f340: mov      w1, w20
+0x295f344: bl       #0x63be458
+0x295f348: cbz      x19, #0x295f364
+0x295f34c: ldr      w0, [x19, #0x18]
+0x295f350: ldp      x19, x30, [sp, #0x30]
+0x295f354: ldp      x21, x20, [sp, #0x20]
+0x295f358: ldp      x23, x22, [sp, #0x10]
+0x295f35c: ldp      x25, x24, [sp], #0x40
+0x295f360: ret      
+0x295f364: bl       #0x237e284
+### Torappu.Battle.FilterUtil.Filter RVA=0x295eed4 end=0x295f10c
+0x295eed4: sub      sp, sp, #0x50
+0x295eed8: str      x24, [sp, #0x10]
+0x295eedc: stp      x23, x22, [sp, #0x20]
+0x295eee0: stp      x21, x20, [sp, #0x30]
+0x295eee4: stp      x19, x30, [sp, #0x40]
+0x295eee8: adrp     x23, #0xce8f000
+0x295eeec: adrp     x24, #0xc5f5000
+0x295eef0: ldrb     w8, [x23, #0x57]
+0x295eef4: ldr      x24, [x24, #0xc60]
+0x295eef8: mov      w22, w3
+0x295eefc: mov      w20, w2
+0x295ef00: mov      x19, x1
+0x295ef04: mov      x21, x0
+0x295ef08: tbnz     w8, #0, #0x295ef5c
+0x295ef0c: adrp     x0, #0xc650000
+0x295ef10: ldr      x0, [x0, #0x800]
+0x295ef14: bl       #0x237e160
+0x295ef18: adrp     x0, #0xc702000
+0x295ef1c: ldr      x0, [x0, #0x218]
+0x295ef20: bl       #0x237e160
+0x295ef24: adrp     x0, #0xc69e000
+0x295ef28: ldr      x0, [x0, #0x7e0]
+0x295ef2c: bl       #0x237e160
+0x295ef30: adrp     x0, #0xc73a000
+0x295ef34: ldr      x0, [x0, #0x448]
+0x295ef38: bl       #0x237e160
+0x295ef3c: adrp     x0, #0xc5f5000
+0x295ef40: ldr      x0, [x0, #0xc60]
+0x295ef44: bl       #0x237e160
+0x295ef48: adrp     x0, #0xc5d8000
+0x295ef4c: ldr      x0, [x0, #0xff8]
+0x295ef50: bl       #0x237e160
+0x295ef54: mov      w8, #1
+0x295ef58: strb     w8, [x23, #0x57]
+0x295ef5c: ldr      x0, [x24]
+0x295ef60: str      xzr, [sp, #0x18]
+0x295ef64: str      xzr, [sp, #8]
+0x295ef68: ldr      w8, [x0, #0xe0]
+0x295ef6c: cbnz     w8, #0x295ef78
+0x295ef70: bl       #0x237e260
+0x295ef74: ldr      x0, [x24]
+0x295ef78: ldr      x8, [x0, #0xb8]
+0x295ef7c: ldr      x8, [x8, #0xc0]
+0x295ef80: cbz      x8, #0x295efa4
+0x295ef84: mov      x0, x8
+0x295ef88: mov      x1, x21
+0x295ef8c: mov      x2, x19
+0x295ef90: mov      w3, w20
+0x295ef94: mov      w4, w22
+0x295ef98: mov      x5, xzr
+0x295ef9c: bl       #0x54d0294 ; -> XLua.DelegateBridge.__Gen_Delegate_Imp12134
+0x295efa0: b        #0x295f0b4
+0x295efa4: ldr      w8, [x0, #0xe0]
+0x295efa8: cbnz     w8, #0x295efb0
+0x295efac: bl       #0x237e260
+0x295efb0: mov      w0, w22
+0x295efb4: bl       #0x295f10c ; -> Torappu.Battle.FilterUtil._GetWeightSmallEnoughGap
+0x295efb8: mov      x23, x0
+0x295efbc: cbnz     w22, #0x295efc8
+0x295efc0: cbz      x21, #0x295f0cc
+0x295efc4: ldr      w20, [x21, #0x18]
+0x295efc8: ldr      x0, [x24]
+0x295efcc: ldr      w8, [x0, #0xe0]
+0x295efd0: cbnz     w8, #0x295efdc
+0x295efd4: bl       #0x237e260
+0x295efd8: ldr      x0, [x24]
+0x295efdc: ldr      x8, [x0, #0xb8]
+0x295efe0: ldr      x0, [x8, #0x38]
+0x295efe4: cbz      x0, #0x295f0cc
+0x295efe8: adrp     x8, #0xc702000
+0x295efec: ldr      x8, [x8, #0x218]
+0x295eff0: add      x2, sp, #0x18
+0x295eff4: mov      w1, w22
+0x295eff8: ldr      x3, [x8]
+0x295effc: bl       #0x888d5b0
+0x295f000: tbz      w0, #0, #0x295f040
+0x295f004: ldr      x0, [x24]
+0x295f008: adrp     x24, #0xc69e000
+0x295f00c: ldr      x22, [sp, #0x18]
+0x295f010: ldr      w8, [x0, #0xe0]
+0x295f014: ldr      x24, [x24, #0x7e0]
+0x295f018: cbnz     w8, #0x295f020
+0x295f01c: bl       #0x237e260
+0x295f020: ldr      x5, [x24]
+0x295f024: mov      x0, x21
+0x295f028: mov      x1, x19
+0x295f02c: mov      w2, w20
+0x295f030: mov      x3, x22
+0x295f034: mov      x4, x23
+0x295f038: bl       #0x644c3a8
+0x295f03c: b        #0x295f0b4
+0x295f040: ldr      x0, [x24]
+0x295f044: ldr      w8, [x0, #0xe0]
+0x295f048: cbnz     w8, #0x295f054
+0x295f04c: bl       #0x237e260
+0x295f050: ldr      x0, [x24]
+0x295f054: ldr      x8, [x0, #0xb8]
+0x295f058: ldr      x0, [x8, #0x40]
+0x295f05c: cbz      x0, #0x295f0cc
+0x295f060: adrp     x8, #0xc650000
+0x295f064: ldr      x8, [x8, #0x800]
+0x295f068: add      x2, sp, #8
+0x295f06c: mov      w1, w22
+0x295f070: ldr      x3, [x8]
+0x295f074: bl       #0x888d5b0
+0x295f078: tbz      w0, #0, #0x295f0d0
+0x295f07c: ldr      x0, [x24]
+0x295f080: adrp     x24, #0xc73a000
+0x295f084: ldr      x22, [sp, #8]
+0x295f088: ldr      w8, [x0, #0xe0]
+0x295f08c: ldr      x24, [x24, #0x448]
+0x295f090: cbnz     w8, #0x295f098
+0x295f094: bl       #0x237e260
+0x295f098: ldr      x5, [x24]
+0x295f09c: mov      x0, x21
+0x295f0a0: mov      x1, x19
+0x295f0a4: mov      w2, w20
+0x295f0a8: mov      x3, x22
+0x295f0ac: mov      x4, x23
+0x295f0b0: bl       #0x644c9f4
+0x295f0b4: ldp      x19, x30, [sp, #0x40]
+0x295f0b8: ldp      x21, x20, [sp, #0x30]
+0x295f0bc: ldp      x23, x22, [sp, #0x20]
+0x295f0c0: ldr      x24, [sp, #0x10]
+0x295f0c4: add      sp, sp, #0x50
+0x295f0c8: ret      
+0x295f0cc: bl       #0x237e284
+0x295f0d0: adrp     x0, #0xc71b000
+0x295f0d4: ldr      x0, [x0, #0xf60]
+0x295f0d8: bl       #0x237e174
+0x295f0dc: bl       #0x237e274
+0x295f0e0: mov      x19, x0
+0x295f0e4: bl       #0x1d54730
+0x295f0e8: mov      x0, x19
+0x295f0ec: mov      x1, xzr
+0x295f0f0: bl       #0x8d547a8 ; -> System.NotImplementedException..ctor
+0x295f0f4: adrp     x0, #0xc6ab000
+0x295f0f8: ldr      x0, [x0, #0x60]
+0x295f0fc: bl       #0x237e174
+0x295f100: mov      x1, x0
+0x295f104: mov      x0, x19
+0x295f108: bl       #0x237e24c
+### Torappu.Battle.AdvancedSelector._CompareEntityTauntLevel RVA=0x2944004 end=0x29440c4
+0x2944004: str      x22, [sp, #-0x30]!
+0x2944008: stp      x21, x20, [sp, #0x10]
+0x294400c: stp      x19, x30, [sp, #0x20]
+0x2944010: adrp     x22, #0xce8e000
+0x2944014: adrp     x21, #0xc68f000
+0x2944018: ldrb     w8, [x22, #0xf42]
+0x294401c: ldr      x21, [x21, #0x68]
+0x2944020: mov      x19, x1
+0x2944024: mov      x20, x0
+0x2944028: tbnz     w8, #0, #0x2944040
+0x294402c: adrp     x0, #0xc68f000
+0x2944030: ldr      x0, [x0, #0x68]
+0x2944034: bl       #0x237e160
+0x2944038: mov      w8, #1
+0x294403c: strb     w8, [x22, #0xf42]
+0x2944040: ldr      x0, [x21]
+0x2944044: str      wzr, [sp, #0xc]
+0x2944048: ldr      w8, [x0, #0xe0]
+0x294404c: cbnz     w8, #0x2944058
+0x2944050: bl       #0x237e260
+0x2944054: ldr      x0, [x21]
+0x2944058: ldr      x8, [x0, #0xb8]
+0x294405c: ldr      x0, [x8, #0xd8]
+0x2944060: cbz      x0, #0x2944078
+0x2944064: mov      x1, x20
+0x2944068: mov      x2, x19
+0x294406c: mov      x3, xzr
+0x2944070: bl       #0x4e7904c ; -> XLua.DelegateBridge.__Gen_Delegate_Imp293
+0x2944074: b        #0x29440b0
+0x2944078: cbz      x20, #0x29440c0
+0x294407c: mov      x0, x20
+0x2944080: mov      x1, xzr
+0x2944084: bl       #0x266f390 ; -> Torappu.Battle.Entity.get_tauntLevel
+0x2944088: str      w0, [sp, #0xc]
+0x294408c: cbz      x19, #0x29440c0
+0x2944090: mov      x0, x19
+0x2944094: mov      x1, xzr
+0x2944098: bl       #0x266f390 ; -> Torappu.Battle.Entity.get_tauntLevel
+0x294409c: mov      w1, w0
+0x29440a0: add      x0, sp, #0xc
+0x29440a4: mov      x2, xzr
+0x29440a8: bl       #0x8d4f86c ; -> System.Int32.CompareTo
+0x29440ac: neg      w0, w0
+0x29440b0: ldp      x19, x30, [sp, #0x20]
+0x29440b4: ldp      x21, x20, [sp, #0x10]
+0x29440b8: ldr      x22, [sp], #0x30
+0x29440bc: ret      
+0x29440c0: bl       #0x237e284

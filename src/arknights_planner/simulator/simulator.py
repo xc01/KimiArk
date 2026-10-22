@@ -739,6 +739,7 @@ class Simulator:
                 self._emit(state, EventType.ENEMY_ABILITY_START, source=enemy.instance_id,
                            ability=ability.ability_id, target_position=target_position,
                            delay=ability.delay_seconds, radius=ability.range_radius)
+                enemy.ability_next_fire_time = state.time + ability.cooldown
                 pending_area_hits.append(_PendingAreaHit(
                     enemy.area_hit_time or state.time, enemy.instance_id, target_position,
                     ability.range_radius, enemy.atk * ability.atk_scale, ability.damage_type,
@@ -765,7 +766,8 @@ class Simulator:
                 if target.hp <= 0:
                     self._remove_operator(state, target.operator_id, death=True)
             break
-        enemy.ability_next_fire_time = state.time + max(ability.cooldown for ability in enemy.abilities)
+        if not any(ability.family == "DELAYED_LOCKED_AREA_ATTACK" for ability in enemy.abilities):
+            enemy.ability_next_fire_time = state.time + max(ability.cooldown for ability in enemy.abilities)
 
     def _process_area_hit(self, state: SimulationState, stage: Stage, hit: _PendingAreaHit) -> None:
         for enemy in tuple(state.active_enemies.values()):
