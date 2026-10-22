@@ -131,6 +131,23 @@ def test_operator_death_subject_semantics_rejects_targeted_query() -> None:
     assert evaluated["reason"] == "OPERATOR_DEATH_TARGET_MUST_BE_NULL"
 
 
+def test_illegal_deploy_and_retreat_predictions_are_not_verified() -> None:
+    for event_type in ("DEPLOY", "RETREAT"):
+        parsed = {
+            "revision_hypothesis": {
+                "expected_first_observable_event": {
+                    "event_type": event_type, "source_id": "char_4093_frston",
+                    "target_id": None, "earliest_frame": 1590, "latest_frame": 1590,
+                }
+            }
+        }
+        evaluated = experience.evaluate_revision_hypothesis(parsed, [
+            {"event_type": event_type, "source_id": "char_4093_frston", "target_id": None,
+             "frame": 1590, "details": {"legal": False}}
+        ])
+        assert evaluated["status"] == "EVENT_NOT_OBSERVED"
+
+
 def test_protected_target_last_hit_is_not_assumed_artillery() -> None:
     path = Path("docs/review/fc77177/m26_tactical_experience_records_v1.json")
     records = experience.load_experience_records(path)

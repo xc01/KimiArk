@@ -1,0 +1,26 @@
+{
+  "schema_version": "M43_STATIC_CONTRACT_FEEDBACK_V1",
+  "candidate_plan_id": "R8_7_GPT_M43_V1",
+  "status": "STATIC_BLOCKED_NOT_SIMULATED",
+  "schema_validation": "PASS",
+  "precise_conflicts": [
+    {
+      "action_index": 33,
+      "operator_id": "char_4227_gallus",
+      "action_type": "DEPLOY",
+      "frame": 4710,
+      "tile_json_row_col": [2, 3],
+      "tile_runtime_col_row": [3, 2],
+      "direction": "LEFT",
+      "conflict": "REDEPLOY_COOLDOWN_ACTIVE",
+      "redeploy_available": false,
+      "required_revision": "Delay this deployment until Gallus's observed prior exit plus full cooldown, replace it with an already available operator, or remove the deployment if its duty can be covered another way."
+    }
+  ],
+  "required_revision": [
+    "Recheck every RETREAT and DEPLOY pair against actual cooldown from the leave frame.",
+    "Do not treat a refund or a replacement as permission to redeploy early.",
+    "Preserve the V1 candidate's useful joint structure unless the conflicting command is integral to it; explain any retained or changed responsibilities."
+  ],
+  "python_boundary": "Python reported only the exact static conflict and did not select a replacement or edit actions."
+}

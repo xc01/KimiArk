@@ -240,6 +240,10 @@ def normalize_event_query(expected: dict[str, Any] | None) -> dict[str, Any]:
 def _event_matches(event: dict[str, Any], expected: dict[str, Any]) -> bool:
     if event.get("event_type") != expected.get("event_type"):
         return False
+    if expected.get("event_type") in {"DEPLOY", "RETREAT"}:
+        details = event.get("details")
+        if isinstance(details, dict) and details.get("legal") is False:
+            return False
     for key in ("source_id", "target_id"):
         if expected.get(key) is not None and event.get(key) != expected[key]:
             return False

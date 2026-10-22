@@ -1,0 +1,75 @@
+{
+  "schema_version": "M43_CORRECTED_M42_CAUSAL_FEEDBACK_V1",
+  "evidence_status": "RAW_SAVED_EVENT_REPLAY",
+  "source_archive": "docs/review/fc77177/m42_retreat_redeploy_artillery_window_v1/evidence/archive_index_v1.json",
+  "coordinate_convention": {
+    "plan_and_static_tile": "JSON[row,col]",
+    "event_tile_and_locked_position": "runtime[x,y] where x=col and y=row",
+    "conversion": "JSON[row,col] -> runtime[col,row]",
+    "note": "A locked runtime [3,4] therefore corresponds to JSON [4,3], not JSON [3,4]."
+  },
+  "v1_attempt_2": {
+    "first_artillery_hit": {
+      "frame": 670,
+      "locked_position_runtime_xy": [3, 4],
+      "locked_tile_json_row_col": [4, 3],
+      "target": "char_240_wyvern",
+      "damage": 760,
+      "radius": 1.2
+    },
+    "decisive_opening_chain": [
+      {"frame": 820, "event": "ENEMY_ABILITY_HIT", "target": "char_240_wyvern", "damage": 760, "locked_runtime_xy": [3, 4], "locked_json_row_col": [4, 3], "result": "OPERATOR_DEATH_AND_UNBLOCK enemy_1108_uterer#2"},
+      {"frame": 961, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#2", "interpretation": "This was an interception failure caused by Wyvern's death and unblock."},
+      {"frame": 970, "event": "ENEMY_ABILITY_HIT", "target": "char_285_medic2", "damage": 973, "locked_runtime_xy": [3, 2], "locked_json_row_col": [2, 3], "result": "OPERATOR_DEATH"}
+    ],
+    "correction": "Medic2 died nine frames after the first leak. Its death aggravated support but did not cause the first leak; Wyvern's death released the blocker."
+  },
+  "v3_attempt_4": {
+    "successful_retreats": [
+      {"frame": 1290, "operator": "char_122_beagle", "refund": 9, "later_redeploy": null},
+      {"frame": 1410, "operator": "char_285_medic2", "refund": 1, "later_redeploy": null, "replacement_same_frame": "char_212_ansel"},
+      {"frame": 1800, "operator": "char_4227_gallus", "refund": 1, "later_redeploy": null},
+      {"frame": 2250, "operator": "char_123_fang", "refund": 5, "later_redeploy": null, "replacement_same_frame": "char_209_ardign"},
+      {"frame": 2790, "operator": "char_286_cast3", "refund": 1, "later_redeploy": null, "replacement_same_frame": "char_210_stward"},
+      {"frame": 3000, "operator": "char_4188_confes", "refund": 1, "later_redeploy": null},
+      {"frame": 3750, "operator": "char_192_falco", "refund": 5, "later_redeploy": null, "replacement_same_frame": "char_284_spot"}
+    ],
+    "retreat_boundary": "Refunds and same-frame replacements were observed, but no retreated operator was redeployed later in the saved run. This does not prove every replacement closed its blocking, healing or roadblock duty.",
+    "steward_artillery_damage_segments": {
+      "before_protected_3_death": {"frames": [2838, 3414], "hits": 13, "damage": 3686.68},
+      "between_protected_deaths": {"frames": [3462, 3462], "hits": 1, "damage": 473.29},
+      "after_protected_14_death": {"frames": [4182, 4566], "hits": 9, "damage": 2690.28},
+      "total": {"frames": [2838, 4566], "hits": 23, "damage": 6850.25}
+    },
+    "steward_survival_and_support": {
+      "deployed_frame": 2790,
+      "death_frame": 4600,
+      "heal_events": [
+        {"frame": 3019, "source": "char_120_hibisc", "amount": 558.9},
+        {"frame": 3105, "source": "char_120_hibisc", "amount": 351.1},
+        {"frame": 4309, "source": "char_120_hibisc", "amount": 558.9},
+        {"frame": 4395, "source": "char_120_hibisc", "amount": 351.1},
+        {"frame": 4481, "source": "char_120_hibisc", "amount": 558.9}
+      ],
+      "boundary": "Steward remained alive beyond both protected-target deaths, but only the pre-#3 segment can be treated as a safe output window."
+    },
+    "first_failure_chain": [
+      {"frame": 1513, "event": "ENEMY_ABILITY_HIT", "target": "char_4093_frston", "damage": 765, "locked_runtime_xy": [3, 6], "locked_json_row_col": [6, 3], "result": "OPERATOR_DEATH_AND_UNBLOCK enemy_1108_uterer#5"},
+      {"frame": 1661, "event": "ENEMY_LEAK", "enemy": "enemy_1108_uterer#5", "interpretation": "The first leak was a direct consequence of Friston's death releasing the blocker, not an independent medical failure."}
+    ],
+    "protected_target_failure_chains": [
+      {"target": "enemy_3001_upeopl#3", "death_frame": 3430, "artillery_start_frame": 3330, "locked_runtime_xy": [6.6, 1.0], "failure": "Civilian exposure to a fixed artillery hit was not eliminated before death."},
+      {"target": "enemy_3001_upeopl#14", "death_frame": 3945, "artillery_start_frame": 3845, "locked_runtime_xy": [6.6, 6.0], "failure": "Civilian exposure to a fixed artillery hit was not eliminated before death; roadblock #4 briefly restrained it at frame 3251 but did not prevent the shell."}
+    ],
+    "roadblock_correction": "V3 destroyed only trap_020_roadblock#2 at frame 4095. Reporting must not describe a two-roadblock failure chain as if two were reached; the observed failure is insufficient roadblock clearance plus civilian exposure."
+  },
+  "confirmed_m42_points": [
+    "Actual successful retreat grants the observed refund and releases the operator.",
+    "Actual death grants no retreat refund and can release a blocker.",
+    "V3's Steward window and spatial separation were supported by raw events, but they did not protect civilians or close leaks."
+  ],
+  "unknowns": [
+    "Whether each retreat created an imperceptible tactical gap requires route-specific event interpretation; the archive proves the refund and replacement but not universal gap safety."
+  ],
+  "python_boundary": "Python only replayed saved events and computed summaries; it did not edit actions or generate a replacement plan."
+}

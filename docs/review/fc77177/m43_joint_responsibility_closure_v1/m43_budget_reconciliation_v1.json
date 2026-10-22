@@ -1,0 +1,21 @@
+{
+  "budget_scope": "M43_JOINT_RESPONSIBILITY_CLOSURE_V1",
+  "schema_version": "M43_SIMULATION_BUDGET_RECONCILIATION_V1",
+  "historical_budgets_unchanged": {
+    "m42_tactical_cli": "4/4",
+    "m42_fixed_simulations": "3/4",
+    "m42_remaining_simulation": "reserved_not_carried_into_m43"
+  },
+  "m43_cli_authorization": {
+    "max_real_tactical_cli_starts": 3,
+    "started": 3,
+    "remaining": 0,
+    "counting_rule": "Every session invocation counts, including infrastructure failure; no retry or resume."
+  },
+  "m43_simulation_authorization": {
+    "max": 3,
+    "started": 1,
+    "remaining": 2,
+    "accounting_note": "New independent M43 quota; M42's remaining simulation is neither reset nor borrowed. Only M43 V3 was legal for simulation; V1 was static-blocked and V2 was contract-blocked. Two simulations remain but no CLI remains to generate a paired revision."
+  }
+}

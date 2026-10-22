@@ -1,0 +1,24 @@
+{
+  "schema_version": "M43_SCHEMA_CONTRACT_FEEDBACK_V1",
+  "candidate_plan_id": "R8_7_GPT_M43_V2",
+  "status": "CONTRACT_BLOCKED_NOT_SIMULATED",
+  "precise_errors": [
+    {
+      "json_pointer": "/revision_hypothesis/expected_first_observable_event/event_type",
+      "value": "OPERATOR_RETREAT",
+      "error": "EVENT_TYPE_NOT_DECLARED_SUPPORTED"
+    }
+  ],
+  "supported_prediction_event_types": [
+    "BLOCK", "UNBLOCK", "DAMAGE", "HEAL", "DEPLOY", "RETREAT", "SPAWN",
+    "ENEMY_DEATH", "OPERATOR_DEATH", "ENEMY_LEAK", "OBJECTIVE_FAILURE",
+    "ENEMY_ABILITY_START", "ENEMY_ABILITY_HIT", "PROTECTED_TARGET_REACHED",
+    "SKILL_ACTIVATE", "SKILL_END"
+  ],
+  "required_revision": [
+    "Change the declared prediction event type to the supported literal RETREAT, or choose another supported observable.",
+    "Keep source_id/operator_id and frame window consistent with that event type.",
+    "Do not alter the frozen tactical structure solely to satisfy the prediction schema."
+  ],
+  "python_boundary": "Python reported only the schema contract error and did not rewrite tactical actions."
+}

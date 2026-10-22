@@ -741,3 +741,12 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - `R8_7_GPT_M42_V3` passed static checks and was the best local branch: 19/14/9/life -13. Steward dealt 23 hits / 6850.25 to artillery, seven successful retreat refunds executed, but only one roadblock was destroyed and both protected targets were killed by artillery.
 - No WIN was obtained. Evidence, hashes, causal feedback and budget reconciliation are under
   `docs/review/fc77177/m42_retreat_redeploy_artillery_window_v1/`; the full report is `m42_tactical_report_v1.md`.
+
+# M43 joint responsibility ledger — 2026-10-23
+
+- New tactical CLI starts: 3 of 3. New fixed simulations: 1 of 3. M42's reserved simulation was not carried forward.
+- Raw M42 and M43 prompt/output/static/simulation evidence was archived under their milestone evidence directories with raw/compressed SHA-256 values and MISSING markers for absent V2 artifacts.
+- Raw-event replay corrected M42 causality: V1's first leak at frame 961 followed Wyvern's frame-820 death/unblock, while Medic2 died at frame 970; V3's first leak at 1661 followed Friston's frame-1513 death/unblock. M42 V3 destroyed only roadblock #2 and only its pre-civilian-death Steward damage is a safe-output window.
+- M43 V1 was static-blocked by an active Gallus cooldown at frame 4710. M43 V2 was contract-blocked by `OPERATOR_RETREAT`. M43 V3 passed static checks but lost 6/27/10/life -26, far below M42 V3's 19/14 result.
+- Fixed deterministic prediction evaluation so illegal `DEPLOY`/`RETREAT` events are not VERIFIED; equivalent direct-function regressions passed. M43 V3's prediction evaluation is therefore `EVENT_NOT_OBSERVED`.
+- No WIN. Full report: `docs/review/fc77177/m43_joint_responsibility_closure_v1/m43_tactical_report_v1.md`.
