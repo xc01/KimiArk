@@ -466,3 +466,11 @@ removed the M45 route-4 failure but created a route-17 failure and lost
 artillery, roadblock-2-restrained #14, and route-29 #34 remained unresolved. V3
 timed out without a plan. This milestone records simulator progress only; it is
 not WIN, real-game success, faithfulness, robustness, or probabilistic WIN.
+
+## 2026-10-23 — M47 closes at its CLI limit
+
+M47 used 3/3 real tactical CLI starts and 1/3 fixed simulations. V2 closed the
+roadblock-#2/#14 duty and reached both protected targets, but introduced late
+survival/DP collapse and lost 23/10/8/life -7. The artillery and armored gaps
+remained open. This is a fixed-model LOSS and makes no real-game, faithful,
+robust, or probabilistic claim.

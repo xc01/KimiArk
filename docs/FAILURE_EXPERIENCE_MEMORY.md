@@ -554,3 +554,19 @@ run to 31/2/7/life 1, but three acceptance gaps remained independently. Artiller
 roadblock #2 and had no arrival event; armored route-29 #34 survived 704.85
 damage and leaked at 6996. V3's CLI timeout is infrastructure evidence, not
 tactical evidence.
+
+## 2026-10-23 M47 proves obstacle clearance can coexist with late collapse
+
+M47 V2 actually damaged and destroyed roadblock #2 (`DEVICE_DAMAGE@2490`,
+`DEVICE_DESTROYED@4698`) and safely reached both civilians (#3 at 4862, #14 at
+5030). This refutes the idea that #2 was intrinsically inaccessible, but the
+verified first observable event did not prove the complete plan.
+
+The same plan lost its late base: eight operators died and eleven actions failed
+as not-deployed or insufficient-DP. Durin and Gallus hit `enemy_1107_uoffcr#20`
+shortly before its 5046 leak, so survival and DP continuity, not command legality,
+was decisive. Steward's 12006.62 damage ended at 4081 and died at 4120, leaving
+artillery #0 at 993.38 HP before its 5759 leak; armored #34 received no damage
+and no block before 6996. Next revisions must co-schedule replacement, healing,
+refund, and target routing instead of treating one successful duty as full-line
+continuity.

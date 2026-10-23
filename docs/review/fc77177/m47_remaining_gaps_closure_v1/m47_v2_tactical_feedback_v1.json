@@ -1,0 +1,91 @@
+{
+  "schema_version": "M47_V2_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_ARCHIVED_FIXED_M47_V2_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M47_V2",
+  "source_plan_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m47_remaining_gaps_closure_v1/attempt_03_cli/llm_structured_output.json",
+  "simulation_artifacts": [
+    "output/r8_1_r8_7_batch_v1/main_08-07/m47_remaining_gaps_closure_v1/attempt_03_diagnostic/diagnostic_events.json",
+    "output/r8_1_r8_7_batch_v1/main_08-07/m47_remaining_gaps_closure_v1/attempt_03_diagnostic/diagnostic_summary.json"
+  ],
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "action_count": 53,
+  "static_check": {
+    "status": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+    "conflict_count": 0
+  },
+  "simulation_result": {
+    "win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 8,
+    "remaining_life": -7,
+    "first_objective_failure_frame": 5196,
+    "first_objective_failure_reason": "ENEMY_LEAK",
+    "active_entity_at_end": false,
+    "remaining_enemies": 0
+  },
+  "runtime_action_errors": [
+    "char_212_ansel@147.0: operator is not deployed",
+    "char_121_lava@155.0: operator is not deployed",
+    "char_210_stward@156.0: operator is not deployed",
+    "char_009_12fce@157.0: insufficient DP",
+    "char_120_hibisc@174.0: operator is not deployed",
+    "char_501_durin@185.0: operator is not deployed",
+    "char_212_ansel@207.0: operator is not deployed",
+    "char_121_lava@215.0: operator is not deployed",
+    "char_122_beagle@216.0: operator is not deployed",
+    "char_120_hibisc@224.0: operator is not deployed",
+    "char_121_lava@226.0: operator is not deployed"
+  ],
+  "gap_closure": {
+    "roadblock_2_and_protected_14": {
+      "closed": true,
+      "first_device_damage_frame": 2490,
+      "device_damage_count": 39,
+      "device_destroyed_frame": 4698,
+      "protected_14_reached_frame": 5030,
+      "protected_3_reached_frame": 4862,
+      "protected_target_deaths": 0
+    },
+    "artillery_1112_emppnt_0": {
+      "closed": false,
+      "damage_source": "char_210_stward",
+      "damage_count": 41,
+      "damage_total": 12006.62,
+      "damage_first_frame": 2161,
+      "damage_last_frame": 4081,
+      "operator_death_frame": 4120,
+      "leak_frame": 5759
+    },
+    "armored_1110_uamord_34": {
+      "closed": false,
+      "damage_record_count": 0,
+      "block_record_count": 0,
+      "leak_frame": 6996
+    }
+  },
+  "independent_new_failure": {
+    "first_leak_frame": 5046,
+    "first_leak_enemy": "enemy_1107_uoffcr#20",
+    "survival_and_dp_chain": "Eight operators died and eleven scheduled actions failed as not-deployed or insufficient-DP before the first leak; Durin and Gallus damaged #20 shortly before it leaked, but the late replacements and damage coverage did not complete before 5046.",
+    "objective_failure_frame": 5196
+  },
+  "prediction_validation": {
+    "expected_first_observable_event": {
+      "event_type": "DEVICE_DAMAGE",
+      "source_id": "char_4227_gallus",
+      "target_id": "trap_020_roadblock#2",
+      "earliest_frame": 2490,
+      "latest_frame": 2580
+    },
+    "status": "VERIFIED",
+    "scope": "This verifies only the declared first observable event and does not prove the tactical hypothesis or full plan."
+  },
+  "next_bounded_revision_constraints": [
+    "Do not reuse this 53-action timeline as a parent until a GPT revision repairs operator survival, DP, and missing/dead successors at frames 4410 through 6780.",
+    "Preserve the actually observed Gallus-to-roadblock #2 damage and both protected-target arrivals only when the producing structure remains supported.",
+    "Create a survivor-coordinated artillery kill before 5759; Steward's 12006.62 damage ended at 4081 and left 993.38 HP.",
+    "Provide actual damage or blocking for route-29 enemy #34; it received zero recorded damage and zero BLOCK events before leaking at 6996.",
+    "Do not call this LOSS a WIN, faithful result, robust result, or real-game result."
+  ]
+}

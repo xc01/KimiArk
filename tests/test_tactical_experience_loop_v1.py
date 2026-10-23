@@ -171,6 +171,26 @@ def test_illegal_skill_predictions_are_not_verified() -> None:
     assert experience.evaluate_revision_hypothesis(parsed, [events[2]])["status"] == "VERIFIED"
 
 
+def test_device_damage_and_destroyed_predictions_are_supported() -> None:
+    events = [
+        {"event_type": "DEVICE_DAMAGE", "source_id": "char_208_melan",
+         "target_id": "trap_020_roadblock#2", "frame": 4500},
+        {"event_type": "DEVICE_DESTROYED", "source_id": "char_208_melan",
+         "target_id": "trap_020_roadblock#2", "frame": 4725},
+    ]
+    for event_type, event in zip(("DEVICE_DAMAGE", "DEVICE_DESTROYED"), events):
+        parsed = {
+            "revision_hypothesis": {
+                "expected_first_observable_event": {
+                    "event_type": event_type, "source_id": "char_208_melan",
+                    "target_id": "trap_020_roadblock#2",
+                    "earliest_frame": event["frame"], "latest_frame": event["frame"],
+                }
+            }
+        }
+        assert experience.evaluate_revision_hypothesis(parsed, [event])["status"] == "VERIFIED"
+
+
 def test_archived_illegal_m44_skill_prediction_is_not_verified() -> None:
     path = Path("docs/review/fc77177/m44_joint_responsibility_iteration_v1/evidence/"
                 "attempt_01_diagnostic/diagnostic_events.json.gz")

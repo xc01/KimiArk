@@ -1,0 +1,121 @@
+{
+  "schema_version": "M47_PARENT_FAILURE_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_ARCHIVED_FIXED_M46_V2_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M46_V2",
+  "source_plan_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m46_opening_survival_economy_v1/attempt_02_cli/llm_structured_output.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M46 V2 action timeline only; archived frames are not universal deadlines.",
+  "parent_result": {
+    "win": false,
+    "enemies_killed": 31,
+    "enemies_leaked": 2,
+    "operator_deaths": 7,
+    "remaining_life": 1,
+    "protected_3_reached": {"frame": 4991},
+    "protected_14_reached": false,
+    "active_entity_at_end": true
+  },
+  "semantic_condition_correction": {
+    "fact": "M46 V2 scheduled Popukar RETREAT@4350 with rationale requiring western lower destruction, civilian passage, and living handoff.",
+    "runtime": "The retreat executed, #2 was never damaged, and #14 did not reach.",
+    "rule": "rationale, phase descriptions, and text containing requires are descriptive only. The current executor performs fixed frames and does not wait for conditions, choose replacements in place, or auto-clear obstacles. If a plan depends on condition-triggered behavior, that is a semantic gap; GPT must replace it with supported fixed actions or explicitly reject it."
+  },
+  "m47_v1_contract_failure": {
+    "status": "FAILED_INVALID_PLAN_NO_RETRY",
+    "error": "Expected DEVICE_DAMAGE was rejected before the focused event-matcher repair.",
+    "current_rule": "The local verifier now supports DEVICE_DAMAGE and DEVICE_DESTROYED. Use these exact event types in predictions; command emission and rationale text do not prove either."
+  },
+  "gap_roadblock_2": {
+    "device_id": "trap_020_roadblock#2",
+    "tile_col_row": [2, 6],
+    "plan_tile_row_col": [6, 2],
+    "max_hp": 8000,
+    "defense": 200,
+    "magic_resistance": 20,
+    "ordinary_targetable": true,
+    "device_damage_count": 0,
+    "civilian_14": {
+      "spawn": {"frame": 3030, "route_id": "route-15"},
+      "blocked": {"frame": 3620, "source": "trap_020_roadblock#2"},
+      "officer_hits": [
+        {"frame": 3764, "source": "enemy_1107_uoffcr#16", "amount": 280},
+        {"frame": 4064, "source": "enemy_1107_uoffcr#18", "amount": 280},
+        {"frame": 5414, "source": "enemy_1107_uoffcr#24", "amount": 280},
+        {"frame": 5774, "source": "enemy_1107_uoffcr#26", "amount": 280},
+        {"frame": 6314, "source": "enemy_1107_uoffcr#32", "amount": 280}
+      ],
+      "still_active_at_end": true,
+      "route_after_release": "route-15 continues to [row=6,col=1], then [row=5,col=1], and exit [row=5,col=0]."
+    },
+    "target_selection_rule": "An operator targets an ordinary device only when its local enemy-candidate list is empty. Protected targets are neutral and are not ordinary operator targets. Clearing #2 while ordinary enemies are in range requires a location/timing with no enemy candidates or another supported mechanism.",
+    "efficient_examples": [
+      {"operator_id": "char_208_melan", "plan_tile_row_col": [6, 3], "direction": "LEFT", "damage_per_hit": 538, "interval": 1.5, "cost": 15, "minimum_clean_hits": 15},
+      {"operator_id": "char_210_stward", "plan_tile_row_col": [5, 2], "direction": "UP", "damage_per_hit": 376, "interval": 1.6, "cost": 18, "minimum_clean_hits": 22},
+      {"operator_id": "char_121_lava", "plan_tile_row_col": [5, 2], "direction": "UP", "damage_per_hit": 465.6, "interval": 2.9, "cost": 30, "minimum_clean_hits": 18},
+      {"operator_id": "char_283_midn", "plan_tile_row_col": [6, 3], "direction": "LEFT", "damage_per_hit": 297, "interval": 1.3, "cost": 16, "minimum_clean_hits": 27}
+    ],
+    "unknown": "Exact client target-order deviations and whether any non-ordinary source can damage roadblocks remain UNKNOWN. Do not invent such a source."
+  },
+  "gap_artillery": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "route_id": "route-1",
+    "max_hp": 13000,
+    "defense": 800,
+    "magic_resistance": 50,
+    "movement_mode": "FLY",
+    "leak": {"frame": 5759, "amount": 1},
+    "recorded_damage": [
+      {"operator_id": "char_210_stward", "total": 3437.58, "first_hit": 1801, "last_hit": 5315, "status": "operator died at 5353"},
+      {"operator_id": "char_501_durin", "total": 2380, "first_hit": 5052, "last_hit": 5676, "status": "survived the plan but output began too late"}
+    ],
+    "total_recorded_damage": 5817.58,
+    "remaining_damage": 7182.42,
+    "artillery_ability_hits": "Artillery ability hits at 1993, 2980, 4753, 4903, 5053, 5203, 5353, 5503, 5653 and 5803 killed or damaged Lancet, Friston, CONFESS, Kormaru, GALLUS, Steward, Beagle, and Durin.",
+    "requirement": "Provide a survivor-coordinated damage window until an observed ENEMY_DEATH before leak; account for targeting contention, deaths, retreat refunds, in-flight shells and medical recipient selection."
+  },
+  "gap_armored_34": {
+    "enemy_id": "enemy_1110_uamord#34",
+    "route_id": "route-29",
+    "max_hp": 5000,
+    "defense": 500,
+    "magic_resistance": 50,
+    "apply_way": "RANGED",
+    "attack": {"amount": 340, "interval": 2.8, "damage_type": "enemy_arts"},
+    "spawn": {"frame": 6330, "route": "start [row=4,col=9] -> [row=4,col=1] -> [row=5,col=1] -> exit [row=5,col=0]"},
+    "block_record_count": 0,
+    "damage_record": [
+      {"frame": 6517, "target": "char_284_spot", "amount": 306, "kind": "enemy_arts"},
+      {"frame": 6601, "target": "char_284_spot", "amount": 306, "kind": "enemy_arts"},
+      {"frame": 6685, "target": "char_284_spot", "amount": 306, "kind": "enemy_arts"},
+      {"frame": 6739, "source": "char_501_durin", "amount": 170, "kind": "arts"},
+      {"frame": 6742, "source": "char_283_midn", "amount": 24.85, "kind": "physical"},
+      {"frame": 6769, "target": "char_212_ansel", "amount": 340, "kind": "enemy_arts"},
+      {"frame": 6787, "source": "char_501_durin", "amount": 170, "kind": "arts"},
+      {"frame": 6835, "source": "char_501_durin", "amount": 170, "kind": "arts"},
+      {"frame": 6853, "target": "char_212_ansel", "amount": 340, "kind": "enemy_arts"},
+      {"frame": 6883, "source": "char_501_durin", "amount": 170, "kind": "arts"},
+      {"frame": 6937, "target": "char_212_ansel", "amount": 340, "kind": "enemy_arts"},
+      {"frame": 6996, "result": "ENEMY_LEAK"}
+    ],
+    "total_recorded_damage": 704.85,
+    "remaining_damage": 4295.15,
+    "effective_examples": [
+      {"operator_id": "char_208_melan", "per_hit": 238, "interval": 1.5, "minimum_clean_hits": 22, "cost": 15},
+      {"operator_id": "char_210_stward", "per_hit": 235, "interval": 1.6, "minimum_clean_hits": 22, "cost": 18},
+      {"operator_id": "char_501_durin", "per_hit": 170, "interval": 1.6, "minimum_clean_hits": 30, "cost": 12},
+      {"operator_id": "char_121_lava", "per_hit": 291, "interval": 2.9, "minimum_clean_hits": 18, "cost": 30}
+    ],
+    "blockability": "GameData/runtime evidence marks blockability UNKNOWN; the prior route had zero BLOCK events. Do not assume a blocker will hold it unless the runtime contract supports it."
+  },
+  "parent_preservation": [
+    "Retain the M46 V2 opening and #5/#6 handling, Melantha #5 block/kill, route-17 continuity, and #3 safe arrival unless GPT explains why a replacement is safer.",
+    "Do not preserve Popukar RETREAT@4350 merely because its text names conditions; it did not satisfy those conditions."
+  ],
+  "joint_design_requirements": [
+    "Assign separate or shared owners for artillery, roadblock #2/#14 passage, and #34, with actual range, timing, survival, DP and target-selection evidence.",
+    "Ensure every RETREAT succeeds before refund; death gives no refund. Account for blocked release, in-flight artillery, redeploy cooldown and successor cost.",
+    "Ensure both protected targets reach safely and every enemy dies or is otherwise exhausted without leak.",
+    "Give observable predictions: DEVICE_DAMAGE/DEVICE_DESTROYED #2, PROTECTED_TARGET_REACHED #14, ENEMY_DEATH #0 and #34, and final WIN.",
+    "Keep the plan compact; fixed actions only. Do not rely on unsupported conditional control."
+  ]
+}

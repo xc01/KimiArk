@@ -1,29 +1,22 @@
-# Next milestone: M47 requires fresh authorization
+# Next milestone: M48 requires fresh authorization
 
-M44 is closed at its own fixed-simulation limit: 0/3 separate tactical CLI starts
-and 3/3 fixed `main_08-07` simulations. M44 V1, V2 and V3 are documented losses;
-the best M44 result is V3 at 19 kills / 14 leaks / 7 operator deaths, with first
-leak at frame 1881 and both protected targets dead. Do not claim WIN, real-game
-success, faithfulness, robustness, or tactical progress beyond this fixed-model
-scope.
+M47 is closed at its own budget: **3/3** real tactical CLI starts and **1/3**
+fixed `main_08-07` simulations. Its static-clean V2 used 53 actions and
+simulated as a LOSS: 23 kills, 10 leaks, 8 operator deaths, and life -7. It did
+close roadblock #2 and safely reach protected targets #3 and #14, but late
+survival/DP collapse caused the first leak at frame 5046. Artillery #0 still
+leaked at 5759 with 993.38 HP remaining, and armored #34 leaked at 6996 with no
+recorded damage or block.
 
-The saved reconciliation's 35-action values are corrected to 31 for V2/V3 in
-`m44_prediction_correction_v1.json`; M44 V1's illegal skill prediction is
-corrected to `EVENT_NOT_OBSERVED`, and the 0/3 CLI start count remains a ledger
-declaration without a start-process archive.
+The focused `tactical_experience_v1.py` matcher regression passes 22/22 and now
+supports explicit `DEVICE_DAMAGE`/`DEVICE_DESTROYED` while preserving illegal
+DEPLOY/RETREAT/SKILL rejection and missing-`legal` compatibility. Evidence,
+hashes, and compact V2 feedback are under
+`docs/review/fc77177/m47_remaining_gaps_closure_v1/`.
 
-M45 and M46 are closed. M46 used its own 3/3 real tactical CLI starts and 2/3
-fixed simulations. V1 removed route-4's old #6 failure but created a route-17
-failure after Midnight died and released `enemy_1107_uoffcr#15`; V2 repaired
-route 17, reached #3, and improved to 31/2/7/life 1. The three unresolved
-hard-target gaps are artillery `enemy_1112_emppnt#0` after 5817.58 damage,
-protected #14's lack of a safe-arrival event while restrained by roadblock #2,
-and route-29 `enemy_1110_uamord#34` after 704.85 damage. M46 V3 timed out without
-a plan, so its unused simulation is not transferable.
-
-A new M47 authorization is required before another tactical CLI or fixed
-simulation. Start by comparing against M46 V2 as a conditional parent, preserve
-the verified #5/#6 and route-17 duties unless replaced with observable
-alternatives, and close the three named gaps together. The obsolete M28
-instruction remains repository history and does not define the next step. M42
-retains 1 simulation and M43 retains 2 simulations; these remain non-transferable.
+A fresh M48 authorization is required before any new tactical CLI or simulation.
+Its bounded first task is a GPT revision that co-plans operator survival, DP and
+successor continuity after frame 4410 with a survivor-coordinated artillery kill
+before 5759 and real damage or blocking for route-29 #34, while preserving the
+verified roadblock-#2 and protected-target duties when supported. M42 residual
+simulations and all prior stage balances remain non-transferable.

@@ -344,3 +344,16 @@ greatly improved to 31/2/7/life 1 and #3 safely reached, but artillery leaked at
 simulation could not be used. M46 is not WIN and makes no real-game, faithful,
 or robust claim; the report is
 `docs/review/fc77177/m46_opening_survival_economy_v1/m46_tactical_report_v1.md`.
+
+## 2026-10-23 M47 closes at CLI limit without WIN
+
+M47 used 3/3 real Codex CLI starts and 1/3 fixed simulations. Attempt 1 was
+rejected for the then-undeclared `DEVICE_DAMAGE`; attempt 2 timed out at 3600
+seconds without a plan; attempt 3 produced a static-clean 53-action V2. The
+fixed run closed roadblock #2 and both protected-target arrivals, but lost
+23/10/8/life -7 after eight operator deaths and eleven runtime deployment/DP
+failures. `enemy_1107_uoffcr#20` first leaked at 5046, artillery #0 leaked at
+5759, and armored #34 leaked at 6996 with no damage or block. The result is a
+conditional fixed-model LOSS, not real-game, faithful, robust, or probabilistic
+progress. Evidence is in
+`docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`.

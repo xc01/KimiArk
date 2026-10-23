@@ -814,3 +814,28 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   after 704.85 damage. Lancet's retreat failed because it died at 2980.
 - Raw prompt/response/start/static/simulation evidence and hashes are under
   `docs/review/fc77177/m46_opening_survival_economy_v1/evidence/`.
+
+# M47 remaining gaps closure ledger — 2026-10-23
+
+- Budget: **3/3** real tactical CLI starts and **1/3** fixed simulations.
+  Attempt 1 was a real start but contract-invalid because `DEVICE_DAMAGE` was
+  undeclared; attempt 2 was a real 3600-second timeout with no plan; attempt 3
+  completed V2 and was then statically checked and simulated once. M42 residual
+  simulations and earlier stage balances remain non-transferable.
+- Focused regression now supports explicit `DEVICE_DAMAGE` and
+  `DEVICE_DESTROYED` predictions without treating a missing `legal` field as
+  failure. `PYTHONPATH=src:scripts uv run --frozen pytest -q
+  tests/test_tactical_experience_loop_v1.py` passed 22/22.
+- `R8_7_GPT_M47_V2` passed contract and static checks with 0 conflicts, then
+  lost 23 / 10 / 8 / life -7. Gallus damaged roadblock #2 starting at 2490 and
+  destroyed it at 4698; protected #3 and #14 reached at 4862 and 5030 with no
+  protected deaths. This verified the declared first observable event only.
+- The independent late failure was real: eight operators died, eleven scheduled
+  actions failed as not-deployed or insufficient-DP, `enemy_1107_uoffcr#20`
+  leaked at 5046, and objective life reached zero at 5196. Steward dealt
+  12006.62 artillery damage before dying at 4120, leaving 993.38 HP, and #0
+  leaked at 5759. Route-29 #34 had zero recorded damage or block and leaked at
+  6996.
+- Raw prompt/response/start/static/simulation evidence and hashes are under
+  `docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`; compact causal
+  feedback is `m47_v2_tactical_feedback_v1.json`.

@@ -1,0 +1,75 @@
+{
+  "schema_version": "KIMIARK_TACTICAL_EXPERIENCE_RECORD_STORE_V1",
+  "records": [
+    {
+      "applicable_conditions": [
+        "same mechanics version and GameData snapshot",
+        "evaluating fixed-action M46 V2 descendants for main_08-07",
+        "comparing artillery, roadblock #2/#14, and armored enemy #34 responsibilities"
+      ],
+      "code_commit_sha256": "196b6dad4d3dad8bc5d44981c71651ee4bf4e932",
+      "comparison_boundary": "Conditional evidence from the saved M46 V2 action timeline only; archived frames are not universal deadlines.",
+      "evidence_paths": [
+        "docs/review/fc77177/m47_remaining_gaps_closure_v1/m47_parent_failure_feedback_v1.json"
+      ],
+      "experience_id": "M47_PARENT_FAILURE_FEEDBACK_V1",
+      "failure_category": "LEGAL_BATTLE_LOSS",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "mechanics_version": "m38b-2781-animation-speed-v1",
+      "parent_candidate_result": {
+        "active_entity_at_end": true,
+        "enemies_killed": 31,
+        "enemies_leaked": 2,
+        "operator_deaths": 7,
+        "protected_14_reached": false,
+        "protected_3_reached": {
+          "frame": 4991
+        },
+        "remaining_life": 1,
+        "win": false
+      },
+      "refuted_hypotheses": [
+        "rationale or requires text can execute a conditional retreat",
+        "the M46 V2 Popukar retreat established roadblock #2 destruction or #14 passage",
+        "aggregate damage estimates alone establish artillery or armored-enemy closure"
+      ],
+      "relevant_operator_ids": [
+        "char_123_fang",
+        "char_208_melan",
+        "char_210_stward",
+        "char_283_midn",
+        "char_284_spot",
+        "char_4227_gallus",
+        "char_501_durin",
+        "char_121_lava"
+      ],
+      "responsibility_tags": [
+        "artillery_clearance",
+        "roadblock_clearance",
+        "protected_target",
+        "armored_interception",
+        "fixed_action_semantics"
+      ],
+      "source_artifact_sha256": "5e88ade68a4d097daef0956bf0c701762f6d02ad447c804abff625018623de0b",
+      "source_plan_id": "R8_7_GPT_M46_V2",
+      "stage_id": "main_08-07",
+      "status": "EVIDENCE_SUPPORTED",
+      "supported_hypotheses": [
+        "artillery #0 leaked at frame5759 with 7182.42 required damage remaining",
+        "roadblock #2 received zero DEVICE_DAMAGE and protected target #14 did not reach",
+        "armored enemy #34 had no BLOCK record and leaked at frame6996"
+      ],
+      "unproven": [
+        "whether the M47 V2 candidate closes all three gaps",
+        "whether historical failure frames remain deadlines under different actions",
+        "client-faithful targeting and timing outside the current model boundary"
+      ],
+      "verified_events": [
+        "M46 V2 enemy_1112_emppnt#0 ENEMY_LEAK at frame5759",
+        "M46 V2 trap_020_roadblock#2 had zero DEVICE_DAMAGE events",
+        "M46 V2 protected target #14 had no safe arrival",
+        "M46 V2 enemy_1110_uamord#34 ENEMY_LEAK at frame6996"
+      ]
+    }
+  ]
+}
