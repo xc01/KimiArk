@@ -1,0 +1,119 @@
+{
+  "schema_version": "M44_ATTEMPT_RECONCILIATION_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "authorization": {
+    "m44_tactical_cli": {
+      "max": 3,
+      "started": 0,
+      "remaining": 3,
+      "scope": "Separate real tactical CLI processes only; the current GPT session was the tactical decision maker and did not launch a new CLI."
+    },
+    "m44_fixed_simulations": {
+      "max": 3,
+      "started": 3,
+      "remaining": 0
+    },
+    "non_stackable": "M42 has 1 simulation remaining and M43 has 2 remaining; neither is carried into M44 or spent here."
+  },
+  "prior_corrections": {
+    "m43_v2_v3": "M43 V2/V3 had 66 identical executable actions; only descriptions and predictions differed. V2 was not rerun.",
+    "m42_v3_first_leak": "M42 V3's first leak at frame 1661 means its interception was not established. The 3686.68 output is only before the first named civilian death, not a complete safe window.",
+    "m42_v3_parent_choice": "M42 V3 was not treated as the sole best parent or as a reason to preserve all 23 Steward attacks."
+  },
+  "candidates": [
+    {
+      "plan_id": "R8_7_GPT_M44_V1",
+      "parent_plan_id": "R8_7_GPT_M43_V3",
+      "action_count": 66,
+      "static_status": "PASS_NO_CONFLICTS",
+      "result": {
+        "win": false,
+        "enemies_killed": 6,
+        "enemies_leaked": 27,
+        "operator_deaths": 10,
+        "remaining_life": -26,
+        "first_leak_frame": 1241,
+        "first_leak_source": "enemy_1108_uterer#4",
+        "first_objective_failure_frame": 1761
+      },
+      "root_cause": "M43 V3's Vanilla skill income was not ready, so Ansel and Hibiscus deployments failed and the opening collapsed.",
+      "evidence": "attempt_01_cli/static_compile_results.json; attempt_01_diagnostic/diagnostic_summary.json"
+    },
+    {
+      "plan_id": "R8_7_GPT_M44_V2",
+      "parent_plan_id": "R8_7_GPT_M42_V3",
+      "action_count": 35,
+      "static_status": "PASS_NO_CONFLICTS",
+      "result": {
+        "win": false,
+        "enemies_killed": 18,
+        "enemies_leaked": 15,
+        "operator_deaths": 7,
+        "remaining_life": -14,
+        "first_leak_frame": 1616,
+        "first_leak_source": "enemy_1108_uterer#5",
+        "first_objective_failure_frame": 3065
+      },
+      "root_cause": "The frame-1500 handoff was too late: Friston died at frame 1457 from enemy_1108_uterer#5's ordinary hit, so Popukar could target but not block the already advanced runner.",
+      "evidence": "attempt_02_cli/static_compile_results.json; attempt_02_diagnostic/diagnostic_summary.json"
+    },
+    {
+      "plan_id": "R8_7_GPT_M44_V3",
+      "parent_plan_id": "R8_7_GPT_M44_V2",
+      "action_count": 35,
+      "static_status": "PASS_NO_CONFLICTS",
+      "result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 7,
+        "remaining_life": -13,
+        "first_leak_frame": 1881,
+        "first_leak_source": "enemy_1107_uoffcr#7",
+        "first_objective_failure_frame": 3425
+      },
+      "verified_prediction": {
+        "event_type": "DEPLOY",
+        "source_id": "char_281_popka",
+        "frame": 1440,
+        "status": "VERIFIED"
+      },
+      "root_cause": "The frame-1440 Popukar deployment removed the old frame-1661 leak and delayed first leakage to frame 1881, but later blocking/throughput still failed. The full objective did not improve to WIN.",
+      "evidence": "attempt_03_cli/static_compile_results.json; attempt_03_diagnostic/diagnostic_summary.json"
+    }
+  ],
+  "action_lineage": {
+    "v1_from_m43_v3": [
+      "Shift all Popukar ACTIVATE_SKILL frames 240 frames earlier while preserving the 1800-frame cycle.",
+      "Move Hibiscus redeployment from frame 5460 to 5400.",
+      "Change tactical thesis and prediction only; no executable action was invented to repair a static conflict."
+    ],
+    "v2_from_m42_v3": [
+      "Remove Beagle retreat/Noirc deployment and preserve Beagle.",
+      "Remove Ansel deployment at 1410; insert Friston retreat and Popukar deployment at 1500.",
+      "Insert Ansel deployment at 1860 and retreat at 2100; move Hibiscus deployment to 2340.",
+      "Remove Fang retreat/Ardign deployment, keep Fang income.",
+      "Move Melantha deployment to tile [6,5] and remove unavailable Ansel skill cycles.",
+      "Shift Hibiscus skill cycle to first readiness at 3240."
+    ],
+    "v3_from_v2": [
+      "Move Friston retreat and Popukar deployment from frame 1500 to 1440; no other executable action changes."
+    ]
+  },
+  "protected_target_exposure": {
+    "m44_v3": {
+      "first_protected_target_death": {"frame": 3430, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+      "second_protected_target_death": {"frame": 3945, "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#14"},
+      "safe_arrivals": 0,
+      "status": "BOTH_PROTECTED_TARGETS_DIED"
+    }
+  },
+  "claim_scope": {
+    "simulator_result": "M44 V3 is a fixed current-model simulator LOSS; it is not a WIN.",
+    "real_game": "NOT_PLAYED",
+    "faithful": "NOT_ISSUED",
+    "robust": "NOT_EVALUATED",
+    "operator_deaths_recorded_separately": true
+  }
+}

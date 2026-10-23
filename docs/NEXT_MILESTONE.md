@@ -1,19 +1,18 @@
-# Next milestone: M28 R8-7 revision through the M27 plugin entry
+# Next milestone: M45 requires fresh authorization
 
-R8-1 is complete within the authorized model boundary: M25 GPT V1 is a zero-leak
-current-model simulator WIN, and the same 22-action timeline wins under both
-saved roadblock-targeting interpretations. R8-7 has exhausted its eight new CLI
-starts. Attempts 04, 05, 07 and 08 produced no operational plan because of exact
-schema/contract mismatches recorded in
-`docs/review/fc77177/m25_attempt04_08_reconciliation_v1.json`; only attempt 06
-reached simulation and lost.
+M44 is closed at its own fixed-simulation limit: 0/3 separate tactical CLI starts
+and 3/3 fixed `main_08-07` simulations. M44 V1, V2 and V3 are documented losses;
+the best M44 result is V3 at 19 kills / 14 leaks / 7 operator deaths, with first
+leak at frame 1881 and both protected targets dead. Do not claim WIN, real-game
+success, faithfulness, robustness, or tactical progress beyond this fixed-model
+scope.
 
-M26 has exhausted its four CLI starts. Do not start another call in M27. When
-Work authorizes M28, use the frozen payload in
-`docs/review/fc77177/m28_payload_manifest_v1.json` and the corrected causal replay
-in `docs/review/fc77177/m27_r8_7_attempt04_offline_replay_v1.json`. The first
-protected-target last hit was artillery at 3180; #14 was last hit by officer #18
-at 3966. GPT must redesign source-operator survival, artillery handling, roadblock
-clearance and protected-target exposure; Python must not move frames or choose
-tactics. Each new plan gets schema/contract, static check, frozen actions, one
-fixed simulation, and event-backed hypothesis verification.
+The obsolete M28 instruction is retained only as repository history and no longer
+defines the next step. M42 retains 1 simulation and M43 retains 2 simulations;
+these are reserved separately and must not be spent as M45 budget. A new M45
+authorization is required before another tactical CLI or fixed simulation. Start
+from M44 V3 only as a loss artifact: its 1440 Popukar handoff removed the old
+frame-1661 leak, but `enemy_1107_uoffcr#7` leaked at 1881 and both civilians were
+killed by `enemy_1112_emppnt#0` at 3430 and 3945. The next revision must address
+the 1881 failure and both protected-target deaths together, without assuming the
+M42 V3 3686.68 output was a complete safe window.
