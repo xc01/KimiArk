@@ -12,6 +12,14 @@ The saved reconciliation's 35-action values are corrected to 31 for V2/V3 in
 corrected to `EVENT_NOT_OBSERVED`, and the 0/3 CLI start count remains a ledger
 declaration without a start-process archive.
 
+M45 is also closed: it used 3/3 real tactical CLI starts and 2/3 fixed
+simulations; attempt 2 timed out without a plan. V1 lost 12/21/11/life -19, and
+V3 lost 18/15/4/life -13. V3 did block and kill `enemy_1108_uterer#5`, but Fang
+died/released `enemy_1107_uoffcr#6` at 1449 and that enemy leaked at 1791; #14
+died at 6314 to repeated officer hits. A new M46 authorization must address
+living route continuity and #14's officer/restraint window together. The
+unused M45 simulation and M42/M43 remainders are not transferable.
+
 The obsolete M28 instruction is retained only as repository history and no longer
 defines the next step. M42 retains 1 simulation and M43 retains 2 simulations;
 these are reserved separately and must not be spent as M45 budget. A new M45

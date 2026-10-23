@@ -448,3 +448,12 @@ did not establish its failed handoff. V3's Popukar handoff is supported by
 -13 with both protected targets dead. A focused matcher regression corrects M44
 V1's explicitly illegal skill prediction to `EVENT_NOT_OBSERVED`. This milestone
 is not a WIN and makes no real-game, faithful, or robust claim.
+
+## 2026-10-23 — M45 closes at its CLI limit
+
+M45 used 3/3 real tactical CLI starts and 2/3 fixed simulations. V1 and V3 were
+legal fixed-model losses; V2 timed out without a plan. V3 verified Melantha's
+block/kill of `enemy_1108_uterer#5` but leaked `enemy_1107_uoffcr#6` after Fang's
+1449 death, and protected #14 died at 6314 while #3 arrived. The result remains
+18/15/4/life -13. One unused simulation cannot generate a new revision without a
+fresh CLI authorization.

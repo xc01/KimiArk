@@ -530,3 +530,16 @@ The later V3 failure is also duty-conditional: Beagle blocked
 `enemy_1107_uoffcr#7` at 1467, artillery killed and released Beagle at 1663, and
 the enemy leaked at 1881. These frames explain this saved plan and must not be
 used as universal deadlines for another tactic.
+
+## 2026-10-23 M45 shows both early replacement and late protection must be joint
+
+M45 V1 proved that a same-frame handoff scheduled at 3000 cannot repair a
+blocker that died at 1453. V3 then proved the opposite trap: replacing the #5
+duty early did not make interception continuous when Fang died at 1449 and
+released `enemy_1107_uoffcr#6`; that enemy leaked at 1791. A verified opening
+block is only one route's duty, not proof of route-wide continuity.
+
+M45 V3 also split protected-target outcomes: #3 arrived, while #14 was restrained
+by roadblock #2 but died to repeated officer hits. Clearing three other
+roadblocks did not eliminate #14's exposure. The next plan must observe both
+civilian survival windows and preserve every existing route's living blocker.

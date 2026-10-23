@@ -774,3 +774,26 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `NOT_OBTAINED`. M42/M43 residual budgets remain non-stackable.
 - No WIN or tactical progress claim. Correction:
   `docs/review/fc77177/m44_joint_responsibility_iteration_v1/m44_prediction_correction_v1.json`.
+
+# M45 joint artillery continuity ledger — 2026-10-23
+
+- Budget: **3/3** real tactical CLI starts and **2/3** fixed simulations.
+  Attempt 1 completed V1; attempt 2 timed out at 3600 seconds with no plan;
+  attempt 3 completed V3. One M45 simulation remains but cannot create a V4
+  without a new CLI. M42/M43/M44 balances remain non-transferable.
+- `R8_7_GPT_M45_V1` passed contract/static checks and simulated as
+  12 kills / 21 leaks / 11 deaths / life -19. Friston blocked #5 at 1141, died
+  and released it at 1453, and it leaked at 1594; Popukar was scheduled at 3000.
+  Hibiscus and Ansel later died, causing absent-operator/DP runtime errors.
+  The declared Ansel-to-Wyvern heal was `EVENT_NOT_OBSERVED`.
+- `R8_7_GPT_M45_V3` passed contract/static checks and simulated as
+  18 / 15 / 4 / life -13. Its declared Melantha `BLOCK@1071` on
+  `enemy_1108_uterer#5` was verified and #5 died at 1251. Fang blocked
+  `enemy_1107_uoffcr#6` at 1208, died and released it at 1449, and #6 leaked at
+  1791. Roadblocks #4/#3/#1 were destroyed; #2 remained.
+- V3 protected #3 reached at 3776, but #14 died at 6314 after repeated 280-damage
+  officer hits from #16/#18/#24/#26/#32. The artillery leaked at 5759. This is a
+  LOSS, not WIN, real-game, faithful, robust or probabilistic evidence.
+- Raw prompt/response/start/static/simulation evidence and hashes are under
+  `docs/review/fc77177/m45_joint_artillery_continuity_v1/evidence/`; absent V2
+  materials are explicitly MISSING.

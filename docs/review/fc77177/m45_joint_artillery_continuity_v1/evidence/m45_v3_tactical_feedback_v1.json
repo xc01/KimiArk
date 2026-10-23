@@ -1,0 +1,23 @@
+{
+  "schema_version": "M45_V3_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_M45_V1_FIXED_SIMULATION_AND_V2_TIMEOUT_RECORD",
+  "source_plan_id": "R8_7_GPT_M45_V1",
+  "v2_status": "CLI_TIMEOUT_NO_PLAN; this is not a tactical result and V2 was not resumed.",
+  "v1_result": {
+    "win": false, "enemies_killed": 12, "enemies_leaked": 21,
+    "operator_deaths": 11, "remaining_life": -19,
+    "first_leak": {"frame": 1594, "source_id": "enemy_1108_uterer#5"},
+    "key_chain": "Friston blocked #5 at 1141, died and released it at 1453; Popukar was not scheduled until 3000, far too late.",
+    "treatment_failure": "Hibiscus died at 1903 and Ansel died at 2353; later actions then failed because operators were absent or DP was insufficient.",
+    "protected_targets": "#3 reached safely at 4940; #14 died to 950 PHYSICAL artillery at 3945.",
+    "prediction": "Declared Ansel-to-Wyvern HEAL at 960-1020 was EVENT_NOT_OBSERVED; Ansel healed Fang at 960."
+  },
+  "fresh_revision_requirements": [
+    "Create a fresh V3 from the completed V1 evidence; do not resume or reconstruct V2.",
+    "Establish the 1141-1453 Friston duty before any downstream revision: living replacement in range, sufficient treatment, or both.",
+    "Make each skill action refer to a plausibly surviving operator; static pass does not establish survival.",
+    "Protect both civilians jointly; #3's success is conditional evidence only while #14's 3945 artillery death remains an independent failure.",
+    "Keep response compact: one JSON object, the required schema fields, and short rationale; avoid exploratory commentary.",
+    "Do not repeat the 52-action shape mechanically; choose the minimum coherent tactical structure."
+  ]
+}

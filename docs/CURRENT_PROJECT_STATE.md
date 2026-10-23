@@ -320,3 +320,15 @@ with both protected targets dead and no safe arrival. Evidence and corrected
 scope are in `docs/review/fc77177/m44_joint_responsibility_iteration_v1/
 m44_prediction_correction_v1.json`. This is not WIN, real-game, faithful, or
 robust progress.
+
+## 2026-10-23 M45 closes at CLI limit without WIN
+
+M45 used all three real Codex CLI starts; attempt 2 timed out and produced no
+plan. Two frozen plans were simulated once each. V1 lost 12/21/11/life -19 after
+Friston died and released the runner at 1453, with no replacement until 3000.
+V3 improved the opening duty but still lost 18/15/4/life -13: Melantha actually
+blocked and killed `enemy_1108_uterer#5`, while Fang died and released
+`enemy_1107_uoffcr#6` at 1449, causing the 1791 leak. V3 protected #3 but #14
+died at 6314 to repeated officer hits. M45 has one unused simulation, but no
+CLI remains to generate a paired revision. Report:
+`docs/review/fc77177/m45_joint_artillery_continuity_v1/m45_tactical_report_v1.md`.

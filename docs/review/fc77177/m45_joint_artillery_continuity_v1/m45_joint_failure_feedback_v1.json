@@ -1,0 +1,47 @@
+{
+  "schema_version": "M45_JOINT_FAILURE_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_ARCHIVED_FIXED_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M44_V3",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M44 V3 action timeline only; do not treat archived frames as universal deadlines.",
+  "v3_success": {
+    "popukar_handoff": "Friston retreat and legal Popukar deploy at 1440; Popukar BLOCK enemy_1108_uterer#5 at 1440 and kill it at 1692.",
+    "old_leak_elimination": "This eliminates the M42-V3-condition frame-1661 leak but does not establish a complete interception baseline."
+  },
+  "first_failure": {
+    "event_chain": [
+      {"frame": 1440, "fact": "Friston retreats and releases enemy_1108_uterer#5; Popukar deploys and blocks that enemy."},
+      {"frame": 1467, "fact": "char_122_beagle BLOCK enemy_1107_uoffcr#7."},
+      {"frame": 1513, "fact": "enemy_1112_emppnt#0 artillery hits Beagle for 461 PHYSICAL at locked_position [3,4] (runtime [col,row])."},
+      {"frame": 1663, "fact": "A second 461 PHYSICAL artillery hit kills Beagle and releases enemy_1107_uoffcr#7."},
+      {"frame": 1881, "fact": "enemy_1107_uoffcr#7 leaks."}
+    ],
+    "interpretation": "Beagle had 853 HP and the two 461 hits alone account for 922 damage; actual healing before 1663 was insufficient or absent for this duty. The chain must be repaired through continuous coverage, not assumed from proximity or later deployment.",
+    "must_check": "Earlier Beagle damage, Medic2/Ansel/Hibiscus coverage, artillery lock and projectile timing, replacement cost/tile/cooling, capacity, and whether the next blocker can reach before release."
+  },
+  "protected_targets": {
+    "target_3": {"death_frame": 3430, "source_id": "enemy_1112_emppnt#0", "damage": 950.0, "kind": "PHYSICAL"},
+    "target_14": {"death_frame": 3945, "source_id": "enemy_1112_emppnt#0", "damage": 950.0, "kind": "PHYSICAL"},
+    "safe_arrivals": 0,
+    "roadblock_4": "Retained/reached pressure until destroyed by char_208_melan at 4320; the late clearance did not prevent either civilian death.",
+    "requirement": "Plan a jointly consistent exposure window: route control, roadblock clearance timing, treatment, and artillery mitigation must all be observable before each protected target's lethal window."
+  },
+  "full_result": {
+    "win": false, "enemies_killed": 19, "enemies_leaked": 14,
+    "operator_deaths": 7, "remaining_life": -13,
+    "v2_and_v3_action_count": 31,
+    "v2_lesson": "DEPLOY@1500 was legal and successful, but Friston had died at 1457; command success did not establish the handoff duty."
+  },
+  "prediction_correction": {
+    "m44_v1_skill_3240": "The archived event has details.legal=false. Under the corrected matcher its prediction is EVENT_NOT_OBSERVED; the raw record remains unchanged.",
+    "verification_rule": "Predict command plus observable duty: BLOCK, kill, protected-target exposure elimination, safe arrival, or continuous route control. Do not credit command emission alone."
+  },
+  "constraints": [
+    "Use only normal-mode 1-3 star operators and exclude mode-preparation reserves.",
+    "Target simulator WIN with zero leaks, both protected targets alive and safe, and positive remaining life; operator deaths are recorded separately.",
+    "Use successful retreat refund and cooldown only when actually observed; death gives no refund.",
+    "Keep interception continuity through artillery casualties and replacements, including occupied capacity and in-flight artillery consequences.",
+    "Do not require killing the artillery or preserving all 23 M42 Steward attacks; solve exposure/interception with the tactical structure GPT selects.",
+    "Do not assume the M42 V3 3686.68 output was a complete safe window."
+  ]
+}

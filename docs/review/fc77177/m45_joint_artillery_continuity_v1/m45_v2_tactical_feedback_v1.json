@@ -1,0 +1,32 @@
+{
+  "schema_version": "M45_V2_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_COMPLETED_FIXED_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M45_V1",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "result": {
+    "win": false, "enemies_killed": 12, "enemies_leaked": 21,
+    "operator_deaths": 11, "remaining_life": -19,
+    "first_leak_frame": 1594, "first_leak_source": "enemy_1108_uterer#5",
+    "protected_targets": "target #3 reached safely at 4940; target #14 was killed by artillery at 3945",
+    "roadblocks_destroyed": ["trap_020_roadblock#3@1746", "trap_020_roadblock#1@4608"]
+  },
+  "causal_failure": {
+    "fact": "char_4093_frston blocked enemy_1108_uterer#5 at 1141, received repeated 145-damage hits, died and released it at 1453; the enemy leaked at 1594.",
+    "plan_defect": "The plan did not deploy Popukar until 3000. A same-frame retreat/deploy at 3000 cannot repair a 1453 death and 1594 leak.",
+    "secondary_fact": "char_120_hibiscus died at 1903 and char_212_ansel died at 2353; this destroyed the treatment layer rather than merely reducing comfort.",
+    "runtime_consequence": "15 later actions failed because operators were absent or DP was insufficient. Static legality did not prove operator survival.",
+    "prediction_result": "The declared HEAL from Ansel to Wyvern at 960-1020 was not observed; Ansel healed Fang at 960 instead. Command-independent event prediction failed."
+  },
+  "protected_target_evidence": {
+    "success": "Protected #3 reached at 4940, showing some upper protection and roadblock progress.",
+    "failure": "Protected #14 remained exposed and received the fatal 950 PHYSICAL artillery hit at 3945 while Midnight was still damaging roadblock #1.",
+    "constraint": "Preserve #3's achieved protection only if it does not require sacrificing #14 or the opening."
+  },
+  "required_revision_direction": [
+    "Repair the earliest responsibility first: Friston's lower-outer block must have a living replacement or sufficient healing before 1453; do not schedule the handoff after the known casualty window.",
+    "Treat treatment as a measured duty: prove range and target selection for Ansel/Hibiscus/Medic2 rather than inferring coverage from deployment.",
+    "Protect #14 earlier and jointly with #3; complete or bypass its roadblock pressure before the 3945 artillery window.",
+    "Keep a coherent 8-operator limit, DP ledger, tile occupancy, redeploy cooldown, and living-operator skill schedule.",
+    "GPT may rebuild the formation rather than patch V1, but must state which V1 failure premise changes and which observed duty is preserved."
+  ]
+}

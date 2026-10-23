@@ -1,0 +1,22 @@
+{
+  "schema_version": "M45_BUDGET_RECONCILIATION_V1",
+  "budget_scope": "M45_JOINT_ARTILLERY_CONTINUITY_V1",
+  "m45_cli_authorization": {
+    "max_real_tactical_cli_starts": 3,
+    "started": 3,
+    "remaining": 0,
+    "counting_rule": "Every real Codex CLI process invocation counted at STARTED, including timeout; no automatic retry or resume."
+  },
+  "cli_attempts": [
+    {"attempt": 1, "status": "COMPLETED_CONTRACT_VALID_PLAN", "counted": true, "plan_id": "R8_7_GPT_M45_V1", "source": "attempt_01_cli/final_status.json"},
+    {"attempt": 2, "status": "TIMEOUT_NO_PLAN", "counted": true, "plan_id": null, "source": "attempt_02_cli/final_status.json"},
+    {"attempt": 3, "status": "COMPLETED_CONTRACT_VALID_PLAN", "counted": true, "plan_id": "R8_7_GPT_M45_V3", "source": "attempt_03_cli/final_status.json"}
+  ],
+  "m45_simulation_authorization": {
+    "max": 3,
+    "started": 2,
+    "remaining": 1,
+    "accounting_note": "V1 and V3 were each simulated once from their frozen plans. The unused simulation is not retroactively paired with a V2 plan and cannot generate a V4 without a new tactical CLI authorization."
+  },
+  "non_stackable": "M42 has 1 simulation remaining and M43 has 2; neither is carried into M45. M44 remains 3/3 simulations exhausted. M45's one unused simulation is reserved, not transferable."
+}
