@@ -457,3 +457,12 @@ block/kill of `enemy_1108_uterer#5` but leaked `enemy_1107_uoffcr#6` after Fang'
 1449 death, and protected #14 died at 6314 while #3 arrived. The result remains
 18/15/4/life -13. One unused simulation cannot generate a new revision without a
 fresh CLI authorization.
+
+## 2026-10-23 — M46 closes without WIN
+
+M46 used its own 3/3 real tactical CLI starts and 2/3 fixed simulations. V1
+removed the M45 route-4 failure but created a route-17 failure and lost
+16/17/12/life -15. V2 improved to 31/2/7/life 1 and protected #3 arrived, but
+artillery, roadblock-2-restrained #14, and route-29 #34 remained unresolved. V3
+timed out without a plan. This milestone records simulator progress only; it is
+not WIN, real-game success, faithfulness, robustness, or probabilistic WIN.

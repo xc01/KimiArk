@@ -1,0 +1,50 @@
+{
+  "schema_version": "M46_V2_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_FIXED_SIMULATION",
+  "source_plan_id": "R8_7_GPT_M46_V2",
+  "source_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m46_opening_survival_economy_v1/attempt_02_cli/llm_structured_output.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M46 V2 action timeline only; archived frames are not universal deadlines.",
+  "full_result": {
+    "win": false,
+    "remaining_life": 1,
+    "enemies_killed": 31,
+    "enemies_leaked": 2,
+    "operator_deaths": 7,
+    "first_leak": {"frame": 5759, "source_id": "enemy_1112_emppnt#0"}
+  },
+  "confirmed_successes": [
+    "#5 and #6 remain locally controlled in the opening.",
+    "Route-17's V1 failure was eliminated: no route-17 leak.",
+    "Protected #3 safely reached at 4991.",
+    "Only two enemies leaked, and life remained positive after leaks."
+  ],
+  "hard_target_gap": [
+    {
+      "subject": "enemy_1112_emppnt#0",
+      "fact": "Took 3437.58 arts from Steward and 2380 arts from Durin, totaling 5817.58, then leaked at 5759. Artillery ability hits killed or damaged the western formation repeatedly.",
+      "requirement": "Close this damage deficit with a survivor-coherent plan; do not preserve a position merely because it had output time."
+    },
+    {
+      "subject": "trap_020_roadblock#2",
+      "fact": "#14 remained restrained from 3620 through the end and never reached; #3 reached safely but this does not satisfy the two-target acceptance gate.",
+      "requirement": "Clear or otherwise release #2 without exposing #14 to unhandled officer attacks along route-15."
+    },
+    {
+      "subject": "enemy_1110_uamord#34",
+      "fact": "Spawned at 6330, took 704.85 damage, killed/damaged Spot and Ansel, and leaked at 6996.",
+      "requirement": "Handle the remaining armored route without sacrificing an operator's assigned duty."
+    }
+  ],
+  "runtime_error": [
+    "Lancet RETREAT@4800 failed because it had died at 2980 to artillery.",
+    "Later action survival must be checked after artillery exposure; successful retreat refund is available only if observed."
+  ],
+  "revision_requirements": [
+    "Use the remaining one CLI and one fixed simulation to close the three named gaps while preserving all currently working duties.",
+    "Do not reduce the opening structure unless replacing it with evidence-backed alternatives.",
+    "Ensure #14 receives an observable safe-arrival event, not just roadblock destruction or no recorded death.",
+    "Ensure artillery #0 and #34 each receive an observable ENEMY_DEATH event.",
+    "Keep protected #3 and #14 alive through their routes."
+  ]
+}

@@ -543,3 +543,14 @@ M45 V3 also split protected-target outcomes: #3 arrived, while #14 was restraine
 by roadblock #2 but died to repeated officer hits. Clearing three other
 roadblocks did not eliminate #14's exposure. The next plan must observe both
 civilian survival windows and preserve every existing route's living blocker.
+
+## 2026-10-23 M46 shows a repaired first failure can expose the next route
+
+M46 V1 proved that repairing route 4 can hold `enemy_1107_uoffcr#6`, but moving
+coverage away from route 17 exposed the next failure: Midnight blocked #15 at
+3548, died at 3789, and #15 leaked at 4176. V2 repaired route 17 and reduced the
+run to 31/2/7/life 1, but three acceptance gaps remained independently. Artillery
+#0 survived 5817.58 damage and leaked at 5759; #14 remained restrained by
+roadblock #2 and had no arrival event; armored route-29 #34 survived 704.85
+damage and leaked at 6996. V3's CLI timeout is infrastructure evidence, not
+tactical evidence.

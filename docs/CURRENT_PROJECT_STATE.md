@@ -332,3 +332,15 @@ blocked and killed `enemy_1108_uterer#5`, while Fang died and released
 died at 6314 to repeated officer hits. M45 has one unused simulation, but no
 CLI remains to generate a paired revision. Report:
 `docs/review/fc77177/m45_joint_artillery_continuity_v1/m45_tactical_report_v1.md`.
+
+## 2026-10-23 M46 closes without joint protected-target completion
+
+M46 used 3/3 real Codex CLI starts and 2/3 fixed simulations. V1 removed the M45
+`enemy_1107_uoffcr#6` opening failure but introduced a route-17 failure after
+Midnight died and released `enemy_1107_uoffcr#15`, losing 16/17/12/life -15. V2
+greatly improved to 31/2/7/life 1 and #3 safely reached, but artillery leaked at
+5759, #14 stayed restrained by roadblock #2 without arrival, and route-29 armor
+`enemy_1110_uamord#34` leaked at 6996. V3 timed out without a plan, so the final
+simulation could not be used. M46 is not WIN and makes no real-game, faithful,
+or robust claim; the report is
+`docs/review/fc77177/m46_opening_survival_economy_v1/m46_tactical_report_v1.md`.

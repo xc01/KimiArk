@@ -1,0 +1,56 @@
+{
+  "schema_version": "M46_V1_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_FIXED_SIMULATION",
+  "source_plan_id": "R8_7_GPT_M46_V1",
+  "source_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m46_opening_survival_economy_v1/attempt_01_cli/llm_structured_output.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M46 V1 action timeline only; archived frames are not universal deadlines.",
+  "full_result": {
+    "win": false,
+    "enemies_killed": 16,
+    "enemies_leaked": 17,
+    "operator_deaths": 12,
+    "remaining_life": -15,
+    "first_leak": {"frame": 4176, "source_id": "enemy_1107_uoffcr#15"}
+  },
+  "confirmed_successes": [
+    "Melantha preserved #5: BLOCK@1071 and ENEMY_DEATH@1251.",
+    "The M45 #6 opening failure was eliminated: Fang blocked #6@1208 and #6 was killed@1703.",
+    "Lancet's declared heal occurred at 840 and later recurring heals supported Fang; route-4 no longer leaked at 1791.",
+    "Fang survived long enough to produce observed AUTO_SKILL_DP_INCOME at 570, 1320, 2070, 2820 and 3570."
+  ],
+  "new_first_failure": {
+    "route_id": "route-17",
+    "chain": [
+      {"frame": 3330, "fact": "enemy_1107_uoffcr#15 spawns."},
+      {"frame": 3548, "fact": "Midnight blocks #15."},
+      {"frame": 3789, "fact": "Midnight dies and releases #15."},
+      {"frame": 3870, "fact": "#15 begins attacking protected #3; #17 follows the same route with no interception."},
+      {"frame": 4176, "fact": "#15 leaks; #17 leaks at 4220."}
+    ],
+    "causal_classification": "Midnight's single block/kill premise failed; no living successor covered route-17. This is independent of the repaired #5/#6 duties."
+  },
+  "cascading_failures": [
+    "Artillery hits kill Hibiscus@3250, Lava@3400, Ansel@3853, Fang/Vanilla@4180 and Durin@4480.",
+    "The plan leaves 13 runtime 'operator is not deployed' command failures because later actions assume operators survive their retreat/death windows.",
+    "Route-18 #20 leaks@4625, route-20 #19 leaks@4507, and later routes collapse after repeated deaths.",
+    "Artillery #0 remains alive and leaks@5759 after killing #3@5191."
+  ],
+  "protected_targets": {
+    "target_3": "Died@5191 to a 950 PHYSICAL artillery hit; no safe arrival.",
+    "target_14": "Remained restrained by roadblock #2@3620 but received repeated 280 officer hits; no safe arrival.",
+    "requirement": "Do not treat temporary restraint as protection. Both targets require a jointly coherent safe-passage plan."
+  },
+  "economy_observation": {
+    "popukar_deploy": "Succeeded; static insufficient-DP failure was removed.",
+    "runtime_error_root": "Subsequent deaths invalidated later skills/retreats; this is tactical survival/handoff failure, not an arithmetic bug.",
+    "retreat_policy": "Retreat@4650 and Beagle deploy@4650 occurred after many core operators were dead; DP alone did not establish duties."
+  },
+  "revision_requirements": [
+    "Repair route-17 with continuous interception/kill, not merely the first block.",
+    "Reassess artillery-exposed positions as a joint formation problem; the current cascade begins with 12 operator deaths.",
+    "Provide protected #3/#14 safe arrival or explicit route control, not roadblock delay alone.",
+    "Maintain #5 and #6 duties or provide alternatives, and keep only revenue that is actually supported by surviving operators.",
+    "Keep the plan compact; avoid actions that depend on dead or absent operators."
+  ]
+}

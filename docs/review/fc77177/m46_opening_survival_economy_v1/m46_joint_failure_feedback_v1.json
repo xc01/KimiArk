@@ -1,0 +1,112 @@
+{
+  "schema_version": "M46_JOINT_FAILURE_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_ARCHIVED_FIXED_M45_V3_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M45_V3",
+  "source_plan_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m45_joint_artillery_continuity_v1/attempt_03_cli/llm_structured_output.json",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M45 V3 action timeline only; archived death and leak frames are not universal deadlines.",
+  "parent_result": {
+    "win": false,
+    "enemies_killed": 18,
+    "enemies_leaked": 15,
+    "operator_deaths": 4,
+    "remaining_life": -13,
+    "action_count": 44
+  },
+  "verified_m45_success": {
+    "melantha_enemy_5": "Melantha BLOCK enemy_1108_uterer#5 at 1071 and ENEMY_DEATH at 1251.",
+    "scope": "This is a verified local route duty, not proof of a complete opening or full-stage strategy."
+  },
+  "earliest_failure": {
+    "enemy_id": "enemy_1107_uoffcr#6",
+    "chain": [
+      {
+        "frame": 1208,
+        "fact": "Fang BLOCK enemy_1107_uoffcr#6."
+      },
+      {
+        "frames": [1209, 1269, 1329, 1389, 1449],
+        "fact": "Fang receives 70 enemy_physical damage per hit."
+      },
+      {
+        "frame": 1449,
+        "fact": "Fang dies and releases #6."
+      },
+      {
+        "frame": 1791,
+        "fact": "#6 leaks."
+      }
+    ],
+    "survival_calculation": [
+      "Before #6, Fang takes 10 x 120 damage from enemy_1108_uterer#1.",
+      "Lancet-2 deployment_heal_all restores 200 to Fang at 840.",
+      "Fang max HP is 1325, so estimated HP at 1208 is 1325 - 1200 + 200 = 325.",
+      "The five x 70 #6 hits are 350; no healing occurs during 1208-1449. Therefore 325 HP cannot survive the fifth hit."
+    ],
+    "medical_timing": "Lancet-2 retreats at 1260. Ansel deploys at 1680, after Fang dies at 1449. Treating Fang survival as a hard requirement is not the goal; the route's interception, kill and economy must remain coherent."
+  },
+  "runtime_failure_groups": [
+    {
+      "root": "Popukar DEPLOY@2880 is illegal for insufficient DP.",
+      "consequent_failures": ["SKILL_ACTIVATE@4080", "SKILL_ACTIVATE@5880"]
+    },
+    {
+      "root": "Lava dies at 3311.",
+      "consequent_failures": ["SKILL_ACTIVATE@4656", "RETREAT@5550"]
+    },
+    {
+      "root": "Durin dies at 3671.",
+      "consequent_failures": ["RETREAT@3690"]
+    }
+  ],
+  "popukar_dp_ledger": {
+    "static_at_2880": 23,
+    "popukar_cost": 19,
+    "runtime_at_2880": 0.2,
+    "classification": "FAILED_CONDITIONAL_SURVIVAL_PREMISE_NOT_ARITHMETIC_BUG",
+    "key_runtime_events": [
+      {"frame": 1650, "event": "Vanilla skill DP +6 to 23.0"},
+      {"frame": 1875, "event": "Steward successful retreat refund +9 to 22.5"},
+      {"frame": 2070, "event": "Melantha successful retreat refund +7 to 36.0; Hibiscus deploy -17 to 19.0"},
+      {"frame": 2400, "event": "Plume successful retreat refund +5 to 35.0"},
+      {"frame": 2430, "event": "Midnight deploy -16 to 20.0"},
+      {"frame": 2550, "event": "Vanilla skill DP +6 to 30.0"},
+      {"frame": 2556, "event": "Lava deploy -30 to 0.2"},
+      {"frame": 2880, "event": "Popukar deploy needs 19 but DP is 0.2"}
+    ],
+    "static_mismatch": "Static ledger additionally counts Fang AUTO_SKILL_DP_INCOME +6 at 2820 as CONDITIONAL_ON_SURVIVAL_AND_CONTINUOUS_DEPLOYMENT even though runtime Fang died at 1449. Do not replace missing tactics with arithmetic edits."
+  },
+  "protected_target_14": {
+    "spawn": {"frame": 3030, "route_id": "route-15"},
+    "roadblock_contact": {
+      "frame": 3620,
+      "device_id": "trap_020_roadblock#2",
+      "tile_col_row": [2, 6],
+      "plan_tile_row_col": [6, 2]
+    },
+    "officer_exposure": [
+      {"frame": 3764, "source": "enemy_1107_uoffcr#16", "damage": 280},
+      {"frame": 4064, "source": "enemy_1107_uoffcr#18", "damage": 280},
+      {"frame": 5414, "source": "enemy_1107_uoffcr#24", "damage": 280},
+      {"frame": 5774, "source": "enemy_1107_uoffcr#26", "damage": 280},
+      {"frame": 6314, "source": "enemy_1107_uoffcr#32", "damage": 280, "result": "death"}
+    ],
+    "route_after_restraint": "route-15 continues toward [row=6,col=1], then [row=5,col=1] and exit [row=5,col=0]. Exact continuous client position of each attacker is UNKNOWN because archived events do not record positions; do not treat 6314 as a universal deadline.",
+    "clearance_fact": "M45 V3 destroys roadblocks #4, #3 and #1 but records zero DEVICE_DAMAGE events against #2. Thus actual clearance coverage of #2 is NO and recorded output time is 0. Clearing it early changes the protection route and must be paired with officer/control/kill evidence."
+  },
+  "remaining_route_failure": "Artillery enemy_1112_emppnt#0 leaks at 5759; #14 protection must not substitute for route clearing.",
+  "user_tactical_priors": [
+    "Compare vanguard economy, tank+medic+DPS, Spot/Cardigan-style early defense, and temporary-unit retreat structures using actual cost, timing, block, range and damage facts.",
+    "Do not assume Spot/Cardigan continuously self-heal from deployment.",
+    "Consider proactive retreat when a unit completes a phase, loses its effective target, needs to release capacity, or its refund enables a better successor.",
+    "Count only observed successful retreat refunds; death has no refund. Include release, treatment/output gap, in-flight artillery, redeploy cooldown and successor cost.",
+    "GPT must first explain why the selected opening is suitable for this stage, then provide the complete plan. Python must not enumerate or select tactics."
+  ],
+  "required_predictions": [
+    "Keep Melantha's verified #5 block/kill or explicitly replace and verify it.",
+    "Keep #6 continuously intercepted or killed through the old failure window without relying on Fang survival as an end in itself.",
+    "Show that the repaired opening's DP income and dependent deployments remain supported.",
+    "Actually eliminate a #14 exposure condition through route control, clearance or protected-target safe arrival.",
+    "Resolve the artillery route rather than relying on late leaks."
+  ]
+}

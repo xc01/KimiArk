@@ -797,3 +797,20 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Raw prompt/response/start/static/simulation evidence and hashes are under
   `docs/review/fc77177/m45_joint_artillery_continuity_v1/evidence/`; absent V2
   materials are explicitly MISSING.
+
+# M46 opening survival economy ledger — 2026-10-23
+
+- Budget: **3/3** real tactical CLI starts and **2/3** fixed simulations.
+  V1 and V2 each produced one static-clean plan and one completed simulation;
+  V3 timed out at 3600 seconds without a plan. The remaining simulation is not
+  transferable and cannot be spent without a new CLI.
+- `R8_7_GPT_M46_V1` lost 16/17/12/life -15. It repaired the M45 route-4
+  `enemy_1107_uoffcr#6` failure with BLOCK@1208 and ENEMY_DEATH@1703, and kept
+  Melantha's #5 block/kill. The new first failure was route-17: Midnight blocked
+  #15 at 3548, died at 3789, and #15 leaked at 4176.
+- `R8_7_GPT_M46_V2` lost 31/2/7/life 1. It repaired route 17 and #3 reached at
+  4991, but artillery leaked at 5759 after 5817.58 damage, #14 remained
+  restrained by roadblock #2 with no arrival, and route-29 #34 leaked at 6996
+  after 704.85 damage. Lancet's retreat failed because it died at 2980.
+- Raw prompt/response/start/static/simulation evidence and hashes are under
+  `docs/review/fc77177/m46_opening_survival_economy_v1/evidence/`.

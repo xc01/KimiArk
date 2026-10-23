@@ -1,0 +1,244 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M46_V1",
+      "parent_hypothesis_id": "R8-7-M46-V1-H1",
+      "tactical_thesis": "Keep the economical four-lane opening, but place Lancet-2 where ordinary healing reaches both central vanguards and establish Ansel before withdrawing her. Preserve Melantha's demonstrated opening interception. Fund western lower roadblock clearance before Lava, then replace its temporary clearer with Beagle. Use overlapping medical coverage, a short GALLUS artillery exposure and a held Lava skill to make artillery clearance a separate, explicit duty. This is an unexecuted full-stage hypothesis, not a verified victory.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_240_wyvern",
+        "char_192_falco",
+        "char_208_melan",
+        "char_285_medic2",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_120_hibisc",
+        "char_4227_gallus",
+        "char_281_popka",
+        "char_283_midn",
+        "char_121_lava",
+        "char_4093_frston",
+        "char_501_durin",
+        "char_122_beagle",
+        "char_209_ardign"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT","role":"Permanent upper central interception."},
+        {"operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT","role":"Opening lower central interception and conditional income."},
+        {"operator_id":"char_192_falco","tile":[1,5],"direction":"RIGHT","role":"Opening upper outer interception and eastern upper clearance."},
+        {"operator_id":"char_208_melan","tile":[6,5],"direction":"RIGHT","role":"Preserve the demonstrated lower runner interception; clear eastern lower."},
+        {"operator_id":"char_285_medic2","tile":[2,5],"direction":"UP","role":"Opening global recovery and ordinary healing of both central vanguards."},
+        {"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN","role":"Central treatment, caster treatment and periodic extended upper outer coverage."},
+        {"operator_id":"char_210_stward","tile":[5,5],"direction":"RIGHT","role":"Persistent lower central arts and eastern lower artillery windows."},
+        {"operator_id":"char_120_hibisc","tile":[2,5],"direction":"UP","role":"Mutual medical support and treatment of both central lanes and adjacent casters."},
+        {"operator_id":"char_4227_gallus","tile":[5,7],"direction":"LEFT","role":"Temporary lower artillery damage; withdraw before the departure-window splash."},
+        {"operator_id":"char_281_popka","tile":[6,3],"direction":"LEFT","role":"Actually damage western lower roadblock and intercept initial lower outer officers."},
+        {"operator_id":"char_283_midn","tile":[1,5],"direction":"LEFT","role":"Western upper clearance and permanent upper outer interception."},
+        {"operator_id":"char_121_lava","tile":[2,6],"direction":"RIGHT","role":"Upper eastern artillery damage, with skill held for the second upper visit."},
+        {"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT","role":"Temporary lower central blocker while an ordinary deployment slot is reassigned."},
+        {"operator_id":"char_501_durin","tile":[2,7],"direction":"LEFT","role":"Upper artillery contribution followed by persistent upper central arts."},
+        {"operator_id":"char_122_beagle","tile":[6,3],"direction":"LEFT","role":"Durable lower outer containment after clearance and civilian passage."},
+        {"operator_id":"char_209_ardign","tile":[4,5],"direction":"RIGHT","role":"Final three-block lower central containment; no self-heal credited."}
+      ],
+      "formation_structure": {
+        "opening_suitability": "Fang, Vanilla, Plume and Melantha establish four distinct interceptions within the opening budget. An immediate 18-DP defender plus 17-DP medic delays other lanes; Spot/Cardigan do not supply supported continuous self-healing. The selected repair spends three DP on Lancet's real healing geometry, then makes a medical handoff before spending on persistent damage.",
+        "medical_geometry": "Read-only range checks confirm Lancet UP [2,5] covers Fang [3,5] and Vanilla [4,5]. Ansel DOWN [5,6] covers both central blockers, Hibiscus, Steward, Lava and Durin. Hibiscus UP [2,5] covers Ansel, both central blockers, Steward and Lava. These two medics cover each other and share the main central casualties. Coverage does not guarantee a particular heal recipient.",
+        "outer_survival": "Popukar's western lower duty is temporary and has no credited regular healing. Beagle replaces him after clearance. Midnight receives Ansel's extended-range treatment during supported skill windows; ordinary Ansel coverage does not reach him.",
+        "artillery_structure": "Steward faces RIGHT throughout, trading the previous western exposure for sustained eastern lower coverage. GALLUS contributes a separate short lower exposure. Lava faces RIGHT and holds her first skill until frame 4140 for the second upper visit. Durin adds upper coverage after Vanilla releases a deployment slot. Artillery death must be observed by frame 5190; this damage closure remains unverified.",
+        "artillery_geometry_and_selection": "Current source code selects available artillery operator candidates by operator_id after neutral priority. While both are available, Steward precedes Ansel and GALLUS; Hibiscus precedes Lava and Durin. GALLUS is two tiles from Steward, and Durin is two tiles from Hibiscus, beyond the 1.2 splash radius. Range acquisition changes during movement can select another target. This is a current-model dependency, not a client target-order assertion.",
+        "capacity": "At most eight rarity-2/3 operators are present. Lancet, GALLUS and temporary Friston use the inspected current-model rarity-1 deployment-limit exemption. Vanilla leaves before Durin enters; Lava leaves before Cardigan enters.",
+        "economy": {
+          "basis": "Initial 10 DP, natural 1 DP/s, Fang's effective cost 10, surviving Fang grants and Vanilla activations at 750, 1650, 2550 and 3450.",
+          "conditional_living_refunds": "Lancet 1, Melantha 7, Plume 5, Vanilla 5, Popukar 9, Lava 15 and Friston 1. Each requires its actual successful living retreat.",
+          "excluded_income": "No GALLUS refund, kill DP, unsupported talent income or hypothetical refunds are needed.",
+          "static_result": "The declared conditional ledger is nonnegative, with zero minimum margin. Representative post-deployment balances are Ansel 6, Steward 6, Hibiscus 0, Popukar 0 and Lava 0 DP after same-frame earned grants.",
+          "causal_requirement": "Fang's later grants depend on the repaired interception and treatment actually working. An absent grant or living refund invalidates the dependent handoff; it is not an arithmetic correction."
+        },
+        "status": "UNEXECUTED_CURRENT_MODEL_CANDIDATE; only declared geometry, economy and skill timing were checked without combat simulation."
+      },
+      "formation_transitions": [
+        {"frame":840,"transition":"Lancet begins ordinary central treatment from the corrected tile."},
+        {"frame":1320,"transition":"Ansel joins before Lancet leaves; the medical duties overlap."},
+        {"frame":1980,"transition":"Retreat living Lancet and install Hibiscus on the same tile; Ansel maintains treatment during the replacement."},
+        {"frame":2070,"transition":"Melantha leaves after eastern lower destruction and opening hostile clearance."},
+        {"frame":2250,"transition":"Popukar establishes western lower clearance before the second civilian spawns."},
+        {"frame":2550,"transition":"Midnight assumes upper outer duty after Plume's living retreat and clears western upper."},
+        {"frame":2700,"transition":"End GALLUS's exposure before artillery departure can produce splash centered on adjacent Ansel; existing projectiles persist."},
+        {"frame":4350,"transition":"Replace Vanilla with temporary Friston, releasing an ordinary slot for Durin."},
+        {"frame":4650,"transition":"Replace living Popukar with Beagle after western lower destruction and civilian passage."},
+        {"frame":5250,"transition":"After confirmed artillery death and pending-projectile inspection, withdraw Lava and Friston and deploy Cardigan for final lower containment."}
+      ],
+      "corridor_responsibilities": [
+        {"routes":["route-0"],"responsibility":"No hostile duty."},
+        {"routes":["route-1"],"responsibility":"Steward owns eastern lower damage; GALLUS supplies a short additional exposure; Lava owns upper eastern visits; Durin supplies upper damage when ground-target contention permits. Require actual artillery death."},
+        {"routes":["route-2"],"responsibility":"Plume clears eastern upper, Midnight clears western upper, and upper outer interception separates approaching officers from the civilian. Require actual safe arrival."},
+        {"routes":["route-15"],"responsibility":"Melantha clears eastern lower, Popukar directly clears western lower, and the civilian passes the western restraint position before the lower outer handoff. Require actual safe arrival."},
+        {"routes":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],"responsibility":"Fang intercepts throughout. Medics sustain her; Durin supplies final arts against armor and queued runners. Lava assists approaching targets only within its declared RIGHT-facing range."},
+        {"routes":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],"responsibility":"Vanilla, then Friston, then Cardigan block. Steward supplies persistent arts. The successor must enter before released enemies advance."},
+        {"routes":["route-7","route-8","route-17","route-22","route-23","route-24"],"responsibility":"Plume owns the opening; Midnight owns subsequent interception, clearance and kills."},
+        {"routes":["route-9","route-10","route-16","route-25","route-26","route-27"],"responsibility":"Melantha owns the opening; Popukar clears and handles the first officer pair; Beagle contains subsequent officers without assuming healing."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_frames":[0,1980],"duties":"Establish four interceptions, preserve Melantha's local success and repair central treatment before the old Fang failure.","failure_consequence":"A released central enemy or lost income invalidates subsequent economy and containment."},
+        {"window_frames":[1980,3870],"duties":"Clear both western restraints, release civilians, sustain the first artillery visits and withdraw GALLUS safely.","failure_consequence":"An uncleared lower restraint recreates the protected-target exposure; medical failure breaks artillery damage continuity."},
+        {"window_frames":[3870,5250],"duties":"Survive the second lower artillery visit, use Lava's held skill on the second upper visit, complete artillery clearance and install durable outer containment.","failure_consequence":"Surviving artillery rejects the final transition; missed upper armor clearance can overload Fang."},
+        {"window_frames":[5250,6330],"duties":"Maintain three-block lower containment and two-block upper interception through final runner pairs and armor.","failure_consequence":"An unresolved queue beyond block capacity produces a leak."},
+        {"window_frames":[6330,9000],"duties":"Finish remaining armor and officers with both medics and persistent arts still operating.","failure_consequence":"Spawn exhaustion without hostile clearance does not establish victory."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","intent":"Automatic income only while continuously alive and deployed."},
+        {"operator_id":"char_240_wyvern","frames":[750,1650,2550,3450],"intent":"Supported income and ATK; no grant is credited after retreat."},
+        {"operator_id":"char_212_ansel","frames":[2070,3870,5670,7470],"intent":"Strengthen treatment during lower artillery pressure and periodically extend treatment to Midnight. The 60-second cycles include 25 active and 35 inactive seconds."},
+        {"operator_id":"char_120_hibisc","frames":[2880,4380,5880,7380],"intent":"Strengthen treatment during upper artillery visits and final containment; activations are 50 seconds apart."},
+        {"operator_id":"char_121_lava","frames":[4140],"intent":"Hold the ready skill until the second upper artillery visit. Credit individual arts hits, without additional splash."},
+        {"operator_id":"char_281_popka","frames":[3780],"intent":"Accelerate removal of the first lower outer officer pair before the durable handoff."},
+        {"operator_id":"char_283_midn","frames":[3750,7050],"intent":"Supported arts conversion and ATK for officer removal; no probability talent credited."},
+        {"operator_id":"char_122_beagle","frames":[5850,7950],"intent":"Supported defense reinforcement during sustained outer containment."},
+        {"operator_ids":["char_210_stward","char_501_durin","char_4227_gallus"],"intent":"Use supported ordinary attacks and Steward's automatic enhanced attack. No resistance reduction, dodge or probability talent is credited."},
+        {"operator_id":"char_209_ardign","intent":"Ordinary three-block defense only; no unsupported self-heal."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"id":"LEGALITY","requirement":"Use only the listed normal-mode catalog configurations with identity.rarity 1-3. Every deployment uses its declared legal [row,col] tile and direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"id":"OPENING_CONTINUITY","requirement":"Lancet must actually treat the central opening, and Ansel must be present before Lancet retreats. Keep officer #6 intercepted or kill it throughout the former release window; Fang survival is instrumental to that route and the declared income."},
+        {"id":"MELANTHA_LOCAL_DUTY","requirement":"Preserve Melantha [6,5] RIGHT at frame 756. Predict the archived #5 block/kill near frames 1071/1251; the changed formation requires confirmation rather than inherited verification."},
+        {"id":"NEUTRALS","requirement":"Ordinary operators neither attack nor block civilians. Do not assign ordinary healing to civilians. Roadblock destruction releases them; officers can still attack within 1.2."},
+        {"id":"LOWER_RELEASE","requirement":"Observe DEVICE_DAMAGE and DEVICE_DESTROYED for roadblock #2 from actual covering output, then observe the second civilian pass and safely arrive. Clearance alone does not prove protection."},
+        {"id":"NO_DOUBLE_COUNTING","requirement":"Damage directed at officers, armor or devices cannot also satisfy the 13000-HP artillery duty."},
+        {"id":"MEDICAL_SURVIVAL","requirement":"Both medics and the active damage operators must survive their assigned exposure windows. Lowest-HP-ratio selection can divert healing; the static coverage check is insufficient."},
+        {"id":"RETREATS","requirement":"Check living status, local hostile clearance, released enemies, occupancy, successor affordability and outstanding fixed-point projectiles at every handoff. Do not reuse a refund from a death."},
+        {"id":"ARTILLERY_GATE","requirement":"Observe ENEMY_DEATH for enemy_1112_emppnt#0 by frame 5190. If absent, the clearance hypothesis has failed; do not execute the frame-5250 artillery-dependent transition as though it succeeded."},
+        {"id":"ACCEPTANCE","requirement":"Require remaining_life > 0, zero enemy leaks, exhausted spawns, no active enemies, zero protected-target deaths and both expected protected targets safely arrived. Record operator deaths separately."}
+      ],
+      "action_timeline": [
+        {"action_type":"DEPLOY","frame":0,"operator_id":"char_123_fang","tile":[3,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":330,"operator_id":"char_240_wyvern","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":576,"operator_id":"char_192_falco","tile":[1,5],"direction":"RIGHT","rationale":"Enter after the first Fang grant, avoiding same-frame income ordering."},
+        {"action_type":"ACTIVATE_SKILL","frame":750,"operator_id":"char_240_wyvern"},
+        {"action_type":"DEPLOY","frame":756,"operator_id":"char_208_melan","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":840,"operator_id":"char_285_medic2","tile":[2,5],"direction":"UP","rationale":"Global recovery plus ordinary healing of both central vanguards."},
+        {"action_type":"DEPLOY","frame":1320,"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN"},
+        {"action_type":"ACTIVATE_SKILL","frame":1650,"operator_id":"char_240_wyvern"},
+        {"action_type":"DEPLOY","frame":1680,"operator_id":"char_210_stward","tile":[5,5],"direction":"RIGHT"},
+        {"action_type":"RETREAT","frame":1980,"operator_id":"char_285_medic2","rationale":"Living medical handoff after Ansel is established."},
+        {"action_type":"DEPLOY","frame":1980,"operator_id":"char_120_hibisc","tile":[2,5],"direction":"UP"},
+        {"action_type":"RETREAT","frame":2070,"operator_id":"char_208_melan","rationale":"Requires eastern lower destruction and opening hostile clearance."},
+        {"action_type":"ACTIVATE_SKILL","frame":2070,"operator_id":"char_212_ansel"},
+        {"action_type":"DEPLOY","frame":2100,"operator_id":"char_4227_gallus","tile":[5,7],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":2250,"operator_id":"char_281_popka","tile":[6,3],"direction":"LEFT","rationale":"Prioritize actual western lower clearance before buying Lava."},
+        {"action_type":"RETREAT","frame":2400,"operator_id":"char_192_falco","rationale":"Requires eastern upper destruction and opening hostile clearance."},
+        {"action_type":"ACTIVATE_SKILL","frame":2550,"operator_id":"char_240_wyvern"},
+        {"action_type":"DEPLOY","frame":2550,"operator_id":"char_283_midn","tile":[1,5],"direction":"LEFT"},
+        {"action_type":"RETREAT","frame":2700,"operator_id":"char_4227_gallus","rationale":"Vacate before departure-window splash around Ansel; no refund is budgeted."},
+        {"action_type":"ACTIVATE_SKILL","frame":2880,"operator_id":"char_120_hibisc"},
+        {"action_type":"DEPLOY","frame":3120,"operator_id":"char_121_lava","tile":[2,6],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":3450,"operator_id":"char_240_wyvern"},
+        {"action_type":"ACTIVATE_SKILL","frame":3750,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":3780,"operator_id":"char_281_popka"},
+        {"action_type":"ACTIVATE_SKILL","frame":3870,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":4140,"operator_id":"char_121_lava","rationale":"Use the saved skill on the second upper artillery visit."},
+        {"action_type":"RETREAT","frame":4350,"operator_id":"char_240_wyvern","rationale":"Requires a living retreat and an immediate lower central successor."},
+        {"action_type":"DEPLOY","frame":4350,"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":4380,"operator_id":"char_501_durin","tile":[2,7],"direction":"LEFT"},
+        {"action_type":"ACTIVATE_SKILL","frame":4380,"operator_id":"char_120_hibisc"},
+        {"action_type":"RETREAT","frame":4650,"operator_id":"char_281_popka","rationale":"Requires western lower clearance, civilian passage and a viable living handoff."},
+        {"action_type":"DEPLOY","frame":4650,"operator_id":"char_122_beagle","tile":[6,3],"direction":"LEFT"},
+        {"action_type":"RETREAT","frame":5250,"operator_id":"char_121_lava","rationale":"Requires artillery death by 5190 and inspection of outstanding projectiles."},
+        {"action_type":"RETREAT","frame":5250,"operator_id":"char_4093_frston"},
+        {"action_type":"DEPLOY","frame":5250,"operator_id":"char_209_ardign","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":5670,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":5850,"operator_id":"char_122_beagle"},
+        {"action_type":"ACTIVATE_SKILL","frame":5880,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":7050,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":7380,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":7470,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":7950,"operator_id":"char_122_beagle"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id":"P1",
+          "goal":"Establish all four interceptions and a continuous central medical handoff.",
+          "start_condition":"Battle begins with 10 DP and no deployed operators.",
+          "completion_condition":"Ansel and Hibiscus are deployed, Lancet has retreated alive, opening runners are killed and officer #6 remains intercepted or is dead.",
+          "responsibilities":["Fang and Vanilla hold central routes.","Plume and Melantha hold outer routes and damage eastern roadblocks.","Lancet treats central casualties; Ansel assumes treatment before her withdrawal."],
+          "survival_dependencies":["Actual ordinary healing must repair the demonstrated accumulated damage.","Fang must remain deployed for the grants used by the ledger.","Melantha's demonstrated runner duty must remain intact."],
+          "handoff_requirements":["Ansel is already operating before frame 1980.","Lancet's living retreat frees Hibiscus's tile and supplies the declared one-DP refund."],
+          "failure_effect_on_later_phases":"A central release or missing grant breaks both route containment and later affordability."
+        },
+        {
+          "phase_id":"P2",
+          "goal":"Release both civilian routes while preserving artillery damage and medical continuity.",
+          "start_condition":"Both professional medics are deployed and the eastern lower opening is cleared.",
+          "completion_condition":"Both western roadblocks are destroyed, the civilians pass their restraint positions, GALLUS has withdrawn and outer interception remains staffed.",
+          "responsibilities":["Popukar directly attacks western lower from [6,3] LEFT.","Midnight directly attacks western upper from [1,5] LEFT.","Steward and GALLUS exploit lower artillery coverage; Lava begins upper coverage.","Medics sustain central casualties and Ansel periodically reaches Midnight."],
+          "survival_dependencies":["Popukar must survive without credited routine healing until Beagle replaces him.","GALLUS must leave before dangerous splash reaches his adjacent position.","Caster output and officer kills compete for attacks."],
+          "handoff_requirements":["Do not withdraw Melantha or Plume before their local hostiles and eastern devices are cleared.","Require actual lower western device damage and destruction.","Require civilian passage rather than assuming release means arrival."],
+          "failure_effect_on_later_phases":"A persistent restraint or absent interceptor recreates officer exposure and rejects the protection objective."
+        },
+        {
+          "phase_id":"P3",
+          "goal":"Destroy artillery and complete the durable containment formation.",
+          "start_condition":"The second artillery circuit approaches and civilian release work is established.",
+          "completion_condition":"Both civilians have safely arrived, artillery is dead by frame 5190, and Cardigan, Beagle and Durin hold their final duties.",
+          "responsibilities":["Hold Lava's skill for the second upper artillery visit.","Use both medics through the lower and upper splash windows.","Replace Vanilla temporarily with Friston to admit Durin.","Replace Popukar with Beagle after clearance."],
+          "survival_dependencies":["Shared medical coverage must deliver enough actual healing through splash and target competition.","Friston must maintain lower central interception during the temporary slot exchange.","Durin must remain available for upper armor clearance."],
+          "handoff_requirements":["Confirm artillery death and outstanding projectile locations before Lava leaves.","Deploy Cardigan immediately after Friston releases the lower central tile.","Verify both protected-target arrival events independently."],
+          "failure_effect_on_later_phases":"Living artillery invalidates the final transition; a lost caster or central blocker can leave armor uncleared or release a queue."
+        },
+        {
+          "phase_id":"P4",
+          "goal":"Clear every remaining hostile without leaks after the final spawns.",
+          "start_condition":"The final formation is established and artillery clearance is confirmed.",
+          "completion_condition":"Spawns are exhausted, no active enemies remain, life is positive, leaks and protected-target deaths are zero, and both protected targets arrived.",
+          "responsibilities":["Fang and Durin clear upper central armor and runners.","Cardigan and Steward clear lower central armor and runners.","Midnight kills upper outer officers; Beagle contains lower outer officers.","Both medics continue treatment and supported skill cycles."],
+          "survival_dependencies":["Upper armor must die before its queue exceeds Fang's two blocks.","Lower central queues must remain within Cardigan's three blocks.","Beagle's unhealed outer attrition and Midnight's periodic treatment must remain sustainable."],
+          "handoff_requirements":["No further retreat is authorized merely because frame 6330 has passed.","Retain all final duties until actual hostile exhaustion."],
+          "failure_effect_on_later_phases":"Any leak, protected-target death or missing civilian arrival rejects project acceptance."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "GameData_facts": "Four distinct hostile corridors and two civilian routes require separate duties. The stage moveMultiplier is 0.5, applied once. Civilians have 3500 HP, 50 DEF and death costs one life; ordinary operators neither attack nor block them.",
+    "current_model_rules": "Roadblocks restrain civilians within 0.4472 and release them on destruction. Officers can attack civilians within 1.2. Artillery uses delayed fixed-point splash with radius 1.2. Rarity-1 operators do not consume the inspected runtime's ordinary deployment count.",
+    "changed_causal_model": "The prior missing Popukar deployment followed a failed survival-dependent income premise. This revision repairs the medical structure, changes clearance ownership and orders spending around protection before adding expensive artillery output.",
+    "clearance_predictions": "Popukar begins real western lower output at frame 2250, before the second civilian's frame-3030 spawn. Its destruction and the civilian's passage must occur before subsequent officers can recreate the archived restraint exposure.",
+    "artillery_prediction": "The source-backed 0.25 effective flying speed and route waits place the unimpeded route end near 192 seconds in this model. Frame 5190 is an internal kill target with margin, not an archived death deadline. Actual target contention and survival still require verification.",
+    "UNKNOWN": "Exact client timing, client target-order equivalence, ordinary WALK device navigation, equal-ratio medical ties and unrepresented effects remain unknown."
+  },
+  "revised_tactical_requirements": {
+    "opening": "Verify Lancet's ordinary central healing, Melantha's preserved #5 interception and uninterrupted handling of #6 through the former failure window.",
+    "economy": "Verify actual Fang grants and every dependent living retreat. The checked ledger is conditional and has no spare margin at several deployments.",
+    "protection": "Require actual destruction of all route-restraint devices, zero protected-target deaths and both safe-arrival events. Officer separation must persist during movement after release.",
+    "artillery": "Verify the combined 13000 actual damage and artillery death by frame 5190. Do not credit ground-target attacks, device attacks or unsupported splash toward that total.",
+    "terminal": "Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies and two protected-target arrivals.",
+    "validation_status": "Read-only geometry, declared conditional DP and skill timing checks only; no stage simulation was run."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id":"R8-7-M46-V1-H1",
+      "hypothesis":"Corrected Lancet coverage and an overlapping Ansel handoff can preserve central interception and its income. Prioritized western clearance can release the lower civilian before later officer exposure. Sustained eastern artillery coverage, a short GALLUS exposure and Lava's held second-visit skill can complete clearance before the final defensive transition.",
+      "falsifiers":["No timely central ordinary healing.","Officer #6 is released alive.","A required income or living refund is absent.","Western lower receives no effective output.","Either civilian dies or fails to arrive.","Artillery remains alive at frame 5190.","A final corridor exceeds its block capacity before clearance."]
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id":"R8-7-M46-V1-H1",
+    "parent_plan_id":"R8_7_GPT_M45_V3",
+    "operational_plan_id":"R8_7_GPT_M46_V1",
+    "referenced_experience_ids":["M46_JOINT_FAILURE_FEEDBACK_V1"],
+    "tactical_hypothesis":"Replacing the opening treatment gap with actual range-backed healing can support central interception and income, while earlier western lower clearance and independently staffed artillery windows address the two remaining objective failures.",
+    "changed_responsibilities":[
+      "Lancet moves to [2,5] UP and provides ordinary central healing before an overlapping professional medical handoff.",
+      "Melantha retains her demonstrated opening duty; Popukar receives funded western lower clearance before Lava is purchased.",
+      "Steward keeps persistent RIGHT-facing lower coverage, GALLUS supplies a bounded exposure, and Lava saves her skill for the second upper visit.",
+      "Friston temporarily releases a deployment slot for Durin; Beagle and Cardigan take durable final containment duties."
+    ],
+    "expected_first_observable_event": {
+      "event_type":"HEAL",
+      "source_id":"char_285_medic2",
+      "target_id":"char_123_fang",
+      "earliest_frame":840,
+      "latest_frame":925
+    },
+    "if_expected_event_absent":"Treat the opening medical premise as unconfirmed. Inspect actual range, recipient selection and incoming damage; do not retain later Fang income or dependent deployments merely because the static ledger balances."
+  }
+}
