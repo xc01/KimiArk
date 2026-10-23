@@ -7,6 +7,11 @@ leak at frame 1881 and both protected targets dead. Do not claim WIN, real-game
 success, faithfulness, robustness, or tactical progress beyond this fixed-model
 scope.
 
+The saved reconciliation's 35-action values are corrected to 31 for V2/V3 in
+`m44_prediction_correction_v1.json`; M44 V1's illegal skill prediction is
+corrected to `EVENT_NOT_OBSERVED`, and the 0/3 CLI start count remains a ledger
+declaration without a start-process archive.
+
 The obsolete M28 instruction is retained only as repository history and no longer
 defines the next step. M42 retains 1 simulation and M43 retains 2 simulations;
 these are reserved separately and must not be spent as M45 budget. A new M45

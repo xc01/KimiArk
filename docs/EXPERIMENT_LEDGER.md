@@ -750,3 +750,27 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - M43 V1 was static-blocked by an active Gallus cooldown at frame 4710. M43 V2 was contract-blocked by `OPERATOR_RETREAT`. M43 V3 passed static checks but lost 6/27/10/life -26, far below M42 V3's 19/14 result.
 - Fixed deterministic prediction evaluation so illegal `DEPLOY`/`RETREAT` events are not VERIFIED; equivalent direct-function regressions passed. M43 V3's prediction evaluation is therefore `EVENT_NOT_OBSERVED`.
 - No WIN. Full report: `docs/review/fc77177/m43_joint_responsibility_closure_v1/m43_tactical_report_v1.md`.
+
+# M44 prediction validation and fact correction ledger — 2026-10-23
+
+- Validation fix: explicitly illegal `SKILL_ACTIVATE` no longer matches. The M44
+  V1 `char_281_popka@3240` prediction changes from `VERIFIED` to
+  `EVENT_NOT_OBSERVED`; missing `details.legal` remains compatible. Focused
+  regression: `PYTHONPATH=scripts:src .venv/bin/python -m pytest
+  tests/test_tactical_experience_loop_v1.py -q` — 21/21 passed.
+- Fact correction: V2 and V3 have 31 actions, not 35; source plans, action
+  snapshots and simulation attempts support these counts. V2's `DEPLOY@1500` was
+  command-successful but its handoff failed because Friston had died at 1457.
+- V3 fact chain: legal Popukar `DEPLOY@1440` and `BLOCK` against
+  `enemy_1108_uterer#5` established that one handoff, with a kill at 1692. The
+  later first leak was Beagle's `BLOCK@1467` of `enemy_1107_uoffcr#7`, death from
+  artillery at 1663, release, then leak at 1881. V3 remains 19 kills / 14 leaks /
+  7 operator deaths / life -13, with both civilians killed by artillery and zero
+  safe arrivals; roadblock #4 was destroyed by Melantha at 4320.
+- Budget/provenance: 3/3 M44 simulations are evidenced by the budget file and
+  three simulation attempts; 0/3 separate CLI starts is only a ledger declaration
+  and no `cli_process_attempt.json` was found. Current-session GPT made the real
+  tactical edits in the three build scripts; original prompt/response records are
+  `NOT_OBTAINED`. M42/M43 residual budgets remain non-stackable.
+- No WIN or tactical progress claim. Correction:
+  `docs/review/fc77177/m44_joint_responsibility_iteration_v1/m44_prediction_correction_v1.json`.

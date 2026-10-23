@@ -515,3 +515,18 @@ conflict and the V4 start-without-output infrastructure failure must not be
 recorded as GPT strategic failures. Phase text can explain dependencies, but the
 next feedback must still check the named phase's observable survival or clearance
 event before crediting it.
+
+## 2026-10-23 M44 separates command success from duty success
+
+M44 V2 proved that a legal, command-successful `DEPLOY@1500` did not restore the
+interception duty: Friston had died at 1457, released the runner, and Popukar
+could target it without blocking. Conversely, M44 V3's `DEPLOY@1440` prediction
+is meaningful only because archived `BLOCK@1440` and `ENEMY_DEATH@1692` events
+confirm the named enemy handoff. Future predictions must identify the observable
+duty outcome—block, kill, safe arrival, or protected-target window elimination—
+not merely command success.
+
+The later V3 failure is also duty-conditional: Beagle blocked
+`enemy_1107_uoffcr#7` at 1467, artillery killed and released Beagle at 1663, and
+the enemy leaked at 1881. These frames explain this saved plan and must not be
+used as universal deadlines for another tactic.

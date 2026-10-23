@@ -1,0 +1,87 @@
+{
+  "schema_version": "M44_PREDICTION_CORRECTION_V1",
+  "correction_date": "2026-10-23",
+  "scope": "Derived prediction interpretation only; raw prompt, plan, simulation, event, and hash evidence is not overwritten.",
+  "validation_rule_correction": {
+    "status": "APPLIED",
+    "change": "Explicitly illegal SKILL_ACTIVATE events are now rejected by _event_matches, in addition to illegal DEPLOY and RETREAT events.",
+    "missing_legal_handling": "An event with no details.legal field remains eligible, preserving old-format successful events.",
+    "affected_original": "attempt_01_cli/revision_hypothesis_evaluation.json",
+    "original_sha256": "4404888c180a88de955161f07b3affdec4d2468a097af6b7fc1d2b7fca9acd45",
+    "original_status": "VERIFIED",
+    "corrected_status": "EVENT_NOT_OBSERVED",
+    "reason": "The only matching SKILL_ACTIVATE is char_281_popka@3240 with details.legal=false."
+  },
+  "fact_corrections": {
+    "action_counts": {
+      "v1": 66,
+      "v2": 31,
+      "v3": 31,
+      "evidence": [
+        "attempt_02_cli/llm_structured_output.json and attempt_02_diagnostic/action_snapshot.json",
+        "attempt_03_cli/llm_structured_output.json and attempt_03_diagnostic/action_snapshot.json",
+        "attempt_02_diagnostic/simulation_attempt.json and attempt_03_diagnostic/simulation_attempt.json"
+      ]
+    },
+    "v2_handoff": {
+      "command_status": "DEPLOY@1500 was legal and command-successful.",
+      "duty_status": "The Friston-to-Popukar interception handoff failed.",
+      "cause": "Friston died at 1457, releasing enemy_1108_uterer#5; Popukar deployed after that release and could target but not block the advanced runner.",
+      "lesson": "Command success is not duty success."
+    },
+    "v3_handoff": {
+      "command_status": "RETREAT@1440 and legal DEPLOY@1440 succeeded.",
+      "duty_status": "The Popukar interception handoff was established for enemy_1108_uterer#5.",
+      "support": [
+        "BLOCK@1440 source char_281_popka target enemy_1108_uterer#5",
+        "ENEMY_DEATH@1692 source char_281_popka target enemy_1108_uterer#5"
+      ],
+      "overall_result": "LOSS remains unchanged."
+    },
+    "v3_first_leak_chain": {
+      "block": "char_122_beagle BLOCK enemy_1107_uoffcr#7 at 1467",
+      "prior_artillery_hit": "enemy_1112_emppnt#0 hit Beagle for 461 at 1513",
+      "fatal_hit_and_release": "enemy_1112_emppnt#0 hit Beagle for 461 at 1663; Beagle died and released enemy_1107_uoffcr#7",
+      "first_leak": "enemy_1107_uoffcr#7 leaked at 1881",
+      "scope": "These frames are evidence for this saved M44 V3 plan, not universal deadlines for future plans."
+    },
+    "v3_final_result": {
+      "win": false,
+      "kills": 19,
+      "leaks": 14,
+      "operator_deaths": 7,
+      "remaining_life": -13,
+      "protected_target_deaths": [
+        {"target": "enemy_3001_upeopl#3", "frame": 3430, "source": "enemy_1112_emppnt#0", "damage": 950.0, "kind": "PHYSICAL"},
+        {"target": "enemy_3001_upeopl#14", "frame": 3945, "source": "enemy_1112_emppnt#0", "damage": 950.0, "kind": "PHYSICAL"}
+      ],
+      "safe_arrivals": 0,
+      "roadblock_4": "char_208_melan damaged trap_020_roadblock#4 at 4320; the archived event records DEVICE_DESTROYED."
+    }
+  },
+  "provenance_correction": {
+    "decision_source": "The three build scripts encoded real tactical edits made by the current-session GPT.",
+    "declared_model": {
+      "provider": "current-session-gpt",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "features_apps": false,
+      "status": "DECLARED_CONFIGURATION_ONLY"
+    },
+    "original_session_prompt_response": "NOT_OBTAINED",
+    "attempt_cli_directory_evidence": "Directory names are not evidence that separate CLI processes started.",
+    "separate_cli_ledger": "0/3 is the submitted ledger declaration; no archived cli_process_attempt.json was found. Internal requests remain UNKNOWN_CLI_INTERNAL."
+  },
+  "budget_reconciliation": {
+    "m44_separate_tactical_cli": {"max": 3, "started": 0, "remaining": 3, "basis": "Ledger declaration; no start-process archive found."},
+    "m44_fixed_simulations": {"max": 3, "started": 3, "remaining": 0, "basis": "m44_simulation_budget_v1.json plus three simulation_attempt.json records."},
+    "non_stackable": "M42 1 and M43 2 remaining simulations are not transferred to M44 or M45."
+  },
+  "claim_scope": {
+    "win": false,
+    "real_game": "NOT_PLAYED",
+    "faithful": "NOT_ISSUED",
+    "robust": "NOT_EVALUATED",
+    "tactical_progress": "M44 remains closed as documented fixed-simulator LOSS evidence."
+  }
+}

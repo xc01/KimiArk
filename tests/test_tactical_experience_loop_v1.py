@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import gzip
 import subprocess
 import tempfile
 from contextlib import contextmanager
@@ -148,6 +149,43 @@ def test_illegal_deploy_and_retreat_predictions_are_not_verified() -> None:
         assert evaluated["status"] == "EVENT_NOT_OBSERVED"
 
 
+def test_illegal_skill_predictions_are_not_verified() -> None:
+    parsed = {
+        "revision_hypothesis": {
+            "expected_first_observable_event": {
+                "event_type": "SKILL_ACTIVATE", "source_id": "char_281_popka",
+                "target_id": None, "earliest_frame": 3240, "latest_frame": 3240,
+            }
+        }
+    }
+    events = [
+        {"event_type": "SKILL_ACTIVATE", "source_id": "char_281_popka", "target_id": None,
+         "frame": 3240, "details": {"legal": False}},
+        {"event_type": "SKILL_ACTIVATE", "source_id": "char_281_popka", "target_id": None,
+         "frame": 3240, "details": {"legal": True}},
+        {"event_type": "SKILL_ACTIVATE", "source_id": "char_281_popka", "target_id": None,
+         "frame": 3240},
+    ]
+    assert experience.evaluate_revision_hypothesis(parsed, [events[0]])["status"] == "EVENT_NOT_OBSERVED"
+    assert experience.evaluate_revision_hypothesis(parsed, [events[1]])["status"] == "VERIFIED"
+    assert experience.evaluate_revision_hypothesis(parsed, [events[2]])["status"] == "VERIFIED"
+
+
+def test_archived_illegal_m44_skill_prediction_is_not_verified() -> None:
+    path = Path("docs/review/fc77177/m44_joint_responsibility_iteration_v1/evidence/"
+                "attempt_01_diagnostic/diagnostic_events.json.gz")
+    events = json.loads(gzip.open(path, "rt", encoding="utf-8").read())["events"]
+    parsed = {
+        "revision_hypothesis": {
+            "expected_first_observable_event": {
+                "event_type": "SKILL_ACTIVATE", "source_id": "char_281_popka",
+                "target_id": None, "earliest_frame": 3240, "latest_frame": 3240,
+            }
+        }
+    }
+    evaluated = experience.evaluate_revision_hypothesis(parsed, events)
+    assert evaluated["status"] == "EVENT_NOT_OBSERVED"
+    assert evaluated["matches"] == []
 def test_protected_target_last_hit_is_not_assumed_artillery() -> None:
     path = Path("docs/review/fc77177/m26_tactical_experience_records_v1.json")
     records = experience.load_experience_records(path)

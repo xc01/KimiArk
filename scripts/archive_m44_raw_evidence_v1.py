@@ -90,6 +90,7 @@ def main() -> None:
         "m44_simulation_budget_v1.json",
         "m44_attempt_reconciliation_v1.json",
         "m44_cli_prompt_response_status_v1.json",
+        "m44_prediction_correction_v1.json",
     ):
         records.append(copy_evidence(ROOT / "docs/review/fc77177/m44_joint_responsibility_iteration_v1" / name, TARGET_ROOT / name))
 

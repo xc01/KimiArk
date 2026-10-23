@@ -98,7 +98,7 @@ def main() -> None:
         ],
         "hypothesis": "Advance the M43 V3 parent's lower-outer damage and late medical return while retaining its corrected opening, evacuation, artillery and final-formation structure.",
         "hypothesis_id": "R8-7-M44-V1-H1",
-        "revision_basis": "M43 V3 remains unexecuted; M42 V3 is not an established interception baseline. The M44 change must be verified against the complete fixed simulation.",
+        "revision_basis": "M43 V3 had been executed once as a fixed-simulator LOSS; M42 V3 is not an established interception baseline. The M44 change must be verified against the complete fixed simulation.",
     })
     payload["revised_strategic_hypotheses"] = hypotheses
 

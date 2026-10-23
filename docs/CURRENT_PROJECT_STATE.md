@@ -307,3 +307,16 @@ R8-4 frozen baselines remain unchanged; R8-3/5/6 remain mechanism BLOCKED.
 The full parent/child pytest comparison has zero M29-only failures: 31
 historical failures remain in both runs, while 16 parent-only failures came from
 the isolated parent worktree lacking local untracked output artifacts.
+
+## 2026-10-23 M44 correction confirms closed LOSS state
+
+M44 remains closed at 0/3 recorded separate tactical CLI starts and 3/3 fixed
+`main_08-07` simulations under `m38b-2781-animation-speed-v1`. V2 and V3 each
+had 31 actions. A matcher correction changes M44 V1's illegal Popukar skill
+prediction from `VERIFIED` to `EVENT_NOT_OBSERVED`; V2's legal deployment alone
+does not establish the failed handoff, while V3's Popukar handoff is supported
+by `BLOCK@1440` and `ENEMY_DEATH@1692`. V3 remains a 19/14/7/life -13 LOSS,
+with both protected targets dead and no safe arrival. Evidence and corrected
+scope are in `docs/review/fc77177/m44_joint_responsibility_iteration_v1/
+m44_prediction_correction_v1.json`. This is not WIN, real-game, faithful, or
+robust progress.

@@ -438,3 +438,13 @@ The exact C7 action timeline was replayed under A_NOT_ORDINARILY_TARGETABLE and
 B_LOW_PRIORITY_NO_ENEMY_ONLY. Both variants WIN with 56/56 kills, zero leaks, zero operator deaths, and
 remaining life 5. This establishes a robust roadblock-targeting simulator WIN within the two evidenced
 variants only; client navigation and real-game status remain UNKNOWN.
+
+## 2026-10-23 — M44 closes with corrected prediction evidence
+
+M44 used 3/3 authorized fixed simulations and has 0/3 recorded separate tactical
+CLI starts. V2 and V3 each have 31 actions; V2's command-successful deployment
+did not establish its failed handoff. V3's Popukar handoff is supported by
+`BLOCK@1440` and `ENEMY_DEATH@1692`, but the overall result remains 19/14/7/life
+-13 with both protected targets dead. A focused matcher regression corrects M44
+V1's explicitly illegal skill prediction to `EVENT_NOT_OBSERVED`. This milestone
+is not a WIN and makes no real-game, faithful, or robust claim.
