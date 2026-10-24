@@ -351,9 +351,12 @@ M47 used 3/3 real Codex CLI starts and 1/3 fixed simulations. Attempt 1 was
 rejected for the then-undeclared `DEVICE_DAMAGE`; attempt 2 timed out at 3600
 seconds without a plan; attempt 3 produced a static-clean 53-action V2. The
 fixed run closed roadblock #2 and both protected-target arrivals, but lost
-23/10/8/life -7 after eight operator deaths and eleven runtime deployment/DP
-failures. `enemy_1107_uoffcr#20` first leaked at 5046, artillery #0 leaked at
-5759, and armored #34 leaked at 6996 with no damage or block. The result is a
+23/10/8/life -7. All eight operator deaths preceded the first leak; only four
+runtime deployment/DP failures occurred before it (4410, 4650, 4680, 4710).
+`enemy_1107_uoffcr#20` and `enemy_1110_uamord#21` first leaked together at 5046,
+artillery #0 leaked at 5759, and armored #34 leaked at 6996 with no damage or
+block. Those leak frames are old-action evidence, not universal deadlines. The
+result is a
 conditional fixed-model LOSS, not real-game, faithful, robust, or probabilistic
 progress. Evidence is in
 `docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`.

@@ -830,12 +830,15 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   lost 23 / 10 / 8 / life -7. Gallus damaged roadblock #2 starting at 2490 and
   destroyed it at 4698; protected #3 and #14 reached at 4862 and 5030 with no
   protected deaths. This verified the declared first observable event only.
-- The independent late failure was real: eight operators died, eleven scheduled
-  actions failed as not-deployed or insufficient-DP, `enemy_1107_uoffcr#20`
-  leaked at 5046, and objective life reached zero at 5196. Steward dealt
-  12006.62 artillery damage before dying at 4120, leaving 993.38 HP, and #0
-  leaked at 5759. Route-29 #34 had zero recorded damage or block and leaked at
-  6996.
+- The independent late failure was real: all eight operator deaths preceded the
+  first leak, and four of eleven scheduled failures occurred before it (4410,
+  4650, 4680, 4710). Spot blocked `enemy_1107_uoffcr#20`, but #21 killed Spot at
+  4668; #20 and armored #21 leaked together at 5046, and #22 leaked at 5196 to
+  reduce life to zero. Steward dealt 12006.62 artillery damage before dying at
+  4120, leaving 993.38 HP, and #0 leaked at 5759. Route-29 #34 had zero recorded
+  damage or block and leaked at 6996. The 5759/6996 frames are archived-timeline
+  evidence, not universal deadlines; all 53 source actions match the original
+  GPT JSON and frozen action snapshot.
 - Raw prompt/response/start/static/simulation evidence and hashes are under
   `docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`; compact causal
   feedback is `m47_v2_tactical_feedback_v1.json`.

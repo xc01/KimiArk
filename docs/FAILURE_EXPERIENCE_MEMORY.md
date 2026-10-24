@@ -562,11 +562,14 @@ M47 V2 actually damaged and destroyed roadblock #2 (`DEVICE_DAMAGE@2490`,
 5030). This refutes the idea that #2 was intrinsically inaccessible, but the
 verified first observable event did not prove the complete plan.
 
-The same plan lost its late base: eight operators died and eleven actions failed
-as not-deployed or insufficient-DP. Durin and Gallus hit `enemy_1107_uoffcr#20`
-shortly before its 5046 leak, so survival and DP continuity, not command legality,
-was decisive. Steward's 12006.62 damage ended at 4081 and died at 4120, leaving
-artillery #0 at 993.38 HP before its 5759 leak; armored #34 received no damage
-and no block before 6996. Next revisions must co-schedule replacement, healing,
-refund, and target routing instead of treating one successful duty as full-line
-continuity.
+The same plan lost its late base: all eight operator deaths preceded the first
+leak, but only four of eleven command failures did (4410, 4650, 4680, 4710).
+Spot blocked `enemy_1107_uoffcr#20` before #21 killed it at 4668; #20 and #21
+leaked together at 5046, and #22 leaked at 5196. Durin and Gallus had damaged
+#20, so survival, mixed-route interception, and DP continuity were decisive
+instead of command legality alone. Steward's 12006.62 damage ended at 4081 and
+died at 4120, leaving artillery #0 at 993.38 HP before its 5759 leak; armored
+#34 received no damage and no block before 6996. These frames are archived-action
+evidence, not universal deadlines. Next revisions must repair the
+earlier medical chain, then co-schedule replacement, healing, refund, and target
+routing instead of treating one successful duty as full-line continuity.
