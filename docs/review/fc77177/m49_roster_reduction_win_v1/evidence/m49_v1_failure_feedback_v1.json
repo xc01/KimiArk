@@ -1,0 +1,98 @@
+{
+  "schema_version": "M49_V1_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M49_V1",
+  "parent_plan_id": "R8_7_GPT_M48_V1",
+  "result": {
+    "classification": "CURRENT_MODEL_SIMULATOR_LOSS",
+    "enemies_killed": 21,
+    "enemies_leaked": 12,
+    "operator_deaths": 5,
+    "protected_targets_reached": 1,
+    "protected_target_deaths": 1,
+    "remaining_life": -10,
+    "action_count": 44,
+    "distinct_operator_union": 10
+  },
+  "first_failure_chain": [
+    {"event": "OPERATOR_DEATH", "frame": 2861, "operator": "char_210_stward", "consequence": "Steward's later 4680 RETREAT is invalid; artillery damage ended far below requirement."},
+    {"event": "BLOCK", "frame": 4646, "blocker": "char_122_beagle", "target": "enemy_1110_uamord#21"},
+    {"event": "DAMAGE_ACCOUNTING", "frame": 5010, "target": "enemy_1110_uamord#21", "max_hp": 5000, "damage_count": 18, "damage_total": 1923.0, "consequence": "The armored target was far from dead when its blocker died."},
+    {"event": "OPERATOR_DEATH_AND_UNBLOCK", "frame": 5038, "operator": "char_122_beagle", "target": "enemy_1110_uamord#21"},
+    {"event": "DAMAGE", "frames": [5122, 5206], "source": "enemy_1110_uamord#21", "target": "char_123_fang", "amount_each": 340},
+    {"event": "OPERATOR_DEATH", "frame": 5206, "operator": "char_123_fang"},
+    {"event": "ENEMY_LEAK", "frame": 5437, "target": "enemy_1110_uamord#21", "life_delta": 1},
+    {"event": "ENEMY_LEAK", "frame": 5452, "target": "enemy_1110_uamord#22", "life_delta": 1},
+    {"event": "ENEMY_LEAK", "frame": 5525, "target": "enemy_1107_uoffcr#23", "life_delta": 1}
+  ],
+  "operator_death_inventory": [
+    {"frame": 2861, "operator": "char_210_stward"},
+    {"frame": 4540, "operator": "char_120_hibisc"},
+    {"frame": 5038, "operator": "char_122_beagle"},
+    {"frame": 5053, "operator": "char_284_spot"},
+    {"frame": 5206, "operator": "char_123_fang"}
+  ],
+  "invalid_commands_after_death": [
+    "char_210_stward RETREAT@4680",
+    "char_120_hibisc SKILL@5250",
+    "char_122_beagle SKILL@5374",
+    "char_123_fang RETREAT@6211",
+    "char_120_hibisc SKILL@6750"
+  ],
+  "remaining_joint_counterexamples": [
+    {
+      "duty": "artillery",
+      "target": "enemy_1112_emppnt#0",
+      "max_hp": 13000,
+      "damage_count": 12,
+      "damage_total": 3339.09,
+      "leak_frame": 5759,
+      "status": "OPEN"
+    },
+    {
+      "duty": "mixed_pressure",
+      "targets": [
+        {"target": "enemy_1110_uamord#21", "max_hp": 5000, "damage_total_before_leak": 1923.0, "block_frame": 4646, "leak_frame": 5437},
+        {"target": "enemy_1110_uamord#22", "max_hp": 5000, "damage_total_before_leak": 435.0, "block_frame": 4796, "leak_frame": 5452}
+      ],
+      "status": "OPEN"
+    },
+    {
+      "duty": "armored_34",
+      "target": "enemy_1110_uamord#34",
+      "max_hp": 5000,
+      "damage_total": 631.7,
+      "block_count": 0,
+      "leak_frame": 6996,
+      "status": "OPEN"
+    },
+    {
+      "duty": "protected_target_survival",
+      "target": "enemy_3001_upeopl#3",
+      "death_frame": 3311,
+      "killer": "enemy_1112_emppnt#0",
+      "status": "OPEN"
+    },
+    {
+      "duty": "roadblock_and_14",
+      "target": "trap_020_roadblock#2",
+      "device_damage_count": 14,
+      "destroyed_frame": 5073,
+      "protected_14_reached_frame": 5405,
+      "status": "PARTIAL_SUCCESS_DOES_NOT_COMPENSATE_FOR_LOSS"
+    }
+  ],
+  "revision_requirements": [
+    "Keep the selected/deployed operator-ID union at 10 or fewer.",
+    "Repair Steward's survival and/or reassign artillery kill before 5759 using actual range, heal timing, and shell exposure.",
+    "Provide a living blocker plus sufficient arts output for #21/#22 through at least their arrival, or kill them before the blocker loses capacity.",
+    "Close #34 with actual BLOCK and kill/no-leak evidence, not a single hit prediction.",
+    "Protect #3 from artillery while retaining #14's roadblock release and safe arrival.",
+    "Account for death causing no refund, retreat causing release, redeploy cooldown, in-flight shells, and DP.",
+    "Give one observable first prediction; do not use a frame from an old action set as a universal deadline."
+  ],
+  "evidence_paths": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_01_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_01_diagnostic/diagnostic_summary.json",
+    "frozen_actions": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_01_diagnostic/action_snapshot.json"
+  }
+}

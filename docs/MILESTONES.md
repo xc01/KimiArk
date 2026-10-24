@@ -483,3 +483,11 @@ targets reached, and remaining life 3. Actual duty evidence covers artillery #0,
 roadblock #2, protected targets, #20/#21/#22, and armored #34. The milestone is
 frozen at conditional current-model simulator WIN; it does not claim real-game,
 faithful, robust, or probabilistic success.
+
+## 2026-10-25 — M49 closes at limits without WIN
+
+M49 used 3/3 real tactical CLI starts and 3/3 fixed simulations under a hard
+ten-distinct-ID limit. All plans passed static checks and used exactly ten IDs.
+V1 lost 21/12/5/life -10, V2 improved to 23/10/4/life -8, and V3 lost
+22/11/6/life -9. No complete WIN was reached. This is not evidence that ten IDs
+are impossible and makes no real-game, faithful, robust, or probabilistic claim.

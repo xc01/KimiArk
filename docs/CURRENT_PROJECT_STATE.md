@@ -379,3 +379,18 @@ simulator WIN only—real-game verification remains UNKNOWN and faithful, robust
 and probabilistic claims are not issued. The frozen balance is CLI 1/3 and
 simulation 1/3; evidence is under
 `docs/review/fc77177/m48_joint_survival_interception_v1/evidence/`.
+
+## 2026-10-25 M49 closes at limits without a 10-operator WIN
+
+M49 used all three of its own real Codex CLI starts and all three fixed
+`main_08-07` simulations. A new hard roster check counted the union of declared
+and DEPLOY operator IDs; every candidate was exactly ten. All plans passed
+contract and static checks, but none won: V1 lost 21/12/5/life -10, V2 improved
+to 23/10/4/life -8, and V3 regressed to 22/11/6/life -9. Each reached one
+protected target and lost the other.
+
+V2 is the best loss but still leaves route-16 #18, artillery #0, armored
+#21/#22, protected #3, and armored #34 unresolved. The exhausted M49 evidence
+does not prove ten operators impossible. This milestone makes no real-game,
+faithful, robust, or probabilistic claim. Evidence is under
+`docs/review/fc77177/m49_roster_reduction_win_v1/evidence/`.

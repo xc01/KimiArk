@@ -35,6 +35,7 @@ STATIC_CONFLICT_SUMMARY: str | None = None
 SAVED_INPUT_DIR: str | None = None
 EXPERIENCE_STORE_PATH: str | None = None
 BRANCH_STATE_PATH: str | None = None
+MAX_UNIQUE_DEPLOYED_OPERATORS: int | None = None
 AUTHORIZATION_CONFIG_PATH = ROOT / "docs/review/fc77177/m27_model_authorization_v1.json"
 SIMULATION_BUDGET_PATH = ROOT / "docs/review/fc77177/m28_simulation_budget_v1.json"
 
@@ -74,8 +75,12 @@ def configure(arguments: argparse.Namespace) -> None:
     SAVED_INPUT_DIR = arguments.saved_input_dir
     EXPERIENCE_STORE_PATH = arguments.experience_store
     BRANCH_STATE_PATH = arguments.branch_state
+    MAX_UNIQUE_DEPLOYED_OPERATORS = arguments.max_unique_deployed_operators
     AUTHORIZATION_CONFIG_PATH = ROOT / arguments.authorization_config
     SIMULATION_BUDGET_PATH = ROOT / arguments.simulation_budget_path
+    authorization = load(ROOT / arguments.authorization_config)
+    codex_runner.MODEL = authorization["model"]
+    codex_runner.REASONING_EFFORT = authorization["reasoning_effort"]
     codex_runner.AUTHORIZATION_CONFIG_PATH = AUTHORIZATION_CONFIG_PATH
     codex_runner.configure_run(
         arguments.output_dir,
@@ -335,6 +340,11 @@ def prepare() -> dict[str, Any]:
         ):
             evidence.pop(redundant_policy_key, None)
         evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
+        if MAX_UNIQUE_DEPLOYED_OPERATORS is not None:
+            evidence["milestone_constraints"] = {
+                "max_unique_deployed_operator_ids": MAX_UNIQUE_DEPLOYED_OPERATORS,
+                "counting_rule": "The union of selected_low_star_operator_ids and every DEPLOY action operator_id is counted; retreat and redeploy do not reduce distinct-operator count.",
+            }
         evidence["tactical_provider"] = {
             "provider": "codex-cli", "model": codex_runner.MODEL,
             "reasoning_effort": codex_runner.REASONING_EFFORT,
@@ -574,6 +584,14 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
         and event["enemy_id"].startswith("enemy_3001_upeopl")
     ]
     expected_protected_target_count = sum(int(event.get("count", 1)) for event in protected_spawn_rows)
+    roster_instruction = ""
+    max_unique = evidence.get("milestone_constraints", {}).get("max_unique_deployed_operator_ids")
+    if isinstance(max_unique, int):
+        roster_instruction = (
+            f"HARD ROSTER LIMIT: the union of selected_low_star_operator_ids and every DEPLOY action "
+            f"operator_id must contain at most {max_unique} distinct IDs. Remove unused listed operators "
+            "before emitting the plan; retreat/redeploy and hidden aliases do not avoid the count.\n\n"
+        )
     clearance_instruction = ""
     clearance = evidence.get("roadblock_clearance_evidence")
     if clearance:
@@ -606,7 +624,9 @@ You may use read-only shell commands to inspect the supplied evidence or `script
 
 Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies. Project acceptance additionally requires zero leaks, zero protected-target deaths, and all {expected_protected_target_count} expected protected targets safely reaching their objectives; operator deaths are recorded separately and are not automatically forbidden.
 
-{clearance_instruction}
+    {clearance_instruction}
+
+    {roster_instruction}
 
 MANDATORY OUTPUT CONTRACT
 - Root required fields: {json.dumps(schema_required)}.
@@ -669,6 +689,19 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
             errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
         if not str(plan.get("operational_plan_id", "")).startswith(PLAN_PREFIX):
             errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
+        max_unique = evidence.get("milestone_constraints", {}).get("max_unique_deployed_operator_ids")
+        if isinstance(max_unique, int):
+            actions = plan.get("action_timeline") or []
+            distinct = set(plan.get("selected_low_star_operator_ids") or [])
+            distinct.update(
+                action.get("operator_id")
+                for action in actions
+                if isinstance(action, dict) and action.get("action_type") == "DEPLOY"
+            )
+            if len(distinct) > max_unique:
+                errors.append(
+                    f"distinct selected/deployed operator union has {len(distinct)} IDs; hard limit is {max_unique}"
+                )
     validation = {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
         "status": "PASS" if not errors else "FAIL",
@@ -921,6 +954,7 @@ def main() -> None:
     parser.add_argument("--saved-input-dir")
     parser.add_argument("--experience-store")
     parser.add_argument("--branch-state")
+    parser.add_argument("--max-unique-deployed-operators", type=int)
     parser.add_argument("--authorization-config", default=str(AUTHORIZATION_CONFIG_PATH))
     parser.add_argument("--simulation-budget-path", default=str(SIMULATION_BUDGET_PATH))
     arguments = parser.parse_args()

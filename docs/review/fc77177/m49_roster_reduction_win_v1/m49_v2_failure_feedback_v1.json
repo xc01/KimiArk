@@ -1,0 +1,74 @@
+{
+  "schema_version": "M49_V2_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M49_V2",
+  "parent_plan_id": "R8_7_GPT_M49_V1",
+  "result": {
+    "classification": "CURRENT_MODEL_SIMULATOR_LOSS",
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 4,
+    "protected_targets_reached": 1,
+    "protected_target_deaths": 1,
+    "remaining_life": -8,
+    "action_count": 45,
+    "distinct_operator_union": 10
+  },
+  "verified_progress": [
+    {"event": "DEVICE_DESTROYED", "frame": 2385, "source": "char_283_midn", "target": "trap_020_roadblock#3", "scope": "V2 prediction only"},
+    {"event": "DEVICE_DESTROYED", "frame": 4894, "source": "char_284_spot", "target": "trap_020_roadblock#2"},
+    {"event": "PROTECTED_TARGET_REACHED", "frame": 5226, "source": "enemy_3001_upeopl#14"}
+  ],
+  "first_life_exhaustion_chain": [
+    {"event": "ENEMY_LEAK", "frame": 4421, "target": "enemy_1107_uoffcr#18", "cause": "char_240_wyvern UNBLOCK@4173 after its scheduled retreat; char_208_melan dealt only 1294.08 of 3300 HP."},
+    {"event": "OPERATOR_DEATH", "frame": 4543, "operator": "char_120_hibisc"},
+    {"event": "BLOCK", "frame": 4646, "blocker": "char_122_beagle", "target": "enemy_1110_uamord#21"},
+    {"event": "BLOCK", "frame": 4796, "blocker": "char_284_spot", "target": "enemy_1110_uamord#22"},
+    {"event": "OPERATOR_DEATH_AND_UNBLOCK", "frame": 5206, "operator": "char_122_beagle", "target": "enemy_1110_uamord#21"},
+    {"event": "PROTECTED_DEATH", "frame": 5353, "target": "enemy_3001_upeopl#3", "killer": "enemy_1112_emppnt#0"},
+    {"event": "OPERATOR_DEATH_AND_UNBLOCK", "frame": 5290, "operator": "char_284_spot", "target": "enemy_1110_uamord#22"},
+    {"event": "ENEMY_LEAK", "frame": 5605, "target": "enemy_1110_uamord#21"},
+    {"event": "ENEMY_LEAK", "frame": 5689, "target": "enemy_1110_uamord#22"}
+  ],
+  "operator_death_inventory": [
+    {"frame": 2593, "operator": "char_210_stward"},
+    {"frame": 4543, "operator": "char_120_hibisc"},
+    {"frame": 5206, "operator": "char_122_beagle"},
+    {"frame": 5290, "operator": "char_284_spot"}
+  ],
+  "invalid_commands_after_death": [
+    "char_210_stward RETREAT@4650",
+    "char_120_hibisc SKILL@5224",
+    "char_120_hibisc SKILL@6725",
+    "char_122_beagle SKILL@6183"
+  ],
+  "duty_counterexamples": [
+    {"duty": "route_16_18", "target_max_hp": 3300, "damage": 1294.08, "block_frame": 4122, "release_frame": 4173, "leak_frame": 4421, "status": "OPEN"},
+    {"duty": "artillery", "target": "enemy_1112_emppnt#0", "max_hp": 13000, "damage_count": 9, "damage_total": 2466.09, "leak_frame": 5759, "status": "OPEN"},
+    {"duty": "mixed_pressure", "targets": [{"id": "enemy_1110_uamord#21", "max_hp": 5000, "block": 4646, "unblock_death": 5206, "leak": 5605}, {"id": "enemy_1110_uamord#22", "max_hp": 5000, "block": 4796, "unblock_death": 5290, "leak": 5689}], "status": "OPEN"},
+    {"duty": "armored_34", "target": "enemy_1110_uamord#34", "max_hp": 5000, "damage_total": 0, "block_count": 0, "leak_frame": 6996, "status": "OPEN"},
+    {"duty": "protected_3", "target": "enemy_3001_upeopl#3", "death_frame": 5353, "killer": "enemy_1112_emppnt#0", "status": "OPEN"}
+  ],
+  "m48_conditional_support": {
+    "scope": "18-operator plan; not a deadline or a roster template",
+    "healing_positions": [
+      {"operator": "char_120_hibisc", "tile": [5, 5], "direction": "DOWN"},
+      {"operator": "char_212_ansel", "tile": [2, 6], "direction": "UP"}
+    ],
+    "steward_position": {"operator": "char_210_stward", "tile": [5, 7], "direction": "DOWN"},
+    "survival_result": {"operator_deaths": 0, "artillery_damage_total": 13227.21, "artillery_kill_frame": 4273}
+  },
+  "revision_requirements": [
+    "Use one final fixed simulation; keep the selected/deployed operator-ID union <=10.",
+    "Do not release a blocker until its assigned target is dead or a living replacement actually has coverage.",
+    "Repair the eastern medical/Steward survival chain before requiring artillery death and Steward withdrawal.",
+    "Provide living #21/#22 containment with enough arts damage through arrival, or earlier kill.",
+    "Close #34 with actual BLOCK plus kill/no-leak.",
+    "Keep roadblock clearance and both protected-target arrivals without sacrificing #3.",
+    "Do not credit V2's early roadblock prediction as proof of complete survival; deaths and leaks dominate."
+  ],
+  "evidence_paths": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_summary.json",
+    "frozen_actions": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/action_snapshot.json"
+  }
+}

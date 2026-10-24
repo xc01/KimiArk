@@ -1,0 +1,60 @@
+{
+  "schema_version": "M49_M48_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M48_V1",
+  "source_scope": {
+    "stage_id": "main_08-07",
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "classification": "CURRENT_MODEL_SIMULATOR_WIN",
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_targets_reached": 2,
+      "protected_target_deaths": 0,
+      "remaining_life": 3
+    },
+    "action_count": 53,
+    "selected_operator_count": 18,
+    "evidence_manifest": "docs/review/fc77177/m48_joint_survival_interception_v1/evidence/m48_evidence_manifest_v1.json"
+  },
+  "hard_new_constraint": {
+    "max_unique_deployed_operator_ids": 10,
+    "counting_rule": "selected_low_star_operator_ids plus DEPLOY operator_id union; same ID after retreat/redeploy remains one operator.",
+    "priority": "First achieve a complete <=10-operator current-model simulator WIN. Do not continue reducing roster, stars, or actions after WIN."
+  },
+  "verified_parent_duties": [
+    {"duty": "medical_survival", "event": "HEAL@3079", "source": "char_120_hibisc", "target": "char_212_ansel"},
+    {"duty": "artillery_kill", "event": "ENEMY_DEATH@4273", "killer": "char_210_stward", "target": "enemy_1112_emppnt#0"},
+    {"duty": "roadblock_2_clearance", "event": "DEVICE_DESTROYED@4698", "source": "char_4227_gallus", "target": "trap_020_roadblock#2"},
+    {"duty": "protected_arrivals", "events": [{"target": "enemy_3001_upeopl#14", "frame": 5030}, {"target": "enemy_3001_upeopl#3", "frame": 5033}]},
+    {"duty": "mixed_pressure", "closed": [{"target": "enemy_1107_uoffcr#20", "block": 4298, "kill": 4739}, {"target": "enemy_1110_uamord#21", "block": 4646, "kill": 5646}, {"target": "enemy_1110_uamord#22", "block": 4796, "kill": 6050}]},
+    {"duty": "armored_34", "closed": [{"target": "enemy_1110_uamord#34", "block": 6596, "kill": 7848}]}
+  ],
+  "comparison_candidate": {
+    "status": "NOT_LOCKED",
+    "operator_ids": [
+      "char_123_fang",
+      "char_122_beagle",
+      "char_284_spot",
+      "char_208_melan",
+      "char_283_midn",
+      "char_120_hibisc",
+      "char_212_ansel",
+      "char_210_stward",
+      "char_121_lava",
+      "char_4227_gallus"
+    ],
+    "known_risks": ["early route survival", "economic timing", "artillery/armor damage sharing", "no assumed Vanguard requirement", "no assumed zero-Vanguard requirement"]
+  },
+  "tactical_decision_boundary": {
+    "gpt_decides": ["roster", "opening", "routes", "duty sharing", "frames", "tiles", "directions", "skills", "retreats", "redeploys"],
+    "python_scope": ["facts", "economic calculation", "contract", "static validation", "fixed simulation", "event verification"],
+    "forbidden": ["Python-authored tactical revision", "current-session identity as plan provenance", "mechanism edits to force WIN"]
+  },
+  "usage_policy": [
+    "M48 timeline evidence is conditional on its 18-operator actions and is not a universal deadline.",
+    "A command success, BLOCK, or single damage event does not close a duty.",
+    "Compare Vanguard and no-Vanguard structures from actual DP, costs, timing, blocking, and healing facts.",
+    "Treat the prior 10-ID comparison as a branch to evaluate, not a fixed answer."
+  ]
+}

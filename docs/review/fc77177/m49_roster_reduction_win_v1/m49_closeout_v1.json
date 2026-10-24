@@ -1,0 +1,128 @@
+{
+  "schema_version": "M49_BUDGET_CLOSEOUT_V1",
+  "objective": "R8-7 ordinary 1-3-star complete current-model simulator WIN with at most 10 distinct operator IDs",
+  "objective_result": "NOT_MET",
+  "scope_limit": "Current fixed simulator only; no real-game, faithful, robust, or probabilistic WIN claim",
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 3,
+    "cli_remaining": 0,
+    "simulations_max": 3,
+    "simulations_started": 3,
+    "simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "historical_balances_transferable": false
+  },
+  "candidate_results": [
+    {
+      "plan_id": "R8_7_GPT_M49_V1",
+      "distinct_operator_union": 10,
+      "action_count": 44,
+      "enemies_killed": 21,
+      "enemies_leaked": 12,
+      "operator_deaths": 5,
+      "protected_targets_reached": 1,
+      "protected_target_deaths": 1,
+      "remaining_life": -10,
+      "first_leak": {"target": "enemy_1110_uamord#21", "frame": 5437},
+      "plan_snapshot_sha256": "5abe3720e45ca9b742ae8fadbca0e7bd9fabcd7e16626680c8bacbc4da47cddc",
+      "action_snapshot_sha256": "55ab2f71775ef59cd234667a28c93f667e82db2414615c43948ff57308f42d05"
+    },
+    {
+      "plan_id": "R8_7_GPT_M49_V2",
+      "distinct_operator_union": 10,
+      "action_count": 45,
+      "enemies_killed": 23,
+      "enemies_leaked": 10,
+      "operator_deaths": 4,
+      "protected_targets_reached": 1,
+      "protected_target_deaths": 1,
+      "remaining_life": -8,
+      "first_leak": {"target": "enemy_1107_uoffcr#18", "frame": 4421},
+      "life_exhaustion_leak": {"target": "enemy_1110_uamord#21", "frame": 5605},
+      "plan_snapshot_sha256": "631810b810aca0e7e120db497db26e0d1c1d183dad8dc9c78e345a07e4402f8e",
+      "action_snapshot_sha256": "12527da9189ab24cadf5351f0c24e81566d6370cc5cc2a9144dce51b02e25660",
+      "best_by_leaks_and_kills": true
+    },
+    {
+      "plan_id": "R8_7_GPT_M49_V3",
+      "distinct_operator_union": 10,
+      "action_count": 47,
+      "enemies_killed": 22,
+      "enemies_leaked": 11,
+      "operator_deaths": 6,
+      "protected_targets_reached": 1,
+      "protected_target_deaths": 1,
+      "remaining_life": -9,
+      "first_leak": {"target": "enemy_1110_uamord#22", "frame": 5553},
+      "plan_snapshot_sha256": "b5fbd362984d92bf71f16fc5a0d94cd7246538d84ff380fe9bc3d41c860ef3c8",
+      "action_snapshot_sha256": "716a20cd9bab8a0b815255b1a985ec6cbecb44ceda39d685ce9d09f030059ba1"
+    }
+  ],
+  "candidate_rosters": {
+    "counting_rule": "selected_low_star_operator_ids plus DEPLOY operator_id union",
+    "v1": [
+      "char_120_hibisc",
+      "char_121_lava",
+      "char_122_beagle",
+      "char_123_fang",
+      "char_208_melan",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_240_wyvern",
+      "char_283_midn",
+      "char_284_spot"
+    ],
+    "v2": [
+      "char_120_hibisc",
+      "char_121_lava",
+      "char_122_beagle",
+      "char_123_fang",
+      "char_208_melan",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_240_wyvern",
+      "char_283_midn",
+      "char_284_spot"
+    ],
+    "v3": [
+      "char_120_hibisc",
+      "char_121_lava",
+      "char_122_beagle",
+      "char_123_fang",
+      "char_208_melan",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_240_wyvern",
+      "char_283_midn",
+      "char_284_spot"
+    ]
+  },
+  "best_causal_state": {
+    "best_plan_id": "R8_7_GPT_M49_V2",
+    "verified_progress": [
+      "Midnight destroyed roadblock #3 at 2385.",
+      "Spot destroyed roadblock #2 at 4894 and #14 reached at 5226.",
+      "All three candidates stayed at the 10-ID hard limit."
+    ],
+    "remaining_counterexamples": [
+      "Vanilla's 4173 release let route-16 #18 leak at 4421 after only 1294.08 of 3300 HP.",
+      "Steward died at 2593; artillery #0 received 2466.09 of 13000 HP damage and leaked at 5759.",
+      "Beagle and Spot died at 5206/5290, releasing #21/#22; those targets leaked at 5605/5689.",
+      "#3 died to artillery #0 at 5353.",
+      "#34 had zero recorded damage or block and leaked at 6996."
+    ]
+  },
+  "mechanism_and_infrastructure": {
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "static_validation": "All three plans passed contract and full static checks with 0 conflicts and 0 unknowns.",
+    "roster_validation": "A hard runner check enforced the union of selected IDs and DEPLOY IDs; all candidates were exactly 10.",
+    "runner_configuration_fix": "The session runner now reads model and reasoning_effort from the milestone authorization file instead of silently inheriting a medium default."
+  },
+  "next_bounded_task_after_fresh_authorization": {
+    "description": "Start from M49 V2 as the best loss, preserve its <=10-ID structure, and issue one GPT revision targeting release-until-kill discipline, eastern Steward/medical survival, #21/#22 living containment, and #34 block/kill.",
+    "status": "NOT_AUTHORIZED",
+    "budget": "UNKNOWN_UNTIL_NEW_AUTHORIZATION"
+  },
+  "scope_note": "This M49 closure does not prove that ten operators are impossible; it records only the three exhausted fixed candidates."
+}

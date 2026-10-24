@@ -866,3 +866,24 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `docs/review/fc77177/m48_joint_survival_interception_v1/evidence/`. The
   result is current-model simulator WIN only, not real-game, faithful, robust,
   or probabilistic WIN.
+
+# M49 roster reduction ledger — 2026-10-25
+
+- Budget: **3/3** real tactical CLI starts and **3/3** fixed simulations.
+  Internal request count is `UNKNOWN_CLI_INTERNAL`. No M48 or earlier balance
+  was transferred. A focused runner hard check now rejects a declared/deployed
+  operator union above the milestone limit.
+- V1: 10 IDs, 44 actions, 0 static conflicts, 21/12/5/life -10. Beagle died at
+  5038 and released #21; Fang died at 5206; #21 leaked at 5437.
+- V2: 10 IDs, 45 actions, 0 static conflicts, 23/10/4/life -8. It improved the
+  roadblock/#14 chain and is the best loss, but Vanilla's 4173 release let #18
+  leak at 4421; Steward died at 2593; artillery #0 leaked at 5759 after only
+  2466.09 damage; Beagle/Spot released #21/#22; #3 died at 5353; #34 had zero
+  damage/block and leaked at 6996.
+- V3: 10 IDs, 47 actions, 0 static conflicts, 22/11/6/life -9. It verified the
+  predicted Hibiscus→Ansel heal but did not convert survival into closure; #22
+  first leaked at 5553 and the objective failed at 5637.
+- All candidates used the same ten-ID union: Hibiscus, Lava, Beagle, Fang,
+  Melantha, Steward, Ansel, Vanilla, Midnight, and Spot. The objective is NOT
+  MET; the evidence does not prove ten IDs impossible. Archive:
+  `docs/review/fc77177/m49_roster_reduction_win_v1/evidence/`.

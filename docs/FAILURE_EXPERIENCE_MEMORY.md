@@ -588,3 +588,18 @@ baseline. The same run had to close artillery survival, #20/#21/#22 mixed
 pressure, and armored #34 with actual blocks, deaths, zero leaks, and protected
 arrivals. Timeline evidence from older losses remains conditional on those
 actions and does not establish universal deadlines.
+
+## 2026-10-25 M49 shows fewer IDs still require uninterrupted replacement
+
+M49 V2 reduced the declared/deployed union to ten IDs and improved the result to
+23/10/4/life -8, but it did not remove the replacement problem. Vanilla was
+retreated at 4173 while route-16 #18 still had 2005.92 HP; #18 then leaked at
+4421. Steward died at 2593, so artillery retained too much HP and later killed
+protected #3. Beagle and Spot died at 5206/5290, releasing #21/#22, which then
+leaked. Armored #34 received no recorded damage or block.
+
+This does not establish that ten IDs are impossible. It shows that reducing
+distinct operators increases the need for explicit release-until-kill discipline,
+living replacement coverage, medical survival around artillery, and separate
+late-armor closure. A single earlier roadblock success is not compensating
+evidence.

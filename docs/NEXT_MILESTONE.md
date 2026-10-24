@@ -1,15 +1,18 @@
-# M48 is frozen at current-model simulator WIN
+# M49 is closed at its authorization limit
 
-M48 reached the full current hard target in one fixed simulation: **33 kills,
-0 leaks, 0 operator deaths, 2/2 protected targets reached with 0 deaths, and
-remaining life 3**. It is therefore frozen before roster or star reduction. The
-remaining M48 budgets remain **2/3** real tactical CLI starts and **2/3** fixed
-simulations, intentionally unused and non-transferable.
+M49 did **not** reach a complete ten-operator WIN. Its final ledger is CLI
+**3/3** and fixed simulations **3/3**, with no transfer of M48 or earlier
+balances. All three candidates stayed exactly at the ten-ID union and passed
+static checks, but V1/V2/V3 lost 21/12, 23/10, and 22/11 respectively.
 
-The result is conditional on `m38b-2781-animation-speed-v1` and this simulator.
-It is not a real-game, faithful, robust, or probabilistic WIN. Evidence and
-hashes are under `docs/review/fc77177/m48_joint_survival_interception_v1/`.
+The best exhausted loss is V2. Its unresolved chain is explicit: Vanilla's
+4173 release allowed #18 to leak; Steward died at 2593 and artillery #0 survived;
+Beagle/Spot deaths released #21/#22; protected #3 died to artillery; and #34 had
+no recorded damage or block. This is candidate-specific evidence, not proof that
+ten operators are impossible.
 
-There is no authorized next tactical task in M48. Starting another milestone,
-including any M49 experiment, requires a fresh explicit user authorization and
-new budget boundaries; no historical balances should be reset or carried over.
+M49 has no remaining tactical budget. Any M50 experiment requires a fresh
+explicit user authorization. Its first bounded task would be a GPT revision from
+V2 that enforces release-until-kill replacement, eastern medical/Steward
+survival, living #21/#22 containment, and actual #34 block/kill while keeping
+the operator-ID union at ten.
