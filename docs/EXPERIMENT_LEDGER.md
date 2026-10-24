@@ -842,3 +842,27 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - Raw prompt/response/start/static/simulation evidence and hashes are under
   `docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`; compact causal
   feedback is `m47_v2_tactical_feedback_v1.json`.
+
+# M48 joint survival interception ledger — 2026-10-24
+
+- Budget: **1/3** real tactical CLI starts and **1/3** fixed simulations. The
+  internal model-request count remains `UNKNOWN_CLI_INTERNAL`. The remaining
+  2/3 CLI and 2/3 simulation balances are frozen because the full hard target
+  was reached; no historical balance was transferred.
+- `R8_7_GPT_M48_V1` came from Codex runner
+  `openai/gpt-6.1-sol/high/features.apps=false`, parent `R8_7_GPT_M47_V2`, and
+  thread `01a16e56-5228-78d0-9b87-04b932821aef`. Its plan/action hashes are
+  `c2a96e30588f1a68cda40550e0ed37d371bd180d7eb52574b28218749117e783` and
+  `34eb59f48384e85ff6eaef7464d75405e1d7df573811430a0f966025813c7042`.
+- The 53-action V1 had 0 static conflicts and 0 runtime action errors. It won
+  33/0/0 with remaining life 3, two protected arrivals, zero protected deaths,
+  and zero operator deaths.
+- Actual duty closure is recorded in `m48_v1_win_feedback_v1.json`: Hibiscus
+  healed Ansel at 3079; Steward killed artillery #0 at 4273; Gallus destroyed
+  roadblock #2 at 4698 before #14 and #3 reached at 5030/5033; #20/#21/#22 were
+  blocked and killed; and #34 was blocked by Spot at 6596 then killed by Lava at
+  7848.
+- Raw and gzip-compressed evidence, with raw/archive hashes, is under
+  `docs/review/fc77177/m48_joint_survival_interception_v1/evidence/`. The
+  result is current-model simulator WIN only, not real-game, faithful, robust,
+  or probabilistic WIN.

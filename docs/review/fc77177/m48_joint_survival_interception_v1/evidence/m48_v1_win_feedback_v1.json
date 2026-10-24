@@ -1,0 +1,185 @@
+{
+  "schema_version": "M48_CURRENT_MODEL_WIN_FEEDBACK_V1",
+  "milestone": "M48_joint_survival_interception_v1",
+  "created_date": "2026-10-24",
+  "source_plan_id": "R8_7_GPT_M48_V1",
+  "parent_plan_id": "R8_7_GPT_M47_V2",
+  "classification": "CURRENT_MODEL_SIMULATOR_WIN",
+  "scope": {
+    "simulator_win": true,
+    "real_game_win_claim": false,
+    "faithful_certificate": "NOT_ISSUED",
+    "robust_claim": "NOT_EVALUATED",
+    "probabilistic_win_claim": false,
+    "roster_or_star_reduction": "NOT_APPLICABLE_AFTER_WIN",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "result": {
+    "enemies_killed": 33,
+    "enemies_leaked": 0,
+    "operator_deaths": 0,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 2,
+    "remaining_life": 3,
+    "runtime_action_errors": [],
+    "simulator_win": true
+  },
+  "model_provenance": {
+    "runner": "project-implemented Codex CLI runner",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "thread_id": "01a16e56-5228-78d0-9b87-04b932821aef",
+    "prompt_sha256": "93a3378f874d511874ac85ee62e880d1012a2f972d495dc6a8e041333e86cb9e",
+    "final_plan_json_sha256": "be02bddec32f320e5e3d926724a56ecd9e88e030ab00466c451d8c3f24690942",
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 1,
+    "cli_remaining": 2,
+    "simulations_max": 3,
+    "simulations_started": 1,
+    "simulations_remaining": 2,
+    "balance_after_win": "FROZEN",
+    "historical_balances_transferable": false
+  },
+  "duty_evidence": [
+    {
+      "duty": "medical survival continuity",
+      "status": "VERIFIED_IN_FINAL_RESULT",
+      "observations": [
+        {
+          "event_type": "HEAL",
+          "frame": 3079,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_212_ansel",
+          "amount": 372.6
+        },
+        {
+          "metric": "operator_deaths",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "duty": "artillery kill without leak",
+      "target_id": "enemy_1112_emppnt#0",
+      "status": "CLOSED",
+      "observations": [
+        {
+          "event_type": "DAMAGE",
+          "count": 45,
+          "damage_total": 13227.21
+        },
+        {
+          "event_type": "ENEMY_DEATH",
+          "frame": 4273,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1112_emppnt#0"
+        },
+        {
+          "event_type": "LEAK",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "duty": "roadblock #2 destruction and protected-target safe arrival",
+      "target_id": "trap_020_roadblock#2",
+      "status": "CLOSED",
+      "observations": [
+        {
+          "event_type": "DEVICE_DAMAGE",
+          "count": 39,
+          "first_frame": 2490,
+          "last_frame": 4698,
+          "source_id": "char_4227_gallus"
+        },
+        {
+          "event_type": "DEVICE_DESTROYED",
+          "frame": 4698,
+          "source_id": "char_4227_gallus",
+          "target_id": "trap_020_roadblock#2"
+        },
+        {
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "source_id": "enemy_3001_upeopl#14",
+          "frame": 5030
+        },
+        {
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "source_id": "enemy_3001_upeopl#3",
+          "frame": 5033
+        },
+        {
+          "metric": "protected_target_deaths",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "duty": "mixed-pressure interception",
+      "status": "CLOSED",
+      "observations": [
+        {
+          "target_id": "enemy_1107_uoffcr#20",
+          "block_frame": 4298,
+          "blocker_id": "char_284_spot",
+          "kill_frame": 4739,
+          "killer_id": "char_284_spot"
+        },
+        {
+          "target_id": "enemy_1110_uamord#21",
+          "block_frame": 4646,
+          "blocker_id": "char_122_beagle",
+          "kill_frame": 5646,
+          "killer_id": "char_501_durin"
+        },
+        {
+          "target_id": "enemy_1110_uamord#22",
+          "block_frame": 4796,
+          "blocker_id": "char_284_spot",
+          "kill_frame": 6050,
+          "killer_id": "char_121_lava"
+        }
+      ]
+    },
+    {
+      "duty": "armored #34 kill without leak",
+      "target_id": "enemy_1110_uamord#34",
+      "status": "CLOSED",
+      "observations": [
+        {
+          "event_type": "BLOCK",
+          "frame": 6596,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1110_uamord#34"
+        },
+        {
+          "event_type": "ENEMY_DEATH",
+          "frame": 7848,
+          "source_id": "char_121_lava",
+          "target_id": "enemy_1110_uamord#34"
+        },
+        {
+          "event_type": "LEAK",
+          "count": 0
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "plan_snapshot_sha256": "c2a96e30588f1a68cda40550e0ed37d371bd180d7eb52574b28218749117e783",
+    "action_snapshot_sha256": "34eb59f48384e85ff6eaef7464d75405e1d7df573811430a0f966025813c7042",
+    "diagnostic_events_sha256": "df0f026e85c04581fa1e9e298b1cc589b0d60a69f5ba53abf63b9ef0fcb5b967",
+    "diagnostic_summary_sha256": "a0722385e68065672533f9da4660926d7faa2242100cde7d4cdfc990ebc3c55d",
+    "static_compile_results_sha256": "aef7140ed2a229a64cca2f0f77bad1344561bb1b60a2fc9d2b35061a395e545f"
+  },
+  "source_paths": {
+    "cli_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m48_joint_survival_interception_v1/attempt_01_cli",
+    "diagnostic_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m48_joint_survival_interception_v1/attempt_01_diagnostic",
+    "evidence_dir": "docs/review/fc77177/m48_joint_survival_interception_v1/evidence"
+  }
+}

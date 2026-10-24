@@ -1,0 +1,74 @@
+{
+  "schema_version": "KIMIARK_TACTICAL_EXPERIENCE_RECORD_STORE_V1",
+  "records": [
+    {
+      "applicable_conditions": [
+        "same mechanics version and GameData snapshot",
+        "evaluating fixed-action M47 V2 descendants for main_08-07",
+        "co-evaluating medical survival, mixed-route pressure, artillery, armored #34, roadblock #2, and protected targets"
+      ],
+      "code_commit_sha256": "3cad2c39f1feccf30bc47f015ccb1e6472a3b16f",
+      "comparison_boundary": "Conditional evidence from the saved M47 V2 action timeline only; archived frames are not universal deadlines.",
+      "evidence_paths": [
+        "docs/review/fc77177/m48_joint_survival_interception_v1/m48_joint_failure_feedback_v1.json",
+        "docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/attempt_03_diagnostic/diagnostic_events.json.gz"
+      ],
+      "experience_id": "M47_V2_JOINT_FAILURE_FEEDBACK_V1",
+      "failure_category": "LEGAL_BATTLE_LOSS",
+      "game_data_sha256": "0ef7f952dfd018392200157a5c79a6511ba69122",
+      "mechanics_version": "m38b-2781-animation-speed-v1",
+      "parent_candidate_result": {
+        "action_count": 53,
+        "enemies_killed": 23,
+        "enemies_leaked": 10,
+        "operator_deaths": 8,
+        "remaining_life": -7,
+        "win": false
+      },
+      "refuted_hypotheses": [
+        "roadblock #2 clearance or both protected arrivals prove full-line interception",
+        "aggregate artillery damage alone establishes artillery closure",
+        "one BLOCK or DAMAGE event establishes #34 closure",
+        "post-first-leak command failures caused the 5046 leak"
+      ],
+      "relevant_operator_ids": [
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward",
+        "char_284_spot",
+        "char_4227_gallus",
+        "char_501_durin",
+        "char_283_midn"
+      ],
+      "responsibility_tags": [
+        "artillery_survival",
+        "healing",
+        "protected_target",
+        "roadblock_clearance",
+        "armored_interception",
+        "mixed_route_interception"
+      ],
+      "source_artifact_sha256": "800972f539af5772268014073878a37b7f90f4b6168ac7533ec3ac147145f3ef",
+      "source_plan_id": "R8_7_GPT_M47_V2",
+      "stage_id": "main_08-07",
+      "status": "EVIDENCE_SUPPORTED",
+      "supported_hypotheses": [
+        "Gallus damaged roadblock #2 from 2490 and destroyed it at 4698",
+        "protected #3 and #14 arrived at 4862 and 5030 with zero protected deaths",
+        "Ansel died at 3161 after a second 891 artillery hit, Hibiscus died at 3970, and Steward died at 4120",
+        "#20 and #21 leaked together at 5046 while #22 leaked at 5196",
+        "artillery leaked at 5759 and armored #34 leaked at 6996 with no recorded damage or block"
+      ],
+      "unproven": [
+        "whether the archived 5759 or 6996 frames are deadlines for a different tactic",
+        "whether another structure can retain the successful roadblock and protection duties while closing remaining gaps"
+      ],
+      "verified_events": [
+        "M47 V2 enemy_1107_uoffcr#20 and enemy_1110_uamord#21 ENEMY_LEAK at frame5046",
+        "M47 V2 enemy_1110_uamord#22 ENEMY_LEAK at frame5196",
+        "M47 V2 enemy_1112_emppnt#0 ENEMY_LEAK at frame5759",
+        "M47 V2 enemy_1110_uamord#34 ENEMY_LEAK at frame6996 with zero damage and zero block"
+      ]
+    }
+  ]
+}

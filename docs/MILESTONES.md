@@ -474,3 +474,12 @@ roadblock-#2/#14 duty and reached both protected targets, but introduced late
 survival/DP collapse and lost 23/10/8/life -7. The artillery and armored gaps
 remained open. This is a fixed-model LOSS and makes no real-game, faithful,
 robust, or probabilistic claim.
+
+## 2026-10-24 — M48 freezes at simulator WIN
+
+M48 used 1/3 real tactical CLI starts and 1/3 fixed simulations. V1 passed
+static checks and completed 33 kills, 0 leaks, 0 operator deaths, both protected
+targets reached, and remaining life 3. Actual duty evidence covers artillery #0,
+roadblock #2, protected targets, #20/#21/#22, and armored #34. The milestone is
+frozen at conditional current-model simulator WIN; it does not claim real-game,
+faithful, robust, or probabilistic success.

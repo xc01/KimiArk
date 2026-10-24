@@ -573,3 +573,18 @@ died at 4120, leaving artillery #0 at 993.38 HP before its 5759 leak; armored
 evidence, not universal deadlines. Next revisions must repair the
 earlier medical chain, then co-schedule replacement, healing, refund, and target
 routing instead of treating one successful duty as full-line continuity.
+
+## 2026-10-24 M48 shows medical retiming and shared route closure must be joint
+
+M48 V1 used a real GPT plan rather than command-emission proof. Hibiscus was
+retargeted so Ansel received a 372.6 heal at 3079; Beagle replaced Fang after
+the early grant phase; Ansel's boost moved earlier; Durin and Lava provided
+overlapping arts coverage; and Gallus retained the roadblock-#2 duty. The whole
+run ended with no operator deaths, no leaks, and both protected targets arrived.
+
+The important transferable lesson is that a local success such as Gallus's
+roadblock clearance is a duty to reproduce, not a complete interception
+baseline. The same run had to close artillery survival, #20/#21/#22 mixed
+pressure, and armored #34 with actual blocks, deaths, zero leaks, and protected
+arrivals. Timeline evidence from older losses remains conditional on those
+actions and does not establish universal deadlines.

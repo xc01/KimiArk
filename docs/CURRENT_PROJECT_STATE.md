@@ -360,3 +360,22 @@ result is a
 conditional fixed-model LOSS, not real-game, faithful, robust, or probabilistic
 progress. Evidence is in
 `docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/`.
+
+## 2026-10-24 M48 freezes at current-model simulator WIN
+
+M48 used one real Codex CLI start and one fixed `main_08-07` simulation from its
+own 3/3 budgets. GPT selected `R8_7_GPT_M47_V2` and produced the 53-action,
+static-clean `R8_7_GPT_M48_V1`; it retimed Hibiscus toward Ansel and central
+blockers, replaced Fang with Beagle, shifted Ansel's first boost, overlapped
+Durin before Steward's withdrawal, and gave Lava persistent lower-central
+clearance. The run completed with 33 kills, zero leaks, zero operator deaths,
+both protected targets reached, and remaining life 3.
+
+Duty evidence is not reduced to command success: Steward killed artillery #0 at
+4273; Gallus destroyed roadblock #2 at 4698 and #14/#3 arrived at 5030/5033;
+Spot/Beagle/Lava closed the #20/#21/#22 pressure chain; and Spot's block plus
+Lava's 7848 kill closed armored #34. This is a conditional current-model
+simulator WIN only—real-game verification remains UNKNOWN and faithful, robust,
+and probabilistic claims are not issued. The frozen balance is CLI 1/3 and
+simulation 1/3; evidence is under
+`docs/review/fc77177/m48_joint_survival_interception_v1/evidence/`.

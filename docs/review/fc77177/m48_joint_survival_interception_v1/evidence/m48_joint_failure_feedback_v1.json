@@ -1,0 +1,205 @@
+{
+  "schema_version": "M48_JOINT_FAILURE_FEEDBACK_V1",
+  "evidence_status": "CONFIRMED_FROM_ARCHIVED_FIXED_M47_V2_SIMULATION_EVENTS",
+  "source_plan_id": "R8_7_GPT_M47_V2",
+  "source_event_archive": "docs/review/fc77177/m47_remaining_gaps_closure_v1/evidence/attempt_03_diagnostic/diagnostic_events.json.gz",
+  "source_event_archive_sha256": "800972f539af5772268014073878a37b7f90f4b6168ac7533ec3ac147145f3ef",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "Conditional evidence from the saved M47 V2 action timeline only; archived frames are not universal deadlines.",
+  "parent_result": {
+    "action_count": 53,
+    "win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 8,
+    "remaining_life": -7,
+    "first_leak_frame": 5046,
+    "first_leak_enemies": [
+      "enemy_1107_uoffcr#20",
+      "enemy_1110_uamord#21"
+    ],
+    "objective_zero_frame": 5196,
+    "objective_zero_enemy": "enemy_1110_uamord#22"
+  },
+  "confirmed_local_success": {
+    "roadblock_2": {
+      "device_id": "trap_020_roadblock#2",
+      "first_damage": {
+        "frame": 2490,
+        "source_id": "char_4227_gallus"
+      },
+      "damage_count": 39,
+      "destroyed_frame": 4698,
+      "protected_3_reached_frame": 4862,
+      "protected_14_reached_frame": 5030,
+      "protected_target_deaths": 0,
+      "interpretation": "This closes the saved roadblock-2 and safe-arrival duty, but is not proof of full-line interception or complete WIN."
+    }
+  },
+  "medical_survival_counterexample": [
+    {
+      "frame": 3011,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "char_212_ansel",
+      "amount": 891,
+      "locked_position": [
+        6,
+        2
+      ]
+    },
+    {
+      "frame": 3013,
+      "event_type": "HEAL",
+      "source_id": "char_212_ansel",
+      "target_id": "char_212_ansel",
+      "amount": 506.8
+    },
+    {
+      "frame": 3161,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "char_212_ansel",
+      "amount": 891,
+      "locked_position": [
+        6,
+        2
+      ]
+    },
+    {
+      "frame": 3161,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_212_ansel"
+    },
+    {
+      "frame": 3970,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "char_120_hibisc",
+      "amount": 890
+    },
+    {
+      "frame": 3970,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_120_hibisc"
+    },
+    {
+      "frame": 4120,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "char_210_stward",
+      "amount": 910
+    },
+    {
+      "frame": 4120,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_210_stward"
+    }
+  ],
+  "artillery_counterexample": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "damage_source": "char_210_stward",
+    "damage_first_frame": 2161,
+    "damage_last_frame": 4081,
+    "damage_count": 41,
+    "damage_total": 12006.62,
+    "operator_death_frame": 4120,
+    "leak_frame": 5759,
+    "interpretation": "The 5759 leak is conditional on this timeline. Recompute effective coverage, targeting contention, in-flight shells, healing and replacement from a new plan; the acceptance is observed death without leak."
+  },
+  "mixed_pressure_counterexample": {
+    "routes": {
+      "enemy_1107_uoffcr#20": "route-18: [4,9] -> [4,1] -> [5,1] -> [5,0]",
+      "enemy_1110_uamord#21": "route-21: [3,9] -> [3,1] -> [2,1] -> [2,0]",
+      "enemy_1110_uamord#22": "route-19: [4,9] -> [4,1] -> [5,1] -> [5,0]"
+    },
+    "spawn_frames": {
+      "enemy_1107_uoffcr#20": 4080,
+      "enemy_1110_uamord#21": 4380,
+      "enemy_1110_uamord#22": 4530
+    },
+    "events": [
+      {
+        "frame": 4298,
+        "event_type": "BLOCK",
+        "source_id": "char_284_spot",
+        "target_id": "enemy_1107_uoffcr#20"
+      },
+      {
+        "frame": 4668,
+        "event_type": "DAMAGE",
+        "source_id": "enemy_1110_uamord#21",
+        "target_id": "char_284_spot",
+        "amount": 306,
+        "kind": "enemy_arts"
+      },
+      {
+        "frame": 4668,
+        "event_type": "UNBLOCK",
+        "source_id": "char_284_spot",
+        "target_id": "enemy_1107_uoffcr#20"
+      },
+      {
+        "frame": 4668,
+        "event_type": "OPERATOR_DEATH",
+        "source_id": "char_284_spot"
+      },
+      {
+        "frame": 5046,
+        "event_type": "ENEMY_LEAK",
+        "source_id": "enemy_1107_uoffcr#20"
+      },
+      {
+        "frame": 5046,
+        "event_type": "ENEMY_LEAK",
+        "source_id": "enemy_1110_uamord#21"
+      },
+      {
+        "frame": 5196,
+        "event_type": "ENEMY_LEAK",
+        "source_id": "enemy_1110_uamord#22"
+      }
+    ],
+    "interpretation": "Spot intercepted #20 while route-21 armor and route-19 armor applied overlapping ranged pressure. Replacement, healing, DP and a living blocker must be evaluated together before the first leak; a single BLOCK is not closure."
+  },
+  "armored_34_counterexample": {
+    "enemy_id": "enemy_1110_uamord#34",
+    "route": "route-29: [4,9] -> [4,1] -> [5,1] -> [5,0]",
+    "spawn_frame": 6330,
+    "damage_record_count": 0,
+    "block_record_count": 0,
+    "leak_frame": 6996,
+    "interpretation": "6996 is conditional on M47 V2. The new plan must provide observed death without leak; one hit or block is not duty closure."
+  },
+  "runtime_error_causality": {
+    "pre_first_leak_frames": [
+      4410,
+      4650,
+      4680,
+      4710
+    ],
+    "post_first_leak_frames": [
+      5220,
+      5550,
+      6210,
+      6450,
+      6480,
+      6720,
+      6780
+    ],
+    "rule": "All eight operator deaths preceded the first leak, but only four of eleven failed commands did. Later failures are not causes of the 5046 leak."
+  },
+  "parent_preservation": [
+    "Do not preserve the M47 V2 roster, 39 roadblock hits, 41 artillery hits, or positions as hard requirements; preserve only result-compatible duties supported by the chosen new structure.",
+    "GPT may replace the parent wholly or partially, but must explain which failed premise changes and which verified duty is retained or replaced."
+  ],
+  "acceptance_requirements": [
+    "Use only ordinary-mode 1-3 star operators and exclude mode-specific reserve operators.",
+    "Achieve current-model WIN, zero enemy leaks, zero protected-target deaths, and both protected targets safely reached.",
+    "Medical support must arrive and heal before the next lethal hit for the patient it is intended to save.",
+    "Maintain #20/#21/#22 interception through replacement, blocking, damage and DP continuity, not a single command.",
+    "Kill the artillery and armored #34 without leaks; command emission, one BLOCK or one DAMAGE is insufficient.",
+    "Use only successful retreat refunds; account for death, blocker release, in-flight shells, redeploy cooldown, cost and successor coverage."
+  ],
+  "fixed_action_rule": "Rationale and phase text do not execute conditions. The executor runs fixed frames only; do not assume conditional waiting, auto-rescue, or in-place replacement."
+}
