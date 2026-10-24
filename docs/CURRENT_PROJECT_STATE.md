@@ -383,11 +383,12 @@ simulation 1/3; evidence is under
 ## 2026-10-25 M49 closes at limits without a 10-operator WIN
 
 M49 used all three of its own real Codex CLI starts and all three fixed
-`main_08-07` simulations. A new hard roster check counted the union of declared
-and DEPLOY operator IDs; every candidate was exactly ten. All plans passed
-contract and static checks, but none won: V1 lost 21/12/5/life -10, V2 improved
-to 23/10/4/life -8, and V3 regressed to 22/11/6/life -9. Each reached one
-protected target and lost the other.
+`main_08-07` simulations. Post-run reconciliation counted each declared/DEPLOY
+operator union as exactly ten; the original runtime check did not activate
+because of a now-fixed configuration-chain defect. All plans passed contract and
+static checks, but none won: V1 lost 21/12/5/life -10, V2 improved to
+23/10/4/life -8, and V3 regressed to 22/11/6/life -9. Each reached one protected
+target and lost the other.
 
 V2 is the best loss but still leaves route-16 #18, artillery #0, armored
 #21/#22, protected #3, and armored #34 unresolved. The exhausted M49 evidence

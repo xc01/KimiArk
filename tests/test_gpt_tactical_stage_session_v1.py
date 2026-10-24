@@ -1,10 +1,227 @@
 from __future__ import annotations
 
+import argparse
 import json
 import tempfile
 from pathlib import Path
 
+import pytest
+
 import run_gpt_tactical_stage_session_v1 as runner
+import run_r8_1_gpt_c4_codex_cli_v1 as codex_runner
+from codex_model_authorization_v1 import validate_cli_authorization
+
+
+M49_AUTHORIZATION_CONFIG = "docs/review/fc77177/m49_roster_reduction_win_v1/m49_model_authorization_v1.json"
+
+
+@pytest.fixture()
+def runner_module_state():
+    tracked_runner_globals = {
+        name: getattr(runner, name)
+        for name in (
+            "OUT", "DIAGNOSTIC_OUT", "SOURCE", "STAGE_ID", "PLAN_ID", "PLAN_PREFIX",
+            "PLAN_LABEL", "SAVED_INPUT_DIR", "MAX_UNIQUE_DEPLOYED_OPERATORS",
+            "AUTHORIZATION_CONFIG_PATH", "SIMULATION_BUDGET_PATH",
+        )
+    }
+    tracked_codex_globals = {
+        name: getattr(codex_runner, name)
+        for name in ("OUT", "MODEL", "REASONING_EFFORT", "AUTHORIZATION_CONFIG_PATH")
+    }
+    yield
+    for name, value in tracked_runner_globals.items():
+        setattr(runner, name, value)
+    for name, value in tracked_codex_globals.items():
+        setattr(codex_runner, name, value)
+
+
+def make_arguments(tmp_path: Path, *, saved_input_dir: str | None = None, max_unique: int | None = None) -> argparse.Namespace:
+    output_dir = str(tmp_path / "output")
+    diagnostic_dir = str(tmp_path / "diagnostic")
+    return argparse.Namespace(
+        stage_id="main_test_stage", facts_dir=str(tmp_path / "facts"),
+        output_dir=output_dir, diagnostic_output_dir=diagnostic_dir,
+        plan_id="TEST_GPT_V1", plan_label="TEST-V1", plan_id_prefix="TEST_GPT_V",
+        cli_attempt=1, prior_cli_starts=0, extra_config=["features.apps=false"],
+        revision_source=None, diagnostic_summary=None, tactical_feedback=None,
+        static_conflict_summary=None, saved_input_dir=saved_input_dir,
+        experience_store=None, branch_state=None,
+        max_unique_deployed_operators=max_unique,
+        authorization_config=M49_AUTHORIZATION_CONFIG,
+        simulation_budget_path="docs/review/fc77177/m28_simulation_budget_v1.json",
+    )
+
+
+def make_catalog() -> list[dict]:
+    ordinary = [
+        {
+            "operator_id": "char_test",
+            "identity": {"rarity": 2, "position": "MELEE"},
+            "qualification": {"normal_mode": True},
+        }
+    ]
+    ordinary.extend(
+        {
+            "operator_id": f"char_ordinary_{index}",
+            "identity": {"rarity": 2, "position": "MELEE"},
+            "qualification": {"normal_mode": True},
+        }
+        for index in range(16)
+    )
+    ordinary.extend(
+        {
+            "operator_id": f"char_three_star_{index}",
+            "identity": {"rarity": 3, "position": "MELEE"},
+            "qualification": {"normal_mode": True},
+        }
+        for index in range(17)
+    )
+    return ordinary
+
+
+def make_stage_evidence(stage_id: str) -> dict:
+    catalog = make_catalog()
+    return {
+        "stage_id": stage_id,
+        "normal_low_star_catalog": catalog,
+        "source_routes": [{"route": "route-1"}],
+        "source_wave_schedule": [{"frame": 1}],
+        "stage_mechanism_support": {"runtime_adapter_status": "SUPPORTED"},
+        "stage_active_facts": {"roadblock_plan_tiles_row_col": [[1, 2]]},
+        "output_schema": {},
+    }
+
+
+def make_saved_input(root: Path, *, include_limit: bool, limit: int | None = 10) -> Path:
+    saved = root / "saved_input"
+    saved.mkdir()
+    evidence = {
+        "stage_id": "main_saved_stage",
+        "normal_low_star_catalog": make_catalog(),
+        "stage_active_facts": {
+            "roadblock_tiles_col_row": [], "active_device_tiles_col_row": [],
+            "deployable_ground_tiles_col_row": [(0, 0)],
+        },
+    }
+    if include_limit:
+        evidence["milestone_constraints"] = {"max_unique_deployed_operator_ids": limit}
+    evidence_path = saved / "llm_evidence_context.json"
+    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+    (saved / "codex_prompt.txt").write_text("SAVED PROMPT\n", encoding="utf-8")
+    (saved / "revision_output_schema.json").write_text("{}", encoding="utf-8")
+    (saved / "evidence_completeness.json").write_text("{}", encoding="utf-8")
+    return saved
+
+
+def make_execution() -> dict:
+    return {"trajectory": {"session_ids": ["test-session"], "thread_ids": [], "usage_records": []}}
+
+
+def make_response(plan_id: str, operator_ids: list[str]) -> dict:
+    return {
+        "revised_operational_plans": [{
+            "operational_plan_id": plan_id,
+            "parent_hypothesis_id": "hyp",
+            "tactical_thesis": "test",
+            "selected_low_star_operator_ids": operator_ids,
+            "deployment_positions_and_directions": [],
+            "formation_structure": [],
+            "formation_transitions": [],
+            "corridor_responsibilities": [],
+            "pressure_window_responsibilities": [],
+            "skill_intents": [],
+            "mandatory_tactical_invariants": [],
+            "battle_phases": [],
+            "action_timeline": [{
+                "action_type": "DEPLOY", "frame": 100, "operator_id": operator_ids[0],
+                "tile": [0, 0], "direction": "UP",
+            }],
+        }],
+        "revised_stage_understanding": {},
+        "revised_tactical_requirements": [],
+        "revised_strategic_hypotheses": [{"hypothesis_id": "hyp"}],
+        "revision_hypothesis": {"operational_plan_id": plan_id},
+    }
+
+
+def test_saved_input_roster_limit_completes_prepare_prompt_and_final_validation(
+    tmp_path: Path, runner_module_state
+) -> None:
+    saved = make_saved_input(tmp_path, include_limit=False)
+    runner.configure(make_arguments(tmp_path, saved_input_dir=str(saved), max_unique=10))
+    prepared = runner.prepare()
+    evidence = runner.load(codex_runner.OUT / "llm_evidence_context.json")
+    resolution = runner.load(codex_runner.OUT / "milestone_constraints_resolution.json")
+    command = codex_runner.build_command(codex_runner.OUT / "codex_final_message.txt")
+
+    assert runner.MAX_UNIQUE_DEPLOYED_OPERATORS == 10
+    assert evidence["milestone_constraints"]["max_unique_deployed_operator_ids"] == 10
+    assert resolution["source"] == "CONFIGURED_ARGUMENT"
+    assert resolution["saved_input_limit"] is None
+    assert resolution["prompt_regenerated"] is True
+    assert runner.roster_prompt_instruction(10) in prepared["prompt"]
+    assert runner.roster_prompt_instruction(10) in (codex_runner.OUT / "codex_prompt.txt").read_text(encoding="utf-8")
+    assert (saved / "codex_prompt.txt").read_bytes() == (codex_runner.OUT / "codex_prompt.txt").read_bytes().split(b"\n\n", 1)[1]
+    assert validate_cli_authorization(codex_runner.AUTHORIZATION_CONFIG_PATH, command)["status"] == "AUTHORIZED"
+
+    passing = make_response("TEST_GPT_V1", ["char_test"])
+    validation = runner.validate_final(passing, make_execution())
+    assert validation["status"] == "PASS"
+
+    failing = make_response("TEST_GPT_V1", [f"char_extra_{index}" for index in range(11)])
+    with pytest.raises(SystemExit, match="hard limit is 10"):
+        runner.validate_final(failing, make_execution())
+
+
+def test_saved_input_limit_conflicts_are_rejected(tmp_path: Path, runner_module_state) -> None:
+    saved = make_saved_input(tmp_path, include_limit=True, limit=11)
+    runner.configure(make_arguments(tmp_path, saved_input_dir=str(saved), max_unique=10))
+    with pytest.raises(RuntimeError, match="roster-limit conflict"):
+        runner.prepare()
+
+
+def test_saved_input_limit_without_configured_limit_is_rejected(tmp_path: Path, runner_module_state) -> None:
+    saved = make_saved_input(tmp_path, include_limit=True, limit=10)
+    runner.configure(make_arguments(tmp_path, saved_input_dir=str(saved), max_unique=None))
+    with pytest.raises(RuntimeError, match="pass the same --max-unique-deployed-operators"):
+        runner.prepare()
+
+
+def test_saved_prompt_limit_without_effective_limit_is_rejected(tmp_path: Path, runner_module_state) -> None:
+    saved = make_saved_input(tmp_path, include_limit=False)
+    (saved / "codex_prompt.txt").write_text("HARD ROSTER LIMIT: at most 10\n\nSAVED PROMPT\n", encoding="utf-8")
+    runner.configure(make_arguments(tmp_path, saved_input_dir=str(saved), max_unique=None))
+    with pytest.raises(RuntimeError, match="no configured or evidence limit"):
+        runner.prepare()
+
+
+def test_normal_input_defaults_to_no_roster_constraint(tmp_path: Path, runner_module_state) -> None:
+    source = tmp_path / "facts"
+    source.mkdir()
+    evidence = make_stage_evidence("main_test_stage")
+    (source / "llm_evidence_context.json").write_text(json.dumps(evidence), encoding="utf-8")
+    runner.configure(make_arguments(tmp_path, max_unique=None))
+    prepared = runner.prepare()
+    prepared_evidence = runner.load(codex_runner.OUT / "llm_evidence_context.json")
+    resolution = runner.load(codex_runner.OUT / "milestone_constraints_resolution.json")
+
+    assert runner.MAX_UNIQUE_DEPLOYED_OPERATORS is None
+    assert "milestone_constraints" not in prepared_evidence
+    assert resolution["effective_limit"] is None
+    assert "HARD ROSTER LIMIT:" not in prepared["prompt"]
+
+
+def test_selected_and_deploy_union_counts_redeployment_once() -> None:
+    plan = {
+        "selected_low_star_operator_ids": ["char_a"],
+        "action_timeline": [
+            {"action_type": "DEPLOY", "operator_id": "char_b"},
+            {"action_type": "RETREAT", "operator_id": "char_b"},
+            {"action_type": "DEPLOY", "operator_id": "char_b"},
+        ],
+    }
+    assert runner.distinct_deployed_operator_ids(plan) == {"char_a", "char_b"}
 
 
 def test_stage_prompt_pins_plan_identity_and_roadblock_coordinate_conversion() -> None:

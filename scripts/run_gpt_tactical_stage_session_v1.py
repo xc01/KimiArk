@@ -60,7 +60,10 @@ def sha256(path: Path) -> str:
 
 
 def configure(arguments: argparse.Namespace) -> None:
-    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL, REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY, SAVED_INPUT_DIR, EXPERIENCE_STORE_PATH, BRANCH_STATE_PATH, AUTHORIZATION_CONFIG_PATH, SIMULATION_BUDGET_PATH
+    global OUT, DIAGNOSTIC_OUT, SOURCE, STAGE_ID, PLAN_ID, PLAN_PREFIX, PLAN_LABEL
+    global REVISION_SOURCE_DIR, DIAGNOSTIC_SUMMARY, TACTICAL_FEEDBACK, STATIC_CONFLICT_SUMMARY
+    global SAVED_INPUT_DIR, EXPERIENCE_STORE_PATH, BRANCH_STATE_PATH
+    global MAX_UNIQUE_DEPLOYED_OPERATORS, AUTHORIZATION_CONFIG_PATH, SIMULATION_BUDGET_PATH
     OUT = ROOT / arguments.output_dir
     DIAGNOSTIC_OUT = ROOT / arguments.diagnostic_output_dir
     SOURCE = ROOT / arguments.facts_dir
@@ -106,6 +109,73 @@ def compact_runtime_event(event: dict[str, Any]) -> dict[str, Any]:
         "target_id": event.get("target_id"),
         "details": event.get("details"),
     }
+
+
+def distinct_deployed_operator_ids(plan: dict[str, Any]) -> set[str]:
+    distinct = set(plan.get("selected_low_star_operator_ids") or [])
+    distinct.update(
+        action.get("operator_id")
+        for action in plan.get("action_timeline") or []
+        if isinstance(action, dict) and action.get("action_type") == "DEPLOY"
+    )
+    return distinct
+
+
+def roster_prompt_instruction(max_unique: int) -> str:
+    return (
+        f"HARD ROSTER LIMIT: the union of selected_low_star_operator_ids and every DEPLOY action "
+        f"operator_id must contain at most {max_unique} distinct IDs. Remove unused listed operators "
+        "before emitting the plan; retreat/redeploy and hidden aliases do not avoid the count."
+    )
+
+
+def ensure_saved_prompt_roster_limit(prompt: str, max_unique: int) -> tuple[str, bool]:
+    expected_instruction = roster_prompt_instruction(max_unique)
+    if "HARD ROSTER LIMIT:" in prompt:
+        if expected_instruction not in prompt:
+            raise RuntimeError("saved prompt contains a conflicting hard roster limit")
+        return prompt, False
+    return f"{expected_instruction}\n\n{prompt}", True
+
+
+def resolve_milestone_constraints(evidence: dict[str, Any], *, saved_input: bool = False) -> dict[str, Any]:
+    configured_limit = MAX_UNIQUE_DEPLOYED_OPERATORS
+    saved_limit_value = (evidence.get("milestone_constraints") or {}).get("max_unique_deployed_operator_ids")
+    saved_limit = saved_limit_value if isinstance(saved_limit_value, int) else None
+    if saved_input and configured_limit is None and saved_limit is not None:
+        raise RuntimeError(
+            "saved input contains a roster limit; pass the same --max-unique-deployed-operators explicitly"
+        )
+    if saved_input and configured_limit is not None and saved_limit is not None and configured_limit != saved_limit:
+        raise RuntimeError(
+            f"roster-limit conflict: configured={configured_limit}, saved_input={saved_limit}"
+        )
+    if not saved_input:
+        evidence.pop("milestone_constraints", None)
+    effective_limit = configured_limit if configured_limit is not None else saved_limit if saved_input else None
+    if effective_limit is not None:
+        evidence["milestone_constraints"] = {
+            "max_unique_deployed_operator_ids": effective_limit,
+            "counting_rule": "The union of selected_low_star_operator_ids and every DEPLOY action operator_id is counted; retreat and redeploy do not reduce distinct-operator count.",
+        }
+    source = (
+        "CONFIGURED_ARGUMENT" if configured_limit is not None
+        else "SAVED_INPUT" if saved_input and saved_limit is not None
+        else "NONE"
+    )
+    resolution = {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_MILESTONE_CONSTRAINT_RESOLUTION",
+        "configured_limit": configured_limit,
+        "saved_input_limit": saved_limit if saved_input else None,
+        "effective_limit": effective_limit,
+        "source": source,
+        "conflict_policy": "FAIL_ON_CONFLICT" if saved_input else "CONFIGURED_ARGUMENT_OVERRIDES_BASE_FACTS",
+    }
+    if saved_input:
+        saved_path = ROOT / SAVED_INPUT_DIR / "llm_evidence_context.json"
+        resolution["saved_input_evidence_sha256"] = sha256(saved_path)
+        resolution["saved_input_prompt_sha256"] = sha256(ROOT / SAVED_INPUT_DIR / "codex_prompt.txt")
+    return resolution
 
 
 def validate_plan_payload(parsed: Any, evidence: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
@@ -327,7 +397,17 @@ def prepare() -> dict[str, Any]:
             (codex_runner.OUT / name).write_bytes((saved_dir / name).read_bytes())
         evidence = load(codex_runner.OUT / "llm_evidence_context.json")
         schema = load(codex_runner.OUT / "revision_output_schema.json")
+        constraint_resolution = resolve_milestone_constraints(evidence, saved_input=True)
         prompt = (codex_runner.OUT / "codex_prompt.txt").read_text(encoding="utf-8")
+        effective_limit = constraint_resolution["effective_limit"]
+        if effective_limit is not None:
+            prompt, prompt_regenerated = ensure_saved_prompt_roster_limit(prompt, effective_limit)
+            constraint_resolution["prompt_regenerated"] = prompt_regenerated
+            write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
+        else:
+            if "HARD ROSTER LIMIT:" in prompt:
+                raise RuntimeError("saved prompt contains a hard roster limit but no configured or evidence limit")
+            constraint_resolution["prompt_regenerated"] = False
     else:
         evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
         evidence = copy.deepcopy(evidence)
@@ -340,11 +420,7 @@ def prepare() -> dict[str, Any]:
         ):
             evidence.pop(redundant_policy_key, None)
         evidence["milestone"] = f"{STAGE_ID.upper()}_GPT_{PLAN_LABEL}_CODEX_CLI_V1"
-        if MAX_UNIQUE_DEPLOYED_OPERATORS is not None:
-            evidence["milestone_constraints"] = {
-                "max_unique_deployed_operator_ids": MAX_UNIQUE_DEPLOYED_OPERATORS,
-                "counting_rule": "The union of selected_low_star_operator_ids and every DEPLOY action operator_id is counted; retreat and redeploy do not reduce distinct-operator count.",
-            }
+        constraint_resolution = resolve_milestone_constraints(evidence, saved_input=False)
         evidence["tactical_provider"] = {
             "provider": "codex-cli", "model": codex_runner.MODEL,
             "reasoning_effort": codex_runner.REASONING_EFFORT,
@@ -518,6 +594,7 @@ def prepare() -> dict[str, Any]:
         write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
         write_json(codex_runner.OUT / "revision_output_schema.json", schema)
         prompt = build_prompt(evidence, schema)
+    write_json(codex_runner.OUT / "milestone_constraints_resolution.json", constraint_resolution)
     prompt_bytes = len(prompt.encode("utf-8"))
     if prompt_bytes > BODY_LIMIT:
         raise RuntimeError(f"Codex prompt exceeds {BODY_LIMIT} bytes: {prompt_bytes}")
@@ -689,18 +766,19 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
             errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
         if not str(plan.get("operational_plan_id", "")).startswith(PLAN_PREFIX):
             errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
-        max_unique = evidence.get("milestone_constraints", {}).get("max_unique_deployed_operator_ids")
-        if isinstance(max_unique, int):
-            actions = plan.get("action_timeline") or []
-            distinct = set(plan.get("selected_low_star_operator_ids") or [])
-            distinct.update(
-                action.get("operator_id")
-                for action in actions
-                if isinstance(action, dict) and action.get("action_type") == "DEPLOY"
+        configured_limit = MAX_UNIQUE_DEPLOYED_OPERATORS
+        evidence_limit_value = (evidence.get("milestone_constraints") or {}).get("max_unique_deployed_operator_ids")
+        evidence_limit = evidence_limit_value if isinstance(evidence_limit_value, int) else None
+        if configured_limit is not None and evidence_limit is not None and configured_limit != evidence_limit:
+            errors.append(
+                f"roster-limit conflict: configured={configured_limit}, evidence={evidence_limit}"
             )
-            if len(distinct) > max_unique:
+        effective_limit = configured_limit if configured_limit is not None else evidence_limit
+        if effective_limit is not None:
+            distinct = distinct_deployed_operator_ids(plan)
+            if len(distinct) > effective_limit:
                 errors.append(
-                    f"distinct selected/deployed operator union has {len(distinct)} IDs; hard limit is {max_unique}"
+                    f"distinct selected/deployed operator union has {len(distinct)} IDs; hard limit is {effective_limit}"
                 )
     validation = {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",

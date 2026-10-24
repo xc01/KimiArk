@@ -1,0 +1,41 @@
+{
+  "schema_version": "M49_FACT_CORRECTION_V1",
+  "correction_date": "2026-10-25",
+  "baseline_commit": "4a18b0dcea3e777de35d4e301607784600f6f541",
+  "status": "CORRECTED",
+  "scope": "Derived M49 records and long-term documents only; archived prompt/response, plan, action, event, summary, and hash materials remain verbatim.",
+  "enemy_34_correction": {
+    "target": "enemy_1110_uamord#34",
+    "previous_claim": "zero damage and zero BLOCK before leak",
+    "corrected_claim": "four DAMAGE events totaling 631.70; zero BLOCK; ENEMY_LEAK at 6996; no kill",
+    "damage_events": [
+      {"event_type": "DAMAGE", "frame": 6564, "source_id": "char_283_midn", "amount": 24.85, "kind": "physical"},
+      {"event_type": "DAMAGE", "frame": 6603, "source_id": "char_283_midn", "amount": 24.85, "kind": "physical"},
+      {"event_type": "DAMAGE", "frame": 6608, "source_id": "char_121_lava", "amount": 291.0, "kind": "arts"},
+      {"event_type": "DAMAGE", "frame": 6695, "source_id": "char_121_lava", "amount": 291.0, "kind": "arts"}
+    ],
+    "damage_total": 631.70,
+    "block_count": 0,
+    "leak_frame": 6996,
+    "source_events": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_events.json"
+  },
+  "roster_chain_correction": {
+    "previous_claim": "the original runtime hard roster gate enforced the three ten-ID unions",
+    "corrected_claim": "post-run reconciliation confirmed exactly ten IDs for V1/V2/V3; the original gate did not activate because configure() omitted the required global declaration; the configured-to-prompt-to-final-validation chain is now fixed and regression-tested",
+    "candidate_counts": {"V1": 10, "V2": 10, "V3": 10},
+    "action_counts": {"V1": 44, "V2": 45, "V3": 47}
+  },
+  "original_evidence_hashes": [
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_events.json", "sha256": "7169cfca795ca63c41fa7799edb6dc89f76d168257d9b8c45448efbddef1cdf4"},
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_summary.json", "sha256": "567d47df4a97de1c10e26307f7a58cbba6fd0e8b9dbf95f0f1bf114bb6209780"},
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/plan_snapshot.json", "sha256": "631810b810aca0e7e120db497db26e0d1c1d183dad8dc9c78e345a07e4402f8e"},
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/action_snapshot.json", "sha256": "12527da9189ab24cadf5351f0c24e81566d6370cc5cc2a9144dce51b02e25660"},
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_cli/codex_prompt.txt", "sha256": "7537da2c891a1c7417688796d3ec1d18915c8949e1a1b4feca7e3f0e71ebe690"},
+    {"path": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_cli/codex_final_message.txt", "sha256": "773f2cacd5f98f403b99bfcf4ceedd24feef24559a698d71874d47ca81a6eceb"},
+    {"path": "docs/review/fc77177/m49_roster_reduction_win_v1/m49_v2_failure_feedback_v1.json", "sha256": "66cc599242d4f92151ea3a8e947cdcc987a07883f59945d5d2bf43bfbc3ba0ab"},
+    {"path": "docs/review/fc77177/m49_roster_reduction_win_v1/m49_closeout_v1.json", "sha256": "bcb23c9db0e3eb9f804b4ae62ef7813ef1a0eeba68b029efa9061ef499900c08"}
+  ],
+  "unchanged_archived_evidence": "Original M49 evidence and the archived derived copies under evidence/ remain untouched.",
+  "budget_status": "UNCHANGED",
+  "tactical_cli_and_simulations_started_by_correction": 0
+}

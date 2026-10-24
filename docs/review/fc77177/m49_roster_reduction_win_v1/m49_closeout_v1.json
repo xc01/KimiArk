@@ -103,21 +103,21 @@
     "verified_progress": [
       "Midnight destroyed roadblock #3 at 2385.",
       "Spot destroyed roadblock #2 at 4894 and #14 reached at 5226.",
-      "All three candidates stayed at the 10-ID hard limit."
+      "All three candidate unions were independently reconciled to exactly 10 IDs; the original runtime check did not enforce this."
     ],
     "remaining_counterexamples": [
       "Vanilla's 4173 release let route-16 #18 leak at 4421 after only 1294.08 of 3300 HP.",
       "Steward died at 2593; artillery #0 received 2466.09 of 13000 HP damage and leaked at 5759.",
       "Beagle and Spot died at 5206/5290, releasing #21/#22; those targets leaked at 5605/5689.",
       "#3 died to artillery #0 at 5353.",
-      "#34 had zero recorded damage or block and leaked at 6996."
+      "#34 received four hits totaling 631.70 damage, had zero BLOCK, and leaked at 6996 without dying."
     ]
   },
   "mechanism_and_infrastructure": {
     "mechanics_version": "m38b-2781-animation-speed-v1",
     "static_validation": "All three plans passed contract and full static checks with 0 conflicts and 0 unknowns.",
-    "roster_validation": "A hard runner check enforced the union of selected IDs and DEPLOY IDs; all candidates were exactly 10.",
-    "runner_configuration_fix": "The session runner now reads model and reasoning_effort from the milestone authorization file instead of silently inheriting a medium default."
+    "roster_validation": "Post-run reconciliation confirmed exactly 10 IDs for each candidate; the original runs were not gated by the intended runtime check because configure() omitted the required global declaration. The implementation chain has now been fixed and regression-tested.",
+    "runner_configuration_fix": "The session runner now propagates the configured roster limit through saved input, prompt, and final validation, while retaining compatibility for tasks without a limit; it also reads model and reasoning_effort from the milestone authorization file."
   },
   "next_bounded_task_after_fresh_authorization": {
     "description": "Start from M49 V2 as the best loss, preserve its <=10-ID structure, and issue one GPT revision targeting release-until-kill discipline, eastern Steward/medical survival, #21/#22 living containment, and #34 block/kill.",

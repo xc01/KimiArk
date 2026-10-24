@@ -871,15 +871,17 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 
 - Budget: **3/3** real tactical CLI starts and **3/3** fixed simulations.
   Internal request count is `UNKNOWN_CLI_INTERNAL`. No M48 or earlier balance
-  was transferred. A focused runner hard check now rejects a declared/deployed
-  operator union above the milestone limit.
+  was transferred. The original runtime limit was not active because
+  `configure()` omitted the required global declaration; post-run reconciliation
+  confirmed all three unions were exactly ten. A focused runner hard check now
+  propagates the limit and rejects a declared/deployed union above it.
 - V1: 10 IDs, 44 actions, 0 static conflicts, 21/12/5/life -10. Beagle died at
   5038 and released #21; Fang died at 5206; #21 leaked at 5437.
 - V2: 10 IDs, 45 actions, 0 static conflicts, 23/10/4/life -8. It improved the
   roadblock/#14 chain and is the best loss, but Vanilla's 4173 release let #18
   leak at 4421; Steward died at 2593; artillery #0 leaked at 5759 after only
-  2466.09 damage; Beagle/Spot released #21/#22; #3 died at 5353; #34 had zero
-  damage/block and leaked at 6996.
+  2466.09 damage; Beagle/Spot released #21/#22; #3 died at 5353; #34 received
+  four hits totaling 631.70 damage, had zero BLOCK, and leaked at 6996.
 - V3: 10 IDs, 47 actions, 0 static conflicts, 22/11/6/life -9. It verified the
   predicted Hibiscus→Ansel heal but did not convert survival into closure; #22
   first leaked at 5553 and the objective failed at 5637.
