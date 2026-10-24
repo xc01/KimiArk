@@ -395,3 +395,14 @@ V2 is the best loss but still leaves route-16 #18, artillery #0, armored
 does not prove ten operators impossible. This milestone makes no real-game,
 faithful, robust, or probabilistic claim. Evidence is under
 `docs/review/fc77177/m49_roster_reduction_win_v1/evidence/`.
+
+## 2026-10-25 M50 closes at limits without a 10-operator WIN
+
+M50 used its own 3/3 real Codex CLI starts and 3/3 fixed simulations. All
+candidates passed the repaired hard ten-ID gate and full static checks. V1 lost
+14/19/8/life -17 after Wyvern died and released #2; V2 improved to
+28/5/4/life -3 but left five leaks; and V3 regressed to 19/14/7/life -12 after
+early medical reshaping broke survival and DP continuity. V2 is the best
+exhausted loss, not a WIN. No historical balance was transferred. Evidence is
+under `output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/`
+and `docs/review/fc77177/m50_ten_operator_full_win_v1/`.

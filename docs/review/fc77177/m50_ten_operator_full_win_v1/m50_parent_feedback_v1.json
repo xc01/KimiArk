@@ -1,0 +1,93 @@
+{
+  "schema_version": "M50_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M49_V2",
+  "parent_plan_id": "R8_7_GPT_M49_V1",
+  "parent_comparison_policy": "M49 V2 is the best exhausted ten-ID loss and a conditional comparison branch, not the mandatory parent or proof of a valid baseline.",
+  "result": {
+    "classification": "CURRENT_MODEL_SIMULATOR_LOSS",
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 4,
+    "protected_targets_reached": 1,
+    "protected_target_deaths": 1,
+    "remaining_life": -8,
+    "action_count": 45,
+    "distinct_operator_union": 10
+  },
+  "verified_progress": [
+    "Midnight destroyed roadblock #3 at 2385.",
+    "Spot destroyed roadblock #2 at 4894.",
+    "Protected #14 reached safely at 5226."
+  ],
+  "joint_counterexamples": [
+    {
+      "duty": "steward_survival_and_artillery",
+      "facts": [
+        "Steward deployed at 1953.",
+        "Steward received 910 artillery damage at 2143, 2293, 2443, and 2593.",
+        "Hibiscus healed 372.6 at 2143 and 537.4 at 2229; Ansel healed 362 at 2315; Hibiscus healed 548 at 2401; Ansel healed 506.8 at 2487.",
+        "Steward died at 2593 despite actual healing.",
+        "Artillery #0 received only 2466.09 of 13000 damage and leaked at 5759.",
+        "Artillery #0 killed protected #3 at 5353."
+      ],
+      "interpretation": "Healing occurred but did not support the duty. Do not treat two-medical coverage as sufficient without timing, targeting, projectile trajectory, contact, and survival-time calculation."
+    },
+    {
+      "duty": "vanilla_handoff",
+      "facts": [
+        "Vanilla blocked #18 at 4122.",
+        "Vanilla successfully retreated and released #18 at 4173.",
+        "#18 had received only 1294.08 of 3300 damage.",
+        "#18 leaked at 4421."
+      ],
+      "interpretation": "A fixed retreat may leave only after target death is runtime-verified by the action result or a living replacement has coverage. Rationale text is not an execution condition."
+    },
+    {
+      "duty": "mixed_pressure_21_22",
+      "facts": [
+        "Beagle died and released #21 at 5206; #21 leaked at 5605.",
+        "Spot died and released #22 at 5290; #22 leaked at 5689."
+      ],
+      "interpretation": "Mixed pressure requires living blockers, enough arts damage, and replacement continuity, not merely delaying the first leak."
+    },
+    {
+      "duty": "armored_34",
+      "facts": [
+        "Midnight damaged #34 for 24.85 physical at 6564 and 6603.",
+        "Lava damaged #34 for 291 arts at 6608 and 6695.",
+        "#34 total damage was 631.70, with zero BLOCK, leak at 6996, and no kill."
+      ],
+      "interpretation": "#34 is not zero-damage, but the duty remains open: actual kill and no leak, with BLOCK where the selected tactic needs interception."
+    }
+  ],
+  "m48_conditional_success_reference": {
+    "scope": "18-operator M48 V1 conditional evidence; do not delete eight commands and call that a new ten-ID plan.",
+    "facts": [
+      "Medical support kept Steward's output viable; artillery #0 died at 4273.",
+      "Independent roadblock-#2 duty destroyed it at 4698; protected #14 and #3 reached at 5030 and 5033.",
+      "Spot blocked #34 and Lava killed it at 7848."
+    ],
+    "transfer_rule": "Duties may be merged, retimed, and reassigned, but each resulting duty must be verified on the new action timeline."
+  },
+  "m49_fact_correction": {
+    "source": "docs/review/fc77177/m49_roster_reduction_win_v1/m49_fact_correction_v1.json",
+    "status": "APPLIED",
+    "original_runtime_roster_gate": "NOT_ACTIVE_IN_M49",
+    "post_run_reconciliation": "V1/V2/V3 each used exactly 10 distinct IDs; action counts were 44/45/47."
+  },
+  "revision_requirements": [
+    "Keep the union of selected IDs and DEPLOY action IDs at most 10.",
+    "GPT may select the parent branch and may choose zero, one, or two Vanguard structures from actual costs and income.",
+    "Ensure every blocker has living replacement coverage or the assigned target is actually dead before release.",
+    "Repair medical targeting and survival around artillery rather than assuming declared coverage is sufficient.",
+    "Provide enough sustained damage for artillery, mixed-pressure #21/#22, and armored #34, while keeping clearance and both protected targets.",
+    "Recompute all timing windows if movement, blocking, or roadblock clearance changes; old leak/death frames are conditional evidence only.",
+    "Do not add a dynamic rescue controller or edit mechanics to force completion."
+  ],
+  "evidence_paths": {
+    "parent_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_cli/llm_structured_output.json",
+    "parent_events": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "parent_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m49_roster_reduction_win_v1/attempt_02_diagnostic/diagnostic_summary.json",
+    "m49_correction": "docs/review/fc77177/m49_roster_reduction_win_v1/m49_fact_correction_v1.json"
+  }
+}

@@ -889,3 +889,22 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   Melantha, Steward, Ansel, Vanilla, Midnight, and Spot. The objective is NOT
   MET; the evidence does not prove ten IDs impossible. Archive:
   `docs/review/fc77177/m49_roster_reduction_win_v1/evidence/`.
+
+# M50 ten-operator full-WIN ledger — 2026-10-25
+
+- Budget: **3/3** real tactical CLI starts and **3/3** fixed simulations.
+  Internal request count is `UNKNOWN_CLI_INTERNAL`. No M48/M49 balance was
+  transferred. Each candidate passed the repaired configured hard ten-ID gate,
+  contract validation, and static checks with 0 conflicts/0 UNKNOWN.
+- V1: 10 IDs, 37 actions, 14/19/8/life -17. Wyvern's verified `BLOCK@656` did
+  not prevent its death/release at 792; the later skill/Ansel deploy income
+  dependency failed. #2 leaked at 986.
+- V2: 10 IDs, 30 actions, 28/5/4/life -3. It repaired the V1 opening and is the
+  best loss, but Fang's death released #21 at 4786; #21, #27, #29, #33, and
+  artillery #0 leaked, while #3 died and #14 arrived.
+- V3: 10 IDs, 32 actions, 19/14/7/life -12. A verified early Lancet heal did not
+  prove the whole survival chain; Friston died at 2111 and the runtime DP chain
+  broke, causing #11's first leak at 3065.
+- All results are current fixed-model LOSS. Evidence and hashes are under
+  `output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/` and
+  `docs/review/fc77177/m50_ten_operator_full_win_v1/`.

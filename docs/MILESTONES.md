@@ -493,3 +493,11 @@ checks and used exactly ten IDs.
 V1 lost 21/12/5/life -10, V2 improved to 23/10/4/life -8, and V3 lost
 22/11/6/life -9. No complete WIN was reached. This is not evidence that ten IDs
 are impossible and makes no real-game, faithful, robust, or probabilistic claim.
+
+## 2026-10-25 — M50 closes at limits without WIN
+
+M50 used 3/3 real tactical CLI starts and 3/3 fixed simulations. V1, V2, and V3
+each passed the ten-ID gate and static checks, then lost 14/19, 28/5, and
+19/14 respectively. V2 is the best exhausted loss, not a WIN. This does not
+prove ten IDs impossible and makes no real-game, faithful, robust, or
+probabilistic claim.

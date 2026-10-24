@@ -1,0 +1,73 @@
+{
+  "schema_version": "M50_V2_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M50_V2",
+  "parent_plan_id": "R8_7_GPT_M50_V1",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "win": false,
+    "enemies_killed": 28,
+    "enemies_leaked": 5,
+    "operator_deaths": 4,
+    "remaining_life": -3,
+    "final_dp": 99,
+    "action_count": 30,
+    "distinct_operator_union": 10
+  },
+  "verified_progress": [
+    {"event": "BLOCK", "frame": 621, "source": "char_4093_frston", "target": "enemy_1108_uterer#2", "status": "VERIFIED"},
+    {"event": "PROTECTED_TARGET_REACHED", "frame": 10818, "source": "enemy_3001_upeopl#14", "status": "VERIFIED"},
+    "The V1 first-leak route was repaired and V2 held through the early/mid opening."
+  ],
+  "late_joint_counterexamples": [
+    {
+      "target": "enemy_1110_uamord#21",
+      "facts": "Fang BLOCK@4646; Fang died and released #21 at 4786; #21 received 2626.60 total damage and leaked at 5185.",
+      "open_duty": "Provide living blocker continuity or kill before release."
+    },
+    {
+      "target": "enemy_1108_uterer#27",
+      "facts": "No BLOCK; Lava dealt 931.20 arts; leak at 5932.",
+      "open_duty": "Provide interception/damage on route-30."
+    },
+    {
+      "target": "enemy_1108_uterer#29",
+      "facts": "No BLOCK; Midnight dealt 536.76 arts; leak at 6142.",
+      "open_duty": "Provide interception/damage on route-30."
+    },
+    {
+      "target": "enemy_1110_uamord#33",
+      "facts": "No BLOCK; received 2758.70 total damage; leak at 6846.",
+      "open_duty": "Provide late armor interception and kill."
+    },
+    {
+      "target": "enemy_1112_emppnt#0",
+      "facts": "No BLOCK; received 6189.09 total damage; killed protected #3 at 5353 and leaked at 5759.",
+      "open_duty": "Artillery must die before leaking and before protected #3's exposure."
+    }
+  ],
+  "operator_death_inventory": [
+    {"frame": 2561, "operator": "char_210_stward"},
+    {"frame": 4513, "operator": "char_120_hibisc"},
+    {"frame": 4753, "operator": "char_4093_frston"},
+    {"frame": 4786, "operator": "char_123_fang"}
+  ],
+  "runtime_action_errors": [
+    "char_210_stward@4500 operator is not deployed",
+    "char_120_hibisc@5824 operator is not deployed",
+    "char_120_hibisc@7325 operator is not deployed"
+  ],
+  "causal_interpretation": "V2 repaired the V1 first failure, but the late defensive chain collapsed after Steward, Hibiscus, Friston, and Fang died. #21 was released, route-30 had almost no coverage, #33 lacked a living blocker, and artillery remained alive.",
+  "design_freedom": "For the final authorized candidate GPT may restructure the late roster, move damage coverage, change retreat timing, or replace blockers, while preserving V2's successful opening only if compatible.",
+  "revision_requirements": [
+    "Keep the declared/DEPLOY union at most 10 and avoid post-death skill/deploy assumptions.",
+    "Maintain living route-21/30/31 coverage through the late waves.",
+    "Kill artillery #0 before it reaches the base and remove #3's artillery exposure.",
+    "Provide actual late armor #33 and #34 closure with BLOCK and kill/no-leak as the chosen structure requires.",
+    "Verify retreat refunds against actual survival and do not rely on rationale-only conditions."
+  ],
+  "evidence_paths": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/diagnostic_summary.json",
+    "frozen_actions": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/action_snapshot.json"
+  }
+}

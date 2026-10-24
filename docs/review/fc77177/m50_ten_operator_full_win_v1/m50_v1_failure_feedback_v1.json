@@ -1,0 +1,70 @@
+{
+  "schema_version": "M50_V1_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M50_V1",
+  "parent_plan_id": "R8_7_GPT_M49_V2",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "win": false,
+    "enemies_killed": 14,
+    "enemies_leaked": 19,
+    "operator_deaths": 8,
+    "remaining_life": -17,
+    "final_dp": 94.2,
+    "action_count": 37,
+    "distinct_operator_union": 10
+  },
+  "verified_progress": [
+    {"event": "BLOCK", "frame": 656, "source": "char_240_wyvern", "target": "enemy_1108_uterer#2", "status": "VERIFIED"},
+    {"event": "PROTECTED_TARGET_REACHED", "frame": 5418, "source": "enemy_3001_upeopl#14", "status": "VERIFIED"}
+  ],
+  "first_failure_chain": [
+    "Wyvern deployed at 330 and blocked #2 at 656; the declared BLOCK prediction was verified.",
+    "Wyvern took physical damage from #2 at 700, 732, and 764.",
+    "Wyvern died and released #2 at 792.",
+    "#2 leaked at 986, before the next planned structure could restore the route.",
+    "The 1650 Wyvern skill and 1652 Ansel deploy depended on Wyvern being alive; Wyvern was dead and Ansel lacked the static-assumed skill income.",
+    "Ansel's DEPLOY@1652 failed for insufficient DP, so the static economic chain broke at runtime."
+  ],
+  "runtime_action_errors": [
+    "char_240_wyvern@1650 operator is not deployed",
+    "char_212_ansel@1652 insufficient DP",
+    "char_212_ansel@2791 operator is not deployed",
+    "char_120_hibisc@3723 operator is not deployed",
+    "char_210_stward@4500 operator is not deployed",
+    "char_121_lava@4501 operator is not deployed",
+    "char_212_ansel@4592 operator is not deployed",
+    "char_283_midn@5132 operator is not deployed",
+    "char_120_hibisc@5224 operator is not deployed",
+    "char_121_lava@6351 operator is not deployed",
+    "char_212_ansel@6393 operator is not deployed",
+    "char_120_hibisc@6725 operator is not deployed"
+  ],
+  "operator_death_inventory": [
+    {"frame": 792, "operator": "char_240_wyvern"},
+    {"frame": 2561, "operator": "char_120_hibisc"},
+    {"frame": 2861, "operator": "char_210_stward"},
+    {"frame": 4450, "operator": "char_123_fang"},
+    {"frame": 4450, "operator": "char_121_lava"},
+    {"frame": 4753, "operator": "char_283_midn"},
+    {"frame": 4754, "operator": "char_285_medic2"},
+    {"frame": 6685, "operator": "char_284_spot"}
+  ],
+  "protected_outcomes": [
+    {"target": "enemy_3001_upeopl#3", "death_frame": 5341, "killer": "enemy_1112_emppnt#0"},
+    {"target": "enemy_3001_upeopl#14", "arrival_frame": 5418}
+  ],
+  "causal_interpretation": "The first failure was not command syntax. It was an unsupported survival/economic dependency: a later skill income and deploy assumed the early blocker remained alive, while it died before that dependency arrived. Rationale text could not preserve the dependency.",
+  "design_freedom": "GPT may abandon this roster/layout and select a different ten-ID structure or parent branch, but must avoid income or deployment assumptions that depend on an operator surviving past the action that creates the income.",
+  "revision_requirements": [
+    "Make the opening blocker survive or arrange a living/redeployable handoff before the first leak.",
+    "Do not count skill income from an operator already dead at runtime; support DP assumptions with living skill timing or stable natural/retreat income.",
+    "Replace fixed conditional-rationale retreats with runtime-supported timing and living replacement coverage.",
+    "Close all routes, both protected targets, artillery #0, mixed #21/#22, and armored #34 on one 10-ID union.",
+    "Recompute windows from the actual V1 failure rather than reusing M49 deadlines."
+  ],
+  "evidence_paths": {
+    "events": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_01_diagnostic/diagnostic_events.json",
+    "summary": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_01_diagnostic/diagnostic_summary.json",
+    "frozen_actions": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_01_diagnostic/action_snapshot.json"
+  }
+}

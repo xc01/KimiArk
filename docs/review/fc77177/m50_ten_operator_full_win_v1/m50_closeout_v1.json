@@ -1,0 +1,100 @@
+{
+  "schema_version": "M50_CLOSEOUT_V1",
+  "date": "2026-10-25",
+  "result": "NOT_WIN",
+  "result_scope": "Current fixed simulator only; no real-game, faithful, robust, or probabilistic WIN claim.",
+  "roster_policy": "Every candidate passed the repaired configured-to-prompt-to-final-validation ten-ID gate before simulation.",
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 3,
+    "cli_remaining": 0,
+    "simulations_max": 3,
+    "simulations_started": 3,
+    "simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "historical_balances_transferable": false
+  },
+  "candidate_results": [
+    {
+      "plan_id": "R8_7_GPT_M50_V1",
+      "operator_union": [
+        "char_123_fang", "char_240_wyvern", "char_283_midn", "char_208_melan",
+        "char_120_hibisc", "char_212_ansel", "char_210_stward", "char_121_lava",
+        "char_285_medic2", "char_284_spot"
+      ],
+      "action_count": 37,
+      "distinct_operator_union": 10,
+      "enemies_killed": 14,
+      "enemies_leaked": 19,
+      "operator_deaths": 8,
+      "remaining_life": -17,
+      "first_leak": {"target": "enemy_1108_uterer#2", "frame": 986},
+      "protected_outcomes": {"#3": "DEATH@5341", "#14": "ARRIVED@5418"},
+      "key_failure": "Wyvern died at 792 and released #2; the later Wyvern skill/Ansel deploy income dependency failed at runtime.",
+      "plan_snapshot_sha256": "3bfd82a79cc2fe2d42259284ace112d08c8789f2ffbdf1857029c546483d5eb0",
+      "action_snapshot_sha256": "cd4cfb6e4e198ed788d200fb3525456615b5bfcc35c34a439070ca10d5dc9cfc"
+    },
+    {
+      "plan_id": "R8_7_GPT_M50_V2",
+      "operator_union": [
+        "char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan",
+        "char_285_medic2", "char_120_hibisc", "char_212_ansel", "char_210_stward",
+        "char_122_beagle", "char_121_lava"
+      ],
+      "action_count": 30,
+      "distinct_operator_union": 10,
+      "enemies_killed": 28,
+      "enemies_leaked": 5,
+      "operator_deaths": 4,
+      "remaining_life": -3,
+      "first_leak": {"target": "enemy_1110_uamord#21", "frame": 5185},
+      "protected_outcomes": {"#3": "DEATH@5353", "#14": "ARRIVED@10818"},
+      "key_failure": "The repaired opening held, but late deaths released #21 and left route-30/#33/artillery coverage incomplete.",
+      "plan_snapshot_sha256": "6e350de3d0b742cec23cab81e4f904c933298b33be0c1d84db40c9ba6f8c4077",
+      "action_snapshot_sha256": "c5f0f4797b4ea33033fd1ef44129dc2c5ce5196fe84c597f2dfad7a30fe29c73"
+    },
+    {
+      "plan_id": "R8_7_GPT_M50_V3",
+      "operator_union": [
+        "char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan",
+        "char_285_medic2", "char_120_hibisc", "char_212_ansel", "char_210_stward",
+        "char_122_beagle", "char_121_lava"
+      ],
+      "action_count": 32,
+      "distinct_operator_union": 10,
+      "enemies_killed": 19,
+      "enemies_leaked": 14,
+      "operator_deaths": 7,
+      "remaining_life": -12,
+      "first_leak": {"target": "enemy_1107_uoffcr#11", "frame": 3065},
+      "protected_outcomes": {"#3": "DEATH@5353", "#14": "ARRIVED@10518"},
+      "key_failure": "Changing the medical coverage pattern caused Friston's 2111 death, broke the static DP chain, and exposed route-11 and later routes.",
+      "plan_snapshot_sha256": "3b289ec9e721cbc88636461e62ebffd46b4285608635bcbff287ac4393d7c929",
+      "action_snapshot_sha256": "11fd3f15e19904305b84abc49d722ae91afc1f101ce848d5c9fbf4774d8ad6a4"
+    }
+  ],
+  "best_candidate": {
+    "plan_id": "R8_7_GPT_M50_V2",
+    "basis": "Fewest leaks and highest kills among the exhausted fixed candidates; still NOT_WIN."
+  },
+  "verification": {
+    "model": "openai/gpt-6.1-sol/high/features.apps=false",
+    "roster_limit_source": "--max-unique-deployed-operators 10 propagated through prepare evidence, HARD ROSTER LIMIT prompt paragraph, and final validation.",
+    "static_results": "V1/V2/V3 each had 0 static conflicts and 0 UNKNOWN items.",
+    "prediction_scope": "A verified BLOCK/HEAL prediction only proves its declared observable; it does not prove the full plan."
+  },
+  "next_bounded_task_after_fresh_authorization": {
+    "status": "NOT_AUTHORIZED",
+    "description": "Start from M50 V2 as best exhausted loss and issue one GPT revision that retains its repaired opening while rebuilding late living coverage for #21, route-30, #33, artillery #0, and protected #3."
+  },
+  "prompt_response_and_runtime_hashes": [
+    {"attempt": 1, "prompt_sha256": "e860a6c19eba4326f66bac14aca926eec4c456f4fb69ce6bbec089d6a0d82fb5", "response_sha256": "a8ec88da89dd58aac38ad22d69e2ecf71a8ff467b35dbc0c901a17b63be99b03", "trajectory_sha256": "b4d279d3154356881f70a91a12a85413092c6db0091e3488682e8d4d81fcce9a"},
+    {"attempt": 2, "prompt_sha256": "70b86741a729d246137388c8534b26c804bee5acd190c4957e4870419caf6509", "response_sha256": "08345489e02f0ee96591739f55a3b83fd43165fd256bd8a82a40b7d2634ff792", "trajectory_sha256": "882837a013be17a2cf38927252345bbd5703713b09622f3598e34cac08a0f9ea"},
+    {"attempt": 3, "prompt_sha256": "e6bb4567e433c12b6d7e80f2d8b8f039b46856feecec9c81296d64ac6ee52044", "response_sha256": "62ce299f44f544dbfb61feef98d646fba67e7f21b9dcfe1adfe0dabf6c1c2a60", "trajectory_sha256": "9097a1e57f6e7e61242e00e4ab5df40290c4fe8d915f6c08a6740506a62ad604"}
+  ],
+  "event_and_summary_hashes": [
+    {"attempt": 1, "events_sha256": "136bcf5ed13e91c58e0c92cc57c7e406c1fccbfa738e301459b4051eecb9bd41", "summary_sha256": "9094c1d9046c1706f0cd59e6b240c0be8721709e429b625024a32f8347ecd022"},
+    {"attempt": 2, "events_sha256": "4e513be5e091cb20cca68a6b7f01a6f83485f53aab4c562e02fc9d48d925875d", "summary_sha256": "b71f9475404e7d619380688d1d9b94304d9f1527002d5a431ed5b36829818b96"},
+    {"attempt": 3, "events_sha256": "3b4fdc460102d82278e760949983bf052b7327bf1197b5a8acbd5aca563c5531", "summary_sha256": "162e75ab43a4ddf88b4f1d790bbfdaa6b063b4e14f11025ccc81aaffeca8776d"}
+  ]
+}

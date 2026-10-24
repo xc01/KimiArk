@@ -604,3 +604,16 @@ distinct operators increases the need for explicit release-until-kill discipline
 living replacement coverage, medical survival around artillery, and separate
 late-armor closure. A single earlier roadblock success is not compensating
 evidence.
+
+## 2026-10-25 M50 shows runtime survival must precede economic and late duties
+
+M50 V1 verified Wyvern's early BLOCK but Wyvern died at 792; the later skill
+income and Ansel deploy assumed that survival, failed for insufficient DP, and
+#2 leaked at 986. V2 repaired this opening and reached 28/5/4/life -3, but late
+deaths released #21 and left route-30, #33, and artillery #0 unresolved. V3's
+verified Lancet heals did not prevent Friston's 2111 death; the resulting DP
+chain failure exposed route-11 and regressed to 19/14/7/life -12.
+
+These are candidate-specific lessons, not proof that ten operators are
+impossible. A live blocker, verified income timing, living late-route coverage,
+and artillery removal must be co-validated on the same fixed timeline.
