@@ -419,3 +419,15 @@ targets reached, and life 3. The selected/DEPLOY union is exactly 10. The scope
 is current-model fixed simulator WIN only; real-game, faithful, and robust
 claims remain unproven. Closeout:
 `docs/review/fc77177/m51_ten_operator_full_win_v2/m51_closeout_v1.json`.
+
+## 2026-10-25 M52 reduces the verified win to 9 operators
+
+M52 verified the unpushed M51 V2 parent from local artifacts, then used its own
+3/3 CLI starts and 3/3 simulations. V1 removed Lava and passed every hard target
+at exactly 9 IDs: 33 kills, 0 leaks, 0 operator deaths, both protected targets
+safe, and life 3. V2 removed Beagle but lost at 8 IDs with Steward's 2561 death
+preceding the first 4625 leak. V3 removed Lancet-2 with a new medical handoff
+but lost at 8 IDs after Friston's 2111 death and #11's 3065 leak. The best
+verified result is therefore 9 IDs; no global minimum or 8-ID impossibility is
+proved. Closeout:
+`docs/review/fc77177/m52_minimum_operator_reduction_v1/m52_closeout_v1.json`.

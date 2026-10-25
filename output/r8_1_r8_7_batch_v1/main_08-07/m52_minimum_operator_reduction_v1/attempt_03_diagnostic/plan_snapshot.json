@@ -1,0 +1,663 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 91,
+      "operator_id": "char_4093_frston",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 571,
+      "operator_id": "char_283_midn",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 841,
+      "operator_id": "char_208_melan",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1321,
+      "operator_id": "char_212_ansel",
+      "rationale": "Start the replacement rescue cadence and Ansel's earlier SP accumulation.",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 1681,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1772,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 2010,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2072,
+      "operator_id": "char_212_ansel",
+      "rationale": "Replace the failed opening medical handoff with an earlier boosted window."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 2132,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        7
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2821,
+      "operator_id": "char_122_beagle",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2906,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3873,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 4111,
+      "operator_id": "char_208_melan",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4407,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5073,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5342,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5674,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5908,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 7000,
+      "operator_id": "char_210_stward"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7143,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7409,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7475,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 8374,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 9101,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 10800,
+      "operator_id": "char_123_fang"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 12901,
+      "operator_id": "char_123_fang",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "Both medics are deployed, both central blockers live, and opening outer enemies remain contained.",
+      "failure_effect_on_later_phases": "A missing blocker or failed healing handoff invalidates the later DP and containment assumptions.",
+      "goal": "Establish four-route interception and the replacement medical sequence.",
+      "handoff_requirements": [
+        "Ansel's earlier deployment must create real recovery before artillery exposure.",
+        "Melantha must finish her opening upper duties before withdrawal."
+      ],
+      "phase_id": "OPENING",
+      "responsibilities": [
+        "Fang and Friston contain central traffic.",
+        "Midnight and Melantha intercept their respective outer routes and attack eastern roadblocks when eligible.",
+        "Ansel begins lower-central recovery; Hibiscus subsequently recovers Fang and supports Ansel."
+      ],
+      "start_condition": "Stage begins at frame zero.",
+      "survival_dependencies": [
+        "Fang survives to provide the first two budgeted DP grants.",
+        "Friston survives until early Ansel healing.",
+        "Temporary upper Melantha survives without assigned medical coverage."
+      ]
+    },
+    {
+      "completion_condition": "Artillery is dead, pending impacts are survived, Beagle holds upper outer and Melantha has returned centrally.",
+      "failure_effect_on_later_phases": "Steward's death leaves artillery able to kill the western waiting civilian and recreates the subsequent formation collapse.",
+      "goal": "Survive artillery, eliminate it and establish permanent outer interception.",
+      "handoff_requirements": [
+        "Living Friston receives Melantha's central damage support.",
+        "Living Steward retains his late approach-fire assignment."
+      ],
+      "phase_id": "ARTILLERY_AND_OUTER_HANDOFF",
+      "responsibilities": [
+        "Ansel's earlier skill supports the critical central and Steward healing sequence.",
+        "Hibiscus supports Ansel and Steward, then sustains her own exposure.",
+        "Beagle replaces upper Melantha; Midnight retains lower interception.",
+        "Steward supplies sustained artillery arts."
+      ],
+      "start_condition": "Opening artillery impacts begin against the deployed formation.",
+      "survival_dependencies": [
+        "Actual healing selection must preserve Friston, Ansel, Hibiscus and Steward.",
+        "Beagle's upper handoff requires no healing.",
+        "The absence of Lancet's global heal must be compensated before lethal impacts."
+      ]
+    },
+    {
+      "completion_condition": "All scheduled spawns have occurred and final approach duties are complete without a leak.",
+      "failure_effect_on_later_phases": "An escaped enemy invalidates zero-leak acceptance; a central death also exposes protected targets and prevents safe clearance transitions.",
+      "goal": "Close mixed central pressure and all final hostile routes.",
+      "handoff_requirements": [
+        "Steward withdraws only after his final approach-fire responsibility is fulfilled.",
+        "Retained central operators accept responsibility for every surviving blocked enemy."
+      ],
+      "phase_id": "MIXED_AND_FINAL_PRESSURE",
+      "responsibilities": [
+        "Fang holds upper central while Midnight and Steward supply damage.",
+        "Friston holds lower central while Melantha kills his blocked enemies.",
+        "Both permanent outer interceptors retain their lanes.",
+        "Medics sustain armor and paired-thrower pressure."
+      ],
+      "start_condition": "Central armor and later officer pressure enter the established formation.",
+      "survival_dependencies": [
+        "First upper armor must clear before Fang's block capacity is exceeded.",
+        "Friston and Melantha must remain available for late lower throwers and #34.",
+        "Midnight's own blocked targets can reduce central crossfire."
+      ]
+    },
+    {
+      "completion_condition": "Residual hostiles are dead, the western upper roadblock is destroyed and upper safe arrival is observed.",
+      "failure_effect_on_later_phases": "Premature withdrawal can leak a residual enemy; premature civilian exposure can cause protected-target failure.",
+      "goal": "Finish held armor and release the upper civilian safely.",
+      "handoff_requirements": [
+        "Confirm upper-central clearance before Fang's planned withdrawal.",
+        "Allow Fang's full redeployment recovery before lower roadblock work."
+      ],
+      "phase_id": "RESIDUAL_CLEARANCE",
+      "responsibilities": [
+        "Retained blockers, Melantha and Midnight finish surviving enemies.",
+        "Steward returns to western upper roadblock clearance.",
+        "Medics remain deployed throughout residual combat."
+      ],
+      "start_condition": "Final approaches have ended and Steward's combat deployment has withdrawn.",
+      "survival_dependencies": [
+        "Fang remains until upper-central hostile clearance.",
+        "No artillery or officer may threaten the waiting upper civilian."
+      ]
+    },
+    {
+      "completion_condition": "Both protected targets have safely arrived, no active enemies remain, spawns are exhausted, life is positive and leaks are zero.",
+      "failure_effect_on_later_phases": "A protected-target death, missing arrival or unresolved active entity prevents project acceptance.",
+      "goal": "Release the lower civilian and verify complete stage acceptance.",
+      "handoff_requirements": [
+        "Settlement requires both observed arrivals rather than a timer or positive life alone."
+      ],
+      "phase_id": "LOWER_EVACUATION_AND_SETTLEMENT",
+      "responsibilities": [
+        "Fang destroys the western lower roadblock.",
+        "Retained operators finish any remaining legitimate hostile or clearance duties.",
+        "Observe protected-target arrival events and final objective metrics."
+      ],
+      "start_condition": "Fang has completed combat duty and redeployment recovery.",
+      "survival_dependencies": [
+        "The lower civilian remains alive while waiting and traversing the released route."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "No hostile interception duty.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Steward kills artillery under both medics. Elimination must precede artillery access to the western waiting civilian; retaining nominal DPS after Steward dies is invalid.",
+      "routes": [
+        "route-1"
+      ]
+    },
+    {
+      "responsibility": "Opening Melantha clears the eastern upper roadblock; Beagle intercepts later officers upstream of the western waiting civilian; returning Steward clears the western roadblock.",
+      "routes": [
+        "route-2"
+      ]
+    },
+    {
+      "responsibility": "Midnight clears the eastern lower roadblock and intercepts subsequent officers under Ansel. Returning Fang clears the western roadblock.",
+      "routes": [
+        "route-15"
+      ]
+    },
+    {
+      "responsibility": "Fang blocks upper-central traffic. Midnight supplies crossfire and arts windows; Steward chips approaches. Clear the first armor before the paired throwers exhaust Fang's two-block capacity.",
+      "routes": [
+        "route-3",
+        "route-4",
+        "route-12",
+        "route-13",
+        "route-20",
+        "route-21",
+        "route-30",
+        "route-31"
+      ]
+    },
+    {
+      "responsibility": "Friston blocks lower-central traffic. Returning Melantha supplies sustained damage, including #20, paired late throwers and final armor #34. Steward and available Midnight crossfire supplement her.",
+      "routes": [
+        "route-5",
+        "route-6",
+        "route-11",
+        "route-14",
+        "route-18",
+        "route-19",
+        "route-28",
+        "route-29"
+      ]
+    },
+    {
+      "responsibility": "Melantha handles opening upper-outer traffic; Beagle handles every later upper-outer officer.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-17",
+        "route-22",
+        "route-23",
+        "route-24"
+      ]
+    },
+    {
+      "responsibility": "Midnight retains lower-outer interception throughout combat. His own blocked enemies can interrupt central assistance.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-16",
+        "route-25",
+        "route-26",
+        "route-27"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Upper-central containment and survival-dependent opening DP.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_4093_frston",
+      "role": "Permanent lower-central three-block containment.",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_283_midn",
+      "role": "Lower-outer interception, eastern lower roadblock clearance and crossfire onto both central blocking tiles.",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_208_melan",
+      "role": "Temporary upper-outer interception and eastern upper roadblock clearance.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_212_ansel",
+      "role": "Early Friston recovery; subsequently heal Midnight, Friston, Steward and himself.",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_120_hibisc",
+      "role": "Recover Fang, support Ansel and Steward, and sustain her own artillery exposure.",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Artillery elimination followed by central approach damage.",
+      "tile": [
+        5,
+        7
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_122_beagle",
+      "role": "Permanent upper-outer interception after Melantha's withdrawal.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_208_melan",
+      "role": "Damage enemies held by Friston without replacing his blocking responsibility.",
+      "tile": [
+        4,
+        4
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Western upper roadblock clearance after combat duties and redeployment recovery.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_123_fang",
+      "role": "Western lower roadblock clearance after upper-central hostile clearance.",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "formation_structure": {
+    "artillery_separation": "Steward is two tiles from Ansel and more than three tiles from Hibiscus. Both medics cover Steward, while a shell centered on Steward does not also hit either medic.",
+    "economy": "Credit natural DP and only Fang's first three survival-dependent six-DP grants. Ignore refunds when establishing affordability. Conservative post-deployment DP is approximately 5.033 at Ansel 1321, 0.033 at Hibiscus 1681, 3.067 at Steward 2132 and 24.033 at Beagle 2821. Melantha's 2010-to-4111 and the later redeployments each allow more than 70 seconds.",
+    "medical_reconstruction": "Ansel deploys at 1321 and becomes skill-ready at 2071. Hibiscus deploys at 1681 and can recover Fang and Ansel. The intended replacement for Lancet's rescue is ordinary recovery followed by Ansel's boosted healing before the second central artillery impact; actual recipient selection must validate this handoff.",
+    "opening": "Fang and Friston hold the central routes. Midnight supplies lower-outer interception and central crossfire. Melantha handles the opening upper-outer enemies and eastern upper roadblock.",
+    "removed_operator_duties": "Lancet's global rescue is reassigned to the earlier Ansel/Hibiscus healing handoff. His former upper supplementation is replaced structurally: temporary Melantha leaves, durable Beagle takes upper-outer duty, and permanent Midnight receives Ansel's ordinary healing in the lower lane.",
+    "roster": "Exactly eight distinct catalog IDs; every selected operator has identity.rarity 1-3 and qualification.normal_mode true. Peak simultaneous deployment is eight.",
+    "upper_outer_survival": "Beagle receives no ordinary medical coverage. His base 490 DEF limits a 330-ATK officer's ordinary physical hit to 16.5 under the supplied formula. His HP and three-block capacity must last through all five later upper-outer officers; no unsupported defensive talent is credited.",
+    "verified_geometry": "Midnight at [6,5] DOWN covers [3,5], [4,5] and [6,6]. Ansel covers Midnight, Friston and eastern Steward. Hibiscus covers Fang, Friston, Ansel and eastern Steward. Melantha at [4,4] reaches Friston's tile."
+  },
+  "formation_transitions": [
+    {
+      "frame": 1321,
+      "transition": "Begin Ansel's early central recovery and earlier SP accumulation."
+    },
+    {
+      "frame": 1681,
+      "transition": "Add Hibiscus to recover Fang and provide separated double coverage for Steward."
+    },
+    {
+      "frame": 2010,
+      "transition": "Withdraw upper Melantha after her hostile interception and eastern roadblock duties."
+    },
+    {
+      "frame": 2072,
+      "transition": "Activate Ansel's first boosted healing window across the critical artillery handoff."
+    },
+    {
+      "frame": 2821,
+      "transition": "Install Beagle before the later upper-outer officer pair."
+    },
+    {
+      "frame": 4111,
+      "transition": "Return Melantha to protected lower-central damage duty."
+    },
+    {
+      "frame": 7000,
+      "transition": "Release Steward after final approach fire; retained central operators finish blocked survivors."
+    },
+    {
+      "frame": 9101,
+      "transition": "Redeploy Steward to destroy the western upper roadblock."
+    },
+    {
+      "frame": 10800,
+      "transition": "Release Fang after upper-central hostile clearance."
+    },
+    {
+      "frame": 12901,
+      "transition": "Redeploy Fang to destroy the western lower roadblock and complete evacuation."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "id": "LEGAL_ROSTER",
+      "requirement": "The selected/deployed ID union remains exactly eight legal normal-mode rarity-1-to-3 operators; no substitutions or hidden aliases."
+    },
+    {
+      "id": "LEGAL_TILES",
+      "requirement": "Every deployment uses its declared integer [row,col] and cardinal direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+    },
+    {
+      "id": "OPENING_HANDOFF",
+      "requirement": "Ansel must recover Friston early, and Hibiscus must recover Ansel sufficiently for boosted healing to reach Friston before the second central artillery impact. A funded deployment does not establish survival."
+    },
+    {
+      "id": "ARTILLERY_MEDICINE",
+      "requirement": "Steward remains alive through artillery elimination. Hibiscus must survive every self-directed impact and any pending projectile. Neither coverage nor a skill activation proves that the required healing was selected."
+    },
+    {
+      "id": "UPPER_HANDOFF",
+      "requirement": "Melantha completes upper opening interception and eastern roadblock clearance before retreat; Beagle is established before later upper-outer traffic and survives its cumulative damage."
+    },
+    {
+      "id": "CENTRAL_DAMAGE",
+      "requirement": "Friston remains alive for Melantha's frame-4111 return. Retain Melantha's lower-central damage and Steward's approach fire through the late throwers and #34."
+    },
+    {
+      "id": "PROTECTED_TARGETS",
+      "requirement": "Ordinary operators neither attack nor block civilians, and ordinary medicine is not assigned civilian healing. Keep officers away from waiting civilians and eliminate artillery before lethal western exposure."
+    },
+    {
+      "id": "COMPLETE_ACCEPTANCE",
+      "requirement": "Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and both expected protected targets safely arrived. Record operator deaths separately."
+    }
+  ],
+  "operational_plan_id": "R8_7_GPT_M52_V3",
+  "parent_hypothesis_id": "R8-7-M52-V3-H1",
+  "pressure_window_responsibilities": [
+    {
+      "duties": "Establish four-route interception, preserve Fang's income and exchange the medics' deployment order without losing either central blocker.",
+      "window_frames": [
+        0,
+        1960
+      ]
+    },
+    {
+      "duties": "Replace the global rescue through actual healing. Keep Friston, Ansel and Steward alive across successive artillery impacts; Ansel's earlier skill must support Steward's opening exposure.",
+      "window_frames": [
+        1961,
+        2905
+      ]
+    },
+    {
+      "duties": "Hibiscus sustains her artillery exposure; Beagle assumes upper interception; Melantha returns centrally; Steward completes artillery elimination.",
+      "window_frames": [
+        2906,
+        4442
+      ]
+    },
+    {
+      "duties": "Maintain living blockers and real damage against mixed #20/#21/#22 pressure, paired throwers and final armor approaches.",
+      "window_frames": [
+        4443,
+        7000
+      ]
+    },
+    {
+      "duties": "Finish held enemies, complete western roadblock clearance and observe both safe arrivals. The end of this observation allowance is not automatic success.",
+      "window_frames": [
+        7001,
+        18000
+      ]
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward",
+    "char_122_beagle"
+  ],
+  "skill_intents": [
+    {
+      "intent": "Automatic DP requires continued living deployment. Only the first three grants establish the deployment budget.",
+      "operator_id": "char_123_fang"
+    },
+    {
+      "frames": [
+        2072,
+        3873,
+        5674,
+        7475
+      ],
+      "intent": "Advance boosted healing through the initial artillery handoff and later paired-thrower pressure. Do not prescribe healing recipients or equal-ratio tie-breaks.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frames": [
+        2906,
+        4407,
+        5908,
+        7409
+      ],
+      "intent": "Begin the first boost before the final opening Steward recovery and retain it across the expected 100-115-second self-exposure. Subsequent windows support mixed armor and thrower pressure.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "frames": [
+        1772,
+        5073,
+        8374
+      ],
+      "intent": "Clear the lower eastern roadblock and supply two later central arts windows. His forty-second effects pause time-SP recovery.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "frames": [
+        5342,
+        7143
+      ],
+      "intent": "Accelerate lower-central armor clearance and finish residual held threats while Friston retains blocking.",
+      "operator_id": "char_208_melan"
+    },
+    {
+      "intent": "Use ordinary arts and automatic attack-SP strikes through artillery and final approach duties, then ordinary western roadblock attacks.",
+      "operator_id": "char_210_stward"
+    },
+    {
+      "intent": "Use ordinary three-block containment and physical clearance. No unsupported talent or medical coverage is assumed.",
+      "operator_id": "char_122_beagle"
+    }
+  ],
+  "tactical_thesis": "Remove Lancet-2, retain Beagle, and reconstruct the medical handoff. Deploy Ansel before Hibiscus so his earlier healing cadence and frame-2072 skill can replace the global rescue. Keep Midnight in the medically covered lower outer lane; withdraw upper-opening Melantha after eastern clearance, install Beagle there, and return Melantha to lower-central damage. Retain Steward's separated artillery position and late approach fire. This eight-ID candidate is statically checked and unexecuted; its revised healing sequence remains a survival hypothesis."
+}

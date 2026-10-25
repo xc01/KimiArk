@@ -1,0 +1,135 @@
+{
+  "schema_version": "M52_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "decision_model": {
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "extra_config_values": [
+      "features.apps=false"
+    ],
+    "runner": "scripts/run_gpt_tactical_stage_session_v1.py",
+    "internal_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "baseline_verification": {
+    "m51_plan_id": "R8_7_GPT_M51_V2",
+    "m51_verified_commit": "775906d5535be413a2e7f1015fd760f5c2708f19",
+    "source_equals_plan_snapshot": true,
+    "source_actions_equal_frozen_actions": true,
+    "distinct_operator_union": 10,
+    "hostile_settlement": "33/33 killed; 0 leaked; 0 active",
+    "protected_settlement": "#3 and #14 reached; 0 deaths"
+  },
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 3,
+    "cli_remaining": 0,
+    "max_stage_simulations": 3,
+    "started_stage_simulations": 3,
+    "simulations_remaining": 0,
+    "historical_balance_transfer": false,
+    "m51_balance": "FROZEN_AT_2_CLI_2_SIMULATION"
+  },
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "global_minimum_proved": false,
+    "record": "docs/review/fc77177/m52_minimum_operator_reduction_v1/m52_best_verified_win_v1.json"
+  },
+  "attempt_01": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "parent_plan_id": "R8_7_GPT_M51_V2",
+    "target_union": 9,
+    "contract_status": "PASS",
+    "static_conflicts": 0,
+    "distinct_operator_union": 9,
+    "action_count": 27,
+    "tactical_change": "Removed Lava; advanced Midnight arts windows to 5073/8374 and kept Steward deployed longer.",
+    "result": {
+      "win": true,
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "remaining_life": 3,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "protected_reached_frames": {
+        "enemy_3001_upeopl#3": 10249,
+        "enemy_3001_upeopl#14": 15249
+      }
+    },
+    "hashes": {
+      "source_llm_structured_output_sha256": "5430d190c3a83e237060a4aba9956b6eeff4020c75a788479e5451b3b023cec5",
+      "diagnostic_events_sha256": "1b8271110c4357f6c0ecdf295cf5685cc8a57d27c7fbbe84c268cfdbf911348b",
+      "diagnostic_summary_sha256": "e756706b6479f168c7c1e2c703d85cfb03b7a4816823071ace9f653bcd11182d",
+      "plan_snapshot_sha256": "42b2410092599634b62d8cabd43cecfb2a8143573d83f3d58e14a1cb9165765d",
+      "action_snapshot_sha256": "03f8c06db4a0aa1f85a0e1eaade0eb9f272d0787065e83184233bd2ec5e0af34"
+    }
+  },
+  "attempt_02": {
+    "plan_id": "R8_7_GPT_M52_V2",
+    "parent_plan_id": "R8_7_GPT_M52_V1",
+    "target_union": 8,
+    "contract_status": "PASS",
+    "static_conflicts": 0,
+    "distinct_operator_union": 8,
+    "action_count": 28,
+    "tactical_change": "Removed Beagle and swapped opening outer-lane positions.",
+    "result": {
+      "win": false,
+      "enemies_killed": 20,
+      "enemies_leaked": 13,
+      "operator_deaths": 8,
+      "remaining_life": -11,
+      "protected_target_deaths": 1,
+      "protected_targets_reached": 1
+    },
+    "causal_summary": "Steward died at 2561, before the first 4625 leak; later deaths invalidated post-death skill actions and released #21/#22. #20 leaked with zero damage and zero BLOCK.",
+    "hashes": {
+      "source_llm_structured_output_sha256": "3c37dc466044f32cb169749081b9fd703f29a86bb0a6f8363cca5fb0a9039df7",
+      "diagnostic_events_sha256": "28191136f841b5e43864b331f55b28b99431774e66fd4b62dbd320baa53b1eff",
+      "diagnostic_summary_sha256": "f133057af1bdd336f3fda44878c0990be1189ee64662714ddf090ac9f382d0b7",
+      "plan_snapshot_sha256": "8ef9b4ec3cf564fc415445c955dad971f82a4c5240f33053335e46a574bc436c",
+      "action_snapshot_sha256": "7ed9d2dccec624a782a7a72d833125d3d2c7ce001339ad2fcbad6c9fd44f734f"
+    }
+  },
+  "attempt_03": {
+    "plan_id": "R8_7_GPT_M52_V3",
+    "parent_plan_id": "R8_7_GPT_M52_V1",
+    "target_union": 8,
+    "contract_status": "PASS",
+    "static_conflicts": 0,
+    "distinct_operator_union": 8,
+    "action_count": 27,
+    "tactical_change": "Removed Lancet-2, retained Beagle, and reconstructed the medical handoff with earlier Ansel deployment and skills.",
+    "result": {
+      "win": false,
+      "enemies_killed": 19,
+      "enemies_leaked": 14,
+      "operator_deaths": 6,
+      "remaining_life": -12,
+      "protected_target_deaths": 1,
+      "protected_targets_reached": 1
+    },
+    "causal_summary": "Friston died at 2111; #11 leaked at 3065 before #13. The medical reconstruction did not preserve artillery output survival; later #19/#21/#22/#34 and both-route failures followed.",
+    "hashes": {
+      "source_llm_structured_output_sha256": "44bcbc8fc02117e93e569f8806a44f56b281bef9914c2c7240afae5fd72f1e58",
+      "diagnostic_events_sha256": "1e0bf853eabb0f1fc36638d5a766ad52633b46dcb91b8932ac19a2d4d83dde40",
+      "diagnostic_summary_sha256": "cb60918c38929b09ae1c27bf93e627806bc43b62443efb4185fd3e19d2779de9",
+      "plan_snapshot_sha256": "f4b8ff85c78e7f47c76cdff92ed6ab82f6ced034a249e5d54ae0f7f141029a22",
+      "action_snapshot_sha256": "68130876e11ca8f68d7b5a8d00f1721f9b9900f9fee04ddc6cc5d8969e6a1ae0"
+    }
+  },
+  "claims": {
+    "current_model_fixed_simulator_best": "9 distinct IDs",
+    "global_minimum_proved": false,
+    "eight_operator_impossibility_proved": false,
+    "real_game_status": "NOT_PLAYED",
+    "faithful_certificate_status": "UNKNOWN",
+    "robust_claim": false,
+    "probabilistic_win_claim": false,
+    "further_tactical_calls_or_simulations": false
+  },
+  "bundle_path": "output/r8_1_r8_7_batch_v1/main_08-07/m52_minimum_operator_reduction_v1/m52_master_ahead.bundle"
+}

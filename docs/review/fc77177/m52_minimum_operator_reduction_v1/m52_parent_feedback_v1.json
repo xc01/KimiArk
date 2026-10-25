@@ -1,0 +1,52 @@
+{
+  "schema_version": "M52_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M51_V2",
+  "source_scope": "RECOMPUTED_FROM_LOCAL_M51_V2_RAW_EVENTS_AND_FROZEN_ARTIFACTS",
+  "baseline": {
+    "win": true,
+    "enemies_killed": 33,
+    "enemies_leaked": 0,
+    "operator_deaths": 0,
+    "remaining_life": 3,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 2,
+    "action_count": 29,
+    "distinct_operator_union": 10,
+    "selected_low_star_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_120_hibisc",
+      "char_212_ansel",
+      "char_210_stward",
+      "char_285_medic2",
+      "char_122_beagle",
+      "char_121_lava"
+    ]
+  },
+  "known_conditional_successes": {
+    "artillery": "Steward killed enemy_1112_emppnt#0 at 4273 with separated medical support; this is timeline-specific and must be recomputed if roster, timing, or blockers change.",
+    "opening_and_middle_routes": "M51 V2 had zero leaks, including routes that M51 V1 failed; treat successful handoffs as conditional evidence, not fixed deadlines.",
+    "late_closure": "M51 V2 resolved #28, #31, and #34 without leak; the plan and raw events are authoritative for the actual blockers and damage chain.",
+    "protected_targets": "#3 reached at 7749 and #14 reached at 12549, both with zero deaths."
+  },
+  "m50_damage_correction_scope": "Use the corrected M50 totals only for that M50 plan: artillery 3339.09, #21 246.60, #33 922.70. Do not mix M50 and M51 timelines.",
+  "revision_task": {
+    "target_distinct_operator_union": "AT_MOST_9",
+    "comparison_policy": "M51 V2 is the only verified parent. GPT may merge duties, retimed deploy/retreat/redeploy, alter medic structure, use zero/one/two vanguards, or reconstruct wholly; may also explain why fewer than 9 is viable in the same call but must emit one executable plan.",
+    "required_checks": [
+      "Set --max-unique-deployed-operators to 9 and keep selected/DEPLOY union at most 9.",
+      "Preserve complete WIN, zero leaks, both protected targets safe, and full entity settlement.",
+      "For every removed operator, identify its prior duties and their replacement timing, range, blocking, healing, output, and economy.",
+      "Recompute artillery survival, opening routes, roadblock clearance, late armor, and deployment/redeployment windows on the new timeline.",
+      "Do not treat M51 frames, damage totals, or medical presence as universal deadlines."
+    ]
+  },
+  "evidence_paths": {
+    "parent_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_cli/llm_structured_output.json",
+    "parent_events": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_diagnostic/diagnostic_events.json",
+    "parent_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_diagnostic/diagnostic_summary.json",
+    "baseline_verification": "docs/review/fc77177/m52_minimum_operator_reduction_v1/m51_baseline_verification_v1.json"
+  }
+}

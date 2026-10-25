@@ -631,3 +631,17 @@ delaying Steward, preserving the blocker and economy chain. It then transferred
 the late clearance to a living Fang. This closes M51 under the fixed timeline,
 but the frame choices remain candidate-specific evidence rather than universal
 deadlines or a robustness claim.
+
+## 2026-10-25 M52 shows removing a support role changes an earlier survival chain
+
+M52 V1 proved Lava's M51 duty could be folded into Steward and Midnight while
+still closing all routes at 9 IDs. The first 8-ID attempt removed Beagle and
+reshaped outer lanes; it still closed #11/#13 but lost Steward at 2561, before
+its first 4625 leak, then cascaded through Friston, Ansel, Hibiscus, and the
+mixed #20/#21/#22 window.
+
+The second 8-ID attempt removed Lancet-2 and reconstructed medical handoff, but
+lost Friston at 2111 and #11 at 3065. Neither 8-ID loss proves that 8 is
+impossible. It only identifies two insufficient structures: outer-lane reposition
+without preserving artillery cadence, and a medical replacement that failed the
+earlier blocker survival prerequisite.

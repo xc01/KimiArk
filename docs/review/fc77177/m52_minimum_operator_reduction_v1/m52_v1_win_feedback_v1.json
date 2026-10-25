@@ -1,0 +1,66 @@
+{
+  "schema_version": "M52_ATTEMPT_WIN_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M52_V1",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_WIN",
+    "win": true,
+    "enemies_killed": 33,
+    "enemies_leaked": 0,
+    "operator_deaths": 0,
+    "remaining_life": 3,
+    "final_dp": 99,
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 2,
+    "protected_reached_frames": {
+      "enemy_3001_upeopl#3": 10249,
+      "enemy_3001_upeopl#14": 15249
+    },
+    "action_count": 27,
+    "distinct_operator_union": 9
+  },
+  "roster": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_120_hibisc",
+    "char_212_ansel",
+    "char_210_stward",
+    "char_285_medic2",
+    "char_122_beagle"
+  ],
+  "verified_differences_from_m51_v2": {
+    "removed_operator": "char_121_lava",
+    "midnight_extra_arts_windows": [
+      5073,
+      8374
+    ],
+    "steward_retreat": "Moved from 4500 to 7000 so his arts continue against late Uterer and armor.",
+    "steward_redeploy": "Moved from 6601 to 9101 after the late route duties.",
+    "fang_tail": "Retained the 10800 retreat and 12901 redeploy pattern."
+  },
+  "verified_key_closures": {
+    "enemy_1107_uoffcr#11": "Friston BLOCK@2738; Fang kill@2881.",
+    "enemy_1107_uoffcr#13": "Friston BLOCK@3098; Midnight kill@3311.",
+    "enemy_1108_uterer#28": "Friston BLOCK@5871; Melantha kill@5899 after Steward chips.",
+    "enemy_1108_uterer#31": "Friston BLOCK@6081; Melantha kill@6154 after Steward chips.",
+    "enemy_1110_uamord#34": "Friston BLOCK@6596; Friston kill@7140 with repeated Melantha damage and Steward support.",
+    "enemy_1112_emppnt#0": "Steward continues the separated medical artillery duty; raw events are authoritative for exact hit and death timing."
+  },
+  "revision_task": {
+    "target_distinct_operator_union": "AT_MOST_8",
+    "parent_policy": "Use V1 as the conditional nine-ID parent. GPT may remove or replace any one ID, alter timing/positions/directions/skills, or reconstruct; Python must not choose the removed operator or edit actions.",
+    "mandatory_analysis": [
+      "For the removed/replaced ID, state each duty and its replacement over time.",
+      "Recompute opening four-route interception, artillery survival and output, protected-target roadblock exposure, late Uterer pressure, armor #34, and redeploy economy.",
+      "Keep complete WIN, zero leaks, and both protected targets safe; do not trade completeness for count."
+    ]
+  },
+  "hashes": {
+    "source_llm_structured_output_sha256": "5430d190c3a83e237060a4aba9956b6eeff4020c75a788479e5451b3b023cec5",
+    "diagnostic_events_sha256": "1b8271110c4357f6c0ecdf295cf5685cc8a57d27c7fbbe84c268cfdbf911348b",
+    "diagnostic_summary_sha256": "e756706b6479f168c7c1e2c703d85cfb03b7a4816823071ace9f653bcd11182d",
+    "plan_snapshot_sha256": "42b2410092599634b62d8cabd43cecfb2a8143573d83f3d58e14a1cb9165765d",
+    "action_snapshot_sha256": "03f8c06db4a0aa1f85a0e1eaade0eb9f272d0787065e83184233bd2ec5e0af34"
+  }
+}

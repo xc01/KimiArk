@@ -510,3 +510,10 @@ actions, passed static checks, and won at 33/0/0/life 3 with both protected
 targets safe and no runtime errors. Remaining budget was frozen. This is only a
 current-model fixed-simulator WIN; no real-game, faithful, or robust success is
 claimed.
+
+## 2026-10-25 — M52 verifies a 9-operator WIN
+
+M52 used 3/3 real tactical CLI starts and 3/3 fixed simulations. V1 reached a
+complete fixed-simulator WIN with exactly 9 distinct IDs. Two independently
+structured 8-ID candidates passed static checks but lost. The best verified
+result is 9 IDs; no global minimum or 8-ID impossibility is claimed.

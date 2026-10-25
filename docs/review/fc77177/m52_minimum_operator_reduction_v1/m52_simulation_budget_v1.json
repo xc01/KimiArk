@@ -1,0 +1,22 @@
+{
+  "cli_max_real_tactical_process_starts": 3,
+  "cli_started_real_tactical_process_starts": 3,
+  "counting_rule": "Count every real tactical CLI process invocation and every fixed full-stage simulation at STARTED, including timeouts, failures, and late results; no automatic retry or resume.",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true,
+    "global_minimum_claim": false
+  },
+  "hard_roster_limit": {
+    "counting_rule": "Union of selected_low_star_operator_ids and all DEPLOY action operator_id values; retreat and redeploy count each ID once.",
+    "max_unique_deployed_operator_ids": 8
+  },
+  "max_stage_simulations": 3,
+  "non_stackable": "M42 through M51 balances are historical and are not transferred. M51 remains frozen at CLI 2/3 and simulation 2/3. This is a new M52 authorization of 3/3 and 3/3 for minimum-count exploration.",
+  "objective_rule": "Each complete WIN must have zero leaks, protected targets zero deaths and all reached, no active/unresolved spawned enemies, and the configured selected/DEPLOY union. On success freeze immediately and update best_verified_win; remaining budget may target fewer distinct IDs.",
+  "prior_stage_simulations": 0,
+  "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+  "stage_id": "main_08-07",
+  "started_stage_simulations": 3
+}

@@ -927,3 +927,20 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   `output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_cli/`.
   Closeout and hashes:
   `docs/review/fc77177/m51_ten_operator_full_win_v2/m51_closeout_v1.json`.
+
+# M52 minimum-count ledger — 2026-10-25
+
+- Authorization was 3 real Codex CLI starts and 3 fixed simulations; all were
+  used. M51 remained frozen at CLI 2/3 and simulation 2/3. Internal request
+  count is `UNKNOWN_CLI_INTERNAL`.
+- M51 V2 was verified from local source/plan/action artifacts before use:
+  10 IDs, 33/33 hostile kills, zero leaks, both protected targets reached.
+- V1: parent M51 V2, 9 IDs, 27 actions, static-clean, WIN at 33/0/0/life 3.
+  It removed Lava while preserving opening, artillery survival, late Uterer,
+  armor #34, and both protected targets. This is `best_verified_win`.
+- V2: parent V1, 8 IDs, 28 actions, static-clean, LOSS at 20/13/8/life -11.
+  Steward died at 2561 before the first 4625 leak; #20 had zero damage/BLOCK.
+- V3: parent V1 with V2 feedback, 8 IDs, 27 actions, static-clean, LOSS at
+  19/14/6/life -12. Friston died at 2111 and #11 leaked at 3065.
+- Closeout:
+  `docs/review/fc77177/m52_minimum_operator_reduction_v1/m52_closeout_v1.json`.

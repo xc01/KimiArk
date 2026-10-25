@@ -1,0 +1,66 @@
+{
+  "schema_version": "M52_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M52_V2",
+  "source": "RECOMPUTED_FROM_RAW_M52_V2_EVENTS",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 20,
+    "enemies_leaked": 13,
+    "operator_deaths": 8,
+    "remaining_life": -11,
+    "action_count": 28,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 2561,
+      "event": "Steward died",
+      "facts": "He received repeated artillery hits (950 shell damage against #3, while his own Steward-facing arts ticks were 249.10 with skill ticks 473.29). Ansel healed him at 2283/2455 and Hibiscus at 2305/2477, but the V1 heal cadence did not carry over after the outer-lane repositioning."
+    },
+    {
+      "frame": 3910,
+      "event": "Friston died after sustained physical pressure."
+    },
+    {
+      "frame": 4060,
+      "event": "Ansel died; its 4233 skill then failed."
+    },
+    {
+      "frame": 4363,
+      "event": "Hibiscus died; its 4443 skill then failed."
+    },
+    {
+      "frame": 4625,
+      "event": "#20 leaked",
+      "facts": "enemy_1107_uoffcr#20 spawned at 4080 and leaked with zero DAMAGE and zero BLOCK records."
+    },
+    {
+      "frame": 5067,
+      "event": "#21 leaked",
+      "facts": "Fang blocked it at 4646, but Fang died at 4668 and Lancet-2 at 4836; #21 received only 111.80 friendly damage."
+    },
+    {
+      "frame": 5196,
+      "event": "#22 leaked and remaining life reached 0.",
+      "facts": "#22 received no friendly damage; only its attacks on Fang/Midnight were observed."
+    },
+    {
+      "frame": 5353,
+      "event": "Artillery killed protected #3.",
+      "facts": "#3 was already exposed on roadblock #1 at 2335 and received three 950.00 physical artillery hits at 5053/5203/5353."
+    }
+  ],
+  "structural_fact": "V2 removed Beagle and swapped opening outer positions (Midnight [6,5] DOWN; Melantha [1,5] RIGHT). Although #11/#13 were still closed, this altered the support/timing chain and did not preserve V1's Steward survival or mixed-pressure middle route.",
+  "revision_requirements": [
+    "Use the final CLI/simulation slot for one 8-ID candidate; do not request a new budget.",
+    "Fix Steward's survival first by verified medical timing/selection or a structurally different artillery response.",
+    "Ensure mixed #20/#21/#22 pressure has living blockers and enough real damage.",
+    "Prevent protected #3's artillery death while maintaining late #31/#34 closure.",
+    "All post-death skill actions must be removed or replaced; legal:false cannot validate a prediction."
+  ]
+}
