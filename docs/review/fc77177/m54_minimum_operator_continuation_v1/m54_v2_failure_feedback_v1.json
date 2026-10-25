@@ -1,0 +1,74 @@
+{
+  "schema_version": "M54_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M54_V2",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 23,
+    "enemies_leaked": 10,
+    "operator_deaths": 7,
+    "remaining_life": -8,
+    "action_count": 30,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 2503,
+      "event": "First artillery lock on Ansel",
+      "facts": "enemy_1112_emppnt#0 locked [6,5] at 2503 and again at 2653; Ansel died at 2743."
+    },
+    {
+      "frame": 2803,
+      "event": "Artillery locked onto Steward",
+      "facts": "Shells locked [7,2] at 2803/2953; Steward died at 3043."
+    },
+    {
+      "frame": 3520,
+      "event": "Friston died",
+      "facts": "The opening blocker/output handoff lost its anchor after the medical/caster deaths."
+    },
+    {
+      "frame": 5053,
+      "event": "Hibiscus died",
+      "facts": "The replacement no-Lancet chain did not preserve late support."
+    },
+    {
+      "frame": 5152,
+      "event": "First leak",
+      "facts": "enemy_1110_uamord#21 leaked after the survival/output chain collapsed."
+    },
+    {
+      "frame": 5353,
+      "event": "Protected target #3 died",
+      "facts": "enemy_1112_emppnt#0 killed enemy_3001_upeopl#3."
+    },
+    {
+      "frame": 6996,
+      "event": "Armored #34 leaked"
+    }
+  ],
+  "operator_deaths": [
+    "char_212_ansel@2743",
+    "char_210_stward@3043",
+    "char_4093_frston@3520",
+    "char_123_fang@4753",
+    "char_120_hibisc@5053",
+    "char_208_melan@5339",
+    "char_122_beagle@7029"
+  ],
+  "runtime_action_errors": [
+    "12 recorded not-deployed action errors beginning at Ansel@129.1 and spanning Melantha/Hibiscus/Steward/Fang."
+  ],
+  "lesson": "Removing Lancet-2 and separating Hibiscus/Ansel/Steward improved the kill/leak count versus V1, but the first artillery locks still killed Ansel and Steward. The replacement chain therefore failed at survival before the late mixed-pressure and armor duties could be judged."
+  ,
+  "revision_requirements": [
+    "Keep selected/DEPLOY union at 8 and choose a genuinely different 8-ID geometry or replacement; do not repeat V1's Vanilla merge or V2's no-Lancet separation unchanged.",
+    "Break the first artillery lock chain against Ansel/Steward by survival, timing, position, distraction, kill, or a verified live handoff.",
+    "Eliminate all 12 not-deployed action errors and their dependent skills/retreats.",
+    "Jointly preserve Friston's opening windows, Hibiscus late self-support, route #21/#22 containment, protected #3/#14 safety, artillery clearance, late Uterer, and #34."
+  ]
+}

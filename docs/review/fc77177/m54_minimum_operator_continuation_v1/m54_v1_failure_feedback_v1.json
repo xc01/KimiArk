@@ -1,0 +1,91 @@
+{
+  "schema_version": "M54_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M54_V1",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 15,
+    "enemies_leaked": 18,
+    "operator_deaths": 8,
+    "remaining_life": -17,
+    "action_count": 31,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 1541,
+      "event": "Artillery locked onto Ansel",
+      "facts": "enemy_1112_emppnt#0 created a shell at locked position [3,5] with radius 1.2; Ansel died at 1631."
+    },
+    {
+      "frame": 1903,
+      "event": "Artillery locked onto Vanilla",
+      "facts": "A shell locked [5,6]; Vanilla died at 1993. Lancet-2's deployment heal gave Vanilla 200.00 at 1962 but did not prevent the next shell."
+    },
+    {
+      "frame": 2053,
+      "event": "Artillery locked onto Steward",
+      "facts": "Shells at 2053/2203/2353 locked [6,5]; Steward died at 2443 despite Hibiscus heals at 2315/2401."
+    },
+    {
+      "frame": 2942,
+      "event": "Hibiscus boost activated",
+      "facts": "This matched the M52 V1 timing, but the altered Vanilla/Melantha replacement had already lost Ansel and Steward."
+    },
+    {
+      "frame": 3310,
+      "event": "Hibiscus died",
+      "facts": "Her 2942 boost did not close the altered shared-pressure chain."
+    },
+    {
+      "frame": 3520,
+      "event": "Friston died",
+      "facts": "The opening blocker/output chain collapsed before route #16 leaked at 4070."
+    },
+    {
+      "frame": 3966,
+      "event": "Protected target #14 died",
+      "facts": "enemy_1107_uoffcr#18 killed enemy_3001_upeopl#14."
+    },
+    {
+      "frame": 4070,
+      "event": "First leak",
+      "facts": "enemy_1107_uoffcr#16 leaked."
+    },
+    {
+      "frame": 5353,
+      "event": "Protected target #3 died",
+      "facts": "enemy_1112_emppnt#0 killed enemy_3001_upeopl#3."
+    },
+    {
+      "frame": 6996,
+      "event": "Armored #34 leaked"
+    }
+  ],
+  "operator_deaths": [
+    "char_212_ansel@1631",
+    "char_240_wyvern@1993",
+    "char_210_stward@2443",
+    "char_120_hibisc@3310",
+    "char_4093_frston@3520",
+    "char_123_fang@4500",
+    "char_285_medic2@4754",
+    "char_283_midn@4903"
+  ],
+  "runtime_action_errors": [
+    "12 recorded not-deployed action errors, including post-death Vanilla/Ansel/Hibiscus actions and later Midnight/Fang actions."
+  ],
+  "lesson": "Replacing Melantha+Beagle with Vanilla retained eight IDs but did not reproduce the opening survival or roadblock duties. The new geometry exposed Ansel and Vanilla to artillery and then cascaded through Steward, Hibiscus, and Friston. The verified 1142 Vanilla skill is not proof of the full plan."
+  ,
+  "revision_requirements": [
+    "Keep selected/DEPLOY union at 8; the new attempt may retain Vanilla but must prove her survival/clearance window, or choose a different eighth-ID structure.",
+    "Reconcile artillery locked positions, projectile timing, and neighbor exposure before relying on deployment heals.",
+    "Preserve early Ansel/Steward support and late Hibiscus self-preservation together.",
+    "Eliminate post-death actions; every surviving command must have a live operator as its prerequisite.",
+    "Recheck route #16/#18, #14 survival, mixed #20/#21/#22 pressure, roadblocks, artillery, late Uterer, #34, and both protected arrivals."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": "M54_DIFFERENTIAL_PARENT_FEEDBACK_V1",
+  "best_verified_parent": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "action_count": 27,
+    "result": "33 kills, 0 leaks, 0 operator deaths, protected #3 and #14 safely reached, life 3, no remaining enemies, no runtime action errors.",
+    "chinese_roster": ["芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔", "史都华德", "Lancet-2", "米格鲁"],
+    "operator_ids": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_120_hibisc", "char_212_ansel", "char_210_stward", "char_285_medic2", "char_122_beagle"],
+    "provenance": "Work independently verified source GPT JSON = source plan = frozen action; docs/review/fc77177/m53_eight_operator_joint_revision_v1/m52_baseline_verification_v1.json."
+  },
+  "failed_structures_are_not_lower_bounds": {
+    "beagle_removed": ["M52 V2", "M53 V1", "M53 V2"],
+    "lancet_removed": ["M52 V3", "M53 V3"],
+    "scope": "These five branches cover only two roster-class removals and do not prove 8 IDs impossible."
+  },
+  "m52_v1_medical_facts": {
+    "lancet": {
+      "deploy_frame": 1962,
+      "deployment_heal": "Friston 200.00 at deployment.",
+      "total_heal_amount": 6112.0,
+      "target_amounts": {
+        "char_123_fang": 2520.0,
+        "char_283_midn": 2222.0,
+        "char_120_hibisc": 770.0,
+        "char_4093_frston": 200.0,
+        "char_208_melan": 200.0,
+        "char_212_ansel": 200.0
+      },
+      "scope": "Contribution evidence, not proof that Lancet-2 is irreplaceable."
+    },
+    "opening_handoff": "Melantha retreated at 2010; Beagle entered the outer duty at 2821.",
+    "hibiscus_skill": "First activation 2942, next 4443.",
+    "late_survival": "Hibiscus self-healed 558.90 at 3213/3385, took an 890 artillery hit at 3461, survived, and self-healed 558.90 at 3471."
+  },
+  "m53_v2_medical_competition": {
+    "plan_id": "R8_7_GPT_M53_V2",
+    "beagle_removed": true,
+    "melantha_pressure": "Ansel healed Melantha 362.00 at 2197/2283/2369 and 506.80 at 2455/2541.",
+    "steward_delay": "Ansel first healed Steward 351.10 at 2627; in M52 V1, Ansel healed Steward 362.00 at 2283 and 506.80 at 2455/2627.",
+    "hibiscus_skill": "First activation 2222, next declared at 3723 but legal:false after the unit had died.",
+    "late_survival": "Without the boost, Hibiscus self-healed 372.60 at 3213/3299/3385, took 890 artillery at 3461, and died; Steward died at 3911.",
+    "lesson": "Three successful Ansel-to-Melantha heals do not establish the whole medical chain. The M52 V1 boost timing can be copied only after independent proof; old frames are conditional, not universal deadlines."
+  },
+  "additional_specific_failures": {
+    "m53_v1_melantha": "Took 845 artillery hits at 1993 and 2143 and died at 2143.",
+    "m53_v3_hibiscus": "Died at 3043; the 11 subsequent not-deployed errors were consequences of failed survival, not standalone validity fixes."
+  },
+  "comparison_policy": {
+    "minimum_structures": 2,
+    "structure_a": "A no-Beagle structure may be explored, but it must jointly repair early artillery output, late Hibiscus self-preservation, Melantha pressure, and later medic target competition.",
+    "structure_b": "A different 8-ID selection may replace or merge a different duty; it may use a non-Beagle, non-Lancet removal, different vanguard count, retreat/redeploy, cross-lane reuse, or a newly selected ordinary low-star operator.",
+    "constraint": "These are comparison directions, not locked templates. Do not use Python to author or patch tactical actions."
+  },
+  "revision_requirements": [
+    "Emit one executable plan with selected and DEPLOY union at most 8.",
+    "For every removed/replaced ID, identify the replacement, window, blocking, healing, output, DP, tile, cooldown, and redeploy effects.",
+    "Preserve or explicitly replace Friston survival, artillery response, #20/#21/#22 pressure handling, roadblock clearance, protected-target safety, late Uterer, and #34.",
+    "Do not verify a medical chain from one or three HEAL events; require the early and late survival windows to hold together.",
+    "Remove actions that cannot execute after a death; legal:false does not verify a prediction.",
+    "Recompute all deadlines after changing roster, route, blocking, timing, or positions."
+  ]
+}

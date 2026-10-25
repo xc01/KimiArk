@@ -1,0 +1,148 @@
+{
+  "schema_version": "M54_STAGE_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "model_authorization": {
+    "provider": "codex-cli-openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "source": "docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_model_authorization_v1.json"
+  },
+  "objective": {
+    "required": "Current-model simulator WIN, zero enemy leaks, both protected targets alive and safely reached, all spawns settled, no active enemies, ordinary 1-3 star operators only.",
+    "roster_limit_target": 8,
+    "roster_counting_rule": "Union of selected_low_star_operator_ids and all DEPLOY operator IDs; retreat/redeploy counts each ID once.",
+    "operator_deaths_are_hard_veto": false
+  },
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "simulator_win": true,
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3
+    },
+    "roster_chinese_names": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "芙蓉",
+      "安赛尔",
+      "史都华德",
+      "Lancet-2",
+      "米格鲁"
+    ],
+    "source": "output/r8_1_r8_7_batch_v1/main_08-07/m52_minimum_operator_reduction_v1/attempt_01_diagnostic",
+    "verification": "docs/review/fc77177/m53_eight_operator_joint_revision_v1/m52_baseline_verification_v1.json"
+  },
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 3,
+    "cli_remaining": 0,
+    "simulations_max": 3,
+    "simulations_started": 3,
+    "simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "source": "docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_simulation_budget_v1.json"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "plan_id": "R8_7_GPT_M54_V1",
+      "parent_plan_id": "R8_7_GPT_M52_V1",
+      "distinct_operator_union": 8,
+      "action_count": 31,
+      "static_status": "PASS",
+      "tactical_change": "Removed Melantha and Beagle, added Vanilla; merged opening lower-outer interception and eastern restraint clearance into Vanilla while retaining both primary medics and moving Ansel/Steward geometry.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 15,
+        "enemies_leaked": 18,
+        "operator_deaths": 8,
+        "remaining_life": -17,
+        "first_leak": "enemy_1107_uoffcr#16@4070",
+        "protected_target_summary": "#14 died at 3966; #3 died at 5353"
+      },
+      "cause": "Artillery locked and killed Ansel at 1631 and Vanilla at 1993; Steward died at 2443, then the survival/output chain cascaded.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m54_minimum_operator_continuation_v1/attempt_01_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "acc06336cbfdf169dbe671d207ab130ffca3f0ec6e0dde93c5fc52cec57420bc",
+        "action_snapshot_sha256": "24d464fe703d38df2435d2ea55a4583c44850c525ca2762a0df4bdac737275a1",
+        "manifest_sha256": "d3a56483c986384b801094c7bfe8c8076350feca9be24da3ff333c2859c3be33",
+        "final_status_sha256": "a41f02429bad9a695348b616fe6949775344d7ebf362223ce397f8b09aa0f87f"
+      }
+    },
+    {
+      "attempt": 2,
+      "plan_id": "R8_7_GPT_M54_V2",
+      "parent_plan_id": "R8_7_GPT_M54_V1",
+      "distinct_operator_union": 8,
+      "action_count": 30,
+      "static_status": "PASS",
+      "tactical_change": "Removed Lancet-2, restored Melantha/Beagle, deployed Ansel earlier, and separated Hibiscus/Ansel/Steward to reduce shared artillery exposure.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 23,
+        "enemies_leaked": 10,
+        "operator_deaths": 7,
+        "remaining_life": -8,
+        "first_leak": "enemy_1110_uamord#21@5152",
+        "protected_target_summary": "#3 died at 5353; #14 reached at 15249"
+      },
+      "cause": "Artillery locked Ansel at 2503/2653 and Steward at 2803/2953; Ansel died 2743 and Steward 3043, collapsing the no-Lancet survival chain.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m54_minimum_operator_continuation_v1/attempt_02_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "dbc53d2f3777da12bf641b3f09b5164981a9697c2795ee883665fc1c67f41f87",
+        "action_snapshot_sha256": "66aa73860a4d95011df3dc8771418c76cd7d8558b09d65937f5c1c687e50bf1e",
+        "manifest_sha256": "f39263a08f02786437e0eda18c71277e98ad73b0e7b1a187003d8200c8f62e2e",
+        "final_status_sha256": "ab130c38797d4ec195a6ba9e706c31ecaee4e0fb29f543337e9a9f40b6d35390"
+      }
+    },
+    {
+      "attempt": 3,
+      "plan_id": "R8_7_GPT_M54_V3",
+      "parent_plan_id": "R8_7_GPT_M54_V2",
+      "distinct_operator_union": 8,
+      "action_count": 29,
+      "static_status": "PASS",
+      "tactical_change": "Kept the no-Lancet 8-ID roster but replaced isolated recovery with reciprocal principal-medic coverage and concentrated first boosts on the northern artillery window.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 8,
+        "remaining_life": -12,
+        "first_leak": "enemy_1107_uoffcr#19@4611",
+        "protected_target_summary": "#3 died at 5353; #14 reached at 15249"
+      },
+      "cause": "The declared Hibiscus-to-Ansel heals occurred at 2143/2293/2379, but Hibiscus died 3043, Steward 3343, and Ansel 3820; 14 not-deployed errors followed the broken survival chain.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m54_minimum_operator_continuation_v1/attempt_03_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "3da4d993780272ecd5ac71c0d0eb1fafb1eb17b4eeb4e664b89d5ced10cb91f1",
+        "action_snapshot_sha256": "16f56338fb07a895df97ccceda46e2d5e5630ea6a557ce54be9be789539c2aba",
+        "manifest_sha256": "2e4bc2d9baf35a9ea7bfd96dda2aa8c3c3a78f5e732a4e5dc117e437fa34f28e",
+        "final_status_sha256": "a01946cb7234e2a6cdc25cc864d647f49b182310cb97e925a6891de9f00a4bf1"
+      }
+    }
+  ],
+  "conclusion": {
+    "complete_win_reached": false,
+    "best_verified_distinct_operator_union": 9,
+    "global_minimum_proved": false,
+    "eight_operator_impossibility_proved": false,
+    "next_bounded_task_if_authorized": "One fresh GPT-authored 8-ID attempt must solve the first artillery lock/survival chain and remove dependent post-death actions before judging late pressure; M54 failures only falsify these three structures."
+  },
+  "claims": {
+    "real_game_win": false,
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false
+  }
+}

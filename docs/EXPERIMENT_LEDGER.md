@@ -954,3 +954,13 @@ The local M52 V1 baseline remains the best verified 9-ID current-model
 simulator WIN. No global minimum, real-game, faithful, robust, or probabilistic
 claim is made. Closeout:
 `docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_closeout_v1.json`.
+
+## 2026-10-25 — M54 closes at limits without an 8-ID WIN
+
+M54 used its own 3/3 real tactical CLI starts and 3/3 fixed simulations. V1,
+V2, and V3 each used exactly 8 distinct IDs and passed static checks.
+V1 lost 15/18/8/life -17; V2 improved to 23/10/7/life -8; V3 regressed to
+19/14/8/life -12. The local M52 V1 baseline remains the best verified 9-ID
+current-model simulator WIN. No global minimum, real-game, faithful, robust,
+or probabilistic claim is made. Closeout:
+`docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_closeout_v1.json`.

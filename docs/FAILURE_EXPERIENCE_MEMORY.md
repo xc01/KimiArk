@@ -654,3 +654,12 @@ Hibiscus and Steward still died, and the defense collapsed to 12 leaks. V3
 changed the medical geometry and restored Beagle, but produced 11
 not-deployed action errors and 14 leaks. These are specific-structure
 counterexamples, not proof that 8 IDs are impossible.
+
+## 2026-10-25 — M54 shows a new eighth operator can move the failure earlier
+
+M54 V1 replaced Melantha/Beagle with Vanilla and retained both medics, but the
+changed geometry exposed Ansel and Vanilla to artillery before Lancet's late
+contribution could help. V2 proved that separating medical/caster positions
+without Lancet only delayed Ansel/Steward deaths; V3's reciprocal-medical heals
+also did not preserve the chain. These results falsify specific geometries and
+do not establish an 8-ID lower bound.

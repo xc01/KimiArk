@@ -443,3 +443,15 @@ Lancet-2 with reciprocal principal-medic coverage and restored Beagle, but lost
 IDs and passed static checks. The verified best remains M52 V1 at 9 IDs; these
 failures do not prove 8 IDs impossible. Closeout:
 `docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_closeout_v1.json`.
+
+## 2026-10-25 M54 closes at limits without an 8-operator WIN
+
+M54 tested two structural directions beyond M53's roster-class deletions. V1
+removed Melantha and Beagle but added Vanilla; it lost 15/18/8/life -17 after
+artillery killed Ansel and Vanilla early. V2 removed Lancet-2 and separated the
+medical/caster geometry; it improved to 23/10/7/life -8 but lost Ansel and
+Steward to the first artillery locks. V3 kept that no-Lancet roster and added
+reciprocal principal-medic coverage; it regressed to 19/14/8/life -12. All used
+8 IDs and passed static checks. The verified best remains M52 V1 at 9 IDs.
+Closeout:
+`docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_closeout_v1.json`.
