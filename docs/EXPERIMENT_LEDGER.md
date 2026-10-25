@@ -964,3 +964,11 @@ V1 lost 15/18/8/life -17; V2 improved to 23/10/7/life -8; V3 regressed to
 current-model simulator WIN. No global minimum, real-game, faithful, robust,
 or probabilistic claim is made. Closeout:
 `docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_closeout_v1.json`.
+
+## 2026-10-26 — M55 closes at the one-call limit
+
+M55 used 1/1 real tactical CLI starts and 1/1 fixed simulations. V1 was a
+32-action, static-clean, exactly-8-ID fresh fusion. It lost 12/21/6/life -19
+after Melantha's 1888 death, #9's 2121 leak, and later artillery/#34 leaks.
+Closeout:
+`docs/review/fc77177/m55_eight_operator_fusion_v1/m55_closeout_v1.json`.

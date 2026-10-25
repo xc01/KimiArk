@@ -1,0 +1,79 @@
+{
+  "schema_version": "M55_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M55_V1",
+  "result": {
+    "win": false,
+    "enemies_killed": 12,
+    "enemies_leaked": 21,
+    "enemies_remaining": 0,
+    "operator_deaths": 6,
+    "remaining_life": -19,
+    "action_count": 32,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 900,
+      "event": "Melantha deployed at [6,3] RIGHT for roadblock #2 and outer route duty"
+    },
+    {
+      "frame": 1888,
+      "event": "First operator death: Melantha died to enemy_1107_uoffcr#9",
+      "facts": "The officer hit Melantha 175 physical at 1708, 1768, 1828, and 1888. Ansel healed her 362 at 1409, 1581, 1753, and 1839, but not on the fatal frame. Melantha had dealt 647.04 physical to #9 at 1710, 1755, 1800, and 1845; #9 was not killed."
+    },
+    {
+      "frame": 2100,
+      "event": "First dependent command failure: Melantha ACTIVATE_SKILL with operator not deployed"
+    },
+    {
+      "frame": 2121,
+      "event": "First leak: enemy_1107_uoffcr#9"
+    },
+    {
+      "frame": 2023,
+      "event": "Vanilla death before the first leak",
+      "facts": "The last recorded damage to Vanilla was 90 physical from #6 at 1329; no immediate damage event at 2023 is present, so the exact runtime death cause is UNKNOWN rather than inferred."
+    },
+    {
+      "frame": 2173,
+      "event": "Fang and Steward died together",
+      "facts": "Fang's last recorded damage was 70 from #7 at 1599; Steward had no recorded incoming DAMAGE event. Exact death causes in the event log are UNKNOWN; later dependent actions follow."
+    },
+    {
+      "frame": 2915,
+      "event": "#10 leaked; #11 leaked at 3065 and made remaining life 0"
+    },
+    {
+      "frame": 3945,
+      "event": "Protected #14 was killed by artillery #0; #3 reached at 4343"
+    },
+    {
+      "frame": 5759,
+      "event": "Artillery #0 leaked",
+      "facts": "Steward dealt 473.29+249.10 arts and Durin dealt 3x170 arts, total 1232.39. It had zero BLOCK and was not killed."
+    },
+    {
+      "frame": 6996,
+      "event": "Armored #34 leaked",
+      "facts": "#34 took only Midnight's 2x24.85 physical, had zero BLOCK, and killed Ansel four times over with 4x340 enemy arts before leaking."
+    }
+  ],
+  "roadblock_settlement": {
+    "roadblock_1": "Durin damaged it 8160 across 30 DEVICE_DAMAGE events and destroyed it at 4011.",
+    "roadblock_2": "Melantha damaged it 7164.48 across 12 DEVICE_DAMAGE events; it was not destroyed.",
+    "roadblock_3": "Midnight damaged it 8348.4 across 16 DEVICE_DAMAGE events and destroyed it at 2424.",
+    "roadblock_4": "Steward damaged it 3547.184 across 8 DEVICE_DAMAGE events; it was not destroyed."
+  },
+  "objective_settlement": {
+    "hostile_spawn_settlement": "35 scheduled entities include #3 and #14; the remaining 33 hostiles are fully settled as 12 kills plus 21 leaks with zero remaining enemy HP.",
+    "protected_targets": "#3 safely reached at 4343; #14 died at 3945.",
+    "remaining_life": -19
+  },
+  "lesson": "The two-vanguard/eight-ID opening did not survive the first officer chain. Melantha's death released #9, then Vanilla, Fang, and Steward died around the first leak; 9 not-deployed errors were consequences rather than the initial cause. Artillery and #34 remained unresolved, and roadblocks #2/#4 were not destroyed.",
+  "revision_requirements": [
+    "Do not infer an 8-ID impossibility from this single structure.",
+    "Resolve the first officer/blocker handoff and its medical competition before late duties.",
+    "Make late artillery, mixed route pressure, roadblocks #2/#4, protected #3/#14, and #34 independently settle.",
+    "Remove every command that depends on a unit already dead; legal:false cannot verify a prediction."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "M55_EIGHT_OPERATOR_FUSION_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M52_V1",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "simulator_win": true,
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3
+    },
+    "roster": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_120_hibisc",
+      "char_212_ansel",
+      "char_210_stward",
+      "char_285_medic2",
+      "char_122_beagle"
+    ],
+    "roster_note": "This is a verified duty reference, not a fixed candidate pool."
+  },
+  "failed_structures": {
+    "m52_v2_no_beagle": "LOSS; Steward died at 2561 before first leak at 4625; protected #3 died to artillery at 5353.",
+    "m52_v3_no_lancet": "LOSS; Friston died at 2111 and #11 leaked at 3065.",
+    "m53_v2_no_beagle": "LOSS; Ansel repeatedly healed Melantha and displaced Steward healing; Hibiscus lost its second boost before the 3461 fatal shell.",
+    "m54_v1": "LOSS; Ansel took isolated 891 artillery at 1481 and 1631 and died, with only self-heal 362 at 1553.",
+    "m54_v2": "LOSS; Ansel died at 2743 after repeated artillery locks; Steward died at 3043; first leak #21@5152.",
+    "m54_v3": "LOSS; Hibiscus and Steward were hit in the same [6,2] area at 2893/3043; Hibiscus died at 3043, then dependent commands failed."
+  },
+  "current_runtime_support": {
+    "spot_skill": "Current adapter supports skchr_spot_1 heal_mode, ATK+0.45, base_attack_time=1.3, SP40/initial25/duration25, and range_override x-4. The catalog's stale skill UNSUPPORTED label must not be used to exclude Spot. During healing Spot skips normal attacks; replacement output and healing-target selection must be explicit.",
+    "spot_talent": "The 20% physical-dodge talent is NOT implemented; do not infer it from skill support.",
+    "ansel_talent": "The 15% probability second-heal talent exists in data but the medical pipeline treats one selected target only. Do not assume it fires; do not present the current deterministic simulator as a validated probabilistic plan.",
+    "artillery": "Current ordinary artillery candidates select the minimum operator_id, then lock the target position at projectile creation; hit radius is 1.2. This is current fixed-simulator behavior, not an established real-game aggro rule.",
+    "medical_targeting": "MEDIC chooses the lowest missing-HP-ratio eligible target in range; equal-ratio tie-break is UNKNOWN.",
+    "fang_and_friston": "Neither is mandatory. Compare natural income, opening interceptions, replacement blockers, costs, redeploy cooldowns, and actual contact windows."
+  },
+  "comparison_directions": [
+    "A: a genuine no-Beagle/no-Lancet fusion using Spot or another role for blocking plus critical healing, with explicit medical-target sequencing and replacement caster/physical output during heal-mode attack gaps.",
+    "B: a different 8-ID roster and opening reconstruction that may drop Fang, Friston, either principal medic, or multiple incumbents; do not merely delete one unit from the 9-ID success.",
+    "C: another evidence-supported fusion, including retreat/redeploy, cross-lane reuse, different vanguard count, or newly selected ordinary 1-3 star operators from the supplied catalog."
+  ],
+  "revision_requirements": [
+    "Emit exactly one executable plan; selected_low_star_operator_ids plus every DEPLOY operator_id must have at most 8 distinct IDs.",
+    "Solve the early artillery lock/splash chain, not just one observed HEAL; account for lock target, splash partners, heal target selection, and timing.",
+    "Account for early opening blockers, later mixed pressure, artillery kill/clearance, roadblock #2, protected #3/#14, late armored #34, and final no-active-enemy settlement.",
+    "Explain every merged duty with its tile, direction, time window, target selection, DP, redeploy/cooldown, attack/output gap, and successor.",
+    "Remove actions that cannot execute after a prior death; a successful command is not proof that a duty is complete.",
+    "Actual successful retreat alone refunds; death does not. Rebuild all deadlines after changing route, blocking, positions, or survival."
+  ]
+}

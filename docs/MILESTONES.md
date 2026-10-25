@@ -530,3 +530,10 @@ M54 used 3/3 real tactical CLI starts and 3/3 fixed simulations. A Vanilla
 replacement and two no-Lancet medical/caster regeometries passed static checks
 but lost. The verified best remains 9 IDs; no global minimum or 8-ID
 impossibility is claimed.
+
+## 2026-10-26 — M55 closes at the 8-ID limit
+
+M55 used 1/1 real tactical CLI starts and 1/1 fixed simulations. The
+GPT-authored fresh fusion passed static checks at exactly 8 IDs but lost
+12/21/6/life -19. The verified best remains 9 IDs; no global minimum or 8-ID
+impossibility is claimed.

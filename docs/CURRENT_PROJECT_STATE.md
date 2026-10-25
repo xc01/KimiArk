@@ -455,3 +455,15 @@ reciprocal principal-medic coverage; it regressed to 19/14/8/life -12. All used
 8 IDs and passed static checks. The verified best remains M52 V1 at 9 IDs.
 Closeout:
 `docs/review/fc77177/m54_minimum_operator_continuation_v1/m54_closeout_v1.json`.
+
+## 2026-10-26 M55 closes at its one-call limit without an 8-operator WIN
+
+M55 used its own single CLI start and single fixed simulation. GPT produced the
+32-action, static-clean, exactly-8-ID fusion `R8_7_GPT_M55_V1` with Fang,
+Vanilla, Midnight, Melantha, Ansel, Steward, Hibiscus, and Durin. The run lost
+12/21/6/life -19. Melantha died to officer #9 at 1888, releasing the route;
+#9 first leaked at 2121, life reached zero at #11@3065, and 9 dependent
+not-deployed errors followed. Artillery #0 and #34 also leaked, while #3 arrived
+and #14 died. The verified best remains M52 V1 at 9 IDs; this one failure does
+not prove 8 IDs impossible. Closeout:
+`docs/review/fc77177/m55_eight_operator_fusion_v1/m55_closeout_v1.json`.

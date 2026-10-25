@@ -663,3 +663,11 @@ contribution could help. V2 proved that separating medical/caster positions
 without Lancet only delayed Ansel/Steward deaths; V3's reciprocal-medical heals
 also did not preserve the chain. These results falsify specific geometries and
 do not establish an 8-ID lower bound.
+
+## 2026-10-26 — M55 shows a fresh two-vanguard fusion must solve the blocker handoff
+
+M55's 8-ID, no-Friston/no-Lancet/no-Beagle plan passed static checks, but
+Melantha died to officer #9 at 1888 despite four 362 heals. The release let #9
+leak at 2121; 9 not-deployed errors followed, life reached zero at #11@3065,
+and artillery/#34 later leaked. This falsifies one fresh structure and does not
+establish an 8-ID lower bound.
