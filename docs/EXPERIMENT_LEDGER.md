@@ -944,3 +944,13 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
   19/14/6/life -12. Friston died at 2111 and #11 leaked at 3065.
 - Closeout:
   `docs/review/fc77177/m52_minimum_operator_reduction_v1/m52_closeout_v1.json`.
+
+## 2026-10-25 — M53 closes at limits without an 8-ID WIN
+
+M53 used its own 3/3 real tactical CLI starts and 3/3 fixed simulations. V1,
+V2, and V3 each used exactly 8 distinct IDs and passed static checks.
+V1 lost 20/13/5/life -11; V2 lost 21/12/6/life -10; V3 lost 19/14/8/life -12.
+The local M52 V1 baseline remains the best verified 9-ID current-model
+simulator WIN. No global minimum, real-game, faithful, robust, or probabilistic
+claim is made. Closeout:
+`docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_closeout_v1.json`.

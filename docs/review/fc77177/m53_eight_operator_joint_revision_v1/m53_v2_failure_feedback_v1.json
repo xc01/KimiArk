@@ -1,0 +1,110 @@
+{
+  "schema_version": "M53_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M53_V2",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 21,
+    "enemies_leaked": 12,
+    "operator_deaths": 6,
+    "remaining_life": -10,
+    "action_count": 28,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 2197,
+      "event": "Assumed Ansel-to-Melantha survival support occurred",
+      "facts": "HEAL events at 2197, 2283, and 2369 each restored 362.00 to char_208_melan. This verifies the declared observable only; it does not prove the full artillery-survival hypothesis."
+    },
+    {
+      "frame": 3461,
+      "event": "Hibiscus died",
+      "facts": "The first operator death removed upper recovery and support before the first leak."
+    },
+    {
+      "frame": 3911,
+      "event": "Steward died",
+      "facts": "Artillery/central damage support was lost before the artillery leak and central collapse."
+    },
+    {
+      "frame": 4584,
+      "event": "Fang died"
+    },
+    {
+      "frame": 4836,
+      "event": "Lancet-2 died"
+    },
+    {
+      "frame": 5046,
+      "event": "First leak",
+      "facts": "enemy_1110_uamord#21 leaked after the pre-leak deaths had collapsed the supported defense."
+    },
+    {
+      "frame": 5353,
+      "event": "Protected target #3 died",
+      "facts": "enemy_1112_emppnt#0 dealt 950.00 PHYSICAL to enemy_3001_upeopl#3; the target died in the same frame."
+    },
+    {
+      "frame": 5439,
+      "event": "Midnight died"
+    },
+    {
+      "frame": 5759,
+      "event": "Artillery leaked",
+      "facts": "enemy_1112_emppnt#0 leaked, also causing the objective failure and life loss to zero."
+    },
+    {
+      "frame": 6127,
+      "event": "Friston died"
+    },
+    {
+      "frame": 15249,
+      "event": "Protected target #14 reached",
+      "facts": "enemy_3001_upeopl#14 reached safely, but this cannot offset #3's death or the earlier LOSS."
+    }
+  ],
+  "operator_deaths": [
+    "char_120_hibisc@3461",
+    "char_210_stward@3911",
+    "char_123_fang@4584",
+    "char_285_medic2@4836",
+    "char_283_midn@5439",
+    "char_4093_frston@6127"
+  ],
+  "leaks": [
+    "enemy_1110_uamord#21@5046",
+    "enemy_1112_emppnt#0@5759",
+    "enemy_1107_uoffcr#23@5781",
+    "enemy_1108_uterer#27@5932",
+    "enemy_1107_uoffcr#25@5975",
+    "enemy_1108_uterer#29@6142",
+    "enemy_1108_uterer#28@6338",
+    "enemy_1108_uterer#31@6356",
+    "enemy_1107_uoffcr#30@6425",
+    "enemy_1110_uamord#22@6526",
+    "enemy_1110_uamord#33@6846",
+    "enemy_1110_uamord#34@6996"
+  ],
+  "runtime_action_errors": [
+    "char_120_hibisc@124.1: operator is not deployed",
+    "char_210_stward@142.5: operator is not deployed",
+    "char_120_hibisc@174.13333333333333: operator is not deployed",
+    "char_120_hibisc@224.16666666666666: operator is not deployed",
+    "char_120_hibisc@274.2: operator is not deployed",
+    "char_283_midn@279.1333333333333: operator is not deployed",
+    "char_123_fang@360.0: operator is not deployed"
+  ],
+  "lesson": "Direct Ansel healing of Melantha held the specific early artillery exposure, but the candidate still lost Hibiscus and Steward before the central collapse. An eight-ID solution must preserve the whole survival/output chain, not merely verify one early heal; failed deployments must be removed and their support redistributed."
+  ,
+  "revision_requirements": [
+    "Keep the distinct-ID union at 8 and do not reuse failed post-death actions.",
+    "Redesign the shared medical/output chain so Hibiscus, Steward, Fang, Lancet-2, Midnight, and Friston either survive their assigned windows or are replaced before death by a verified live handoff.",
+    "Eliminate all seven deployment/not-deployed errors and recheck each affected duty.",
+    "Treat the verified 2197/2283/2369 heals as necessary but insufficient; require zero leaks, artillery not leaking, #3 alive and reaching, #14 alive and reaching, no active enemies, and positive remaining life."
+  ]
+}

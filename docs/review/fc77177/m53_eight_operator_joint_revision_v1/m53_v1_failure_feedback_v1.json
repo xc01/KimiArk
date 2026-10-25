@@ -1,0 +1,73 @@
+{
+  "schema_version": "M53_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M53_V1",
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "win": true
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 20,
+    "enemies_leaked": 13,
+    "operator_deaths": 5,
+    "remaining_life": -11,
+    "action_count": 26,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 1993,
+      "event": "Artillery shell hit Melantha",
+      "facts": "enemy_1112_emppnt#0 dealt 845.00 PHYSICAL to char_208_melan at locked_position [5,6]. Unlike M52 V1, this candidate did not retreat opening Melantha at 2010, so she remained in the hit zone."
+    },
+    {
+      "frame": 2143,
+      "event": "Melantha died",
+      "facts": "This removed the lower-outer/central damage role before the first leak."
+    },
+    {
+      "frame": 3943,
+      "event": "Ansel died."
+    },
+    {
+      "frame": 5070,
+      "event": "Friston died."
+    },
+    {
+      "frame": 5238,
+      "event": "Lancet-2 died."
+    },
+    {
+      "frame": 5710,
+      "event": "Fang died."
+    },
+    {
+      "frame": 6314,
+      "event": "Protected #14 died",
+      "facts": "enemy_1107_uoffcr#32 killed #14 after the middle/late defense had collapsed. #3 reached at 12249."
+    }
+  ],
+  "leaks": [
+    "enemy_1107_uoffcr#16@4070",
+    "enemy_1107_uoffcr#18@4370",
+    "enemy_1110_uamord#22@5469",
+    "enemy_1107_uoffcr#24@5720",
+    "enemy_1108_uterer#27@5932",
+    "enemy_1107_uoffcr#26@6080",
+    "enemy_1108_uterer#28@6082",
+    "enemy_1110_uamord#21@6109",
+    "enemy_1108_uterer#29@6142",
+    "enemy_1108_uterer#31@6292",
+    "enemy_1107_uoffcr#32@6590",
+    "enemy_1110_uamord#33@6846",
+    "enemy_1110_uamord#34@6996"
+  ],
+  "lesson": "The opening route itself reached the first 4070 leak, but artillery exposure killed Melantha first. Removing Beagle can be viable only if its replacement preserves M52 V1's opening retreat/handoff or verifies a different safe position.",
+  "revision_requirements": [
+    "Preserve Melantha through the artillery locked-hit window or replace her before it; do not keep a plan that depends on her after 2143 without a verified replacement.",
+    "Maintain M52 V1's successful opening handoff, including the useful 2010 retreat pattern, unless a fully recomputed alternative is safe.",
+    "Keep the union at 8 and retain a complete late route for Friston/Melantha/Steward, plus #14's safe passage.",
+    "Remove post-death skill actions."
+  ]
+}

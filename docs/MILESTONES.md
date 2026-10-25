@@ -517,3 +517,9 @@ M52 used 3/3 real tactical CLI starts and 3/3 fixed simulations. V1 reached a
 complete fixed-simulator WIN with exactly 9 distinct IDs. Two independently
 structured 8-ID candidates passed static checks but lost. The best verified
 result is 9 IDs; no global minimum or 8-ID impossibility is claimed.
+
+## 2026-10-25 — M53 closes at the 8-ID limit
+
+M53 used 3/3 real tactical CLI starts and 3/3 fixed simulations. Three
+distinct 8-ID structures passed static checks but lost. The verified best
+remains 9 IDs; no global minimum or 8-ID impossibility is claimed.

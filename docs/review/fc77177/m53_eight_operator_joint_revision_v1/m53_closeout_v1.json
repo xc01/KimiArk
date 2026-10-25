@@ -1,0 +1,148 @@
+{
+  "schema_version": "M53_STAGE_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "model_authorization": {
+    "provider": "codex-cli-openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "source": "docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_model_authorization_v1.json"
+  },
+  "objective": {
+    "required": "Current-model simulator WIN, zero enemy leaks, both protected targets alive and safely reached, all spawns settled, no active enemies, ordinary 1-3 star operators only.",
+    "roster_limit_target": 8,
+    "roster_counting_rule": "Union of selected_low_star_operator_ids and all DEPLOY operator IDs; retreat/redeploy counts each ID once.",
+    "operator_deaths_are_hard_veto": false
+  },
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "simulator_win": true,
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3
+    },
+    "roster_chinese_names": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "芙蓉",
+      "安赛尔",
+      "史都华德",
+      "Lancet-2",
+      "米格鲁"
+    ],
+    "source": "output/r8_1_r8_7_batch_v1/main_08-07/m52_minimum_operator_reduction_v1/attempt_01_diagnostic",
+    "verification": "docs/review/fc77177/m53_eight_operator_joint_revision_v1/m52_baseline_verification_v1.json"
+  },
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 3,
+    "cli_remaining": 0,
+    "simulations_max": 3,
+    "simulations_started": 3,
+    "simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "source": "docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_simulation_budget_v1.json"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "plan_id": "R8_7_GPT_M53_V1",
+      "parent_plan_id": "R8_7_GPT_M52_V1",
+      "distinct_operator_union": 8,
+      "action_count": 26,
+      "static_status": "PASS",
+      "tactical_change": "Removed Beagle, kept Melantha in lower-outer interception, moved Ansel/Lancet to revised support geometry, and transferred Steward from artillery removal to direct central clearance.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 20,
+        "enemies_leaked": 13,
+        "operator_deaths": 5,
+        "remaining_life": -11,
+        "first_leak": "enemy_1107_uoffcr#16@4070",
+        "protected_target_summary": "#3 reached; #14 died at 6314"
+      },
+      "cause": "Melantha absorbed an 845 physical artillery hit at 1993 and died at 2143 before the first leak.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m53_eight_operator_joint_revision_v1/attempt_01_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "0c664c46055192fd111d718f1e50b58b40d908abb2b4e2318c0fb35f515bb9c3",
+        "action_snapshot_sha256": "c05469628929f46abe7d14aea24abc24079d4eee309cf62cd225322318da2879",
+        "manifest_sha256": "c2dac2ee39110fbeecc49769bc54d992391f972b65f695b545a0ea22013da804",
+        "final_status_sha256": "503e250e021774e38776ec17592a5f37aaa5ce3d27dc6651360a795eac9cc2e3"
+      }
+    },
+    {
+      "attempt": 2,
+      "plan_id": "R8_7_GPT_M53_V2",
+      "parent_plan_id": "R8_7_GPT_M53_V1",
+      "distinct_operator_union": 8,
+      "action_count": 28,
+      "static_status": "PASS",
+      "tactical_change": "Restored direct Ansel-to-Melantha healing and the original artillery caster geometry; retained Beagle's exclusion while assigning central coverage during Steward's redeployment gap.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 21,
+        "enemies_leaked": 12,
+        "operator_deaths": 6,
+        "remaining_life": -10,
+        "first_leak": "enemy_1110_uamord#21@5046",
+        "protected_target_summary": "#3 died at 5353; #14 reached at 15249"
+      },
+      "cause": "The declared Ansel heals at 2197/2283/2369 occurred, but Hibiscus died at 3461 and Steward at 3911; six operator deaths preceded or accompanied the broader collapse.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m53_eight_operator_joint_revision_v1/attempt_02_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "fc383c3c33d88444153953ca9dc2173cd8f2c7a0bca8426d9e305023e4ed4147",
+        "action_snapshot_sha256": "2b884fdad585d2cfdb7fb7bf419900de016da30706adc9b6146c9afa452a2040",
+        "manifest_sha256": "b60b2ee95dc332c8a480da6990ea4f9304b0aa94bbd1b544c14112858d0db2c8",
+        "final_status_sha256": "0d89f99bfd8536209df7926e20b9fadfa9f47c100b930589bea0d70268a776c1"
+      }
+    },
+    {
+      "attempt": 3,
+      "plan_id": "R8_7_GPT_M53_V3",
+      "parent_plan_id": "R8_7_GPT_M53_V2",
+      "distinct_operator_union": 8,
+      "action_count": 26,
+      "static_status": "PASS",
+      "tactical_change": "Replaced Lancet-2 with reciprocal principal-medic coverage, restored Beagle's lower-outer handoff, moved Melantha to central damage, and moved/retained Steward through late approach pressure.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 8,
+        "remaining_life": -12,
+        "first_leak": "enemy_1107_uoffcr#19@4611",
+        "protected_target_summary": "#3 died at 5353; #14 reached at 15249"
+      },
+      "cause": "The declared Ansel-to-Midnight heals occurred at 2675/2847, but the plan had 11 not-deployed action errors and collapsed to 14 leaks.",
+      "evidence_root": "output/r8_1_r8_7_batch_v1/main_08-07/m53_eight_operator_joint_revision_v1/attempt_03_diagnostic",
+      "hashes": {
+        "plan_snapshot_sha256": "5a93887bc576149e31fa841a1bda9373f8afd4dc9999b26becb42cf5b96930f1",
+        "action_snapshot_sha256": "32301dea4e8f57bc2a69f2e67311cd84427bc3f2b71934b7f83013b50c74ddad",
+        "manifest_sha256": "1e4c1458070b4887aae306aea5e8d5d38554d15b596606a1bd73c12dc0bd8c99",
+        "final_status_sha256": "21ce17dd10f03c9d42b7579f3dee0beca368e6c729b8a036fbfb9290c589d31d"
+      }
+    }
+  ],
+  "conclusion": {
+    "complete_win_reached": false,
+    "best_verified_distinct_operator_union": 9,
+    "global_minimum_proved": false,
+    "eight_operator_impossibility_proved": false,
+    "next_bounded_task_if_authorized": "One fresh GPT-authored 8-ID attempt must preserve the whole medical/output chain and avoid V3's 11 not-deployed actions; the exhausted M53 failures only falsify their specific structures."
+  },
+  "claims": {
+    "real_game_win": false,
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false
+  }
+}

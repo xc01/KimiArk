@@ -1,0 +1,59 @@
+{
+  "schema_version": "M53_PARENT_FEEDBACK_V1",
+  "best_verified_parent": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "parent_plan_id": "R8_7_GPT_M51_V2",
+    "result": "33 kills, 0 leaks, 0 operator deaths, protected #3 and #14 reached, life 3",
+    "distinct_operator_union": 9,
+    "action_count": 27,
+    "chinese_roster": ["芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔", "史都华德", "Lancet-2", "米格鲁"],
+    "operator_ids": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_120_hibisc", "char_212_ansel", "char_210_stward", "char_285_medic2", "char_122_beagle"],
+    "structural_success": "M52 V1 removed Lava from M51 V2 and folded arts/output into Steward and Midnight. It retained Beagle and both primary medics."
+  },
+  "eight_id_failure_1": {
+    "plan_id": "R8_7_GPT_M52_V2",
+    "removed_operator": "char_122_beagle",
+    "chinese_name": "米格鲁",
+    "result": "20 kills, 13 leaks, 8 operator deaths, life -11; protected #3 died at 5353",
+    "causal_facts": [
+      "Steward died at 2561 before the first 4625 leak.",
+      "Hibiscus healed Steward at 2305/2477 and Ansel at 2283/2455; the V1 cadence did not carry through after opening outer-lane repositioning.",
+      "Friston died at 3910, Ansel at 4060, Hibiscus at 4363, Fang at 4668, Midnight at 4751, and Lancet-2 at 4836.",
+      "#20 spawned at 4080 and leaked at 4625 with zero DAMAGE and zero BLOCK.",
+      "Fang blocked #21 at 4646 but died at 4668; #21 leaked at 5067, #22 at 5196.",
+      "Post-death Ansel/Hibiscus/Midnight/Fang actions could not establish duties."
+    ]
+  },
+  "eight_id_failure_2": {
+    "plan_id": "R8_7_GPT_M52_V3",
+    "removed_operator": "char_285_medic2",
+    "chinese_name": "Lancet-2",
+    "result": "19 kills, 14 leaks, 6 operator deaths, life -12; protected #3 died at 5353",
+    "causal_facts": [
+      "Friston died at 2111; the replacement medical handoff did not preserve blocker survival.",
+      "#11 leaked at 3065 and #13 at 3425.",
+      "Hibiscus died at 3311 and Steward at 3970; later Fang, Melantha, and Beagle deaths released mixed-pressure and late routes.",
+      "The attempted Ansel-first handoff produced early Friston heals but no verified complete survival chain."
+    ]
+  },
+  "verified_m52_v1_support_facts": {
+    "friston_survival": "Friston never died and recorded BLOCKs at 621, 1358, 2738, 3098, 4298, 4796, 5871, 6081, and 6596; he killed #34 at 7140.",
+    "lancet_deployment_heal": "Lancet-2 deployed at 1962 and immediately healed Friston for 200.00; it contributed 83 heals through 8446, including 30 to Midnight and 37 to Fang.",
+    "medic_coverage": "Hibiscus made 84 heals through 8459; Ansel made 70 heals through 7825. Their target pools included Friston, Steward, Fang, Ansel, Hibiscus, and Beagle.",
+    "artillery_survival": "Steward survived artillery pressure and killed enemy_1112_emppnt#0 at 4273; his V1 output totaled 22588.39.",
+    "late_uterer": "Friston blocked #28/#31 at 5871/6081; Melantha killed them at 5899/6154 with Steward support.",
+    "armor": "Friston blocked #34 at 6596 and killed it at 7140; Melantha dealt repeated 297.04 hits and Steward supported."
+  },
+  "revision_requirements": {
+    "target_distinct_operator_union": "AT_MOST_8",
+    "comparison_policy": "Before emitting one executable plan, compare at least two genuinely different eight-ID structures. Do not merely delete one operator from V1. Examples are directional choices, not mandatory outputs: (A) retain Beagle and merge/retime a medic duty; (B) retain both medics and replace a blocker/output slot through cross-lane reuse; (C) change vanguard economy or opening structure.",
+    "required_analysis": [
+      "For every removed/replaced ID, assign each duty to a named replacement and window.",
+      "Verify Friston's survival through all required BLOCK windows.",
+      "Verify Steward's artillery survival/output or choose a different artillery response.",
+      "Verify mixed #20/#21/#22 pressure, roadblock/protection timing, late Uterer, #34, and redeploy economy together.",
+      "Remove actions that cannot execute after a death; legal:false cannot prove a prediction."
+    ],
+    "anti_deadline_rule": "V1/V2/V3 frames are conditional evidence. Recompute all windows after roster, position, timing, or blocking changes."
+  }
+}

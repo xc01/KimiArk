@@ -431,3 +431,15 @@ but lost at 8 IDs after Friston's 2111 death and #11's 3065 leak. The best
 verified result is therefore 9 IDs; no global minimum or 8-ID impossibility is
 proved. Closeout:
 `docs/review/fc77177/m52_minimum_operator_reduction_v1/m52_closeout_v1.json`.
+
+## 2026-10-25 M53 closes at limits without an 8-operator WIN
+
+M53 verified the unpushed M52 nine-operator WIN locally, then used its own 3/3
+CLI starts and 3/3 simulations. V1 removed Beagle and lost 20/13/5/life -11
+after Melantha's 2143 death; V2 restored direct Ansel-to-Melantha support but
+still lost 21/12/6/life -10 after Hibiscus and Steward died; V3 replaced
+Lancet-2 with reciprocal principal-medic coverage and restored Beagle, but lost
+19/14/8/life -12 with 11 not-deployed action errors. All three used exactly 8
+IDs and passed static checks. The verified best remains M52 V1 at 9 IDs; these
+failures do not prove 8 IDs impossible. Closeout:
+`docs/review/fc77177/m53_eight_operator_joint_revision_v1/m53_closeout_v1.json`.

@@ -645,3 +645,12 @@ lost Friston at 2111 and #11 at 3065. Neither 8-ID loss proves that 8 is
 impossible. It only identifies two insufficient structures: outer-lane reposition
 without preserving artillery cadence, and a medical replacement that failed the
 earlier blocker survival prerequisite.
+
+## 2026-10-25 — M53 falsifies three specific 8-ID structures
+
+V1 lost its lower/central damage chain when artillery killed Melantha at 2143.
+V2 proved that one early Ansel-to-Melantha heal sequence is not sufficient:
+Hibiscus and Steward still died, and the defense collapsed to 12 leaks. V3
+changed the medical geometry and restored Beagle, but produced 11
+not-deployed action errors and 14 leaks. These are specific-structure
+counterexamples, not proof that 8 IDs are impossible.
