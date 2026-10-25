@@ -1,0 +1,63 @@
+{
+  "schema_version": "M51_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M50_V2",
+  "parent_comparison_policy": "M50 V2 is the best exhausted ten-ID loss and a conditional comparison branch, not the mandatory parent or proof of a valid baseline.",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "win": false,
+    "enemies_killed": 28,
+    "enemies_leaked": 5,
+    "operator_deaths": 4,
+    "remaining_life": -3,
+    "action_count": 30,
+    "distinct_operator_union": 10
+  },
+  "damage_fact_correction": {
+    "source": "docs/review/fc77177/m50_ten_operator_full_win_v1/m50_damage_fact_correction_v1.json",
+    "status": "RECOMPUTED_FROM_RAW_EVENTS",
+    "enemy_1112_emppnt_0": {"damage_count": 12, "damage_total": 3339.09, "breakdown": {"char_210_stward": 2466.09, "char_121_lava": 873.00}},
+    "enemy_1110_uamord_21": {"damage_count": 12, "damage_total": 246.60, "breakdown": {"char_123_fang": 97.50, "char_283_midn": 149.10}},
+    "enemy_1110_uamord_33": {"damage_count": 5, "damage_total": 922.70, "breakdown": {"char_121_lava": 873.00, "char_283_midn": 49.70}}
+  },
+  "earliest_failure": {
+    "duty": "artillery_output_survival",
+    "facts": [
+      "Steward died at 2561, before the later route failures.",
+      "Steward received 910 artillery damage at 2261, 2411, and 2561.",
+      "Hibiscus healed Steward 558.9 at 2305, 351.1 at 2391, and 558.9 at 2477.",
+      "No Ansel HEAL to Steward was observed in the complete event timeline.",
+      "The later #21 release and 5185 leak cannot be repaired successfully without first validating this earlier survival/economic chain."
+    ],
+    "interpretation": "Two medics being present is not effective double coverage. Check actual range, facing, target selection, skill timing, projectile cadence, and exposure, or choose a different artillery-response structure."
+  },
+  "subsequent_failures": [
+    {"duty": "route_21", "facts": "Hibiscus died at 4513, Friston at 4753, Fang at 4786; Fang's death released #21; #21 received only 246.60 damage and leaked at 5185.", "requirement": "Maintain living blocking and enough real output with replacement and DP support."},
+    {"duty": "route_1_artillery", "facts": "Artillery #0 received 3339.09 total damage, killed protected #3 at 5353, and leaked at 5759.", "requirement": "Kill it before base leak and before protected #3's lethal exposure."},
+    {"duty": "route_30", "facts": "#27 received 931.20 damage and leaked at 5932; #29 received 536.76 damage and leaked at 6142.", "requirement": "Provide actual interception or sufficient kill output."},
+    {"duty": "route_31_armor", "facts": "#33 received 922.70 damage and leaked at 6846.", "requirement": "Provide late armor interception and kill."},
+    {"duty": "protected_targets", "facts": "#3 died to artillery at 5353; #14 arrived at 10818.", "requirement": "Both protected targets must arrive with zero deaths."}
+  ],
+  "verified_preserved_success": {
+    "target": "enemy_1110_uamord#34",
+    "facts": "Melantha BLOCK@6663; Lava ENEMY_DEATH@7014 with kill_counted=true; #34 did not leak.",
+    "scope": "Conditional on M50 V2 actions. Retain the result or explicitly verify a compatible replacement."
+  },
+  "m48_conditional_success_reference": {
+    "scope": "18-operator M48 V1 evidence; do not delete eight commands and call that a new ten-ID plan.",
+    "facts": "Medical support sustained Steward's artillery kill at 4273; roadblock #2 was destroyed and #14/#3 arrived; #34 was blocked then killed."
+  },
+  "revision_requirements": [
+    "Keep the declared/DEPLOY union at most 10 and use the runner's hard-limit chain.",
+    "GPT may compare M50 V2, other ten-ID branches, and M48 duties; may choose zero, one, or two Vanguard structures.",
+    "Fix the earliest artillery-output survival failure with verified medical timing/coverage or a different response structure.",
+    "Keep every blocker alive or hand off to actual living coverage; do not count skill income after death.",
+    "Close all five leaks and protect both targets while preserving or replacing the #34 block/kill duty.",
+    "Recompute windows after any movement, blocking, clearance, or output change; old frames are conditional evidence only."
+  ],
+  "evidence_paths": {
+    "parent_plan": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_cli/llm_structured_output.json",
+    "parent_events": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/diagnostic_events.json",
+    "parent_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/diagnostic_summary.json",
+    "damage_correction": "docs/review/fc77177/m50_ten_operator_full_win_v1/m50_damage_fact_correction_v1.json"
+  }
+}

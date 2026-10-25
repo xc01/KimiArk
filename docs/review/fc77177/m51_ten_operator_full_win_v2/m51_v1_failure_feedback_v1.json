@@ -1,0 +1,103 @@
+{
+  "schema_version": "M51_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M51_V1",
+  "source": "RECOMPUTED_FROM_RAW_M51_V1_EVENTS",
+  "result": {
+    "win": false,
+    "enemies_killed": 28,
+    "enemies_leaked": 5,
+    "operator_deaths": 2,
+    "remaining_life": -2,
+    "action_count": 29,
+    "distinct_operator_union": 10
+  },
+  "leaks": [
+    {
+      "target_id": "enemy_1107_uoffcr#11",
+      "route_id": "route-11",
+      "frame": 3065,
+      "causal_facts": [
+        "Spawned at 2520.",
+        "Fang hit it for 175.00 at 2721 and 2753; Midnight hit it for 536.76 at 2756.",
+        "No BLOCK event was observed; it leaked at 3065 with 886.76 total damage."
+      ]
+    },
+    {
+      "target_id": "enemy_1107_uoffcr#13",
+      "route_id": "route-13",
+      "frame": 3425,
+      "causal_facts": [
+        "Spawned at 2880.",
+        "Midnight hit it for 347.00 at 3116.",
+        "No BLOCK event was observed; it leaked at 3425."
+      ]
+    },
+    {
+      "target_id": "enemy_1108_uterer#28",
+      "route_id": "route-28",
+      "frame": 6101,
+      "causal_facts": [
+        "Spawned at 5730.",
+        "Melantha hit it twice and BLOCKed it at 5906, but Melantha died at 5907.",
+        "Blocking was released by death; #28 leaked at 6101."
+      ]
+    },
+    {
+      "target_id": "enemy_1108_uterer#31",
+      "route_id": "route-30",
+      "frame": 6292,
+      "causal_facts": [
+        "Spawned at 5940.",
+        "Lava hit it for 465.60, Fang for 225.00, and Midnight for 536.76, but no BLOCK event was observed.",
+        "It leaked at 6292."
+      ]
+    },
+    {
+      "target_id": "enemy_1110_uamord#34",
+      "route_id": "route-31",
+      "frame": 6996,
+      "causal_facts": [
+        "Spawned at 6330.",
+        "It received 1714.48 total damage across Lava, Fang, Midnight, Lancet-2, and Steward, but no BLOCK event was observed.",
+        "The declared Friston containment was unavailable because Friston died at 2111.",
+        "It leaked at 6996."
+      ]
+    }
+  ],
+  "operator_deaths": [
+    {
+      "source_id": "char_4093_frston",
+      "frame": 2111
+    },
+    {
+      "source_id": "char_208_melan",
+      "frame": 5907
+    }
+  ],
+  "runtime_action_errors": [
+    {
+      "frame": 8100,
+      "action_type": "RETREAT",
+      "operator_id": "char_208_melan",
+      "legal": false,
+      "cause": "operator was already dead"
+    }
+  ],
+  "artillery_status": {
+    "target_id": "enemy_1112_emppnt#0",
+    "status": "KILLED_AT_4273_BY_STEWARD",
+    "requirement": "Artillery is no longer the earliest V1 failure. Preserve only a replacement-compatible solution; do not assume the same Steward/medical chain is required."
+  },
+  "protected_targets": {
+    "protected_target_deaths": 0,
+    "protected_targets_reached": 2,
+    "result_scope": "Both reached in this losing timeline; protection must remain compatible with repaired interception and final closure."
+  },
+  "revision_requirements": [
+    "Repair route-11 and route-13 before the later route-28/route-30/route-31 failures.",
+    "Provide living blocking through each interception or ensure enough verified kill output before release.",
+    "Do not count a hit alone as interception; #31 and #34 received substantial damage but leaked without BLOCK.",
+    "Remove or replace dead-unit actions; Melantha's 8100 RETREAT is an executable-plan defect.",
+    "Keep the union at 10 distinct IDs and preserve both protected-target arrivals."
+  ]
+}

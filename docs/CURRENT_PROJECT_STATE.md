@@ -406,3 +406,16 @@ early medical reshaping broke survival and DP continuity. V2 is the best
 exhausted loss, not a WIN. No historical balance was transferred. Evidence is
 under `output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/`
 and `docs/review/fc77177/m50_ten_operator_full_win_v1/`.
+
+## 2026-10-25 M51 freezes the ten-operator current-model simulator WIN
+
+M51 used 2/3 real Codex CLI starts and 2/3 fixed simulations, then froze at the
+hard goal. V1 was a 10-ID/29-action LOSS at 28 kills, 5 leaks, 2 operator
+deaths, and life -2; its route-11 leak at 3065 preceded artillery #0's 4273
+death. V2 is `R8_7_GPT_M51_V2`: it moved Lancet-2 to 1962, delayed Steward to
+2132, and replaced the dead-Melantha tail with a live Fang handoff. The fixed
+simulation then won with 33 kills, 0 leaks, 0 operator deaths, both protected
+targets reached, and life 3. The selected/DEPLOY union is exactly 10. The scope
+is current-model fixed simulator WIN only; real-game, faithful, and robust
+claims remain unproven. Closeout:
+`docs/review/fc77177/m51_ten_operator_full_win_v2/m51_closeout_v1.json`.

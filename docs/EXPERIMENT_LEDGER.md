@@ -908,3 +908,22 @@ retry/resume was used; internal model requests remain `UNKNOWN_CLI_INTERNAL`.
 - All results are current fixed-model LOSS. Evidence and hashes are under
   `output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/` and
   `docs/review/fc77177/m50_ten_operator_full_win_v1/`.
+
+# M51 ten-operator WIN ledger — 2026-10-25
+
+- Authorization was 3 real Codex CLI starts and 3 fixed simulations. Actual
+  usage is CLI 2/3 and simulations 2/3; V2 reached the hard goal and the unused
+  remainder was frozen. Internal request count is `UNKNOWN_CLI_INTERNAL`. No
+  M48/M49/M50 balance was transferred.
+- V1: 10 IDs, 29 actions, static-clean, 28/5/2/life -2. Five leaks were
+  #11@3065, #13@3425, #28@6101, #31@6292, and #34@6996. Steward killed artillery
+  #0 at 4273, proving the old M50 survival failure was repaired but not the
+  whole route set.
+- V2: 10 IDs, 29 actions, static-clean, 33/0/0/life 3 with both protected
+  targets safe. GPT moved Lancet-2 from 2162 to 1962, delayed Steward from 2071
+  to 2132, and changed the invalid dead-Melantha tail to a live Fang retreat and
+  redeploy. No runtime action error occurred.
+- Frozen artifact is
+  `output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_cli/`.
+  Closeout and hashes:
+  `docs/review/fc77177/m51_ten_operator_full_win_v2/m51_closeout_v1.json`.

@@ -1,0 +1,37 @@
+{
+  "schema_version": "M50_DAMAGE_FACT_CORRECTION_V1",
+  "correction_date": "2026-10-25",
+  "scope": "Derived M50 V2 feedback only; raw events, prompts, responses, plan, actions, summary, and hashes remain verbatim.",
+  "source_events": "output/r8_1_r8_7_batch_v1/main_08-07/m50_ten_operator_full_win_v1/attempt_02_diagnostic/diagnostic_events.json",
+  "source_events_sha256": "4e513be5e091cb20cca68a6b7f01a6f83485f53aab4c562e02fc9d48d925875d",
+  "corrections": [
+    {
+      "target": "enemy_1112_emppnt#0",
+      "previous_total": 6189.09,
+      "corrected_total": 3339.09,
+      "damage_count": 12,
+      "breakdown": {"char_210_stward": 2466.09, "char_121_lava": 873.00}
+    },
+    {
+      "target": "enemy_1110_uamord#21",
+      "previous_total": 2626.60,
+      "corrected_total": 246.60,
+      "damage_count": 12,
+      "breakdown": {"char_123_fang": 97.50, "char_283_midn": 149.10}
+    },
+    {
+      "target": "enemy_1110_uamord#33",
+      "previous_total": 2758.70,
+      "corrected_total": 922.70,
+      "damage_count": 5,
+      "breakdown": {"char_121_lava": 873.00, "char_283_midn": 49.70}
+    }
+  ],
+  "closed_duty_confirmation": {
+    "target": "enemy_1110_uamord#34",
+    "block": {"frame": 6663, "source": "char_208_melan"},
+    "death": {"frame": 7014, "source": "char_121_lava", "kill_counted": true},
+    "leak": false
+  },
+  "budget_status": "UNCHANGED"
+}

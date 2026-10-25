@@ -1,0 +1,636 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M51_V2",
+      "parent_hypothesis_id": "R8-7-M51-V2-H1",
+      "tactical_thesis": "Preserve four living interception lanes by moving Lancet's deployment heal into Friston's lethal artillery window. Fund Steward two seconds later while retaining his separated medical coverage. Friston must survive to hold lower-central enemies so adjacent Melantha can provide damage without inheriting their attacks. Transfer final lower restraint clearance to Fang after hostile clearance. This is a statically checked, unexecuted full-stage hypothesis.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_285_medic2",
+        "char_122_beagle",
+        "char_121_lava"
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "operator_id": "char_123_fang",
+          "tile": [3, 5],
+          "direction": "UP",
+          "role": "Upper-central interception and survival-dependent automatic income."
+        },
+        {
+          "operator_id": "char_4093_frston",
+          "tile": [4, 5],
+          "direction": "RIGHT",
+          "role": "Permanent lower-central three-block containment, sustained through the early shell overlap."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "tile": [1, 5],
+          "direction": "UP",
+          "role": "Upper-outer interception, eastern upper restraint clearance and available central crossfire."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "tile": [6, 5],
+          "direction": "RIGHT",
+          "role": "Opening lower-outer interception and eastern lower restraint clearance."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "tile": [2, 6],
+          "direction": "UP",
+          "role": "Heal both central blockers, Ansel, eastern Steward and later Lava."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "tile": [5, 5],
+          "direction": "RIGHT",
+          "role": "Heal Friston, eastern Steward, Beagle and Lava."
+        },
+        {
+          "operator_id": "char_285_medic2",
+          "tile": [2, 3],
+          "direction": "RIGHT",
+          "role": "Deliver the early global rescue heal; subsequently heal Midnight, Hibiscus and Fang."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [5, 7],
+          "direction": "DOWN",
+          "role": "Sustained artillery damage with two direct medical sources."
+        },
+        {
+          "operator_id": "char_122_beagle",
+          "tile": [6, 5],
+          "direction": "LEFT",
+          "role": "Permanent lower-outer interception after opening Melantha withdraws."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "tile": [4, 4],
+          "direction": "RIGHT",
+          "role": "Damage enemies held by living Friston; remain deployed through final closure."
+        },
+        {
+          "operator_id": "char_121_lava",
+          "tile": [5, 6],
+          "direction": "DOWN",
+          "role": "Shared central arts output; credit only single-target attacks."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [2, 2],
+          "direction": "DOWN",
+          "role": "Destroy the western upper restraint after artillery withdrawal and redeployment recovery."
+        },
+        {
+          "operator_id": "char_123_fang",
+          "tile": [6, 3],
+          "direction": "LEFT",
+          "role": "Destroy the western lower restraint after central combat and redeployment recovery."
+        }
+      ],
+      "formation_structure": {
+        "opening": "Fang and Friston intercept central traffic; Midnight and opening Melantha intercept outer traffic. Midnight's available crossfire remains necessary for Friston's first thrower.",
+        "survival_repair": "Lancet deploys at 1962, immediately after the saved first shell at 1961 and before the saved lethal second shell at 2111. Her supported global heal reaches Friston despite her ordinary range excluding him.",
+        "conditional_survival_margin": "Holding the saved preceding damage and Ansel heal constant gives 1152-765+362+200-765=184 HP after the second shell. This is a conditional survival calculation; changed healing selections require observation.",
+        "medicine": "Hibiscus and RIGHT-facing Ansel directly cover Friston and eastern Steward. Lancet covers Midnight, Hibiscus and Fang. Ansel does not ordinarily cover Hibiscus or Midnight.",
+        "artillery": "Steward remains two tiles from Ansel. Lancet remains three tiles from Hibiscus. The later Steward deployment preserves coverage geometry but makes the parent's artillery kill frame a forecast requiring revalidation.",
+        "central_clearance": "Living Friston retains lower-central attacks while Melantha attacks from [4,4]. Lava reaches both central blocker tiles. Melantha has no ordinary medical coverage at [4,4].",
+        "capacity": "Exactly ten distinct IDs. The current runtime counts at most eight deployed rarity-2/3 operators and exempts the two rarity-1 operators; this is a model rule.",
+        "economy": "Capped natural DP, no refunds, and only Fang's survival-dependent grants at 570, 1320 and 2070 were credited. Post-deployment balances are 6.40 at Lancet@1962, 0.067 at Steward@2132, 5.033 at Beagle@2821 and 16.033 at Lava@4501."
+      },
+      "formation_transitions": [
+        {
+          "frame": 1962,
+          "transition": "Install the global rescue heal before Friston's second shell; start permanent upper medical supplementation."
+        },
+        {
+          "frame": 2010,
+          "transition": "Withdraw opening Melantha after opening lower-outer clearance; retain both central blockers."
+        },
+        {
+          "frame": 2132,
+          "transition": "Deploy Steward after funding the rescue, with both principal medics already present."
+        },
+        {
+          "frame": 2821,
+          "transition": "Beagle assumes lower-outer interception before its next hostile arrival."
+        },
+        {
+          "frame": 4141,
+          "transition": "Return Melantha adjacent to living Friston before armored contact."
+        },
+        {
+          "frame": 4500,
+          "transition": "Forecast artillery withdrawal; surviving artillery invalidates this handoff."
+        },
+        {
+          "frame": 4501,
+          "transition": "Install shared central Lava damage after artillery clearance."
+        },
+        {
+          "frame": 6601,
+          "transition": "Return Steward for western upper restraint clearance."
+        },
+        {
+          "frame": 8100,
+          "transition": "Withdraw Fang only after upper hostile clearance; keep central Melantha deployed."
+        },
+        {
+          "frame": 10201,
+          "transition": "Return Fang for western lower restraint clearance and complete evacuation."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "routes": ["route-0"],
+          "responsibility": "No hostile interception duty."
+        },
+        {
+          "routes": ["route-1"],
+          "responsibility": "Steward kills artillery; Hibiscus and Ansel sustain him, while Lancet supplements the separate upper medical exposure."
+        },
+        {
+          "routes": ["route-2"],
+          "responsibility": "Midnight clears the eastern restraint; returning Steward clears the western restraint. Maintain upstream officer interception until the civilian arrives safely."
+        },
+        {
+          "routes": ["route-15"],
+          "responsibility": "Opening Melantha clears the eastern restraint; Beagle retains upstream officer interception; returning Fang clears the western restraint."
+        },
+        {
+          "routes": ["route-3", "route-4", "route-12", "route-13", "route-20", "route-21", "route-30", "route-31"],
+          "responsibility": "Fang blocks upper-central enemies through clearance. Midnight assists when free; Lava supplies armored damage. Preserve Fang's two-block capacity during paired throwers."
+        },
+        {
+          "routes": ["route-5", "route-6", "route-11", "route-14", "route-18", "route-19", "route-28", "route-29"],
+          "responsibility": "Friston remains the living lower-central blocker. Melantha and Lava clear held enemies before occupancy exhausts his three-block capacity."
+        },
+        {
+          "routes": ["route-7", "route-8", "route-17", "route-22", "route-23", "route-24"],
+          "responsibility": "Midnight intercepts upper-outer hostiles, supported by Lancet. Self-blocked enemies take precedence over crossfire."
+        },
+        {
+          "routes": ["route-9", "route-10", "route-16", "route-25", "route-26", "route-27"],
+          "responsibility": "Opening Melantha handles the first pair; Beagle handles subsequent lower-outer officers with Ansel coverage."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        {
+          "window_frames": [0, 1961],
+          "duties": "Survive opening throwers, establish four interceptions and both principal medics, and retain the structure supporting Fang's income."
+        },
+        {
+          "window_frames": [1962, 2821],
+          "duties": "Rescue Friston before the second shell, establish Steward, and complete the Melantha-to-Beagle outer handoff."
+        },
+        {
+          "window_frames": [2822, 4501],
+          "duties": "Demonstrate actual central blocking, preserve artillery medicine, return central Melantha and remove artillery."
+        },
+        {
+          "window_frames": [4502, 8100],
+          "duties": "Clear armor and paired throwers with living containment; retain outer protection and clear the western upper restraint."
+        },
+        {
+          "window_frames": [8101, 18000],
+          "duties": "Complete Fang's lower restraint clearance, retain residual defense and wait for both protected arrivals and the full terminal predicate."
+        }
+      ],
+      "skill_intents": [
+        {
+          "operator_id": "char_123_fang",
+          "intent": "Automatic income requires living deployment. Credit only the first three grants; later income is unnecessary."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "frames": [1772, 5703],
+          "intent": "First arts window supports opening clearance and the eastern restraint; second supports final outer and central pressure."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "frames": [2942, 4443, 5944, 7445],
+          "intent": "Support upper artillery exposure, projectile aftermath and central pressure without assigning exact healing targets."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "frames": [2432, 4233, 6034, 7835],
+          "intent": "Boost healing of actual RIGHT-facing covered operators; range extension supplies no vertical coverage of Hibiscus or Midnight."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "frames": [5342],
+          "intent": "Accelerate lower armored clearance while Friston retains enemy attacks."
+        },
+        {
+          "operator_id": "char_121_lava",
+          "frames": [4802, 6603],
+          "intent": "Accelerate single-target arts during armored pressure; assume no splash contribution."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "intent": "Ordinary arts and automatic attack-SP strikes; do not command target ordering."
+        },
+        {
+          "operator_id": "char_285_medic2",
+          "intent": "Use the supported 200-point deployment heal at 1962. Subsequent ordinary healing cannot directly reach Friston or civilians."
+        },
+        {
+          "operator_id": "char_122_beagle",
+          "intent": "Use ordinary containment and Ansel coverage; no defensive talent or skill credit."
+        },
+        {
+          "operator_id": "char_4093_frston",
+          "intent": "Use ordinary three-block containment and direct principal medicine; no unsupported deployment resistance."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "LEGAL_ROSTER",
+          "requirement": "The selected/deployed union contains exactly these ten normal-mode rarity-1-to-3 IDs, with no substitutes or hidden aliases."
+        },
+        {
+          "id": "LEGAL_TILES",
+          "requirement": "Every deployment uses integer [row,col], a cardinal direction and legal terrain; never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+        },
+        {
+          "id": "RESCUE_HANDOFF",
+          "requirement": "Lancet must heal Friston before his second shell, and Friston must remain alive afterward. The DP ledger alone does not establish survival."
+        },
+        {
+          "id": "LIVING_INTERCEPTION",
+          "requirement": "Friston must BLOCK later lower-central enemies. Damage without blocking does not discharge this responsibility."
+        },
+        {
+          "id": "GUARDED_DAMAGE",
+          "requirement": "Central Melantha depends on living Friston retaining containment and hostile attacks; her exposed tile has no claimed ordinary healing."
+        },
+        {
+          "id": "ARTILLERY_HANDOFF",
+          "requirement": "Artillery must be dead before Steward's 4500 withdrawal and Lava's 4501 deployment. Existing projectiles remain dangerous after withdrawal."
+        },
+        {
+          "id": "PROTECTION",
+          "requirement": "Ordinary operators neither attack nor block civilians. Keep officer interception upstream of civilian waiting positions and verify both safe arrivals."
+        },
+        {
+          "id": "LIFECYCLE",
+          "requirement": "Fang must be alive and upper traffic cleared before his 8100 retreat. No retreat of central Melantha is scheduled."
+        },
+        {
+          "id": "ACCEPTANCE",
+          "requirement": "Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two safe protected arrivals. Record operator deaths separately."
+        }
+      ],
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [3, 5],
+          "direction": "UP"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [4, 5],
+          "direction": "RIGHT"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "tile": [1, 5],
+          "direction": "UP"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "tile": [6, 5],
+          "direction": "RIGHT"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 1321,
+          "operator_id": "char_120_hibisc",
+          "tile": [2, 6],
+          "direction": "UP"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 1681,
+          "operator_id": "char_212_ansel",
+          "tile": [5, 5],
+          "direction": "RIGHT"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 1962,
+          "operator_id": "char_285_medic2",
+          "tile": [2, 3],
+          "direction": "RIGHT",
+          "rationale": "Place the global rescue heal between the saved first and second shells."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2010,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 2132,
+          "operator_id": "char_210_stward",
+          "tile": [5, 7],
+          "direction": "DOWN",
+          "rationale": "Fund Friston's rescue before sustained artillery output."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2432,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 2821,
+          "operator_id": "char_122_beagle",
+          "tile": [6, 5],
+          "direction": "LEFT"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2942,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 4141,
+          "operator_id": "char_208_melan",
+          "tile": [4, 4],
+          "direction": "RIGHT"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4233,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4443,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 4500,
+          "operator_id": "char_210_stward"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 4501,
+          "operator_id": "char_121_lava",
+          "tile": [5, 6],
+          "direction": "DOWN"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4802,
+          "operator_id": "char_121_lava"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5342,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5703,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5944,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6034,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 6601,
+          "operator_id": "char_210_stward",
+          "tile": [2, 2],
+          "direction": "DOWN"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6603,
+          "operator_id": "char_121_lava"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7445,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7835,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 8100,
+          "operator_id": "char_123_fang",
+          "rationale": "Transfer a living operator to final clearance after upper hostile clearance."
+        },
+        {
+          "action_type": "DEPLOY",
+          "frame": 10201,
+          "operator_id": "char_123_fang",
+          "tile": [6, 3],
+          "direction": "LEFT",
+          "rationale": "Clear the western lower restraint; retain central Melantha."
+        }
+      ],
+      "battle_phases": [
+        {
+          "phase_id": "P1_OPENING",
+          "goal": "Establish four interceptions and principal medicine.",
+          "start_condition": "Stage begins with 10 DP.",
+          "completion_condition": "Both principal medics are deployed and Friston survives the first central thrower.",
+          "responsibilities": [
+            "Fang and Friston hold central lanes.",
+            "Midnight supplies available crossfire and upper-outer interception.",
+            "Melantha holds the opening lower-outer lane and attacks its eastern restraint."
+          ],
+          "survival_dependencies": [
+            "Midnight must finish the opening lower thrower before Friston's HP expires.",
+            "Fang must survive to produce the income actually needed by subsequent deployments."
+          ],
+          "handoff_requirements": [
+            "Deliver living central blockers into the artillery rescue window."
+          ],
+          "failure_effect_on_later_phases": "A missing blocker or lost income source invalidates the medical and artillery deployment chain."
+        },
+        {
+          "phase_id": "P2_RESCUE",
+          "goal": "Keep Friston alive through the shell overlap and establish artillery damage.",
+          "start_condition": "Principal medicine is present and the first lower shell exposure approaches.",
+          "completion_condition": "Lancet has healed Friston, he survives the second shell, Steward is deployed and Beagle assumes lower-outer duty.",
+          "responsibilities": [
+            "Lancet supplies the global rescue before 2111 and then upper medical supplementation.",
+            "Principal medics sustain Friston and Steward.",
+            "Opening Melantha withdraws only after her initial hostile and restraint duties finish."
+          ],
+          "survival_dependencies": [
+            "The early global heal must reach a living Friston.",
+            "Changed healing selection must still provide sufficient shell recovery."
+          ],
+          "handoff_requirements": [
+            "Friston must remain available for actual later lower-central BLOCK events.",
+            "Beagle must occupy the lower-outer lane before its next hostile arrival."
+          ],
+          "failure_effect_on_later_phases": "Friston's death recreates the early officer leaks and exposes returning Melantha to later direct attacks."
+        },
+        {
+          "phase_id": "P3_ARTILLERY",
+          "goal": "Remove artillery while preserving every interception lane.",
+          "start_condition": "Steward and the repaired defensive formation are active.",
+          "completion_condition": "Artillery is dead, dangerous projectile aftermath is sustained and Lava enters at 4501.",
+          "responsibilities": [
+            "Steward supplies sustained arts under direct double medical coverage.",
+            "Friston blocks lower-central officers instead of allowing damage-only passage.",
+            "Return Melantha beside Friston before armored pressure."
+          ],
+          "survival_dependencies": [
+            "Lancet supplements Hibiscus during upper exposure.",
+            "The shifted Steward deployment must still produce clearance before his scheduled withdrawal."
+          ],
+          "handoff_requirements": [
+            "Confirm artillery death before the fixed Steward-to-Lava transition.",
+            "Keep all four blockers alive into the armored phase."
+          ],
+          "failure_effect_on_later_phases": "Surviving artillery or lost containment invalidates the central damage transition and protected-target release schedule."
+        },
+        {
+          "phase_id": "P4_CLEARANCE",
+          "goal": "Clear armor and paired throwers without releasing containment.",
+          "start_condition": "Lava is deployed and central Melantha attacks beside living Friston.",
+          "completion_condition": "All hostile traffic is cleared, with upper routes safe before Fang's withdrawal.",
+          "responsibilities": [
+            "Fang and Friston retain upper and lower central blocking.",
+            "Lava attacks both central lanes; Melantha accelerates lower armored clearance.",
+            "Midnight and Beagle retain outer protection.",
+            "Returning Steward destroys the western upper restraint."
+          ],
+          "survival_dependencies": [
+            "Friston must retain attacks that previously reached unsupported Melantha.",
+            "Older armor must die before additional enemies exhaust blocker capacity."
+          ],
+          "handoff_requirements": [
+            "Verify upper hostile clearance and living Fang before his 8100 retreat.",
+            "Retain central Melantha, Friston, outer blockers and medicine for residual threats."
+          ],
+          "failure_effect_on_later_phases": "An overflow or blocker death permits leaks; final evacuation cannot recover project acceptance."
+        },
+        {
+          "phase_id": "P5_EVACUATION",
+          "goal": "Release the lower protected target and complete every terminal condition.",
+          "start_condition": "Fang has withdrawn after hostile clearance and his redeployment cooldown is satisfied.",
+          "completion_condition": "Both protected targets have arrived safely, no active enemies remain, spawns are exhausted, remaining life is positive and leaks are zero.",
+          "responsibilities": [
+            "Fang destroys the western lower restraint from [6,3] LEFT.",
+            "Retained defense protects both evacuation corridors.",
+            "Continue observation beyond the final action until acceptance is established."
+          ],
+          "survival_dependencies": [
+            "Fang must survive to execute his final deployment.",
+            "No officer may reach a waiting civilian during clearance."
+          ],
+          "handoff_requirements": [
+            "Observe two explicit safe-arrival events and zero protected-target deaths.",
+            "Allow additional clearance time because Fang damages the restraint more slowly than Melantha."
+          ],
+          "failure_effect_on_later_phases": "A surviving restraint, missing arrival, leak or protected-target death prevents acceptance even if combat otherwise ends."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "stage_id": "main_08-07",
+    "causal_revision": "The earliest broken responsibility is lower-central survival during artillery splash. Preserving Friston connects later interception to the adjacent damage formation and removes the need for Melantha to inherit lower-central blocking.",
+    "gamedata_facts": "Catalog stats, ranges, skill parameters and route checkpoints constrain this plan.",
+    "current_model_rules": "Lancet's deployment heal reaches deployed operators globally; ordinary medicine excludes neutral civilians. Roadblocks specially restrain civilians. Deployment counting exempts rarity-1 operators.",
+    "unknown": [
+      "Exact client timing and target tie-break equivalence.",
+      "Active roadblock effects on ordinary hostile WALK navigation.",
+      "Full-stage survival after the changed healing and artillery timing."
+    ],
+    "result_status": "UNEXECUTED_STATICALLY_CHECKED_HYPOTHESIS"
+  },
+  "revised_tactical_requirements": {
+    "priority_order": [
+      "Rescue Friston before his lethal shell overlap.",
+      "Observe living lower-central interception before trusting later damage assignments.",
+      "Revalidate artillery clearance with Steward deployed at 2132.",
+      "Preserve guarded central damage through final pressure.",
+      "Complete both civilian evacuations."
+    ],
+    "validation_completed": "Read-only static checks passed for roster union, deployment terrain, forbidden tiles, occupancy, current-model deployment count, conservative DP, manual-skill SP and redeployment cooldowns. No stage simulation was run.",
+    "execution_policy": "The timeline is fixed. Failed survival or clearance preconditions invalidate dependent handoffs; no unsupported conditional-action executor is assumed.",
+    "acceptance": {
+      "remaining_life": "> 0",
+      "enemies_leaked": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "spawn_schedule_exhausted": true,
+      "active_enemies": 0,
+      "operator_deaths": "Recorded separately; not automatically disqualifying."
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8-7-M51-V2-H1",
+      "hypothesis": "An early global rescue heal preserves Friston through the demonstrated shell overlap. Living lower-central containment then prevents the officer leaks and allows Melantha and Lava to clear later pressure under their intended protection.",
+      "support_scope": "The rescue amount, coverage and static affordability are supported. Subsequent survival, artillery clearance and full-stage acceptance remain predictions.",
+      "falsification": "Friston dies before renewed lower-central interception, a required BLOCK is absent, artillery survives the scheduled withdrawal, or any acceptance condition fails."
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id": "R8-7-M51-V2-H1",
+    "parent_plan_id": "R8_7_GPT_M51_V1",
+    "operational_plan_id": "R8_7_GPT_M51_V2",
+    "referenced_experience_ids": [
+      "M51_ATTEMPT_FAILURE_FEEDBACK_V1"
+    ],
+    "tactical_hypothesis": "Deliver Lancet's global heal after the first saved shell and before the second, preserving Friston as the lower-central blocker. Fund Steward slightly later, retain guarded Melantha damage, and give final lower restraint clearance to living Fang.",
+    "changed_responsibilities": [
+      "Lancet becomes an immediate central survival resource at 1962, in addition to permanent upper medical support.",
+      "Steward accepts deployment at 2132; his artillery completion must be revalidated.",
+      "Friston must demonstrate living interception through later officer and armored pressure.",
+      "Central Melantha remains deployed; Fang replaces her final retreat and lower restraint clearance assignment."
+    ],
+    "expected_first_observable_event": {
+      "event_type": "HEAL",
+      "source_id": "char_285_medic2",
+      "target_id": "char_4093_frston",
+      "earliest_frame": 1962,
+      "latest_frame": 1963
+    },
+    "if_expected_event_absent": "Reject the rescue hypothesis and all dependent lower-central handoffs. Even if the heal occurs, separately require Friston to survive the second shell and produce later BLOCK events; the heal event alone does not establish success."
+  }
+}

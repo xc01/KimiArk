@@ -501,3 +501,12 @@ each passed the ten-ID gate and static checks, then lost 14/19, 28/5, and
 19/14 respectively. V2 is the best exhausted loss, not a WIN. This does not
 prove ten IDs impossible and makes no real-game, faithful, robust, or
 probabilistic claim.
+
+## 2026-10-25 — M51 freezes at ten-operator simulator WIN
+
+M51 used 2/3 real tactical CLI starts and 2/3 fixed simulations. V1 passed
+static checks but lost 28/5/2/life -2 with five leaks. V2 retained 10 IDs and 29
+actions, passed static checks, and won at 33/0/0/life 3 with both protected
+targets safe and no runtime errors. Remaining budget was frozen. This is only a
+current-model fixed-simulator WIN; no real-game, faithful, or robust success is
+claimed.

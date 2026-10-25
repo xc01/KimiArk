@@ -1,0 +1,111 @@
+{
+  "schema_version": "M51_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "decision_model": {
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "extra_config_values": [
+      "features.apps=false"
+    ],
+    "runner": "scripts/run_gpt_tactical_stage_session_v1.py",
+    "internal_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "budget": {
+    "cli_max_real_tactical_process_starts": 3,
+    "cli_started_real_tactical_process_starts": 2,
+    "cli_remaining": 1,
+    "max_stage_simulations": 3,
+    "started_stage_simulations": 2,
+    "simulations_remaining": 1,
+    "freeze_reason": "M51 V2 achieved every current hard target; remaining budget was not consumed",
+    "historical_balance_transfer": false
+  },
+  "attempt_01": {
+    "plan_id": "R8_7_GPT_M51_V1",
+    "contract_status": "PASS",
+    "static_conflicts": 0,
+    "distinct_operator_union": 10,
+    "action_count": 29,
+    "simulation_result": {
+      "win": false,
+      "enemies_killed": 28,
+      "enemies_leaked": 5,
+      "operator_deaths": 2,
+      "remaining_life": -2,
+      "leaks": [
+        "enemy_1107_uoffcr#11@3065",
+        "enemy_1107_uoffcr#13@3425",
+        "enemy_1108_uterer#28@6101",
+        "enemy_1108_uterer#31@6292",
+        "enemy_1110_uamord#34@6996"
+      ]
+    },
+    "hashes": {
+      "diagnostic_events_sha256": "591a6a3439678a1da76ef99c85fe9123df7ffb405f0fc838bb8a85e416e29119",
+      "diagnostic_summary_sha256": "46b6a465325027ff368c85a545039f5d2ca3cd6b4b4f17cc4dc38bcb2acdc87b",
+      "plan_snapshot_sha256": "53e7c7f68f319555b47bc89a770e4ec64ee26df0811c9bd94f66df4f994d7c5a",
+      "action_snapshot_sha256": "0c9b167fd5ceca573ed94cd0cfa0976ec930d3f1159b3e9479320cdec0f2d4e9"
+    }
+  },
+  "attempt_02_frozen": {
+    "plan_id": "R8_7_GPT_M51_V2",
+    "contract_status": "PASS",
+    "static_conflicts": 0,
+    "distinct_operator_union": 10,
+    "action_count": 29,
+    "selected_low_star_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_120_hibisc",
+      "char_212_ansel",
+      "char_210_stward",
+      "char_285_medic2",
+      "char_122_beagle",
+      "char_121_lava"
+    ],
+    "gpt_tactical_difference_from_v1": "Move Lancet-2 deployment from 2162 to 1962 to heal Friston before his lethal artillery window, delay Steward from 2071 to 2132 to fund that deployment, and replace the invalid dead-Melantha retreat/redeploy tail with a retreat at 8100 and Fang redeploy at 10201.",
+    "simulation_result": {
+      "win": true,
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_WIN",
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "remaining_life": 3,
+      "final_dp": 99,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "runtime_action_errors": 0
+    },
+    "objective_scope": {
+      "current_model_fixed_simulator_win": true,
+      "zero_leaks": true,
+      "protected_targets_zero_deaths_and_all_reached": true,
+      "distinct_operator_union_at_most_10": true
+    },
+    "hashes": {
+      "diagnostic_events_sha256": "57b42b6906dd94eb71bb77448b3533acd9ab22993a320106012372981ae65dd8",
+      "diagnostic_summary_sha256": "52cf2ec1411385c1350f8b2ff282b9b22d933b9390cdfdec15872a09fc6c95f4",
+      "plan_snapshot_sha256": "bfde5e16f985a436c5ce55903512aea57c5ef066a9ddf5e4a4557c6d8f4e4465",
+      "action_snapshot_sha256": "a65748b5dec7bc168e675470f37d3debdbfd8a60b5ade649b2394c32080bdbda"
+    }
+  },
+  "claims": {
+    "real_game_status": "NOT_PLAYED",
+    "real_game_win_claim": false,
+    "faithful_certificate_status": "UNKNOWN",
+    "robust_claim": false,
+    "probabilistic_win_claim": false,
+    "freeze": true,
+    "further_roster_or_star_optimization": false
+  },
+  "primary_evidence": {
+    "v1_events": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_01_diagnostic/diagnostic_events.json",
+    "v1_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_01_diagnostic/diagnostic_summary.json",
+    "v2_events": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_diagnostic/diagnostic_events.json",
+    "v2_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m51_ten_operator_full_win_v2/attempt_02_diagnostic/diagnostic_summary.json"
+  }
+}

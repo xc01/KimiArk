@@ -617,3 +617,17 @@ chain failure exposed route-11 and regressed to 19/14/7/life -12.
 These are candidate-specific lessons, not proof that ten operators are
 impossible. A live blocker, verified income timing, living late-route coverage,
 and artillery removal must be co-validated on the same fixed timeline.
+
+## 2026-10-25 M51 shows survival retiming must precede full-route claims
+
+M51 V1 fixed artillery survival and killed #0, but leaked route-11 earlier at
+3065. Substantial DAMAGE without BLOCK did not close #31 or #34, and Friston's
+2111 death invalidated the intended lower-central containment. A single later
+retreat action for dead Melantha also proved that rationale cannot replace
+deployment state.
+
+M51 V2 moved the deployment heal into Friston's lethal window and funded it by
+delaying Steward, preserving the blocker and economy chain. It then transferred
+the late clearance to a living Fang. This closes M51 under the fixed timeline,
+but the frame choices remain candidate-specific evidence rather than universal
+deadlines or a robustness claim.
