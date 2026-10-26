@@ -1,0 +1,90 @@
+{
+  "schema_version": "M57_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M57_V1",
+  "result": {
+    "win": false,
+    "enemies_killed": 21,
+    "enemies_leaked": 12,
+    "enemies_remaining": 0,
+    "operator_deaths": 6,
+    "remaining_life": -10,
+    "action_count": 30,
+    "distinct_operator_union": 8
+  },
+  "selected_structure": "H1 Plume fusion: Plume took permanent lower-outer interception and roadblock #4 duty; the roster retained Fang, Friston, Midnight, Hibiscus, Ansel, Lancet-2, and Steward. Steward was scheduled to return for late inner damage after artillery clearance.",
+  "structural_comparison_recorded": true,
+  "causal_sequence": [
+    {
+      "frame": 1961,
+      "event": "First artillery wave.",
+      "facts": "Locked [5,5] hit Plume 721, Friston 765, and Ansel 891 physical. Hibiscus healed Ansel 372.6 at 1961."
+    },
+    {
+      "frame": 2111,
+      "event": "Second wave.",
+      "facts": "Locked [5,6] hit Plume 721 and Ansel 891; Hibiscus healed Ansel 318.4 at 2047. Unlike M56, Ansel survived this shell."
+    },
+    {
+      "frame": 2261,
+      "event": "Third wave.",
+      "facts": "The same lock hit Plume 721 and Ansel 891."
+    },
+    {
+      "frame": 3011,
+      "event": "Hibiscus was struck by 890 physical at locked [6,2]."
+    },
+    {
+      "frame": 3161,
+      "event": "First operator death: Hibiscus.",
+      "facts": "A second 890 shell at the same lock killed her despite nearby self-heal/Lancet support."
+    },
+    {
+      "frame": 3603,
+      "event": "First dependent not-deployed action error.",
+      "facts": "The run recorded eight not-deployed errors after deaths; first was Hibiscus@3603."
+    },
+    {
+      "frame": 3970,
+      "event": "Steward died to a third 910 shell at locked [7,5]."
+    },
+    {
+      "frame": 5046,
+      "event": "First leak: armored #21.",
+      "facts": "The first objective failure followed at frame 5571."
+    },
+    {
+      "frame": 5353,
+      "event": "Artillery #0 killed protected #3 with 950 physical.",
+      "facts": "#14 reached safely at 15449."
+    },
+    {
+      "frame": 5759,
+      "event": "Artillery #0 leaked.",
+      "facts": "Steward dealt 11035.13 arts over 38 hits, but it had zero BLOCK and was not killed."
+    },
+    {
+      "frame": 6996,
+      "event": "Armored #34 leaked.",
+      "facts": "Steward dealt 2x249.10 for 498.20 total, but #34 had zero BLOCK and was not killed."
+    }
+  ],
+  "roadblock_settlement": {
+    "roadblock_1": "Steward destroyed it at 13417 after 8250.192 damage.",
+    "roadblock_2": "Fang destroyed it at 15117 after 8000 damage, after the objective had already failed.",
+    "roadblock_3": "Midnight destroyed it at 2404 after 8051.4 damage.",
+    "roadblock_4": "Plume destroyed it at 2131 after 8137.4 damage."
+  },
+  "objective_settlement": {
+    "hostile_spawn_settlement": "All 33 hostiles settled as 21 kills plus 12 leaks with zero remaining enemies.",
+    "protected_targets": "#3 was killed by artillery at 5353; #14 reached at 15449.",
+    "remaining_life": -10
+  },
+  "lesson": "The Plume structure did resolve M56's Ansel@2111 death and cleared roadblock #4 earlier, but the artillery-medical line failed one stage later: Hibiscus died to a second 890 shell, Steward to a third 910 shell. This released inner pressure into 12 leaks. High artillery damage without blocking still did not kill it, and #34 had only two Steward hits with zero BLOCK.",
+  "revision_requirements": [
+    "Prevent later artillery lock waves from killing Hibiscus and Steward; a first-shell survival is not duty closure.",
+    "Provide live eastern/inner block and kill capacity through #21/#22 and late Uterer pressure after medical losses.",
+    "Pair artillery output with actual BLOCK or enough burst to kill before leak/protected-target death.",
+    "Intercept #34 with real BLOCK and repeated damage; two hits and zero BLOCK are not closure.",
+    "Complete roadblock #2/civilian passage before protected-target loss or objective failure."
+  ]
+}

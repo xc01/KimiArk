@@ -1,0 +1,67 @@
+{
+  "schema_version": "M57_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M56_V1",
+  "best_verified_parent_reference": {
+    "source_plan_id": "R8_7_GPT_M52_V1",
+    "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/m52_minimum_operator_reduction_v1/attempt_01_diagnostic",
+    "result": {
+      "win": true,
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3,
+      "distinct_operator_union": 9,
+      "action_count": 27
+    },
+    "roster_chinese_names": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+      "史都华德", "Lancet-2", "米格鲁"
+    ]
+  },
+  "m56_failure_result": {
+    "win": false,
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "operator_deaths": 8,
+    "remaining_life": -14,
+    "distinct_operator_union": 8,
+    "action_count": 29,
+    "first_operator_death": "char_212_ansel@2111",
+    "first_leak": "enemy_1107_uoffcr#20@4625",
+    "first_objective_failure": "enemy_1107_uoffcr#22@5196 made remaining life 0",
+    "artillery": "12 Steward hits totaled 3437.58 arts; zero BLOCK; artillery leaked at 5759 and killed #3 at 5353.",
+    "armor": "#34 had zero DAMAGE and zero BLOCK events and leaked at 6996.",
+    "protected_targets": "#3 killed by artillery; #14 reached at 16449.",
+    "roadblocks": "All four were eventually destroyed, but roadblock #2 was destroyed only at 16117 after the objective had already failed.",
+    "dependent_actions": "13 not-deployed errors after deaths; first at Ansel@3873."
+  },
+  "m55_alternative_failure": {
+    "source_plan_id": "R8_7_GPT_M55_V1",
+    "first_failure": "Melantha blocked #9 at 1707, took 175 physical at 1708/1768/1828 and fatal 1888 despite Ansel 362 heals at 1409/1581/1753/1839; #9 leaked at 2121. This is a close-range survival/handoff failure, not an artillery death."
+  },
+  "mandatory_structural_comparison": {
+    "candidate_count_minimum": 3,
+    "policy": [
+      "Start from stage duties, not by deleting one member of an old roster.",
+      "List duties that must be simultaneous or staged: opening contact and DP, live blocking on each route, medical coverage and target competition, artillery output and survival, roadblock/civilian passage, late mixed pressure, and #34 final settlement.",
+      "Compare at least three substantively different structures; do not count renaming or small frame adjustments as separate candidates.",
+      "Actively inspect usable capabilities of operators outside the historical success roster; do not force a new operator quota and do not force anyone out.",
+      "Explore combinations of blocking/healing fusion, output type/range, natural DP or vanguard economy, positions, and rotations; the direction is your choice.",
+      "Brief structural summaries are sufficient; do not emit three full action timelines.",
+      "For each candidate state roster, which duties are merged/replaced, what prior failure it addresses, the most dangerous concrete window, capability-support evidence, and main cost. Mark unverified claims as WAITING_RUNTIME_EVIDENCE rather than excluding by reputation or unused history.",
+      "Then autonomously select the most promising structure and emit one complete executable action timeline. If you retain a small modification of a prior roster, state which concrete facts rejected the alternatives and how the selected plan addresses them; do not use generic familiarity or stability as the reason.",
+      "Do not force Spot, Fang, Friston, or any operator either in or out; use the supplied current capability facts."
+    ]
+  },
+  "revision_requirements": [
+    "Redesign the early artillery lock/medical survival chain so the first two waves cannot chain-kill the primary medical line.",
+    "Maintain live eastern/inner interception through the #20/#21/#22 window with enough killing output.",
+    "Ensure artillery is killed or reliably intercepted before leaking or killing protected targets.",
+    "Make roadblock/civilian passage occur while all other routes remain held.",
+    "Deal actual damage to and block or kill #34; zero DAMAGE/BLOCK cannot close that duty.",
+    "Do not add commands dependent on a dead operator; legal:false cannot verify a prediction.",
+    "Use actual retreat refunds and redeploy cooldowns; death does not refund."
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "M57_STAGE_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "input_gate": {
+    "parent_commit": "1f061e02837518247bd11b5dae99ff828680266c",
+    "local_predecessor_commit": "eb4fb900f116c12e432440d28cee9d3f7a38f161",
+    "normal_low_star_capability_source": {
+      "schema_version": "normal-low-star-capability-source-v1",
+      "support_schema_version": "normal-low-star-mechanism-support-v2",
+      "facts_sha256": "968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307",
+      "support_sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324"
+    },
+    "actual_prompt_spot_skill_status": "EXECUTABLE_APPROXIMATED",
+    "actual_prompt_spot_talent_status": "UNSUPPORTED_ACTIVE_TALENT",
+    "actual_prompt_catalog_count": 34,
+    "actual_prompt_roster_limit": 8,
+    "llm_evidence_context_sha256": "18b77f086f6bacb0e12b6afa3230332c827ad735ad4a1e18c617f1052c52cf37",
+    "codex_prompt_sha256": "82a3e1b8af4d353d2f3d7ec2b3d7aa1c65f14b1d390af06334d7f212503669d7",
+    "revision_output_schema_sha256": "c9fba32f3cb7b2751bdc4f1e10547aa67cbc42753e8aa3867a3cf3ba03f54b6e",
+    "codex_final_message_sha256": "1980ab5b096993b399c4d5f3407f50e12e5c2d13248950d8caaab5bff0307f9e",
+    "llm_structured_output_sha256": "b9bc57e09c9b47fb5dfc2be3a5f53bdb61be179cf7e4f007c9d6b5691f681413"
+  },
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "simulator_win": true,
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3
+    },
+    "roster_chinese_names": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+      "史都华德", "Lancet-2", "米格鲁"
+    ]
+  },
+  "structural_comparison": [
+    {
+      "hypothesis_id": "R8_7_M57_H1",
+      "selected": true,
+      "roster_names": ["芬", "Friston-3", "月见夜", "翎羽", "芙蓉", "安赛尔", "Lancet-2", "史都华德"],
+      "structure": "Plume combines lower outer blocking and roadblock output; two principal medics and Lancet remain separated; Steward returns for late inner damage.",
+      "selection_reason": "GPT selected it because static DP showed earlier medical support without the unresolved Spot relocation handoff; it retained the demonstrated cheap inner opening.",
+      "status": "WAITING_RUNTIME_EVIDENCE before simulation; LOSS after simulation"
+    },
+    {
+      "hypothesis_id": "R8_7_M57_H2",
+      "selected": false,
+      "roster_names": ["芬", "Friston-3", "月见夜", "玫兰莎", "斑点", "芙蓉", "安赛尔", "史都华德"],
+      "structure": "Spot replaces Lancet rescue and later blocking/healing fusion while retaining Melantha's physical output.",
+      "rejection_reason": "GPT judged the opening could not preserve medical arrivals and an early adjacent rescue without additional restructuring; heal pauses remove damage.",
+      "status": "MODEL_REJECTED_NOT_SIMULATED"
+    },
+    {
+      "hypothesis_id": "R8_7_M57_H3",
+      "selected": false,
+      "roster_names": ["夜刀", "Friston-3", "月见夜", "卡缇", "克洛丝", "芙蓉", "安赛尔", "史都华德"],
+      "structure": "Natural DP with Yato/Cardigan/Kroos replaces Fang income; Cardigan fuses outer blocking and self-heal.",
+      "rejection_reason": "GPT judged first-contact/rescue replacements unresolved and funding competition dangerous.",
+      "status": "MODEL_REJECTED_NOT_SIMULATED"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "plan_id": "R8_7_GPT_M57_V1",
+      "parent_plan_id": "R8_7_GPT_M56_V1",
+      "distinct_operator_union": 8,
+      "action_count": 30,
+      "static_status": "PASS",
+      "selected_ids": [
+        "char_123_fang", "char_4093_frston", "char_283_midn",
+        "char_192_falco", "char_120_hibisc", "char_212_ansel",
+        "char_285_medic2", "char_210_stward"
+      ],
+      "tactical_change": "Replaced Melantha with Plume, omitted Beagle, used Plume as permanent lower-outer interceptor and roadblock #4 attacker, retained separated medical rescue, and scheduled Steward's late return for inner damage.",
+      "plan_and_action_consistency": "Source GPT plan equals diagnostic plan_snapshot; its action_timeline equals diagnostic action_snapshot actions; selected and DEPLOY union is exactly 8.",
+      "simulator_result": {
+        "win": false,
+        "enemies_killed": 21,
+        "enemies_leaked": 12,
+        "enemies_remaining": 0,
+        "operator_deaths": 6,
+        "remaining_life": -10,
+        "first_operator_death": "char_120_hibisc@3161",
+        "first_leak": "enemy_1110_uamord#21@5046",
+        "first_objective_failure": "frame 5571",
+        "protected_target_summary": "#3 killed by artillery at 5353; #14 reached at 15449"
+      },
+      "key_duties": {
+        "first_artillery_medical_chain": "Improved but still failed: Ansel survived shells at 1961/2111/2261 with Hibiscus heals, but Hibiscus died to the second 890 shell@3161 and Steward to a third 910 shell@3970.",
+        "plume_outer_duty": "Partially succeeded: Plume destroyed roadblock #4 at 2131 and survived many officer hits, but its structure did not maintain the later medical/output chain.",
+        "roadblock_clearance": "All four devices were eventually destroyed: #4@2131, #3@2404, #1@13417, #2@15117; #2 was too late for acceptance.",
+        "artillery_killing": "FAILED: 38 Steward hits totaled 11035.13, zero BLOCK, #0 leaked@5759 and killed #3@5353.",
+        "armor_34": "FAILED: only 2 Steward hits totaling 498.2, zero BLOCK, leaked@6996.",
+        "dependent_actions": "8 not-deployed action errors after deaths; first at Hibiscus@3603."
+      },
+      "hashes": {
+        "plan_snapshot_sha256": "eb6f60df431405dbd392ec3ed1065fd49b5754e5839030c5833484a0420f9e06",
+        "action_snapshot_sha256": "8b541bd660805d261c72e99fb465611695449321d6297e0b5177a9b5646e31ad",
+        "diagnostic_events_sha256": "5062e3f5a0cfcdcba38a40eedd2d451c6cebe6efc5b0c3c58a345fadd2fcde44",
+        "diagnostic_summary_sha256": "4fccf246ad786d777cc0025592ce9ff8d3344e220f764d885668e7ae8b47c4b8",
+        "final_status_sha256": "96b13c0526d538ca7b82ff8843140e8d91d7574a001dd36099f84a179e08ba06",
+        "manifest_sha256": "2e919d46bb0cd627a121e146a33635b4f71ecfa84fc3bcadaf4563a062e105c3"
+      }
+    }
+  ],
+  "budget": {
+    "cli_max_real_tactical_process_starts": 1,
+    "cli_started_real_tactical_process_starts": 1,
+    "cli_remaining": 0,
+    "simulations_max": 1,
+    "simulations_started": 1,
+    "simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "source": "docs/review/fc77177/m57_open_roster_structure_v1/m57_simulation_budget_v1.json"
+  },
+  "conclusion": {
+    "complete_win_reached": false,
+    "best_verified_distinct_operator_union": 9,
+    "global_minimum_proved": false,
+    "eight_operator_impossibility_proved": false,
+    "next_bounded_task_if_authorized": "One new GPT-led 8-ID attempt must extend first-wave artillery survival through the Hibiscus/Steward lock waves, then pair artillery and #34 output with real blocking or burst kills while preserving eastern live interception and civilian timing."
+  },
+  "claims": {
+    "real_game_win": false,
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false
+  }
+}
