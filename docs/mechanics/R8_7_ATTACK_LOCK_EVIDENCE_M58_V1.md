@@ -9,6 +9,18 @@ lock/cancel behavior, but not sufficient to establish the real-client rule.
 Using either H1, H2, or H3 as a tactical dependency would therefore turn an
 UNKNOWN into a false deterministic fact.
 
+## Dynamic runtime gate
+
+No dynamic ordinary-attack test was executed. This increment used no tactical
+CLI and no fixed full-stage simulation. The checked environment has no `adb`,
+authorized device, Android SDK emulator/AVD, configured Android system image,
+existing M58 recording, or runtime trace. A `qemu-system-aarch64` binary is
+present, but it does not by itself provide a runnable Android client and was not
+launched. A locally present 1,882,311,496-byte APK (`arknights-hg-2771.apk`,
+SHA256 `0b79b85383e21a6343283bc6bfd7a9d24eb4134abf901115f757da6a5d50f6db`) is
+therefore evidence of local material only, not a runnable client. Consequently
+S0-S3 are `NOT_EXECUTED`, not disproven.
+
 ## Client evidence basis
 
 The sampled client tree is `/tmp/kimiark-m58-client-3089907`:
@@ -32,6 +44,14 @@ Automatic Il2CppDumper did not finish because the protected ELF did not expose a
 usable `MetadataRegistration`; exact method ranges below therefore combine the
 decrypted-metadata lookup with direct ARM64 disassembly.
 
+The AndroidManifest for this library identifies package
+`com.hypergryph.arknights`, `versionCode=190`, `versionName=2.7.71`, and
+`platformBuildVersionName=6.0-2438415`. The labels `3089907` and `2771` are not
+values supplied by this manifest. `3089907` is an unproven material label with
+currently unknown provenance; `2771` is an unproven historical filename label.
+Neither may be inferred to equal `versionCode`, `versionName`, a kernel/build
+number, or another client's label.
+
 The M58 control-chain check then resolved the current-client method table
 directly. The `Assembly-CSharp.dll` native module has 217,813 method pointers;
 relevant tokens map to exact RVAs in
@@ -44,6 +64,16 @@ instructions are obfuscated/encrypted. `RangedAttack.OnCastOnTarget` and
 `RangedAttack.DoCastOnTargets` are also encrypted. Consequently, the pre-birth
 ordinary target-loss transition cannot be closed without runtime or unpacked
 evidence.
+
+The unreadable bodies are not a bad address translation. The first executable
+`PT_LOAD` maps virtual addresses `0x000000..0xbad0ad8` directly to the same file
+offsets. All six candidate RVAs lie in this range, and their 64-byte raw windows
+are archived in
+`m58_attack_control_chain_v1/evidence/candidate_method_raw_bytes.bin`, together
+with a per-RVA index. Plaintext callers remain available in
+`2771_method_map_excerpt.txt` and `ranged_plaintext_disasm_excerpt.txt`. This
+closes mapping as a cause of the static stop, but it does not close the unknown
+control-flow branches.
 
 ## Ordinary projectile facts from 3089907
 
@@ -105,13 +135,32 @@ cancels that pending cast but does not undo the already-started cooldown.
 
 ## Required next verification
 
-Before treating ordinary-attack baiting as deterministic:
+Before treating ordinary-attack baiting as deterministic, obtain an authorized
+current-build client trace or short capture using the same library SHA256. The
+minimal protocol is:
 
-The next concrete action is to obtain an authorized current-client runtime trace
-or memory-dump of the mapped methods at `0x292d0ac`, `0x292d628`, `0x292d7b0`,
-`0x292d8f8`, `0x2d7fb64`, and `0x2d80404`. The required scenarios remain: normal
-baseline; target withdrawn before projectile birth with another valid target;
-target withdrawn after birth; no-substitute control; and death versus retreat.
+1. **S0 baseline**: Let enemy E stably attack target A. Record E/A instances,
+   strike or projectile birth, damage, animation, and the next actionable
+   attack.
+2. **S1 core, B remains**: During a stable attack, after windup starts and
+   before strike/projectile birth, retreat A while legal target B remains.
+   Record the actual hit target, whether the animation finishes, whether the
+   cycle is consumed, the earliest next attack, and whether B is retargeted.
+3. **S2 no substitute**: Repeat the same timing with no legal target. Record
+   miss/cancel/retarget/animation and whether the next attack waits.
+4. **S3 after birth**: Retreat A only after projectile birth or damage, with B
+   legal. Separate the retained-projectile outcome from the next scheduler
+   cycle.
+
+At runtime, use `runtime_address = loaded libil2cpp.so base + RVA`; first verify
+that the loaded library has SHA256
+`3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259`. Capture a
+unified frame/clock, enemy and ability instances, old/new target lifecycle,
+cancel/finish reason, actual damage target, animation/projectile timing, and the
+next attack/movement time. Death and leaving range are optional only after S0-S3
+determine the main branch. Static analysis is not to be restarted as a
+substitute for these observations.
+
 Until then, do not convert either H1, H2, H3, or artillery pre-birth cancellation
 into a deterministic client fact.
 

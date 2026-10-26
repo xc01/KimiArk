@@ -1,6 +1,6 @@
 {
-  "schema_version": "M58_ATTACK_CONTROL_CHAIN_EVIDENCE_MANIFEST_V1",
-  "scope": "Current client 3089907 static evidence; no tactical CLI and no full-stage simulation",
+  "schema_version": "M58_ATTACK_CONTROL_CHAIN_EVIDENCE_MANIFEST_V2",
+  "scope": "Current client 3089907 static evidence and runtime-environment gate; no tactical CLI, fixed full-stage simulation, or dynamic trace was started",
   "source_material": {
     "libil2cpp_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
     "global_metadata_encrypted_sha256": "bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8",
@@ -24,6 +24,30 @@
     {
       "path": "projectile_prefab_fields.json",
       "sha256": "235a029e555bb550ce9f05c22bfcfe2b0b681bcb2b9894e094c009acfcb92536"
+    },
+    {
+      "path": "android_manifest_3089907.axml",
+      "sha256": "92856638465aff947a54e24633134a43a4de45cd81221381896e8be1c1d46404"
+    },
+    {
+      "path": "android_manifest_identity.json",
+      "sha256": "11d04a07ba1f99e8d661c0cbc71b87bd834495ba137b81c9570d460940d67eec"
+    },
+    {
+      "path": "elf_pt_load_mapping_excerpt.txt",
+      "sha256": "4540f0ef6d5dfc6a7710cab391c2b1532daf36936952e03d50e6f02aa15ee2cc"
+    },
+    {
+      "path": "candidate_method_raw_bytes.bin",
+      "sha256": "6bb85fed843fd8c0f9d832049546c3e1e18a035add7d4946f7dcf805f49c40f8"
+    },
+    {
+      "path": "candidate_method_raw_bytes_index.json",
+      "sha256": "ef87d6bba4ef3cd375c29598547c6479e6ce111a0b276c21d880e3383d8cf87a"
+    },
+    {
+      "path": "runtime_environment_inventory.json",
+      "sha256": "0b3df8decaeeb2f7539ebbc752ac176ec64bf6cc1dc03f34a05d78a2fd89f487"
     }
   ],
   "conclusions": {
@@ -32,7 +56,11 @@
     "ordinary_cooldown": "UNKNOWN",
     "projectile_retained_reference": "PARTIALLY_CONFIRMED",
     "artillery_position_lock_in_current_simulator": "PROJECTILE_BORN",
-    "artillery_pre_birth_client_rule": "UNKNOWN"
+    "artillery_pre_birth_client_rule": "UNKNOWN",
+    "dynamic_runtime": "NOT_EXECUTED_NO_AUTHORIZED_RUNNABLE_CLIENT",
+    "ordinary_s0_s3": "NOT_EXECUTED",
+    "client_label_3089907_provenance": "UNKNOWN",
+    "client_label_2771_provenance": "UNKNOWN_HISTORICAL_FILENAME_LABEL"
   },
   "budget": {
     "tactical_cli_started": 0,

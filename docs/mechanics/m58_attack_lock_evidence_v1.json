@@ -1,5 +1,5 @@
 {
-  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V2",
+  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V3",
   "gate_decision": "GATE_STOPPED_BEFORE_TACTICAL_CLI",
   "budget": {
     "tactical_cli_started": false,
@@ -9,6 +9,12 @@
   },
   "client": {
     "source_directory": "/tmp/kimiark-m58-client-3089907",
+    "package": "com.hypergryph.arknights",
+    "android_version_code": 190,
+    "android_version_name": "2.7.71",
+    "platform_build_version_name": "6.0-2438415",
+    "label_3089907_provenance": "UNKNOWN",
+    "label_2771_provenance": "UNKNOWN_HISTORICAL_FILENAME_LABEL",
     "libil2cpp_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
     "global_metadata_sha256": "bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8",
     "android_manifest_sha256": "92856638465aff947a54e24633134a43a4de45cd81221381896e8be1c1d46404"
@@ -20,6 +26,8 @@
     "method_pointer_count": 217813,
     "method_pointer_table_file_offset": "0xc266738",
     "mapping_cross_checked_by_plaintext_calls": true,
+    "first_executable_pt_load_va_to_file_offset": "IDENTITY_0_TO_0xbad0ad8",
+    "candidate_rva_location_verified_against_first_executable_pt_load": true,
     "encrypted_method_bodies": [
       {"name": "Enemy.AttackState.OnEnter", "rva": "0x292d0ac"},
       {"name": "Enemy.AttackState.OnTick", "rva": "0x292d628"},
@@ -28,6 +36,18 @@
       {"name": "RangedAttack.OnCastOnTarget", "rva": "0x2d7fb64"},
       {"name": "RangedAttack.DoCastOnTargets", "rva": "0x2d80404"}
     ]
+  },
+  "dynamic_runtime": {
+    "executed": false,
+    "blocker": "No ADB, device, Android emulator/AVD, authorized client runtime, existing M58 recording, or runtime trace was found.",
+    "checked_but_not_sufficient": "qemu-system-aarch64 exists, but no Android system/AVD image was found; it was not launched.",
+    "apk_presence_treated_as_runnable": false
+  },
+  "ordinary_s0_s3_runtime_capture": {
+    "S0": "NOT_EXECUTED",
+    "S1": "NOT_EXECUTED",
+    "S2": "NOT_EXECUTED",
+    "S3": "NOT_EXECUTED"
   },
   "projectiles": {
     "ordinary": {
