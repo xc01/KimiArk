@@ -1,0 +1,125 @@
+{
+  "schema_version": "M60_TACTICAL_FEEDBACK_V1",
+  "evidence_status": "COMPLETE_CURRENT_MODEL_FULL_STAGE",
+  "source_plan_id": "R8_7_GPT_M58_V1",
+  "source_simulation_id": "M59_ATTEMPT_01",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source_result": {
+    "win": false,
+    "enemies_killed": 15,
+    "enemies_leaked": 18,
+    "operator_deaths": 8,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1,
+    "remaining_life": -16,
+    "first_leak": {"enemy_id": "enemy_1107_uoffcr#17", "frame": 4551},
+    "civilian_death": {"enemy_id": "enemy_3001_upeopl#3", "frame": 3311},
+    "objective_failure": {"enemy_id": "enemy_1107_uoffcr#19", "frame": 5091, "reason": "ENEMY_LEAK"}
+  },
+  "event_feedback": {
+    "early_medical_failure": {
+      "operator_id": "char_212_ansel",
+      "max_hp": 1135,
+      "artillery_hits": [
+        {"frame": 1961, "amount": 891},
+        {"frame": 2111, "amount": 891},
+        {"frame": 2261, "amount": 891}
+      ],
+      "hibiscus_heals_before_skill": [
+        {"frame": 2009, "amount": 372.6},
+        {"frame": 2095, "amount": 372.6},
+        {"frame": 2181, "amount": 372.6}
+      ],
+      "ansel_self_heal": {"frame": 2111, "amount": 362},
+      "hp_before_third_hit": 832.8,
+      "hibiscus_skill_frame": 2222,
+      "next_hibiscus_heal": {"frame": 2267, "amount": 372.6, "target_id": "char_4093_frston"},
+      "ansel_death_frame": 2261,
+      "spot_availability": "Spot deployed at 2431 and activated at 2882, too late for Ansel."
+    },
+    "protected_target_3": {
+      "roadblock_binding_start": 761,
+      "officer_hits": [
+        {"frame": 1296, "amount": 280},
+        {"frame": 1356, "amount": 280},
+        {"frame": 1416, "amount": 280}
+      ],
+      "artillery_locked_position_runtime": [6.6, 1.0],
+      "artillery_projectile_birth_frames": [2921, 3071, 3221],
+      "artillery_hits": [
+        {"frame": 3011, "amount": 950},
+        {"frame": 3161, "amount": 950},
+        {"frame": 3311, "amount": 950}
+      ],
+      "damage_received": 3690,
+      "death_frame": 3311,
+      "roadblock_3_damage": {"first_frame": 1897, "last_frame": 2560, "hits": 18, "per_hit": 297, "total": 5346, "destroyed": false},
+      "midnight_m59_skill_action_frame": 4620,
+      "midnight_death_frame": 4209,
+      "lesson": "Clearance, skill timing, occupied output, and artillery threat must be joint; more healing while the civilian remains in range is insufficient."
+    },
+    "success_fragments": {
+      "policy": "REFERENCE_NOT_MANDATED_ACTION",
+      "fang_retreat": {"frame": 2430, "refund_dp": 5, "active_blocks_released": 0},
+      "spot_deploy": {"frame": 2431, "tile": [3, 5]},
+      "spot_first_block": {"frame": 2588, "enemy_id": "enemy_1107_uoffcr#10"},
+      "leak_between_2430_and_2588": 0,
+      "spot_skill_window": {"start_frame": 2882, "end_frame": 3632, "heal_count": 19, "total": 4170.4},
+      "spot_heal_totals": {"char_120_hibisc": 2799.4, "char_4093_frston": 1140.0, "char_284_spot": 231.0},
+      "specified_heals": [
+        {"frame": 3038, "target_id": "char_120_hibisc", "amount": 464},
+        {"frame": 3155, "target_id": "char_120_hibisc", "amount": 53.4}
+      ],
+      "boundary": "Local fusion only; it did not protect Ansel, #3, other routes, or the late stage."
+    },
+    "first_leak_release_chain": {
+      "enemy_id": "enemy_1107_uoffcr#17",
+      "midnight_block_start": 3848,
+      "enemy_damage_to_midnight": {"start_frame": 3849, "interval_frames": 60, "amount": 48},
+      "midnight_damage": {"start_frame": 3964, "end_frame": 4198, "hits": 7, "amount_each": 347, "total": 2429},
+      "midnight_death_frame": 4209,
+      "enemy_leak_frame": 4551,
+      "midnight_heal_count": 0,
+      "lesson": "A completed-duty sacrifice is allowed only if the enemy is settled or a successor actually closes it."
+    },
+    "steward_survival_and_return": {
+      "artillery_hits": [
+        {"frame": 3611, "amount": 910},
+        {"frame": 3761, "amount": 910},
+        {"frame": 3911, "amount": 910},
+        {"frame": 4061, "amount": 910}
+      ],
+      "hibiscus_heals": [
+        {"frame": 3615, "amount": 372.6},
+        {"frame": 3701, "amount": 372.6},
+        {"frame": 3787, "amount": 558.9},
+        {"frame": 3873, "amount": 515.9}
+      ],
+      "hp_after_3911": 190,
+      "hp_after_3959_heal": 748.9,
+      "frame_4045_heal_target": "char_4093_frston",
+      "death_frame": 4061,
+      "retreat_at_4800": "ILLEGAL_OPERATOR_NOT_DEPLOYED",
+      "redeployment": {"frame": 6901, "legal": true},
+      "post_return_target_selection_events": 3320,
+      "post_return_candidates": 0,
+      "post_return_damage": 0,
+      "former_front_death_frames": {"char_4093_frston": 4650, "char_284_spot": 4753, "char_123_fang": 4920},
+      "geometry_note": "Returned Steward [5,6] DOWN covered Friston [4,5] but not Fang [4,4]; actual contact must be planned, not inferred from a legal tile."
+    },
+    "late_closed_duties": {
+      "artillery_0": {"damage_received": 11757.52, "hits": 40, "block_count": 0, "leak_frame": 5759, "killed": false},
+      "armored_34": {"spawn_frame": 6330, "leak_frame": 6996, "damage_received": 0, "hit_count": 0, "block_count": 0, "killed": false}
+    }
+  },
+  "planning_requirements": {
+    "m59_frames_are_conditional_not_deadlines": true,
+    "early_ansel_failure_must_be_recomputed": true,
+    "protected_target_3_requires_joint_clearance_and_artillery_treatment": true,
+    "success_fragments_may_be_retained_or_rebuilt": true,
+    "enemy_17_must_be_settled_or_successor_must_close_it": true,
+    "steward_return_must_have_actual_enemy_contact": true,
+    "artillery_and_34_must_be_killed_without_leak": true,
+    "deaths_evaluated_by_contribution_not_minimized": true
+  }
+}

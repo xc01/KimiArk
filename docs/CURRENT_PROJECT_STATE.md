@@ -481,3 +481,15 @@ leaked at 5759, #34 leaked at 6996, protected #3 died at 3311, and only #14
 reached. The best verified current-model simulator WIN remains M52 V1 at 9 IDs.
 M59 evidence is under
 `docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/evidence/attempt_01/`.
+
+## 2026-10-27 M60 stops before simulation on a contract failure
+
+M60 made its own single GPT tactical call with the M59 event feedback, correct
+Spot/Ansel capability fields, and a hard eight-ID gate. The response compared
+three structures, but `selected_structure_id` was at the root and only one
+strategic hypothesis was supplied. These two errors are not a unique lossless
+outer-field rename, so no normalized copy was fabricated. Static compile and the
+authorized simulation were not started. The best verified current-model simulator
+WIN remains M52 V1 at 9 IDs; this contract failure does not disprove Spot, an
+eight-ID plan, or sacrifice tactics. Evidence is under
+`docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/`.

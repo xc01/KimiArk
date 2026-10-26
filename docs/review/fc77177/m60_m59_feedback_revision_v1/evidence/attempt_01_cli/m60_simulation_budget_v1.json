@@ -1,0 +1,24 @@
+{
+  "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "source": "M59_EVENT_AUDIT_AND_SUCCESS_FRAGMENTS",
+  "source_local_commit": "84ab5ffb45342a842311b395254f1795f01db90e",
+  "cli_max_real_tactical_process_starts": 1,
+  "cli_started_real_tactical_process_starts": 1,
+  "max_stage_simulations": 1,
+  "prior_stage_simulations": 0,
+  "started_stage_simulations": 0,
+  "counting_rule": "Count every real tactical CLI process and fixed full-stage simulation at STARTED, including failures, exceptions, and timeouts; no retry, resume, replacement candidate, or historical balance transfer.",
+  "hard_roster_limit": {
+    "counting_rule": "Union of selected_low_star_operator_ids and all DEPLOY action operator_id values; retreat and redeploy count each ID once.",
+    "max_unique_deployed_operator_ids": 8
+  },
+  "objective_rule": "One GPT-authored plan must compare at least three structures, emit one complete at-most-8-ID plan, and validate it with at most one fixed full-stage simulation. Complete WIN freezes immediately.",
+  "non_stackable": "M58 is closed at CLI 1/1 and simulation 0/1. M59 is closed at CLI 0/1 and simulation 1/1. Their balances are not transferred.",
+  "new_model_calls": 1,
+  "tactical_modification_policy": "FORBIDDEN_AFTER_MODEL_OUTPUT",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE",
+  "closeout_status": "CLI_CONTRACT_FAILED",
+  "simulations_usable_after_closeout": 0
+}

@@ -1017,3 +1017,23 @@ loss does not prove 8 IDs impossible. No faithful, real-game, robust, or global
 minimum claim is made. Closeout and evidence:
 `docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/m59_closeout_v1.json` and
 `docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/evidence/attempt_01/`.
+
+## 2026-10-27 — M60 stops at the one-call contract gate
+
+M60 used its own 1/1 real tactical CLI start and 0/1 fixed simulations. Its
+prompt was 131,678 bytes and supplied the full low-star catalog, routes, M59
+causal feedback, current Spot/Ansel limits, the eight-ID gate, and the corrected
+`candidates`/`structure_id`/`selected_structure_id` contract. The model returned
+three comparison candidates but placed `selected_structure_id` at the JSON root
+instead of inside the comparison and emitted only one revised strategic
+hypothesis. Validation failed on exactly those two errors. Because inventing two
+hypotheses is semantic repair, not an outer-field recovery, Python stopped
+before static compile and simulation.
+
+The model's raw comparison preferred `M60_DUAL_ARTS_SHARED_MEDIC`; it retained
+`M60_SPOT_LOCAL_FUSION` and `M60_YATO_LOCK_ROTATION` as alternatives, with the
+Yato pre-strike behavior marked not expressible. No M60 simulation result exists
+and the failed 35-action plan is not a tactical WIN or LOSS. The best verified
+current-model simulator WIN remains M52 V1 at 9 IDs. Evidence:
+`docs/review/fc77177/m60_m59_feedback_revision_v1/m60_closeout_v1.json` and
+`docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/`.

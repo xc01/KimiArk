@@ -1,0 +1,130 @@
+{
+  "schema_version": "M60_CLOSEOUT_V1",
+  "status": "CLI_CONTRACT_FAILED",
+  "scope": "CURRENT_FIXED_MODEL_ONLY",
+  "authorization": {
+    "new_tactical_cli_calls_max": 1,
+    "new_tactical_cli_calls_started": 1,
+    "new_tactical_cli_calls_remaining": 0,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 0,
+    "fixed_full_stage_simulations_remaining": 0,
+    "m58_or_m59_balance_transferred": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "input": {
+    "facts_sha256": "3cf3e922f9f43600b5c1ba85f625ca8caa9b054a06d389cfa15c0764d9d5e1bc",
+    "tactical_feedback_sha256": "bc4827cfbc25f8112b901f6269a84ce77b51dcdc142a6c32f240e1b69170b2f4",
+    "prompt_sha256": "8cffa7c982c655091ecef78c76d3f42cc3640d002ac8f53aa7b3a365e77f65b7",
+    "prompt_bytes": 131678,
+    "schema_sha256": "c9fba32f3cb7b2751bdc4f1e10547aa67cbc42753e8aa3867a3cf3ba03f54b6e",
+    "evidence_sha256": "6e7c7cde141e7c69d1619255a60494cfdf8a9e33878ef3c0875335e8f14ea378",
+    "configured_operator_union_limit": 8
+  },
+  "cli_result": {
+    "process_status": "COMPLETED",
+    "exit_code": 0,
+    "timed_out": false,
+    "validation_status": "FAIL",
+    "validation_errors": [
+      "M58 selected_structure_id must reference one comparison candidate",
+      "M58 requires at least three distinct revised_strategic_hypotheses"
+    ],
+    "no_retry": true
+  },
+  "model_output_observation": {
+    "invalid_structured_output_sha256": "be3cfcb5d2729690f94a42eebf62e05c2fcd2a1bd2146998a3637e660fe81d95",
+    "plan_id": "R8_7_GPT_M60_V1",
+    "plan_parent_hypothesis_id": "R8_7_M60_H1",
+    "action_count": 35,
+    "invalid_plan_canonical_sha256": "bea04a69aca2a636186b35e995aa4c8e9105dda01f34cfe2578da13d170daf0a",
+    "invalid_action_timeline_canonical_sha256": "44e87c0f0dc0bd1afd23b745c3e2e3eedb06f5ee0665970255f3eeaf499315a8",
+    "candidate_ids": [
+      "M60_DUAL_ARTS_SHARED_MEDIC",
+      "M60_SPOT_LOCAL_FUSION",
+      "M60_YATO_LOCK_ROTATION"
+    ],
+    "selected_flags": [
+      true,
+      false,
+      false
+    ],
+    "selected_structure_id": {
+      "value": "M60_DUAL_ARTS_SHARED_MEDIC",
+      "location": "ROOT",
+      "contract_location": "revised_stage_understanding.m58_open_roster_comparison.selected_structure_id"
+    },
+    "revised_strategic_hypotheses_count": 1,
+    "contract_failure_classification": "NOT_UNIQUE_LOSSLESS_OUTER_PROTOCOL_ONLY",
+    "reason": "GLM may map the existing selected structure ID, but it may not invent two additional required strategic hypotheses. No recovery or semantic patch was performed."
+  },
+  "execution_decision": {
+    "static_compile": "NOT_RUN",
+    "simulation": "NOT_RUN",
+    "stop_reason": "Validation failed before static gate; no additional model call, tactical repair, or simulation is authorized.",
+    "start_not_consumed": "SIMULATION_NOT_STARTED"
+  },
+  "candidate_comparison": {
+    "M60_DUAL_ARTS_SHARED_MEDIC": {
+      "selected": true,
+      "classification": "CURRENT_MODEL_CHECKABLE",
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_209_ardign",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_501_durin"
+      ],
+      "core_claim": "Durable lower interception, two arts attackers, and extended Midnight healing replace local fusion.",
+      "model_limit_note": "Model itself marked unresolved medical, restraint, and occupied central return deadlines; not a validated plan."
+    },
+    "M60_SPOT_LOCAL_FUSION": {
+      "selected": false,
+      "classification": "CURRENT_MODEL_CHECKABLE",
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_284_spot"
+      ],
+      "not_selected_reason": "The supplied causal history disproves treating the M59 local fusion as sufficient; it did not cover Ansel, #3, other routes, and late stage."
+    },
+    "M60_YATO_LOCK_ROTATION": {
+      "selected": false,
+      "classification": "USER_PREMISE_NOT_EXPRESSIBLE",
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_209_ardign",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_502_nblade"
+      ],
+      "not_selected_reason": "Its decisive pre-strike lock/withdraw handoff is not expressible; the completed-hit fallback did not close the full plan."
+    }
+  },
+  "baseline": {
+    "best_verified_distinct_operator_union": 9,
+    "best_verified_win_plan_id": "R8_7_GPT_M52_V1",
+    "eight_operator_impossibility_proved": false,
+    "spot_usefulness_disproved": false,
+    "sacrifice_strategy_disproved": false
+  },
+  "claims": {
+    "simulator_win": false,
+    "simulator_loss": false,
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false,
+    "global_minimum": false
+  }
+}
