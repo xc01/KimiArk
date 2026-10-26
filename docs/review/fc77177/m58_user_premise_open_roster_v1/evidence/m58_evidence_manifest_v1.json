@@ -1,0 +1,22 @@
+{
+  "schema_version": "M58_EVIDENCE_ARCHIVE_MANIFEST_V1",
+  "stage_id": "main_08-07",
+  "purpose": "Unmodified M58 user-premise/open-roster contract-failure evidence; large JSON is losslessly gzipped.",
+  "archive_policy": "Raw prompt, evidence, final reply, comparison, contract failure and CLI records are archived. Raw trajectory telemetry remains local-only.",
+  "source_commit": "b4c2d3f4359b02f3fc037097114169a654bee7a1",
+  "declared_hash_comparisons": [
+    {"location": "attempt.hashes.codex_prompt_sha256", "archive_path": "attempt_01_cli/codex_prompt.txt.gz", "compression": "gzip -n -9", "compressed_sha256": "8ee25fc6a862a662b18e3b7b8ffeddd005521fd2e984d735dd037eff664346ce", "original_sha256": "c3a4738b7db581283b8c69f0f835e926008e1e7eb54c5e4a41285dade9074b69"},
+    {"location": "attempt.hashes.codex_final_message_sha256", "archive_path": "attempt_01_cli/codex_final_message.txt.gz", "compression": "gzip -n -9", "compressed_sha256": "b9bdc851427e6af5c384053766946c7a1bd612e1c93a0ffaeb2e9d3261f109f9", "original_sha256": "73ffb88166f27d44a8c2717bd43126563494a6aa773f744256a01f0963ab9475"},
+    {"location": "attempt.hashes.llm_evidence_context_sha256", "archive_path": "attempt_01_cli/llm_evidence_context.json.gz", "compression": "gzip -n -9", "compressed_sha256": "78d0929c86eedc1e9cb90e70004d4572173063ae68ad4062f671736f93c83c01", "original_sha256": "e5efef80121460ccbcd0f6f566abaf83d4f12b3cc397b8c1a897641565da0f67"},
+    {"location": "attempt.hashes.invalid_structured_output_sha256", "archive_path": "attempt_01_cli/invalid_final_plan.json.parsed", "compression": "NONE", "compressed_sha256": "1e73dfc64076edf9e62dcf90400e9d78067e028d338f2f5442326d37167b495e", "original_sha256": "1e73dfc64076edf9e62dcf90400e9d78067e028d338f2f5442326d37167b495e"},
+    {"location": "prepared_facts.source", "archive_path": "prepared_facts/llm_evidence_context.json.gz", "compression": "gzip -n -9", "compressed_sha256": "50970c7ff59aeb0718519f326afa28583fad2cab115c3d7a37ac801169fc6958", "original_sha256": "1309fc52c8560fb3d164be9e903e90f35e8ffebe0d403f03e60c92928b446b58"},
+    {"location": "raw_cli_event_stream", "archive_path": "attempt_01_cli/codex_exec.jsonl.gz", "compression": "gzip -n -9", "compressed_sha256": "c1e47a8bf42cf221d359838dfd49961fc69513c52ec22873946380234ea53986", "original_sha256": "5810eda5bf3209f9d12f2cb1e744f971c754ca7992beb519e0cffe7ae7b53830"},
+    {"location": "capability.facts", "archive_path": "prepared_facts/llm_evidence_context.json.gz", "compression": "gzip -n -9", "compressed_sha256": "50970c7ff59aeb0718519f326afa28583fad2cab115c3d7a37ac801169fc6958", "original_sha256": "1309fc52c8560fb3d164be9e903e90f35e8ffebe0d403f03e60c92928b446b58"},
+    {"location": "capability.support", "archive_path": "prepared_facts/normal_low_star_mechanism_support.json", "compression": "NONE", "compressed_sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324", "original_sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324"}
+  ],
+  "model_comparison_locations": [
+    "attempt_01_cli/codex_final_message.txt.gz: revised_strategic_hypotheses H1/H2/H3 and contenders A/B/C",
+    "attempt_01_cli/invalid_final_plan.json.parsed: revised_stage_understanding.m58_open_roster_comparison"
+  ],
+  "uncompressed_hash_matches_declared": true
+}

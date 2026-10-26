@@ -1,6 +1,15 @@
-# R8-7 attack lock, cancel, and cooldown gate (M58 v1)
+# R8-7 attack lock, cancel, and cooldown gate (M58 v1, later reopened under user premise)
 
 ## Gate decision
+
+2026-10-26 update: the user explicitly revoked the dynamic-evidence prerequisite and
+authorized open-roster tactical exploration under `USER_CONFIRMED_TACTICAL_PREMISE`.
+This does not convert the UNKNOWNs below into client facts. The reopened M58 tactical
+attempt completed one real GPT call but failed its three-structure comparison contract
+and was saved and stopped without retry, tactical repair, static compile, or simulation.
+See `docs/review/fc77177/m58_user_premise_open_roster_v1/m58_closeout_v1.json`.
+
+Historical gate decision before the user update:
 
 `GATE_STOPPED_BEFORE_TACTICAL_CLI`. No M58 tactical CLI, full-stage simulation,
 or budget STARTED was performed. The client evidence is sufficient to reject

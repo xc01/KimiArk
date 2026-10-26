@@ -493,6 +493,8 @@ def prepare() -> dict[str, Any]:
                 "other protected-target families and exact continuous-frame client timing",
             ],
         }
+        if TACTICAL_FEEDBACK:
+            evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)
         evidence.pop("output_schema", None)
         if REVISION_SOURCE_DIR is not None:
             revision_source = ROOT / REVISION_SOURCE_DIR
@@ -527,8 +529,6 @@ def prepare() -> dict[str, Any]:
                 prior_diagnostic = compact_diagnostic_feedback(ROOT / DIAGNOSTIC_SUMMARY)
                 prior_diagnostic.pop("leaking_route_summaries", None)
             evidence["prior_diagnostic_feedback"] = prior_diagnostic
-            if TACTICAL_FEEDBACK:
-                evidence["prior_tactical_feedback"] = load(ROOT / TACTICAL_FEEDBACK)
             if STATIC_CONFLICT_SUMMARY:
                 evidence["prior_static_feedback"] = build_static_feedback(
                     revision_source, ROOT / STATIC_CONFLICT_SUMMARY
@@ -696,6 +696,43 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
     forbidden_plan_tiles = active.get("roadblock_plan_tiles_row_col")
     if not isinstance(forbidden_plan_tiles, list):
         raise RuntimeError("stage_active_facts.roadblock_plan_tiles_row_col is required")
+    premise = evidence.get("user_confirmed_tactical_premise")
+    premise_instruction = ""
+    if premise:
+        premise_instruction = (
+            "USER_CONFIRMED_TACTICAL_PREMISE: " + str(premise) + "\n"
+            "Treat this as an explicit tactical authorization, not as new client evidence. "
+            "You may propose sacrifice, baiting, or staged retreats when their model-observable "
+            "effects are expressible; clearly separate USER_CONFIRMED assumptions from current-model facts.\n\n"
+        )
+    open_roster_policy = evidence.get("m58_open_roster_policy")
+    open_roster_instruction = ""
+    if open_roster_policy:
+        open_roster_instruction = (
+            "M58 OPEN-ROSTER COMPARISON REQUIRED. In one call, compare at least three "
+            "substantively different structures before selecting one complete plan. Explore roles "
+            "beyond the frozen nine-ID roster, including blocking/healing fusion, attack baiting, "
+            "staged retreats, different output/economic openings, and stage rotations. Do not force "
+            "any operator into or out of the roster, set a new-operator quota, or require a death.\n"
+            "For each contender, record its roster, how it removes one slot versus the nine-ID baseline, "
+            "same-phase/staged responsibilities, opening cost and pressure, most dangerous window, and cost. "
+            "Recompute deployment and medical timing from its own structure; do not reject it merely because "
+            "it cannot reuse an old opening. If it baits, retreats, or sacrifices, identify the enemy and attack, "
+            "when the decoy must survive, whether the attack consumes cooldown, who gains time, when the successor "
+            "enters, and residual projectiles, enemies, or civilian risk.\n"
+            "Classify each contender as CURRENT_MODEL_CHECKABLE or USER_PREMISE_NOT_EXPRESSIBLE. Evaluate both, "
+            "but prefer a complete plan whose decisive behavior is checkable with existing actions and rules. "
+            "Do not rewrite mechanics or invent favorable rules. If decisive behavior is not expressible, retain "
+            "the raw plan and explicitly state the exact action/enemy/phase gap.\n"
+            "Evaluate deaths by contribution and cost, not by a zero-death target. A useful sacrifice may absorb "
+            "an attack, consume or redirect cooldown, block, damage, heal, buy handoff time, or provide DP; record "
+            "the released enemy, redeploy cost/cooldown, and successor duty. Withdrawal counts its refund; death "
+            "does not. After death, same-ID redeploy must obey real cost/cooldown, and only deployed units can "
+            "receive actions.\n"
+            "Save the comparison in revised_stage_understanding.m58_open_roster_comparison. Keep all raw model "
+            "reasoning summaries there; Python must not rewrite selection reasons. Select exactly one complete "
+            "plan and explain why the other structures are not selected.\n\n"
+        )
     protected_spawn_rows = [
         event for event in ((evidence.get("model_spawn_timeline") or {}).get("events") or [])
         if isinstance(event, dict) and isinstance(event.get("enemy_id"), str)
@@ -741,6 +778,10 @@ Create exactly one compact full-stage OperationalPlan {PLAN_LABEL}. Use `"operat
 You may use read-only shell commands to inspect the supplied evidence or `scripts/kimi_readonly_tools.py`. Do not create, modify or delete files. Do not run a stage simulation. Do not invoke other AI providers. Do not print credentials.
 
 Only operators in `normal_low_star_catalog` are legal. Require `identity.rarity` 1-3 and `qualification.normal_mode == true`; exclude mode-specific reserve units. Every DEPLOY needs integer [row,col] and UP/DOWN/LEFT/RIGHT. `stage_active_facts.roadblock_tiles_col_row` is [col,row]; `stage_active_facts.roadblock_plan_tiles_row_col` is the exact JSON forbidden set. Never deploy on {json.dumps(forbidden_plan_tiles)}. WIN requires `remaining_life > 0`, zero leaks, exhausted spawns and no active enemies. Project acceptance additionally requires zero leaks, zero protected-target deaths, and all {expected_protected_target_count} expected protected targets safely reaching their objectives; operator deaths are recorded separately and are not automatically forbidden.
+
+    {premise_instruction}
+
+    {open_roster_instruction}
 
     {clearance_instruction}
 
@@ -807,6 +848,26 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
             errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
         if not str(plan.get("operational_plan_id", "")).startswith(PLAN_PREFIX):
             errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
+        if evidence.get("m58_open_roster_policy"):
+            comparison = ((parsed.get("revised_stage_understanding") or {}).get(
+                "m58_open_roster_comparison"
+            ) or {})
+            comparison_candidates = comparison.get("candidates")
+            if not isinstance(comparison_candidates, list) or len(comparison_candidates) < 3:
+                errors.append("M58 requires at least three m58_open_roster_comparison candidates")
+            else:
+                comparison_ids = {
+                    candidate.get("structure_id")
+                    for candidate in comparison_candidates
+                    if isinstance(candidate, dict) and candidate.get("structure_id")
+                }
+                if len(comparison_ids) < 3:
+                    errors.append("M58 comparison candidates must have three distinct structure_id values")
+                selected_structure_id = comparison.get("selected_structure_id")
+                if selected_structure_id not in comparison_ids:
+                    errors.append("M58 selected_structure_id must reference one comparison candidate")
+            if len(hypothesis_ids) < 3:
+                errors.append("M58 requires at least three distinct revised_strategic_hypotheses")
         configured_limit = MAX_UNIQUE_DEPLOYED_OPERATORS
         evidence_limit_value = (evidence.get("milestone_constraints") or {}).get("max_unique_deployed_operator_ids")
         evidence_limit = evidence_limit_value if isinstance(evidence_limit_value, int) else None

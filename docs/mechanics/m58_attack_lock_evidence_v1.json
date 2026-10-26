@@ -1,11 +1,12 @@
 {
-  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V3",
-  "gate_decision": "GATE_STOPPED_BEFORE_TACTICAL_CLI",
+  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V4",
+  "gate_decision": "USER_PREMISE_OPEN_ROSTER_CONTRACT_FAILED",
   "budget": {
-    "tactical_cli_started": false,
+    "tactical_cli_started": true,
     "full_stage_simulation_started": false,
-    "remaining_tactical_cli": 1,
-    "remaining_full_stage_simulation": 1
+    "remaining_tactical_cli": 0,
+    "remaining_full_stage_simulation": 1,
+    "simulations_usable_after_closeout": 0
   },
   "client": {
     "source_directory": "/tmp/kimiark-m58-client-3089907",
@@ -88,6 +89,16 @@
     "artillery_after_birth": "SUPPORTED"
   },
   "focus_tests_passed": true,
-  "tactical_cli_started": false,
+  "tactical_cli_started": true,
   "full_stage_simulation_started": false
+  ,
+  "tactical_attempt": {
+    "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE",
+    "dynamic_gate": "REVOKED_BY_USER",
+    "plan_id": "R8_7_GPT_M58_V1",
+    "contract_status": "FAIL",
+    "failure": "Comparison used contenders/selected=true rather than the enforced candidates/selected_structure_id contract.",
+    "simulated": false,
+    "closeout": "docs/review/fc77177/m58_user_premise_open_roster_v1/m58_closeout_v1.json"
+  }
 }

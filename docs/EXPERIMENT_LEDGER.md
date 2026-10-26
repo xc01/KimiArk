@@ -972,3 +972,18 @@ M55 used 1/1 real tactical CLI starts and 1/1 fixed simulations. V1 was a
 after Melantha's 1888 death, #9's 2121 leak, and later artillery/#34 leaks.
 Closeout:
 `docs/review/fc77177/m55_eight_operator_fusion_v1/m55_closeout_v1.json`.
+
+## 2026-10-26 — M58 closes on the open-roster comparison contract
+
+The user revoked M58's dynamic-evidence prerequisite and supplied
+`USER_CONFIRMED_TACTICAL_PREMISE`; this authorized tactical exploration but did
+not convert the still-unexecuted S0-S3 client UNKNOWNs into client facts. M58
+used 1/1 real GPT tactical CLI starts and 0/1 fixed simulations. The 30-action,
+exactly-8-ID A_SPOT_FUSION candidate was the selected contender, but contract
+validation failed because the raw model comparison used
+`contenders`/`selected=true` instead of the enforced
+`candidates`/`selected_structure_id` fields. Per the no-retry rule, it was saved
+and stopped before static compile or simulation. The best verified WIN remains
+M52 V1 at 9 IDs. Closeout and failure feedback:
+`docs/review/fc77177/m58_user_premise_open_roster_v1/m58_closeout_v1.json` and
+`docs/review/fc77177/m58_user_premise_open_roster_v1/m58_v1_contract_failure_feedback_v1.json`.

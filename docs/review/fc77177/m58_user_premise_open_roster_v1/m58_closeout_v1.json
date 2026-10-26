@@ -1,0 +1,109 @@
+{
+  "schema_version": "M58_STAGE_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "user_premise": {
+    "dynamic_evidence_gate": "REVOKED_BY_USER",
+    "user_confirmed_tactical_premise": "USER_CONFIRMED_TACTICAL_PREMISE",
+    "client_evidence_claim_changed": false,
+    "S0_S3_runtime_capture": "STILL_NOT_EXECUTED"
+  },
+  "best_verified_win": {
+    "plan_id": "R8_7_GPT_M52_V1",
+    "distinct_operator_union": 9,
+    "simulator_win": true,
+    "result": {
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3
+    },
+    "roster_chinese_names": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+      "史都华德", "Lancet-2", "米格鲁"
+    ]
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "plan_id": "R8_7_GPT_M58_V1",
+      "parent_plan_id": "R8_7_GPT_M57_V1",
+      "distinct_operator_union": 8,
+      "action_count": 30,
+      "contract_status": "FAIL",
+      "static_status": "NOT_RUN",
+      "simulation_status": "NOT_RUN",
+      "selected_candidate_contender_id": "A_SPOT_FUSION",
+      "selected_candidate_classification": "CURRENT_MODEL_CHECKABLE",
+      "selected_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_284_spot"
+      ],
+      "selected_chinese_names": [
+        "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+        "史都华德", "斑点"
+      ],
+      "rejected_candidates": [
+        {
+          "contender_id": "B_DEFENDER_BAIT_DUAL_ARTS",
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "not_selected_reason": "The model stated the proposed fixed defender bait did not close eastern caster/medic exposure and later inner healing duties."
+        },
+        {
+          "contender_id": "C_YATO_ATTACK_ROTATION",
+          "classification": "USER_PREMISE_NOT_EXPRESSIBLE",
+          "not_selected_reason": "The model retained the raw proposal but stated its decisive ordinary pre-strike behavior was unexpressible and artillery cancellation alone did not close the missing-healer interval."
+        }
+      ],
+      "contract_failure": {
+        "errors": [
+          "M58 requires at least three m58_open_roster_comparison candidates"
+        ],
+        "fact": "Three contenders were present under `contenders`, with A marked `selected=true`, but the enforced field contract required `candidates` and `selected_structure_id`.",
+        "response_policy": "SAVED_AND_STOPPED_NO_RETRY_NO_TACTICAL_REPAIR"
+      },
+      "simulation": "FORBIDDEN_BY_STATIC_FAILURE",
+      "hashes": {
+        "codex_prompt_sha256": "c3a4738b7db581283b8c69f0f835e926008e1e7eb54c5e4a41285dade9074b69",
+        "codex_final_message_sha256": "73ffb88166f27d44a8c2717bd43126563494a6aa773f744256a01f0963ab9475",
+        "invalid_structured_output_sha256": "1e73dfc64076edf9e62dcf90400e9d78067e028d338f2f5442326d37167b495e",
+        "llm_evidence_context_sha256": "e5efef80121460ccbcd0f6f566abaf83d4f12b3cc397b8c1a897641565da0f67",
+        "revision_output_schema_sha256": "c9fba32f3cb7b2751bdc4f1e10547aa67cbc42753e8aa3867a3cf3ba03f54b6e"
+      }
+    }
+  ],
+  "budget": {
+    "cli_max_real_tactical_process_starts": 1,
+    "cli_started_real_tactical_process_starts": 1,
+    "cli_remaining_before_closeout": 0,
+    "simulations_max": 1,
+    "simulations_started": 0,
+    "simulations_remaining_before_closeout": 1,
+    "simulations_usable_after_closeout": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "source": "docs/review/fc77177/m58_user_premise_open_roster_v1/m58_simulation_budget_v1.json"
+  },
+  "conclusion": {
+    "complete_win_reached": false,
+    "best_verified_distinct_operator_union": 9,
+    "eight_operator_impossibility_proved": false,
+    "m58_open_roster_attempt_status": "CONTRACT_FAILED",
+    "next_bounded_task_if_authorized": "A new milestone may align the comparison field contract, then make one new GPT call under a new budget; this M58 attempt must not be retried.",
+    "outcome_boundaries": "The 30-action A_SPOT_FUSION plan is an unexecuted model hypothesis only. It is not static-valid, simulated, WIN, faithful, robust, or probabilistic evidence."
+  },
+  "claims": {
+    "real_game_win": false,
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false
+  }
+}

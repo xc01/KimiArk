@@ -1,0 +1,52 @@
+{
+  "schema_version": "M58_ATTEMPT_CONTRACT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M58_V1",
+  "result": {
+    "win": null,
+    "simulated": false,
+    "plan_contract_status": "FAIL",
+    "static_compile_status": "NOT_RUN",
+    "simulation_status": "NOT_RUN",
+    "action_count": 30,
+    "distinct_operator_union": 8
+  },
+  "failure_layer": "M58_OPEN_ROSTER_CONTRACT",
+  "validation_errors": [
+    "M58 requires at least three m58_open_roster_comparison candidates"
+  ],
+  "contract_observation": "The model supplied three contenders under m58_open_roster_comparison.contenders and marked A_SPOT_FUSION selected=true, but the enforced contract required m58_open_roster_comparison.candidates and selected_structure_id. No tactical action was repaired, converted, or rerun.",
+  "selected_candidate_summary": {
+    "contender_id": "A_SPOT_FUSION",
+    "classification": "CURRENT_MODEL_CHECKABLE",
+    "selected_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_120_hibisc",
+      "char_212_ansel",
+      "char_210_stward",
+      "char_284_spot"
+    ],
+    "selected_chinese_names": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+      "史都华德", "斑点"
+    ],
+    "action_count": 30,
+    "expected_first_observable_event": {
+      "event_type": "HEAL",
+      "source_id": "char_284_spot",
+      "target_id": "char_120_hibisc",
+      "earliest_frame": 3011,
+      "latest_frame": 3160
+    }
+  },
+  "comparison_recorded": true,
+  "contender_ids": [
+    "A_SPOT_FUSION",
+    "B_DEFENDER_BAIT_DUAL_ARTS",
+    "C_YATO_ATTACK_ROTATION"
+  ],
+  "raw_comparison_source": "attempt_01_cli/codex_final_message.txt.gz",
+  "no_retry_or_repair": true
+}
