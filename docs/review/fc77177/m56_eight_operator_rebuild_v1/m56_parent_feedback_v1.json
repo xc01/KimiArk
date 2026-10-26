@@ -1,0 +1,65 @@
+{
+  "schema_version": "M56_PARENT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M55_V1",
+  "best_verified_parent_reference": {
+    "source_plan_id": "R8_7_GPT_M52_V1",
+    "evidence": "output/r8_1_r8_7_batch_v1/main_08-07/m52_minimum_operator_reduction_v1/attempt_01_diagnostic",
+    "result": {
+      "win": true,
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "protected_target_deaths": 0,
+      "protected_targets_reached": 2,
+      "remaining_life": 3,
+      "distinct_operator_union": 9,
+      "action_count": 27
+    },
+    "roster_ids": [
+      "char_123_fang", "char_4093_frston", "char_283_midn",
+      "char_208_melan", "char_120_hibisc", "char_212_ansel",
+      "char_210_stward", "char_285_medic2", "char_122_beagle"
+    ],
+    "roster_chinese_names": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉", "安赛尔",
+      "史都华德", "Lancet-2", "米格鲁"
+    ],
+    "key_closures": {
+      "enemy_1110_uamord#34": "BLOCK@6596 by Friston; kill@7140 by Friston with repeated Melantha damage and Steward support.",
+      "enemy_1112_emppnt#0": "Steward survived with separated medical support and killed the artillery.",
+      "roadblock_2": "GALLUS was the independent roadblock clearance source in the verified eighteen-operator M48 line; use current catalog capabilities, not that old operator directly.",
+      "protected_targets": "#3 reached at 10249 and #14 reached at 15249."
+    }
+  },
+  "m55_failure_result": {
+    "win": false,
+    "enemies_killed": 12,
+    "enemies_leaked": 21,
+    "enemies_remaining": 0,
+    "operator_deaths": 6,
+    "remaining_life": -19,
+    "action_count": 32,
+    "distinct_operator_union": 8
+  },
+  "m55_first_failure": {
+    "frame": 1888,
+    "facts": "Melantha blocked #9 at 1707; #9 hit her 175 physical at 1708, 1768, 1828, and fatal 1888. Ansel healed Melantha 362 at 1409, 1581, 1753, and 1839. Melantha hit #9 for 647.04 physical at 1710, 1755, 1800, and 1845, but #9 survived. Her death released #9, which leaked at 2121. Action index 11 attempted to activate the dead Melantha at 2100 and was legal:false."
+  },
+  "m55_later_failures": {
+    "vanilla_death": "Vanilla died at 2023 before the first leak; the last recorded damage was 90 physical from #6 at 1329, and the exact immediate cause is UNKNOWN.",
+    "fang_and_steward": "Fang and Steward died together at 2173; their exact immediate causes are UNKNOWN. Later dependent actions cannot verify predictions.",
+    "early_leaks": "#10 leaked at 2915 and #11 at 3065 made remaining life zero.",
+    "artillery": "Artillery #0 leaked at 5759 after 1232.39 total arts damage and zero BLOCK.",
+    "armor": "#34 leaked at 6996 after only 2x24.85 physical and zero BLOCK.",
+    "protected_targets": "#14 was killed by artillery #0 at 3945; #3 reached at 4343.",
+    "roadblocks": "#1 was destroyed at 4011 and #3 at 2424; #2 and #4 were not destroyed."
+  },
+  "revision_requirements": [
+    "Do not infer an 8-ID impossibility from the single M55 structure.",
+    "Resolve first officer pressure with actual HP timing, medical competition, kill timing, or a validated live handoff; four HEAL events alone are not proof.",
+    "Independently settle all routes, artillery, roadblocks #2/#4, protected targets, mixed pressure, and #34.",
+    "If Spot heal mode is used, account for its output pause and replacement coverage; its dodge talent remains unsupported.",
+    "Do not add commands that depend on a dead unit; legal:false cannot verify a prediction.",
+    "Actual retreat refunds and redeploy cooldowns must be checked; death does not refund."
+  ]
+}

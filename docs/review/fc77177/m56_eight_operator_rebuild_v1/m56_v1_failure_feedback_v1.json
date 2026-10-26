@@ -1,0 +1,77 @@
+{
+  "schema_version": "M56_ATTEMPT_FAILURE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M56_V1",
+  "result": {
+    "win": false,
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "enemies_remaining": 0,
+    "operator_deaths": 8,
+    "remaining_life": -14,
+    "action_count": 29,
+    "distinct_operator_union": 8
+  },
+  "causal_sequence": [
+    {
+      "frame": 1871,
+      "event": "Artillery #0 locked projectile at runtime [5,5].",
+      "facts": "At 1961 it struck Friston 765, Melantha 845, and Ansel 891 physical. Ansel self-healed 362 at 2009, but a second shell locked [5,6] and hit him 891 at 2111, killing him."
+    },
+    {
+      "frame": 2711,
+      "event": "Steward died to a third locked [7,5] artillery shell of 910 physical; Hibiscus had healed him 372.6 at 2411, 2497, 2583, and 2669."
+    },
+    {
+      "frame": 3343,
+      "event": "Hibiscus died after repeated artillery and mixed pressure despite self-healing and Lancet support."
+    },
+    {
+      "frame": 3873,
+      "event": "First dependent runtime command failure: Ansel ACTIVATE_SKILL with operator not deployed.",
+      "facts": "The run recorded 13 not-deployed action errors after deaths. These were consequences, not the first causal failure."
+    },
+    {
+      "frame": 4625,
+      "event": "First leak: enemy_1107_uoffcr#20."
+    },
+    {
+      "frame": 5196,
+      "event": "First objective failure: #22 leaked and remaining life reached 0."
+    },
+    {
+      "frame": 5353,
+      "event": "Artillery #0 killed protected target #3 with 950 physical.",
+      "facts": "#14 later reached safely at 16449."
+    },
+    {
+      "frame": 5759,
+      "event": "Artillery #0 leaked.",
+      "facts": "Steward dealt 3437.58 arts across 12 hits; it had zero BLOCK and was not killed."
+    },
+    {
+      "frame": 6996,
+      "event": "Armored #34 leaked.",
+      "facts": "#34 had zero DAMAGE events, zero BLOCK events, and was not intercepted."
+    }
+  ],
+  "roadblock_settlement": {
+    "roadblock_1": "Steward destroyed it at 12917 after 8250.192 damage.",
+    "roadblock_2": "Fang destroyed it at 16117 after 8000 damage; this was after the first objective failure and #3's death.",
+    "roadblock_3": "Midnight destroyed it at 2404 after 8051.4 damage.",
+    "roadblock_4": "Melantha destroyed it at 1966 after 8358.56 damage."
+  },
+  "objective_settlement": {
+    "hostile_spawn_settlement": "All 33 hostiles settled as 17 kills plus 16 leaks with zero remaining enemies.",
+    "protected_targets": "#3 was killed by artillery at 5353; #14 reached at 16449.",
+    "remaining_life": -14
+  },
+  "lesson": "The corrected capability input allowed Spot but the GPT-selected fresh structure omitted Spot and Beagle. It repaired M55's Melantha/#9 chain but reintroduced an early artillery-medical failure: Ansel died on the second 891 shell, then Steward died after three 910 shells. The eastern/inner collapse produced the first leak and 13 dependent errors, while late roadblock clearance and #34 interception were not operationally sufficient.",
+  "revision_requirements": [
+    "Separate or reposition the early artillery lock target so the first two shell waves cannot chain-kill the main medical line.",
+    "Provide output and medical handoff during Spot-like heal pauses if that fusion is selected; Spot itself was not selected this run.",
+    "Ensure the eastern/inner route has live blocking and killing through #20/#21/#22 without waiting for late roadblock damage.",
+    "Kill or reliably intercept artillery before it can leak or kill protected targets.",
+    "Intercept and damage #34; zero DAMAGE/BLOCK cannot close the duty.",
+    "Ensure roadblock destruction and civilian arrival occur before protected-target loss, while preserving all other routes."
+  ]
+}
