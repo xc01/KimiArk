@@ -32,10 +32,24 @@ Automatic Il2CppDumper did not finish because the protected ELF did not expose a
 usable `MetadataRegistration`; exact method ranges below therefore combine the
 decrypted-metadata lookup with direct ARM64 disassembly.
 
+The M58 control-chain check then resolved the current-client method table
+directly. The `Assembly-CSharp.dll` native module has 217,813 method pointers;
+relevant tokens map to exact RVAs in
+`m58_attack_control_chain_v1/evidence/2771_method_map_excerpt.txt`. This mapping
+is cross-checked by plaintext calls from `RangedAttack.UpdateTargets`,
+`RangedAttack.OnCastStart`, and `RangedAttack.CreateProjectile`. However, the
+actual bodies of `Enemy.AttackState.OnEnter`, `OnTick`, `OnExit`, and
+`_AttackFinishCallback` are not readable ARM64 in this static client; the first
+instructions are obfuscated/encrypted. `RangedAttack.OnCastOnTarget` and
+`RangedAttack.DoCastOnTargets` are also encrypted. Consequently, the pre-birth
+ordinary target-loss transition cannot be closed without runtime or unpacked
+evidence.
+
 ## Ordinary projectile facts from 3089907
 
-For `projectile_enemy_uoffcr` and `projectile_enemy_uamord`, the client prefabs
-contain:
+The current material contains
+`projectile_enemy_uoffcr.prefab` and `projectile_enemy_uamord.prefab`. Their
+serialized fields contain:
 
 - `_alwaysHitTraceTargetInTheEnd = 1`
 - `_alwaysHitTraceTargetWhenReached = 0`
@@ -49,6 +63,15 @@ contain:
 `m_traceTarget` and its map position into `m_traceTargetMapPos`. This proves
 that the projectile has a retained target reference after creation. It does not
 prove that a withdrawn or dead target remains a valid hit target.
+`Projectile._DealHitTraceTarget` can later call `DealHitTarget` for the retained
+trace target after an already-hit/validity guard passes. The guard helper itself
+does not reveal whether a retreated or dead unit still passes. Therefore this is
+post-birth retained-reference evidence, not proof of a miss or of damage.
+
+No current 2771 enemy body prefab binding for `enemy_1107_uoffcr` or
+`enemy_1110_uamord` was available in the extracted materials. The projectile
+resource names alone do not prove which ability object those enemies invoke; the
+current-client body-to-ability binding remains `UNKNOWN`.
 
 For artillery `projectile_enemy_emppnt`, the client prefab contains:
 
@@ -62,33 +85,35 @@ This supports the existing delayed, location-locked artillery model after the
 projectile is born. It still does not establish whether the client can retarget
 or cancel between ability cast start and projectile birth.
 
+Current simulator terms must be separated. `_enemy_ability_outputs` selects a
+target ID and starts cooldown at cast start. `_process_area_cast` runs at
+projectile birth (`windup_seconds` later), reads the still-selected candidate's
+current position, emits `PROJECTILE_BORN`, and only then locks the blast
+position. If the source or target is unavailable at that instant, the simulator
+cancels that pending cast but does not undo the already-started cooldown.
+
 ## Assumption table
 
 | Attack type | Current implementation | Client evidence | Conclusion | Tactic dependency allowed? |
 |---|---|---|---|---|
-| Ordinary melee/ranged target lock | Target is selected again at `ATTACK_STRIKE`; `ATTACK_WINDUP` does not record a target ID. | `RangedAttack.OnCastStart` starts `_DoCast` and calls `UpdateTargets`; `RangedAttack.OnCastOnTarget` can create a projectile with an explicit target. The exact transition from cast start through target loss to projectile creation is not closed. | Client lock timing: `UNKNOWN`. | No. |
-| Ordinary attack after target retreat | If the old target disappears, the next strike reselects a new target; an empty candidate set does not consume the cycle. | Not closed. The ordinary projectile keeps a trace reference after birth, but the client validity/cancel branch is unresolved. | Client H1/H2/H3: `UNKNOWN`; implementation is H1-like. | No. |
-| Ordinary attack cooldown | `next_attack_time` advances only after a real strike/damage; it is not reset by retreat or death of the old target. | Attack-finish callback exists, but the precise reset branch and first-vs-stable attack difference are not closed. | Client cooldown start point: `UNKNOWN`. | No. |
-| Artillery cast lock | Cast start selects a candidate and locks the position; a later hit occurs after windup plus delay. | `projectile_enemy_emppnt` has `_delayToStart = 3`, `_alwaysReachInTheEnd = 1`, `_followTarget = 0`; target-dead/disappeared stops are disabled. | Post-birth fixed impact: supported. Pre-birth retarget/cancel: `UNKNOWN`. | Location/impact timing may be used; pre-birth bait cancel must not be treated as proven. |
-| Artillery cooldown | Starts when the cast starts; does not depend on later target state. | Ability/projectile data support the delayed cast shape, but the exact cooldown-reset branch is not independently closed. | Current model consistency: supported by existing recorded probes. Real-client cooldown branch: `PARTIAL`. | Keep model dependency labeled. |
+| Enemy/ordinary pre-birth lock | Target is selected again at `ATTACK_STRIKE`; `ATTACK_WINDUP` does not record a target ID. | Exact state scheduler and ranged cast-on-target bodies are encrypted in 2771. | Client lock timing: `UNKNOWN`. | No. |
+| Ordinary attack after target retreat | If the old target disappears, the next strike reselects a new target; an empty candidate set does not consume the cycle. | Retained projectile reference and `_DealHitTraceTarget` are visible, but validity, retarget, cancel, and cooldown branches are not. | Client H1/H2/H3: `UNKNOWN`; implementation is H1-like. | No. |
+| Ordinary attack cooldown | `next_attack_time` advances only after a real strike/damage; it is not reset by retreat or death of the old target. | `_AttackFinishCallback` body is encrypted. | Client cooldown start point: `UNKNOWN`. | No. |
+| Artillery target/position split | `_enemy_ability_outputs` selects target and starts cooldown at cast start; `_process_area_cast` locks position at projectile birth. | 2771 projectile data support post-birth fixed impact. The exact client pre-birth selection/cancel path remains unknown. | Current implementation: split is code fact. Real client: post-birth fixed impact supported, pre-birth `UNKNOWN`. | Location/impact timing may be used; pre-birth bait cancel must not be treated as proven. |
+| Artillery cooldown | Starts when cast starts; does not depend on later target state. | Ability/projectile data support the delayed cast shape, but exact 2771 cooldown reset is not closed. | Current model consistency: supported by existing recorded probes. Real-client cooldown branch: `PARTIAL`. | Keep model dependency labeled. |
 | Attack recovery / movement pause | Separate `attack_stand_until` and `next_attack_time`. | Client has an attack-finish callback, but the movement pause transition is not closed. | Real-client semantics: `UNKNOWN`. | No. |
 
 ## Required next verification
 
 Before treating ordinary-attack baiting as deterministic:
 
-1. Resolve the exact client chain from cast start through `AttackState`,
-   `AbilityStandard.CastToTarget`, target invalidation, and projectile creation.
-2. Confirm whether a target that is retreated, killed, or leaves range leaves
-   the projectile reference valid, cancels the projectile, or causes a miss.
-3. Determine whether invalidation consumes the remaining attack cycle and where
-   the next cooldown starts.
-4. Distinguish first attack from stable continuous attack and the melee, ranged
-   projectile, and artillery branches.
-5. Run the three minimal client scenarios: normal baseline; target withdrawn
-   before projectile birth with another valid target; target withdrawn after
-   projectile birth. Add a no-substitute-control case and compare killed versus
-   retreated targets.
+The next concrete action is to obtain an authorized current-client runtime trace
+or memory-dump of the mapped methods at `0x292d0ac`, `0x292d628`, `0x292d7b0`,
+`0x292d8f8`, `0x2d7fb64`, and `0x2d80404`. The required scenarios remain: normal
+baseline; target withdrawn before projectile birth with another valid target;
+target withdrawn after birth; no-substitute control; and death versus retreat.
+Until then, do not convert either H1, H2, H3, or artillery pre-birth cancellation
+into a deterministic client fact.
 
 ## Simulator consistency tests
 
@@ -101,3 +126,11 @@ tests/simulator/test_stronghold_differential_micro.py
 ```
 
 They establish implementation behavior only. They do not prove client rules.
+
+## Budget and boundary
+
+This increment started no tactical CLI and no fixed full-stage simulation. M58's
+remaining authorized budget remains one tactical CLI and one full-stage
+simulation. The result is version-limited static evidence for client 3089907; it
+is not a claim about later builds, faithful Arknights behavior, robustness, or a
+probability WIN.

@@ -1,12 +1,33 @@
 {
-  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V1",
+  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V2",
   "gate_decision": "GATE_STOPPED_BEFORE_TACTICAL_CLI",
-  "budget_started": false,
+  "budget": {
+    "tactical_cli_started": false,
+    "full_stage_simulation_started": false,
+    "remaining_tactical_cli": 1,
+    "remaining_full_stage_simulation": 1
+  },
   "client": {
     "source_directory": "/tmp/kimiark-m58-client-3089907",
     "libil2cpp_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
     "global_metadata_sha256": "bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8",
     "android_manifest_sha256": "92856638465aff947a54e24633134a43a4de45cd81221381896e8be1c1d46404"
+  },
+  "current_client_method_mapping": {
+    "metadata_version": 31,
+    "assembly": "Assembly-CSharp.dll",
+    "module_file_offset": "0xbb67f88",
+    "method_pointer_count": 217813,
+    "method_pointer_table_file_offset": "0xc266738",
+    "mapping_cross_checked_by_plaintext_calls": true,
+    "encrypted_method_bodies": [
+      {"name": "Enemy.AttackState.OnEnter", "rva": "0x292d0ac"},
+      {"name": "Enemy.AttackState.OnTick", "rva": "0x292d628"},
+      {"name": "Enemy.AttackState.OnExit", "rva": "0x292d7b0"},
+      {"name": "Enemy.AttackState._AttackFinishCallback", "rva": "0x292d8f8"},
+      {"name": "RangedAttack.OnCastOnTarget", "rva": "0x2d7fb64"},
+      {"name": "RangedAttack.DoCastOnTargets", "rva": "0x2d80404"}
+    ]
   },
   "projectiles": {
     "ordinary": {
@@ -17,6 +38,7 @@
       "life_time": 5,
       "max_hit_num": 1,
       "stop_when_source_invalid": 0,
+      "current_body_to_ability_binding": "UNKNOWN_IN_2771_MATERIAL",
       "lock_conclusion": "UNKNOWN_BEFORE_TARGET_LOSS"
     },
     "artillery": {
@@ -33,8 +55,17 @@
     "ordinary_target_selected_at": "ATTACK_STRIKE",
     "empty_target_consumes_cycle": false,
     "cooldown_start": "after real strike",
-    "artillery_position_locked_at": "cast start",
+    "artillery_target_selected_at": "cast start",
+    "artillery_position_locked_at": "PROJECTILE_BORN",
+    "artillery_pre_birth_target_unavailable": "cancel pending cast; cooldown already started",
     "artillery_cooldown_start": "cast start"
+  },
+  "client_conclusion": {
+    "ordinary_pre_birth_target_loss": "UNKNOWN",
+    "ordinary_attack_cooldown": "UNKNOWN",
+    "projectile_after_birth": "PARTIALLY_CLOSED",
+    "artillery_pre_birth": "UNKNOWN",
+    "artillery_after_birth": "SUPPORTED"
   },
   "focus_tests_passed": true,
   "tactical_cli_started": false,

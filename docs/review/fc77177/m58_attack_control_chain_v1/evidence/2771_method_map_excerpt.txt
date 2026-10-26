@@ -1,0 +1,54 @@
+# M58 current-client (2771) method mapping evidence
+
+Source client SHA256: 3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259
+Encrypted metadata SHA256: bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8
+Temporary decoded metadata SHA256: ac5679fba3b767b5f50172818a1e9285a36c2db5a213837a9db130ec34fd7950
+Decoded header: magic 0xfab11baf, metadata version 31; typeDef record size 88; image record size 40.
+
+## Assembly-CSharp native module
+Il2CppCodeGenModule file offset: 0xbb67f88 (.data.rel.ro)
+moduleName pointer: 0x974aa7c ("Assembly-CSharp.dll")
+methodPointerCount: 0x352d5 (217813)
+methodPointers VA: 0xc267738; file offset 0xc266738 (.data)
+
+## Exact relevant method map
+TYPE 11250 .AttackState (enemy)
+  0x0601280e OnEnter RVA 0x292d0ac
+  0x0601280f OnTick RVA 0x292d628
+  0x06012810 OnExit RVA 0x292d7b0
+  0x06012811 _AttackFinishCallback RVA 0x292d8f8
+  0x06012812 .ctor RVA 0x292a9bc
+TYPE 13002 Torappu.Battle.Abilities.RangedAttack
+  0x06015edc OnCastStart RVA 0x2d831fc
+  0x06015edd UpdateTargets RVA 0x2d83020
+  0x06015edf DoCastOnTargets RVA 0x2d80404
+  0x06015ee0 OnCastOnTarget RVA 0x2d7fb64
+  0x06015eeb CreateProjectile RVA 0x2d837a0
+TYPE 9824 Torappu.Battle.AbilityStandard
+  0x0600f49f CastToTarget RVA 0x24cc020
+  0x0600f4ae OnCastOnTarget RVA 0x24cd908
+  0x0600f4c2 UpdateTargets RVA 0x24cff60
+TYPE 10666 Torappu.Battle.Projectile
+  0x06011369 SetTraceTarget RVA 0x27a4e6c
+  0x06011371 OnTick RVA 0x279be28
+  0x06011374 DealHitTarget RVA 0x2799a00
+  0x06011381 OnProjectileBorn RVA 0x279c128
+  0x06011390 _DealHitTraceTarget RVA 0x27a71ac
+
+## Mapping cross-check from plaintext disassembly
+0x2d83020 RangedAttack.UpdateTargets calls:
+  0x24cff60 AbilityStandard.UpdateTargets
+  0x2d8763c RangedAttack.RebuildMountPointCacheIfNeeded
+0x2d831fc RangedAttack.OnCastStart calls:
+  0x2d6ecf8 AbstractBasicAttack.OnCastStart
+  0x2d8335c RangedAttack.OnCastEnd
+0x2d837a0 RangedAttack.CreateProjectile calls:
+  0x251b004 BattleController.CreateProjectile
+
+## Encrypted/invalid A64 bodies at mapped RVAs
+0x292d0ac (Enemy.AttackState.OnEnter): 7951abf3906764ce84dc60f464ec229d45a982f3ec66249d6565249d4faa82f3; capstone decoded 0 instructions
+0x292d628 (Enemy.AttackState.OnTick): b7a882f344606452f166249deb53abf304da60d4643c269da4af82f3516664d0; capstone decoded 0 instructions
+0x292d7b0 (Enemy.AttackState.OnExit): 276c64306d00249d4c696cef6ce53b9c7b65728fc56364306cd860946c01229d; capstone decoded 1 unrelated ADR instruction
+0x292d8f8 (Enemy.AttackState._AttackFinishCallback): 846770ce6d57abf3906764ce84dc60f464ec229d69af82f3ec66249d6565249d; capstone decoded 0 instructions
+0x2d7fb64 (RangedAttack.OnCastOnTarget): b566a79b0962478dcd63079dcd6c3f93cd6d3791cd6e1f979460be1db460fd5c; capstone decoded 0 instructions
+0x2d80404 (RangedAttack.DoCastOnTargets): b567679b0963478dcd6c079dcd6d3f93cd6e3791cd6f1f97b460be1cd460fd53; capstone decoded 0 instructions
