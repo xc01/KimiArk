@@ -68,8 +68,16 @@
         "errors": [
           "M58 requires at least three m58_open_roster_comparison candidates"
         ],
-        "fact": "Three contenders were present under `contenders`, with A marked `selected=true`, but the enforced field contract required `candidates` and `selected_structure_id`.",
+        "fact": "Three contenders were present under `contenders`, with A marked `selected=true`, but the enforced field contract required `candidates`, candidate-level `structure_id` values, and `selected_structure_id`.",
         "response_policy": "SAVED_AND_STOPPED_NO_RETRY_NO_TACTICAL_REPAIR"
+      },
+      "protocol_recovery": {
+        "status": "PASS",
+        "report": "m58_protocol_recovery_report_v1.json",
+        "normalized_contract_validation": "PASS",
+        "static_compile": "PASS_WITH_CONDITIONS",
+        "focused_nonconflict_issue": "Returning Steward's DOWN range at [5,6] covers Friston [4,5] but not returned Fang [4,4].",
+        "stage_simulation": "NOT_RUN"
       },
       "simulation": "FORBIDDEN_BY_STATIC_FAILURE",
       "hashes": {
@@ -96,9 +104,9 @@
     "complete_win_reached": false,
     "best_verified_distinct_operator_union": 9,
     "eight_operator_impossibility_proved": false,
-    "m58_open_roster_attempt_status": "CONTRACT_FAILED",
+    "m58_open_roster_attempt_status": "ORIGINAL_CONTRACT_FAILED_PROTOCOL_RECOVERY_PASSED",
     "next_bounded_task_if_authorized": "A new milestone may align the comparison field contract, then make one new GPT call under a new budget; this M58 attempt must not be retried.",
-    "outcome_boundaries": "The 30-action A_SPOT_FUSION plan is an unexecuted model hypothesis only. It is not static-valid, simulated, WIN, faithful, robust, or probabilistic evidence."
+    "outcome_boundaries": "The protocol-recovered 30-action A_SPOT_FUSION plan is static-valid but remains an unexecuted model hypothesis. It is not simulated, WIN, faithful, robust, or probabilistic evidence; focused geometry does not prove the declared returned-Steward coverage."
   },
   "claims": {
     "real_game_win": false,

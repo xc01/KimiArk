@@ -14,7 +14,7 @@
   "validation_errors": [
     "M58 requires at least three m58_open_roster_comparison candidates"
   ],
-  "contract_observation": "The model supplied three contenders under m58_open_roster_comparison.contenders and marked A_SPOT_FUSION selected=true, but the enforced contract required m58_open_roster_comparison.candidates and selected_structure_id. No tactical action was repaired, converted, or rerun.",
+  "contract_observation": "The model supplied three contenders under m58_open_roster_comparison.contenders and marked A_SPOT_FUSION selected=true, but the enforced contract required m58_open_roster_comparison.candidates, candidate-level structure_id values, and selected_structure_id. No tactical action was repaired, converted, or rerun.",
   "selected_candidate_summary": {
     "contender_id": "A_SPOT_FUSION",
     "classification": "CURRENT_MODEL_CHECKABLE",
@@ -48,5 +48,14 @@
     "C_YATO_ATTACK_ROTATION"
   ],
   "raw_comparison_source": "attempt_01_cli/codex_final_message.txt.gz",
+  "protocol_recovery": {
+    "status": "PASS",
+    "strict_outer_fields_only": false,
+    "note": "The normalized copy renames contenders to candidates, aliases each existing contender_id as structure_id, and sets selected_structure_id from the sole selected contender. It does not invent IDs, change selection, or alter the plan/action timeline.",
+    "report": "m58_protocol_recovery_report_v1.json",
+    "normalized_validation": "PASS",
+    "static_compile": "PASS_WITH_CONDITIONS_0_CONFLICTS_0_UNKNOWNS",
+    "stage_simulation": "NOT_RUN"
+  },
   "no_retry_or_repair": true
 }

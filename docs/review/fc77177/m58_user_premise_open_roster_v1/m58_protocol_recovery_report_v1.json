@@ -1,0 +1,82 @@
+{
+  "schema_version": "M58_PROTOCOL_RECOVERY_REPORT_V1",
+  "source_local_commit": "2b13f518650369a4b8eae1a33db32909d779c6ae",
+  "source_remote_last_read_by_work": "b4c2d3f4359b02f3fc037097114169a654bee7a1",
+  "model_call_count_for_recovery": 0,
+  "simulation_count_for_recovery": 0,
+  "original_call_status": {
+    "real_tactical_cli_started": true,
+    "contract_status": "FAIL",
+    "validator_reported_error_count": 1,
+    "validator_reported_errors": [
+      "M58 requires at least three m58_open_roster_comparison candidates"
+    ]
+  },
+  "original_facts": {
+    "prompt_sha256": "c3a4738b7db581283b8c69f0f835e926008e1e7eb54c5e4a41285dade9074b69",
+    "schema_sha256": "c9fba32f3cb7b2751bdc4f1e10547aa67cbc42753e8aa3867a3cf3ba03f54b6e",
+    "final_message_sha256": "73ffb88166f27d44a8c2717bd43126563494a6aa773f744256a01f0963ab9475",
+    "structured_output_sha256": "1e73dfc64076edf9e62dcf90400e9d78067e028d338f2f5442326d37167b495e",
+    "evidence_sha256": "e5efef80121460ccbcd0f6f566abaf83d4f12b3cc397b8c1a897641565da0f67",
+    "final_message_and_parsed_output_canonical_equal": true,
+    "comparison_saved_under": "/revised_stage_understanding/m58_open_roster_comparison/contenders",
+    "candidate_ids": [
+      "A_SPOT_FUSION",
+      "B_DEFENDER_BAIT_DUAL_ARTS",
+      "C_YATO_ATTACK_ROTATION"
+    ],
+    "selected_true_count": 1,
+    "selected_contender_id": "A_SPOT_FUSION",
+    "plan_parent_hypothesis_id": "R8_7_M58_H1",
+    "selected_hypothesis_id": "R8_7_M58_H1",
+    "unique_selection_correspondence": "A_SPOT_FUSION and R8_7_M58_H1 are each the sole selected objects; the original plan does not contain a direct contender-ID reference.",
+    "other_contract_errors": [
+      "Each candidate used contender_id instead of required structure_id.",
+      "Top-level selected_structure_id was absent."
+    ]
+  },
+  "lossless_recovery": {
+    "strict_outer_fields_only": false,
+    "allowed_value_alias_recovery": true,
+    "status": "PASS",
+    "mapping_operations": [
+      "RENAME_EXISTING_ARRAY contenders -> candidates",
+      "ADD_ALIAS_FROM_EXISTING_CONTENDER_ID contender_id -> structure_id for each of 3 candidates",
+      "ADD_SCALAR_FROM_EXISTING_UNIQUE_SELECTED_CONTENDER_ID selected_structure_id=A_SPOT_FUSION"
+    ],
+    "invented_ids_or_candidates": false,
+    "changed_candidate_states_or_selection": false,
+    "plan_deep_equal": true,
+    "action_timeline_deep_equal": true,
+    "plan_action_count": 30,
+    "distinct_operator_union": 8,
+    "plan_canonical_sha256": "68b7db8783b4c3992f58b17dd40c9e097396879b6e529a02d61f17b67e0f79f9",
+    "action_timeline_canonical_sha256": "0f4d7eab8367ff8a13a51e191d97b6d94e0b91435cf957a95e14cd4b8bb44b26",
+    "mapping_path": "evidence/protocol_recovery_v3/protocol_recovery_mapping.json"
+  },
+  "validation_and_static": {
+    "original_schema_and_semantics_on_normalized_copy": "PASS",
+    "validation_errors": [],
+    "distinct_selected_deploy_union": 8,
+    "static_compile_status": "PASS_WITH_CONDITIONS",
+    "static_classification": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+    "static_conflicts": 0,
+    "static_unknowns": 0,
+    "focused_nonconflict_issue": "Returned Steward's DOWN range at [5,6] covers Friston [4,5] but not returned Fang [4,4].",
+    "focused_check_path": "evidence/protocol_recovery_v3_focused_checks.json"
+  },
+  "budget": {
+    "m58_cli": "1/1",
+    "m58_simulations": "0/1",
+    "m58_closed": true,
+    "unused_simulation_transferable": false,
+    "new_milestone_authorized": false
+  },
+  "frozen_candidate": {
+    "prepared_for_future_explicit_authorization": true,
+    "operational_plan_id": "R8_7_GPT_M58_V1",
+    "normal_path": "output/r8_1_r8_7_batch_v1/main_08-07/m58_user_premise_open_roster_v1/attempt_01_protocol_recovery_v3/llm_structured_output.json",
+    "tracked_normalized_copy": "docs/review/fc77177/m58_user_premise_open_roster_v1/evidence/protocol_recovery_v3/llm_structured_output.normalized.json",
+    "not_simulated": true
+  }
+}

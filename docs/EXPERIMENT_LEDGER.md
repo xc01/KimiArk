@@ -980,10 +980,16 @@ The user revoked M58's dynamic-evidence prerequisite and supplied
 not convert the still-unexecuted S0-S3 client UNKNOWNs into client facts. M58
 used 1/1 real GPT tactical CLI starts and 0/1 fixed simulations. The 30-action,
 exactly-8-ID A_SPOT_FUSION candidate was the selected contender, but contract
-validation failed because the raw model comparison used
-`contenders`/`selected=true` instead of the enforced
-`candidates`/`selected_structure_id` fields. Per the no-retry rule, it was saved
-and stopped before static compile or simulation. The best verified WIN remains
-M52 V1 at 9 IDs. Closeout and failure feedback:
+validation failed because the raw model comparison used `contenders`,
+candidate-level `contender_id`, and no top-level `selected_structure_id` instead
+of the enforced `candidates`, `structure_id`, and `selected_structure_id`
+fields. Per the no-retry rule, it was saved and stopped before static compile or
+simulation. A later no-model-call protocol recovery preserved the plan/actions,
+passed the same contract, and passed static checks with 0 conflicts; a focused
+range check found that returned Steward at [5,6] DOWN does not cover returned
+Fang at [4,4]. The best verified WIN remains M52 V1 at 9 IDs. Closeout and
+failure feedback:
 `docs/review/fc77177/m58_user_premise_open_roster_v1/m58_closeout_v1.json` and
 `docs/review/fc77177/m58_user_premise_open_roster_v1/m58_v1_contract_failure_feedback_v1.json`.
+Protocol recovery:
+`docs/review/fc77177/m58_user_premise_open_roster_v1/m58_protocol_recovery_report_v1.json`.

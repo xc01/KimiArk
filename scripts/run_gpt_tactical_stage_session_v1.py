@@ -729,9 +729,12 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
             "the released enemy, redeploy cost/cooldown, and successor duty. Withdrawal counts its refund; death "
             "does not. After death, same-ID redeploy must obey real cost/cooldown, and only deployed units can "
             "receive actions.\n"
-            "Save the comparison in revised_stage_understanding.m58_open_roster_comparison. Keep all raw model "
-            "reasoning summaries there; Python must not rewrite selection reasons. Select exactly one complete "
-            "plan and explain why the other structures are not selected.\n\n"
+            "Save the comparison in revised_stage_understanding.m58_open_roster_comparison as "
+            "`{\"candidates\":[...]}`. Each candidate requires `structure_id` (a unique non-empty string), "
+            "`selected` (boolean), and its raw comparison fields. Exactly one candidate has `selected: true`; "
+            "set top-level `selected_structure_id` to that candidate's `structure_id`. Do not use `contenders`. "
+            "Keep all raw model reasoning summaries there; Python must not rewrite selection reasons. "
+            "Select exactly one complete plan and explain why the other structures are not selected.\n\n"
         )
     protected_spawn_rows = [
         event for event in ((evidence.get("model_spawn_timeline") or {}).get("events") or [])
