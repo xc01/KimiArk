@@ -1,0 +1,422 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M57_V1",
+      "parent_hypothesis_id": "R8_7_M57_H1",
+      "tactical_thesis": "Use Plume as the permanent lower outer interceptor and eastern lower roadblock attacker. Her lower deployment cost advances both principal medics while retaining Lancet's rescue and separated artillery medicine. Reserve Plume's first skill for officers arriving ten seconds apart. After artillery clearance, redeploy Steward to directly damage both inner holds, including #34. This is an unexecuted candidate; survival and clearance deadlines remain hypotheses.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_192_falco",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_285_medic2",
+        "char_210_stward"
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "operator_id": "char_123_fang",
+          "tile": [3, 5],
+          "direction": "UP",
+          "role": "Upper inner containment, conditional DP and available lower inner assistance."
+        },
+        {
+          "operator_id": "char_4093_frston",
+          "tile": [4, 5],
+          "direction": "RIGHT",
+          "role": "Permanent lower inner three-block containment."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "tile": [1, 5],
+          "direction": "UP",
+          "role": "Upper outer interception, roadblock #3 clearance and available inner crossfire."
+        },
+        {
+          "operator_id": "char_192_falco",
+          "tile": [6, 5],
+          "direction": "RIGHT",
+          "role": "Permanent lower outer interception and roadblock #4 clearance."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "tile": [2, 6],
+          "direction": "UP",
+          "role": "Heal both inner blockers, Ansel and both eastern Steward positions."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "tile": [5, 5],
+          "direction": "RIGHT",
+          "role": "Heal Plume, Friston and both eastern Steward positions."
+        },
+        {
+          "operator_id": "char_285_medic2",
+          "tile": [2, 3],
+          "direction": "RIGHT",
+          "role": "Global deployment rescue, Midnight maintenance and upper medical supplementation."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [5, 7],
+          "direction": "DOWN",
+          "role": "Sustained artillery removal and initial inner approach damage."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [5, 6],
+          "direction": "DOWN",
+          "role": "After artillery clearance and cooldown, directly damage both inner holds."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [2, 2],
+          "direction": "DOWN",
+          "role": "Final roadblock #1 clearance."
+        },
+        {
+          "operator_id": "char_123_fang",
+          "tile": [6, 3],
+          "direction": "LEFT",
+          "role": "Final roadblock #2 clearance."
+        }
+      ],
+      "formation_structure": {
+        "capacity": "Exactly eight distinct selected and deployed IDs; at most eight simultaneously deployed.",
+        "duty_compression": "Plume replaces the separate opening Melantha and permanent Beagle lower outer assignments. Steward's central redeployment replaces the former adjacent Melantha lower inner damage assignment.",
+        "medical_geometry": "Read-only range checks confirm Hibiscus covers Fang, Friston, Ansel and both eastern Steward tiles; Ansel covers Plume, Friston and both eastern Steward tiles; Lancet covers Midnight, Fang and Hibiscus. Initial Steward is two tiles from Ansel. His adjacent central position is used only after artillery and pending projectiles resolve.",
+        "opening_economy": {
+          "credited_income": "Initial 10 DP, natural 1 DP/s and Fang's survival-dependent grants at 570, 1320 and 2070.",
+          "deployment_frames": [0, 91, 571, 691, 1201, 1531, 1962, 2071],
+          "post_deployment_dp": [0, 0.033, 6.033, 0.033, 0.033, 0.033, 11.4, 3.033],
+          "limitations": "Credit no Plume kill DP, charger refund, unsupported talent or hypothetical death refund. Losing Fang before a required grant breaks the opening handoff."
+        },
+        "survival_revision": "Hibiscus arrives at 1201 and can boost at 2102; Ansel arrives at 1531 and can boost at 2282. Lancet retains the 1962 rescue. These replace M56's late upper medicine and late first upper boost. Plume's different ID, HP and defense can change artillery selection and healing competition; the old shell sequence is not assumed unchanged.",
+        "redeployment": "Steward's 4450→6551 and 10500→12601 intervals and Fang's 11000→13101 interval are each 2101 frames. Current runtime retreat refunds half the paid cost rounded down: 9 for Steward and 5 for Fang; death refunds zero. Required redeployments are affordable without refunds."
+      },
+      "formation_transitions": [
+        {
+          "frame": 691,
+          "transition": "Establish the fourth interception with Plume before the first lower outer runner reaches her tile."
+        },
+        {
+          "frame": 1962,
+          "transition": "Deliver Lancet's deployment rescue; retain both principal medics and all four interceptions."
+        },
+        {
+          "frame": 2071,
+          "transition": "Begin Steward's artillery output under separated double medical coverage."
+        },
+        {
+          "frame": 3450,
+          "transition": "Boost Plume before the first ten-second officer pair reaches her single blocking slot."
+        },
+        {
+          "frame": 4450,
+          "transition": "Scheduled artillery-to-inner transfer begins. Artillery death and projectile resolution are required before this withdrawal."
+        },
+        {
+          "frame": 6551,
+          "transition": "Steward returns with direct coverage of both inner holds before the parent's observed #34 contact window."
+        },
+        {
+          "frame": 10500,
+          "transition": "Transfer Steward to western clearance only after all hostile combat has resolved."
+        },
+        {
+          "frame": 13101,
+          "transition": "Both western roadblock assignments are established; retain outer protection and medicine until both actual arrivals."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "routes": ["route-0"],
+          "duty": "No hostile interception assignment."
+        },
+        {
+          "routes": ["route-1"],
+          "duty": "Steward supplies sustained arts from [5,7] DOWN. Hibiscus and Ansel sustain him; Lancet supplements Hibiscus. Kill artillery before civilian targeting or leakage; ground operators provide no assumed anti-air damage."
+        },
+        {
+          "routes": ["route-2"],
+          "duty": "Midnight clears eastern roadblock #3 and intercepts upper officers. Returning Steward clears western #1; require the upper civilian's explicit safe arrival."
+        },
+        {
+          "routes": ["route-15"],
+          "duty": "Plume clears eastern roadblock #4 and intercepts lower officers. Returning Fang clears western #2; require the lower civilian's explicit safe arrival."
+        },
+        {
+          "routes": ["route-3", "route-4", "route-12", "route-13", "route-20", "route-21", "route-30", "route-31"],
+          "duty": "Fang contains upper inner traffic. Midnight supplies available crossfire and supported ATK windows. Steward supplies approach damage, then direct central damage after redeployment. Clear first armor before two runners would exceed Fang's capacity."
+        },
+        {
+          "routes": ["route-5", "route-6", "route-11", "route-14", "route-18", "route-19", "route-28", "route-29"],
+          "duty": "Friston contains lower inner traffic under principal medicine. Available Fang/Midnight attacks supply damage during Steward's cooldown. Preserve a free slot for final armor #34; returning Steward directly owns its clearance."
+        },
+        {
+          "routes": ["route-7", "route-8", "route-17", "route-22", "route-23", "route-24"],
+          "duty": "Midnight permanently intercepts upper outer enemies under Lancet. His self-blocked targets can interrupt inner crossfire."
+        },
+        {
+          "routes": ["route-9", "route-10", "route-16", "route-25", "route-26", "route-27"],
+          "duty": "Plume permanently intercepts lower outer enemies under Ansel. Her 3450 skill must clear each first paired officer before the next reaches her one blocking slot."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        {
+          "window_frames": [0, 2071],
+          "duty": "Establish four interceptions, advance both medics, deliver the global rescue and preserve Fang's required grants. Plume must survive the first runner and officer while progressing roadblock #4."
+        },
+        {
+          "window_frames": [2072, 4450],
+          "duty": "Use earlier medical boosts to survive initial shells; kill artillery and resolve pending projectiles. Plume's first boost prevents lower outer paired-officer overflow."
+        },
+        {
+          "window_frames": [4451, 6550],
+          "duty": "Retain all interceptions through Steward's cooldown. Midnight's second ATK window and available crossfire must clear first armor and runners sufficiently to preserve inner blocking capacity."
+        },
+        {
+          "window_frames": [6551, 10500],
+          "duty": "Steward directly clears both inner holds, particularly #34. Retain Plume and Midnight for final outer officers; finish every hostile before clearance withdrawals."
+        },
+        {
+          "window_frames": [10501, 20000],
+          "duty": "Complete western roadblock transfers and observe both protected arrivals. Frame 20000 is an observation allowance, not a success trigger."
+        }
+      ],
+      "skill_intents": [
+        {
+          "operator_id": "char_123_fang",
+          "intent": "Automatic DP requires living deployment. Only the first three grants fund required opening actions."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "frames": [2102, 3603, 5104, 6605, 8106, 9607],
+          "intent": "First boost is ready before the parent's second-shell impact window. Later boosts support renewed artillery exposure and mixed inner pressure. Exact recipients remain observable dependencies."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "frames": [2282, 4083, 5884, 7685, 9486],
+          "intent": "Boost covered healing during sustained caster exposure and later lower pressure. Forward extension supplies no additional vertical coverage or assumed second heal."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "frames": [1772, 5073, 8374],
+          "intent": "Apply supported ATK amplification to devices, officers and available inner targets. Credit no unsupported physical-to-arts conversion, critical hit or anti-air effect."
+        },
+        {
+          "operator_id": "char_192_falco",
+          "frames": [3450, 5551],
+          "intent": "Reserve the first boost for officers ten seconds apart and the second for late lower outer pressure. Against 150 DEF, base attacks deal 295 and require twelve hits; boosted attacks deal 406.25 at a 0.8-second interval and require nine hits. These are conditional hit budgets, not verified kill times."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "intent": "Use ordinary arts, supported highest-defense priority and automatic enhanced attacks. Central redeployment provides direct damage to both held inner lanes; no target-order command is assumed."
+        },
+        {
+          "operator_id": "char_285_medic2",
+          "intent": "Apply the supported 200-point deployment heal, then ordinary single-target healing. Assign no civilian healing."
+        },
+        {
+          "operator_id": "char_4093_frston",
+          "intent": "Retain ordinary three-block containment. Credit no unsupported deployment damage reduction."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "ROSTER",
+          "requirement": "The selected/DEPLOY union is exactly eight catalog IDs, each normal_mode true and rarity 1-3; no reserve units or aliases."
+        },
+        {
+          "id": "PLACEMENT",
+          "requirement": "Every deployment uses integer [row,col], legal terrain and a cardinal direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+        },
+        {
+          "id": "MEDICAL_CHAIN",
+          "requirement": "Ansel, Hibiscus, Steward and Friston must survive their assigned artillery windows. Earlier readiness does not prove recipient selection or survival; a lost dependency invalidates later handoffs."
+        },
+        {
+          "id": "PLUME_CAPACITY",
+          "requirement": "Plume remains alive and clears each first paired officer before the next contact. Her one blocking slot cannot inherit Beagle's three-block tolerance."
+        },
+        {
+          "id": "ARTILLERY_HANDOFF",
+          "requirement": "Artillery must be dead and pending shells resolved before Steward's 4450 withdrawal. Missing this checkpoint invalidates the fixed timeline; no invented conditional executor is assumed."
+        },
+        {
+          "id": "INNER_CAPACITY",
+          "requirement": "First upper armor clears before upper runner overflow. Friston retains a free slot for #34, and Steward's central deployment produces actual damage to it before lower containment is released."
+        },
+        {
+          "id": "CIVILIANS",
+          "requirement": "Ordinary operators neither attack nor block civilians. Clear roadblocks through actual device damage and intercept officers before they can repeatedly attack waiting civilians."
+        },
+        {
+          "id": "ACTION_VALIDITY",
+          "requirement": "No later command is justified by a legal:false event. Death or a missed transfer checkpoint is a failed tactical prediction, not a refund or arithmetic correction."
+        },
+        {
+          "id": "ACCEPTANCE",
+          "requirement": "Require remaining_life>0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two expected protected targets safely arrived. Record operator deaths separately."
+        }
+      ],
+      "action_timeline": [
+        {"action_type": "DEPLOY", "frame": 0, "operator_id": "char_123_fang", "tile": [3, 5], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 91, "operator_id": "char_4093_frston", "tile": [4, 5], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 571, "operator_id": "char_283_midn", "tile": [1, 5], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 691, "operator_id": "char_192_falco", "tile": [6, 5], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 1201, "operator_id": "char_120_hibisc", "tile": [2, 6], "direction": "UP"},
+        {"action_type": "DEPLOY", "frame": 1531, "operator_id": "char_212_ansel", "tile": [5, 5], "direction": "RIGHT"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 1772, "operator_id": "char_283_midn"},
+        {"action_type": "DEPLOY", "frame": 1962, "operator_id": "char_285_medic2", "tile": [2, 3], "direction": "RIGHT"},
+        {"action_type": "DEPLOY", "frame": 2071, "operator_id": "char_210_stward", "tile": [5, 7], "direction": "DOWN"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2102, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 2282, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3450, "operator_id": "char_192_falco"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 3603, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 4083, "operator_id": "char_212_ansel"},
+        {"action_type": "RETREAT", "frame": 4450, "operator_id": "char_210_stward", "rationale": "Artillery and projectile aftermath must already be resolved."},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5073, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5104, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5551, "operator_id": "char_192_falco"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 5884, "operator_id": "char_212_ansel"},
+        {"action_type": "DEPLOY", "frame": 6551, "operator_id": "char_210_stward", "tile": [5, 6], "direction": "DOWN"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 6605, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 7685, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 8106, "operator_id": "char_120_hibisc"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 8374, "operator_id": "char_283_midn"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9486, "operator_id": "char_212_ansel"},
+        {"action_type": "ACTIVATE_SKILL", "frame": 9607, "operator_id": "char_120_hibisc"},
+        {"action_type": "RETREAT", "frame": 10500, "operator_id": "char_210_stward", "rationale": "All hostile combat must already be resolved."},
+        {"action_type": "RETREAT", "frame": 11000, "operator_id": "char_123_fang", "rationale": "Upper hostile clearance must already be complete."},
+        {"action_type": "DEPLOY", "frame": 12601, "operator_id": "char_210_stward", "tile": [2, 2], "direction": "DOWN"},
+        {"action_type": "DEPLOY", "frame": 13101, "operator_id": "char_123_fang", "tile": [6, 3], "direction": "LEFT"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id": "P1_OPENING",
+          "goal": "Establish four live interceptions and an earlier medical line.",
+          "start_condition": "Stage begins with 10 DP.",
+          "completion_condition": "Both medics, Lancet and Steward are deployed with all four interceptions alive.",
+          "responsibilities": ["Fang and Friston contain inner traffic.", "Midnight and Plume contain outer traffic and damage eastern roadblocks.", "Hibiscus and Ansel stabilize contact damage; Lancet supplies the 1962 rescue."],
+          "survival_dependencies": ["Fang survives required DP grants.", "Plume survives the runner and first officer until Ansel's support.", "The rescue and actual healing selections preserve Friston and Ansel."],
+          "handoff_requirements": ["Deliver living blockers and both principal medics to artillery combat.", "Roadblock #4 clearance must progress without sacrificing Plume's interception."],
+          "failure_effect_on_later_phases": "A lost blocker or medic breaks containment, income or artillery survival; later commands cannot repair that handoff."
+        },
+        {
+          "phase_id": "P2_ARTILLERY",
+          "goal": "Kill artillery while maintaining separated medical coverage and outer interception.",
+          "start_condition": "Steward deploys at 2071 under both medics.",
+          "completion_condition": "Artillery is dead and pending projectiles have resolved before 4450.",
+          "responsibilities": ["Steward supplies sustained arts.", "Earlier Hibiscus and Ansel boosts support shell recovery.", "Plume uses the 3450 boost to clear the ten-second officer pair."],
+          "survival_dependencies": ["Healing reaches the exposed operators often enough despite competition.", "Plume's changed artillery candidacy does not collapse Ansel or herself.", "Both civilians remain alive while roadblocks restrain them."],
+          "handoff_requirements": ["Steward withdraws alive only after artillery settlement.", "All four interceptions remain occupied through his cooldown."],
+          "failure_effect_on_later_phases": "Surviving artillery invalidates the central transfer and can kill protected targets or leak."
+        },
+        {
+          "phase_id": "P3_COOLDOWN_CONTAINMENT",
+          "goal": "Preserve inner capacity while Steward completes redeployment recovery.",
+          "start_condition": "Artillery settlement permits Steward's 4450 retreat.",
+          "completion_condition": "Steward returns at 6551 and both inner holds retain usable capacity.",
+          "responsibilities": ["Fang and Friston retain blocking.", "Midnight's second ATK window and available crossfire clear first armor and runners.", "Plume retains the lower outer lane with her second boost."],
+          "survival_dependencies": ["Principal medicine sustains prolonged inner exposure.", "Actual crossfire clears enough traffic before additional runners arrive."],
+          "handoff_requirements": ["Upper first armor clears before a third blocking slot would be required.", "Friston retains a free slot for final armor #34."],
+          "failure_effect_on_later_phases": "Overflow during the cooldown causes an irreversible leak before central arts can take over."
+        },
+        {
+          "phase_id": "P4_FINAL_CLEARANCE",
+          "goal": "Apply direct arts to both inner holds and settle final armor.",
+          "start_condition": "Steward deploys at [5,6] DOWN at 6551.",
+          "completion_condition": "Every hostile is dead, including #34, before the 10500 clearance transfer.",
+          "responsibilities": ["Steward damages both held inner lanes.", "Friston blocks #34 while Steward clears it.", "Midnight and Plume finish final outer traffic; Midnight supplies the third ATK window."],
+          "survival_dependencies": ["Both inner blockers remain alive with adequate capacity.", "Steward receives actual healing and attack opportunities."],
+          "handoff_requirements": ["Require actual damage and containment or death of #34.", "Confirm no hostile remains before withdrawing Steward or Fang."],
+          "failure_effect_on_later_phases": "Unsettled armor or lost containment makes western clearance withdrawals invalid."
+        },
+        {
+          "phase_id": "P5_EVACUATION",
+          "goal": "Destroy western roadblocks and observe both protected arrivals.",
+          "start_condition": "Hostile combat has resolved and clearance cooldowns begin.",
+          "completion_condition": "Two protected arrivals, zero protected deaths, zero leaks, positive life, exhausted spawns and no active enemies are observed.",
+          "responsibilities": ["Steward clears #1 from [2,2] DOWN.", "Fang clears #2 from [6,3] LEFT.", "Retain remaining operators while civilians travel."],
+          "survival_dependencies": ["Both clearance operators survive and complete their cooldowns.", "No hostile remains able to attack a waiting civilian."],
+          "handoff_requirements": ["Observe each roadblock's destruction and each civilian's actual arrival.", "Do not infer victory from elapsed time or roadblock destruction alone."],
+          "failure_effect_on_later_phases": "A missing arrival, surviving restraint, protected death or leak prevents acceptance."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "stage_id": "main_08-07",
+    "gamedata_facts": "Two neutral civilians require roadblock release and safe arrival. Ordinary operators neither attack nor block them; officers can attack them within 1.2. Civilian death costs one life.",
+    "current_model": "The supplied spawn schedule, attack timing, medical selection and artillery lock behavior are model evidence. Changing operator IDs or healing load can change the causal sequence.",
+    "causal_revision": "M56 failed first through medical survival, then artillery output and interception. Its post-death command errors and late roadblock work did not establish valid handoffs.",
+    "unknown": ["Exact client timing and target tie-breaks.", "Ordinary WALK navigation around active roadblocks.", "Full-stage survival and clearance for this unexecuted structure."],
+    "validation_performed": "Read-only range, DP and skill-interval calculations only; no simulation, file changes or other AI providers."
+  },
+  "revised_tactical_requirements": {
+    "simultaneous_duties": ["Four live route interceptions.", "Medical recovery with competing recipients.", "Sustained artillery output and survival.", "Eastern roadblock damage and civilian protection."],
+    "staged_duties": ["Artillery settlement before Steward's transfer.", "Inner capacity through the 70-second cooldown.", "Direct final armor clearance before western roadblock transfers.", "Two explicit safe arrivals after roadblock destruction."],
+    "critical_unverified_checkpoints": ["Both initial shell waves leave the medical line and blockers alive.", "Plume clears #4 and survives paired officers without overflow.", "Artillery and pending projectiles resolve before 4450.", "First armor clears enough capacity during Steward's absence.", "#34 receives actual damage and is contained or killed."]
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_7_M57_H1",
+      "selected": true,
+      "roster": ["Fang", "Friston-3", "Midnight", "Plume", "Hibiscus", "Ansel", "Lancet-2", "Steward"],
+      "merged_duties": "Plume combines opening and permanent lower outer interception; returning Steward combines upper and lower inner damage.",
+      "failure_addressed": "Earlier double medicine and the retained global rescue address M56's first medical collapse; direct central arts addresses #34.",
+      "most_dangerous_window": "1961–2711: Plume changes shell candidacy and healing competition while the first medical boosts become ready.",
+      "capability_basis": "Plume costs 10, has 279 DEF, one block, and supported ATK/ASPD amplification. Range and conditional DP/SP checks passed.",
+      "main_cost": "One blocking slot requires timely paired-officer kills; removing adjacent Melantha damage creates a demanding inner cooldown window.",
+      "status": "WAITING_RUNTIME_EVIDENCE"
+    },
+    {
+      "hypothesis_id": "R8_7_M57_H2",
+      "selected": false,
+      "roster": ["Fang", "Friston-3", "Midnight", "Melantha", "Spot", "Hibiscus", "Ansel", "Steward"],
+      "merged_duties": "Spot replaces Lancet's rescue contribution and Beagle's later role through staged blocking and healing.",
+      "failure_addressed": "Adds supported healing to the shell recovery chain while retaining Melantha's physical output.",
+      "most_dangerous_window": "Before 2111: a 17-DP deployment plus fifteen seconds to first skill competes with both principal medics; later relocation also needs a real lower outer successor.",
+      "capability_basis": "Spot's 25-second heal mode, 1.3-second healing interval and explicit 3x3 range are supported; normal attacks stop during it.",
+      "main_cost": "The inspected opening cannot preserve the original medical arrivals and supply an early adjacent rescue without additional restructuring. Healing pauses also remove damage.",
+      "selection_reason": "Plume's opening ledger supplies concrete earlier medicine without depending on this unresolved healing and relocation handoff.",
+      "status": "WAITING_RUNTIME_EVIDENCE"
+    },
+    {
+      "hypothesis_id": "R8_7_M57_H3",
+      "selected": false,
+      "roster": ["Yato", "Friston-3", "Midnight", "Cardigan", "Kroos", "Hibiscus", "Ansel", "Steward"],
+      "merged_duties": "Natural DP replaces Fang income; Cardigan combines permanent outer blocking with self-recovery; Kroos supplies additional ranged clearance.",
+      "failure_addressed": "Reduces reliance on fragile outer interception and survival-dependent vanguard grants.",
+      "most_dangerous_window": "First upper runner contact through the initial shell waves: Yato's 192 DEF and 1030 HP require immediate damage assistance, while Friston loses Lancet's rescue.",
+      "capability_basis": "Yato costs 7 with supported redeploy reduction; Cardigan has three block and supported 40% self-heal; Kroos has supported automatic enhanced attacks.",
+      "main_cost": "Kroos deployment and eastern roadblock clearance compete with principal medicine and artillery funding; the first-contact and rescue replacements remain unresolved.",
+      "selection_reason": "The selected structure preserves the demonstrated cheap inner opening and deployment rescue while providing a checked eight-ID budget.",
+      "status": "WAITING_RUNTIME_EVIDENCE"
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id": "R8_7_M57_REV1",
+    "parent_plan_id": "R8_7_GPT_M56_V1",
+    "operational_plan_id": "R8_7_GPT_M57_V1",
+    "referenced_experience_ids": ["M57_PARENT_FEEDBACK_V1"],
+    "tactical_hypothesis": "Plume's cheaper permanent outer assignment can fund earlier double medicine while preserving Lancet's rescue and sustained artillery arts. Her timed burst replaces extra blocking against paired officers; Steward's later central deployment supplies direct damage to both inner holds and final armor.",
+    "changed_responsibilities": [
+      "Plume assumes lower outer interception and eastern lower roadblock clearance throughout combat.",
+      "Hibiscus and Ansel deploy earlier, with first boosts at 2102 and 2282.",
+      "Lancet retains the 1962 deployment rescue and upper maintenance.",
+      "Steward retains full eastern artillery coverage before transferring to direct inner clearance at 6551.",
+      "Western clearance waits for completed hostile settlement."
+    ],
+    "expected_first_observable_event": {
+      "event_type": "HEAL",
+      "source_id": "char_120_hibisc",
+      "target_id": "char_212_ansel",
+      "earliest_frame": 1961,
+      "latest_frame": 2110
+    },
+    "if_expected_event_absent": "Reject the proposed initial shell-recovery handoff. Inspect actual shell locks, HP and healing recipients before trusting later actions; do not treat a surviving command or a later heal as proof of the missing survival dependency."
+  }
+}
