@@ -1,0 +1,42 @@
+{
+  "schema_version": "M58_ATTACK_LOCK_EVIDENCE_V1",
+  "gate_decision": "GATE_STOPPED_BEFORE_TACTICAL_CLI",
+  "budget_started": false,
+  "client": {
+    "source_directory": "/tmp/kimiark-m58-client-3089907",
+    "libil2cpp_sha256": "3ece1e7b34165233fe8c3c919cf55dfcb4406b6bbc2725def2b1242b4c0a6259",
+    "global_metadata_sha256": "bf14421bbafe9c71d944ba4f97b31ecd666232640eac0829db3d84ac716ac8b8",
+    "android_manifest_sha256": "92856638465aff947a54e24633134a43a4de45cd81221381896e8be1c1d46404"
+  },
+  "projectiles": {
+    "ordinary": {
+      "enemy_ids": ["enemy_1107_uoffcr", "enemy_1110_uamord"],
+      "always_hit_trace_target_in_the_end": 1,
+      "always_reach_in_the_end": 0,
+      "delay_to_start": 0,
+      "life_time": 5,
+      "max_hit_num": 1,
+      "stop_when_source_invalid": 0,
+      "lock_conclusion": "UNKNOWN_BEFORE_TARGET_LOSS"
+    },
+    "artillery": {
+      "enemy_id": "enemy_1112_emppnt",
+      "always_reach_in_the_end": 1,
+      "follow_target": 0,
+      "delay_to_start": 3,
+      "stop_if_target_dead": 0,
+      "stop_if_target_disappeared": 0,
+      "lock_conclusion": "PARTIALLY_CONFIRMED_AFTER_PROJECTILE_BIRTH"
+    }
+  },
+  "current_simulator": {
+    "ordinary_target_selected_at": "ATTACK_STRIKE",
+    "empty_target_consumes_cycle": false,
+    "cooldown_start": "after real strike",
+    "artillery_position_locked_at": "cast start",
+    "artillery_cooldown_start": "cast start"
+  },
+  "focus_tests_passed": true,
+  "tactical_cli_started": false,
+  "full_stage_simulation_started": false
+}
