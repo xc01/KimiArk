@@ -58,7 +58,8 @@ def test_generated_catalog_covers_the_whole_normal_low_star_domain() -> None:
     lava = next(item for item in support["operators"] if item["operator_id"] == "char_121_lava")
     lancet = next(item for item in support["operators"] if item["operator_id"] == "char_285_medic2")
     fang = next(item for item in support["operators"] if item["operator_id"] == "char_123_fang")
-    assert lava["deployment_sp_bonus"] == 30.0 and lava["overall"] == "NOT_PLANNER_SAFE"
+    assert lava["deployment_sp_bonus"] == 30.0
+    assert lava["overall"] == "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     assert lancet["deployment_heal_all_value"] == 200.0
     assert fang["overall"] == "PLANNER_SAFE_WITH_KNOWN_LIMITS"
 
@@ -69,3 +70,22 @@ def test_generated_manifest_hashes_are_real() -> None:
         path = ROOT / output["path"]
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         assert output["bytes"] == path.stat().st_size and output["sha256"] == digest
+
+
+def test_generated_skill_support_uses_the_current_interpreter() -> None:
+    support = json.loads((ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json").read_text())
+    spot = next(item for item in support["operators"] if item["operator_id"] == "char_284_spot")
+    skill = spot["skills"][0]
+    assert spot["overall"] == "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
+    assert skill["runtime_supported"] is True
+    assert skill["status"] == "EXECUTABLE_APPROXIMATED"
+    assert skill["interpreter_version"] == "low-rarity-blackboard-v3-generic-operator"
+    assert skill["heal_mode"] is True
+    assert skill["stops_normal_attacks_while_healing"] is True
+    assert skill["base_attack_time_override"] == 1.3
+    assert skill["range_override"] == [
+        [1, -1], [1, 0], [1, 1],
+        [0, -1], [0, 0], [0, 1],
+        [-1, -1], [-1, 0], [-1, 1],
+    ]
+    assert spot["talent"]["runtime_supported"] is False

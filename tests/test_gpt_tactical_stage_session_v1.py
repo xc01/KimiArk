@@ -23,6 +23,7 @@ def runner_module_state():
             "OUT", "DIAGNOSTIC_OUT", "SOURCE", "STAGE_ID", "PLAN_ID", "PLAN_PREFIX",
             "PLAN_LABEL", "SAVED_INPUT_DIR", "MAX_UNIQUE_DEPLOYED_OPERATORS",
             "AUTHORIZATION_CONFIG_PATH", "SIMULATION_BUDGET_PATH",
+            "NORMAL_LOW_STAR_MANIFEST_PATH",
         )
     }
     tracked_codex_globals = {
@@ -85,6 +86,7 @@ def make_stage_evidence(stage_id: str) -> dict:
     return {
         "stage_id": stage_id,
         "normal_low_star_catalog": catalog,
+        "normal_low_star_capability_source": make_capability_source(),
         "source_routes": [{"route": "route-1"}],
         "source_wave_schedule": [{"frame": 1}],
         "stage_mechanism_support": {"runtime_adapter_status": "SUPPORTED"},
@@ -99,6 +101,7 @@ def make_saved_input(root: Path, *, include_limit: bool, limit: int | None = 10)
     evidence = {
         "stage_id": "main_saved_stage",
         "normal_low_star_catalog": make_catalog(),
+        "normal_low_star_capability_source": make_capability_source(),
         "stage_active_facts": {
             "roadblock_tiles_col_row": [], "active_device_tiles_col_row": [],
             "deployable_ground_tiles_col_row": [(0, 0)],
@@ -112,6 +115,23 @@ def make_saved_input(root: Path, *, include_limit: bool, limit: int | None = 10)
     (saved / "revision_output_schema.json").write_text("{}", encoding="utf-8")
     (saved / "evidence_completeness.json").write_text("{}", encoding="utf-8")
     return saved
+
+
+def make_capability_source() -> dict:
+    manifest = runner.load(runner.NORMAL_LOW_STAR_MANIFEST_PATH)
+    hashes = {
+        Path(output["path"]).name: output["sha256"]
+        for output in manifest["outputs"]
+    }
+    return {
+        "schema_version": runner.CAPABILITY_SOURCE_SCHEMA_VERSION,
+        "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+        "support_schema_version": runner.CAPABILITY_SUPPORT_SCHEMA_VERSION,
+        "gamedata_commit": manifest["gamedata_commit"],
+        "facts_sha256": hashes["normal_low_star_facts.json"],
+        "support_sha256": hashes["normal_low_star_mechanism_support.json"],
+        "stale_skill_audit_policy": "NOT_USED_FOR_SKILL_SUPPORT",
+    }
 
 
 def make_execution() -> dict:
@@ -210,6 +230,26 @@ def test_normal_input_defaults_to_no_roster_constraint(tmp_path: Path, runner_mo
     assert "milestone_constraints" not in prepared_evidence
     assert resolution["effective_limit"] is None
     assert "HARD ROSTER LIMIT:" not in prepared["prompt"]
+
+
+def test_stale_capability_source_is_rejected(tmp_path: Path, monkeypatch) -> None:
+    manifest = {
+        "gamedata_commit": "test-commit",
+        "outputs": [
+            {"path": "output/normal_low_star_facts_v1/normal_low_star_facts.json", "sha256": "fact-hash"},
+            {"path": "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json", "sha256": "support-hash"},
+        ],
+    }
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    monkeypatch.setattr(runner, "NORMAL_LOW_STAR_MANIFEST_PATH", manifest_path)
+    source = make_capability_source()
+    runner.validate_normal_low_star_capability_source({"normal_low_star_capability_source": source})
+    stale = dict(source, support_schema_version="normal-low-star-mechanism-support-v1")
+    with pytest.raises(RuntimeError, match="support schema"):
+        runner.validate_normal_low_star_capability_source({"normal_low_star_capability_source": stale})
+    with pytest.raises(RuntimeError, match="missing"):
+        runner.validate_normal_low_star_capability_source({})
 
 
 def test_selected_and_deploy_union_counts_redeployment_once() -> None:

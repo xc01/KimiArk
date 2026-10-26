@@ -9,6 +9,7 @@ from arknights_planner.adapters import (
     ApproximateRealSimulationAdapter,
     RealSimulationApproximationPolicy,
 )
+from arknights_planner.adapters.low_rarity_skill import LowRarityBlackboardEffectInterpreter
 from arknights_planner.gamedata.repository import GameDataRepository
 from run_r8_1_low_star_full_tactical_closure_v1 import (
     compact_operator_catalog,
@@ -23,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GAMEDATA = ROOT / "data/ArknightsGameData"
 LOW_STAR_PATH = ROOT / "output/normal_low_star_facts_v1/normal_low_star_facts.json"
 SUPPORT_PATH = ROOT / "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json"
+SUPPORT_MANIFEST_PATH = ROOT / "output/normal_low_star_facts_v1/manifest.json"
 REFERENCE_CONTEXT = ROOT / "output/r8_1_gpt_tactical_batch_v1/r8_1_c7_cli/llm_evidence_context.json"
 MECHANICS_VERSION = "m18.9-stage-device-runtime-v1"
 GAMEDATA_COMMIT = "0ef7f952dfd018392200157a5c79a6511ba69122"
@@ -76,7 +78,7 @@ def active_stage_facts(stage_id: str) -> dict[str, Any]:
                 "attack_timing_evidence_class": enemy.attack_timing.evidence_class
                 if enemy.attack_timing
                 else "NONE",
-                "supported_abilities": [item.ability_type for item in enemy.abilities],
+                "supported_abilities": [item.ability_id for item in enemy.abilities],
                 "is_friendly": stats.is_friendly.to_dict() if stats.is_friendly else None,
                 "counts_as_kill": stats.counts_as_kill.to_dict() if stats.counts_as_kill else None,
                 "counts_as_leak": stats.counts_as_leak.to_dict() if stats.counts_as_leak else None,
@@ -188,6 +190,28 @@ def build_context(stage_id: str) -> dict[str, Any]:
     runtime_supported_route_types = {"MOVE", "WAIT_FOR_SECONDS"}
     unsupported_route_types = sorted(set(source_route_types) - runtime_supported_route_types)
     adapter_blocked = bool(unsupported_route_types)
+    support_manifest = load(SUPPORT_MANIFEST_PATH)
+    support_hash_by_path = {
+        Path(output["path"]).name: output["sha256"]
+        for output in support_manifest["outputs"]
+    }
+    support = load(SUPPORT_PATH)
+    if file_record(SUPPORT_PATH)["sha256"] != support_hash_by_path[SUPPORT_PATH.name]:
+        raise RuntimeError("normal low-star support manifest hash mismatch")
+    if support.get("schema_version") != "normal-low-star-mechanism-support-v2":
+        raise RuntimeError(f"stale support schema: {support.get('schema_version')!r}")
+    capability_source = {
+        "schema_version": "normal-low-star-capability-source-v1",
+        "interpreter_version": LowRarityBlackboardEffectInterpreter.version,
+        "facts_schema_version": "normal-low-star-facts-v1",
+        "support_schema_version": support["schema_version"],
+        "gamedata_commit": support_manifest["gamedata_commit"],
+        "facts_path": LOW_STAR_PATH.relative_to(ROOT).as_posix(),
+        "facts_sha256": support_hash_by_path[LOW_STAR_PATH.name],
+        "support_path": SUPPORT_PATH.relative_to(ROOT).as_posix(),
+        "support_sha256": support_hash_by_path[SUPPORT_PATH.name],
+        "stale_skill_audit_policy": "NOT_USED_FOR_SKILL_SUPPORT",
+    }
     semantics = []
     for item in enemy_facts(level):
         enemy = repository.get_enemy(item["enemy_id"], level=item["level"])
@@ -235,6 +259,7 @@ def build_context(stage_id: str) -> dict[str, Any]:
         },
         "normal_low_star_catalog": compact_operator_catalog(),
         "normal_low_star_support_counts": load(SUPPORT_PATH)["counts"],
+        "normal_low_star_capability_source": capability_source,
         "simulation_domain": simulation_domain(),
         "stage_mechanism_support": {
             "raw_route_checkpoint_types": source_route_types,

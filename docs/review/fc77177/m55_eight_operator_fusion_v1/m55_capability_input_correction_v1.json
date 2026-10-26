@@ -1,0 +1,84 @@
+{
+  "schema_version": "M55_CAPABILITY_INPUT_CORRECTION_V1",
+  "scope": "FACT_INTERFACE_CORRECTION_ONLY",
+  "m55_actual_input": {
+    "llm_evidence_context_sha256": "efab393153e8ae45771407e78ec7d801d2729416c6458aa474d3e63722be0ebb",
+    "codex_prompt_sha256": "4603af32e45afc45009c094027439081a5f1d2f9a151502f2760abd21e00e166",
+    "llm_structured_output_sha256": "38acc031b3a90bce5c05d520cc5711562e6b980da102a8c9050b71bc4065ec8b",
+    "spot_selected_skill": {
+      "skill_id": "skchr_spot_1",
+      "level_index": 6,
+      "skill_type": "MANUAL",
+      "sp_type": "INCREASE_WITH_TIME",
+      "initial_sp": 25,
+      "sp_cost": 40,
+      "duration": 25,
+      "blackboard": {"atk": 0.45, "base_attack_time": 1.3},
+      "range_id": "x-4"
+    },
+    "spot_runtime_support": {
+      "skill_runtime_supported": false,
+      "skill_status": "UNSUPPORTED",
+      "talent_runtime_supported": false,
+      "talent_status": "UNSUPPORTED_ACTIVE_TALENT",
+      "overall": "NOT_PLANNER_SAFE"
+    },
+    "correction_location": "NOT_IN_REAL_MODEL_INPUT: the actual llm_evidence_context and codex_prompt still carried skill status UNSUPPORTED; the explicit Spot heal-mode correction exists only in m55_differential_feedback_v1.",
+    "selection_decision_summary": "NOT_RECORDED"
+  },
+  "current_interpreter_result": {
+    "interpreter": "LowRarityBlackboardEffectInterpreter",
+    "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+    "range_source": "GameDataRepository.get_range",
+    "support": "EXECUTABLE_APPROXIMATED",
+    "reason": "manual time-SP heal-mode pattern with explicit base-healing interval",
+    "heal_mode": true,
+    "stops_normal_attacks_while_healing": true,
+    "atk_multiplier": 1.45,
+    "base_attack_time_override": 1.3,
+    "range_override_cells": [
+      [1, -1], [1, 0], [1, 1],
+      [0, -1], [0, 0], [0, 1],
+      [-1, -1], [-1, 0], [-1, 1]
+    ]
+  },
+  "future_input": {
+    "stage_id": "main_08-07",
+    "path": "output/r8_1_r8_7_batch_v1/main_08-07/m55_capability_corrected_facts_v1/llm_evidence_context.json",
+    "sha256": "8d2c65ecdf443989419c441164c74082414fc6e22cc5144be9708eeffb3efd77",
+    "facts_sha256": "968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307",
+    "support_sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324",
+    "manifest_sha256": "3dacb2389e108005b3bc3dbd98a419ea71c4dcf132f90749f2e081008fb495b0",
+    "support_schema_version": "normal-low-star-mechanism-support-v2",
+    "spot_skill_runtime_supported": true,
+    "spot_skill_status": "EXECUTABLE_APPROXIMATED",
+    "spot_talent_runtime_supported": false,
+    "spot_overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
+  },
+  "implementation": {
+    "normal_generation": "build_mechanism_support now interprets each selected skill directly with LowRarityBlackboardEffectInterpreter; the stale low_rarity_skill_audit planner_safe flag is no longer the source of skill support.",
+    "saved_input": "Normal and saved-input preparation both require normal_low_star_capability_source and reject missing, stale-schema, stale-hash, wrong interpreter-version, wrong GameData commit, or stale-audit-policy metadata.",
+    "non_tactical_change": "No M55 prompt, response, plan, action, events, summary, archive, or hash was modified."
+  },
+  "preserved_boundaries": {
+    "spot_physical_dodge_talent": "UNSUPPORTED_ACTIVE_TALENT / UNKNOWN in current simulator",
+    "ansel_probability_second_heal": "NOT_IMPLEMENTED",
+    "whole_operator_claim": "Spot is PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS, not fully supported; use is a tactical choice."
+  },
+  "validation": {
+    "focused_tests": [
+      "tests/test_normal_low_star_facts.py",
+      "tests/test_gpt_tactical_stage_session_v1.py",
+      "tests/simulator/test_normal_low_star_mechanics.py",
+      "tests/simulator/test_low_rarity_runtime_closure.py"
+    ],
+    "focused_test_status": "PASS_31",
+    "full_stage_simulation_started": false,
+    "real_tactical_cli_started": false
+  },
+  "budget": {
+    "m55_remaining_cli": 0,
+    "m55_remaining_simulations": 0,
+    "m56_authorized": false
+  }
+}

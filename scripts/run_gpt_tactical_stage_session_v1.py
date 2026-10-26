@@ -38,6 +38,9 @@ BRANCH_STATE_PATH: str | None = None
 MAX_UNIQUE_DEPLOYED_OPERATORS: int | None = None
 AUTHORIZATION_CONFIG_PATH = ROOT / "docs/review/fc77177/m27_model_authorization_v1.json"
 SIMULATION_BUDGET_PATH = ROOT / "docs/review/fc77177/m28_simulation_budget_v1.json"
+NORMAL_LOW_STAR_MANIFEST_PATH = ROOT / "output/normal_low_star_facts_v1/manifest.json"
+CAPABILITY_SOURCE_SCHEMA_VERSION = "normal-low-star-capability-source-v1"
+CAPABILITY_SUPPORT_SCHEMA_VERSION = "normal-low-star-mechanism-support-v2"
 
 
 def load(path: Path) -> Any:
@@ -176,6 +179,42 @@ def resolve_milestone_constraints(evidence: dict[str, Any], *, saved_input: bool
         resolution["saved_input_evidence_sha256"] = sha256(saved_path)
         resolution["saved_input_prompt_sha256"] = sha256(ROOT / SAVED_INPUT_DIR / "codex_prompt.txt")
     return resolution
+
+
+def validate_normal_low_star_capability_source(evidence: dict[str, Any]) -> dict[str, str]:
+    source = evidence.get("normal_low_star_capability_source")
+    if not isinstance(source, dict):
+        raise RuntimeError("normal_low_star_capability_source is missing; refusing stale or unsigned operator facts")
+    errors: list[str] = []
+    if source.get("schema_version") != CAPABILITY_SOURCE_SCHEMA_VERSION:
+        errors.append(f"capability source schema={source.get('schema_version')!r}")
+    if source.get("support_schema_version") != CAPABILITY_SUPPORT_SCHEMA_VERSION:
+        errors.append(f"support schema={source.get('support_schema_version')!r}")
+    manifest = load(NORMAL_LOW_STAR_MANIFEST_PATH)
+    current_hashes = {
+        Path(output["path"]).name: output["sha256"]
+        for output in manifest.get("outputs") or []
+    }
+    expected = {
+        "interpreter_version": source.get("interpreter_version"),
+        "gamedata_commit": source.get("gamedata_commit"),
+        "facts_sha256": current_hashes.get("normal_low_star_facts.json"),
+        "support_sha256": current_hashes.get("normal_low_star_mechanism_support.json"),
+    }
+    observed = {
+        "interpreter_version": source.get("interpreter_version"),
+        "gamedata_commit": source.get("gamedata_commit"),
+        "facts_sha256": source.get("facts_sha256"),
+        "support_sha256": source.get("support_sha256"),
+    }
+    for key in expected:
+        if not expected[key] or expected[key] != observed[key]:
+            errors.append(f"{key}: expected={expected[key]!r}, observed={observed[key]!r}")
+    if source.get("stale_skill_audit_policy") != "NOT_USED_FOR_SKILL_SUPPORT":
+        errors.append("stale skill audit is not explicitly excluded")
+    if errors:
+        raise RuntimeError("operator capability source validation failed: " + "; ".join(errors))
+    return dict(observed)
 
 
 def validate_plan_payload(parsed: Any, evidence: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
@@ -397,6 +436,7 @@ def prepare() -> dict[str, Any]:
             (codex_runner.OUT / name).write_bytes((saved_dir / name).read_bytes())
         evidence = load(codex_runner.OUT / "llm_evidence_context.json")
         schema = load(codex_runner.OUT / "revision_output_schema.json")
+        validate_normal_low_star_capability_source(evidence)
         constraint_resolution = resolve_milestone_constraints(evidence, saved_input=True)
         prompt = (codex_runner.OUT / "codex_prompt.txt").read_text(encoding="utf-8")
         effective_limit = constraint_resolution["effective_limit"]
@@ -411,6 +451,7 @@ def prepare() -> dict[str, Any]:
     else:
         evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
         evidence = copy.deepcopy(evidence)
+        validate_normal_low_star_capability_source(evidence)
         schema = evidence["output_schema"]
         for redundant_policy_key in (
             "authoritative_policy",

@@ -14,6 +14,10 @@ from arknights_planner.adapters.normal_low_star import (
     is_normal_mode_low_star,
     qualify_normal_mode_low_star,
 )
+from arknights_planner.adapters.low_rarity_skill import (
+    LowRarityBlackboardEffectInterpreter,
+    RealSkillSupport,
+)
 from arknights_planner.gamedata.repository import GameDataRepository
 
 
@@ -152,28 +156,40 @@ def talent_mechanism_support(repository: GameDataRepository, operator_id: str) -
 
 
 def build_mechanism_support(repository: GameDataRepository, catalog: dict[str, Any]) -> dict[str, Any]:
-    low_skill_path = ROOT / "output/operator_runtime_fidelity_v1/low_rarity_skill_audit.json"
-    skill_audit = {
-        item["operator_id"]: item
-        for item in json.loads(low_skill_path.read_text(encoding="utf-8"))["operators"]
-    }
+    interpreter = LowRarityBlackboardEffectInterpreter(range_resolver=repository.get_range)
     raw_table = repository._table("character_table.json")
     operators = []
     for fact in catalog["operators"]:
         operator_id = fact["operator_id"]
-        low_record = skill_audit.get(operator_id)
         skill_rows = []
         for skill_id, skill in fact["all_skill_level_facts"].items():
-            selected = low_record["skills"][0] if low_record and low_record["skills"] else None
-            skill_rows.append({
+            selected_level_index = skill[-1]["level_index"]
+            interpreted = interpreter.interpret(
+                skill_id, repository.get_skill(skill_id).levels[selected_level_index]
+            )
+            supported = interpreted.support is RealSkillSupport.EXECUTABLE_APPROXIMATED
+            row = {
                 "skill_id": skill_id,
-                "selected_level_index": skill[-1]["level_index"],
-                "runtime_supported": bool(selected and selected["planner_safe"]),
-                "status": "EXECUTABLE_APPROXIMATED" if selected and selected["planner_safe"] else "UNSUPPORTED",
-            })
+                "selected_level_index": selected_level_index,
+                "runtime_supported": supported,
+                "status": interpreted.support.value,
+                "interpreter_version": interpreter.version,
+                "support_reason": interpreted.reason,
+                "source_pattern": interpreted.source_pattern,
+            }
+            if interpreted.executable_effect is not None:
+                effect = interpreted.executable_effect.effect
+                row.update({
+                    "heal_mode": effect.heal_mode,
+                    "stops_normal_attacks_while_healing": effect.heal_mode,
+                    "base_attack_time_override": effect.base_attack_time_override,
+                    "range_override": list(effect.range_override) if effect.range_override else None,
+                })
+            skill_rows.append(row)
         branch = branch_mechanism(raw_table[operator_id])
         talent = talent_mechanism_support(repository, operator_id)
-        runtime_supported = all(item["runtime_supported"] for item in skill_rows) and branch["runtime_supported"] and talent["runtime_supported"]
+        all_supported = all(item["runtime_supported"] for item in skill_rows) and branch["runtime_supported"] and talent["runtime_supported"]
+        partially_supported = not all_supported and any(item["runtime_supported"] for item in skill_rows)
         operators.append({
             "operator_id": operator_id,
             "debug_configuration": fact["debug_configuration"],
@@ -183,10 +199,14 @@ def build_mechanism_support(repository: GameDataRepository, catalog: dict[str, A
             "talent": talent,
             "deployment_sp_bonus": deployment_sp_bonus(repository, operator_id),
             "deployment_heal_all_value": deployment_heal_all_value(repository, operator_id),
-            "overall": "PLANNER_SAFE_WITH_KNOWN_LIMITS" if runtime_supported else "NOT_PLANNER_SAFE",
+            "overall": (
+                "PLANNER_SAFE_WITH_KNOWN_LIMITS" if all_supported
+                else "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS" if partially_supported
+                else "NOT_PLANNER_SAFE"
+            ),
         })
     return {
-        "schema_version": "normal-low-star-mechanism-support-v1",
+        "schema_version": "normal-low-star-mechanism-support-v2",
         "mechanics_version": "m18.9-stage-device-runtime-v1",
         "counts": {
             "operators": len(operators),

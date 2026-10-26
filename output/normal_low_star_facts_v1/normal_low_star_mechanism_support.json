@@ -1,10 +1,10 @@
 {
-  "schema_version": "normal-low-star-mechanism-support-v1",
+  "schema_version": "normal-low-star-mechanism-support-v2",
   "mechanics_version": "m18.9-stage-device-runtime-v1",
   "counts": {
     "operators": 34,
     "planner_safe_with_known_limits": 4,
-    "not_planner_safe": 30
+    "not_planner_safe": 16
   },
   "operators": [
     {
@@ -82,7 +82,19 @@
           "skill_id": "skcom_heal_up[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk pattern; synthetic ATK multiplier mapping",
+          "source_pattern": [
+            [
+              "atk",
+              0.5
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -106,7 +118,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_121_lava",
@@ -136,7 +148,19 @@
           "skill_id": "skcom_magic_rage[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite ASPD-additive pattern",
+          "source_pattern": [
+            [
+              "attack_speed",
+              50.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -160,7 +184,7 @@
       },
       "deployment_sp_bonus": 30.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_122_beagle",
@@ -190,7 +214,19 @@
           "skill_id": "skcom_def_up[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite defense-buff pattern",
+          "source_pattern": [
+            [
+              "def",
+              0.5
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -214,7 +250,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_123_fang",
@@ -244,7 +280,19 @@
           "skill_id": "skcom_charge_cost[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "automatic time-SP instant DP pattern",
+          "source_pattern": [
+            [
+              "cost",
+              6.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -298,7 +346,23 @@
           "skill_id": "skchr_kroos_1",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "attack-SP next-attack scaled-hit pattern",
+          "source_pattern": [
+            [
+              "atk_scale",
+              1.4
+            ],
+            [
+              "times",
+              2.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -327,7 +391,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_192_falco",
@@ -357,7 +421,23 @@
           "skill_id": "skcom_quickattack[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite ATK and ASPD-additive pattern",
+          "source_pattern": [
+            [
+              "atk",
+              0.25
+            ],
+            [
+              "attack_speed",
+              25.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -381,7 +461,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_208_melan",
@@ -411,7 +491,19 @@
           "skill_id": "skcom_atk_up[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk pattern; synthetic ATK multiplier mapping",
+          "source_pattern": [
+            [
+              "atk",
+              0.5
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -435,7 +527,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_209_ardign",
@@ -464,8 +556,20 @@
         {
           "skill_id": "skcom_heal_self[1]",
           "selected_level_index": 6,
-          "runtime_supported": false,
-          "status": "UNSUPPORTED"
+          "runtime_supported": true,
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP immediate max-HP self-heal pattern",
+          "source_pattern": [
+            [
+              "heal_scale",
+              0.4
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -489,7 +593,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_210_stward",
@@ -519,7 +623,19 @@
           "skill_id": "skchr_stward_1",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "attack-SP next-attack scaled-hit pattern",
+          "source_pattern": [
+            [
+              "atk_scale",
+              1.9
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -573,7 +689,19 @@
           "skill_id": "skcom_atk_up[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk pattern; synthetic ATK multiplier mapping",
+          "source_pattern": [
+            [
+              "atk",
+              0.5
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -597,7 +725,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_212_ansel",
@@ -627,7 +755,23 @@
           "skill_id": "skcom_range_extend",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite ATK and forward-range-extend pattern",
+          "source_pattern": [
+            [
+              "atk",
+              0.4
+            ],
+            [
+              "ability_range_forward_extend",
+              2.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -651,7 +795,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_240_wyvern",
@@ -681,7 +825,23 @@
           "skill_id": "skchr_wyvern_1",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk + immediate DP pattern; synthetic ATK mapping",
+          "source_pattern": [
+            [
+              "cost",
+              6.0
+            ],
+            [
+              "atk",
+              0.35
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -705,7 +865,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_278_orchid",
@@ -735,7 +895,23 @@
           "skill_id": "skcom_quickattack[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite ATK and ASPD-additive pattern",
+          "source_pattern": [
+            [
+              "atk",
+              0.25
+            ],
+            [
+              "attack_speed",
+              25.0
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -759,7 +935,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_281_popka",
@@ -789,7 +965,19 @@
           "skill_id": "skcom_atk_up[1]",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk pattern; synthetic ATK multiplier mapping",
+          "source_pattern": [
+            [
+              "atk",
+              0.5
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -818,7 +1006,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_282_catap",
@@ -848,7 +1036,15 @@
           "skill_id": "skchr_catap_1",
           "selected_level_index": 6,
           "runtime_supported": false,
-          "status": "UNSUPPORTED"
+          "status": "UNSUPPORTED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "outside bounded manual/automatic time-SP atk-or-DP patterns",
+          "source_pattern": [
+            [
+              "attack@range_scale",
+              2.0
+            ]
+          ]
         }
       ],
       "talent": {
@@ -902,7 +1098,19 @@
           "skill_id": "skchr_midn_1",
           "selected_level_index": 6,
           "runtime_supported": true,
-          "status": "EXECUTABLE_APPROXIMATED"
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP finite atk pattern; synthetic ATK multiplier mapping",
+          "source_pattern": [
+            [
+              "atk",
+              0.35
+            ]
+          ],
+          "heal_mode": false,
+          "stops_normal_attacks_while_healing": false,
+          "base_attack_time_override": null,
+          "range_override": null
         }
       ],
       "talent": {
@@ -931,7 +1139,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_284_spot",
@@ -960,8 +1168,61 @@
         {
           "skill_id": "skchr_spot_1",
           "selected_level_index": 6,
-          "runtime_supported": false,
-          "status": "UNSUPPORTED"
+          "runtime_supported": true,
+          "status": "EXECUTABLE_APPROXIMATED",
+          "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+          "support_reason": "manual time-SP heal-mode pattern with explicit base-healing interval",
+          "source_pattern": [
+            [
+              "atk",
+              0.45
+            ],
+            [
+              "base_attack_time",
+              1.3
+            ]
+          ],
+          "heal_mode": true,
+          "stops_normal_attacks_while_healing": true,
+          "base_attack_time_override": 1.3,
+          "range_override": [
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0,
+              -1
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              -1,
+              -1
+            ],
+            [
+              -1,
+              0
+            ],
+            [
+              -1,
+              1
+            ]
+          ]
         }
       ],
       "talent": {
@@ -990,7 +1251,7 @@
       },
       "deployment_sp_bonus": 0.0,
       "deployment_heal_all_value": 0.0,
-      "overall": "NOT_PLANNER_SAFE"
+      "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS"
     },
     {
       "operator_id": "char_285_medic2",
