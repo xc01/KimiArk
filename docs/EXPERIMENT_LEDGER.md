@@ -993,3 +993,27 @@ failure feedback:
 `docs/review/fc77177/m58_user_premise_open_roster_v1/m58_v1_contract_failure_feedback_v1.json`.
 Protocol recovery:
 `docs/review/fc77177/m58_user_premise_open_roster_v1/m58_protocol_recovery_report_v1.json`.
+
+## 2026-10-26 — M59 verifies the frozen M58 8-ID candidate and loses
+
+M59 used its own authorization with 0/0 new tactical CLI calls and 1/1 fixed
+full-stage simulation. It did not transfer M58's closed simulation balance or
+reopen M58. The normalized M58 candidate was audited losslessly against the
+original `contenders` output, passed the original contract with the 8-ID gate,
+and passed static compilation with 0 conflicts.
+
+The unchanged 30-action A_SPOT_FUSION run lost at 15 kills / 18 leaks / 8
+operator deaths / life -16. Fang's living retreat at 2430 refunded 5 DP and Spot
+deployed at 2431, but Fang held no block at retreat, so it released no enemy.
+Spot's 2882–3632 healing window did heal Hibiscus at 3038 and 3155, but Hibiscus
+died at 4363 after the window ended. Steward died at 4061, so the 4800 retreat
+failed; his 6901 return had no post-return damage. Artillery #0 received
+11757.52 damage across 40 hits, was not blocked, and leaked at 5759. Armored #34
+spawned at 6330, received no damage or block, and leaked at 6996. Protected #3
+died at 3311; protected #14 reached at 10219.
+
+The best verified current-model simulator WIN remains M52 V1 at 9 IDs. This one
+loss does not prove 8 IDs impossible. No faithful, real-game, robust, or global
+minimum claim is made. Closeout and evidence:
+`docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/m59_closeout_v1.json` and
+`docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/evidence/attempt_01/`.

@@ -1,0 +1,180 @@
+{
+  "schema_version": "M59_CLOSEOUT_V1",
+  "status": "SIMULATOR_LOSS",
+  "scope": "CURRENT_FIXED_MODEL_FULL_STAGE_SIMULATION_ONLY",
+  "authorization": {
+    "new_tactical_cli_calls_max": 0,
+    "new_tactical_cli_calls_used": 0,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 1,
+    "m58_balance_transferred": false,
+    "m58_status": "CLI_1_1_SIMULATION_0_1_CLOSED",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "candidate": {
+    "plan_id": "R8_7_GPT_M58_V1",
+    "parent_hypothesis_id": "R8_7_M58_H1",
+    "selected_structure_id": "A_SPOT_FUSION",
+    "distinct_operator_union_count": 8,
+    "action_count": 30,
+    "chinese_roster": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉",
+      "安赛尔", "史都华德", "斑点"
+    ],
+    "plan_canonical_sha256": "a2ff7c192e823b26da1b387fa04b0fa139306a133cecd57cc62e3da551ce61f4",
+    "action_timeline_canonical_sha256": "730f6e22508b0bdb5e3f3be16d38c7f1cc5d47f5dfda25d54a98ce9f6a3e4f65"
+  },
+  "verification_chain": {
+    "frozen_source_audit": "PASS",
+    "original_contract_validation": "PASS",
+    "static_compile_conflicts": 0,
+    "simulation_status": "COMPLETED",
+    "simulation_classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "faithful_certificate": "NOT_ISSUED",
+    "real_game_status": "NOT_PLAYED"
+  },
+  "result": {
+    "win": false,
+    "enemies_killed": 15,
+    "enemies_leaked": 18,
+    "operator_deaths": 8,
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1,
+    "remaining_life": -16,
+    "first_leak": {
+      "source_id": "enemy_1107_uoffcr#17",
+      "frame": 4551,
+      "time": 151.7
+    },
+    "objective_failure": {
+      "reason": "ENEMY_LEAK",
+      "source_id": "enemy_1107_uoffcr#19",
+      "frame": 5091,
+      "time": 169.7
+    }
+  },
+  "key_findings": {
+    "fang_spot_handoff": {
+      "fang_retreat_at_2430": "SUCCESS with 5 DP refund",
+      "fang_active_blocks_at_retreat": 0,
+      "spot_deploy_at_2431": "SUCCESS at [3,5] for 17 DP",
+      "spot_first_block": {
+        "target_id": "enemy_1107_uoffcr#10",
+        "frame": 2588
+      },
+      "leak_between_2430_and_2588": 0,
+      "released_by_retreat": "NONE"
+    },
+    "spot_skill_fusion": {
+      "activation_frame": 2882,
+      "end_frame": 3632,
+      "heal_total": 4170.4,
+      "heal_count": 19,
+      "targets": {
+        "char_120_hibisc": 2799.4,
+        "char_4093_frston": 1140.0,
+        "char_284_spot": 231.0
+      },
+      "hibiscus_3011_3160_heal": "VERIFIED at frames 3038 and 3155",
+      "hibiscus_subsequent_artillery_hit_frames_survived": [
+        3311,
+        3461,
+        3611,
+        4213
+      ],
+      "hibiscus_death_frame": 4363,
+      "coverage_boundary": "Skill ended at 3632; later artillery at 4213 and 4363 was outside its healing window."
+    },
+    "steward_rotation": {
+      "death_frame": 4061,
+      "planned_retreat_at_4800": "FAILED_OPERATOR_NOT_DEPLOYED",
+      "redeployment_at_6901": "SUCCESS after death redeployment for 18 DP",
+      "post_redeployment_damage_events": 0,
+      "static_range_gap_observation": "Returned Steward [5,6] DOWN covers Friston [4,5] but not returned Fang [4,4]; Fang had already died at 4920 before the 6901 return."
+    },
+    "artillery_0": {
+      "damage_received": 11757.52,
+      "damage_hit_count": 40,
+      "block_count": 0,
+      "killed": false,
+      "leaked_frame": 5759,
+      "offensive_ability_hits": {
+        "count": 22,
+        "total": 19151.0
+      }
+    },
+    "armored_34": {
+      "spawn_frame": 6330,
+      "leak_frame": 6996,
+      "damage_received": 0,
+      "damage_hit_count": 0,
+      "block_count": 0,
+      "killed": false
+    },
+    "protected_targets": {
+      "enemy_3001_upeopl#3": {
+        "blocked_by": "trap_020_roadblock#3 from frame 761",
+        "roadblock_destroyed": false,
+        "damage_received": 3690.0,
+        "death_frame": 3311,
+        "reached": false
+      },
+      "enemy_3001_upeopl#14": {
+        "blocked_by": "trap_020_roadblock#2 from frame 3620 to 9887",
+        "damage_received": 2520.0,
+        "death": false,
+        "reached_frame": 10219
+      }
+    },
+    "roadblocks": {
+      "trap_020_roadblock#1": "first operator hit 9301; not destroyed",
+      "trap_020_roadblock#2": "first operator hit 9302; destroyed 9887",
+      "trap_020_roadblock#3": "first operator hit 1897; not destroyed",
+      "trap_020_roadblock#4": "first operator hit 841; destroyed 1966"
+    },
+    "complete_settlement": {
+      "spawned": 35,
+      "hostile_kills": 15,
+      "protected_target_death": 1,
+      "leaks": 18,
+      "protected_target_reached": 1,
+      "remaining_enemy_hp": 0,
+      "remaining_enemy_route_progress": 0,
+      "all_spawn_ids_settled": true
+    }
+  },
+  "operator_deaths_and_contributions": {
+    "char_212_ansel": {"death_frame": 2261, "heal": 2534.0, "damage": 0.0, "assessment": "Useful early healing; death caused 9 downstream not-deployed command errors."},
+    "char_210_stward": {"death_frame": 4061, "damage": 11757.52, "assessment": "Large artillery attrition but did not kill it; 4800 retreat was unavailable."},
+    "char_283_midn": {"death_frame": 4209, "damage": 27272.0, "device_damage": 12474.0, "assessment": "Substantial damage and roadblock clearing; later retreat failed."},
+    "char_120_hibisc": {"death_frame": 4363, "heal": 13199.2, "assessment": "Major healing; later commands failed after death."},
+    "char_4093_frston": {"death_frame": 4650, "damage": 4096.0, "block_count": 5, "assessment": "Long central blocking contribution."},
+    "char_284_spot": {"death_frame": 4753, "damage": 4420.0, "heal": 4170.4, "block_count": 4, "assessment": "Successfully combined early blocking and the declared healing window; later skill failed."},
+    "char_123_fang": {"death_frame": 4920, "damage": 9275.0, "block_count": 4, "assessment": "Opening interception, successful living retreat/refund, redeployment blocking, then death."},
+    "char_208_melan": {"death_frame": 5349, "damage": 17324.52, "device_damage": 16717.12, "block_count": 5, "assessment": "Substantial output and roadblock clearing; later retreat failed."}
+  },
+  "user_premise_and_model_gap": {
+    "USER_CONFIRMED_TACTICAL_PREMISE": "PRESERVED",
+    "new_dynamic_evidence_requested": false,
+    "selected_plan_decisive_unexpressible_behavior_found": false,
+    "model_gap": [],
+    "note": "The selected plan's current-model-checkable retreat, redeployment, Spot healing and artillery locked-splash behaviors were represented. The LOSS is therefore reported as plan/runtime outcome, not as a refutation of the user's broader experience."
+  },
+  "conclusion": {
+    "best_verified_distinct_operator_union": 9,
+    "best_verified_win_plan_id": "R8_7_GPT_M52_V1",
+    "best_verified_win_chinese_roster": [
+      "芬", "Friston-3", "月见夜", "玫兰莎", "芙蓉",
+      "安赛尔", "史都华德", "Lancet-2", "米格鲁"
+    ],
+    "eight_operator_impossibility_proved": false,
+    "spot_fusion_claim": "PARTIAL: early blocking/healing fusion and Fang retreat were observed, but whole-stage closure failed.",
+    "next_action": "STOP; no further model call or simulation is authorized."
+  },
+  "claims": {
+    "faithful": "NOT_EVALUATED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false,
+    "global_minimum": false
+  }
+}

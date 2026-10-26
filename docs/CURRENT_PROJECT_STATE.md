@@ -467,3 +467,17 @@ not-deployed errors followed. Artillery #0 and #34 also leaked, while #3 arrived
 and #14 died. The verified best remains M52 V1 at 9 IDs; this one failure does
 not prove 8 IDs impossible. Closeout:
 `docs/review/fc77177/m55_eight_operator_fusion_v1/m55_closeout_v1.json`.
+
+## 2026-10-26 M58 protocol copy is verified once by M59 and loses
+
+M58 remains closed at CLI 1/1 and simulation 0/1. Its normalized A_SPOT_FUSION
+copy was later independently audited in M59, passed the original contract and
+static checks, then consumed M59's separately authorized single simulation. The
+30-action, exactly-8-ID run lost at 15 kills, 18 leaks, 8 operator deaths, one
+protected-target death, one protected-target arrival, and life -16. Fang's
+2430 retreat succeeded with a 5 DP refund, and Spot deployed at 2431 and healed
+Hibiscus at 3038/3155, but the whole-stage duties did not close: artillery #0
+leaked at 5759, #34 leaked at 6996, protected #3 died at 3311, and only #14
+reached. The best verified current-model simulator WIN remains M52 V1 at 9 IDs.
+M59 evidence is under
+`docs/review/fc77177/m59_frozen_m58_spot_fusion_v1/evidence/attempt_01/`.
