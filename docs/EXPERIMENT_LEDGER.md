@@ -1048,6 +1048,24 @@ alleged roster violation is a name confusion: M60 used `char_209_ardign`
 original contract failure and no-simulation result remain unchanged; see
 `m60_contract_repair_recheck_v1.json` in the same M60 review directory.
 
+## 2026-10-27 — M61 stops after one simulation-start input mismatch
+
+M61 made its own single GPT revision call from M60's static conflict and the
+M59 event feedback. The prompt was 133,010 bytes, used the nested selected path,
+and passed the no-model fixture. The model compared reciprocal medicine/Spot
+rotation, dual arts with Cardigan/Durin, and Yato pre-swing locking; it selected
+the first as current-model checkable. The 34-action plan used
+芬/Friston-3/月见夜/玫兰莎/安赛尔/芙蓉/斑点/史都华德 and had an 8-ID union.
+
+The original static compiler passed with zero conflicts and zero unknowns. The
+one authorized simulation was therefore started and consumed, but the diagnostic
+loader immediately failed before the simulation model ran with
+`KeyError: 'debug_configuration'`; the compact prompt-facts omitted that
+diagnostic-only field. This is an executor input mismatch, not a tactical WIN or
+LOSS and not a MODEL_GAP. No action was repaired and no retry was made. The M52
+nine-ID WIN remains best verified. Evidence and closeout are under
+`docs/review/fc77177/m61_m60_static_revision_v1/`.
+
 After committing the protocol repair (`c415941`), a static-only check used the
 same failed M60 plan after the audited outer-field move. Protocol validation
 passed and all 35 actions remained hash-identical, but the existing static

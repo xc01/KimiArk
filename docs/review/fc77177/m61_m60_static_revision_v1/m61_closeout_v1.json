@@ -1,0 +1,116 @@
+{
+  "schema_version": "M61_CLOSEOUT_V1",
+  "status": "SIMULATION_FAILED_BEFORE_MODEL_START_EXECUTOR_INPUT_MISMATCH",
+  "scope": "CURRENT_FIXED_MODEL_ONLY",
+  "result": {
+    "simulator_win": null,
+    "simulator_loss": null,
+    "first_failure": null,
+    "full_event_audit": "NOT_AVAILABLE",
+    "claims": {
+      "faithful": "NOT_EVALUATED",
+      "robust": "NOT_EVALUATED",
+      "probabilistic_win": false,
+      "global_minimum": false
+    }
+  },
+  "authorization": {
+    "new_tactical_cli_calls_max": 1,
+    "new_tactical_cli_calls_started": 1,
+    "new_tactical_cli_calls_remaining": 0,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 1,
+    "fixed_full_stage_simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "historical_balance_transferred": false
+  },
+  "input_contract": {
+    "selected_structure_id_path": "revised_stage_understanding.m58_open_roster_comparison.selected_structure_id",
+    "prompt_bytes": 133010,
+    "prompt_sha256": "434e3f2805dac84c3522d07f60959e7b8fe6d3dd4415a50cd4f9771bab0829bf",
+    "schema_sha256": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "no_model_fixture": "PASS",
+    "no_stale_top_level_selected_path": true,
+    "no_hidden_three_hypothesis_gate": true
+  },
+  "model_output": {
+    "raw_response_sha256": "48ad512b379d68c96dbd44bfeadcde618230200c48ea80f2dbae4a27c0e26361",
+    "structured_output_sha256": "81b780e6de8610595af6fb23059a029e7b16a7391fb05625bd0b681ebf7bdeaf",
+    "plan_id": "R8_7_GPT_M61_V1",
+    "contract_status": "PASS",
+    "candidate_count": 3,
+    "candidate_ids": [
+      "M61_RECIPROCAL_MEDIC_SPOT_ROTATION",
+      "M61_DUAL_ARTS_SELF_HEAL_DEFENDER",
+      "M61_YATO_LOCK_AND_SUCCESSOR_ROTATION"
+    ],
+    "selected_structure_id": "M61_RECIPROCAL_MEDIC_SPOT_ROTATION",
+    "strategic_hypothesis_ids": ["R8_7_M61_H1"],
+    "parent_hypothesis_id": "R8_7_M61_H1",
+    "action_count": 34,
+    "selected_low_star_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "selected_chinese_roster": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "安赛尔",
+      "芙蓉",
+      "斑点",
+      "史都华德"
+    ],
+    "selected_and_deploy_union_size": 8,
+    "plan_canonical_sha256": "1f8e046f966dfcd691439068774dd7badfeb500c61f2e86bd087efe36d508ff2",
+    "action_timeline_canonical_sha256": "c2691dd635ec7df6fd385e9723d7cb8ea536bc429d49390f1c475b8dc51993a7"
+  },
+  "candidate_comparison": {
+    "M61_RECIPROCAL_MEDIC_SPOT_ROTATION": {
+      "selected": true,
+      "classification": "CURRENT_MODEL_CHECKABLE",
+      "structure": "Four interception lanes, reciprocal separated medicine, earlier Spot support, staged upper handoffs, and central Steward return."
+    },
+    "M61_DUAL_ARTS_SELF_HEAL_DEFENDER": {
+      "selected": false,
+      "classification": "CURRENT_MODEL_CHECKABLE",
+      "not_selected_reason": "Medical packets and joint civilian-release window were less closed than the selected geometry."
+    },
+    "M61_YATO_LOCK_AND_SUCCESSOR_ROTATION": {
+      "selected": false,
+      "classification": "USER_PREMISE_NOT_EXPRESSIBLE",
+      "not_selected_reason": "The decisive pre-swing lock is not expressible; removing it leaves unresolved interception and medicine."
+    }
+  },
+  "static_check": {
+    "status": "PASS",
+    "classification": "STATIC_CONTRACT_CHECKED_NO_RANGE_TARGET_UNKNOWN",
+    "conflict_count": 0,
+    "unknown_count": 0,
+    "deployment_limit": 8,
+    "results_sha256": "0352cd099c826eeb12c6a1d7673ae57bac6230e882cfea329c0d3b105e4db8fb"
+  },
+  "simulation_failure": {
+    "outcome": "FAILED_BEFORE_START",
+    "reservation_status": "FAILED",
+    "error": "KeyError: 'debug_configuration'",
+    "classification": "EXECUTOR_INPUT_MISMATCH_NOT_TACTICAL_LOSS",
+    "cause": "The compact M61 facts used to reduce prompt size omitted debug_configuration required by the diagnostic loader.",
+    "tactical_action_modification": "NONE",
+    "reservation_evidence": "evidence/attempt_01_cli/simulation_reservation.json"
+  },
+  "baseline": {
+    "best_verified_distinct_operator_union": 9,
+    "best_verified_win_plan_id": "R8_7_GPT_M52_V1",
+    "eight_operator_impossibility_proved": false,
+    "m61_roster_rejected": false,
+    "m61_reciprocal_structure_rejected": false
+  }
+}

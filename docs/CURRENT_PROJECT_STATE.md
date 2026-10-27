@@ -509,3 +509,12 @@ simulation. Action 27 deploys Durin to `[5,5]` DOWN at 6901 while Ansel still
 occupies that tile and the deployment declaration mismatches. The 35 actions
 were not changed; simulation was not started. This is a static candidate issue
 for later GPT revision, not a tactical WIN/LOSS.
+
+M61 used one GPT revision call and one simulation start. The model's 34-action,
+8-ID reciprocal medicine/Spot plan passed contract and static checks with zero
+conflicts, but the fixed simulator failed before model start because compact
+M61 facts omitted the diagnostic-only `debug_configuration` field. That counts
+M61 as `CLI 1/1, simulation 1/1`; it is neither a tactical WIN/LOSS nor a
+MODEL_GAP. No action was repaired or retried. The best verified current-model
+simulator WIN remains M52 V1 at 9 IDs. Evidence is under
+`docs/review/fc77177/m61_m60_static_revision_v1/`.
