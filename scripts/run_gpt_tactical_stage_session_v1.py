@@ -126,6 +126,123 @@ def distinct_deployed_operator_ids(plan: dict[str, Any]) -> set[str]:
     return distinct
 
 
+def validate_execution_input(
+    evidence: dict[str, Any], parsed: Any = None, *, require_all_catalog: bool = False
+) -> list[str]:
+    """Validate the execution facts required by the diagnostic adapter before billing."""
+    errors: list[str] = []
+    catalog_rows = evidence.get("normal_low_star_catalog")
+    if not isinstance(catalog_rows, list):
+        return ["normal_low_star_catalog must be an array"]
+    catalog: dict[str, dict[str, Any]] = {}
+    for index, row in enumerate(catalog_rows):
+        if not isinstance(row, dict) or not isinstance(row.get("operator_id"), str) or not row["operator_id"]:
+            errors.append(f"normal_low_star_catalog[{index}].operator_id must be a non-empty string")
+            continue
+        if row["operator_id"] in catalog:
+            errors.append(f"normal_low_star_catalog has duplicate operator_id {row['operator_id']!r}")
+            continue
+        catalog[row["operator_id"]] = row
+
+    plan: dict[str, Any] = {}
+    if parsed is not None:
+        plans = parsed.get("revised_operational_plans") if isinstance(parsed, dict) else None
+        if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
+            plan = plans[0]
+        else:
+            errors.append("revised_operational_plans must contain exactly one object")
+    selected_ids = plan.get("selected_low_star_operator_ids") or []
+    if not isinstance(selected_ids, list):
+        errors.append("selected_low_star_operator_ids must be an array")
+        selected_ids = []
+    actions = plan.get("action_timeline") or []
+    if not isinstance(actions, list):
+        errors.append("action_timeline must be an array")
+        actions = []
+    deployment_ids = [
+        action.get("operator_id") for action in actions
+        if isinstance(action, dict) and action.get("action_type") == "DEPLOY"
+    ]
+    if require_all_catalog:
+        referenced_ids = list(catalog)
+    else:
+        referenced_ids = list(dict.fromkeys([*selected_ids, *deployment_ids]))
+    for operator_id in referenced_ids:
+        matches = [index for index, row in enumerate(catalog_rows)
+                   if isinstance(row, dict) and row.get("operator_id") == operator_id]
+        if not matches:
+            errors.append(f"execution input operator_id {operator_id!r} is absent from normal_low_star_catalog")
+            continue
+        if len(matches) > 1:
+            errors.append(
+                f"execution input operator_id {operator_id!r} maps to {len(matches)} normal_low_star_catalog entries"
+            )
+            continue
+        row = catalog[operator_id]
+        qualification = row.get("qualification") or {}
+        rarity = (row.get("identity") or {}).get("rarity")
+        if qualification.get("normal_mode") is not True:
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].qualification.normal_mode must be true for {operator_id!r}"
+            )
+        if rarity not in (1, 2, 3):
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].identity.rarity must be 1-3 for {operator_id!r}"
+            )
+        configuration = row.get("debug_configuration")
+        if not isinstance(configuration, dict):
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].debug_configuration is missing for {operator_id!r}"
+            )
+            continue
+        integer_fields = (
+            "phase_index", "level", "rarity", "potential_level",
+            "required_potential_rank", "trust",
+        )
+        for field in integer_fields:
+            if not isinstance(configuration.get(field), int) or isinstance(configuration.get(field), bool):
+                errors.append(
+                    f"normal_low_star_catalog[{matches[0]}].debug_configuration.{field} must be an integer for {operator_id!r}"
+                )
+        if isinstance(configuration.get("skill_rank"), bool) or not (
+            configuration.get("skill_rank") is None or isinstance(configuration.get("skill_rank"), int)
+        ):
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].debug_configuration.skill_rank must be null or integer for {operator_id!r}"
+            )
+        if isinstance(configuration.get("skill_level_index"), bool) or not (
+            configuration.get("skill_level_index") is None
+            or isinstance(configuration.get("skill_level_index"), int)
+        ):
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].debug_configuration.skill_level_index must be null or integer for {operator_id!r}"
+            )
+        if configuration.get("legal_for_debug") is not True:
+            errors.append(
+                f"normal_low_star_catalog[{matches[0]}].debug_configuration.legal_for_debug must be true for {operator_id!r}"
+            )
+    return errors
+
+
+def execution_input_gate() -> dict[str, Any]:
+    evidence = load(codex_runner.OUT / "llm_evidence_context.json")
+    parsed = load(codex_runner.OUT / "llm_structured_output.json")
+    errors = validate_execution_input(evidence, parsed)
+    result = {
+        "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_EXECUTION_INPUT_GATE_V1",
+        "status": "BLOCKED_EXECUTION_INPUT" if errors else "PASS",
+        "checked_operator_ids": list(distinct_deployed_operator_ids(
+            parsed.get("revised_operational_plans")[0]
+            if isinstance(parsed, dict) and isinstance(parsed.get("revised_operational_plans"), list)
+            and len(parsed["revised_operational_plans"]) == 1 and isinstance(parsed["revised_operational_plans"][0], dict)
+            else {}
+        )),
+        "errors": errors,
+    }
+    write_json(codex_runner.OUT / "execution_input_gate.json", result)
+    return result
+
+
 def apply_open_roster_contract_schema(schema: dict[str, Any]) -> dict[str, Any]:
     schema["properties"]["revised_stage_understanding"] = {
         "additionalProperties": True,
@@ -579,6 +696,9 @@ def prepare() -> dict[str, Any]:
         evidence = load(codex_runner.OUT / "llm_evidence_context.json")
         schema = load(codex_runner.OUT / "revision_output_schema.json")
         validate_normal_low_star_capability_source(evidence)
+        catalog_errors = validate_execution_input(evidence, require_all_catalog=True)
+        if catalog_errors:
+            raise RuntimeError("execution catalog facts are incomplete: " + json.dumps(catalog_errors, sort_keys=True))
         if evidence.get("m58_open_roster_policy"):
             schema = apply_open_roster_contract_schema(schema)
             write_json(codex_runner.OUT / "revision_output_schema.json", schema)
@@ -602,6 +722,9 @@ def prepare() -> dict[str, Any]:
         evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
         evidence = copy.deepcopy(evidence)
         validate_normal_low_star_capability_source(evidence)
+        catalog_errors = validate_execution_input(evidence, require_all_catalog=True)
+        if catalog_errors:
+            raise RuntimeError("execution catalog facts are incomplete: " + json.dumps(catalog_errors, sort_keys=True))
         schema = evidence["output_schema"]
         for redundant_policy_key in (
             "authoritative_policy",
@@ -1145,6 +1268,9 @@ def simulate() -> dict[str, Any]:
             "status": "BLOCKED_STATIC_CONFLICT", "conflicts": static["conflicts"],
         })
         raise SystemExit(f"{PLAN_LABEL} static conflicts block diagnostic simulation")
+    execution_input = execution_input_gate()
+    if execution_input["status"] != "PASS":
+        raise SystemExit(f"{PLAN_LABEL} execution input errors block diagnostic reservation")
     with gate.consume_evaluation(
         source_dir=codex_runner.OUT, diagnostic_output_dir=codex_runner.DIAGNOSTIC_OUT,
         budget_path=SIMULATION_BUDGET_PATH, stage_id=STAGE_ID, expected_plan_id=PLAN_ID,

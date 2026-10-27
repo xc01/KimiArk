@@ -1066,6 +1066,13 @@ LOSS and not a MODEL_GAP. No action was repaired and no retry was made. The M52
 nine-ID WIN remains best verified. Evidence and closeout are under
 `docs/review/fc77177/m61_m60_static_revision_v1/`.
 
+The post-closeout input repair restored only the omitted
+`normal_low_star_catalog[*].debug_configuration` from the hash-matched M60 full
+facts. The execution-ready context and the original M61 plan/34 actions are
+deep-equal; a new preflight and static recheck both pass without starting the
+simulator. This repair does not refund or change M61's `CLI 1/1, simulation
+1/1` ledger or turn the started-but-pre-battle attempt into a WIN/LOSS.
+
 After committing the protocol repair (`c415941`), a static-only check used the
 same failed M60 plan after the audited outer-field move. Protocol validation
 passed and all 35 actions remained hash-identical, but the existing static

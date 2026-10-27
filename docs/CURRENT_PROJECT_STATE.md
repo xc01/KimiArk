@@ -518,3 +518,9 @@ M61 as `CLI 1/1, simulation 1/1`; it is neither a tactical WIN/LOSS nor a
 MODEL_GAP. No action was repaired or retried. The best verified current-model
 simulator WIN remains M52 V1 at 9 IDs. Evidence is under
 `docs/review/fc77177/m61_m60_static_revision_v1/`.
+
+After that closeout, the diagnostic-only facts were restored from the
+hash-matched M60 source and prepared as an execution-ready candidate. A future
+runner preflight now rejects missing execution facts before evaluation billing.
+The M61 plan and 34 actions remain unchanged, and the repaired input passes
+preflight/static checks without a new simulation or WIN/LOSS claim.

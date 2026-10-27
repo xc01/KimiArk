@@ -55,11 +55,17 @@ def make_arguments(tmp_path: Path, *, saved_input_dir: str | None = None, max_un
 
 
 def make_catalog() -> list[dict]:
+    debug_configuration = {
+        "legal_for_debug": True, "level": 55, "phase_index": 1, "potential_level": 1,
+        "rarity": 2, "required_potential_rank": 0, "skill_level_index": None,
+        "skill_rank": None, "trust": 0,
+    }
     ordinary = [
         {
             "operator_id": "char_test",
             "identity": {"rarity": 2, "position": "MELEE"},
             "qualification": {"normal_mode": True},
+            "debug_configuration": dict(debug_configuration),
         }
     ]
     ordinary.extend(
@@ -67,6 +73,7 @@ def make_catalog() -> list[dict]:
             "operator_id": f"char_ordinary_{index}",
             "identity": {"rarity": 2, "position": "MELEE"},
             "qualification": {"normal_mode": True},
+            "debug_configuration": dict(debug_configuration),
         }
         for index in range(16)
     )
@@ -75,6 +82,7 @@ def make_catalog() -> list[dict]:
             "operator_id": f"char_three_star_{index}",
             "identity": {"rarity": 3, "position": "MELEE"},
             "qualification": {"normal_mode": True},
+            "debug_configuration": {**debug_configuration, "rarity": 3},
         }
         for index in range(17)
     )
