@@ -1,0 +1,65 @@
+{
+  "schema_version": "M60_CONTRACT_REPAIR_STATIC_CHECK_V1",
+  "status": "STATIC_COMPILE_FAILED",
+  "scope": {
+    "new_tactical_cli_calls": 0,
+    "fixed_full_stage_simulations_started": 0,
+    "tactical_plan_or_actions_modified": false,
+    "static_check_only": true,
+    "local_commit_at_check": "c415941302951a4cc71fc07b674bb24d7089a2cf"
+  },
+  "input": {
+    "kind": "FUTURE_CONTRACT_PROTOCOL_RECOVERY",
+    "source_original": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/invalid_final_plan.json.parsed.gz",
+    "source_original_sha256": "be3cfcb5d2729690f94a42eebf62e05c2fcd2a1bd2146998a3637e660fe81d95",
+    "outer_field_move": {
+      "source_json_path": "/selected_structure_id",
+      "target_json_path": "/revised_stage_understanding/m58_open_roster_comparison/selected_structure_id",
+      "value": "M60_DUAL_ARTS_SHARED_MEDIC"
+    },
+    "normalized_output_path": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/contract_repair_static_v1/llm_structured_output.normalized.json",
+    "normalized_output_sha256": "261d4bf529136469fba06708d4a25fc66a5231f75d0a5374447fb2687a70c4ec"
+  },
+  "protocol_validation": {
+    "status": "PASS",
+    "errors": [],
+    "evidence_path": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/contract_repair_static_v1/llm_plan_validation.json",
+    "evidence_sha256": "96bda38b241a9566bfd352a060b34b673de5ca2139c056d19bf6ad9012937f6e"
+  },
+  "plan_identity": {
+    "operational_plan_id": "R8_7_GPT_M60_V1",
+    "action_count": 35,
+    "original_plan_canonical_sha256": "bea04a69aca2a636186b35e995aa4c8e9105dda01f34cfe2578da13d170daf0a",
+    "normalized_plan_canonical_sha256": "bea04a69aca2a636186b35e995aa4c8e9105dda01f34cfe2578da13d170daf0a",
+    "original_action_timeline_canonical_sha256": "44e87c0f0dc0bd1afd23b745c3e2e3eedb06f5ee0665970255f3eeaf499315a8",
+    "normalized_action_timeline_canonical_sha256": "44e87c0f0dc0bd1afd23b745c3e2e3eedb06f5ee0665970255f3eeaf499315a8",
+    "plan_deep_equal": true,
+    "action_timeline_deep_equal": true
+  },
+  "static_compile": {
+    "command_entrypoint": "scripts/run_gpt_tactical_stage_session_v1.py static_check",
+    "classification": "STATIC_CONFLICT",
+    "conflict_record_count": 2,
+    "unknown_count": 0,
+    "unique_conflict_site_count": 1,
+    "conflict_site": {
+      "action_index": 27,
+      "frame": 6901,
+      "operator_id": "char_501_durin",
+      "tile_json_row_col": [5, 5],
+      "direction": "DOWN",
+      "occupied_by": "char_212_ansel",
+      "reasons": ["DEPLOYMENT_DECLARATION_MISMATCH", "TILE_OCCUPIED"]
+    },
+    "results_path": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/contract_repair_static_v1/static_compile_results.json.gz",
+    "results_gzip_sha256": "9c684488c0f84018bf5ac02a8ec67e183fb6deed5bd114fd5195ec497bdb3c64",
+    "results_decompressed_sha256": "fad2b61f1e6dddd5ebf6105926ca25f2100cad87935657584be6c565fdd24da4",
+    "final_status_path": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/contract_repair_static_v1/static_compile_final_status.json",
+    "final_status_sha256": "7c32bfe467c23236ffa8474875957b23a77ca20d10d288291a7cf295544e631d"
+  },
+  "decision": {
+    "simulation": "BLOCKED_STATIC_CONFLICT",
+    "next_tactical_change": "NONE_BY_EXECUTOR",
+    "note": "Static failure is reported for later GPT revision; it is not a model WIN/LOSS."
+  }
+}

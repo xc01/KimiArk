@@ -502,3 +502,10 @@ contract read-only recheck passes without changing the failed M60 plan or its 35
 actions. The selected roster used Cardigan (`char_209_ardign`), not Click
 (`char_328_cammou`), so there was no catalog or rarity violation. M60 remains
 contract-failed, with simulation 0/1 and the nine-ID M52 WIN unchanged.
+
+After the protocol-repair commit (`c415941`), static-only validation of the
+recovered M60 candidate passed, but the existing static compiler blocked
+simulation. Action 27 deploys Durin to `[5,5]` DOWN at 6901 while Ansel still
+occupies that tile and the deployment declaration mismatches. The 35 actions
+were not changed; simulation was not started. This is a static candidate issue
+for later GPT revision, not a tactical WIN/LOSS.

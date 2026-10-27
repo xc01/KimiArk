@@ -1047,3 +1047,11 @@ alleged roster violation is a name confusion: M60 used `char_209_ardign`
 (`卡缇` / Cardigan, 3-star), not `char_328_cammou` (`卡达` / Click). M60's
 original contract failure and no-simulation result remain unchanged; see
 `m60_contract_repair_recheck_v1.json` in the same M60 review directory.
+
+After committing the protocol repair (`c415941`), a static-only check used the
+same failed M60 plan after the audited outer-field move. Protocol validation
+passed and all 35 actions remained hash-identical, but the existing static
+compiler found one unique conflict site (reported twice): action 27 tries to
+deploy Durin to `[5,5]` DOWN at 6901 while Ansel still occupies that tile, with
+declaration mismatch. No simulation was started and no action was changed. The
+failed plan remains available for later GPT revision, not a WIN/LOSS.
