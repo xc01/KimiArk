@@ -1,0 +1,65 @@
+{
+  "schema_version": "M63_CLOSEOUT_V1",
+  "status": "STOPPED_CLI_ABORTED_NO_SIMULATION",
+  "scope": "CURRENT_FIXED_MODEL_SINGLE_GPT_REVISION_CALL_AND_ONE_FIXED_FULL_STAGE_SIMULATION",
+  "budget": {
+    "new_tactical_cli_calls_max": 1,
+    "new_tactical_cli_calls_started": 1,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 0,
+    "historical_balance_transferred": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "model_call": {
+    "runner": "scripts/run_gpt_tactical_stage_session_v1.py",
+    "model": "openai/gpt-6.1-sol/high/features.apps=false",
+    "started_at": "2026-10-27T08:05:00.321870+00:00",
+    "external_turn_aborted_at": "2026-10-27T08:45:55.347Z",
+    "elapsed_ms": 2449107,
+    "input_tokens": 1180079,
+    "output_tokens": 24038,
+    "reasoning_output_tokens": 19598,
+    "final_plan_emitted": false,
+    "three_candidate_comparison_committed": false,
+    "intermediate_summary_only": true,
+    "execution_end_repair_by_glm": "FORBIDDEN_AND_NOT_PERFORMED"
+  },
+  "pre_model_checks": {
+    "prompt_bytes": 117278,
+    "prompt_sha256": "8992d641a9288f81097dda1aaf8c8788015f7e577a34861a144910e1ce745bae",
+    "execution_context_sha256": "f0434350bd2aa30946227e8cf3f96fc07403d626886d8743e6a7967f3d4db86a",
+    "schema_sha256": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "catalog_operator_count": 34,
+    "debug_configuration_missing": 0,
+    "nested_selected_path_fixture_pass": true,
+    "root_selected_fixture_rejected": true,
+    "single_referenced_hypothesis_fixture_pass": true,
+    "roster_union_fixture_size": 8
+  },
+  "recovery": {
+    "first_invocation": "REJECTED_BEFORE_STARTED because --extra-config features.apps=false was omitted",
+    "second_session": "AUTHORIZED and counted as the sole CLI STARTED",
+    "automatic_retry": false,
+    "manual_plan_recovery": "NOT_POSSIBLE_WITHOUT_INVENTING_TACTICS"
+  },
+  "result": {
+    "tactical_win_loss": "NOT_APPLICABLE",
+    "static_compile": "NOT_RUN",
+    "simulation_started": false,
+    "simulator_run_entered": false,
+    "combat_events": 0,
+    "best_verified_current_model_simulator_win": "M52_V1_NINE_OPERATOR"
+  },
+  "claims": {
+    "real_game": "NOT_PLAYED",
+    "faithful": "NOT_ISSUED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false,
+    "global_minimum": false,
+    "eight_operator_impossibility_proved": false,
+    "spot_uselessness_inferred": false
+  },
+  "evidence_directory": "docs/review/fc77177/m63_m62_feedback_revision_v1/evidence/attempt_01_cli",
+  "codex_session_sha256": "56c280423996cfbf3efd74747cf14f70b811c83acc0e83ecb4fa1a2dc03862a3",
+  "codex_session_gzip_sha256": "8241118336f82e808861c9dd037520ddfa296aa74976befc568b2829b64b908f"
+}

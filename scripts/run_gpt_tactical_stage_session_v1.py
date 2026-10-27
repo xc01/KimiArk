@@ -1181,11 +1181,13 @@ def run_session(runner: Callable[[str, list[str], int], dict[str, Any]] = codex_
     try:
         execution = runner(prepared["prompt"], command, codex_runner.CLI_TIMEOUT_SECONDS)
     except Exception as exc:
+        cli_started = (codex_runner.OUT / "cli_process_attempt.json").is_file()
         write_json(codex_runner.OUT / "final_status.json", {
             "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_FINAL_STATUS",
-            "status": "CLI_FAILED_NO_RETRY", "error": f"{type(exc).__name__}: {exc}",
-            "cli_process_starts_in_experiment": 1,
-            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + 1,
+            "status": "CLI_FAILED_NO_RETRY" if cli_started else "CLI_REJECTED_BEFORE_STARTED",
+            "error": f"{type(exc).__name__}: {exc}",
+            "cli_process_starts_in_experiment": 1 if cli_started else 0,
+            "cumulative_cli_process_starts": codex_runner.PRIOR_CLI_STARTS + (1 if cli_started else 0),
             "new_operational_plans": 0, "stage_simulations_started": 0,
         })
         raise

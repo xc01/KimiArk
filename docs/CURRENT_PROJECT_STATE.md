@@ -530,3 +530,12 @@ It was a fixed-simulator LOSS: 24/9/4/life -7, one protected target dead and
 one arrived. The repaired execution facts did enter `Simulator.run`; the prior
 M61 input error did not recur. Artillery #0 and final armor #34 both leaked,
 and the M52 nine-ID WIN remains the best verified result.
+
+M63 then made one GPT revision call from M62 events. Before the call, its
+prompt/schema/fixture and 34-operator execution facts passed. The sole CLI turn
+started, used the correct nested selection contract, and was externally
+aborted before emitting a final comparison or plan. It is therefore counted as
+`CLI 1/1, simulation 0/1` with no static run, no combat, no WIN/LOSS, and no
+remaining CLI balance; the fixed simulation budget remains unused and does not
+transfer. Python did not invent missing plan content. Evidence is under
+`docs/review/fc77177/m63_m62_feedback_revision_v1/`.

@@ -1089,3 +1089,21 @@ compiler found one unique conflict site (reported twice): action 27 tries to
 deploy Durin to `[5,5]` DOWN at 6901 while Ansel still occupies that tile, with
 declaration mismatch. No simulation was started and no action was changed. The
 failed plan remains available for later GPT revision, not a WIN/LOSS.
+
+## 2026-10-27 — M63 stops when its sole CLI turn is externally aborted
+
+M63 made one real GPT revision call from M62's causal feedback using the
+correct nested `selected_structure_id` contract. The no-model protocol fixture
+passed with three structures, one selected ID, one referenced hypothesis, an
+8-ID union, and 34 executable operator configurations. The authorized CLI turn
+started at 08:05:00 UTC and was externally interrupted at 08:45:55 UTC after
+2,449,107 ms. It emitted only four intermediate progress summaries; it never
+committed a final three-candidate comparison or complete plan.
+
+Consequently, no plan was frozen, static compile did not run, no simulator
+entered `Simulator.run`, and the fixed-simulation budget remains 0/1. Python
+did not reconstruct missing tactics, candidate selection, or actions. The M52
+V1 nine-ID current-model simulator WIN remains best verified. M63 is counted as
+`CLI 1/1, simulation 0/1`, with no WIN/LOSS and no eight-operator conclusion.
+Raw session, hashes, prompt/schema/context, and fixture evidence are under
+`docs/review/fc77177/m63_m62_feedback_revision_v1/`.

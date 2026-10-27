@@ -1,0 +1,70 @@
+{
+  "schema_version": "M63_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M61_V1",
+  "source_stage_id": "main_08-07",
+  "source_scope": "M62_FIXED_FULL_STAGE_SIMULATION_ORIGINAL_EVENTS",
+  "result_summary": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "win": false,
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_deaths": 4,
+    "remaining_life": -7,
+    "first_leak": {"enemy_id": "enemy_1112_emppnt#0", "frame": 5759},
+    "first_protected_target_death": {"target_id": "enemy_3001_upeopl#3", "frame": 5353},
+    "protected_target_outcomes": {
+      "enemy_3001_upeopl#3": "KILLED",
+      "enemy_3001_upeopl#14": "REACHED"
+    }
+  },
+  "must_solve_together": [
+    {
+      "duty": "A_ARTILLERY_MIXED_DAMAGE_AND_MEDICAL_COMPETITION",
+      "events": [
+        "char_210_stward deployed at 2581; artillery #0 hit him 910 at 3043/3193/3343/3493.",
+        "He was full at 3473, fell to 190 after the 3493 artillery hit, then gained 372.6 at 3533 and 3619 to 935.2; no further HEAL before death.",
+        "Armor shooter #21 hit him for 289 at 4383, then artillery #0 hit 910 at 4393 and killed him; Hibiscus healed Ansel in the same frame.",
+        "Retreat at 4800 was illegal because Steward was dead.",
+        "Artillery #0 received 38 hits totaling 11035.13 from Steward, had zero BLOCK, and leaked at 5759."
+      ],
+      "requirement": "Plan mixed ordinary and artillery damage, healing-target competition, same-frame settlement order, either a real kill before leakage or a viable output/pressure handoff. Do not merely move to one old projectile point."
+    },
+    {
+      "duty": "B_PROTECTED_TARGET_CONTINUOUS_ROADBLOCK_PASSAGE",
+      "events": [
+        "Civilian #3 was blocked by roadblock #3 at 761 and took officer hits of 280 at 1296/1356/1416.",
+        "Roadblock #3 was destroyed at 2482, after which #3 was blocked by roadblock #1 at 2851 until #1 was destroyed at 7720.",
+        "Artillery #0 locked #3 and dealt 950 at 5053/5203/5353; #3 died at 5353 with 3690 damage.",
+        "Civilian #14 reached at 9798."
+      ],
+      "requirement": "Audit each roadblock segment and the protected target's exposure to officers and artillery. Clearing one roadblock or reporting all roadblocks destroyed is insufficient."
+    },
+    {
+      "duty": "C_ARMOR_34_REAL_CONTACT_CHAIN",
+      "events": [
+        "#34 spawned at 6330, attacked Hibiscus at 6400/6484 and Spot at 6568/6652, never had BLOCK, and leaked at 6996.",
+        "Midnight dealt only 2 hits totaling 49.7 to #34.",
+        "Steward returned to [5,5] DOWN at 6901 after death cooldown and cost; its 6901/6949 candidates were #21/#27/#29, not #34.",
+        "Those returns killed other enemies but did not establish contact with #34."
+      ],
+      "requirement": "Design an actual spatiotemporal stop, block, or attack-contact window that kills #34 without leakage. Paper coverage and one DAMAGE event are not enough."
+    }
+  ],
+  "preserved_success_fragments": [
+    "Opening did not repeat the M59 early Ansel death; Ansel survived to 4551 and healed 13523.3.",
+    "Fang living retreat at 1710 refunded 5; Spot deployed at 2041 and first blocked #10 at 2588 with no leak in that handoff; Spot healed 13173.7.",
+    "All four roadblocks were destroyed: #4 at 1966, #3 at 2482, #1 at 7720, #2 at 9466.",
+    "Midnight retreat at 4098 released #17 and Fang killed it at 4099; this one-frame handoff succeeded."
+  ],
+  "death_accounting_policy": "Deaths are evaluated by contribution and handoff, not minimized. A sacrifice is valid only when the enemy/action being handled is actually settled and remaining duties have a real successor.",
+  "user_confirmed_tactical_premise": "Attack intervals, action occupancy, attack baiting, damage absorption, rotation, and valuable sacrifice may be used as design principles; do not represent them as new client-verified rules.",
+  "model_capability_constraints": {
+    "ordinary_attack_targeting": "Target is selected at ATTACK_STRIKE; reliable pre-swing target locking is not expressible.",
+    "retreat_cooldown": "Attack cooldown does not reset after the operator has actually attacked.",
+    "artillery": "Cast starts cooldown and target selection; projectile birth locks the landing point; delayed area hit follows.",
+    "spot_skill": "EXECUTABLE_APPROXIMATED only: initial SP 25/40, 25 seconds, ATK +45%, 1.3-second healing interval, x-4 range, no attacks while healing; physical-dodge talent is unsupported.",
+    "ansel_probability_extra_heal": "NOT_IMPLEMENTED; do not assume dual healing.",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "open_roster_revision_policy": "Compare at least three materially different structures in one call, then autonomously select and output one complete executable plan. Do not force any operator, roster subset, quota, or sacrifice; newly judge costs, overlap, contact, and handoff from the selected structure."
+}
