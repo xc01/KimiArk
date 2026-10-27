@@ -41,6 +41,8 @@ SIMULATION_BUDGET_PATH = ROOT / "docs/review/fc77177/m28_simulation_budget_v1.js
 NORMAL_LOW_STAR_MANIFEST_PATH = ROOT / "output/normal_low_star_facts_v1/manifest.json"
 CAPABILITY_SOURCE_SCHEMA_VERSION = "normal-low-star-capability-source-v1"
 CAPABILITY_SUPPORT_SCHEMA_VERSION = "normal-low-star-mechanism-support-v2"
+M58_OPEN_ROSTER_COMPARISON_PATH = "revised_stage_understanding.m58_open_roster_comparison"
+M58_OPEN_ROSTER_SELECTED_PATH = f"{M58_OPEN_ROSTER_COMPARISON_PATH}.selected_structure_id"
 
 
 def load(path: Path) -> Any:
@@ -122,6 +124,146 @@ def distinct_deployed_operator_ids(plan: dict[str, Any]) -> set[str]:
         if isinstance(action, dict) and action.get("action_type") == "DEPLOY"
     )
     return distinct
+
+
+def apply_open_roster_contract_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    schema["properties"]["revised_stage_understanding"] = {
+        "additionalProperties": True,
+        "required": ["m58_open_roster_comparison"],
+        "properties": {
+            "m58_open_roster_comparison": {
+                "additionalProperties": True,
+                "required": ["candidates", "selected_structure_id"],
+                "properties": {
+                    "candidates": {
+                        "type": "array",
+                        "minItems": 3,
+                        "items": {
+                            "additionalProperties": True,
+                            "required": ["structure_id", "selected"],
+                            "properties": {
+                                "structure_id": {"type": "string", "minLength": 1},
+                                "selected": {"type": "boolean"},
+                            },
+                            "type": "object",
+                        },
+                    },
+                    "selected_structure_id": {"type": "string", "minLength": 1},
+                },
+                "type": "object",
+            }
+        },
+        "type": "object",
+    }
+    schema["properties"]["revised_strategic_hypotheses"] = {
+        "additionalItems": True,
+        "items": {
+            "additionalProperties": True,
+            "required": ["hypothesis_id"],
+            "properties": {"hypothesis_id": {"type": "string", "minLength": 1}},
+            "type": "object",
+        },
+        "minItems": 1,
+        "type": "array",
+    }
+    return schema
+
+
+def validate_open_roster_contract(
+    parsed: Any, evidence: dict[str, Any], configured_limit: int | None = None
+) -> list[str]:
+    if not isinstance(parsed, dict) or not evidence.get("m58_open_roster_policy"):
+        return []
+    errors: list[str] = []
+    comparison_path = M58_OPEN_ROSTER_COMPARISON_PATH
+    selected_path = M58_OPEN_ROSTER_SELECTED_PATH
+    comparison = (parsed.get("revised_stage_understanding") or {}).get("m58_open_roster_comparison")
+    if "selected_structure_id" in parsed:
+        errors.append(
+            f"selected_structure_id must be at {selected_path}; remove the JSON root-level field"
+        )
+    if not isinstance(comparison, dict):
+        errors.append(f"M58 comparison object is required at {comparison_path}")
+        return errors
+    if "contenders" in comparison:
+        errors.append("M58 comparison must not use contenders")
+    candidates = comparison.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) < 3:
+        errors.append("M58 requires at least three m58_open_roster_comparison candidates")
+    else:
+        candidate_ids: list[str] = []
+        malformed_ids = False
+        for index, candidate in enumerate(candidates):
+            if not isinstance(candidate, dict):
+                errors.append(f"M58 candidate {index} must be an object")
+                malformed_ids = True
+                continue
+            structure_id = candidate.get("structure_id")
+            if not isinstance(structure_id, str) or not structure_id:
+                errors.append(f"M58 candidate {index} requires a non-empty structure_id")
+                malformed_ids = True
+            else:
+                candidate_ids.append(structure_id)
+        if len(candidate_ids) != len(set(candidate_ids)):
+            errors.append("M58 comparison candidate structure_id values must be distinct")
+        if not malformed_ids:
+            selected_rows = [
+                candidate for candidate in candidates
+                if isinstance(candidate, dict) and candidate.get("selected") is True
+            ]
+            if len(selected_rows) != 1:
+                errors.append(f"M58 comparison must have exactly one selected candidate, got {len(selected_rows)}")
+            selected_structure_id = comparison.get("selected_structure_id")
+            if not isinstance(selected_structure_id, str) or not selected_structure_id:
+                errors.append(f"M58 selected_structure_id is required at {selected_path}")
+            elif candidate_ids and selected_structure_id not in candidate_ids:
+                errors.append("M58 selected_structure_id must reference one comparison candidate")
+            elif len(selected_rows) == 1 and selected_rows[0].get("structure_id") != selected_structure_id:
+                errors.append("M58 selected_structure_id must equal the unique selected candidate structure_id")
+    hypotheses = parsed.get("revised_strategic_hypotheses")
+    if not isinstance(hypotheses, list) or len(hypotheses) < 1:
+        errors.append("revised_strategic_hypotheses requires at least one hypothesis")
+    else:
+        hypothesis_ids = [
+            row.get("hypothesis_id")
+            for row in hypotheses
+            if isinstance(row, dict) and isinstance(row.get("hypothesis_id"), str) and row["hypothesis_id"]
+        ]
+        if len(hypothesis_ids) != len(hypotheses):
+            errors.append("every revised_strategic_hypotheses item requires a non-empty hypothesis_id")
+        if len(hypothesis_ids) != len(set(hypothesis_ids)):
+            errors.append("revised_strategic_hypotheses hypothesis_id values must be distinct")
+
+    configured_limit_value = configured_limit
+    evidence_limit_value = (evidence.get("milestone_constraints") or {}).get("max_unique_deployed_operator_ids")
+    evidence_limit = evidence_limit_value if isinstance(evidence_limit_value, int) else None
+    if configured_limit_value is not None and evidence_limit is not None and configured_limit_value != evidence_limit:
+        errors.append(f"roster-limit conflict: configured={configured_limit_value}, evidence={evidence_limit}")
+    effective_limit = configured_limit_value if configured_limit_value is not None else evidence_limit
+    if effective_limit is not None:
+        plans = parsed.get("revised_operational_plans")
+        plan = plans[0] if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict) else {}
+        distinct = distinct_deployed_operator_ids(plan)
+        if len(distinct) > effective_limit:
+            errors.append(
+                f"distinct selected/deployed operator union has {len(distinct)} IDs; hard limit is {effective_limit}"
+            )
+    return errors
+
+
+def validate_parent_hypothesis_reference(parsed: Any) -> list[str]:
+    if not isinstance(parsed, dict):
+        return []
+    plans = parsed.get("revised_operational_plans")
+    plan = plans[0] if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict) else {}
+    hypothesis_ids = {
+        row.get("hypothesis_id")
+        for row in parsed.get("revised_strategic_hypotheses") or []
+        if isinstance(row, dict) and row.get("hypothesis_id")
+    }
+    if plan.get("parent_hypothesis_id") not in hypothesis_ids:
+        return ["parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id"]
+    return []
 
 
 def roster_prompt_instruction(max_unique: int) -> str:
@@ -437,6 +579,9 @@ def prepare() -> dict[str, Any]:
         evidence = load(codex_runner.OUT / "llm_evidence_context.json")
         schema = load(codex_runner.OUT / "revision_output_schema.json")
         validate_normal_low_star_capability_source(evidence)
+        if evidence.get("m58_open_roster_policy"):
+            schema = apply_open_roster_contract_schema(schema)
+            write_json(codex_runner.OUT / "revision_output_schema.json", schema)
         constraint_resolution = resolve_milestone_constraints(evidence, saved_input=True)
         prompt = (codex_runner.OUT / "codex_prompt.txt").read_text(encoding="utf-8")
         effective_limit = constraint_resolution["effective_limit"]
@@ -448,6 +593,11 @@ def prepare() -> dict[str, Any]:
             if "HARD ROSTER LIMIT:" in prompt:
                 raise RuntimeError("saved prompt contains a hard roster limit but no configured or evidence limit")
             constraint_resolution["prompt_regenerated"] = False
+        if evidence.get("m58_open_roster_policy"):
+            if "set top-level `selected_structure_id`" in prompt:
+                raise RuntimeError("saved prompt uses the stale root-level selected_structure_id contract")
+            if M58_OPEN_ROSTER_SELECTED_PATH not in prompt:
+                raise RuntimeError("saved prompt lacks the nested selected_structure_id contract")
     else:
         evidence = load(codex_runner.SOURCE / "llm_evidence_context.json")
         evidence = copy.deepcopy(evidence)
@@ -632,6 +782,8 @@ def prepare() -> dict[str, Any]:
                 ],
             }
         schema = experience.add_revision_hypothesis_schema(schema)
+        if evidence.get("m58_open_roster_policy"):
+            schema = apply_open_roster_contract_schema(schema)
         write_json(codex_runner.OUT / "llm_evidence_context.json", evidence)
         write_json(codex_runner.OUT / "revision_output_schema.json", schema)
         prompt = build_prompt(evidence, schema)
@@ -714,13 +866,13 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
             "beyond the frozen nine-ID roster, including blocking/healing fusion, attack baiting, "
             "staged retreats, different output/economic openings, and stage rotations. Do not force "
             "any operator into or out of the roster, set a new-operator quota, or require a death.\n"
-            "For each contender, record its roster, how it removes one slot versus the nine-ID baseline, "
+            "For each candidate, record its roster, how it removes one slot versus the nine-ID baseline, "
             "same-phase/staged responsibilities, opening cost and pressure, most dangerous window, and cost. "
             "Recompute deployment and medical timing from its own structure; do not reject it merely because "
             "it cannot reuse an old opening. If it baits, retreats, or sacrifices, identify the enemy and attack, "
             "when the decoy must survive, whether the attack consumes cooldown, who gains time, when the successor "
             "enters, and residual projectiles, enemies, or civilian risk.\n"
-            "Classify each contender as CURRENT_MODEL_CHECKABLE or USER_PREMISE_NOT_EXPRESSIBLE. Evaluate both, "
+            "Classify each candidate as CURRENT_MODEL_CHECKABLE or USER_PREMISE_NOT_EXPRESSIBLE. Evaluate both, "
             "but prefer a complete plan whose decisive behavior is checkable with existing actions and rules. "
             "Do not rewrite mechanics or invent favorable rules. If decisive behavior is not expressible, retain "
             "the raw plan and explicitly state the exact action/enemy/phase gap.\n"
@@ -732,9 +884,12 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
             "Save the comparison in revised_stage_understanding.m58_open_roster_comparison as "
             "`{\"candidates\":[...]}`. Each candidate requires `structure_id` (a unique non-empty string), "
             "`selected` (boolean), and its raw comparison fields. Exactly one candidate has `selected: true`; "
-            "set top-level `selected_structure_id` to that candidate's `structure_id`. Do not use `contenders`. "
+            f"set `selected_structure_id` exactly at `{M58_OPEN_ROSTER_SELECTED_PATH}`. "
+            "Do not place selected_structure_id at the JSON root and do not use `contenders`. "
             "Keep all raw model reasoning summaries there; Python must not rewrite selection reasons. "
-            "Select exactly one complete plan and explain why the other structures are not selected.\n\n"
+            "Select exactly one complete plan and explain why the other structures are not selected. "
+            "revised_strategic_hypotheses must contain the one hypothesis referenced by parent_hypothesis_id; "
+            "repeating all comparison structures as separate hypotheses is not required.\n\n"
         )
     protected_spawn_rows = [
         event for event in ((evidence.get("model_spawn_timeline") or {}).get("events") or [])
@@ -842,49 +997,11 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
                 errors.append("expected_first_observable_event latest_frame precedes earliest_frame")
         plans = parsed.get("revised_operational_plans")
         plan = plans[0] if isinstance(plans, list) and len(plans) == 1 else {}
-        hypothesis_ids = {
-            row.get("hypothesis_id")
-            for row in parsed.get("revised_strategic_hypotheses") or []
-            if isinstance(row, dict) and row.get("hypothesis_id")
-        }
-        if plan.get("parent_hypothesis_id") not in hypothesis_ids:
-            errors.append("parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id")
+        errors.extend(validate_parent_hypothesis_reference(parsed))
         if not str(plan.get("operational_plan_id", "")).startswith(PLAN_PREFIX):
             errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
         if evidence.get("m58_open_roster_policy"):
-            comparison = ((parsed.get("revised_stage_understanding") or {}).get(
-                "m58_open_roster_comparison"
-            ) or {})
-            comparison_candidates = comparison.get("candidates")
-            if not isinstance(comparison_candidates, list) or len(comparison_candidates) < 3:
-                errors.append("M58 requires at least three m58_open_roster_comparison candidates")
-            else:
-                comparison_ids = {
-                    candidate.get("structure_id")
-                    for candidate in comparison_candidates
-                    if isinstance(candidate, dict) and candidate.get("structure_id")
-                }
-                if len(comparison_ids) < 3:
-                    errors.append("M58 comparison candidates must have three distinct structure_id values")
-                selected_structure_id = comparison.get("selected_structure_id")
-                if selected_structure_id not in comparison_ids:
-                    errors.append("M58 selected_structure_id must reference one comparison candidate")
-            if len(hypothesis_ids) < 3:
-                errors.append("M58 requires at least three distinct revised_strategic_hypotheses")
-        configured_limit = MAX_UNIQUE_DEPLOYED_OPERATORS
-        evidence_limit_value = (evidence.get("milestone_constraints") or {}).get("max_unique_deployed_operator_ids")
-        evidence_limit = evidence_limit_value if isinstance(evidence_limit_value, int) else None
-        if configured_limit is not None and evidence_limit is not None and configured_limit != evidence_limit:
-            errors.append(
-                f"roster-limit conflict: configured={configured_limit}, evidence={evidence_limit}"
-            )
-        effective_limit = configured_limit if configured_limit is not None else evidence_limit
-        if effective_limit is not None:
-            distinct = distinct_deployed_operator_ids(plan)
-            if len(distinct) > effective_limit:
-                errors.append(
-                    f"distinct selected/deployed operator union has {len(distinct)} IDs; hard limit is {effective_limit}"
-                )
+            errors.extend(validate_open_roster_contract(parsed, evidence, MAX_UNIQUE_DEPLOYED_OPERATORS))
     validation = {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
         "status": "PASS" if not errors else "FAIL",

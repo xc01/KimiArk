@@ -12,5 +12,7 @@ def test_m58_prompt_requires_exact_comparison_contract_fields() -> None:
     assert '`{"candidates":[...]}`' in prompt
     assert "Each candidate requires `structure_id`" in prompt
     assert "Exactly one candidate has `selected: true`" in prompt
-    assert "`selected_structure_id`" in prompt
-    assert "Do not use `contenders`" in prompt
+    assert "set `selected_structure_id` exactly at `revised_stage_understanding.m58_open_roster_comparison.selected_structure_id`" in prompt
+    assert "set top-level `selected_structure_id`" not in prompt
+    assert "do not use `contenders`" in prompt
+    assert "repeating all comparison structures as separate hypotheses is not required" in prompt

@@ -53,6 +53,7 @@ def synthetic_evidence(module):
     return {
         "stage_active_facts": {
             "roadblock_tiles_col_row": module.ROADBLOCK_TILES_COL_ROW,
+            "active_device_tiles_col_row": [],
             "deployable_ground_tiles_col_row": [[4, 3]],
             "deployable_high_ground_tiles_col_row": [[2, 2]],
         },

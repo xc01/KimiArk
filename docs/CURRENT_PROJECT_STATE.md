@@ -493,3 +493,12 @@ authorized simulation were not started. The best verified current-model simulato
 WIN remains M52 V1 at 9 IDs; this contract failure does not disprove Spot, an
 eight-ID plan, or sacrifice tactics. Evidence is under
 `docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/`.
+
+M60's contract audit later isolated two protocol causes: the prompt and validator
+disagreed about `selected_structure_id`, and the three-hypothesis rule was a
+hidden semantic gate. The future runner now has one nested selected path, three
+comparison candidates, and only the one referenced strategic hypothesis. A future
+contract read-only recheck passes without changing the failed M60 plan or its 35
+actions. The selected roster used Cardigan (`char_209_ardign`), not Click
+(`char_328_cammou`), so there was no catalog or rarity violation. M60 remains
+contract-failed, with simulation 0/1 and the nine-ID M52 WIN unchanged.

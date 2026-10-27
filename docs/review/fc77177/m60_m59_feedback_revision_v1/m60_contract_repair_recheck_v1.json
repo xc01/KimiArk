@@ -1,0 +1,111 @@
+{
+  "schema_version": "M60_CONTRACT_REPAIR_RECHECK_V1",
+  "status": "READONLY_RECHECK_PASS_UNDER_FUTURE_CONTRACT",
+  "scope": {
+    "historical_result": "M60 remains CLI_CONTRACT_FAILED and is NOT a WIN, LOSS, static pass, or simulation result.",
+    "recheck_kind": "FUTURE_CONTRACT_READONLY",
+    "new_tactical_cli_calls": 0,
+    "fixed_full_stage_simulations_started": 0,
+    "tactical_plan_or_actions_modified": false,
+    "original_input_response_or_schema_modified": false
+  },
+  "source_hashes": {
+    "prompt_sha256": "8cffa7c982c655091ecef78c76d3f42cc3640d002ac8f53aa7b3a365e77f65b7",
+    "raw_final_response_sha256": "70859fb1f5396da9ffd3619a18e448c16a3782691589ec1553fc7dac8a5fe009",
+    "original_schema_sha256": "c9fba32f3cb7b2751bdc4f1e10547aa67cbc42753e8aa3867a3cf3ba03f54b6e",
+    "original_parsed_file_sha256": "be3cfcb5d2729690f94a42eebf62e05c2fcd2a1bd2146998a3637e660fe81d95",
+    "original_parsed_canonical_sha256": "6cc7e80a44527d07d055dfd5c74ce7aafa87cf0f53aa2d00aad393f132dbe802",
+    "original_plan_canonical_sha256": "bea04a69aca2a636186b35e995aa4c8e9105dda01f34cfe2578da13d170daf0a",
+    "original_action_timeline_canonical_sha256": "44e87c0f0dc0bd1afd23b745c3e2e3eedb06f5ee0665970255f3eeaf499315a8",
+    "future_normalized_parsed_canonical_sha256": "38ad717cb4070864cd6e261330ff73d69db5f78524b45d429c9a45435bcb1db1",
+    "future_normalized_plan_canonical_sha256": "bea04a69aca2a636186b35e995aa4c8e9105dda01f34cfe2578da13d170daf0a",
+    "future_normalized_action_timeline_canonical_sha256": "44e87c0f0dc0bd1afd23b745c3e2e3eedb06f5ee0665970255f3eeaf499315a8"
+  },
+  "source_paths": {
+    "prompt": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/codex_prompt.txt.gz",
+    "response": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/codex_final_message.txt.gz",
+    "schema": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/revision_output_schema.json.gz",
+    "parsed_output": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/invalid_final_plan.json.parsed.gz",
+    "original_validation": "docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/llm_plan_validation.json"
+  },
+  "original_contract_errors": [
+    "M58 selected_structure_id must reference one comparison candidate",
+    "M58 requires at least three distinct revised_strategic_hypotheses"
+  ],
+  "root_cause": {
+    "selected_path": {
+      "classification": "INPUT_CONTRACT_AMBIGUITY_MODEL_FOLLOWED_STALE_INSTRUCTION",
+      "prompt_had_stale_top_level_instruction": true,
+      "prompt_had_nested_comparison_location": true,
+      "model_placed_selected_structure_id_at_root": true,
+      "validator_read_nested_path": true
+    },
+    "strategic_hypotheses": {
+      "classification": "HIDDEN_SEMANTIC_GATE",
+      "model_hypothesis_count": 1,
+      "selected_plan_parent_hypothesis_id": "R8_7_M60_H1",
+      "plan_reference_valid": true,
+      "three_hypothesis_requirement_was_in_prompt": false,
+      "original_base_schema_had_min_items_3": false,
+      "old_runner_semantic_gate_had_min_items_3": true
+    },
+    "roster_domain": {
+      "classification": "NO_VIOLATION",
+      "model_used_operator_id": "char_209_ardign",
+      "model_used_name": "卡缇 / Cardigan",
+      "current_game_data_rarity": 3,
+      "normal_mode": true,
+      "catalog_count": 34,
+      "reported_click_id_not_used_by_model": "char_328_cammou",
+      "operator_union_size": 8
+    }
+  },
+  "future_contract_mapping": {
+    "only_outer_protocol_move": "root.selected_structure_id -> revised_stage_understanding.m58_open_roster_comparison.selected_structure_id",
+    "root_selected_value": "M60_DUAL_ARTS_SHARED_MEDIC",
+    "candidate_ids": [
+      "M60_DUAL_ARTS_SHARED_MEDIC",
+      "M60_SPOT_LOCAL_FUSION",
+      "M60_YATO_LOCK_ROTATION"
+    ],
+    "selected_flags": [true, false, false],
+    "revised_strategic_hypotheses_ids": ["R8_7_M60_H1"],
+    "plan_parent_hypothesis_id": "R8_7_M60_H1",
+    "action_count": 35,
+    "selected_and_deploy_union": [
+      "char_120_hibisc",
+      "char_123_fang",
+      "char_209_ardign",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_283_midn",
+      "char_4093_frston",
+      "char_501_durin"
+    ]
+  },
+  "future_contract_validation": {
+    "schema_errors": [],
+    "semantic_errors": [],
+    "open_roster_contract_errors": [],
+    "parent_hypothesis_reference_errors": [],
+    "event_query_errors": [],
+    "lineage_errors": [],
+    "plan_deep_equal_to_original": true,
+    "action_timeline_deep_equal_to_original": true
+  },
+  "future_contract_changes": {
+    "selected_structure_id_path": "revised_stage_understanding.m58_open_roster_comparison.selected_structure_id",
+    "minimum_strategic_hypotheses": 1,
+    "minimum_comparison_candidates": 3,
+    "selection_must_match_unique_selected_candidate": true,
+    "contenders_rejected": true,
+    "root_selected_rejected": true,
+    "parent_hypothesis_reference_required": true,
+    "roster_limit_and_domain_checks_cover_selected_and_action_ids": true
+  },
+  "focusing_regression": {
+    "path": "tests/test_m60_contract_protocol_repair_v1.py",
+    "command": ".venv/bin/python -m pytest tests/test_m60_contract_protocol_repair_v1.py tests/test_m58_open_roster_contract_prompt_v1.py tests/test_r8_1_low_star_full_tactical_closure_v1.py -q",
+    "result": "19 passed"
+  }
+}

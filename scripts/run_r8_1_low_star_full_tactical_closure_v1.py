@@ -605,17 +605,20 @@ def validate_operational_plan_output(parsed: Any, evidence: dict[str, Any]) -> l
     except (TypeError, ValueError):
         return ["stage_active_facts.active_device_tiles_col_row must contain integer [col,row] rows"]
     selected = plan.get("selected_low_star_operator_ids") or []
+    def validate_operator_member(operator_id: Any, label: str) -> None:
+        operator = catalog.get(operator_id)
+        if operator is None:
+            errors.append(f"unknown {label} operator {operator_id}")
+            return
+        qualification = operator.get("qualification") or {}
+        identity = operator.get("identity") or {}
+        if qualification.get("normal_mode") is not True or not 1 <= identity.get("rarity", 0) <= 3:
+            errors.append(f"{label} operator is outside ordinary 1-3 star domain: {operator_id}")
+
     if not isinstance(selected, list) or not selected:
         errors.append("selected_low_star_operator_ids is empty")
     for operator_id in selected:
-        operator = catalog.get(operator_id)
-        if operator is None:
-            errors.append(f"unknown selected operator {operator_id}")
-        else:
-            qualification = operator.get("qualification") or {}
-            identity = operator.get("identity") or {}
-            if qualification.get("normal_mode") is not True or not 1 <= identity.get("rarity", 0) <= 3:
-                errors.append(f"operator is outside ordinary 1-3 star domain: {operator_id}")
+        validate_operator_member(operator_id, "selected")
     actions = plan.get("action_timeline")
     if not isinstance(actions, list) or not actions:
         errors.append("action_timeline is empty")
@@ -636,8 +639,7 @@ def validate_operational_plan_output(parsed: Any, evidence: dict[str, Any]) -> l
         else:
             previous_frame = frame
         operator_id = action.get("operator_id")
-        if operator_id not in catalog:
-            errors.append(f"{label} references unknown operator {operator_id}")
+        validate_operator_member(operator_id, f"{label}")
         if action_type == "DEPLOY":
             tile = action.get("tile")
             if not isinstance(tile, list) or len(tile) != 2 or not all(isinstance(value, int) for value in tile):

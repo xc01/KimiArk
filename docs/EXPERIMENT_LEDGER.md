@@ -1037,3 +1037,13 @@ and the failed 35-action plan is not a tactical WIN or LOSS. The best verified
 current-model simulator WIN remains M52 V1 at 9 IDs. Evidence:
 `docs/review/fc77177/m60_m59_feedback_revision_v1/m60_closeout_v1.json` and
 `docs/review/fc77177/m60_m59_feedback_revision_v1/evidence/attempt_01_cli/`.
+
+The post-closeout protocol audit found that the stale prompt itself asked for a
+top-level selected ID while the validator required the nested comparison path,
+and that the three-hypothesis requirement was a hidden runner gate. Under the
+future contract, a read-only recheck moves only that selected field; the plan and
+35 actions remain hash-identical and the one referenced hypothesis passes. The
+alleged roster violation is a name confusion: M60 used `char_209_ardign`
+(`卡缇` / Cardigan, 3-star), not `char_328_cammou` (`卡达` / Click). M60's
+original contract failure and no-simulation result remain unchanged; see
+`m60_contract_repair_recheck_v1.json` in the same M60 review directory.
