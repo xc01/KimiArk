@@ -539,3 +539,10 @@ aborted before emitting a final comparison or plan. It is therefore counted as
 remaining CLI balance; the fixed simulation budget remains unused and does not
 transfer. Python did not invent missing plan content. Evidence is under
 `docs/review/fc77177/m63_m62_feedback_revision_v1/`.
+
+After user-authorized reruns, attempt 3 produced a valid 25-action, 8-ID plan.
+Static and execution gates passed, but the one authorized simulation was a
+fixed-model LOSS at 19/14/8/life -12. The decisive breaks were early officer
+leakage at 3501, artillery-driven protected-target death at 5341, continued
+artillery leak at 5759, and unresolved final armor #34 at 6996. M52 V1 remains
+the best verified current-model WIN.

@@ -1107,3 +1107,20 @@ V1 nine-ID current-model simulator WIN remains best verified. M63 is counted as
 `CLI 1/1, simulation 0/1`, with no WIN/LOSS and no eight-operator conclusion.
 Raw session, hashes, prompt/schema/context, and fixture evidence are under
 `docs/review/fc77177/m63_m62_feedback_revision_v1/`.
+
+After the first external abort, the user explicitly authorized reruns. A
+second start was reclaimed by its tool-session process group before producing
+output; a third `setsid`-detached call completed successfully. M63 is therefore
+counted as `CLI 3/3, simulation 1/1`. The accepted V3 plan compared
+split-medic/dual-arts, Spot-fusion reordering, and Yato/Cardigan rotation, then
+selected `M63_SPLIT_MEDIC_DUAL_ARTS` with an 8-ID union and 25 actions.
+
+Contract, execution-input gate, and static compile all passed. The fixed full
+stage then completed as a current-model LOSS: 19 kills, 14 leaks, 8 operator
+deaths, and life -12. The first leak was officer #13 at 3501; objective failure
+began at 5046. Artillery #0 leaked at 5759 and killed protected #3 at 5341,
+while #14 reached at 9919. Final armor #34 leaked at 6996. Midnight died at
+4753, making the 6900 retreat illegal; Steward's later 6451 return was legal
+but he died again at 6635. No WIN/LOSS claim extends beyond the fixed
+simulator, and M52 V1 remains best verified. Evidence is under
+`docs/review/fc77177/m63_m62_feedback_revision_v1/evidence/attempt_03/`.

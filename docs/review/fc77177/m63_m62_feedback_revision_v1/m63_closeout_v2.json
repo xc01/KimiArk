@@ -1,0 +1,91 @@
+{
+  "schema_version": "M63_CLOSEOUT_V2",
+  "status": "COMPLETED_FIXED_SIMULATOR_LOSS",
+  "scope": "CURRENT_FIXED_MODEL_SINGLE_RERUN_AND_ONE_FIXED_FULL_STAGE_SIMULATION",
+  "budget": {
+    "new_tactical_cli_calls_max": 3,
+    "new_tactical_cli_calls_started": 3,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 1,
+    "historical_balance_transferred": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "rerun_authorization": "USER_REQUESTED_AFTER_EXTERNAL_ABORT_AND_TOOL_SESSION_CHILD_EXIT"
+  },
+  "input": {
+    "plan_id": "R8_7_GPT_M63_V3",
+    "selected_structure_id": "M63_SPLIT_MEDIC_DUAL_ARTS",
+    "comparison_candidates": [
+      "M63_SPLIT_MEDIC_DUAL_ARTS",
+      "M63_SPOT_FUSION_REORDER",
+      "M63_YATO_CARDIGAN_ROTATION"
+    ],
+    "action_count": 25,
+    "selected_chinese_roster": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "芙蓉",
+      "安赛尔",
+      "史都华德",
+      "古米"
+    ],
+    "selected_and_deploy_union_size": 8,
+    "contract_validation": "PASS",
+    "execution_input_gate": "PASS",
+    "static_conflict_count": 0,
+    "static_unknown_count": 0
+  },
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "simulator_win": false,
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 8,
+    "remaining_life": -12,
+    "first_leak": {"enemy_id": "enemy_1107_uoffcr#13", "frame": 3501},
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 5046, "remaining_life": 0},
+    "protected_target_outcomes": {
+      "enemy_3001_upeopl#3": "KILLED_BY_ARTILLERY_AT_5341",
+      "enemy_3001_upeopl#14": "REACHED_AT_9919"
+    },
+    "operator_death_frames": {
+      "char_4227_gallus": 701,
+      "char_120_hibisc": 2593,
+      "char_4093_frston": 3159,
+      "char_210_stward": 3460,
+      "char_123_fang": 4450,
+      "char_212_ansel": 4450,
+      "char_283_midn": 4753,
+      "char_210_stward_redployed": 6635
+    },
+    "runtime_action_errors": [
+      "char_120_hibisc@124.1: operator is not deployed",
+      "char_210_stward@145.0: operator is not deployed",
+      "char_212_ansel@156.1: operator is not deployed",
+      "char_283_midn@166.1: operator is not deployed",
+      "char_120_hibisc@174.13333333333333: operator is not deployed",
+      "char_212_ansel@216.13333333333333: operator is not deployed",
+      "char_120_hibisc@224.16666666666666: operator is not deployed",
+      "char_283_midn@230.0: operator is not deployed"
+    ]
+  },
+  "key_duties": {
+    "artillery": "FAILED: #0 leaked at 5759 and killed protected #3 at 5341.",
+    "protected_route": "FAILED: #3 died at 5341 while #14 reached at 9919.",
+    "armor_34": "FAILED: #34 leaked at 6996 with no kill.",
+    "midnight_retreat": "FAILED: retreat at 6900 was illegal because Midnight died at 4753.",
+    "steward_return": "PARTIAL: legal return at 6451, but died again at 6635 and did not close the late chain."
+  },
+  "claims": {
+    "real_game": "NOT_PLAYED",
+    "faithful": "NOT_ISSUED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false,
+    "global_minimum": false,
+    "eight_operator_impossibility_proved": false,
+    "roster_uselessness_inferred": false
+  },
+  "evidence_directory": "docs/review/fc77177/m63_m62_feedback_revision_v1/evidence/attempt_03",
+  "codex_session_sha256": "ad2c79de6b402a57a231259b0e66db846a3e20de0aa561be6b7324b246875914"
+}
