@@ -524,3 +524,9 @@ hash-matched M60 source and prepared as an execution-ready candidate. A future
 runner preflight now rejects missing execution facts before evaluation billing.
 The M61 plan and 34 actions remain unchanged, and the repaired input passes
 preflight/static checks without a new simulation or WIN/LOSS claim.
+
+M62 then ran that frozen candidate once without a model call or tactical edit.
+It was a fixed-simulator LOSS: 24/9/4/life -7, one protected target dead and
+one arrived. The repaired execution facts did enter `Simulator.run`; the prior
+M61 input error did not recur. Artillery #0 and final armor #34 both leaked,
+and the M52 nine-ID WIN remains the best verified result.

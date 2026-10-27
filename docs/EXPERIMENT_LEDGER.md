@@ -1073,6 +1073,15 @@ deep-equal; a new preflight and static recheck both pass without starting the
 simulator. This repair does not refund or change M61's `CLI 1/1, simulation
 1/1` ledger or turn the started-but-pre-battle attempt into a WIN/LOSS.
 
+M62 reran that repaired candidate unchanged with no new GPT call. Contract,
+preflight, 8-ID union, and static checks passed; the one authorized simulation
+completed as a current-model LOSS at 24 kills, 9 leaks, 4 operator deaths,
+protected #3 killed, #14 arrived, and life -7. Steward died at 4393 before the
+4800 retreat; artillery #0 and #34 both leaked at 5759/6996, while the later
+Steward return killed other inner enemies but never hit #34. M52 V1 remains the
+best verified 9-ID WIN. Evidence is under
+`docs/review/fc77177/m62_m61_execution_ready_validation_v1/`.
+
 After committing the protocol repair (`c415941`), a static-only check used the
 same failed M60 plan after the audited outer-field move. Protocol validation
 passed and all 35 actions remained hash-identical, but the existing static

@@ -1,0 +1,176 @@
+{
+  "authorization": {
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_remaining": 0,
+    "fixed_full_stage_simulations_started": 1,
+    "historical_balance_transferred": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "new_tactical_cli_calls_max": 0,
+    "new_tactical_cli_calls_started": 0
+  },
+  "baseline": {
+    "best_verified_distinct_operator_union": 9,
+    "best_verified_win_plan_id": "R8_7_GPT_M52_V1",
+    "eight_operator_impossibility_proved": false,
+    "m61_roster_rejected": false
+  },
+  "budget_counters": {
+    "max_stage_simulations": 1,
+    "prior_stage_simulations": 0,
+    "started_stage_simulations": 1
+  },
+  "claims": {
+    "faithful": "NOT_ISSUED",
+    "global_minimum": false,
+    "probabilistic_win": false,
+    "real_game": "NOT_PLAYED",
+    "robust": "NOT_EVALUATED"
+  },
+  "input": {
+    "action_count": 34,
+    "action_timeline_canonical_sha256": "c2691dd635ec7df6fd385e9723d7cb8ea536bc429d49390f1c475b8dc51993a7",
+    "context_sha256": "80e1cfc9e4b257c1bf49907aee87a0ebcef06b6913bc4be421773e814a65275b",
+    "debug_configuration_traceability": "M61_ARCHIVE_AND_M60_FULL_FACTS",
+    "execution_input_gate_status": "PASS",
+    "plan_canonical_sha256": "1f8e046f966dfcd691439068774dd7badfeb500c61f2e86bd087efe36d508ff2",
+    "plan_id": "R8_7_GPT_M61_V1",
+    "plan_sha256": "81b780e6de8610595af6fb23059a029e7b16a7391fb05625bd0b681ebf7bdeaf",
+    "precheck_status": "PASS",
+    "selected_and_deploy_union_size": 8,
+    "selected_chinese_roster": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "安赛尔",
+      "芙蓉",
+      "斑点",
+      "史都华德"
+    ],
+    "selected_structure_id": "M61_RECIPROCAL_MEDIC_SPOT_ROTATION",
+    "source": "M61_EXECUTION_INPUT_REPAIR_ARCHIVE",
+    "static_conflict_count": 0,
+    "static_unknown_count": 0
+  },
+  "key_duties": {
+    "artillery": "FAILED: #0 received 38 hits/11035.13 from Steward and zero BLOCK, killed #3, and leaked at 5759.",
+    "fang_spot_handoff": "PASS_IN_OPENING: Fang living retreat at 1710 refunded 5, Spot deployed at 2041, first blocked #10 at 2588, no leak in that handoff.",
+    "final_armor_34": "FAILED: #34 received only 2 hits/49.7 from Midnight, zero BLOCK, and leaked at 6996.",
+    "midnight_retreat": "CONDITIONAL: retreat at 4098 released #17; Fang killed #17 at 4099, so the enemy was closed but not before the retreat frame.",
+    "opening_medical": "PASS_UNTIL_LATE_PRESSURE: Ansel survived past the M59 2261 failure point and died at 4551 after artillery/officer combined pressure.",
+    "roadblock_and_civilian": "PARTIAL: all four roadblocks were destroyed; #3 died at 5353, #14 reached at 9798.",
+    "steward_return": "PARTIAL: [5,5] DOWN return at 6901 was legal after death-cooldown and cost; it killed #21/#27/#29, but did not contact #34."
+  },
+  "model_gap": {
+    "decisive_unexpressible_behavior": "NONE_OBSERVED",
+    "note": "The M61 selected structure was executed; no pre-swing lock was assumed."
+  },
+  "operator_death_assessment": [
+    {
+      "chinese_name": "史都华德",
+      "classification": "EFFECTIVE_BUT_INSUFFICIENT",
+      "contribution": "11035.13 damage to artillery #0 plus later return kills; insufficient to kill #0.",
+      "cost": "4800 retreat illegal; death caused no refund.",
+      "death_frame": 4393,
+      "operator_id": "char_210_stward"
+    },
+    {
+      "chinese_name": "安赛尔",
+      "classification": "EFFECTIVE_BUT_INSUFFICIENT",
+      "contribution": "13523.3 healing across opening and midgame; kept Steward and others alive through multiple artillery hits.",
+      "cost": "no refund; later skills failed.",
+      "death_frame": 4551,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "chinese_name": "Friston-3",
+      "classification": "EFFECTIVE_BUT_INSUFFICIENT",
+      "contribution": "5344 damage and sustained blocking; absorbed #20/#22 pressure.",
+      "cost": "released #20/#22; #20 and #22 leaked.",
+      "death_frame": 5524,
+      "operator_id": "char_4093_frston"
+    },
+    {
+      "chinese_name": "芬",
+      "classification": "EFFECTIVE_BUT_INSUFFICIENT",
+      "contribution": "10850 damage, killed #15/#17 and damaged #23.",
+      "cost": "no refund; 6160 retreat illegal; #23/#25 leaked.",
+      "death_frame": 5703,
+      "operator_id": "char_123_fang"
+    }
+  ],
+  "reservation": {
+    "budget_sha256_before_reserve": "1f00cac9a96884363ce9d76ad6c034d2722143908631cb6468d66d256685356e",
+    "diagnostic_output_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m62_m61_execution_ready_validation_v1/attempt_01_diagnostic",
+    "reservation_index": 1,
+    "result_saved": true,
+    "schema_version": "KIMIARK_STAGE_SIMULATION_RESERVATION_V1",
+    "source_dir": "output/r8_1_r8_7_batch_v1/main_08-07/m62_m61_execution_ready_validation_v1/candidate_v1",
+    "stage_id": "main_08-07",
+    "status": "COMPLETED"
+  },
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "final_dp": 99.0,
+    "first_leak": {
+      "enemy_id": "enemy_1112_emppnt#0",
+      "frame": 5759
+    },
+    "first_objective_failure": {
+      "frame": 5851,
+      "reason": "ENEMY_LEAK",
+      "remaining_life": 0
+    },
+    "first_operator_death": {
+      "frame": 4393,
+      "operator_id": "char_210_stward"
+    },
+    "first_protected_target_death": {
+      "frame": 5353,
+      "target_id": "enemy_3001_upeopl#3"
+    },
+    "operator_deaths": 4,
+    "protected_target_outcomes": {
+      "enemy_3001_upeopl#14": "REACHED",
+      "enemy_3001_upeopl#3": "KILLED"
+    },
+    "protected_target_zero_deaths": false,
+    "protected_targets_all_reached": false,
+    "remaining_enemy_hp_or_progress": 0,
+    "remaining_life": -7,
+    "runtime_action_errors": [
+      "char_210_stward@160.0: operator is not deployed",
+      "char_212_ansel@189.13333333333333: operator is not deployed",
+      "char_123_fang@205.33333333333334: operator is not deployed",
+      "char_212_ansel@249.16666666666666: operator is not deployed",
+      "char_212_ansel@309.2: operator is not deployed"
+    ],
+    "simulator_win": false
+  },
+  "schema_version": "M62_CLOSEOUT_V1",
+  "scope": "CURRENT_FIXED_MODEL_ONLY_SINGLE_FULL_STAGE_SIMULATION",
+  "simulation_attempt": {
+    "action_count": 34,
+    "automatic_retry": false,
+    "plan_id": "R8_7_GPT_M61_V1",
+    "policy": [
+      "SYNTHETIC_90_DEGREE_ROW_COL",
+      "HIERARCHICAL_FRAGMENT_DURATION_SECOND_QUANTIZED",
+      "ZERO_WINDUP_ZERO_EXTRA_RECOVERY",
+      "INSTANT_PROJECTILE",
+      "REVERSED_SERIALIZED_MAP_ROW",
+      "EXISTING_SYNTHETIC_PHYSICAL_DAMAGE",
+      "ONE_DP_PER_COST_INCREASE_INTERVAL",
+      "WAIT_FOR_SECONDS_AT_PREVIOUS_MOVE_NODE",
+      "SOURCE_RANGE_RADIUS_NEAREST_OPERATOR"
+    ],
+    "result_saved": true,
+    "schema_version": "GPT_TACTICAL_STAGE_DIAGNOSTIC_ATTEMPT_V1",
+    "stage_id": "main_08-07",
+    "stage_simulations_started": 1,
+    "status": "COMPLETED"
+  },
+  "status": "COMPLETED_FIXED_SIMULATOR_LOSS"
+}

@@ -1,0 +1,1762 @@
+{
+  "candidate": {
+    "action_count": 34,
+    "action_timeline_canonical_sha256": "c2691dd635ec7df6fd385e9723d7cb8ea536bc429d49390f1c475b8dc51993a7",
+    "context_sha256": "80e1cfc9e4b257c1bf49907aee87a0ebcef06b6913bc4be421773e814a65275b",
+    "plan_canonical_sha256": "1f8e046f966dfcd691439068774dd7badfeb500c61f2e86bd087efe36d508ff2",
+    "plan_id": "R8_7_GPT_M61_V1",
+    "plan_sha256": "81b780e6de8610595af6fb23059a029e7b16a7391fb05625bd0b681ebf7bdeaf",
+    "selected_structure_id": "M61_RECIPROCAL_MEDIC_SPOT_ROTATION"
+  },
+  "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+  "event_count": 43918,
+  "event_type_counts": {
+    "ATTACK_RECOVERY_END": 320,
+    "ATTACK_START": 976,
+    "ATTACK_STRIKE": 325,
+    "ATTACK_WINDUP": 7060,
+    "BLOCK": 31,
+    "DAMAGE": 747,
+    "DEPLOY": 12,
+    "DEVICE_DAMAGE": 70,
+    "DEVICE_DESTROYED": 4,
+    "DEVICE_TARGET_SELECTION": 13499,
+    "DP_CHANGE": 7,
+    "ENEMY_ABILITY_HIT": 26,
+    "ENEMY_ABILITY_START": 23,
+    "ENEMY_DEATH": 25,
+    "ENEMY_LEAK": 9,
+    "HEAL": 162,
+    "OBJECTIVE_FAILURE": 8,
+    "OPERATOR_DEATH": 4,
+    "PROJECTILE_BORN": 674,
+    "PROJECTILE_HIT": 651,
+    "PROTECTED_TARGET_REACHED": 1,
+    "RETREAT": 5,
+    "SKILL_ACTIVATE": 33,
+    "SKILL_END": 17,
+    "SKILL_READY": 17,
+    "SPAWN": 35,
+    "TARGET_SELECTION": 19147,
+    "UNBLOCK": 30
+  },
+  "first_failure": {
+    "economic_events": [
+      {
+        "details": {
+          "after": 99.0,
+          "amount": 7,
+          "before": 99.0,
+          "reason": "retreat_refund"
+        },
+        "event_type": "DP_CHANGE",
+        "frame": 6780,
+        "source_id": "char_208_melan",
+        "target_id": null,
+        "time": 226.0
+      }
+    ],
+    "first_leak": {
+      "details": {
+        "amount": 1
+      },
+      "event_type": "ENEMY_LEAK",
+      "frame": 5759,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": null,
+      "time": 191.9666666667
+    },
+    "objective_failure": {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": 0,
+        "time": 195.0333333333
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5851,
+      "source_id": null,
+      "target_id": null,
+      "time": 195.0333333333
+    },
+    "related_enemy_events": []
+  },
+  "key_enemies": {
+    "enemy_1110_uamord#34": {
+      "ability_and_terminal": [
+        {
+          "count": 1,
+          "event_type": "ENEMY_LEAK",
+          "first_frame": 6996,
+          "last_frame": 6996,
+          "source_id": "enemy_1110_uamord#34",
+          "target_id": null,
+          "total": 1.0
+        }
+      ],
+      "block_events": [],
+      "damage_to_enemy": [
+        {
+          "count": 2,
+          "event_type": "DAMAGE",
+          "first_frame": 6706,
+          "last_frame": 6745,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1110_uamord#34",
+          "total": 49.7
+        }
+      ],
+      "outcome": "LEAKED"
+    },
+    "enemy_1112_emppnt#0": {
+      "ability_and_terminal": [
+        {
+          "count": 23,
+          "event_type": "ENEMY_ABILITY_START",
+          "first_frame": 1893,
+          "last_frame": 5253,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null,
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 1903,
+          "last_frame": 1903,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_208_melan",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 1993,
+          "last_frame": 1993,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_208_melan",
+          "total": 845.0
+        },
+        {
+          "count": 11,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 2053,
+          "last_frame": 4153,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_120_hibisc",
+          "total": 0.0
+        },
+        {
+          "count": 11,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 2143,
+          "last_frame": 4243,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_120_hibisc",
+          "total": 9790.0
+        },
+        {
+          "count": 5,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 2953,
+          "last_frame": 4303,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_210_stward",
+          "total": 0.0
+        },
+        {
+          "count": 5,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 3043,
+          "last_frame": 4393,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_210_stward",
+          "total": 4550.0
+        },
+        {
+          "count": 6,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 3043,
+          "last_frame": 4543,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_212_ansel",
+          "total": 5346.0
+        },
+        {
+          "count": 1,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 4453,
+          "last_frame": 4453,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_212_ansel",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 4663,
+          "last_frame": 4663,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_284_spot",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 4753,
+          "last_frame": 4753,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_284_spot",
+          "total": 558.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 4753,
+          "last_frame": 4753,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_4093_frston",
+          "total": 765.0
+        },
+        {
+          "count": 1,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 4813,
+          "last_frame": 4813,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_123_fang",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_ABILITY_HIT",
+          "first_frame": 4903,
+          "last_frame": 4903,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "char_123_fang",
+          "total": 740.0
+        },
+        {
+          "count": 3,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 4963,
+          "last_frame": 5263,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_DEATH",
+          "first_frame": 5353,
+          "last_frame": 5353,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_LEAK",
+          "first_frame": 5759,
+          "last_frame": 5759,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null,
+          "total": 1.0
+        }
+      ],
+      "block_events": [],
+      "damage_to_enemy": [
+        {
+          "count": 38,
+          "event_type": "DAMAGE",
+          "first_frame": 2581,
+          "last_frame": 4357,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1112_emppnt#0",
+          "total": 11035.130000000006
+        }
+      ],
+      "outcome": "LEAKED"
+    }
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "objective_failures": [
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": 0,
+        "time": 195.0333333333
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5851,
+      "source_id": null,
+      "target_id": null,
+      "time": 195.0333333333
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -1,
+        "time": 197.4333333333
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5923,
+      "source_id": null,
+      "target_id": null,
+      "time": 197.4333333333
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -2,
+        "time": 199.1666666667
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5975,
+      "source_id": null,
+      "target_id": null,
+      "time": 199.1666666667
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -3,
+        "time": 199.6666666667
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5990,
+      "source_id": null,
+      "target_id": null,
+      "time": 199.6666666667
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -4,
+        "time": 202.7333333333
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 6082,
+      "source_id": null,
+      "target_id": null,
+      "time": 202.7333333333
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -5,
+        "time": 209.7333333333
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 6292,
+      "source_id": null,
+      "target_id": null,
+      "time": 209.7333333333
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -6,
+        "time": 228.2
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 6846,
+      "source_id": null,
+      "target_id": null,
+      "time": 228.2
+    },
+    {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": -7,
+        "time": 233.2
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 6996,
+      "source_id": null,
+      "target_id": null,
+      "time": 233.2
+    }
+  ],
+  "operators": {
+    "char_120_hibisc": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [],
+      "enemy_damage_hits": 0,
+      "enemy_damage_total": 0,
+      "heals": [
+        {
+          "count": 11,
+          "event_type": "HEAL",
+          "first_frame": 1681,
+          "last_frame": 5425,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_4093_frston",
+          "total": 2847.3999999999996
+        },
+        {
+          "count": 21,
+          "event_type": "HEAL",
+          "first_frame": 2143,
+          "last_frame": 6543,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_120_hibisc",
+          "total": 6547.3
+        },
+        {
+          "count": 32,
+          "event_type": "HEAL",
+          "first_frame": 3009,
+          "last_frame": 8100,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_284_spot",
+          "total": 8565.3
+        },
+        {
+          "count": 5,
+          "event_type": "HEAL",
+          "first_frame": 3095,
+          "last_frame": 3619,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_210_stward",
+          "total": 2400.1
+        },
+        {
+          "count": 3,
+          "event_type": "HEAL",
+          "first_frame": 3447,
+          "last_frame": 4479,
+          "source_id": "char_120_hibisc",
+          "target_id": "char_212_ansel",
+          "total": 1427.9
+        }
+      ]
+    },
+    "char_123_fang": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [
+        {
+          "count": 9,
+          "event_type": "DAMAGE",
+          "first_frame": 454,
+          "last_frame": 710,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1108_uterer#1",
+          "total": 2025.0
+        },
+        {
+          "count": 5,
+          "event_type": "DAMAGE",
+          "first_frame": 742,
+          "last_frame": 870,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1108_uterer#2",
+          "total": 1125.0
+        },
+        {
+          "count": 9,
+          "event_type": "DAMAGE",
+          "first_frame": 1181,
+          "last_frame": 1437,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1107_uoffcr#6",
+          "total": 1575.0
+        },
+        {
+          "count": 8,
+          "event_type": "DAMAGE",
+          "first_frame": 1469,
+          "last_frame": 1693,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1107_uoffcr#7",
+          "total": 1400.0
+        },
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 3811,
+          "last_frame": 3875,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1107_uoffcr#15",
+          "total": 525.0
+        },
+        {
+          "count": 7,
+          "event_type": "DAMAGE",
+          "first_frame": 3907,
+          "last_frame": 4099,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1107_uoffcr#17",
+          "total": 1225.0
+        },
+        {
+          "count": 17,
+          "event_type": "DAMAGE",
+          "first_frame": 5171,
+          "last_frame": 5683,
+          "source_id": "char_123_fang",
+          "target_id": "enemy_1107_uoffcr#23",
+          "total": 2975.0
+        }
+      ],
+      "enemy_damage_hits": 58,
+      "enemy_damage_total": 10850.0,
+      "heals": []
+    },
+    "char_208_melan": {
+      "device_damage_and_destroy": [
+        {
+          "count": 14,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 841,
+          "last_frame": 1966,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#4",
+          "total": 8358.560000000001
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 1966,
+          "last_frame": 1966,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#4",
+          "total": 0.0
+        },
+        {
+          "count": 14,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 8881,
+          "last_frame": 9466,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#2",
+          "total": 8358.560000000001
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 9466,
+          "last_frame": 9466,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#2",
+          "total": 0.0
+        }
+      ],
+      "enemy_damage": [
+        {
+          "count": 6,
+          "event_type": "DAMAGE",
+          "first_frame": 1021,
+          "last_frame": 1246,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1108_uterer#5",
+          "total": 4182.240000000001
+        },
+        {
+          "count": 6,
+          "event_type": "DAMAGE",
+          "first_frame": 1561,
+          "last_frame": 1786,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#9",
+          "total": 3882.2400000000002
+        },
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 3617,
+          "last_frame": 3752,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#16",
+          "total": 4182.240000000001
+        },
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 3917,
+          "last_frame": 4052,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#18",
+          "total": 3783.7200000000003
+        },
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 5267,
+          "last_frame": 5402,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#24",
+          "total": 4182.240000000001
+        },
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 5627,
+          "last_frame": 5762,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#26",
+          "total": 4182.240000000001
+        },
+        {
+          "count": 6,
+          "event_type": "DAMAGE",
+          "first_frame": 6167,
+          "last_frame": 6392,
+          "source_id": "char_208_melan",
+          "target_id": "enemy_1107_uoffcr#32",
+          "total": 3882.2400000000002
+        }
+      ],
+      "enemy_damage_hits": 34,
+      "enemy_damage_total": 28277.160000000007,
+      "heals": []
+    },
+    "char_210_stward": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [
+        {
+          "count": 38,
+          "event_type": "DAMAGE",
+          "first_frame": 2581,
+          "last_frame": 4357,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1112_emppnt#0",
+          "total": 11035.130000000006
+        },
+        {
+          "count": 16,
+          "event_type": "DAMAGE",
+          "first_frame": 6901,
+          "last_frame": 7621,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1110_uamord#21",
+          "total": 4658.17
+        },
+        {
+          "count": 5,
+          "event_type": "DAMAGE",
+          "first_frame": 7669,
+          "last_frame": 7861,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1108_uterer#27",
+          "total": 2351.504
+        },
+        {
+          "count": 5,
+          "event_type": "DAMAGE",
+          "first_frame": 7909,
+          "last_frame": 8101,
+          "source_id": "char_210_stward",
+          "target_id": "enemy_1108_uterer#29",
+          "total": 2351.504
+        }
+      ],
+      "enemy_damage_hits": 64,
+      "enemy_damage_total": 20396.308000000008,
+      "heals": []
+    },
+    "char_212_ansel": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [],
+      "enemy_damage_hits": 0,
+      "enemy_damage_total": 0,
+      "heals": [
+        {
+          "count": 10,
+          "event_type": "HEAL",
+          "first_frame": 1321,
+          "last_frame": 4333,
+          "source_id": "char_212_ansel",
+          "target_id": "char_4093_frston",
+          "total": 2708.4
+        },
+        {
+          "count": 2,
+          "event_type": "HEAL",
+          "first_frame": 1407,
+          "last_frame": 1579,
+          "source_id": "char_212_ansel",
+          "target_id": "char_123_fang",
+          "total": 724.0
+        },
+        {
+          "count": 6,
+          "event_type": "HEAL",
+          "first_frame": 2072,
+          "last_frame": 4505,
+          "source_id": "char_212_ansel",
+          "target_id": "char_208_melan",
+          "total": 2795.0
+        },
+        {
+          "count": 10,
+          "event_type": "HEAL",
+          "first_frame": 2330,
+          "last_frame": 4247,
+          "source_id": "char_212_ansel",
+          "target_id": "char_120_hibisc",
+          "total": 4602.7
+        },
+        {
+          "count": 3,
+          "event_type": "HEAL",
+          "first_frame": 3043,
+          "last_frame": 3473,
+          "source_id": "char_212_ansel",
+          "target_id": "char_210_stward",
+          "total": 1075.1
+        },
+        {
+          "count": 1,
+          "event_type": "HEAL",
+          "first_frame": 3129,
+          "last_frame": 3129,
+          "source_id": "char_212_ansel",
+          "target_id": "char_284_spot",
+          "total": 33.0
+        },
+        {
+          "count": 4,
+          "event_type": "HEAL",
+          "first_frame": 3387,
+          "last_frame": 4419,
+          "source_id": "char_212_ansel",
+          "target_id": "char_212_ansel",
+          "total": 1585.1
+        }
+      ]
+    },
+    "char_283_midn": {
+      "device_damage_and_destroy": [
+        {
+          "count": 15,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 1936,
+          "last_frame": 2482,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#3",
+          "total": 8051.400000000002
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 2482,
+          "last_frame": 2482,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#3",
+          "total": 0.0
+        },
+        {
+          "count": 27,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 6628,
+          "last_frame": 7720,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#1",
+          "total": 8019.0
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 7720,
+          "last_frame": 7720,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#1",
+          "total": 0.0
+        }
+      ],
+      "enemy_damage": [
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 571,
+          "last_frame": 688,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1108_uterer#1",
+          "total": 1588.0
+        },
+        {
+          "count": 5,
+          "event_type": "DAMAGE",
+          "first_frame": 727,
+          "last_frame": 883,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1108_uterer#2",
+          "total": 1985.0
+        },
+        {
+          "count": 9,
+          "event_type": "DAMAGE",
+          "first_frame": 922,
+          "last_frame": 1234,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1108_uterer#4",
+          "total": 3573.0
+        },
+        {
+          "count": 5,
+          "event_type": "DAMAGE",
+          "first_frame": 1273,
+          "last_frame": 1429,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#6",
+          "total": 1735.0
+        },
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 1468,
+          "last_frame": 1897,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#7",
+          "total": 1420.52
+        },
+        {
+          "count": 9,
+          "event_type": "DAMAGE",
+          "first_frame": 1507,
+          "last_frame": 1819,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#8",
+          "total": 3502.5200000000004
+        },
+        {
+          "count": 7,
+          "event_type": "DAMAGE",
+          "first_frame": 2561,
+          "last_frame": 2795,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#10",
+          "total": 3757.3200000000006
+        },
+        {
+          "count": 6,
+          "event_type": "DAMAGE",
+          "first_frame": 2834,
+          "last_frame": 3029,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#11",
+          "total": 2841.04
+        },
+        {
+          "count": 9,
+          "event_type": "DAMAGE",
+          "first_frame": 3068,
+          "last_frame": 3380,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#12",
+          "total": 3123.0
+        },
+        {
+          "count": 4,
+          "event_type": "DAMAGE",
+          "first_frame": 3419,
+          "last_frame": 3536,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#13",
+          "total": 1388.0
+        },
+        {
+          "count": 8,
+          "event_type": "DAMAGE",
+          "first_frame": 3575,
+          "last_frame": 3848,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#15",
+          "total": 2776.0
+        },
+        {
+          "count": 6,
+          "event_type": "DAMAGE",
+          "first_frame": 3887,
+          "last_frame": 4082,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#17",
+          "total": 2082.0
+        },
+        {
+          "count": 10,
+          "event_type": "DAMAGE",
+          "first_frame": 6199,
+          "last_frame": 6550,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1107_uoffcr#30",
+          "total": 3470.0
+        },
+        {
+          "count": 1,
+          "event_type": "DAMAGE",
+          "first_frame": 6589,
+          "last_frame": 6589,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1110_uamord#33",
+          "total": 24.85
+        },
+        {
+          "count": 2,
+          "event_type": "DAMAGE",
+          "first_frame": 6706,
+          "last_frame": 6745,
+          "source_id": "char_283_midn",
+          "target_id": "enemy_1110_uamord#34",
+          "total": 49.7
+        }
+      ],
+      "enemy_damage_hits": 88,
+      "enemy_damage_total": 33315.95,
+      "heals": []
+    },
+    "char_284_spot": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 3277,
+          "last_frame": 3349,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1107_uoffcr#12",
+          "total": 510.0
+        },
+        {
+          "count": 20,
+          "event_type": "DAMAGE",
+          "first_frame": 4121,
+          "last_frame": 5585,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1107_uoffcr#19",
+          "total": 3400.0
+        },
+        {
+          "count": 35,
+          "event_type": "DAMAGE",
+          "first_frame": 5621,
+          "last_frame": 7597,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1110_uamord#21",
+          "total": 560.0
+        },
+        {
+          "count": 7,
+          "event_type": "DAMAGE",
+          "first_frame": 7633,
+          "last_frame": 7849,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1108_uterer#27",
+          "total": 1540.0
+        },
+        {
+          "count": 7,
+          "event_type": "DAMAGE",
+          "first_frame": 7885,
+          "last_frame": 8101,
+          "source_id": "char_284_spot",
+          "target_id": "enemy_1108_uterer#29",
+          "total": 1540.0
+        }
+      ],
+      "enemy_damage_hits": 72,
+      "enemy_damage_total": 7550.0,
+      "heals": [
+        {
+          "count": 33,
+          "event_type": "HEAL",
+          "first_frame": 2589,
+          "last_frame": 7126,
+          "source_id": "char_284_spot",
+          "target_id": "char_284_spot",
+          "total": 7554.699999999999
+        },
+        {
+          "count": 17,
+          "event_type": "HEAL",
+          "first_frame": 2748,
+          "last_frame": 5108,
+          "source_id": "char_284_spot",
+          "target_id": "char_4093_frston",
+          "total": 3837.0
+        },
+        {
+          "count": 4,
+          "event_type": "HEAL",
+          "first_frame": 3043,
+          "last_frame": 3238,
+          "source_id": "char_284_spot",
+          "target_id": "char_212_ansel",
+          "total": 1782.0
+        }
+      ]
+    },
+    "char_4093_frston": {
+      "device_damage_and_destroy": [],
+      "enemy_damage": [
+        {
+          "count": 8,
+          "event_type": "DAMAGE",
+          "first_frame": 604,
+          "last_frame": 856,
+          "source_id": "char_4093_frston",
+          "target_id": "enemy_1108_uterer#2",
+          "total": 784.0
+        },
+        {
+          "count": 16,
+          "event_type": "DAMAGE",
+          "first_frame": 1331,
+          "last_frame": 1871,
+          "source_id": "char_4093_frston",
+          "target_id": "enemy_1107_uoffcr#7",
+          "total": 768.0
+        },
+        {
+          "count": 10,
+          "event_type": "DAMAGE",
+          "first_frame": 2711,
+          "last_frame": 3035,
+          "source_id": "char_4093_frston",
+          "target_id": "enemy_1107_uoffcr#11",
+          "total": 480.0
+        },
+        {
+          "count": 40,
+          "event_type": "DAMAGE",
+          "first_frame": 3071,
+          "last_frame": 4475,
+          "source_id": "char_4093_frston",
+          "target_id": "enemy_1107_uoffcr#13",
+          "total": 1920.0
+        },
+        {
+          "count": 29,
+          "event_type": "DAMAGE",
+          "first_frame": 4511,
+          "last_frame": 5519,
+          "source_id": "char_4093_frston",
+          "target_id": "enemy_1107_uoffcr#20",
+          "total": 1392.0
+        }
+      ],
+      "enemy_damage_hits": 103,
+      "enemy_damage_total": 5344.0,
+      "heals": []
+    }
+  },
+  "protected_target_deaths": [
+    {
+      "details": {
+        "kill_counted": false,
+        "life_delta": -1
+      },
+      "event_type": "ENEMY_DEATH",
+      "frame": 5353,
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "enemy_3001_upeopl#3",
+      "time": 178.4333333333
+    }
+  ],
+  "protected_target_reached_events": [
+    {
+      "details": {
+        "amount": 0
+      },
+      "event_type": "PROTECTED_TARGET_REACHED",
+      "frame": 9798,
+      "source_id": "enemy_3001_upeopl#14",
+      "target_id": null,
+      "time": 326.6
+    }
+  ],
+  "protected_targets": {
+    "enemy_3001_upeopl#14": {
+      "damage_received": [],
+      "events": [
+        {
+          "count": 1,
+          "event_type": "SPAWN",
+          "first_frame": 3030,
+          "last_frame": 3030,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null,
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "BLOCK",
+          "first_frame": 3620,
+          "last_frame": 3620,
+          "source_id": "trap_020_roadblock#2",
+          "target_id": "enemy_3001_upeopl#14",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "UNBLOCK",
+          "first_frame": 9466,
+          "last_frame": 9466,
+          "source_id": "trap_020_roadblock#2",
+          "target_id": "enemy_3001_upeopl#14",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "first_frame": 9798,
+          "last_frame": 9798,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null,
+          "total": 0.0
+        }
+      ],
+      "outcome": "REACHED"
+    },
+    "enemy_3001_upeopl#3": {
+      "damage_received": [
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 1296,
+          "last_frame": 1416,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 840.0
+        },
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 5053,
+          "last_frame": 5353,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 2850.0
+        }
+      ],
+      "events": [
+        {
+          "count": 1,
+          "event_type": "SPAWN",
+          "first_frame": 540,
+          "last_frame": 540,
+          "source_id": "enemy_3001_upeopl#3",
+          "target_id": null,
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "BLOCK",
+          "first_frame": 761,
+          "last_frame": 761,
+          "source_id": "trap_020_roadblock#3",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 3,
+          "event_type": "ATTACK_START",
+          "first_frame": 1296,
+          "last_frame": 1416,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 3,
+          "event_type": "ATTACK_STRIKE",
+          "first_frame": 1296,
+          "last_frame": 1416,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 1296,
+          "last_frame": 1416,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 840.0
+        },
+        {
+          "count": 3,
+          "event_type": "TARGET_SELECTION",
+          "first_frame": 1296,
+          "last_frame": 1416,
+          "source_id": "enemy_1107_uoffcr#8",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "UNBLOCK",
+          "first_frame": 2482,
+          "last_frame": 2482,
+          "source_id": "trap_020_roadblock#3",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 1,
+          "event_type": "BLOCK",
+          "first_frame": 2851,
+          "last_frame": 2851,
+          "source_id": "trap_020_roadblock#1",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 3,
+          "event_type": "PROJECTILE_BORN",
+          "first_frame": 4963,
+          "last_frame": 5263,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        },
+        {
+          "count": 3,
+          "event_type": "DAMAGE",
+          "first_frame": 5053,
+          "last_frame": 5353,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 2850.0
+        },
+        {
+          "count": 1,
+          "event_type": "ENEMY_DEATH",
+          "first_frame": 5353,
+          "last_frame": 5353,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "total": 0.0
+        }
+      ],
+      "outcome": "KILLED"
+    }
+  },
+  "result": {
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "final_dp": 99.0,
+    "first_objective_failure_reason": "ENEMY_LEAK",
+    "first_objective_failure_time": 195.0333333333,
+    "operator_deaths": 4,
+    "remaining_life": -7,
+    "score": -695.0,
+    "win": false
+  },
+  "roadblocks": {
+    "trap_020_roadblock#1": {
+      "aggregates": [
+        {
+          "count": 27,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 6628,
+          "last_frame": 7720,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#1",
+          "total": 8019.0
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 7720,
+          "last_frame": 7720,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#1",
+          "total": 0.0
+        }
+      ],
+      "damage_hits": 27,
+      "damage_total": 8019.0,
+      "destroyed_frames": [
+        7720
+      ]
+    },
+    "trap_020_roadblock#2": {
+      "aggregates": [
+        {
+          "count": 14,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 8881,
+          "last_frame": 9466,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#2",
+          "total": 8358.560000000001
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 9466,
+          "last_frame": 9466,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#2",
+          "total": 0.0
+        }
+      ],
+      "damage_hits": 14,
+      "damage_total": 8358.560000000001,
+      "destroyed_frames": [
+        9466
+      ]
+    },
+    "trap_020_roadblock#3": {
+      "aggregates": [
+        {
+          "count": 15,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 1936,
+          "last_frame": 2482,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#3",
+          "total": 8051.400000000002
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 2482,
+          "last_frame": 2482,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#3",
+          "total": 0.0
+        }
+      ],
+      "damage_hits": 15,
+      "damage_total": 8051.400000000002,
+      "destroyed_frames": [
+        2482
+      ]
+    },
+    "trap_020_roadblock#4": {
+      "aggregates": [
+        {
+          "count": 14,
+          "event_type": "DEVICE_DAMAGE",
+          "first_frame": 841,
+          "last_frame": 1966,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#4",
+          "total": 8358.560000000001
+        },
+        {
+          "count": 1,
+          "event_type": "DEVICE_DESTROYED",
+          "first_frame": 1966,
+          "last_frame": 1966,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#4",
+          "total": 0.0
+        }
+      ],
+      "damage_hits": 14,
+      "damage_total": 8358.560000000001,
+      "destroyed_frames": [
+        1966
+      ]
+    }
+  },
+  "route_summaries": {
+    "route-1": {
+      "blocks": [],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5759,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": null,
+          "time": 191.9666666667
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-10": {
+      "blocks": [
+        1598
+      ],
+      "kills": [
+        1786
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-11": {
+      "blocks": [
+        2738
+      ],
+      "kills": [
+        3035
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-12": {
+      "blocks": [
+        2588
+      ],
+      "kills": [
+        2795
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-13": {
+      "blocks": [
+        2948
+      ],
+      "kills": [
+        3380
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-14": {
+      "blocks": [
+        3098
+      ],
+      "kills": [
+        4475
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-15": {
+      "blocks": [
+        3620
+      ],
+      "kills": [],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-16": {
+      "blocks": [
+        3698,
+        3998
+      ],
+      "kills": [
+        3752,
+        4052
+      ],
+      "leaks": [],
+      "spawn_count": 2
+    },
+    "route-17": {
+      "blocks": [
+        3548,
+        3848
+      ],
+      "kills": [
+        3875,
+        4099
+      ],
+      "leaks": [],
+      "spawn_count": 2
+    },
+    "route-18": {
+      "blocks": [
+        4298
+      ],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5851,
+          "source_id": "enemy_1107_uoffcr#20",
+          "target_id": null,
+          "time": 195.0333333333
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-19": {
+      "blocks": [
+        4796
+      ],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5923,
+          "source_id": "enemy_1110_uamord#22",
+          "target_id": null,
+          "time": 197.4333333333
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-2": {
+      "blocks": [
+        761,
+        2851
+      ],
+      "kills": [
+        5353
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-20": {
+      "blocks": [
+        4148
+      ],
+      "kills": [
+        5585
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-21": {
+      "blocks": [
+        4646
+      ],
+      "kills": [
+        7621
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-22": {
+      "blocks": [
+        5252
+      ],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5975,
+          "source_id": "enemy_1107_uoffcr#23",
+          "target_id": null,
+          "time": 199.1666666667
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-23": {
+      "blocks": [
+        5702
+      ],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 5990,
+          "source_id": "enemy_1107_uoffcr#25",
+          "target_id": null,
+          "time": 199.6666666667
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-24": {
+      "blocks": [
+        6207
+      ],
+      "kills": [
+        6550
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-25": {
+      "blocks": [
+        5348
+      ],
+      "kills": [
+        5402
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-26": {
+      "blocks": [
+        5708
+      ],
+      "kills": [
+        5762
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-27": {
+      "blocks": [
+        6248
+      ],
+      "kills": [
+        6392
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-28": {
+      "blocks": [],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6082,
+          "source_id": "enemy_1108_uterer#28",
+          "target_id": null,
+          "time": 202.7333333333
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6292,
+          "source_id": "enemy_1108_uterer#31",
+          "target_id": null,
+          "time": 209.7333333333
+        }
+      ],
+      "spawn_count": 2
+    },
+    "route-29": {
+      "blocks": [],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6996,
+          "source_id": "enemy_1110_uamord#34",
+          "target_id": null,
+          "time": 233.2
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-3": {
+      "blocks": [
+        471
+      ],
+      "kills": [
+        710
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-30": {
+      "blocks": [
+        5721,
+        5931
+      ],
+      "kills": [
+        7861,
+        8101
+      ],
+      "leaks": [],
+      "spawn_count": 2
+    },
+    "route-31": {
+      "blocks": [],
+      "kills": [],
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 6846,
+          "source_id": "enemy_1110_uamord#33",
+          "target_id": null,
+          "time": 228.2
+        }
+      ],
+      "spawn_count": 1
+    },
+    "route-4": {
+      "blocks": [
+        1208
+      ],
+      "kills": [
+        1437
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-5": {
+      "blocks": [
+        621
+      ],
+      "kills": [
+        883
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-6": {
+      "blocks": [
+        1358
+      ],
+      "kills": [
+        1897
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-7": {
+      "blocks": [
+        921
+      ],
+      "kills": [
+        1234
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-8": {
+      "blocks": [
+        1493
+      ],
+      "kills": [
+        1819
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    },
+    "route-9": {
+      "blocks": [
+        1071
+      ],
+      "kills": [
+        1246
+      ],
+      "leaks": [],
+      "spawn_count": 1
+    }
+  },
+  "schema_version": "M62_EVENT_AUDIT_V1",
+  "scope": "ONE_FIXED_FULL_STAGE_SIMULATION_RAW_EVENTS",
+  "source_hashes": {
+    "events_file_sha256": "e6639eedcae5ab7a059bf86c4d8f9d347b038ae9f11309fdbe71ade912c6337f",
+    "summary_file_sha256": "092f19bb0d99afc951070ef73daa9411b5cedc57412f4b69deccab4e5f3bfffc"
+  },
+  "timeline": {
+    "ansel_death": 4551,
+    "first_leak": 5759,
+    "first_life_zero_or_negative": true,
+    "first_objective_failure": 5851,
+    "first_protected_target_death": 5353,
+    "steward_death": 4393
+  }
+}
