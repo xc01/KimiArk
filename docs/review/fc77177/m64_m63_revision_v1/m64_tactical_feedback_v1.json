@@ -1,0 +1,93 @@
+{
+  "schema_version": "M64_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M63_V3",
+  "source_stage_id": "main_08-07",
+  "source_scope": "M63_FIXED_FULL_STAGE_SIMULATION_ORIGINAL_EVENTS_AND_M62_CROSS_BRANCH_EVIDENCE",
+  "naming_corrections": {
+    "char_4227_gallus": "GALLUS² is a 1-star caster, not Gumu/Gum/古米; do not confuse names or IDs.",
+    "char_209_ardign": "卡缇 / Cardigan.",
+    "char_328_cammou": "卡达 / Click."
+  },
+  "m63_result_summary": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "win": false,
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 8,
+    "remaining_life": -12,
+    "first_leak": {"enemy_id": "enemy_1107_uoffcr#13", "frame": 3501},
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 5046, "remaining_life": 0},
+    "protected_target_outcomes": {
+      "enemy_3001_upeopl#3": "KILLED_BY_ARTILLERY_AT_5341",
+      "enemy_3001_upeopl#14": "REACHED_AT_9919"
+    }
+  },
+  "must_solve_together": [
+    {
+      "duty": "A_FIRST_DAMAGE_OPENING_MEDICAL_AND_HANDOFF",
+      "events": [
+        "char_4227_gallus deployed at 601, dealt 208.8 to runner #2 at 604/652/700 for 626.4 total, then artillery #0 dealt 948 at 701; GALLUS died with 525 max HP and zero artillery damage.",
+        "Hibiscus took 890 at 2293/2443/2593; self-heal at 2439 restored her to 1220, then 2443 left 330; Hibiscus healed 558.9 at 2525 to 888.9; 2593 killed her by 1.1 HP.",
+        "Friston took 765 artillery at 2860, blocked #13 at 3098, took 95 at 3099 and 3159, then died and unblocked; #13 leaked at 3501."
+      ],
+      "requirement": "For any newly assigned caster, decoy, or output operator, compute the first lock/attack window, whether immediate follow-ups are survivable, whether the healer is already active and in range, and who takes the duty if retreat/death occurs. Do not infer permanent presence from a low cost or arts panel."
+    },
+    {
+      "duty": "B_ARTILLERY_MIXED_DAMAGE_AND_KILL",
+      "m62_events": [
+        "Steward took 910 at 3493; healing at 3533/3619 left 935.2; shooter #21 dealt 289 at 4383 and artillery dealt 910 at 4393, killing him.",
+        "Artillery #0 received 38 hits totaling 11035.13 from Steward, had zero BLOCK, and leaked at 5759."
+      ],
+      "m63_events": [
+        "Artillery #0 killed protected #3 at 5341 and leaked at 5759."
+      ],
+      "requirement": "Plan mixed shooter/artillery pressure and healing-target competition. Actual kill before leakage is required; a single DAMAGE/BLOCK event or paper coverage is not closure."
+    },
+    {
+      "duty": "C_PROTECTED_TARGET_CONTINUOUS_ROADBLOCK_PASSAGE",
+      "m62_events": [
+        "Civilian #3 passed roadblock #3 at 2482 but was then blocked by roadblock #1 from 2851 until 7720.",
+        "Artillery #0 hit #3 for 950 at 5053/5203/5353 and killed it."
+      ],
+      "m63_events": [
+        "Civilian #3 was killed by artillery at 5341; #14 reached at 9919."
+      ],
+      "requirement": "Track each roadblock segment, officer exposure, artillery lock, and arrival. Clearing the first roadblock or eventually destroying all roadblocks is insufficient."
+    },
+    {
+      "duty": "D_ARMOR_34_REAL_CONTACT_CHAIN",
+      "m62_events": [
+        "#34 spawned at 6330 and leaked at 6996 with zero BLOCK; Midnight dealt only 49.7.",
+        "Steward returned to [5,5] DOWN at 6901 and killed #21/#27/#29, but had no #34 candidate."
+      ],
+      "m63_events": [
+        "Midnight died at 4753, making retreat at 6900 illegal; #34 leaked at 6996."
+      ],
+      "requirement": "Create a real stop/block/damage spatiotemporal window that kills #34 without leakage. Deployment legality and killing other enemies are not closure."
+    },
+    {
+      "duty": "E_LATE_ROTATION",
+      "m63_events": [
+        "Midnight died at 4753 and its 6900 retreat was illegal.",
+        "Steward redeployed legally at 6451 but died again at 6635 before closing the late chain."
+      ],
+      "requirement": "Recompute death cooldowns, redeploy cost, actual successors, and in-flight projectiles. Do not rely on a retreat that cannot occur because the operator is already dead."
+    }
+  ],
+  "preserved_success_fragments": [
+    "M62 opening retained a stable Fang living retreat at 1710, Spot deploy at 2041, first block at 2588, no leak in that handoff, and Spot healing 13173.7.",
+    "M62 Steward's later return killed #21/#27/#29, but did not contact #34.",
+    "M63 selected GALLUS² and showed early stage damage, but its artillery survival expectation failed."
+  ],
+  "death_accounting_policy": "Deaths are evaluated by contribution and handoff, not minimized. A sacrifice is valid only when the action is settled and remaining duties have a real successor.",
+  "user_confirmed_tactical_premise": "Attack intervals, action occupancy, attack baiting, damage absorption, rotation, and valuable sacrifice may be used as design principles; do not represent them as new client-verified rules.",
+  "model_capability_constraints": {
+    "ordinary_attack_targeting": "Target is selected at ATTACK_STRIKE; reliable pre-swing target locking is not expressible.",
+    "retreat_cooldown": "Attack cooldown does not reset after the operator has actually attacked.",
+    "artillery": "Cast starts cooldown and target selection; projectile birth locks the landing point; delayed area hit follows.",
+    "spot_skill": "EXECUTABLE_APPROXIMATED only: initial SP 25/40, 25 seconds, ATK +45%, 1.3-second healing interval, x-4 range, no attacks while healing; physical-dodge talent is unsupported.",
+    "ansel_probability_extra_heal": "NOT_IMPLEMENTED; do not assume dual healing.",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "open_roster_revision_policy": "Compare at least three materially different structures in one call, then autonomously select and output one complete executable plan. Do not force or exclude GALLUS², Spot, Fang, Friston, or any operator; do not impose quotas or require sacrifice."
+}

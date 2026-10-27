@@ -546,3 +546,10 @@ fixed-model LOSS at 19/14/8/life -12. The decisive breaks were early officer
 leakage at 3501, artillery-driven protected-target death at 5341, continued
 artillery leak at 5759, and unresolved final armor #34 at 6996. M52 V1 remains
 the best verified current-model WIN.
+
+M64 used one GPT revision call and one fixed simulation. Its early
+Midnight/Spot/two-Fang-return structure passed all pre-run gates but became an
+early-leak LOSS at 20/13/7/life -11. The upper-outer officer leak at 4821
+preempted the plan's later artillery, protected-route, and #34 closures;
+protected #3 again died to artillery while #14 reached. M52 V1 remains the
+best verified current-model WIN.

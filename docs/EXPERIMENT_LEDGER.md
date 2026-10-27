@@ -1124,3 +1124,21 @@ while #14 reached at 9919. Final armor #34 leaked at 6996. Midnight died at
 but he died again at 6635. No WIN/LOSS claim extends beyond the fixed
 simulator, and M52 V1 remains best verified. Evidence is under
 `docs/review/fc77177/m63_m62_feedback_revision_v1/evidence/attempt_03/`.
+
+## 2026-10-27 — M64 closes as an early-leak LOSS
+
+M64 made its own single GPT revision call. It compared early Midnight/Spot with
+two Fang returns, Vanilla/Durin stationary arts, and Cardigan/Yato bait; it
+selected the first because its decisive actions were current-model checkable.
+The accepted plan used 芬/Friston-3/月见夜/玫兰莎/芙蓉/安赛尔/史都华德/斑点,
+had 36 actions and an 8-ID union, and passed contract, execution-input, and
+static checks with zero conflicts and zero unknowns.
+
+The one authorized fixed simulation completed as a LOSS at 20 kills, 13 leaks,
+7 operator deaths, and life -11. The first leak was officer #20 at 4821, and
+objective failure began at 5196. Artillery #0 again killed protected #3 at
+5341 and leaked at 5759; #14 reached at 9618. Armor #34 still leaked at 6996.
+Hibiscus, Ansel, Steward, Friston, Spot, Midnight, and Fang all died, with
+illegal retreats at 4440/4770/6330 after respective death states. M52 V1
+remains the best verified current-model simulator WIN. Evidence is under
+`docs/review/fc77177/m64_m63_revision_v1/`.
