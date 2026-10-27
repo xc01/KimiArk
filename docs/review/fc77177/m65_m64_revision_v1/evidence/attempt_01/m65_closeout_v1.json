@@ -1,0 +1,97 @@
+{
+  "schema_version": "M65_CLOSEOUT_V1",
+  "status": "COMPLETED_FIXED_SIMULATOR_LOSS",
+  "scope": "CURRENT_FIXED_MODEL_SINGLE_GPT_REVISION_CALL_AND_ONE_FIXED_FULL_STAGE_SIMULATION",
+  "budget": {
+    "new_tactical_cli_calls_max": 1,
+    "new_tactical_cli_calls_started": 1,
+    "fixed_full_stage_simulations_max": 1,
+    "fixed_full_stage_simulations_started": 1,
+    "historical_balance_transferred": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "input": {
+    "plan_id": "R8_7_GPT_M65_V1",
+    "selected_structure_id": "M65_PERMANENT_CORE_DURIN_ROTATION",
+    "comparison_candidates": [
+      "M65_M62_SPOT_REPAIR",
+      "M65_PERMANENT_CORE_DURIN_ROTATION",
+      "M65_GUARDIAN_CARDIGAN_YATO_BAIT"
+    ],
+    "action_count": 25,
+    "selected_chinese_roster": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "安赛尔",
+      "芙蓉",
+      "史都华德",
+      "杜林"
+    ],
+    "selected_and_deploy_union_size": 8,
+    "contract_validation": "PASS",
+    "execution_input_gate": "PASS",
+    "static_conflict_count": 0,
+    "static_unknown_count": 0
+  },
+  "model_selection_summary": {
+    "selected_reason": "Separates isolated artillery-bait damage from shared-caster medical exposure, keeps a permanent central Steward output lane, and rotates Durin after a countable first damage window.",
+    "rejected_reasons": [
+      "M65_M62_SPOT_REPAIR retained an incompatible long arts-output handoff and final-armor containment burden.",
+      "M65_GUARDIAN_CARDIGAN_YATO_BAIT depends on a key pre-swing/rotation behavior the current executor cannot reliably express."
+    ]
+  },
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "simulator_win": false,
+    "enemies_killed": 20,
+    "enemies_leaked": 13,
+    "operator_deaths": 5,
+    "remaining_life": -11,
+    "first_leak": {
+      "enemy_id": "enemy_1107_uoffcr#19",
+      "frame": 4507
+    },
+    "first_objective_failure": {
+      "reason": "PROTECTED_TARGET_DEATH",
+      "frame": 5384,
+      "remaining_life": 0
+    },
+    "protected_target_outcomes": {
+      "enemy_3001_upeopl#3": "KILLED_BY_enemy_1107_uoffcr#23_AT_5384",
+      "enemy_3001_upeopl#14": "REACHED_AT_9619"
+    },
+    "operator_death_frames": {
+      "char_210_stward": 2743,
+      "char_212_ansel": 3043,
+      "char_123_fang": 4180,
+      "char_283_midn": 4753,
+      "char_4093_frston": 6127
+    },
+    "runtime_action_errors": [
+      "char_212_ansel@144.0: operator is not deployed",
+      "char_283_midn@169.1: operator is not deployed",
+      "char_212_ansel@204.0: operator is not deployed",
+      "char_283_midn@220.0: operator is not deployed"
+    ]
+  },
+  "key_duties": {
+    "artillery": "FAILED: #0 took 4105.78 damage from Steward (3935.78) and Durin (170), was never killed, killed #3 at 5384 after two 950 hits, and leaked at 5759.",
+    "first_damage": "The declared isolated-bait hit occurred at 2143 on Hibiscus, but the later plan continued to depend on Ansel and Midnight after they died.",
+    "protected_route": "FAILED: #3 passed roadblock #3 at 2404 but was blocked by roadblock #1 at 2773; officer #23's final hit killed it at 5384. #14 reached at 9619.",
+    "armor_34": "FAILED: #34 had zero operator DAMAGE and zero BLOCK events, dealt five 340 arts hits, and leaked at 6996.",
+    "handoff": "FAILED: Steward and Ansel died at 2743/3043; illegal Ansel skills ran at 4320/6120 and illegal Midnight skill/retreat ran at 5073/6600. Durin's 3030 retreat and Melantha's 6601 retreat were legal."
+  },
+  "claims": {
+    "real_game": "NOT_PLAYED",
+    "faithful": "NOT_ISSUED",
+    "robust": "NOT_EVALUATED",
+    "probabilistic_win": false,
+    "global_minimum": false,
+    "eight_operator_impossibility_proved": false,
+    "roster_uselessness_inferred": false
+  },
+  "evidence_directory": "docs/review/fc77177/m65_m64_revision_v1/evidence/attempt_01",
+  "codex_session_sha256": "ca53a7439090aaa8cafb2d1fc5283f608a0325f774cfdc98e30ce68f319061e8"
+}

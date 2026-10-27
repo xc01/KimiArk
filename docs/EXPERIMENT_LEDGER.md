@@ -1142,3 +1142,26 @@ Hibiscus, Ansel, Steward, Friston, Spot, Midnight, and Fang all died, with
 illegal retreats at 4440/4770/6330 after respective death states. M52 V1
 remains the best verified current-model simulator WIN. Evidence is under
 `docs/review/fc77177/m64_m63_revision_v1/`.
+
+## 2026-10-28 — M65 closes at its single-call and single-simulation limits
+
+M65 made one real GPT revision call from M64's original events and the verified
+M62 cross-branch facts. Its no-model protocol fixture passed the nested
+`m58_open_roster_comparison` path, three distinct candidates, one selected ID,
+one referenced hypothesis, and the 8-ID union gate. The model compared Spot
+repair, permanent core with Durin rotation, and Cardigan/Yato bait; it
+autonomously selected `M65_PERMANENT_CORE_DURIN_ROTATION` with
+芬/Friston-3/月见夜/玫兰莎/安赛尔/芙蓉/史都华德/杜林 and 25 actions. Contract,
+execution preflight, and static compile all passed with 0 conflicts/unknowns.
+
+The one authorized full-stage simulation completed as a fixed-model LOSS:
+20 kills, 13 leaks, 5 operator deaths, and life -11. The first leak was officer
+#19 at 4507. Protected #3 passed roadblock #3 but remained blocked by roadblock
+#1, took two artillery hits plus three officer hits, and died at 5384; #14
+reached at 9619. Artillery #0 took 4105.78 damage without dying, hit #3 twice,
+and leaked at 5759. #34 had zero operator damage and zero blocks, hit
+Melantha/Hibiscus five times, and leaked at 6996. Steward, Ansel, Fang,
+Midnight, and Friston died at 2743/3043/4180/4753/6127; later Ansel and
+Midnight actions were illegal dead-state commands. M52 V1 remains the best
+verified current-model 9-ID WIN, and no eight-ID impossibility or
+operator-uselessness claim follows.

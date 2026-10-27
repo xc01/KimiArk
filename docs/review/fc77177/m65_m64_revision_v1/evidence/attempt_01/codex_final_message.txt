@@ -1,0 +1,631 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M65_V1",
+      "parent_hypothesis_id": "R8_7_M65_H1",
+      "tactical_thesis": "Keep Fang permanently in the upper inner lane and Steward permanently in a central firing position. Replace Spot with Durin: Durin supplies the missing artillery damage, withdraws before a locked splash lands, and returns to shorten Midnight's late officer fights. Separate the two physicians and deliberately assign Hibiscus one isolated artillery hit. This is a complete, unsimulated current-model hypothesis; packet-level healing, artillery hit counts and lower-lane capacity remain acceptance-critical predictions.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward",
+        "char_501_durin"
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "operator_id": "char_123_fang",
+          "tile": [3, 5],
+          "direction": "UP",
+          "duty": "Permanent upper-inner two-block containment, conditional DP generation and available lower-inner crossfire."
+        },
+        {
+          "operator_id": "char_4093_frston",
+          "tile": [4, 5],
+          "direction": "RIGHT",
+          "duty": "Permanent lower-inner three-block containment."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "tile": [1, 5],
+          "direction": "UP",
+          "duty": "Upper-outer interception, eastern upper roadblock destruction and available inner crossfire."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "tile": [6, 5],
+          "direction": "RIGHT",
+          "duty": "Lower-outer interception and eastern lower roadblock destruction."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "tile": [2, 6],
+          "direction": "UP",
+          "duty": "Heal both inner holders, Steward and himself; active extension also reaches Melantha."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "tile": [5, 3],
+          "direction": "RIGHT",
+          "duty": "Absorb one isolated western shell, then heal Friston, Melantha and central Steward."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "tile": [5, 6],
+          "direction": "DOWN",
+          "duty": "Attack artillery during actual exposure intervals and clear both inner lanes without a redeployment gap."
+        },
+        {
+          "operator_id": "char_501_durin",
+          "tile": [2, 7],
+          "direction": "UP",
+          "duty": "Contribute ordinary arts hits during the first eastern descent."
+        },
+        {
+          "operator_id": "char_501_durin",
+          "tile": [2, 5],
+          "direction": "DOWN",
+          "duty": "Return as upper-outer arts support."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "tile": [1, 3],
+          "direction": "LEFT",
+          "duty": "Destroy the western upper roadblock after completing hostile interception."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "tile": [6, 3],
+          "direction": "LEFT",
+          "duty": "Destroy the western lower roadblock after completing hostile interception."
+        }
+      ],
+      "formation_structure": {
+        "classification": "CURRENT_MODEL_CHECKABLE",
+        "status": "UNSIMULATED_FULL_STAGE_HYPOTHESIS",
+        "distinct_operator_ids": 8,
+        "maximum_simultaneous_deployments": 8,
+        "configuration": "Use the supplied normal-mode configurations. Credit Durin's supported generic arts attack only; credit no unsupported talent, dodge or probabilistic extra healing.",
+        "medical_geometry": "Ansel [2,6] UP normally covers Fang [3,5], Friston [4,5], Steward [5,6] and himself. His active extension reaches Melantha [6,5]. Hibiscus [5,3] RIGHT covers Friston, Melantha and Steward. Hibiscus cannot heal Ansel. Midnight has no ordinary medical coverage.",
+        "splash_geometry": "Steward and Ansel are three tiles apart. Hibiscus is three tiles from Steward. Ansel's locked point [2,6] is diagonally separated from Midnight [1,5] and Fang [3,5], outside radius 1.2. Opening Durin [2,7] shares Ansel's splash and must leave before its impact.",
+        "artillery_budget": {
+          "conditional_required_output": "At least 41 actual Steward artillery hits including eight enhanced hits, plus seven actual Durin artillery hits.",
+          "calculation": "33*249.1 + 8*473.29 + 7*170 = 13196.62 against 13000 HP.",
+          "exposure_basis": "Steward covers eastern flight cells [3..5,5..7] and [2,6]. Durin initially covers eastern cells in rows 2..4. Steward's final contact is the return across [2,6], not unrestricted coverage of the western flight.",
+          "expected_settlement_frames": [4680, 4860],
+          "limitations": "Exposure estimates do not prove acquisition, attack cadence or enhanced-hit distribution. Ground attacks during gaps can change attack-SP alignment. Fewer required hits or enhanced hits refutes this budget."
+        },
+        "opening_economy": {
+          "initial_dp": 10,
+          "natural_dp_per_second": 1,
+          "deployment_frames": [0, 91, 571, 841, 1321, 2040, 2071, 2401],
+          "deployment_costs": [10, 3, 16, 15, 17, 17, 18, 12],
+          "balances_after_deployment": [0, 0.033333, 6.033333, 0.033333, 5.033333, 12, 1.033333, 0.033333],
+          "required_fang_grants": [570, 1320, 2070],
+          "refunds_used_for_opening": 0,
+          "dependency": "Fang must survive all three credited grants. Failed income caused by losing his interception or healing is a survival failure."
+        },
+        "redeployment_accounting": {
+          "current_model_unchanged_costs": true,
+          "client_cost_escalation": "UNKNOWN",
+          "durin_retreat_frame": 3030,
+          "durin_refund_dp": 6,
+          "durin_return_frame": 5131,
+          "durin_return_cost": 12,
+          "midnight_retreat_and_return_frames": [6600, 8701],
+          "melantha_retreat_and_return_frames": [6601, 8702],
+          "minimum_used_redeploy_interval_frames": 2101,
+          "gross_scheduled_deployment_dp": 151,
+          "scheduled_living_refunds_dp": 21,
+          "death_refund_dp": 0
+        },
+        "duty_end_and_handoff_table": [
+          {
+            "operator_id": "char_123_fang",
+            "last_necessary_task": "Retain the final upper-inner armor until actual death.",
+            "expected_completion": "Before frame 8100; pending combat assumption.",
+            "handoff": "No retreat or successor is required; Steward supplies sustained arts damage."
+          },
+          {
+            "operator_id": "char_4093_frston",
+            "last_necessary_task": "Contain lower runners and armor #34 until Steward kills them.",
+            "expected_completion": "Before frame 8100; pending survival and queue-clearance assumption.",
+            "handoff": "No planned release. The earlier lower armor must die before #34 encounters a full three-enemy queue."
+          },
+          {
+            "operator_id": "char_210_stward",
+            "last_necessary_task": "Kill artillery, then all inner armored enemies including #34.",
+            "expected_completion": "Artillery by frame 4860; hostile clearance by frame 8100, both conditional.",
+            "handoff": "Remains deployed. This removes M64's dead-caster retreat and delayed-return dependency."
+          },
+          {
+            "operator_id": "char_501_durin",
+            "last_necessary_task": "Deliver seven initial artillery hits, then assist every late upper-outer officer.",
+            "expected_completion": "Initial hits before frame 3030; outer assistance through frame 6600.",
+            "handoff": "Withdraw alive for refund 6; return after 2101 frames at [2,5] DOWN."
+          },
+          {
+            "operator_id": "char_212_ansel",
+            "last_necessary_task": "Survive isolated bottom-flight shell sequences and sustain inner containment.",
+            "expected_completion": "Medical duty continues through hostile clearance.",
+            "handoff": "No medical rotation or retreat. First boost bridges the initial Steward barrage and the beginning of Ansel's own shell sequence."
+          },
+          {
+            "operator_id": "char_120_hibisc",
+            "last_necessary_task": "Absorb the assigned isolated hit, recover herself and sustain lower containment.",
+            "expected_completion": "Bait impact near frame 2143; medicine continues through hostile clearance.",
+            "handoff": "No retreat. Her later boosted windows overlap armored and runner pressure."
+          },
+          {
+            "operator_id": "char_283_midn",
+            "last_necessary_task": "Kill the final upper-outer officer before withdrawal, then destroy western roadblock #1.",
+            "expected_completion": "Hostile duty before frame 6600; western clearance approximately frames 9600–9900.",
+            "handoff": "Living retreat is conditional on an empty outer queue. Durin assists clearance but cannot replace blocking."
+          },
+          {
+            "operator_id": "char_208_melan",
+            "last_necessary_task": "Kill the final lower-outer officer, then destroy western roadblock #2.",
+            "expected_completion": "Hostile duty before frame 6601; western clearance approximately frames 9300–9600.",
+            "handoff": "Living retreat requires every lower-outer enemy dead."
+          }
+        ]
+      },
+      "formation_transitions": [
+        {
+          "frame": 1772,
+          "transition": "Midnight's first arts window accelerates eastern upper roadblock clearance and early inner cleanup."
+        },
+        {
+          "frame": 2040,
+          "transition": "Hibiscus enters the western tile just before the predicted 68.1-second cast, accepting one isolated shell rather than placing a physician next to Steward."
+        },
+        {
+          "frame": 2071,
+          "transition": "Steward establishes permanent central arts output."
+        },
+        {
+          "frame": 2520,
+          "transition": "Ansel boosts after the predicted first Steward hit and before subsequent repeated hits."
+        },
+        {
+          "frame": 3030,
+          "transition": "Durin leaves after his required attacks and after projectile birth, before the shared bottom-flight impact."
+        },
+        {
+          "frame": 4860,
+          "transition": "Artillery must be dead and born shells settled; Steward then owns uninterrupted inner clearance."
+        },
+        {
+          "frame": 5131,
+          "transition": "Durin returns to upper-outer arts support before late officers complete their approach."
+        },
+        {
+          "frame": 6601,
+          "transition": "Both outer blockers have completed hostile duty and entered cooldown for western roadblock work."
+        },
+        {
+          "frame": 8702,
+          "transition": "Returning Midnight and Melantha destroy the two remaining restraints while the inner formation remains deployed."
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "routes": ["route-1"],
+          "duty": "Steward and initial Durin jointly kill artillery before its western protected-target acquisition. No ground blocker contains this flying enemy."
+        },
+        {
+          "routes": ["route-2"],
+          "duty": "Midnight destroys eastern roadblock #3 before dangerous eastern-bottom artillery acquisition, intercepts following officers, then returns for western roadblock #1. Observe the civilian's actual arrival."
+        },
+        {
+          "routes": ["route-15"],
+          "duty": "Melantha destroys eastern roadblock #4, intercepts following officers and returns for western roadblock #2. Observe the second actual arrival."
+        },
+        {
+          "routes": ["route-3", "route-4", "route-12", "route-13", "route-20", "route-21", "route-30", "route-31"],
+          "duty": "Fang remains the two-block holder. Midnight contributes only while not occupied by self-blocked enemies; central Steward supplies armor damage."
+        },
+        {
+          "routes": ["route-5", "route-6", "route-11", "route-14", "route-18", "route-19", "route-28", "route-29"],
+          "duty": "Friston retains at most three enemies. Steward must kill the earlier armor and reopen capacity before final armor #34 arrives; Hibiscus and Ansel sustain the retained queue."
+        },
+        {
+          "routes": ["route-7", "route-8", "route-17", "route-22", "route-23", "route-24"],
+          "duty": "Midnight blocks throughout hostile traffic. Returning Durin attacks this same corridor; his ranged block stat supplies no containment."
+        },
+        {
+          "routes": ["route-9", "route-10", "route-16", "route-25", "route-26", "route-27"],
+          "duty": "Melantha blocks throughout hostile traffic under Hibiscus's normal coverage and Ansel's active extension."
+        }
+      ],
+      "pressure_window_responsibilities": [
+        {
+          "window_frames": [0, 2040],
+          "duty": "Preserve the demonstrated early four-lane structure, establish Ansel and retain Fang for three grants. Neither physician's later placement is assumed to reproduce M64's healing sequence."
+        },
+        {
+          "window_frames": [2040, 2520],
+          "duty": "Hibiscus absorbs the predicted single 890-damage shell at her isolated tile. Her early heals recover Melantha before the next Melantha-directed hit; she then recovers herself. Actual recipient order is decisive."
+        },
+        {
+          "window_frames": [2520, 3540],
+          "duty": "Ansel's 84–109-second boost supports repeated Steward hits and the beginning of his own bottom-flight shell sequence. Durin contributes seven artillery hits and leaves before shared impact. Verify every surviving HP state."
+        },
+        {
+          "window_frames": [4320, 4860],
+          "duty": "Both boosted physicians cover first armored pressure while Steward completes artillery contact. Ansel's locked point must remain outside Midnight's splash radius."
+        },
+        {
+          "window_frames": [5073, 6600],
+          "duty": "Midnight's second arts window and returning Durin shorten all late upper-outer fights. Require no more than nine additional 48-damage officer packets after the predicted 441-HP post-pair state; other damage invalidates that bound."
+        },
+        {
+          "window_frames": [5580, 8100],
+          "duty": "Manage late runners and both final armors. Clearance of the earlier lower armor must release a real Friston slot before #34 reaches him. Steward remains in range throughout."
+        },
+        {
+          "window_frames": [8701, 10800],
+          "duty": "Destroy western restraints and observe both protected arrivals, complete hostile exhaustion and final life settlement."
+        }
+      ],
+      "skill_intents": [
+        {
+          "operator_id": "char_123_fang",
+          "intent": "Automatic DP while continuously deployed. Only grants 570, 1320 and 2070 fund the opening; later grants are not survival guarantees."
+        },
+        {
+          "operator_id": "char_283_midn",
+          "frames": [1772, 5073],
+          "intent": "First 40-second arts window clears the eastern restraint and early enemies; second covers late outer officers with Durin. The second activation follows 70 inactive seconds after the first duration."
+        },
+        {
+          "operator_id": "char_212_ansel",
+          "frames": [2520, 4320, 6120],
+          "intent": "Single-target boosted healing at 84, 144 and 204 seconds. Each 25-second duration is followed by at least 35 inactive seconds. Credit no probabilistic extra heal."
+        },
+        {
+          "operator_id": "char_120_hibisc",
+          "frames": [2940, 4440, 5940, 7440],
+          "intent": "Boost at 98, 148, 198 and 248 seconds. Each 20-second duration is followed by 30 inactive seconds."
+        },
+        {
+          "operator_id": "char_208_melan",
+          "frames": [3300, 5101],
+          "intent": "Boost the first lower-outer officer pair and the later officer sequence. Include the 20-second active duration and 40 inactive seconds."
+        },
+        {
+          "operator_id": "char_210_stward",
+          "intent": "Automatic enhanced arts attacks and supported highest-defense priority. Count actual artillery hits and enhanced-hit consumption separately from ground attacks."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "LEGAL_ROSTER",
+          "requirement": "Exactly the eight listed normal-mode rarity 1–3 IDs may deploy. No reserve units, aliases or additional decoys."
+        },
+        {
+          "id": "LEGAL_COORDINATES",
+          "requirement": "Every deployment uses integer [row,col] and its declared direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+        },
+        {
+          "id": "PROTECTED_TARGETS",
+          "requirement": "Ordinary operators neither attack nor block civilians. Both expected civilians must arrive safely; zero protected deaths and zero leaks are required."
+        },
+        {
+          "id": "ARTILLERY_SETTLEMENT",
+          "requirement": "Observe artillery death before western civilian targeting and settle every born projectile. A retreat does not erase a locked projectile."
+        },
+        {
+          "id": "MEDICAL_PACKETS",
+          "requirement": "Verify actual lowest-HP-ratio recipients and packet survival. Aggregate HPS does not establish survival, especially for isolated Ansel."
+        },
+        {
+          "id": "REAL_CAPACITY",
+          "requirement": "Fang supplies two blocks and Friston three. Require a reopened lower slot before #34 arrives; never count a ranged operator as a blocker."
+        },
+        {
+          "id": "LIVING_RETREATS",
+          "requirement": "Durin must have completed seven artillery hits and remain alive at 3030. Midnight and Melantha must have empty hostile queues before their retreats. Death grants no refund."
+        },
+        {
+          "id": "NO_UNPLANNED_SUCCESSOR",
+          "requirement": "A key holder's death releases its queue and invalidates its assigned containment. No implicit substitute, post-death action or accelerated redeployment is authorized."
+        },
+        {
+          "id": "TERMINAL_ACCEPTANCE",
+          "requirement": "Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, no unresolved projectiles, zero protected deaths and two protected arrivals."
+        }
+      ],
+      "action_timeline": [
+        {"action_type":"DEPLOY","frame":0,"operator_id":"char_123_fang","tile":[3,5],"direction":"UP"},
+        {"action_type":"DEPLOY","frame":91,"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":571,"operator_id":"char_283_midn","tile":[1,5],"direction":"UP"},
+        {"action_type":"DEPLOY","frame":841,"operator_id":"char_208_melan","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":1321,"operator_id":"char_212_ansel","tile":[2,6],"direction":"UP"},
+        {"action_type":"ACTIVATE_SKILL","frame":1772,"operator_id":"char_283_midn"},
+        {"action_type":"DEPLOY","frame":2040,"operator_id":"char_120_hibisc","tile":[5,3],"direction":"RIGHT","rationale":"Enter before the predicted 68.1-second selection and absorb one isolated shell."},
+        {"action_type":"DEPLOY","frame":2071,"operator_id":"char_210_stward","tile":[5,6],"direction":"DOWN"},
+        {"action_type":"DEPLOY","frame":2401,"operator_id":"char_501_durin","tile":[2,7],"direction":"UP"},
+        {"action_type":"ACTIVATE_SKILL","frame":2520,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":2940,"operator_id":"char_120_hibisc"},
+        {"action_type":"RETREAT","frame":3030,"operator_id":"char_501_durin","rationale":"Require seven completed artillery hits. Withdraw before the predicted shared impact; refund 6 and start the real 70-second cooldown."},
+        {"action_type":"ACTIVATE_SKILL","frame":3300,"operator_id":"char_208_melan"},
+        {"action_type":"ACTIVATE_SKILL","frame":4320,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":4440,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":5073,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":5101,"operator_id":"char_208_melan"},
+        {"action_type":"DEPLOY","frame":5131,"operator_id":"char_501_durin","tile":[2,5],"direction":"DOWN","rationale":"Actual range covers upper-outer interception; 2101 frames have elapsed since withdrawal."},
+        {"action_type":"ACTIVATE_SKILL","frame":5940,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":6120,"operator_id":"char_212_ansel"},
+        {"action_type":"RETREAT","frame":6600,"operator_id":"char_283_midn","rationale":"Requires every upper-outer hostile dead; no released queue is accepted."},
+        {"action_type":"RETREAT","frame":6601,"operator_id":"char_208_melan","rationale":"Requires every lower-outer hostile dead."},
+        {"action_type":"ACTIVATE_SKILL","frame":7440,"operator_id":"char_120_hibisc"},
+        {"action_type":"DEPLOY","frame":8701,"operator_id":"char_283_midn","tile":[1,3],"direction":"LEFT"},
+        {"action_type":"DEPLOY","frame":8702,"operator_id":"char_208_melan","tile":[6,3],"direction":"LEFT"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id": "P1_OPENING",
+          "goal": "Establish four-lane interception and three living Fang grants.",
+          "start_condition": "Frame zero with 10 DP and no deployed operators.",
+          "completion_condition": "Both physicians, Steward and Durin are legally deployed by frame 2401.",
+          "responsibilities": [
+            "Fang and Friston contain inner runners while Midnight supplies available crossfire.",
+            "Midnight and Melantha intercept outer runners and work on eastern restraints.",
+            "Ansel reaches both inner holders; Hibiscus enters her isolated bait position at 2040."
+          ],
+          "survival_dependencies": [
+            "Opening blockers survive until actual healing reaches them.",
+            "Fang remains alive through grant 2070.",
+            "The changed medical geometry must produce legal, useful healing rather than reproduce an old ledger conditionally."
+          ],
+          "handoff_requirements": [
+            "Deliver living blockers, physicians and funded casters into artillery pressure.",
+            "Eastern upper clearance must precede dangerous artillery access to the restrained civilian."
+          ],
+          "failure_effect_on_later_phases": "An early death, missed grant or civilian exposure invalidates the subsequent output and protection chain."
+        },
+        {
+          "phase_id": "P2_ARTILLERY",
+          "goal": "Remove artillery while keeping every corridor and both civilians alive.",
+          "start_condition": "Hibiscus enters before the predicted isolated cast and both casters become available.",
+          "completion_condition": "Artillery is dead, its required actual damage is recorded and all born shells have settled by frame 4860.",
+          "responsibilities": [
+            "Hibiscus absorbs one isolated hit and heals the lower formation.",
+            "Ansel times boosted recovery across Steward's repeated hits and his own bottom-flight hits.",
+            "Steward accumulates artillery hits; Durin supplies seven additional hits and withdraws at 3030."
+          ],
+          "survival_dependencies": [
+            "Actual healing cadence keeps each recipient above the next packet.",
+            "Durin survives until his living retreat.",
+            "Artillery damage reaches 13000 before it can repeatedly target the western civilian."
+          ],
+          "handoff_requirements": [
+            "Steward remains deployed and receives the first armored queues directly.",
+            "Durin enters cooldown with his initial output complete.",
+            "Neither physician is scheduled to retreat or receive actions after death."
+          ],
+          "failure_effect_on_later_phases": "Insufficient artillery damage or a lost physician reproduces the causal clearance and protected-target failures; later roadblock work cannot repair them."
+        },
+        {
+          "phase_id": "P3_LATE_CONTAINMENT",
+          "goal": "Clear inner armor and preserve both outer blockers through the final spawn.",
+          "start_condition": "Artillery settlement releases Steward's attention to ground targets.",
+          "completion_condition": "All hostile spawns through 211 seconds are exhausted and every hostile is dead with zero leaks.",
+          "responsibilities": [
+            "Steward supplies sustained arts damage to actual enemies held by Fang and Friston.",
+            "Durin returns at 5131 and assists Midnight's late arts window.",
+            "Melantha retains the lower outer lane under real healing.",
+            "Physician boosts cover the runner and armored overlap."
+          ],
+          "survival_dependencies": [
+            "Midnight's late officer damage stays within his remaining HP budget.",
+            "Friston does not exceed three retained enemies.",
+            "The earlier lower armor dies before #34 encounters a full queue."
+          ],
+          "handoff_requirements": [
+            "Observe #34 entering actual Steward range and ultimately dying.",
+            "Require empty outer queues before the two living retreats.",
+            "Retain inner holders and physicians until hostile settlement."
+          ],
+          "failure_effect_on_later_phases": "Any overflow, outer-blocker death without containment or missed final armor rejects zero-leak acceptance."
+        },
+        {
+          "phase_id": "P4_EVACUATION",
+          "goal": "Release both western restraints and settle both protected arrivals.",
+          "start_condition": "Outer hostile duties are complete and both returning blockers have served their real cooldowns.",
+          "completion_condition": "Two protected arrivals are observed, no protected deaths or leaks occurred, no active enemies or pending projectiles remain and life is positive.",
+          "responsibilities": [
+            "Midnight destroys western roadblock #1 from [1,3] LEFT.",
+            "Melantha destroys western roadblock #2 from [6,3] LEFT.",
+            "Continue observation through both actual civilian arrivals."
+          ],
+          "survival_dependencies": [
+            "Both returning operators remain alive and attack the real roadblocks.",
+            "No surviving officer or artillery projectile reaches a civilian."
+          ],
+          "handoff_requirements": [
+            "Record two separate safe-arrival events.",
+            "Do not substitute device destruction, elapsed time or positive life alone for project acceptance."
+          ],
+          "failure_effect_on_later_phases": "A missing arrival, protected death or unresolved hostile prevents acceptance."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "evidence_separation": {
+      "gamedata": "Operator configurations, attack stats, ranges, costs, skill parameters and source routes.",
+      "current_model": "Strike-time ordinary target selection, isolated locked-point artillery splash, ordinary neutral exclusion, supported action timing and medical ratio selection.",
+      "user_confirmed_premise": "Attack absorption and staged withdrawal are authorized tactical ideas. They do not establish pre-swing locking or interruption rules.",
+      "unknown": "Exact client equivalence, continuous-frame client timing, unsupported talents and client redeployment cost escalation."
+    },
+    "causal_revision": "M64 lost its medical/output formation before scheduled retreats. M65 removes the shared Ansel–Steward landing area and the entire caster/healer rotation. It preserves early interception only with its own recalculated medical and economic dependencies.",
+    "m58_open_roster_comparison": {
+      "selected_structure_id": "M65_PERMANENT_CORE_DURIN_ROTATION",
+      "nine_id_baseline": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_122_beagle",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_285_medic2",
+        "char_210_stward"
+      ],
+      "comparison_scope": "Three substantively different structures compared together in this call. Selection and raw reasons are model-authored.",
+      "candidates": [
+        {
+          "structure_id": "M65_M62_SPOT_REPAIR",
+          "selected": false,
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "roster": [
+            "char_123_fang",
+            "char_4093_frston",
+            "char_283_midn",
+            "char_208_melan",
+            "char_120_hibisc",
+            "char_212_ansel",
+            "char_210_stward",
+            "char_284_spot"
+          ],
+          "slot_reduction": "Remove baseline Beagle and Lancet-2; add Spot: nine IDs become eight.",
+          "same_phase_responsibilities": "Spot fuses upper-inner blocking with adjacent healing. Both physicians preserve eastern Steward; four ground corridors retain separate blockers.",
+          "staged_responsibilities": "Fang supplies opening income before relief; eastern Steward later returns centrally; outer blockers subsequently return for western restraints.",
+          "opening_cost_and_pressure": "Initial deployment cost 113. With three Fang grants, a living retreat refund of 5 and reordered medicine, the complete formation can be funded around 80 seconds. Spot's medical readiness must be recomputed from its actual deployment.",
+          "most_dangerous_window": "The eastern-caster medical exposure followed by the 70-second caster absence. Preserving M62's successful Spot rounds does not prove containment of final armor.",
+          "cost": {
+            "initial_deployment_dp": 113,
+            "central_steward_redeploy_dp": 18,
+            "required_caster_cooldown_seconds": 70
+          },
+          "bait_retreat_sacrifice_accounting": "No death is required. Any living caster retreat requires artillery death, residual-shell settlement and a contained armored queue; a dead caster grants no refund.",
+          "raw_reasoning_summary": "M62 demonstrated useful opening and Spot healing fragments, making this a legitimate repair branch. However, full eastern artillery coverage and later central clearance demand incompatible caster duties unless the entire holding interval is solved.",
+          "selection_reason": "Not selected because it retains the long arts-output handoff responsible for unresolved armored capacity, while the selected structure supplies permanent central contact."
+        },
+        {
+          "structure_id": "M65_PERMANENT_CORE_DURIN_ROTATION",
+          "selected": true,
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "roster": [
+            "char_123_fang",
+            "char_4093_frston",
+            "char_283_midn",
+            "char_208_melan",
+            "char_120_hibisc",
+            "char_212_ansel",
+            "char_210_stward",
+            "char_501_durin"
+          ],
+          "slot_reduction": "Remove baseline Beagle and Lancet-2; add Durin: nine IDs become eight. Fang remains a blocker, eliminating a separate relief-blocking role.",
+          "same_phase_responsibilities": "Four permanent corridor holders, two separated physicians and two complementary arts attackers. Both physicians cover central Steward.",
+          "staged_responsibilities": "Durin attacks artillery, withdraws, then returns to support Midnight. Steward never leaves the inner clearance geometry. Outer blockers rotate only after their final hostile duties.",
+          "opening_cost_and_pressure": "Initial cost 108. Fang grants at 19, 44 and 69 seconds fund the final deployment at 80.033 seconds. Ansel enters at 44.033 seconds; Hibiscus enters at 68 seconds; Steward enters at 69.033 seconds.",
+          "most_dangerous_window": "Ansel's first isolated bottom-flight shell sequence, followed by late runner pressure before the earlier lower armor releases a Friston slot.",
+          "cost": {
+            "initial_deployment_dp": 108,
+            "durin_redeploy_dp": 12,
+            "durin_living_refund_dp": 6,
+            "full_stage_gross_deployment_dp": 151,
+            "full_stage_living_refunds_dp": 21
+          },
+          "bait_retreat_sacrifice_accounting": {
+            "hibiscus": "For artillery #0's predicted 68.1-second cast, Hibiscus must be deployed before selection and survive through projectile birth and the approximately 71.43-second impact. Current-model candidate ordering should select her isolated western tile. Cast consumes the five-second cooldown. Melantha gains a healing window; Hibiscus receives approximately 890 damage. No retreat or successor is required. Failure to select this tile invalidates the predicted medical sequence.",
+            "durin": "For the first bottom-flight shell, Durin shares the landing radius around Ansel. He remains until seven attacks complete, then retreats at 101 seconds after the predicted projectile birth but before impact. The projectile remains and Ansel must survive it. The consumed cast cooldown is not reset. Durin returns at 171.033 seconds for 12 DP; he supplies damage, not blocking.",
+            "death_policy": "No death is required. Durin dying early loses both required output and the planned living refund/return timing. A holder's death releases its enemies and has no implicit successor."
+          },
+          "raw_reasoning_summary": "The geometry closes artillery and final armor with the same live Steward. Durin addresses the central position's missing artillery damage and later reduces Midnight's unhealed exposure. The selected assumptions are expressible as actual hits, HP states, projectile points, refunds, cooldowns and block counts.",
+          "selection_reason": "Selected because it removes both the caster rotation and medical rotation, adds independently countable artillery damage, and retains actual contact with #34. It remains a conditional hypothesis rather than a verified win."
+        },
+        {
+          "structure_id": "M65_GUARDIAN_CARDIGAN_YATO_BAIT",
+          "selected": false,
+          "classification": "USER_PREMISE_NOT_EXPRESSIBLE",
+          "roster": [
+            "char_123_fang",
+            "char_502_nblade",
+            "char_283_midn",
+            "char_208_melan",
+            "char_284_spot",
+            "char_209_ardign",
+            "char_212_ansel",
+            "char_210_stward"
+          ],
+          "slot_reduction": "Remove baseline Friston, Beagle, Hibiscus and Lancet-2; add Yato, Spot and Cardigan: nine IDs become eight.",
+          "same_phase_responsibilities": "Spot fuses blocking and healing; Cardigan provides a self-healing downstream three-block position. One physician supports the caster and the main holders.",
+          "staged_responsibilities": "Yato opens the lower inner lane, then yields it to Spot and later returns as an officer decoy. Fang remains upper-inner; outer guards finish both evacuation paths.",
+          "opening_cost_and_pressure": "Initial deployment cost 118 before refunds. A separate recomputed opening is Fang 0, Yato about 7, Midnight 19, Melantha 32, Ansel 49, Spot 60, Cardigan 72 and Steward about 90 seconds. Yato's survival to the 49-second first heal is a tight handoff dependency.",
+          "most_dangerous_window": "The opening Yato-to-Spot medical handoff and repeated eastern artillery exposure under one physician.",
+          "cost": {
+            "initial_deployment_dp": 118,
+            "yato_living_refund_dp": 3,
+            "yato_supported_redeploy_seconds": 40,
+            "yato_current_model_return_cost_dp": 7
+          },
+          "bait_retreat_sacrifice_accounting": "Raw proposal: Yato takes an upper officer's ordinary attack, then withdraws so Cardigan receives the released enemy while Spot heals. The completed-strike variant consumes the officer's two-second cooldown and is checkable; Yato must survive that strike, refunds 3 if withdrawn alive, and cannot return before his real 40-second cooldown. Death supplies no refund. Released enemies and any civilian within 1.2 remain explicit risks.",
+          "exact_action_enemy_phase_gap": "The stronger raw proposal withdraws Yato after enemy_1107_uoffcr begins a swing but before strike, expecting that swing to remain locked on Yato and buy Cardigan a damage-free handoff. Current ordinary targeting occurs at ATTACK_STRIKE, so that pre-swing lock and occupancy benefit are not expressible. The one-physician artillery protection also lacks a closed packet-level survival schedule.",
+          "raw_reasoning_summary": "Blocking/healing fusion and a self-healing backup reduce dependence on fragile Friston, and completed-hit absorption may be valuable. The decisive pre-swing version cannot be implemented without inventing targeting behavior.",
+          "selection_reason": "Not selected. Retain the raw USER_CONFIRMED-premise proposal and its exact gap, but prefer the selected plan's observable locked-projectile retreat and permanent arts geometry."
+        }
+      ]
+    }
+  },
+  "revised_tactical_requirements": {
+    "acceptance": [
+      "Positive remaining life, zero leaks, exhausted spawns and no active enemies.",
+      "Zero protected-target deaths and both expected protected targets safely arrived.",
+      "Record operator deaths separately; do not reinterpret them as automatically forbidden or harmless."
+    ],
+    "required_observations": [
+      "Hibiscus receives the isolated predicted shell near frame 2143.",
+      "Durin completes seven artillery hits before his legal living retreat.",
+      "Steward supplies the required artillery hits and enhanced-hit count before leaving actual coverage.",
+      "Ansel survives every bottom-flight packet using actual healing recipients.",
+      "Midnight survives late officers with real Durin assistance.",
+      "The earlier lower armor dies before a full Friston queue would release #34.",
+      "Both western devices are destroyed and two distinct arrival events follow."
+    ],
+    "failure_interpretation": "A failed survival, output or handoff prediction refutes the fixed plan. Do not repair it by inventing refunds, target locks, healing coverage, deaths without consequences or post-death actions.",
+    "execution_scope": "Read-only inspection and static range/economy calculations only. No stage simulation was run."
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R8_7_M65_H1",
+      "hypothesis": "A permanent central Steward, separated physicians and a two-duty Durin can close artillery, late outer pressure and final armored containment within eight IDs, provided the declared packet-level survival and capacity predictions hold.",
+      "decisive_predictions": [
+        "The isolated Hibiscus bait changes the early medical sequence without collateral damage to holders.",
+        "The two-caster artillery budget settles before western civilian acquisition.",
+        "Steward remains alive and in range for every inner armored wave.",
+        "Durin's return reduces Midnight's late incoming officer packets below his remaining HP.",
+        "Continuous arts clearance reopens lower blocking capacity before #34 arrives."
+      ]
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id": "R8_7_M65_REV1",
+    "parent_plan_id": "R8_7_GPT_M64_V1",
+    "operational_plan_id": "R8_7_GPT_M65_V1",
+    "referenced_experience_ids": ["M65_TACTICAL_FEEDBACK_V1"],
+    "tactical_hypothesis": "Replace the failed shared artillery landing area and delayed caster/healer rotations with separated medical coverage, permanent central Steward output and Durin's countable artillery-to-outer-lane rotation. Survival and queue clearance must be observed rather than inferred from the DP ledger.",
+    "changed_responsibilities": [
+      "Fang remains upper-inner for the entire hostile stage and supplies three opening grants.",
+      "Steward stays centrally deployed instead of withdrawing from an eastern position and returning after a clearance gap.",
+      "Hibiscus absorbs one isolated shell from a western tile and supplies permanent lower medical coverage.",
+      "Ansel remains deployed with shell points separated from Steward and Midnight.",
+      "Durin replaces Spot, contributes seven artillery hits and returns to assist late upper-outer clearance.",
+      "Final lower capacity is created by earlier armor death, with #34 required to enter actual Steward range."
+    ],
+    "expected_first_observable_event": {
+      "event_type": "ENEMY_ABILITY_HIT",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "char_120_hibisc",
+      "earliest_frame": 2140,
+      "latest_frame": 2150
+    },
+    "if_expected_event_absent": "Treat the isolated-bait and subsequent medical schedule as unconfirmed. Inspect actual cast selection, projectile birth, landing point and living recipients; do not preserve later actions merely because their DP remains affordable or substitute a pre-swing lock."
+  }
+}

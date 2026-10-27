@@ -1,0 +1,134 @@
+{
+  "schema_version": "M65_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M64_V1",
+  "source_stage_id": "main_08-07",
+  "source_scope": "M64_FIXED_FULL_STAGE_SIMULATION_ORIGINAL_EVENTS_AND_M62_CROSS_BRANCH",
+  "naming_rules": {
+    "char_4227_gallus": "GALLUS², not 古米.",
+    "char_209_ardign": "卡缇 / Cardigan, not 卡达 / Click.",
+    "display_names_must_be_derived": "Derive Chinese display names from operator_id and the sent catalog, not memory."
+  },
+  "m62_verified_reference": {
+    "result": {
+      "action_count": 34,
+      "enemies_killed": 24,
+      "enemies_leaked": 9,
+      "operator_deaths": 4,
+      "remaining_life": -7,
+      "first_leak": {"enemy_id": "enemy_1112_emppnt#0", "frame": 5759},
+      "zero_leak_acceptance_broken": {"target_id": "enemy_3001_upeopl#3", "frame": 5353},
+      "life_zero": 5851
+    },
+    "successful_fragments": [
+      "Opening medical and Fang living retreat to Spot handoff held.",
+      "Spot performed four healing rounds totaling 13173.7.",
+      "Steward's later return killed #21/#27/#29, but did not contact #34."
+    ],
+    "steward_mixed_damage": {
+      "after_3493_artillery_hp": 190,
+      "heal_3533": 372.6,
+      "heal_3619": 372.6,
+      "hp_after_3619": 935.2,
+      "shooter_21_hit_4383": 289,
+      "artillery_hit_4393": 910,
+      "death_frame": 4393
+    },
+    "protected_route": {
+      "civilian_3_passes_roadblock_3": 2482,
+      "then_blocked_by_roadblock_1": [2851, 7720],
+      "officer_damage_total_before_artillery": 840,
+      "artillery_hits": [{"frame": 5053, "amount": 950}, {"frame": 5203, "amount": 950}, {"frame": 5353, "amount": 950}],
+      "civilian_3_death": 5353
+    },
+    "armor_34": {
+      "block_count": 0,
+      "midnight_hits": [{"frame": 6706, "amount": 24.85}, {"frame": 6745, "amount": 24.85}],
+      "steward_return_candidates": ["enemy_1110_uamord#21", "enemy_1110_uamord#27", "enemy_1110_uamord#29"]
+    }
+  },
+  "m64_original_events": {
+    "result": {
+      "action_count": 36,
+      "enemies_killed": 20,
+      "enemies_leaked": 13,
+      "operator_deaths": 7,
+      "remaining_life": -11,
+      "first_leak": {"enemy_id": "enemy_1107_uoffcr#20", "frame": 4821},
+      "first_zero_leak_acceptance_failure": 4821,
+      "life_zero_or_objective_field": {
+        "first_objective_failure_frame": 5196,
+        "interpretation": "Treat 5196 as the first recorded remaining-life-zero/objective-failure point unless original events prove otherwise; do not call it the first zero-leak acceptance failure."
+      },
+      "protected_targets": {
+        "enemy_3001_upeopl#3": "KILLED_AT_5341",
+        "enemy_3001_upeopl#14": "REACHED_AT_9618"
+      },
+      "armor_34": "LEAKED_AT_6996"
+    },
+    "dependency_breaks": [
+      {
+        "operator_id": "char_210_stward",
+        "death_frame": 3043,
+        "cause": "Artillery #0 ENEMY_ABILITY_HIT 910, locked position [7,2].",
+        "last_output": "249.1 arts to artillery #0 at 3001.",
+        "last_heal_received": {"source": "char_212_ansel", "frame": 2959, "amount": 506.8},
+        "illegal_retreat": 4440,
+        "release_or_gap": "Artillery output stopped; no live successor was already available in that geometry."
+      },
+      {
+        "operator_id": "char_212_ansel",
+        "death_frame": 3043,
+        "cause": "Artillery #0 ENEMY_ABILITY_HIT 891, locked position [7,2].",
+        "last_heal": {"target": "char_210_stward", "frame": 2959, "amount": 506.8},
+        "last_heal_received": null,
+        "illegal_retreat": 4770,
+        "release_or_gap": "No planned healer remained for the [7,2]/[5,3] rotation."
+      },
+      {
+        "operator_id": "char_283_midn",
+        "death_frame": 4753,
+        "cause": "No observed final incoming DAMAGE in the event log; death follows three 24.85 attacks on #21.",
+        "last_output": "24.85 physical to enemy_1110_uamord#21 at 4692.",
+        "illegal_retreat": 6330,
+        "release_or_gap": "Planned 6330 retreat could not execute; later 8431 redeploy was far too late for the failed window."
+      },
+      {
+        "operator_id": "char_4093_frston",
+        "death_frame": 4479,
+        "cause": "#20 melee 95; UNBLOCK enemy_1107_uoffcr#20 in same frame.",
+        "last_output": "48 physical to #20 at 4451.",
+        "last_damage_received": {"source": "enemy_1107_uoffcr#20", "frame": 4479, "amount": 95},
+        "release_or_gap": "#20 was released and leaked at 4821."
+      },
+      {
+        "operator_id": "char_284_spot",
+        "death_frame": 4668,
+        "cause": "#21 melee 306, immediately after #22 melee 306 at 4667.",
+        "last_output": "16 physical to #21 at 4650.",
+        "last_damage_received": {"source": "enemy_1110_uamord#21", "frame": 4668, "amount": 306},
+        "release_or_gap": "#21 was unblocked and leaked at 4646 route state; #22 leaked separately at route-19."
+      }
+    ],
+    "retreat_policy": "Do not treat early retreat as the default fix. Retreating earlier can lose kills, refund value, healing coverage, or create an empty lane. Recompute the full handoff and successor availability."
+  },
+  "requirements": [
+    "Build a compact duty-end and handoff table in allowed schema explanation fields for key medical/output/blocking operators.",
+    "State each key operator's last necessary task, expected completion, and whether completion is calculable or a pending assumption.",
+    "For a planned living retreat, compute pressure before retreat, actual healer candidates, skill coverage, in-flight projectiles, and stacking damage.",
+    "For sacrifice or death, state killed enemies, released enemies, and the exact successor position/time/cost/block/attack capability.",
+    "For redeploy, verify cooldown/cost and whether enemies can still enter actual attack range. Do not assume a dead operator's refund or later skill.",
+    "Simultaneously close artillery, both protected-target routes, and #34 with actual contact and final settlement.",
+    "Compare at least three materially different structures, including whether revising M62's remaining gaps is preferable, but do not force a parent branch."
+  ],
+  "death_accounting_policy": "Deaths are evaluated by contribution and handoff, not minimized. A sacrifice is valid only when its action is settled and remaining duties have a real successor.",
+  "user_confirmed_tactical_premise": "Attack intervals, action occupancy, attack baiting, damage absorption, rotation, and valuable sacrifice may be used as design principles; do not represent them as new client-verified rules.",
+  "model_capability_constraints": {
+    "ordinary_attack_targeting": "Target is selected at ATTACK_STRIKE; reliable pre-swing target locking is not expressible.",
+    "retreat_cooldown": "Attack cooldown does not reset after the operator has actually attacked.",
+    "artillery": "Cast starts cooldown and target selection; projectile birth locks the landing point; delayed area hit follows.",
+    "spot_skill": "EXECUTABLE_APPROXIMATED only: initial SP 25/40, 25 seconds, ATK +45%, 1.3-second healing interval, x-4 range, no attacks while healing; physical-dodge talent is unsupported.",
+    "ansel_probability_extra_heal": "NOT_IMPLEMENTED; do not assume dual healing.",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "open_roster_revision_policy": "Compare at least three materially different structures in one call, then autonomously select and output one complete executable plan. Do not force or exclude any operator; do not impose quotas or require sacrifice."
+}

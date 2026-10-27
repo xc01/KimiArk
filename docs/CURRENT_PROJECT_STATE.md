@@ -553,3 +553,9 @@ early-leak LOSS at 20/13/7/life -11. The upper-outer officer leak at 4821
 preempted the plan's later artillery, protected-route, and #34 closures;
 protected #3 again died to artillery while #14 reached. M52 V1 remains the
 best verified current-model WIN.
+
+M65 used its own GPT call and simulation. The selected
+`M65_PERMANENT_CORE_DURIN_ROTATION` passed all pre-run gates but lost
+20/13/5/life -11. The first leak was #19@4507, protected #3 died@5384,
+artillery #0 leaked@5759, and #34 leaked@6996 with zero operator damage/BLOCK.
+M52 V1 remains the best verified current-model WIN.
