@@ -1,0 +1,47 @@
+{
+  "schema_version": "M66_TACTICAL_FEEDBACK_V2",
+  "source_plan_id": "R8_7_GPT_M66_V1",
+  "source_scope": "M66_V1_FIXED_FULL_STAGE_ORIGINAL_EVENTS_AND_M52_V1_WIN_CONTRIBUTIONS",
+  "m66_v1_result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 17,
+    "enemies_leaked": 16,
+    "operator_deaths": 8,
+    "remaining_life": -14,
+    "first_leak": {"enemy_id": "enemy_1107_uoffcr#15", "frame": 4176},
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 4491, "remaining_life": 0},
+    "protected_3": "KILLED_BY_ARTILLERY_AT_5191",
+    "protected_14": "REACHED_AT_15249",
+    "runtime_action_errors_count": 11
+  },
+  "m66_v1_selected_structure": {
+    "structure_id": "M66_M52_MEDICAL_REDISTRIBUTION",
+    "roster": ["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_212_ansel","char_120_hibisc","char_210_stward","char_122_beagle"],
+    "removed_operator": "char_285_medic2",
+    "action_count": 26,
+    "key_change": "Ansel moved to [5,6] DOWN at 1321; Hibiscus to [2,5] RIGHT at 1681; Steward to [2,7] UP at 2011."
+  },
+  "m66_v1_original_event_causal_chain": [
+    "Ansel deployed at 1321 and was directly hit by artillery #0 five times (891 each) at 2143/2293/2443/2593/2743; seven self-heals totaling 3179.8 did not prevent death at 2743.",
+    "Hibiscus deployed at 1681, received artillery 890 at 3193/3343 and self-healed 372.6 at 3237; died at 3343.",
+    "Midnight received artillery 718 at 3193/3343, then officer #15 attacks of 48 at 3549/3609/3669/3729/3789 and died; #15 leaked at 4176.",
+    "Fang was hit by artillery 740 at 3193/3343 and officer #19 at 4149; Fang died at 4149 while blocking #19, which then leaked at 4491.",
+    "Friston was killed by artillery 765 at 4180 while carrying central blocking duties.",
+    "Steward dealt 12504.82 to artillery #0 but was killed by artillery 910 at 4330 without killing it; he later destroyed roadblock#1 at 9917.",
+    "Melantha was hit by artillery 845 at 1993/4180, then armor #21/#22, and died at 4801 before killing #22.",
+    "Beagle was hit only by ordinary officers but died at 7029 while #26/#32 were still active; #32 leaked at 7416.",
+    "Protected #3 passed roadblock#3@2404 but was blocked by roadblock#1@2773; after officer pressure, artillery hit it at 5041/5191 and it died@5191.",
+    "Protected #14 waited behind roadblock#2 until Steward destroyed roadblock#1@9917 and Fang destroyed roadblock#2@14917, then reached@15249."
+  ],
+  "m66_v1_operator_contributions": {
+    "char_212_ansel": {"damage": 0, "heal_total": 5904.8, "heal_targets": {"Friston":1725,"Fang":1000,"self":3179.8}},
+    "char_120_hibisc": {"damage": 0, "heal_total": 3749.2, "heal_targets": {"Steward":1820,"Midnight":974,"Fang":582.6,"self":372.6}},
+    "char_283_midn": {"damage_total": 24880.88, "kills": 5, "roadblock_3_damage": 8051.4},
+    "char_210_stward": {"artillery_damage": 12504.82, "artillery_kills": 0, "roadblock_1_damage": 8250.19, "roadblock_1_destroyed": 9917},
+    "char_122_beagle": {"damage_total": 13630, "kills": 4, "blocks": 5},
+    "char_123_fang": {"damage_total": 11375, "kills": 5, "roadblock_2_destroyed": 14917},
+    "char_208_melan": {"damage_total": 12243.76, "kills": 3, "roadblock_4_damage": 8358.56},
+    "char_4093_frston": {"damage_total": 2080, "kills": 0, "blocks": 4}
+  },
+  "revision_requirement": "The V1 replacement did not preserve simultaneous survival and the M52 V1 medical geometry. Revise from the actual first break without copying its failed medical placement; GPT may abandon V1 or repair another structure, but must compare at least three eight-ID alternatives and explain which duties remain simultaneously covered."
+}

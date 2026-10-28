@@ -1,0 +1,35 @@
+{
+  "schema_version": "M66_TACTICAL_FEEDBACK_V3",
+  "source_plan_id": "R8_7_GPT_M66_V2",
+  "source_scope": "M66_V2_FIXED_FULL_STAGE_ORIGINAL_EVENTS_AND_M52_V1_WIN_CONTRIBUTIONS",
+  "m66_v2_result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 19,
+    "enemies_leaked": 14,
+    "operator_deaths": 7,
+    "remaining_life": -13,
+    "first_leak": {"enemy_id": "enemy_1107_uoffcr#9", "frame": 2007},
+    "first_objective_failure": {"reason": "ENEMY_LEAK", "frame": 4611, "remaining_life": 0},
+    "protected_3": "KILLED_BY_ARTILLERY_AT_5341",
+    "protected_14": "KILLED_BY_ARTILLERY_AT_3943",
+    "runtime_action_errors_count": 10
+  },
+  "m66_v2_selected_structure": {
+    "structure_id": "M66_SPOT_OUTER_DELAYED_HEAL",
+    "roster": ["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_212_ansel","char_120_hibisc","char_284_spot","char_210_stward"],
+    "removed_operator": "char_122_beagle",
+    "action_count": 26,
+    "key_change": "Melantha retreated@1680, Spot deployed [6,5] RIGHT@1681, Hibiscus@1981, Steward@2341."
+  },
+  "m66_v2_original_event_causal_chain": [
+    "The declared first observable was Spot BLOCK of enemy_1107_uoffcr#9 at 1681-1684; the complete window contained no matching BLOCK. Officer #9 leaked at 2007 before later recovery.",
+    "Melantha was alive and blocked #9 until its retreat at 1680; the retreat command was legal, but the declared successor did not acquire the released enemy.",
+    "Ansel at [5,6] DOWN remained the same artillery exposure point: artillery #0 hit it at 2143/2293/2443/2593/2743/3643/3793 (891 each). Spot healed it in the first sequence, but Ansel died at 3793.",
+    "Hibiscus took 890 at 3193/3343 and died at 3343.",
+    "Fang took artillery 740 and officer pressure before death at 4269; Steward took repeated 910 artillery plus armor #21 pressure and died at 4383; Friston died at 4517, Midnight at 4753, and Melantha at 4885.",
+    "Steward again dealt 12504.82 to artillery #0 without killing it; artillery #0 leaked at 5759.",
+    "Both protected targets died to artillery #0: #14 at 3943 and #3 at 5341; neither reached.",
+    "Spot did perform later lower-outer duties (damage 17170, five officer kills, five blocks), but that does not restore the failed opening handoff or medical chain."
+  ],
+  "revision_requirement": "The V2 handoff hypothesis was falsified by the absent successor BLOCK. GPT must author the last complete plan without assuming a replacement acquires an already released enemy. Compare at least three eight-ID structures, preserve or redesign actual simultaneous survival/medical geometry, and keep artillery and #34 closure in scope. This is the final authorized M66 call."
+}

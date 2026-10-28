@@ -1,0 +1,85 @@
+{
+  "schema_version": "M66_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M52_V1",
+  "source_scope": "M52_V1_NINE_OPERATOR_WIN_ORIGINAL_EVENTS_M62_LOSS_M65_LOSS",
+  "no_ablation_rule": "Do not infer removal outcomes from this table. Contributions are observed or calculable from the original WIN; replacement safety is a GPT-authored hypothesis for simulation.",
+  "m52_v1_verified_win": {
+    "result": {
+      "win": true,
+      "enemies_killed": 33,
+      "enemies_leaked": 0,
+      "operator_deaths": 0,
+      "remaining_life": 3,
+      "protected_3_reached": 10249,
+      "protected_14_reached": 15249
+    },
+    "action_count": 27,
+    "event_count": 114342,
+    "source_hashes": {
+      "llm_structured_output_sha256": "5430d190c3a83e237060a4aba9956b6eeff4020c75a788479e5451b3b023cec5",
+      "diagnostic_events_sha256": "1b8271110c4357f6c0ecdf295cf5685cc8a57d27c7fbbe84c268cfdbf911348b",
+      "diagnostic_summary_sha256": "e756706b6479f168c7c1e2c703d85cfb03b7a4816823071ace9f653bcd11182d",
+      "plan_snapshot_sha256": "42b2410092599634b62d8cabd43cecfb2a8143573d83f3d58e14a1cb9165765d",
+      "action_snapshot_sha256": "03f8c06db4a0aa1f85a0e1eaade0eb9f272d0787065e83184233bd2ec5e0af34"
+    }
+  },
+  "m52_v1_action_skeleton": [
+    {"frame": 0, "operator_id": "char_123_fang", "action_type": "DEPLOY", "tile": [3, 5], "direction": "UP"},
+    {"frame": 91, "operator_id": "char_4093_frston", "action_type": "DEPLOY", "tile": [4, 5], "direction": "RIGHT"},
+    {"frame": 571, "operator_id": "char_283_midn", "action_type": "DEPLOY", "tile": [1, 5], "direction": "UP"},
+    {"frame": 841, "operator_id": "char_208_melan", "action_type": "DEPLOY", "tile": [6, 5], "direction": "RIGHT"},
+    {"frame": 1321, "operator_id": "char_120_hibisc", "action_type": "DEPLOY", "tile": [6, 2], "direction": "UP"},
+    {"frame": 1681, "operator_id": "char_212_ansel", "action_type": "DEPLOY", "tile": [5, 5], "direction": "RIGHT"},
+    {"frame": 1772, "operator_id": "char_283_midn", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 1962, "operator_id": "char_285_medic2", "action_type": "DEPLOY", "tile": [3, 2], "direction": "RIGHT"},
+    {"frame": 2010, "operator_id": "char_208_melan", "action_type": "RETREAT"},
+    {"frame": 2132, "operator_id": "char_210_stward", "action_type": "DEPLOY", "tile": [7, 5], "direction": "DOWN"},
+    {"frame": 2432, "operator_id": "char_212_ansel", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 2821, "operator_id": "char_122_beagle", "action_type": "DEPLOY", "tile": [6, 5], "direction": "LEFT"},
+    {"frame": 2942, "operator_id": "char_120_hibisc", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 4141, "operator_id": "char_208_melan", "action_type": "DEPLOY", "tile": [4, 4], "direction": "RIGHT"},
+    {"frame": 4233, "operator_id": "char_212_ansel", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 4443, "operator_id": "char_120_hibisc", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 5073, "operator_id": "char_283_midn", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 5342, "operator_id": "char_208_melan", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 5944, "operator_id": "char_120_hibisc", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 6034, "operator_id": "char_212_ansel", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 7000, "operator_id": "char_210_stward", "action_type": "RETREAT"},
+    {"frame": 7445, "operator_id": "char_120_hibisc", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 7835, "operator_id": "char_212_ansel", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 8374, "operator_id": "char_283_midn", "action_type": "ACTIVATE_SKILL"},
+    {"frame": 9101, "operator_id": "char_210_stward", "action_type": "DEPLOY", "tile": [2, 2], "direction": "DOWN"},
+    {"frame": 10800, "operator_id": "char_123_fang", "action_type": "RETREAT"},
+    {"frame": 12901, "operator_id": "char_123_fang", "action_type": "DEPLOY", "tile": [6, 3], "direction": "LEFT"}
+  ],
+  "m52_v1_operator_contributions": [
+    {"operator_id": "char_123_fang", "display_name": "芬", "deployments": [[0,"[3,5] UP"],[12901,"[6,3] LEFT"]], "retreats": [[10800,"alive refund"]], "damage_total": 18125.0, "kills": ["uterer#1@710","offcr#6@1437","offcr#7@1853","offcr#11@2881","offcr#12@3111","armor#21@5670"], "blocks": ["#1@471","#6@1208","#10@2588","#12@2948","#19@4148","#21@4646","#27@5721","#29@5931","#33@6446"], "device_damage": {"trap_020_roadblock#2": 8000.0}, "heal_received_total": 1140.0, "economy": "Opening blocker and three conditional survival-dependent DP grants; later restraint clearance after 10800.", "merge_notes": "Provides a unique opening two-block containment and grants, but one candidate may shift containment to Friston/another unit and delay or replace roadblock#2 work." },
+    {"operator_id": "char_4093_frston", "display_name": "Friston-3", "deployments": [[91,"[4,5] RIGHT"]], "retreats": [], "damage_total": 3146.6, "kills": ["armor#34@7140"], "blocks": ["#2@621","#7@1358","#11@2738","#13@3098","#20@4298","#22@4796","#28@5871","#31@6081","#34@6596"], "heal_received_total": 9400.0, "merge_notes": "Unique permanent three-block lower-central holder; #34 kill depends on held contact at 6596 and subsequent arts. Removing or retreating it releases multiple routes unless a same-capacity holder takes [4,5]." },
+    {"operator_id": "char_283_midn", "display_name": "月见夜", "deployments": [[571,"[1,5] UP"]], "retreats": [], "damage_total": 50079.76, "kills": ["#2@883","#4@1234","#8@1819","#10@2717","#13@3311","#15@3818","#17@4208","#19@4403","#20@4442","#23@5433","#25@5901","#27@5940","#29@6096","#30@6408","#33@8514"], "blocks": ["#4@921","#8@1493","#15@3548","#17@3848","#23@5198","#25@5648","#30@6098"], "device_damage": {"trap_020_roadblock#3": 8051.4}, "skills": [1772,5073,8374], "merge_notes": "Major upper-outer interception, roadblock#3 clearance, and central crossfire. Its damage is the largest observed, but replacement must cover repeated officer pressure and skill timing." },
+    {"operator_id": "char_208_melan", "display_name": "玫兰莎", "deployments": [[841,"[6,5] RIGHT"],[4141,"[4,4] RIGHT"]], "retreats": [[2010,"alive refund"]], "damage_total": 23353.48, "kills": ["#5@1246","#9@1786","#22@5349","#28@5899","#31@6154"], "blocks": ["#5@1071","#9@1598"], "device_damage": {"trap_020_roadblock#4": 8358.56}, "skills": [5342], "merge_notes": "Early lower-outer blocker, then central support that helps kill armor#22 and both throwers, and damages armor#34. Moving/off-grid at 2010 is tied to Beagle's 2821 succession." },
+    {"operator_id": "char_120_hibisc", "display_name": "芙蓉", "deployments": [[1321,"[6,2] UP"]], "retreats": [], "damage_total": 0.0, "heal_total": 25795.4, "heal_targets": {"Fang":13250.0,"Steward":4199.2,"self":5040.0,"Ansel":1436.2,"Friston":1870.0}, "skills": [2942,4443,5944,7445], "merge_notes": "Primary Fang and eastern Steward support plus emergency self/Ansel healing. Its coverage geometry also supports artillery-bait phases; replacing it must preserve those simultaneous windows." },
+    {"operator_id": "char_212_ansel", "display_name": "安赛尔", "deployments": [[1681,"[5,5] RIGHT"]], "retreats": [], "damage_total": 0.0, "heal_total": 17126.1, "heal_targets": {"Friston":7330.0,"Steward":6634.8,"Beagle":1567.5,"Melantha":1448.0,"self":145.8}, "skills": [2432,4233,6034,7835], "merge_notes": "Dedicated central/Beagle support. Probability extra heal is unsupported; ordinary coverage and skill timing remain the observed support." },
+    {"operator_id": "char_285_medic2", "display_name": "Lancet-2", "deployments": [[1962,"[3,2] RIGHT"]], "retreats": [], "damage_total": 0.0, "heal_total": 6112.0, "heal_targets": {"Fang":2520.0,"Midnight":2222.0,"Hibiscus":770.0,"Friston":200.0,"Melantha":200.0,"Ansel":200.0}, "merge_notes": "Global deployment rescue and supplemental healing. Its exact 6112 total understates timing value: global reach catches early deployment spikes without requiring line-of-sight." },
+    {"operator_id": "char_122_beagle", "display_name": "米格鲁", "deployments": [[2821,"[6,5] LEFT"]], "retreats": [], "damage_total": 16675.0, "kills": ["offcr#16@4463","#18@5291","#24@6119","#26@6947","#32@7775"], "blocks": ["#16@3698","#18@3998","#24@5348","#26@5708","#32@6248"], "merge_notes": "Permanent lower-outer two-block after Melantha retreats. Five officers pass through its tile; replacing it requires equal block count, survival timing, and damage closure." },
+    {"operator_id": "char_210_stward", "display_name": "史都华德", "deployments": [[2132,"[7,5] DOWN"],[9101,"[2,2] DOWN"]], "retreats": [[7000,"alive refund"]], "damage_total": 22588.39, "kills": ["artillery#0@4273"], "damage_targets": {"artillery#0":13227.21,"armor#21":1469.69,"armor#22":747.3,"armor#33":1469.69,"armor#34":971.49,"throwers":4703.008}, "device_damage": {"trap_020_roadblock#1": 8250.19}, "merge_notes": "The only artillery kill and roadblock#1 destroyer, plus approach damage into armor#34. Replacing it must both kill artillery and clear roadblock#1 in time for protected #3." }
+  ],
+  "simultaneous_pressure_windows": [
+    {"window": [0, 4443], "summary": "Fang income, upper/lower interception, Friston rescue, artillery medical setup, and Beagle succession all overlap."},
+    {"window": [4444, 5931], "summary": "Friston holds armor#22/#34 while Steward/Midnight/Melantha attack; protected #3 waits behind roadblock#1."},
+    {"window": [5932, 7000], "summary": "Friston holds #28/#31/#34 while Melantha kills #28/#31, Steward damages #34, then retreats at 7000."},
+    {"window": [7001, 10800], "summary": "Friston must finish #34, Steward returns for roadblock#1, and Fang waits before 10800 retreat."},
+    {"window": [10801, 15249], "summary": "Fang clears roadblock#2, protected route continues, and all hostiles settle before #14 arrival."}
+  ],
+  "m62_loss_reference": {
+    "roster": ["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_212_ansel","char_120_hibisc","char_284_spot","char_210_stward"],
+    "result": {"enemies_killed": 24, "enemies_leaked": 9, "operator_deaths": 4, "remaining_life": -7},
+    "facts": ["Spot replaced Fang at 2041 and healed 13173.7, proving a local merge but not whole-stage closure.", "Steward was left at 190 after 3493 artillery, healed to 935.2, then took #21@4383 289 plus artillery@4393 910 and died.", "Protected #3 passed roadblock#3@2482 but was blocked by roadblock#1@2851; roadblock#1 destroyed@7720 and #3 died@5353.", "Steward returned@6901 and killed #21/#27/#29 but did not hit #34; #34 leaked@6996."]
+  },
+  "m65_loss_reference": {
+    "selected_structure_id": "M65_PERMANENT_CORE_DURIN_ROTATION",
+    "roster": ["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_212_ansel","char_120_hibisc","char_210_stward","char_501_durin"],
+    "result": {"enemies_killed": 20, "enemies_leaked": 13, "operator_deaths": 5, "remaining_life": -11, "first_leak": {"enemy_id": "enemy_1107_uoffcr#19", "frame": 4507}},
+    "facts": ["Steward died@2743 and Ansel@3043, before officer#19 leaked@4507.", "Hibiscus took the predicted 890 artillery hit@2143, but that single verified event did not preserve later medical dependencies.", "Protected #3 died@5384 to officer#23 after roadblock#1 blocking; this was not the old artillery-only death mode.", "Artillery#0 took 4105.78 and leaked@5759; #34 had zero operator damage/BLOCK and leaked@6996.", "Durin retreated legally@3030 and Melantha@6601; legality did not establish all successor duties."]
+  },
+  "revision_policy": "Compare at least three materially different eight-ID structures: (1) M52 V1 duty merge, (2) repair M62's demonstrated Spot fusion and known gaps, and (3) open reconstruction with other legal 1-3-star operators. GPT may reject any direction with concrete facts, chooses the parent, and outputs one complete plan."
+}

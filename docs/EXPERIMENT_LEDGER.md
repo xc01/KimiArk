@@ -1165,3 +1165,30 @@ Midnight, and Friston died at 2743/3043/4180/4753/6127; later Ansel and
 Midnight actions were illegal dead-state commands. M52 V1 remains the best
 verified current-model 9-ID WIN, and no eight-ID impossibility or
 operator-uselessness claim follows.
+
+## 2026-10-28 — M66 closes three authorized iterative loops without an 8-ID WIN
+
+M66 first compressed the M52 V1 nine-ID WIN into a read-only contribution table,
+then used its authorized three CLI calls and three fixed full-stage simulations
+as independent revision loops. No balance transferred and no automatic retry was
+used. A V3 pre-STARTED authorization rejection for a missing
+`features.apps=false` override entered no model process and was not counted.
+Each valid loop compared at least three structures, selected one complete plan,
+passed contract/execution/static gates, and then consumed one simulation.
+
+V1 `M66_M52_MEDICAL_REDISTRIBUTION` lost 17/16/8/life -14; first leak
+#15@4176 and protected #3 died@5191. V2 `M66_SPOT_OUTER_DELAYED_HEAL` lost
+19/14/7/life -13; the declared Melantha-to-Spot BLOCK was absent, #9 leaked
+@2007, and both protected targets died to artillery. V3
+`M66_MIRRORED_OUTER_DUTIES` used 芬/Friston-3/月见夜/玫兰莎/安赛尔/芙蓉/米格鲁/
+史都华德, 27 actions, and a valid 8-ID union; it passed 0-conflict/0-unknown
+static checks but lost 19/14/6/life -12. Its expected Melantha BLOCK occurred
+@921, yet #11 was never blocked and leaked @3065, life first reached zero @4627,
+protected #3 died@5353, artillery leaked@5759, and #34 leaked@6996.
+
+M66 therefore records no 8-ID WIN. M52 V1 remains the best verified
+current-model fixed-simulator result. This does not prove 8-ID impossibility,
+operator uselessness, or any real-game/robust claim. Full prompts, model
+comparisons, snapshots, static/preflight results, gzipped original events,
+budget, hashes, and closeout are under
+`docs/review/fc77177/m66_nine_win_compression_v1/evidence/`.

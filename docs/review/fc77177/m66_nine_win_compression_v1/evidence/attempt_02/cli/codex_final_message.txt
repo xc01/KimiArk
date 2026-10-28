@@ -1,0 +1,313 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M66_V2",
+      "parent_hypothesis_id": "R8_7_M66_V2_H1",
+      "tactical_thesis": "Replace Beagle and Lancet with Spot. Preserve four-lane interception, transfer the wounded lower-outer officer from Melantha to Spot, and use Spot's healing windows to support exposed Ansel. Ansel retains central and northern medical coverage; Hibiscus directly covers Midnight and northern Steward. This is a complete, statically checked candidate, not a verified WIN.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"UP","role":"Upper-central blocking, adjacent lower-central damage and conditional DP."},
+        {"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT","role":"Permanent lower-central three-block holder."},
+        {"operator_id":"char_283_midn","tile":[1,5],"direction":"UP","role":"Upper-outer interception, eastern upper roadblock and central crossfire."},
+        {"operator_id":"char_208_melan","tile":[6,5],"direction":"RIGHT","role":"Opening lower-outer damage and partial eastern lower roadblock clearance."},
+        {"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN","role":"Heal Fang, Friston, Hibiscus, Steward and himself."},
+        {"operator_id":"char_284_spot","tile":[6,5],"direction":"RIGHT","role":"Lower-outer succession, remaining eastern lower roadblock damage and healing for himself and Ansel."},
+        {"operator_id":"char_120_hibisc","tile":[2,5],"direction":"RIGHT","role":"Heal Midnight, Fang, northern Steward and herself."},
+        {"operator_id":"char_210_stward","tile":[2,7],"direction":"UP","role":"Artillery kill and central approach damage under both medics."},
+        {"operator_id":"char_208_melan","tile":[4,4],"direction":"RIGHT","role":"Damage lower-central enemies held by Friston."},
+        {"operator_id":"char_210_stward","tile":[2,2],"direction":"DOWN","role":"Western upper roadblock clearance."},
+        {"operator_id":"char_123_fang","tile":[6,3],"direction":"LEFT","role":"Western lower roadblock clearance."}
+      ],
+      "formation_structure": {
+        "distinct_operator_count": 8,
+        "replacement": "Remove Beagle and Lancet; add Spot. Spot inherits lower-outer blocking, supplies timed healing to Ansel and completes Melantha's unfinished eastern lower roadblock.",
+        "range_checks": {
+          "Ansel_[5,6]_DOWN":["Fang","Friston","Hibiscus","Steward","self"],
+          "Hibiscus_[2,5]_RIGHT":["Midnight","Fang","Steward","self"],
+          "Spot_skill_[6,5]":["Ansel","self"]
+        },
+        "medical_limits": "Neither ordinary medic covers Spot. Spot does not heal Friston or Midnight. Ansel cannot heal Melantha at [4,4]. No probabilistic healing or dodge is credited.",
+        "splash_geometry": "Spot and Ansel are sqrt(2) apart, outside a 1.2-radius splash centered on either. Northern Steward is two tiles from Hibiscus and sqrt(10) from Ansel. A Hibiscus-centered impact also threatens adjacent Midnight and Fang.",
+        "conditional_dp_after_deployment": [
+          {"frame":0,"dp":0},
+          {"frame":91,"dp":0.033},
+          {"frame":571,"dp":6.033},
+          {"frame":841,"dp":0.033},
+          {"frame":1321,"dp":5.033},
+          {"frame":1681,"dp":7.033},
+          {"frame":1981,"dp":0.033},
+          {"frame":2341,"dp":0.033},
+          {"frame":4141,"dp":45.033}
+        ],
+        "economy_basis": "Initial 10 DP, natural recovery, Fang grants at 570/1320/2070 and Melantha's living retreat refund of 7 at 1680. Later Fang grants are unnecessary for this conservative opening ledger. Failure to obtain income or refund is a survival/handoff failure.",
+        "cost": "First deployments of all eight IDs cost 113 DP. Three later redeployments add 43. Scheduled living retreats refund 7+9+5 DP under the current executor.",
+        "critical_survival_dependency": "Spot's first healing window prevents Ansel's original five-impact collapse. Before Spot's second window, Ansel must survive the renewed southern exposure through actual self-healing; the narrow conditional packet budget is recorded in the selected comparison.",
+        "status": "READ_ONLY_RANGE_DP_SP_CHECKED; NO_SIMULATION_RUN; HEAL_SELECTION_AND_FULL_STAGE_SURVIVAL_UNVERIFIED"
+      },
+      "formation_transitions": [
+        {"frame":1680,"transition":"Withdraw living Melantha while her second lower-outer officer remains wounded; receive seven DP."},
+        {"frame":1681,"transition":"Spot takes the same tile and inherits the released officer plus unfinished roadblock damage."},
+        {"frame":1981,"transition":"Hibiscus supplies direct Midnight healing before later upper-outer officer pressure."},
+        {"frame":2132,"transition":"Spot enters healing mode while retaining three-block capacity; Ansel's artillery recovery gains a second healer."},
+        {"frame":2341,"transition":"Northern Steward begins artillery damage under both medics."},
+        {"frame":4083,"transition":"Spot's second healing window supports the renewed southern artillery exposure."},
+        {"frame":4141,"transition":"Melantha returns beside Friston after 2461 frames off field."},
+        {"frame":6100,"transition":"Spot heals during the final lower-outer accumulation after the first two later officers should have died."},
+        {"frame":7000,"transition":"Steward leaves after artillery death and final approach work."},
+        {"frame":9101,"transition":"Steward returns after 2101 frames for western upper clearance."},
+        {"frame":10800,"transition":"Release Fang only after upper-central hostile clearance."},
+        {"frame":12901,"transition":"Fang returns after 2101 frames for western lower clearance."}
+      ],
+      "corridor_responsibilities": [
+        {"routes":["route-0"],"responsibility":"No hostile interception duty."},
+        {"routes":["route-1"],"responsibility":"Steward kills artillery; Spot supports southern Ansel, while both medics sustain northern output and recover splash victims."},
+        {"routes":["route-2"],"responsibility":"Midnight clears eastern upper roadblock #3 and intercepts officers; western Steward eventually clears roadblock #1."},
+        {"routes":["route-15"],"responsibility":"Melantha partially damages eastern lower roadblock #4; Spot finishes it before dangerous civilian artillery exposure. Western Fang clears roadblock #2."},
+        {"routes":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],"responsibility":"Fang blocks; Midnight supplies crossfire and arts; Steward damages approaches; Hibiscus and Ansel sustain the holder."},
+        {"routes":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],"responsibility":"Friston blocks permanently. Fang and Midnight supply early damage; returning Melantha removes armor and paired throwers, with Steward's approach damage retained."},
+        {"routes":["route-7","route-8","route-17","route-22","route-23","route-24"],"responsibility":"Midnight intercepts under direct Hibiscus healing."},
+        {"routes":["route-9","route-10","route-16","route-25","route-26","route-27"],"responsibility":"Melantha handles the opening and wounds the second officer; Spot inherits it and all later lower-outer traffic."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_frames":[0,1981],"duties":"Maintain four interception lanes, living Fang income and the Melantha-to-Spot handoff. Midnight must survive until direct Hibiscus coverage begins."},
+        {"window_frames":[1982,2882],"duties":"Spot supports Ansel through opening artillery impacts while postponing device attacks during healing. Establish northern Steward and preserve Friston's medical access."},
+        {"window_frames":[2883,4141],"duties":"Finish eastern lower roadblock before civilian exposure; heal northern splash victims; bridge Ansel's second southern exposure into Spot's second skill."},
+        {"window_frames":[4142,7000],"duties":"Melantha clears lower armor and paired throwers. Keep both central holders below capacity and lower-outer occupancy at three or fewer."},
+        {"window_frames":[7001,10800],"duties":"Finish residual armor and Spot's held officers; preserve interception while Steward clears the western upper restraint."},
+        {"window_frames":[10801,18000],"duties":"Fang clears the western lower restraint. Continue until both civilians arrive and every hostile has been killed without leaks."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","intent":"Automatic DP; only living, deployed grants at 570/1320/2070 fund the opening."},
+        {"operator_id":"char_283_midn","frames":[1772,5073,8374],"intent":"Opening arts, second ready arts window and residual armor clearance."},
+        {"operator_id":"char_212_ansel","frames":[2072,3873,5674,7475],"intent":"First-ready boosted healing, renewed southern exposure and late central recovery; no extra-heal talent."},
+        {"operator_id":"char_120_hibisc","frames":[2882,4383,5884,7385],"intent":"First-ready boost covers northern artillery reception and splash recovery, followed by central support."},
+        {"operator_id":"char_284_spot","frames":[2132,4083,6100,8051],"intent":"Heal self and adjacent Ansel. Each 25-second activation stops attacks and device damage while retaining blocking. Subsequent activations respect 40 seconds of inactive SP recovery."},
+        {"operator_id":"char_208_melan","frames":[5342],"intent":"Accelerate lower armor and early paired-thrower clearance behind Friston."},
+        {"operator_id":"char_210_stward","intent":"Ordinary arts and automatic attack-SP strikes; supported high-defense priority favors artillery. No manual targeting."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"id":"LEGAL_EIGHT","requirement":"Exactly the eight listed normal-mode rarity 1-3 IDs; no hidden substitutions or additional deployments."},
+        {"id":"TILES","requirement":"Every deployment uses integer [row,col] and a cardinal direction; never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"id":"LIVE_HANDOFF","requirement":"Melantha must be alive at 1680. Spot must legally deploy and intercept the released lower officer immediately; retreat refunds seven DP, death refunds none."},
+        {"id":"ARTILLERY_SELECTION","requirement":"Do not assume Spot outranks Ansel: current operator-ID selection puts Ansel before Spot when both qualify. Spot's decisive contribution is healing adjacent Ansel, not universal artillery redirection."},
+        {"id":"LOWER_DEVICE","requirement":"Spot must finish roadblock #4 before the lower civilian becomes an artillery target near it; projected clearance around 110-114 seconds is conditional, not observed."},
+        {"id":"SECOND_SOUTH","requirement":"Ansel must enter renewed southern exposure near full HP and receive sufficient actual self-heals before Spot activates at 4083. The conditional 54.8-HP packet margin is not a survival certificate."},
+        {"id":"CAPACITY","requirement":"Spot never releases an enemy through a fourth simultaneous occupant. Officers #16 and #18 must be dead before the 6100 healing pause; later arrivals must fit within three blocks."},
+        {"id":"CENTRAL_HOLD","requirement":"Friston remains until lower armor and throwers are dead; Melantha returns before their decisive pressure. Fang remains until upper-central clearance."},
+        {"id":"REDEPLOY","requirement":"Only deployed living operators receive skills or retreats. Enforce source costs and actual cooldowns; scheduled returns exceed 70 seconds. Current executor uses unchanged source deployment costs, not an invented client cost schedule."},
+        {"id":"CIVILIANS","requirement":"Ordinary operators neither attack nor block neutral civilians; ordinary medics do not heal them. Preserve upstream interception and account for fixed-point artillery projectiles already born."},
+        {"id":"ACCEPTANCE","requirement":"Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two safe protected arrivals. Operator deaths are assessed separately."}
+      ],
+      "action_timeline": [
+        {"action_type":"DEPLOY","frame":0,"operator_id":"char_123_fang","tile":[3,5],"direction":"UP"},
+        {"action_type":"DEPLOY","frame":91,"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":571,"operator_id":"char_283_midn","tile":[1,5],"direction":"UP"},
+        {"action_type":"DEPLOY","frame":841,"operator_id":"char_208_melan","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"DEPLOY","frame":1321,"operator_id":"char_212_ansel","tile":[5,6],"direction":"DOWN"},
+        {"action_type":"RETREAT","frame":1680,"operator_id":"char_208_melan","rationale":"Living handoff of wounded officer and partial roadblock; seven-DP refund."},
+        {"action_type":"DEPLOY","frame":1681,"operator_id":"char_284_spot","tile":[6,5],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":1772,"operator_id":"char_283_midn"},
+        {"action_type":"DEPLOY","frame":1981,"operator_id":"char_120_hibisc","tile":[2,5],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":2072,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":2132,"operator_id":"char_284_spot"},
+        {"action_type":"DEPLOY","frame":2341,"operator_id":"char_210_stward","tile":[2,7],"direction":"UP"},
+        {"action_type":"ACTIVATE_SKILL","frame":2882,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":3873,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":4083,"operator_id":"char_284_spot"},
+        {"action_type":"DEPLOY","frame":4141,"operator_id":"char_208_melan","tile":[4,4],"direction":"RIGHT"},
+        {"action_type":"ACTIVATE_SKILL","frame":4383,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":5073,"operator_id":"char_283_midn"},
+        {"action_type":"ACTIVATE_SKILL","frame":5342,"operator_id":"char_208_melan"},
+        {"action_type":"ACTIVATE_SKILL","frame":5674,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":5884,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":6100,"operator_id":"char_284_spot"},
+        {"action_type":"RETREAT","frame":7000,"operator_id":"char_210_stward"},
+        {"action_type":"ACTIVATE_SKILL","frame":7385,"operator_id":"char_120_hibisc"},
+        {"action_type":"ACTIVATE_SKILL","frame":7475,"operator_id":"char_212_ansel"},
+        {"action_type":"ACTIVATE_SKILL","frame":8051,"operator_id":"char_284_spot"},
+        {"action_type":"ACTIVATE_SKILL","frame":8374,"operator_id":"char_283_midn"},
+        {"action_type":"DEPLOY","frame":9101,"operator_id":"char_210_stward","tile":[2,2],"direction":"DOWN"},
+        {"action_type":"RETREAT","frame":10800,"operator_id":"char_123_fang"},
+        {"action_type":"DEPLOY","frame":12901,"operator_id":"char_123_fang","tile":[6,3],"direction":"LEFT"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id":"P1_OPEN_AND_HANDOFF",
+          "goal":"Establish four interception lanes and transfer lower-outer duty.",
+          "start_condition":"Frame zero with ten DP.",
+          "completion_condition":"Spot has inherited the wounded officer and Hibiscus is deployed at 1981.",
+          "responsibilities":["Fang and Friston hold central routes.","Midnight covers upper-outer traffic and central crossfire.","Melantha wounds the lower officer and roadblock before handing both to Spot.","Ansel heals central holders while Hibiscus is delayed."],
+          "survival_dependencies":["Fang remains alive for both opening grants.","Midnight survives ordinary opening damage until 1981.","Melantha survives to refund seven DP; Spot survives the inherited officer."],
+          "handoff_requirements":["Withdraw Melantha at 1680 and deploy Spot one frame later.","The released enemy's completed attack cooldown persists; no pre-swing target lock is assumed."],
+          "failure_effect_on_later_phases":"Missing refund or interception breaks both medical deployment funding and lower-lane protection."
+        },
+        {
+          "phase_id":"P2_FIRST_ARTILLERY",
+          "goal":"Prevent the original medical collapse and start artillery clearance.",
+          "start_condition":"Hibiscus is deployed and Spot approaches skill readiness.",
+          "completion_condition":"Opening southern salvo is survived, northern Steward is firing and roadblock #4 is cleared.",
+          "responsibilities":["Spot heals Ansel during 2132-2882 while keeping three blocks.","Ansel heals himself and central holders.","Hibiscus heals Midnight and northern Steward.","Spot resumes device attacks after healing ends."],
+          "survival_dependencies":["Actual healing selection must sustain Ansel and Friston simultaneously.","Spot's healing pause must leave enough device-damage time before civilian exposure.","Steward's later entry must still leave sufficient artillery firing time."],
+          "handoff_requirements":["Spot resumes ordinary damage after the first skill.","Ansel and Hibiscus recover northern splash victims without losing Steward."],
+          "failure_effect_on_later_phases":"Artillery survival or an uncleared eastern roadblock exposes civilians and recreates the loss cascade."
+        },
+        {
+          "phase_id":"P3_SECOND_ARTILLERY_AND_RETURN",
+          "goal":"Bridge renewed southern exposure and restore lower-central damage.",
+          "start_condition":"First Spot healing window has ended and artillery continues its route.",
+          "completion_condition":"Ansel survives into Spot's second window, Melantha returns and artillery is killed before leaving effective coverage.",
+          "responsibilities":["Ansel uses actual self-heals and the 3873 boost before Spot's 4083 activation.","Spot supports Ansel while holding accumulating lower officers.","Both medics sustain northern output and splash recovery.","Melantha returns at 4141 for Friston's held enemies."],
+          "survival_dependencies":["The narrow second-salvo self-heal budget must hold under actual target selection.","Hibiscus cannot repeat her unsupported two-hit self-healing isolation.","Any projectile born before artillery death remains hazardous."],
+          "handoff_requirements":["Spot's second skill must begin legally while Ansel is alive.","Steward completes the artillery kill before being released for later clearance."],
+          "failure_effect_on_later_phases":"Medic or artillery failure removes central sustain and threatens both protected-target survival and zero leaks."
+        },
+        {
+          "phase_id":"P4_LATE_PRESSURE",
+          "goal":"Clear armor and paired throwers without block overflow.",
+          "start_condition":"Melantha is deployed centrally and late spawns approach.",
+          "completion_condition":"Both central lanes are clear and all remaining outer officers are safely contained or dead.",
+          "responsibilities":["Friston holds lower armor and throwers while Melantha damages them.","Fang holds upper traffic; Midnight supplies the 5073 and 8374 arts windows.","Steward retains approach damage through 7000.","Spot kills the first two later officers before pausing at 6100, then holds the final three."],
+          "survival_dependencies":["Friston and Fang remain under actual medical support.","Spot's stops to attack cannot allow a fourth occupant.","Melantha's unhealed position must avoid becoming a sustained ranged target."],
+          "handoff_requirements":["No central blocker leaves while its lane has active enemies.","Steward's retreat requires completed artillery and approach duties."],
+          "failure_effect_on_later_phases":"Released armor or a fourth lower-outer occupant can leak and reach waiting civilians."
+        },
+        {
+          "phase_id":"P5_WESTERN_UPPER_CLEARANCE",
+          "goal":"Release the first civilian after hostile pressure is controlled.",
+          "start_condition":"Steward's 70-second redeploy cooldown has elapsed.",
+          "completion_condition":"Roadblock #1 is destroyed and the upper civilian safely reaches its objective.",
+          "responsibilities":["Steward attacks roadblock #1 from [2,2] DOWN.","Remaining blockers and medics finish held enemies.","Fang retains upper-central duty until 10800."],
+          "survival_dependencies":["Artillery is already dead.","Upstream interception remains intact while the civilian waits."],
+          "handoff_requirements":["Steward returns at 9101 with the source 18-DP cost.","Fang leaves only after upper-central clearance."],
+          "failure_effect_on_later_phases":"The upper civilian remains trapped or exposed; hostile exhaustion alone cannot satisfy acceptance."
+        },
+        {
+          "phase_id":"P6_FINAL_RELEASE",
+          "goal":"Release the second civilian and complete all acceptance conditions.",
+          "start_condition":"Fang has withdrawn after central clearance and completed redeploy recovery.",
+          "completion_condition":"Both civilians have arrived, every spawn is exhausted, no active enemies remain, life is positive and leaks are zero.",
+          "responsibilities":["Fang destroys roadblock #2 from [6,3] LEFT.","Spot and the central formation finish any residual held enemies.","Continue observation through both arrivals rather than stopping at the last hostile spawn."],
+          "survival_dependencies":["No hostile was released by earlier retreats or deaths.","Remaining roadblocks are attackable from the specified positions."],
+          "handoff_requirements":["Fang returns at 12901 with the current executor's ten-DP cost.","Safe arrivals must be recorded explicitly."],
+          "failure_effect_on_later_phases":"Any missing arrival, protected death or leak rejects the plan despite partial clearance."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "evidence_classes": {
+      "GameData":"Catalog legality, stats, skills, ranges, spawn offsets and source routes.",
+      "CURRENT_MODEL":"Range rotation, blocking, healing selection, operator-ID artillery selection, cast cooldown, fixed-point projectiles, refunds and redeploy availability.",
+      "USER_CONFIRMED":"Attack occupation and baiting are authorized tactical premises; specific pre-swing locks are not thereby established.",
+      "UNKNOWN":"Exact client timing, target tie-break equivalence, ordinary WALK device navigation and full-stage outcome."
+    },
+    "causal_revision":"The first break was medical survival, not DP arithmetic. Spot supplies the adjacent healing absent from V1; medics are no longer presumed able to sustain repeated artillery reception independently.",
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "structure_id":"M66_SPOT_OUTER_DELAYED_HEAL",
+          "selected":true,
+          "classification":"CURRENT_MODEL_CHECKABLE",
+          "roster":["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_212_ansel","char_120_hibisc","char_284_spot","char_210_stward"],
+          "slot_removal":"Nine-ID baseline minus Beagle and Lancet plus Spot: eight IDs.",
+          "same_phase_responsibilities":"Four blockers remain available. Spot combines lower-outer blocking with healing adjacent Ansel; Ansel supports central holders and northern medicine, Hibiscus covers Midnight and Steward.",
+          "staged_responsibilities":"Melantha hands off at 1680/1681 and returns centrally at 4141. Spot completes her unfinished device work between healing windows. Steward and Fang later rotate west.",
+          "opening_cost_and_pressure":"Initial four deployments cost 44. Ansel enters at 1321; living Melantha refunds seven; Spot enters at 1681, Hibiscus at 1981 and Steward at 2341. All eight first deployments total 113 DP; conditional balances remain nonnegative.",
+          "medical_timing":"Spot ready at 2131; activate 2132/4083/6100/8051. Ansel activates 2072/3873/5674/7475. Hibiscus first readiness is 2881; activate 2882 and subsequent 1501-frame cycles.",
+          "attack_bait_and_handoff":"Enemy officer #9 is wounded before Melantha withdraws. Spot must survive reblocking and subsequent strikes; the model preserves a completed ordinary attack's cooldown but selects its next target at strike. Artillery #0 may hit Spot before Ansel enters acquisition, but Ansel sorts before Spot when both qualify. Spot heals rather than promising continued redirection. Artillery cooldown starts at cast; born projectiles retain their impact point.",
+          "most_dangerous_window":"Renewed southern exposure before 4083. A conditional Ansel trace starts at full HP before impact 3643, uses ordinary heals at 3643/3729/3815 and boosted healing at 3901, leaving 54.8 HP after impact 3943. Actual acquisition, cadence and recipient choices must establish this trace; it is not observed evidence. Spot supports the following impact after 4083.",
+          "roadblock_and_capacity_cost":"Healing suspends Spot's device attacks. Partial device damage and wounded-officer inheritance project eastern lower clearance around 110-114 seconds. Delaying the third skill until 6100 allows the first two later officers to die before the final three accumulate.",
+          "death_and_redeploy_cost":"No death is required. Melantha's living retreat earns seven DP and releases one wounded enemy to Spot. A Spot death would release his occupants, refund nothing and require 17 DP plus 70 seconds before return; no substitute is budgeted.",
+          "selection_reason":"Expressible healing and blocking fusion addresses the actual medical failure while retaining all central damage roles. It has explicit, testable survival and civilian-clearance dependencies rather than an unsupported pre-swing escape."
+        },
+        {
+          "structure_id":"M66_RESTORED_NINE_DUTY_MERGE",
+          "selected":false,
+          "classification":"CURRENT_MODEL_CHECKABLE",
+          "roster":["char_123_fang","char_4093_frston","char_283_midn","char_208_melan","char_120_hibisc","char_212_ansel","char_210_stward","char_122_beagle"],
+          "slot_removal":"Remove Lancet alone from the nine-ID baseline.",
+          "same_phase_responsibilities":"Restore Hibiscus [2,6] UP, Ansel [5,5] RIGHT and southern Steward [5,7] DOWN; retain all four lane holders.",
+          "staged_responsibilities":"Retreat Melantha at 2010, advance Steward to 2011 using the refund, retain Beagle succession and central Melantha, then rotate Steward and Fang west.",
+          "opening_cost_and_pressure":"First four cost 44; medics enter 1321/1681. Steward at 2011 has 0.033 conditional DP after the seven-DP refund; Beagle at 2821 leaves 15.033. Eight first deployments total 114.",
+          "medical_timing":"Ansel first ready at 2431 and Hibiscus at 2221. Earlier Steward may redirect the next eligible cast away from Ansel because 210 sorts before 212; this requires acquisition and action ordering, not merely affordable DP.",
+          "most_dangerous_window":"Early Friston splash recovery and the full sequence of upper-outer officer damage. Restored geometry leaves Midnight outside both ordinary medic ranges.",
+          "cost":"Saves Lancet's three DP but removes its global rescue and observed upper supplementation. Later rotations still consume cooldowns and redeployment DP.",
+          "death_evaluation":"Midnight dying would release upper-outer officers and remove central arts; no useful compensating contribution or timely successor is established.",
+          "not_selected_reason":"Advancing Steward can address one early splash dependency, but it does not replace Midnight's sustained medical support. The missing role remains explicit rather than being inferred safe from restored geometry."
+        },
+        {
+          "structure_id":"M66_YATO_STAGED_PRE_SWING",
+          "selected":false,
+          "classification":"USER_PREMISE_NOT_EXPRESSIBLE",
+          "roster":["char_123_fang","char_4093_frston","char_283_midn","char_502_nblade","char_212_ansel","char_120_hibisc","char_208_melan","char_210_stward"],
+          "slot_removal":"Remove Beagle and Lancet; add Yato. Eight IDs.",
+          "same_phase_responsibilities":"Yato supplies cheap lower-outer interception, Ansel enters earlier, and Melantha alternates between lower-outer damage and central armor removal.",
+          "raw_plan":"Fang 0, Friston 91, Midnight 571, Yato [6,5] RIGHT 601; Ansel [5,5] RIGHT 1111; Hibiscus [2,6] UP 1531; Yato retreat 1890 and Melantha [6,5] RIGHT 1891; Steward [5,7] DOWN 2161; Melantha retreat 3090, Yato return [6,5] RIGHT 3091; Melantha central [4,4] RIGHT 5191; retain western Steward and Fang clearance after their hostile duties. The proposed handoff additionally assumes an ordinary officer's pre-swing remains committed to the withdrawn decoy.",
+          "opening_cost_and_pressure":"First four cost 36. Conditional post-deployment DP is 0.033 at 601/1111, 3.033 at 1531/1891 and 0.033 at 2161, counting Yato's living three-DP refund. Eight first deployments total 103.",
+          "medical_timing":"Ansel's first readiness is 1861; Hibiscus first readiness is 2431. Re-entry gives Yato no healing skill. Delayed central Melantha first becomes skill-ready at 6391.",
+          "most_dangerous_window":"Yato versus the opening Uterer plus officer pressure, then the 3090 handoff and delayed central armor damage.",
+          "bait_details":"Enemy officer #9's ordinary attack is the assumed occupied action at the first handoff. Yato must survive until withdrawal; Melantha enters one frame later. A completed strike consumes cooldown in the model, but the proposal needs an uncompleted pre-swing to remain locked and spend its attack on the absent Yato. That effect is not established. The released enemy and any ongoing artillery projectile remain dangerous.",
+          "exact_action_enemy_phase_gap":"RETREAT Yato at 1890 during the assumed pre-strike officer #9 action: ordinary target selection occurs at ATTACK_STRIKE, so the executor cannot express the required retained decoy lock or guaranteed wasted attack.",
+          "cost":"Yato retreats refund three DP and require 40 seconds before current-model seven-DP return. Death refunds nothing. Melantha's additional rotation delays central deployment to 5191 and her skill to 6392.",
+          "not_selected_reason":"The cheaper opening is evaluated on its own ledger, but the decisive pre-swing handoff is unsupported, Midnight still lacks sustained healing, and central damage arrives later. The raw proposal is retained without rewriting mechanics."
+        }
+      ],
+      "selected_structure_id":"M66_SPOT_OUTER_DELAYED_HEAL"
+    }
+  },
+  "revised_tactical_requirements": {
+    "operator_domain":"Only supplied normal_low_star_catalog entries with identity.rarity 1-3 and qualification.normal_mode true; exclude reserve variants.",
+    "maximum_distinct_ids":8,
+    "forbidden_deployment_tiles":[[1,2],[6,2],[1,6],[6,6]],
+    "verification_scope":"Read-only source inspection, range rotation, conditional DP accounting and SP timing only. No stage simulation or external AI provider was invoked.",
+    "decisive_checks":[
+      "Spot reblocks officer #9 immediately after the living handoff.",
+      "Spot's first skill sustains Ansel without depriving Friston of necessary healing.",
+      "Roadblock #4 is destroyed before the lower civilian becomes exposed to artillery there.",
+      "Actual second-salvo Ansel healing survives until Spot's 4083 activation.",
+      "Steward kills artillery before coverage ends and survives all born projectiles.",
+      "Officers #16 and #18 die before Spot's 6100 pause; no fourth occupant bypasses him.",
+      "Lower armor #34 is held and killed, and both civilians record safe arrivals."
+    ],
+    "death_policy":"Evaluate contribution and released duties, not a zero-death objective. This candidate budgets living handoffs; an unplanned death is acceptable only if all remaining duties and acceptance conditions still close with actual costs and cooldowns.",
+    "acceptance":{"remaining_life_positive":true,"enemies_leaked":0,"spawn_schedule_exhausted":true,"active_enemies":0,"protected_target_deaths":0,"protected_targets_reached":2}
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id":"R8_7_M66_V2_H1",
+      "hypothesis":"Lower-outer Spot can replace Beagle's interception and Lancet's essential survival contribution through adjacent support to Ansel, while direct Hibiscus coverage preserves Midnight and northern Steward.",
+      "changed_hypotheses":"Medical fusion must preserve simultaneous recipients and pressure windows. Spot's actual healing, not a presumed artillery target preference or mere deployment affordability, is the proposed improvement.",
+      "falsification":"Reject the hypothesis if Ansel dies before either support window, lower roadblock clearance exposes the civilian, Spot overflows, or central damage fails despite legal actions."
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id":"R8_7_M66_V2_H1",
+    "parent_plan_id":"R8_7_GPT_M66_V1",
+    "operational_plan_id":"R8_7_GPT_M66_V2",
+    "referenced_experience_ids":["M66_TACTICAL_FEEDBACK_V2"],
+    "tactical_hypothesis":"Replace Beagle and Lancet with lower-outer Spot, whose supported healing reaches exposed Ansel without sharing his splash. This should interrupt the verified medic-death cascade while preserving four interception lanes and central damage, subject to actual healing selection and timely roadblock clearance.",
+    "changed_responsibilities":[
+      "Melantha withdraws at 1680 with a living refund and hands her wounded officer plus unfinished roadblock to Spot.",
+      "Spot replaces permanent lower-outer Beagle and supplies timed healing to Ansel rather than relying on unsupported dodge or target locking.",
+      "Hibiscus enters at 1981 with direct Midnight and northern Steward coverage; Steward enters at 2341 using the recomputed ledger.",
+      "Ansel's second southern exposure is an explicit narrow survival dependency, and Spot's late healing pauses are delayed to preserve blocking capacity."
+    ],
+    "expected_first_observable_event":{
+      "event_type":"BLOCK",
+      "source_id":"char_284_spot",
+      "target_id":"enemy_1107_uoffcr#9",
+      "earliest_frame":1681,
+      "latest_frame":1684
+    },
+    "if_expected_event_absent":"Reject the proposed handoff improvement. Inspect Melantha's survival and refund, Spot's legal deployment, the released officer's position and blocking acquisition; do not infer later medical or project success from the DP ledger."
+  }
+}

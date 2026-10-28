@@ -1,0 +1,101 @@
+{
+  "schema_version": "M66_CLOSEOUT_V1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "best_verified_operator_count": 9,
+  "best_verified_plan_id": "R8_7_GPT_M52_V1",
+  "m66_eight_id_result": "NO_WIN",
+  "real_game_or_robustness_claim": false,
+  "budget": {
+    "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+    "max_real_tactical_cli_starts": 3,
+    "started_real_tactical_cli_starts": 3,
+    "max_stage_simulations": 3,
+    "started_stage_simulations": 3,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "prestarted_cli_rejection_counted": false,
+    "prestarted_cli_entered_model_process": false
+  },
+  "protocol_and_precheck": {
+    "selected_structure_id_path": "revised_stage_understanding.m58_open_roster_comparison.selected_structure_id",
+    "root_selected_field_forbidden": true,
+    "minimum_candidates": 3,
+    "maximum_unique_deployed_operators": 8,
+    "normal_mode_rarity": [1, 2, 3],
+    "v3_no_model_fixture_pass": true,
+    "v3_contract_validation_pass": true,
+    "v3_execution_input_gate_pass": true,
+    "v3_static_conflict_count": 0,
+    "v3_static_unknown_count": 0
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "selected_structure_id": "M66_M52_MEDICAL_REDISTRIBUTION",
+      "operational_plan_id": "R8_7_GPT_M66_V1",
+      "action_count": 26,
+      "selected_ids": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_212_ansel", "char_120_hibisc", "char_210_stward", "char_122_beagle"],
+      "result": {
+        "win": false,
+        "enemies_killed": 17,
+        "enemies_leaked": 16,
+        "operator_deaths": 8,
+        "remaining_life": -14,
+        "first_leak": {"enemy_id": "enemy_1107_uoffcr#15", "frame": 4176},
+        "first_objective_failure": {"frame": 4491, "reason": "ENEMY_LEAK", "remaining_life": 0},
+        "protected_3": "KILLED_BY_ARTILLERY_AT_5191",
+        "protected_14": "REACHED_AT_15249"
+      },
+      "causal_break": "Medical geometry and later survival chain failed; Ansel/Hibiscus coverage did not preserve the planned deaths-free duty schedule."
+    },
+    {
+      "attempt": 2,
+      "selected_structure_id": "M66_SPOT_OUTER_DELAYED_HEAL",
+      "operational_plan_id": "R8_7_GPT_M66_V2",
+      "action_count": 30,
+      "selected_ids": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_212_ansel", "char_120_hibisc", "char_284_spot", "char_210_stward"],
+      "result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 7,
+        "remaining_life": -13,
+        "first_leak": {"enemy_id": "enemy_1107_uoffcr#9", "frame": 2007},
+        "first_objective_failure": {"frame": 4611, "reason": "ENEMY_LEAK", "remaining_life": 0},
+        "protected_3": "KILLED_BY_ARTILLERY_AT_5341",
+        "protected_14": "KILLED_BY_ARTILLERY_AT_3943",
+        "artillery": "LEAKED_AT_5759",
+        "armor_34": "LEAKED_AT_6996"
+      },
+      "causal_break": "The declared Melantha-to-Spot BLOCK did not occur; officer #9 leaked before the planned delayed recovery."
+    },
+    {
+      "attempt": 3,
+      "selected_structure_id": "M66_MIRRORED_OUTER_DUTIES",
+      "operational_plan_id": "R8_7_GPT_M66_V3",
+      "action_count": 27,
+      "roster_english": ["Fang", "Friston-3", "Midnight", "Melantha", "Ansel", "Hibiscus", "Beagle", "Steward"],
+      "roster_chinese": ["芬", "Friston-3", "月见夜", "玫兰莎", "安赛尔", "芙蓉", "米格鲁", "史都华德"],
+      "plan_file_sha256": "bde81a476f78f57e49e81301ef1999b42f700de95b598a2e08662cac35a064d4",
+      "plan_canonical_sha256": "63744abd4f1f9494d2e2691a2f1963f3c44e5b73c7a46572963e979d9fb0ac25",
+      "actions_canonical_sha256": "113b7139928d195e37c3d193c4a5e6c5a0c753a28de580df7a53eab4a0e00947",
+      "result": {
+        "win": false,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "operator_deaths": 6,
+        "remaining_life": -12,
+        "first_leak": {"enemy_id": "enemy_1107_uoffcr#11", "frame": 3065},
+        "first_objective_failure": {"frame": 4627, "reason": "ENEMY_LEAK", "remaining_life": 0},
+        "protected_3": "KILLED_BY_ARTILLERY_AT_5353",
+        "protected_14": "REACHED_AT_13749",
+        "artillery": {"operator_damage_events": 38, "operator_damage_total": 11035.13, "blocks": 0, "leak_frame": 5759},
+        "armor_34": {"operator_damage_events": 2, "operator_damage_total": 49.7, "blocks": 0, "leak_frame": 6996}
+      },
+      "causal_break": "The expected Melantha BLOCK did occur at 921, but officer #11 was never BLOCKed and leaked at 3065 after 886.76 damage. Friston died at 2111; Steward died at 3970; later commands for Hibiscus/Melantha/Steward/Fang became dead-state errors. Artillery and #34 both remained open."
+    }
+  ],
+  "model_gap_record": {
+    "selected_plan": "NO_CRITICAL_MODEL_GAP_ADDED",
+    "rejected_candidate": "M66_VANILLA_YATO_PRE_SWING_BRIDGE was rejected because an aborted pre-strike consuming cooldown is not expressible; this was a candidate-level gap, not a private mechanism change."
+  }
+}

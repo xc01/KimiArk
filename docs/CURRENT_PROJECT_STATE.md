@@ -559,3 +559,15 @@ M65 used its own GPT call and simulation. The selected
 20/13/5/life -11. The first leak was #19@4507, protected #3 died@5384,
 artillery #0 leaked@5759, and #34 leaked@6996 with zero operator damage/BLOCK.
 M52 V1 remains the best verified current-model WIN.
+
+M66 tested three authorized GPT revisions and simulations. The selected
+structures were `M66_M52_MEDICAL_REDISTRIBUTION`,
+`M66_SPOT_OUTER_DELAYED_HEAL`, and `M66_MIRRORED_OUTER_DUTIES`; all three were
+complete 8-ID losses. V3 had the strongest pre-run gates (nested selection, one
+referenced hypothesis, full execution facts, 8-ID union, 0 static conflicts and
+0 unknowns), and its expected first BLOCK occurred, but officer #11 leaked at
+3065, life first reached zero at 4627, protected #3 died at 5353, artillery #0
+leaked at 5759, and #34 leaked at 6996. M66 ends at CLI 3/3 and simulation 3/3
+without an 8-ID WIN. M52 V1 remains the best verified current-model
+fixed-simulator WIN; evidence is under
+`docs/review/fc77177/m66_nine_win_compression_v1/evidence/`.
