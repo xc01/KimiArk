@@ -1,0 +1,67 @@
+{
+  "schema_version": "M67_CLOSEOUT_V1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY",
+  "best_verified_operator_count": 9,
+  "best_verified_plan_id": "R8_7_GPT_M52_V1",
+  "m67_eight_id_result": "NO_WIN",
+  "budget": {
+    "max_real_tactical_cli_starts": 3,
+    "started_real_tactical_cli_starts": 3,
+    "max_stage_simulations": 3,
+    "started_stage_simulations": 2,
+    "remaining_stage_simulations": 1,
+    "unused_balance_transfer": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "COMPLETED_LOSS",
+      "selected_structure_id": "M67_SPOT_OUTER_MEDICAL_BRIDGE",
+      "operational_plan_id": "R8_7_GPT_M67_V1",
+      "roster": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_212_ansel", "char_120_hibisc", "char_284_spot", "char_210_stward"],
+      "action_count": 33,
+      "distinct_operator_union": 8,
+      "contract": "PASS",
+      "execution_input_gate": "PASS",
+      "static_conflicts": 0,
+      "static_unknowns": 0,
+      "simulation": "COMPLETED",
+      "result": {"win": false, "enemies_killed": 26, "enemies_leaked": 7, "operator_deaths": 6, "remaining_life": -4, "first_leak": {"enemy_id": "enemy_1110_uamord#21", "frame": 5104}, "first_objective_failure": {"frame": 6101, "reason": "ENEMY_LEAK", "remaining_life": 0}, "protected_3": "REACHED_AT_10249", "protected_14": "REACHED_AT_15249"},
+      "key_closure": "Ansel's expected HEAL to Friston occurred@1321; Friston survived@4869. Steward killed artillery#0@4453 after 45 hits totaling 13227.21."
+    },
+    {
+      "attempt": 2,
+      "status": "COMPLETED_LOSS",
+      "selected_structure_id": "M67_RESERVED_SECOND_BARRAGE",
+      "operational_plan_id": "R8_7_GPT_M67_V2",
+      "roster": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_212_ansel", "char_120_hibisc", "char_284_spot", "char_210_stward"],
+      "action_count": 31,
+      "distinct_operator_union": 8,
+      "contract": "PASS",
+      "execution_input_gate": "PASS",
+      "static_conflicts": 0,
+      "static_unknowns": 0,
+      "simulation": "COMPLETED",
+      "result": {"win": false, "enemies_killed": 21, "enemies_leaked": 12, "operator_deaths": 7, "remaining_life": -10, "first_leak": {"enemy_id": "enemy_1110_uamord#21", "frame": 5046}, "first_objective_failure": {"frame": 5403, "reason": "ENEMY_LEAK", "remaining_life": 0}, "protected_3": "KILLED_BY_ARTILLERY_AT_5353", "protected_14": "REACHED_AT_15449"},
+      "key_failure": "Reserved-barrage HEAL occurred@3647, but Ansel/Steward died@3793; Steward dealt only 8369.57 to artillery before death, so artillery leaked@5759."
+    },
+    {
+      "attempt": 3,
+      "status": "CLI_FAILED_NO_RETRY",
+      "operational_plan_id": null,
+      "selected_structure_id": null,
+      "contract": "NOT_RUN",
+      "static": "NOT_RUN",
+      "simulation": "NOT_STARTED",
+      "cli_exit_code": 1,
+      "timed_out": false,
+      "failure": "Codex model refresh request timed out repeatedly; no final structured output was produced.",
+      "budget_effect": "Counted as real CLI start 3/3; simulation remained unused and did not transfer."
+    }
+  ],
+  "model_gap_record": {
+    "selected_plans": "No newly added critical MODEL_GAP in V1/V2 selected plans.",
+    "rejected_candidates": "V1 and V2 rejected pre-swing persistence/bait variants because aborted pre-strike cooldown effects are not expressible."
+  }
+}

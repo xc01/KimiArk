@@ -1192,3 +1192,26 @@ operator uselessness, or any real-game/robust claim. Full prompts, model
 comparisons, snapshots, static/preflight results, gzipped original events,
 budget, hashes, and closeout are under
 `docs/review/fc77177/m66_nine_win_compression_v1/evidence/`.
+
+## 2026-10-28 — M67 closes at three CLI calls with two completed simulations
+
+M67 supplied the verified M52 V1 nine-operator contribution table and all three
+M66 original-event loss chains, explicitly allowing GPT to replace or delete any
+operator. V1 selected Spot outer-medical bridging and removed Lancet/Beagle from
+the tested roster. Its 33-action, 8-ID plan passed contract, execution input,
+and static gates with 0 conflicts/unknowns, then lost 26/7/6/life -4. It
+improved on several old gaps: Ansel's expected early heal occurred, Friston
+survived to 4869, Steward killed artillery#0 at 4453, and both protected targets
+arrived. The remaining break was the central death cascade; #21 and #34 leaked.
+
+V2 reserved the second-barrage medical skills. Its expected heal occurred@3647,
+but Ansel and Steward died together@3793; the plan regressed to 21/12/7/life
+-10, artillery killed protected #3@5353 and leaked@5759, and #34 leaked@6996
+with zero operator damage/BLOCK. V3's real CLI start then failed without a
+structured plan after repeated Codex model-refresh timeouts; it was counted as
+CLI 3/3, was not retried, and did not start the remaining simulation.
+
+M67 therefore records no 8-ID WIN and no 8-ID impossibility. M52 V1 remains the
+best verified current-model fixed-simulator result. Evidence, hashes, gzip
+round-trip manifests, and failure boundaries are under
+`docs/review/fc77177/m67_contribution_replacement_v1/evidence/`.

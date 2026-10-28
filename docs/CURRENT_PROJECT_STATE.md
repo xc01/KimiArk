@@ -571,3 +571,13 @@ leaked at 5759, and #34 leaked at 6996. M66 ends at CLI 3/3 and simulation 3/3
 without an 8-ID WIN. M52 V1 remains the best verified current-model
 fixed-simulator WIN; evidence is under
 `docs/review/fc77177/m66_nine_win_compression_v1/evidence/`.
+
+M67 evaluated actual contribution replacement with three CLI calls. V1's
+Spot outer-medical bridge passed all pre-run gates and improved artillery,
+Friston survival, and protected-target outcomes, but still lost 26/7/6/life -4
+after the central death cascade and late #21/#34 leaks. V2's reserved-barrage
+timing regressed to 21/12/7/life -10. V3's real CLI failed without a structured
+plan after model-refresh timeouts, was counted as CLI 3/3, and left the third
+simulation unused without transfer. No M67 8-ID WIN was found; M52 V1 remains
+best verified. Evidence is under
+`docs/review/fc77177/m67_contribution_replacement_v1/evidence/`.
