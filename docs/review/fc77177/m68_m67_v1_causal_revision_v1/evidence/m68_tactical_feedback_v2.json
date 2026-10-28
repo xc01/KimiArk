@@ -1,0 +1,127 @@
+{
+  "authorization": {
+    "max": 3,
+    "real_tactical_cli_starts_used": 1,
+    "stage_simulations_used": 1,
+    "stop_on_win": true
+  },
+  "m67_v2": {
+    "plan_id": "R8_7_GPT_M67_V2",
+    "result": {
+      "kills": 21,
+      "leaks": 12,
+      "life_delta": -10,
+      "operator_deaths": 7,
+      "win": false
+    },
+    "structure_id": "M67_RESERVED_SECOND_BARRAGE",
+    "warning": "The reserved planned HEAL occurred@3647, but Ansel and Steward still both died@3793. A heal occurrence alone does not prove survival or handoff."
+  },
+  "m68_v1": {
+    "artillery": "Operator damage was only Steward 1718.79 (6 hits, 2341-2581). It fired at Hibiscus/Ansel/Steward, then at protected #3 at 5053/5203/5353; #3 died at 5353. Artillery leaked@5759.",
+    "central_break": "Fang blocked #21@4646 but died@4954 and unblocked it; Melantha then died@5356 while blocked by #22. #21 leaked at the same frame #3 died to artillery. Later central queue and artillery had no live interceptor/killer.",
+    "deaths": [
+      {
+        "chain": "Artillery hit 910@2443, Hibiscus healed 558.9@2443; Steward dealt 1718.79 total to artillery across 6 hits; second artillery 910@2593 killed him. Artillery survived and leaked@5759.",
+        "frame": 2593,
+        "operator": "char_210_stward"
+      },
+      {
+        "chain": "Artillery 890@4393, self-heal 372.6@4437, #21 340@4450, Ansel heal 506.8@4467, self-heal 350.6@4523, #21 340@4534, artillery 890@4543.",
+        "frame": 4543,
+        "operator": "char_120_hibisc"
+      },
+      {
+        "chain": "Artillery 765@4753, #22 340@4768; no observed heal in that final window.",
+        "frame": 4768,
+        "operator": "char_4093_frston"
+      },
+      {
+        "chain": "#21 340@4786/4870/4954 plus artillery 740@4903; Ansel healed 506.8@4811/4897; Fang unblocked #21 on death.",
+        "frame": 4954,
+        "operator": "char_123_fang"
+      },
+      {
+        "chain": "#22 340@5188/5272/5356; Melantha dealt 297.04 three times then 695.56@5349, unblocked and died. No replacement held #21/#22.",
+        "frame": 5356,
+        "operator": "char_208_melan"
+      }
+    ],
+    "enemy21": "Fang blocked #21@4646; #21 killed Fang@4954 and released. No later BLOCK was observed; Melantha died@5356 and #21 leaked@5353.",
+    "enemy34": {
+      "block_count": 0,
+      "enemy_damage_to_ansel": {
+        "amount": 1360,
+        "count": 4
+      },
+      "leak": 6996,
+      "operator_damage": {
+        "char_283_midn": {
+          "amount": 49.7,
+          "count": 2,
+          "frames": [
+            6564,
+            6603
+          ]
+        }
+      },
+      "spawn": 6330
+    },
+    "leaks": [
+      "#21@5353",
+      "#22@5689",
+      "artillery#0@5759",
+      "#27@5932",
+      "#28@6082",
+      "#29@6142",
+      "#31@6292",
+      "#33@6846",
+      "#34@6996"
+    ],
+    "plan_id": "R8_7_GPT_M68_V1",
+    "result": {
+      "#34_leak": 6996,
+      "artillery_leak": 5759,
+      "first_leak": "#21@5353",
+      "kills": 24,
+      "leaks": 9,
+      "life_delta": -7,
+      "life_zero_frame": 5689,
+      "operator_deaths": 5,
+      "protected_14_reached": 12849,
+      "protected_3_death": 5353,
+      "win": false
+    },
+    "roadblocks": {
+      "trap1": 11017,
+      "trap2": 12517,
+      "trap3": 2404,
+      "trap4": 1966
+    },
+    "structure_id": "M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION",
+    "successful_parts_observed": [
+      "Opening survived and cleared #1/#2/#4/#5 plus officer #9 wave.",
+      "Hibiscus deployed@1321 and supported early center.",
+      "Melantha destroyed roadblock #4@1966, retreated@2010; Spot deployed@2011.",
+      "Midnight destroyed roadblock #3@2404.",
+      "Both medics substantially supported Fang/Friston/Ansel/Spot, but not the central late mixed-damage cascade.",
+      "Roadblock #1 destroyed late@11017 by Steward; #2 late@12517 by Fang."
+    ]
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot dodge talent and Ansel probability extra heal unsupported."
+  ],
+  "policy": "GPT chooses roster, structure, parent branch and all actions. Old frames are conditional evidence. Preserve only duties supported by the same structure; recompute all handoffs.",
+  "requirements": [
+    "Fix early Steward/artillery timing rather than reserving another heal.",
+    "Maintain a live central BLOCK/kill handoff through #21/#22 and artillery.",
+    "Protect #3 continuously across roadblock #1.",
+    "Establish actual #34 path/contact and sufficient damage.",
+    "Recompute all other leaks; do not only patch terminal #34."
+  ],
+  "schema_version": "KIMIARK_M68_V2_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M68 V1 and M67 V2 original events; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

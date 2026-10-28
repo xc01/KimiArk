@@ -1215,3 +1215,30 @@ M67 therefore records no 8-ID WIN and no 8-ID impossibility. M52 V1 remains the
 best verified current-model fixed-simulator result. Evidence, hashes, gzip
 round-trip manifests, and failure boundaries are under
 `docs/review/fc77177/m67_contribution_replacement_v1/evidence/`.
+
+## 2026-10-28 — M68 closes three CLI calls with two completed simulations
+
+M68 used M67 V1's original events as the revision focus and allowed GPT to
+replace or delete any operator. V1 selected
+`M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION`. Its 31-action, 8-ID plan
+passed contract, execution input, and static gates with 0 conflicts/unknowns,
+then lost 24/9/5/life -7. Steward died@2593 after two 910 artillery hits;
+Hibiscus, Friston, Fang, and Melantha died@4543/4768/4954/5356. Fang unblocked
+#21 and Melantha unblocked #22 on death. Protected #3 died@5353, artillery
+leaked@5759, and #34 leaked@6996 with zero BLOCK and only 49.7 Midnight damage.
+
+V2 selected `M68_SEPARATED_EAST_EARLY_CASTER`. Its 30-action, 8-ID plan passed
+all pre-run gates, then regressed to 19/14/9/life -13. The earliest break was
+Spot: artillery splash 558@4060 plus officer ticks killed him@4119, releasing
+#16/#18, which leaked at 4506/4491. Steward died@2743 after two 910 artillery
+hits; artillery took only 3686.68 operator damage. Neither protected target
+reached and roadblocks #1/#2 were not destroyed.
+
+V3's real CLI start counted 3/3. GPT produced a structured 31-action, 8-ID plan,
+but contract validation failed because the expected first observable event used
+unsupported `PROJECTILE_BORN`. The plan was not normalized or rewritten, no
+static gate or simulation followed, and no tactical LOSS was recorded. M68 ends
+at CLI 3/3 and simulation 2/3 without an 8-ID WIN. M52 V1 remains the best
+verified current-model fixed-simulator result. Evidence, gzip round-trip
+manifests, and failure boundaries are under
+`docs/review/fc77177/m68_m67_v1_causal_revision_v1/evidence/`.

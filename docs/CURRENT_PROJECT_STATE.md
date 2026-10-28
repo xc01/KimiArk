@@ -581,3 +581,15 @@ plan after model-refresh timeouts, was counted as CLI 3/3, and left the third
 simulation unused without transfer. No M67 8-ID WIN was found; M52 V1 remains
 best verified. Evidence is under
 `docs/review/fc77177/m67_contribution_replacement_v1/evidence/`.
+
+M68 made three authorized contribution-driven revisions. V1's
+`M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION` passed all pre-run gates but
+lost 24/9/5/life -7 after Steward's early artillery death, the central
+Fang/Melantha release cascade, and persistent #34 leakage. V2's
+`M68_SEPARATED_EAST_EARLY_CASTER` regressed to 19/14/9/life -13 when artillery
+splash killed Spot@4119 and released #16/#18; both protected targets then died.
+V3's real CLI start produced a structured plan but failed contract validation on
+unsupported `PROJECTILE_BORN`; it was not simulated and was not reinterpreted as
+a tactical LOSS. M68 ends at CLI 3/3 and simulation 2/3. M52 V1 remains the best
+verified current-model fixed-simulator WIN; evidence is under
+`docs/review/fc77177/m68_m67_v1_causal_revision_v1/evidence/`.

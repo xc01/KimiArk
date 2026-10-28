@@ -1,0 +1,168 @@
+{
+  "authorization": {
+    "real_tactical_cli_starts_used": 2,
+    "remaining": 1,
+    "stage_simulations_used": 2,
+    "stop_on_win": true
+  },
+  "m67_v2_warning": "Reserved HEAL occurred@3647, but Ansel and Steward both died@3793. A heal occurrence is not survival proof.",
+  "m68_v1_result": {
+    "#34_leak": 6996,
+    "artillery_leak": 5759,
+    "both_protected_reached": false,
+    "first_leak": "#21@5353",
+    "plan": "R8_7_GPT_M68_V1",
+    "protected3_death": 5353,
+    "result": "LOSS 24/9/5/life-7",
+    "structure": "M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION"
+  },
+  "m68_v2": {
+    "#21": {
+      "block": {
+        "cause": "Fang death",
+        "end": 4668,
+        "operator": "char_123_fang",
+        "start": 4646
+      },
+      "leak": 5067,
+      "operator_damage": {
+        "char_123_fang": 32.5,
+        "char_283_midn": 74.55
+      },
+      "spawn": 4380
+    },
+    "#34": {
+      "block_count": 0,
+      "enemy_damage_to_steward": [
+        289,
+        289
+      ],
+      "leak": 6996,
+      "operator_damage": {
+        "char_210_stward": 249.1
+      },
+      "spawn": 6330
+    },
+    "core_failure": "Spot blocked #16/#18 but artillery splash 558@4060 plus officer ticks killed him at 4119; he unblocked both enemies on death. #16 leaked@4506 and #18 leaked@4491. This broke the lane earlier than the central/armillery cascade.",
+    "death_chain": {
+      "char_120_hibisc": {
+        "death": 4363,
+        "final_artillery_hits": [
+          890,
+          890
+        ],
+        "self_heal_between": 558.9
+      },
+      "char_123_fang": {
+        "blocked_enemy": "#21",
+        "death": 4668,
+        "effect": "Unblocked #21.",
+        "final_damage_from_21": 340
+      },
+      "char_208_melan": {
+        "blocked_enemy": "#22",
+        "death": 5322,
+        "effect": "Unblocked #22; #22 leaked@5655.",
+        "final_damage_from_22": 340
+      },
+      "char_210_stward": {
+        "artillery_damage_to_him": 3640,
+        "artillery_output": 3686.68,
+        "death": 2743,
+        "effect": "Artillery survived; V2 got only 3686.68 operator damage.",
+        "final_hits": [
+          910,
+          910
+        ],
+        "heals_from_hibiscus": [
+          351.1,
+          558.9
+        ]
+      },
+      "char_212_ansel": {
+        "death": 4060,
+        "final_artillery_hits": [
+          891,
+          891
+        ],
+        "last_heal_from_hibiscus": 558.9
+      },
+      "char_283_midn": {
+        "death": 6386,
+        "final_damage_from_33": 306
+      },
+      "char_284_spot": {
+        "blocked": [
+          "#16",
+          "#18"
+        ],
+        "death": 4119,
+        "effect": "Released both and caused #18@4491/#16@4506.",
+        "final_artillery_splash": 558.0
+      },
+      "char_4093_frston": {
+        "death": 4753,
+        "final_damage": [
+          "#22 340@4650",
+          "#22 340@4734",
+          "artillery 765@4753"
+        ]
+      }
+    },
+    "first_leak": {
+      "enemy": "officer #18",
+      "frame": 4491
+    },
+    "leaks": [
+      "officer#18@4491",
+      "officer#16@4506",
+      "#21@5067",
+      "#22@5655",
+      "officer#24@5720",
+      "artillery#0@5759",
+      "#27@5932",
+      "officer#26@6080",
+      "#28@6082",
+      "#29@6142",
+      "#31@6292",
+      "officer#32@6590",
+      "#33@6846",
+      "#34@6996"
+    ],
+    "plan": "R8_7_GPT_M68_V2",
+    "protected_targets": {
+      "#14": "died@6314 from officer #32; none reached",
+      "#3": "died@5353 from artillery 950@5053/5203/5353"
+    },
+    "result": {
+      "kills": 19,
+      "leaks": 14,
+      "life_delta": -13,
+      "operator_deaths": 9
+    },
+    "roadblocks": {
+      "trap1": "not destroyed",
+      "trap2": "not destroyed",
+      "trap3": 2404,
+      "trap4": 1966
+    },
+    "structure": "M68_SEPARATED_EAST_EARLY_CASTER"
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot dodge talent and Ansel probability extra heal unsupported."
+  ],
+  "policy": "Final authorized M68 revision. GPT must choose structure, roster, parent branch and all actions. It may replace or delete any operator.",
+  "requirements": [
+    "Address the earliest Spot death and released officers, not only terminal #34.",
+    "Prevent artillery from stacking lethal splash on the same central cluster.",
+    "Keep a live central BLOCK/kill handoff through #21/#22 and artillery.",
+    "Protect #3 across roadblock #1; do not leave roadblocks #1/#2 late.",
+    "Establish #34 actual path/contact and sufficient damage.",
+    "Recompute all other leaks and both protected targets."
+  ],
+  "schema_version": "KIMIARK_M68_V3_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M68 V1/V2 and M67 V2 original events; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

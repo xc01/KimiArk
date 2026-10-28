@@ -1,0 +1,171 @@
+{
+  "attempts": [
+    {
+      "action_count": 31,
+      "actions_canonical_sha256": "b676da7d8421303d1faa072fbc8e321cc981cae488faef9005f2e7a7e7607065",
+      "attempt": 1,
+      "contract": "PASS",
+      "distinct_operator_union": 8,
+      "execution_input_gate": "PASS",
+      "key_events": "Steward died@2593 after two 910 artillery hits and dealt 1718.79 to artillery. Hibiscus/Friston/Fang/Melantha died@4543/4768/4954/5356. Fang unblocked #21 on death; Melantha unblocked #22 on death. #34 had zero BLOCK and only two Midnight hits totaling 49.7.",
+      "operational_plan_id": "R8_7_GPT_M68_V1",
+      "plan_canonical_sha256": "f22da74bd8766d5b03b8ea11cd15d2ee42340f56699050cd97bacec81ba05208",
+      "result": {
+        "#34_leak": 6996,
+        "artillery_leak": 5759,
+        "enemies_killed": 24,
+        "enemies_leaked": 9,
+        "first_leak": {
+          "enemy_id": "enemy_1110_uamord#21",
+          "frame": 5353
+        },
+        "first_objective_failure": {
+          "frame": 5689,
+          "reason": "ENEMY_LEAK",
+          "remaining_life": 0
+        },
+        "operator_deaths": 5,
+        "protected_14": "REACHED_AT_12849",
+        "protected_3": "KILLED_BY_ARTILLERY_AT_5353",
+        "remaining_life": -7,
+        "win": false
+      },
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "selected_structure_id": "M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION",
+      "simulation": "COMPLETED",
+      "static_conflicts": 0,
+      "static_unknowns": 0,
+      "status": "COMPLETED_LOSS"
+    },
+    {
+      "action_count": 30,
+      "actions_canonical_sha256": "5f3deb9ccfdcc9afd718725ccab57ccaea85d2bdb79107494dae8db4523e22a6",
+      "attempt": 2,
+      "contract": "PASS",
+      "distinct_operator_union": 8,
+      "execution_input_gate": "PASS",
+      "key_events": "Spot blocked #16/#18, then artillery splash 558@4060 plus officer ticks killed him@4119, releasing both. Steward died@2743 after two 910 artillery hits; artillery took only 3686.68 operator damage. Roadblocks #1/#2 were not destroyed.",
+      "operational_plan_id": "R8_7_GPT_M68_V2",
+      "plan_canonical_sha256": "26c6b16e142af6e6e04c623c316d8aaed1d0975b41cb2ae33849420c908be777",
+      "result": {
+        "#34_leak": 6996,
+        "artillery_leak": 5759,
+        "enemies_killed": 19,
+        "enemies_leaked": 14,
+        "first_leak": {
+          "enemy_id": "enemy_1107_uoffcr#18",
+          "frame": 4491
+        },
+        "first_objective_failure": {
+          "frame": 5067,
+          "reason": "ENEMY_LEAK",
+          "remaining_life": 0
+        },
+        "operator_deaths": 9,
+        "protected_14": "KILLED_BY_OFFICER_32_AT_6314",
+        "protected_3": "KILLED_BY_ARTILLERY_AT_5353",
+        "remaining_life": -13,
+        "win": false
+      },
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "selected_structure_id": "M68_SEPARATED_EAST_EARLY_CASTER",
+      "simulation": "COMPLETED",
+      "static_conflicts": 0,
+      "static_unknowns": 0,
+      "status": "COMPLETED_LOSS"
+    },
+    {
+      "action_count": 31,
+      "attempt": 3,
+      "budget_effect": "Counted as real CLI start 3/3; the remaining simulation did not transfer.",
+      "cli_exit_code": 1,
+      "contract": "FAIL",
+      "distinct_operator_union": 8,
+      "execution_input_gate": "NOT_RUN",
+      "failure": "Schema/contract failed because revision_hypothesis expected first observable event used unsupported event_type PROJECTILE_BORN. A structured plan existed but no Simulator.run or battle event was produced.",
+      "invalid_structured_output_sha256": "cfa9c5d916d8246c074f4ffc89f137ddb45d7cf71d1f9629c664c5062e3f5f72",
+      "operational_plan_id": "R8_7_GPT_M68_V3",
+      "roster": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_212_ansel",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "selected_structure_id": "M68_PROJECTILE_LOCK_MEDICAL_STAGGER",
+      "simulation": "NOT_STARTED",
+      "static": "NOT_RUN",
+      "status": "CLI_CONTRACT_FAILED_NO_RETRY",
+      "timed_out": false
+    }
+  ],
+  "best_verified_operator_count": 9,
+  "best_verified_plan_id": "R8_7_GPT_M52_V1",
+  "budget": {
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "max_real_tactical_cli_starts": 3,
+    "max_stage_simulations": 3,
+    "remaining_stage_simulations": 1,
+    "started_real_tactical_cli_starts": 3,
+    "started_stage_simulations": 2,
+    "unused_balance_transfer": false
+  },
+  "conclusion": "M68 did not produce an 8-ID current-model fixed-simulator WIN. M52 V1 remains the frozen 9-ID WIN. No 8-ID impossibility, operator-uselessness, real-game, robustness, probabilistic, or global-minimality claim follows.",
+  "m68_eight_id_result": "NO_WIN",
+  "model_comparisons": {
+    "V1": [
+      "M68_EARLY_HIBISC_RESERVED_SPOT_CASTER_ROTATION",
+      "M68_DURIN_OUTPUT_WITH_CENTRAL_SPOT_FUSION",
+      "M68_YATO_COMMITTED_SWING_RELAY"
+    ],
+    "V2": [
+      "M68_SEPARATED_EAST_EARLY_CASTER",
+      "M68_CARDIGAN_LANCET_PERMANENT_OUTER",
+      "M68_YATO_ATTACK_COMMITMENT_ROTATION"
+    ],
+    "V3_invalid": [
+      "M68_PROJECTILE_LOCK_MEDICAL_STAGGER",
+      "M68_PERMANENT_MELANTHA_OUTER",
+      "M68_VANILLA_CARDIGAN_RECONSTRUCTION",
+      "M68_YATO_PRESTRIKE_HANDOFF"
+    ]
+  },
+  "model_gap_record": {
+    "V3_invalid": "The model used observable PROJECTILE_BORN as an expected diagnostic event, but this event type is not a declared supported expectation in the contract. It was not silently rewritten and the simulation was not run.",
+    "mechanics": "Spot physical-dodge talent and Ansel probability extra heal remain unsupported; ordinary pre-swing target lock remains unreliable.",
+    "selected_plans": "No newly added critical MODEL_GAP in V1/V2 selected plans."
+  },
+  "roster_names": {
+    "char_120_hibisc": "芙蓉",
+    "char_123_fang": "芬",
+    "char_208_melan": "玫兰莎",
+    "char_210_stward": "史都华德",
+    "char_212_ansel": "安赛尔",
+    "char_283_midn": "月见夜",
+    "char_284_spot": "斑点",
+    "char_4093_frston": "Friston-3"
+  },
+  "schema_version": "M68_CLOSEOUT_V1",
+  "scope": "CURRENT_MODEL_FIXED_SIMULATOR_ONLY"
+}
