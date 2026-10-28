@@ -1,0 +1,118 @@
+{
+  "authorization": {
+    "candidate_attempts_used": 1,
+    "candidate_slots_remaining": 4,
+    "new_cli_slots_remaining": 4,
+    "new_real_cli_starts_used": 0,
+    "simulation_slots_remaining": 4,
+    "stage_simulations_used": 1
+  },
+  "m67_v1_reference": {
+    "failure": "Central cascade broke later; all seven leaks must be checked, including #21@5104 and #34@6996.",
+    "result": "LOSS 26/7/6/life-4",
+    "roster": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "success": "Early Ansel heal, Friston survival, Steward killed artillery@4453, both protected reached."
+  },
+  "m68_v1": {
+    "#34": "zero BLOCK, 49.7 damage, leak@6996",
+    "#3_death": 5353,
+    "artillery_leak": 5759,
+    "first_leak": "#21@5353",
+    "result": "LOSS 24/9/5/life-7"
+  },
+  "m68_v2": {
+    "result": "LOSS 19/14/9_death_events/life-13",
+    "warning": "Nine death events involved eight unique operators; Steward died@2743 and again@6620 after redeploy. First critical break was Spot@4119 releasing #16/#18."
+  },
+  "m69_candidate1": {
+    "actions": 31,
+    "deaths": {
+      "char_120_hibiscus": "char_120_hibisc@4543",
+      "char_123_fang": 4954,
+      "char_208_melan": 5356,
+      "char_210_stward": 2593,
+      "char_4093_frston": 4768
+    },
+    "key_break": "Steward died@2593 after artillery hits; Hibiscus/Friston/Fang/Melantha died@4543/4768/4954/5356. Fang unblocked #21 on death; Melantha unblocked #22 on death. The central queue and artillery then had no live closure.",
+    "leaks": [
+      "#21@5353",
+      "#22@5689",
+      "artillery#0@5759",
+      "#27@5932",
+      "#28@6082",
+      "#29@6142",
+      "#31@6292",
+      "officer#32@6620",
+      "#33@6846",
+      "#34@6996"
+    ],
+    "medic_support": "Hibiscus healed Friston 1782.8 and Ansel 3772.7; Ansel healed Hibiscus 2783.0 and Fang 1870.4, but not enough for the mixed artillery/officer cascade.",
+    "operator_damage": {
+      "#21": {
+        "char_123_fang": 178.75,
+        "char_283_midn": 223.65
+      },
+      "#22": {
+        "char_208_melan": 4158.56
+      },
+      "#34": {
+        "char_283_midn": 49.7
+      },
+      "artillery": {
+        "char_210_stward": {
+          "amount": 2466.09,
+          "count": 9
+        }
+      }
+    },
+    "plan_id": "R8_7_GPT_M68_V3",
+    "projectile_prediction": "PROJECTILE_BORN source=enemy_1112_emppnt#0 target=char_208_melan frame=2053 was observed. This only verifies the predicted projectile, not the full hypothesis or eventual survival.",
+    "result": {
+      "first_leak": "#21@5353",
+      "first_objective_failure": 5689,
+      "kills": 23,
+      "leaks": 10,
+      "life_delta": -8,
+      "operator_death_events": 5,
+      "protected14_reached": 10518,
+      "protected3_death": 5353,
+      "unique_operators_died": 5,
+      "win": false
+    },
+    "roadblocks": {
+      "trap1": 9917,
+      "trap2": 10186,
+      "trap3": 2404,
+      "trap4": 1966
+    },
+    "source": "M68 V3 structured output restored verbatim",
+    "structure": "M68_PROJECTILE_LOCK_MEDICAL_STAGGER",
+    "union": 8
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot dodge talent and Ansel probability extra heal unsupported."
+  ],
+  "policy": "GPT chooses structure, roster, parent branch and all actions. M69 candidate1 was restored without modification and has now been simulated; use its actual events.",
+  "requirements": [
+    "Fix Steward/artillery early mixed damage without assuming predicted projectile survival.",
+    "Maintain live central BLOCK/kill handoff through #21/#22 and artillery.",
+    "Close all ten candidate1 leaks, not only #34.",
+    "Protect #3 through roadblock #1.",
+    "Establish actual #34 route/contact and sufficient damage.",
+    "Recompute all handoffs and both protected targets."
+  ],
+  "schema_version": "KIMIARK_M69_V2_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M68 V1/V2 and M69 candidate1 original events; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

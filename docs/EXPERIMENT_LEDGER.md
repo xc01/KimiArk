@@ -1242,3 +1242,32 @@ at CLI 3/3 and simulation 2/3 without an 8-ID WIN. M52 V1 remains the best
 verified current-model fixed-simulator result. Evidence, gzip round-trip
 manifests, and failure boundaries are under
 `docs/review/fc77177/m68_m67_v1_causal_revision_v1/evidence/`.
+
+## 2026-10-28 — M69 repairs projectile queries and closes five candidate attempts
+
+M69 first repaired the read-only event contract before tactical work: the
+existing exact `type/source/target/frame` matcher now accepts
+`PROJECTILE_BORN`, without changing simulator mechanics or M68's historical
+contract failure. Focused tests cover matching, wrong target/frame rejection,
+and unchanged invalid-query semantics. This repair consumed no tactical budget.
+
+Candidate 1 restored M68 V3 verbatim with no model call and simulated it once:
+23/10/5/life -8. Candidate 2 then used one real CLI and became the best M69
+result at 27/6/3/life -4; it killed #34 via Friston BLOCK@6596-7194, but Fang
+died@4786 and released #21, while Steward died@2743 and artillery plus #3
+remained open. Candidate 3 regressed to 19/14/7/life -12 after artillery killed
+Hibiscus and Steward together@3073. Candidate 4 lost 23/10/5/life -8 despite
+12753.92 artillery damage because artillery survived, protected #3 died@3343,
+and #34 had no contact. Candidate 5 was closest but still a complete LOSS at
+30/3/1/life 0 with zero runtime action errors and both protected targets safe:
+Steward dealt 13227.21 and killed artillery@4273, but Friston died@6577 to
+mixed #28/#31/#34 damage and released #28/#31; #28 leaked@6788, #31@6806, and
+#34 leaked@6996 with only 722.39 damage and zero BLOCK.
+
+M69 therefore ends at candidate attempts 5/5, real CLI 4/4, and full
+simulations 5/5. No eight-ID WIN was found; M52 V1 remains the best verified
+nine-ID current-model fixed-simulator result, and this does not prove eight-ID
+impossibility or operator uselessness. Evidence, prompts/schema/replies,
+candidate comparisons, frozen plans, preflight/static results, gzipped original
+events, feedback, budget, protocol diff/tests, and 174 verified hashes are under
+`docs/review/fc77177/m69_projectile_query_contract_v1/evidence/`.

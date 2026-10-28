@@ -1,0 +1,131 @@
+{
+  "authorization": {
+    "candidate_attempts_used": 5,
+    "candidate_attempts_max": 5,
+    "candidate_attempts_remaining": 0,
+    "new_real_tactical_cli_starts_used": 4,
+    "new_real_tactical_cli_starts_max": 4,
+    "new_real_tactical_cli_starts_remaining": 0,
+    "stage_simulations_used": 5,
+    "stage_simulations_max": 5,
+    "stage_simulations_remaining": 0,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "m68_budget_not_transferred": true
+  },
+  "baseline": {
+    "best_verified_operator_count": 9,
+    "best_verified_plan": "M52 V1",
+    "scope": "current fixed simulator only; no real-game, faithful, robust, probabilistic, or global-minimum claim"
+  },
+  "protocol_fix": {
+    "status": "PASS",
+    "event_type_added": "PROJECTILE_BORN",
+    "semantics": "Exact type/source/target/frame matching; wrong target/frame is EVENT_NOT_OBSERVED. It does not convert an observation into a full tactical hypothesis or an action.",
+    "m68_history": "Preserved unchanged as CONTRACT_INVALID for PROJECTILE_BORN.",
+    "focused_test_status": "PASS",
+    "focused_test_output": "evidence/protocol_test_output.txt",
+    "diff": "evidence/protocol_fix.diff"
+  },
+  "candidates": [
+    {
+      "candidate": 1,
+      "plan_id": "R8_7_GPT_M68_V3",
+      "structure": "M68_PROJECTILE_LOCK_MEDICAL_STAGGER",
+      "new_real_cli": 0,
+      "restored_verbatim": true,
+      "actions": 31,
+      "operator_union": 8,
+      "result": "LOSS 23 kills/10 leaks/5 death events/life -8",
+      "outcome": "PROJECTILE_BORN@2053 observed, but Steward died@2593; #3 died@5353, artillery leaked@5759 and #34 leaked@6996.",
+      "attempt": "evidence/attempts/candidate_v1"
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M69_V2",
+      "structure": "M69_DELAYED_STEWARD_RESERVED_SPOT",
+      "new_real_cli": 1,
+      "actions": 34,
+      "operator_union": 8,
+      "result": "LOSS 27 kills/6 leaks/3 death events/life -4",
+      "closed": {"#22": true, "#34": "BLOCK@6596-7194 and killed@7194"},
+      "leaks": ["#21@5185", "artillery#0@5759", "#27@5932", "#29@6142", "officer#32@6620", "#33@6846"],
+      "outcome": "Best observed 8-ID M69 result. Fang died@4786 and unblocked #21; Steward died@2743; artillery and #3 were not closed.",
+      "attempt": "evidence/attempts/candidate_v2"
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M69_V3",
+      "structure": "M69_EARLY_REAR_SPOT_NORTHERN_FIRE",
+      "new_real_cli": 1,
+      "actions": 32,
+      "operator_union": 8,
+      "result": "LOSS 19 kills/14 leaks/7 death events/life -12",
+      "first_leak": "#19@4611",
+      "first_objective_failure": 5046,
+      "outcome": "Artillery killed Hibiscus and Steward together@3073; #34 had zero operator damage/BLOCK and leaked@6996.",
+      "attempt": "evidence/attempts/candidate_v3"
+    },
+    {
+      "candidate": 4,
+      "plan_id": "R8_7_GPT_M69_V4",
+      "structure": "M69_NORTH_SPOT_CENTRAL_MIDNIGHT",
+      "new_real_cli": 1,
+      "actions": 41,
+      "operator_union": 8,
+      "result": "LOSS 23 kills/10 leaks/5 death events/life -8",
+      "first_leak": "#20@5095",
+      "first_objective_failure": 5196,
+      "outcome": "Steward dealt 12753.92 to artillery but did not kill it; protected #3 died@3343; #34 had zero damage/BLOCK and leaked@6996.",
+      "attempt": "evidence/attempts/candidate_v4"
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M69_V5",
+      "structure": "M69_V5_EARLY_STEWARD_UPPER_MELANTHA",
+      "new_real_cli": 1,
+      "actions": 30,
+      "operator_union": 8,
+      "result": "LOSS 30 kills/3 leaks/1 death event/life 0",
+      "protected_targets": "Both reached safely (#14@11119, #3@11349).",
+      "artillery_closure": "Steward dealt 13227.21 and killed artillery@4273.",
+      "runtime_action_errors": 0,
+      "leaks": [
+        {
+          "enemy": "#28",
+          "frame": 6788,
+          "cause": "Friston BLOCK@5871 ended@6577 on his death; he had dealt 392 and Midnight 1191, insufficient."
+        },
+        {
+          "enemy": "#31",
+          "frame": 6806,
+          "cause": "Friston BLOCK@6081 ended@6577 on his death; only Midnight 397 damage."
+        },
+        {
+          "enemy": "#34",
+          "frame": 6996,
+          "cause": "Zero BLOCK and only Steward 722.39 over two hits."
+        }
+      ],
+      "death": {
+        "operator": "char_4093_frston",
+        "frame": 6577,
+        "cause": "Mixed #28/#31 physical pressure plus #34 arts hit@6568; death simultaneously released #28/#31."
+      },
+      "hypothesis_observation": "Declared Steward DAMAGE to artillery@2161 was observed; it does not prove the full plan.",
+      "attempt": "evidence/attempts/candidate_v5"
+    }
+  ],
+  "final_result": {
+    "eight_id_win": false,
+    "eight_id_unsolved_claim": false,
+    "best_verified": "M52 V1 nine-ID WIN remains frozen",
+    "early_deaths_and_contributions": "Candidate5's single Friston death had high blocking/damage contribution but no complete kill handoff; no candidate obtained an eight-ID WIN."
+  },
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot physical-dodge talent unsupported.",
+    "Ansel probability extra heal unsupported."
+  ],
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "schema_version": "KIMIARK_M69_CLOSEOUT_V1"
+}

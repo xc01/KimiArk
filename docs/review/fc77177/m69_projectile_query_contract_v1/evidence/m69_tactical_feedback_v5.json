@@ -1,0 +1,57 @@
+{
+  "authorization": {
+    "candidate_attempts_used": 4,
+    "candidate_slots_remaining": 1,
+    "new_cli_slots_remaining": 1,
+    "new_real_cli_starts_used": 3,
+    "simulation_slots_remaining": 1,
+    "stage_simulations_used": 4
+  },
+  "candidate2_best_observed": {
+    "result": "LOSS 27/6/3 death events/life-4; first leak #21@5185, artillery@5759, protected #3 death@5353, #14 reached@11118.",
+    "closed": {"#22": "Friston BLOCK 4796-5304 and Melantha/Midnight/Friston killed it.", "#34": "Friston BLOCK 6596-7194; Melantha 4854.12 + Midnight 422.45 + Friston 178.2 killed it@7194."},
+    "remaining": ["#21", "artillery#0", "#27", "#29", "officer#32", "#33"]
+  },
+  "candidate3_counterexample": {
+    "result": "LOSS 19/14/7 death events/life-12.",
+    "warning": "Hibiscus and Steward both died@3073 to artillery hits@2923/3073; #34 had zero operator damage/BLOCK and leaked@6996."
+  },
+  "candidate4_counterexample": {
+    "plan_id": "R8_7_GPT_M69_V4",
+    "structure": "M69_NORTH_SPOT_CENTRAL_MIDNIGHT",
+    "result": "LOSS 23 kills/10 leaks/5 death events/life-8; first leak #20@5095 and first objective failure #22@5196.",
+    "deaths": {
+      "char_210_stward": "Artillery hits @3043/3193/3343/3493/4393 with intermittent healing; #21 hit@4383 and Steward died@4393.",
+      "char_212_ansel": "Repeated artillery/officer/#21 damage; died@4551 after #21 hit@4551.",
+      "char_123_fang": "Blocked #21@4646, artillery hit@4753, died and unblocked #21@4753.",
+      "char_4093_frston": "Blocked #20@4298, artillery hit@4753, #22 hit@4768; died and unblocked #20@4768.",
+      "char_283_midn": "Blocked #21@4819, artillery hit@4903, died and unblocked #21@4903."
+    },
+    "leaks": ["#20@5095", "#22@5196", "#21@5236", "artillery#0@5759", "#27@5932", "#28@6082", "#29@6142", "#31@6292", "#33@6846", "#34@6996"],
+    "closure": {
+      "artillery": "Steward dealt 12753.92 total but artillery was not killed or BLOCKed.",
+      "#21": "Fang 48.75 and Midnight 99.4 only; two temporary BLOCKs ended by Fang@4753 and Midnight@4903 deaths.",
+      "#22": "Zero operator damage and zero BLOCK; leaked@5196.",
+      "#34": "Zero operator damage and zero BLOCK; attacked Hibiscus @6400/6484/6568/6652 then leaked@6996."
+    },
+    "protected_targets": {
+      "protected3": "Artillery hit @3043/3193/3343, 950 each; died@3343 before any safe roadblock#1 passage.",
+      "protected14": "Blocked by roadblock#2@3620, released@11087, reached@11419."
+    },
+    "roadblocks": {"trap1": 11317, "trap2": 11087, "trap4": 1966}
+  },
+  "lesson": "Candidate4 proved more than 12.7k artillery damage is still insufficient if artillery remains alive, while exposing #3 much earlier and losing all central holders. Candidate2 remains the closest observed result; GPT may rebuild, but must solve artillery kill/survival and central #21/#22 closure together.",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": ["No reliable pre-swing target lock.", "Spot dodge talent and Ansel probability extra heal unsupported."],
+  "policy": "GPT autonomously chooses structure, roster, parent branch and all actions. This is the final authorized candidate.",
+  "requirements": [
+    "Kill artillery before its leak while keeping every hit recipient alive through paired artillery and ordinary hits.",
+    "Keep #21/#22 under a live blocker with enough accumulated damage or kill them before release.",
+    "Keep protected #3 alive and not exposed to the artillery/officer volley; recompute roadblock#1 passage timing.",
+    "Establish actual #34 BLOCK or sufficient stay window plus enough damage; do not count range overlap.",
+    "Close every other leak from Candidates2-4 and recompute all retreats/redeploy/successors."
+  ],
+  "schema_version": "KIMIARK_M69_V5_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M69 candidate2/candidate3/candidate4 original events and compact M67/M68 references; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

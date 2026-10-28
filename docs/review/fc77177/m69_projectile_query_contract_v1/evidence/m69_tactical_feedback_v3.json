@@ -1,0 +1,99 @@
+{
+  "authorization": {
+    "candidate_attempts_used": 2,
+    "candidate_slots_remaining": 3,
+    "new_cli_slots_remaining": 3,
+    "new_real_cli_starts_used": 1,
+    "simulation_slots_remaining": 3,
+    "stage_simulations_used": 2
+  },
+  "candidate2": {
+    "plan_id": "R8_7_GPT_M69_V2",
+    "roster": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "structure": "M69_DELAYED_STEWARD_RESERVED_SPOT",
+    "result": {
+      "actions": 34,
+      "kills": 27,
+      "leaks": 6,
+      "operator_death_events": 3,
+      "unique_operators_died": 3,
+      "protected3_death": 5353,
+      "protected14_reached": 11118,
+      "first_leak": "#21@5185",
+      "first_objective_failure": "artillery#0@5759",
+      "life_delta": -4,
+      "win": false
+    },
+    "deaths": {
+      "char_210_stward": "Artillery locked [7,5], hit@2593 and@2743; Melantha's projectile was born@2053 and Steward died after 1967.89 artillery damage with only one 558.9 heal.",
+      "char_120_hibisc": "#21 hit@4450/4534, artillery hit@4543; Ansel healed her 3423.2 total and she had healed five targets, but died@4543.",
+      "char_123_fang": "#21 blocked@4646, hit Fang@4618/4702/4786; artillery hit Fang@4753; Ansel healed Fang 1642.0 total, but Fang died and unblocked #21@4786."
+    },
+    "exact_leaks": [
+      "#21@5185",
+      "artillery#0@5759",
+      "#27@5932",
+      "#29@6142",
+      "officer#32@6620",
+      "#33@6846"
+    ],
+    "closed_targets": {
+      "#22": "Friston blocked@4796-5304; Melantha/Midnight/Friston killed it.",
+      "#34": "Friston blocked@6596-7194; Melantha@4854.12, Midnight@422.45 and Friston@178.2 killed it@7194."
+    },
+    "artillery_and_objective": {
+      "Ansel_hits": "@3793/3943/4093, 891 each",
+      "Hibiscus_hits": "@4243/4393/4543, 890 each",
+      "Fang_Friston_shared_hit": "@4753, 740/765",
+      "Midnight_hit": "@4903, 718",
+      "protected3_hits": "@5053/5203/5353, 950 each; death@5353",
+      "Steward_hits": "@2593/2743, 910 each",
+      "leak": 5759
+    },
+    "unclosed_target_contact": {
+      "#21": "Spawn@4380; only 246.6 operator damage (Fang97.5, Midnight149.1), one Fang BLOCK@4646-4786, leak@5185.",
+      "#27": "No BLOCK and no operator DAMAGE before leak@5932.",
+      "#29": "Only Midnight 536.76, no BLOCK, leak@6142.",
+      "#32": "No BLOCK and no operator DAMAGE before leak@6620.",
+      "#33": "Only Midnight 49.7 and Melantha 680.0, no BLOCK, leak@6846."
+    },
+    "roadblocks": {
+      "trap1": 9917,
+      "trap2": 10786,
+      "trap3": 2404,
+      "trap4": 1966
+    },
+    "protected3_path": "Blocked by roadblock#3@761, passed@2404, blocked by roadblock#1@2773, then died to three artillery hits@5353. Roadblock#1 survived until9917."
+  },
+  "m67_v1_reference": {
+    "result": "LOSS 26/7/6 death events/life-4",
+    "kept_invariants": "Early Ansel healing, Friston survival and artillery kill@4453; both protected targets reached. Treat these as conditional, not transferable guarantees."
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot dodge talent and Ansel probability extra heal unsupported."
+  ],
+  "policy": "GPT chooses structure, roster, parent branch and all actions. Do not preserve roles or frames merely for inheritance; account for all six leaks and both protected paths.",
+  "requirements": [
+    "Prevent Steward's early two-hit artillery death or replace its artillery damage role with a survivable handoff.",
+    "Keep a live central blocker/killer through the #21/#22 queue; Fang's death unblocked #21 and no successor killed it.",
+    "Close artillery before its @5759 leak and keep protected #3 alive through roadblock#1 and its three-hit window.",
+    "Give #27/#29/#32/#33 actual BLOCK, damage or route closure rather than assuming central collapse resolves them.",
+    "Retain a verified #34 contact/kill condition under any new action ordering.",
+    "Recompute medical target competition, retreat refunds, redeploy timing and every protected-target passage.",
+    "Do not count a PROJECTILE_BORN observation or one BLOCK as full responsibility closure."
+  ],
+  "schema_version": "KIMIARK_M69_V3_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M69 candidate2 original events plus M67/M68 compact references; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

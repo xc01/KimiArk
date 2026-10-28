@@ -1,0 +1,7944 @@
+{
+  "base_rule_card": {
+    "rules": {
+      "coordinates": "OperationalPlan/action JSON tile is [row,col]. Runtime tile is (x=col,y=row), converted as (col,row).",
+      "damage": "Current formula layer: physical max(0.05A,A-D); arts max(0.05A,0.01A*(100-RES)); attack interval T0/(clamp(S,10,600)/100).",
+      "economy": "Natural DP and provided ledger deltas are model calculations. Refunds, skill DP and merchant upkeep are only valid with their stated evidence and conditions.",
+      "range_orientation": "GameData range offsets are stored for RIGHT. ApproximateRealRangeTransformer rotates them in bottom-left field coordinates.",
+      "simulator_win": "Current Simulator wins when no enemy leaks, the spawn schedule is exhausted, and no active enemies remain.",
+      "time_sp_recovery": "Current public low-rarity runtime advances time-SP by 1.0 SP/s only while inactive. SP is paused while a skill is active.",
+      "unknown": "Exact client timing, active roadblock ordinary-WALK navigation, target priority and unsupported effects remain UNKNOWN unless supplied evidence says otherwise."
+    },
+    "schema_version": "R8_1_READONLY_BASE_RULE_CARD_V1",
+    "sources": [
+      "scripts/kimi_readonly_tools.py",
+      "scripts/kimi_responses_transport.py",
+      "src/arknights_planner/simulator/range.py",
+      "src/arknights_planner/simulator/combat_rules.py",
+      "src/arknights_planner/simulator/simulator.py"
+    ]
+  },
+  "catalog_compaction_v1": {
+    "compact_base_sha256": "323aceb3463396adcaa85b0215fcd21c0765dbf637077789f9b44fe52efc546d",
+    "omitted_from_prompt": [
+      "debug_configuration"
+    ],
+    "policy": "PROMPT_COMPACT_ONLY_IN_BUILD_PROMPT_EXECUTION_FACTS_RETAIN_DEBUG_CONFIGURATION",
+    "retained_for_execution": [
+      "normal_low_star_catalog[*].debug_configuration"
+    ],
+    "schema_version": "M63_PROMPT_COMPACT_EXECUTION_FULL_V1",
+    "source_facts_sha256": "3cf3e922f9f43600b5c1ba85f625ca8caa9b054a06d389cfa15c0764d9d5e1bc"
+  },
+  "codex_cli_run_policy": {
+    "automatic_resume": false,
+    "automatic_retry": false,
+    "process_starts": 1,
+    "readonly_query_helpers": true,
+    "source_modification": "FORBIDDEN",
+    "stage_simulation_by_model": "FORBIDDEN"
+  },
+  "corrected_mechanism_support": {
+    "artillery_candidate_timeline": "Cast starts cooldown and selection; with no slowdown, OnAttack creates the fixed-point projectile about cast+0.333333 seconds, and the hit is about creation+3.0 seconds. This is 2.7.81 candidate evidence, not build-2771 equality.",
+    "disappear_appear": "enemy is hidden between source DISAPPEAR and APPEAR_AT_POS; exact client visibility and target rules remain UNKNOWN",
+    "fragment_or_wave_wait": "checkpoint time is used as the wait duration in the current model",
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "medical_candidate_scope": "The confirmed ratio filter selects the lowest missing-HP-ratio in range and excludes full HP; exact equal-ratio tie-break remains UNKNOWN.",
+    "neutral_faction_and_ordinary_blocking": "Ursus Civilian is neutral; ordinary operators neither attack nor block it",
+    "officer_protected_target_attack_radius": "enemy_1107_uoffcr can normally attack Ursus Civilian within 1.2",
+    "protected_target_candidate_scope": "Neutral-promotion before hatred sorting is confirmed for the 2.7.81 selector; exact hatred values and all tie-breaks remain UNKNOWN.",
+    "protected_target_life_scoring": "safe arrival neither leaks nor deducts life; death deducts 1 and is not a kill",
+    "roadblock_special_blocking": "PRTS-backed 0.4472 roadblock radius blocks Ursus Civilian and release occurs on destruction; it is not ordinary operator blocking",
+    "stage_move_multiplier": "applied once to enemy raw move speed",
+    "unknowns": [
+      "build-2771 equivalence",
+      "interruption and mid-cast attack-time rescheduling",
+      "ordinary/special mutual exclusion",
+      "other protected-target families and exact continuous-frame client timing"
+    ],
+    "win_rule": "remaining_life > 0, zero leaks, exhausted spawns and no active enemies"
+  },
+  "decision_task": {
+    "deliverable": "one compact OperationalPlan JSON only",
+    "must_cover": "all routes from first spawn to final WIN condition",
+    "must_include": "route responsibilities, pressure windows, attack, healing, blocking, skills, retreats and handoffs"
+  },
+  "enemy_facts": [
+    {
+      "apply_way": "MELEE",
+      "atk": 330,
+      "attack_interval": 2.0,
+      "attack_speed": 100.0,
+      "defense": 150,
+      "enemy_id": "enemy_1107_uoffcr",
+      "level": 0,
+      "life_point_reduce": 1,
+      "magic_resistance": 20.0,
+      "max_hp": 3300,
+      "move_speed": 1.1,
+      "overwritten_data": null,
+      "source_path": "$.enemies[Key=enemy_1107_uoffcr].Value[level=0].enemyData"
+    },
+    {
+      "apply_way": "MELEE",
+      "atk": 380,
+      "attack_interval": 1.5,
+      "attack_speed": 100.0,
+      "defense": 100,
+      "enemy_id": "enemy_1108_uterer",
+      "level": 0,
+      "life_point_reduce": 1,
+      "magic_resistance": 20.0,
+      "max_hp": 3500,
+      "move_speed": 1.7,
+      "overwritten_data": null,
+      "source_path": "$.enemies[Key=enemy_1108_uterer].Value[level=0].enemyData"
+    },
+    {
+      "apply_way": "RANGED",
+      "atk": 1000,
+      "attack_interval": 5.0,
+      "attack_speed": 100.0,
+      "defense": 800,
+      "enemy_id": "enemy_1112_emppnt",
+      "level": 0,
+      "life_point_reduce": 1,
+      "magic_resistance": 50.0,
+      "max_hp": 13000,
+      "move_speed": 0.5,
+      "overwritten_data": null,
+      "source_path": "$.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData"
+    },
+    {
+      "apply_way": "RANGED",
+      "atk": 340,
+      "attack_interval": 2.8,
+      "attack_speed": 100.0,
+      "defense": 500,
+      "enemy_id": "enemy_1110_uamord",
+      "level": 0,
+      "life_point_reduce": 1,
+      "magic_resistance": 50.0,
+      "max_hp": 5000,
+      "move_speed": 0.9,
+      "overwritten_data": null,
+      "source_path": "$.enemies[Key=enemy_1110_uamord].Value[level=0].enemyData"
+    },
+    {
+      "apply_way": "NONE",
+      "atk": 0,
+      "attack_interval": 0.0,
+      "attack_speed": 100.0,
+      "defense": 50,
+      "enemy_id": "enemy_3001_upeopl",
+      "level": 0,
+      "life_point_reduce": 0,
+      "magic_resistance": 0.0,
+      "max_hp": 3500,
+      "move_speed": 0.65,
+      "overwritten_data": null,
+      "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData"
+    }
+  ],
+  "gamedata_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+  "m58_execution_capability_contract": {
+    "ansel_talent": "The probabilistic extra-heal talent is unsupported; do not assume double healing.",
+    "artillery_ability": "Ability cast starts target selection and cooldown; projectile birth locks the impact point and has its own delayed splash flow.",
+    "ordinary_attack": "Current model selects the target at ATTACK_STRIKE; it has no reliable pre-swing target lock. A completed attack's cooldown is not reset by changing target.",
+    "spot_skill": "EXECUTABLE_APPROXIMATED: initial SP25/SP40, 25 seconds, ATK+45%, 1.3-second healing interval, x-4 nine-cell range, and healing stops attacks; the physical-dodge talent is unsupported.",
+    "usage": "These are current executor limits, not arguments against user experience. Separate current-model-checkable baiting from USER_PREMISE_NOT_EXPRESSIBLE pre-swing timing."
+  },
+  "m58_open_roster_policy": {
+    "death_policy": "EVALUATE_BY_CONTRIBUTION_AND_COST",
+    "dynamic_evidence_gate": "REVOKED_BY_USER",
+    "max_unique_deployed_operator_ids": 8,
+    "mechanism_rewrite_policy": "FORBIDDEN",
+    "minimum_structure_candidates": 3,
+    "roster_bound": "OPEN_NORMAL_LOW_STAR_CATALOG",
+    "schema_version": "M58_OPEN_ROSTER_STRUCTURE_POLICY_V1",
+    "simulation_policy": "AT_MOST_ONE_FIXED_FULL_STAGE_SIMULATION_AFTER_STATIC_PASS"
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "milestone": "MAIN_08-07_GPT_M69 candidate4 revision_CODEX_CLI_V1",
+  "milestone_constraints": {
+    "counting_rule": "The union of selected_low_star_operator_ids and every DEPLOY action operator_id is counted; retreat and redeploy do not reduce distinct-operator count.",
+    "max_unique_deployed_operator_ids": 8
+  },
+  "model_spawn_timeline": {
+    "events": [
+      {
+        "count": 1,
+        "enemy_id": "enemy_1112_emppnt",
+        "frame_at_30fps": 90,
+        "interval_seconds": 1.0,
+        "route_id": "route-1",
+        "time_seconds": 3.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_3001_upeopl",
+        "frame_at_30fps": 540,
+        "interval_seconds": 1.0,
+        "route_id": "route-2",
+        "time_seconds": 18.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 330,
+        "interval_seconds": 1.0,
+        "route_id": "route-3",
+        "time_seconds": 11.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 990,
+        "interval_seconds": 1.0,
+        "route_id": "route-4",
+        "time_seconds": 33.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 480,
+        "interval_seconds": 1.0,
+        "route_id": "route-5",
+        "time_seconds": 16.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 1140,
+        "interval_seconds": 1.0,
+        "route_id": "route-6",
+        "time_seconds": 38.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 780,
+        "interval_seconds": 1.0,
+        "route_id": "route-7",
+        "time_seconds": 26.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 1230,
+        "interval_seconds": 1.0,
+        "route_id": "route-8",
+        "time_seconds": 41.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 930,
+        "interval_seconds": 1.0,
+        "route_id": "route-9",
+        "time_seconds": 31.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 1380,
+        "interval_seconds": 1.0,
+        "route_id": "route-10",
+        "time_seconds": 46.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 2520,
+        "interval_seconds": 1.0,
+        "route_id": "route-11",
+        "time_seconds": 84.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 2370,
+        "interval_seconds": 1.0,
+        "route_id": "route-12",
+        "time_seconds": 79.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 2730,
+        "interval_seconds": 1.0,
+        "route_id": "route-13",
+        "time_seconds": 91.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 2880,
+        "interval_seconds": 1.0,
+        "route_id": "route-14",
+        "time_seconds": 96.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_3001_upeopl",
+        "frame_at_30fps": 3030,
+        "interval_seconds": 1.0,
+        "route_id": "route-15",
+        "time_seconds": 101.0
+      },
+      {
+        "count": 2,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 3480,
+        "interval_seconds": 10.0,
+        "route_id": "route-16",
+        "time_seconds": 116.0
+      },
+      {
+        "count": 2,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 3330,
+        "interval_seconds": 10.0,
+        "route_id": "route-17",
+        "time_seconds": 111.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 4080,
+        "interval_seconds": 1.0,
+        "route_id": "route-18",
+        "time_seconds": 136.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1110_uamord",
+        "frame_at_30fps": 4530,
+        "interval_seconds": 1.0,
+        "route_id": "route-19",
+        "time_seconds": 151.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 3930,
+        "interval_seconds": 1.0,
+        "route_id": "route-20",
+        "time_seconds": 131.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1110_uamord",
+        "frame_at_30fps": 4380,
+        "interval_seconds": 1.0,
+        "route_id": "route-21",
+        "time_seconds": 146.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 4980,
+        "interval_seconds": 1.0,
+        "route_id": "route-22",
+        "time_seconds": 166.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 5430,
+        "interval_seconds": 1.0,
+        "route_id": "route-23",
+        "time_seconds": 181.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 5880,
+        "interval_seconds": 1.0,
+        "route_id": "route-24",
+        "time_seconds": 196.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 5130,
+        "interval_seconds": 1.0,
+        "route_id": "route-25",
+        "time_seconds": 171.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 5490,
+        "interval_seconds": 1.0,
+        "route_id": "route-26",
+        "time_seconds": 183.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1107_uoffcr",
+        "frame_at_30fps": 6030,
+        "interval_seconds": 1.0,
+        "route_id": "route-27",
+        "time_seconds": 201.0
+      },
+      {
+        "count": 2,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 5730,
+        "interval_seconds": 7.0,
+        "route_id": "route-28",
+        "time_seconds": 191.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1110_uamord",
+        "frame_at_30fps": 6330,
+        "interval_seconds": 1.0,
+        "route_id": "route-29",
+        "time_seconds": 211.0
+      },
+      {
+        "count": 2,
+        "enemy_id": "enemy_1108_uterer",
+        "frame_at_30fps": 5580,
+        "interval_seconds": 7.0,
+        "route_id": "route-30",
+        "time_seconds": 186.0
+      },
+      {
+        "count": 1,
+        "enemy_id": "enemy_1110_uamord",
+        "frame_at_30fps": 6180,
+        "interval_seconds": 1.0,
+        "route_id": "route-31",
+        "time_seconds": 206.0
+      }
+    ],
+    "last_spawn_seconds": 211.0,
+    "policy": "HIERARCHICAL_FRAGMENT_DURATION_SECOND_QUANTIZED",
+    "status": "DIAGNOSTIC_MODEL_SCHEDULE_NOT_CLIENT_FACT"
+  },
+  "normal_low_star_capability_source": {
+    "facts_path": "output/normal_low_star_facts_v1/normal_low_star_facts.json",
+    "facts_schema_version": "normal-low-star-facts-v1",
+    "facts_sha256": "968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307",
+    "gamedata_commit": "0ef7f952dfd018392200157a5c79a6511ba69122",
+    "interpreter_version": "low-rarity-blackboard-v3-generic-operator",
+    "schema_version": "normal-low-star-capability-source-v1",
+    "stale_skill_audit_policy": "NOT_USED_FOR_SKILL_SUPPORT",
+    "support_path": "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json",
+    "support_schema_version": "normal-low-star-mechanism-support-v2",
+    "support_sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324"
+  },
+  "normal_low_star_catalog": [
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 2,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "splashcaster",
+        "position": "RANGED",
+        "profession": "CASTER",
+        "rarity": 2
+      },
+      "name": "12F",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "ARTS"
+      },
+      "operator_id": "char_009_12fce",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "range_id": "2-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_AREA_ATTACK",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_AOE_GEOMETRY"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 432,
+        "attack_interval": 2.9,
+        "block_count": 1,
+        "cost": 24,
+        "def": 50,
+        "max_hp": 1461,
+        "redeploy_time": 70,
+        "res": 10.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "physician",
+        "position": "RANGED",
+        "profession": "MEDIC",
+        "rarity": 3
+      },
+      "name": "芙蓉",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "HEAL",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_120_hibisc",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_heal_up[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.5
+          },
+          "charges": 1,
+          "duration": 20.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "治疗强化·α型",
+          "range_id": null,
+          "skill_id": "skcom_heal_up[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_heal_up[1].levels[6]",
+          "sp_cost": 30,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 345,
+        "attack_interval": 2.85,
+        "block_count": 1,
+        "cost": 17,
+        "def": 110,
+        "max_hp": 1220,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "splashcaster",
+        "position": "RANGED",
+        "profession": "CASTER",
+        "rarity": 3
+      },
+      "name": "炎熔",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "ARTS"
+      },
+      "operator_id": "char_121_lava",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-6"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 30.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_AREA_ATTACK",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_AOE_GEOMETRY"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_magic_rage[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "sp",
+                  "value": 30.0,
+                  "valueStr": null
+                }
+              ],
+              "description": "部署后立即获得30点技力",
+              "name": "快速技能使用",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_DEPLOYMENT_SP"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "attack_speed": 50.0
+          },
+          "charges": 1,
+          "duration": 20.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "战术咏唱·α型",
+          "range_id": null,
+          "skill_id": "skcom_magic_rage[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_magic_rage[1].levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 582,
+        "attack_interval": 2.9,
+        "block_count": 1,
+        "cost": 30,
+        "def": 95,
+        "max_hp": 1141,
+        "redeploy_time": 70,
+        "res": 15.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "protector",
+        "position": "MELEE",
+        "profession": "TANK",
+        "rarity": 3
+      },
+      "name": "米格鲁",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_122_beagle",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "range_id": "0-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_def_up[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "def": 0.5
+          },
+          "charges": 1,
+          "duration": 30.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "防御力强化·α型",
+          "range_id": null,
+          "skill_id": "skcom_def_up[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_def_up[1].levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 295,
+        "attack_interval": 1.2,
+        "block_count": 3,
+        "cost": 18,
+        "def": 490,
+        "max_hp": 2035,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "pioneer",
+        "position": "MELEE",
+        "profession": "PIONEER",
+        "rarity": 3
+      },
+      "name": "芬",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_123_fang",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_charge_cost[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "cost",
+                  "value": -1.0,
+                  "valueStr": null
+                }
+              ],
+              "description": "自身部署费用-1",
+              "name": "轻量化",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_SELF_COST"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "cost": 6.0
+          },
+          "charges": 1,
+          "duration": 0.0,
+          "duration_type": "NONE",
+          "initial_sp": 6,
+          "level_index": 6,
+          "name": "冲锋号令·α型",
+          "range_id": null,
+          "skill_id": "skcom_charge_cost[1]",
+          "skill_type": "AUTO",
+          "source_path": "$.skcom_charge_cost[1].levels[6]",
+          "sp_cost": 25,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 325,
+        "attack_interval": 1.05,
+        "block_count": 2,
+        "cost": 11,
+        "def": 260,
+        "max_hp": 1325,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fastshot",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 3
+      },
+      "name": "克洛丝",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_124_kroos",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skchr_kroos_1",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk_scale": 1.4,
+            "times": 2.0
+          },
+          "charges": 1,
+          "duration": 0.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "二连射·自动",
+          "range_id": null,
+          "skill_id": "skchr_kroos_1",
+          "skill_type": "AUTO",
+          "source_path": "$.skchr_kroos_1.levels[6]",
+          "sp_cost": 4,
+          "sp_type": "INCREASE_WHEN_ATTACK"
+        }
+      ],
+      "stats": {
+        "atk": 375,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 11,
+        "def": 126,
+        "max_hp": 1060,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "charger",
+        "position": "MELEE",
+        "profession": "PIONEER",
+        "rarity": 3
+      },
+      "name": "翎羽",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_192_falco",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_quickattack[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.25,
+            "attack_speed": 25.0
+          },
+          "charges": 1,
+          "duration": 25.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "迅捷打击·α型",
+          "range_id": null,
+          "skill_id": "skcom_quickattack[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_quickattack[1].levels[6]",
+          "sp_cost": 45,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 445,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 10,
+        "def": 279,
+        "max_hp": 1226,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fearless",
+        "position": "MELEE",
+        "profession": "WARRIOR",
+        "rarity": 3
+      },
+      "name": "玫兰莎",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_208_melan",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_atk_up[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.5
+          },
+          "charges": 1,
+          "duration": 20.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "攻击力强化·α型",
+          "range_id": null,
+          "skill_id": "skcom_atk_up[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_atk_up[1].levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 738,
+        "attack_interval": 1.5,
+        "block_count": 1,
+        "cost": 15,
+        "def": 155,
+        "max_hp": 2745,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "protector",
+        "position": "MELEE",
+        "profession": "TANK",
+        "rarity": 3
+      },
+      "name": "卡缇",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_209_ardign",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "range_id": "0-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_heal_self[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "heal_scale": 0.4
+          },
+          "charges": 1,
+          "duration": 0.0,
+          "duration_type": "NONE",
+          "initial_sp": 10,
+          "level_index": 6,
+          "name": "生命回复·α型",
+          "range_id": null,
+          "skill_id": "skcom_heal_self[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_heal_self[1].levels[6]",
+          "sp_cost": 20,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 305,
+        "attack_interval": 1.2,
+        "block_count": 3,
+        "cost": 18,
+        "def": 475,
+        "max_hp": 2130,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "corecaster",
+        "position": "RANGED",
+        "profession": "CASTER",
+        "rarity": 3
+      },
+      "name": "史都华德",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "ARTS"
+      },
+      "operator_id": "char_210_stward",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skchr_stward_1",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "atk",
+                  "value": 0.06,
+                  "valueStr": null
+                }
+              ],
+              "description": "攻击力+6%，优先攻击防御力最高的敌人",
+              "name": "铠甲突破",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_HIGH_DEFENSE_PRIORITY"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk_scale": 1.9
+          },
+          "charges": 1,
+          "duration": 0.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "强力击·α型",
+          "range_id": null,
+          "skill_id": "skchr_stward_1",
+          "skill_type": "AUTO",
+          "source_path": "$.skchr_stward_1.levels[6]",
+          "sp_cost": 4,
+          "sp_type": "INCREASE_WHEN_ATTACK"
+        }
+      ],
+      "stats": {
+        "atk": 470,
+        "attack_interval": 1.6,
+        "block_count": 1,
+        "cost": 18,
+        "def": 90,
+        "max_hp": 1100,
+        "redeploy_time": 70,
+        "res": 15.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fastshot",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 3
+      },
+      "name": "安德切尔",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_211_adnach",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_atk_up[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.5
+          },
+          "charges": 1,
+          "duration": 20.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "攻击力强化·α型",
+          "range_id": null,
+          "skill_id": "skcom_atk_up[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_atk_up[1].levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 365,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 11,
+        "def": 134,
+        "max_hp": 1080,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "physician",
+        "position": "RANGED",
+        "profession": "MEDIC",
+        "rarity": 3
+      },
+      "name": "安赛尔",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "HEAL",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_212_ansel",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_range_extend",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "ability_range_forward_extend": 2.0,
+            "atk": 0.4
+          },
+          "charges": 1,
+          "duration": 25.0,
+          "duration_type": "NONE",
+          "initial_sp": 10,
+          "level_index": 6,
+          "name": "治疗范围强化",
+          "range_id": null,
+          "skill_id": "skcom_range_extend",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_range_extend.levels[6]",
+          "sp_cost": 35,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 362,
+        "attack_interval": 2.85,
+        "block_count": 1,
+        "cost": 17,
+        "def": 109,
+        "max_hp": 1135,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "pioneer",
+        "position": "MELEE",
+        "profession": "PIONEER",
+        "rarity": 3
+      },
+      "name": "香草",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_240_wyvern",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skchr_wyvern_1",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.35,
+            "cost": 6.0
+          },
+          "charges": 1,
+          "duration": 10.0,
+          "duration_type": "NONE",
+          "initial_sp": 6,
+          "level_index": 6,
+          "name": "冲锋号令·援军",
+          "range_id": null,
+          "skill_id": "skchr_wyvern_1",
+          "skill_type": "MANUAL",
+          "source_path": "$.skchr_wyvern_1.levels[6]",
+          "sp_cost": 20,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 355,
+        "attack_interval": 1.05,
+        "block_count": 2,
+        "cost": 11,
+        "def": 240,
+        "max_hp": 1270,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "slower",
+        "position": "RANGED",
+        "profession": "SUPPORT",
+        "rarity": 3
+      },
+      "name": "梓兰",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_278_orchid",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "y-2"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_quickattack[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.25,
+            "attack_speed": 25.0
+          },
+          "charges": 1,
+          "duration": 25.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "迅捷打击·α型",
+          "range_id": null,
+          "skill_id": "skcom_quickattack[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_quickattack[1].levels[6]",
+          "sp_cost": 45,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 378,
+        "attack_interval": 1.9,
+        "block_count": 1,
+        "cost": 12,
+        "def": 83,
+        "max_hp": 935,
+        "redeploy_time": 70,
+        "res": 15.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "centurion",
+        "position": "MELEE",
+        "profession": "WARRIOR",
+        "rarity": 3
+      },
+      "name": "泡普卡",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_281_popka",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skcom_atk_up[1]",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.5
+          },
+          "charges": 1,
+          "duration": 20.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "攻击力强化·α型",
+          "range_id": null,
+          "skill_id": "skcom_atk_up[1]",
+          "skill_type": "MANUAL",
+          "source_path": "$.skcom_atk_up[1].levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 495,
+        "attack_interval": 1.2,
+        "block_count": 2,
+        "cost": 19,
+        "def": 245,
+        "max_hp": 1858,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "aoesniper",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 3
+      },
+      "name": "空爆",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_282_catap",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-8"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_AREA_ATTACK",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_AOE_GEOMETRY"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": null,
+            "range_override": null,
+            "runtime_supported": false,
+            "skill_id": "skchr_catap_1",
+            "status": "UNSUPPORTED",
+            "stops_normal_attacks_while_healing": null
+          }
+        ],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "cost",
+                  "value": -1.0,
+                  "valueStr": null
+                }
+              ],
+              "description": "自身部署费用-1",
+              "name": "轻量化",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_SELF_COST"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "attack@range_scale": 2.0
+          },
+          "charges": 1,
+          "duration": 30.0,
+          "duration_type": "NONE",
+          "initial_sp": 0,
+          "level_index": 6,
+          "name": "爆破范围提升·α型",
+          "range_id": null,
+          "skill_id": "skchr_catap_1",
+          "skill_type": "MANUAL",
+          "source_path": "$.skchr_catap_1.levels[6]",
+          "sp_cost": 45,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 617,
+        "attack_interval": 2.8,
+        "block_count": 1,
+        "cost": 23,
+        "def": 85,
+        "max_hp": 1150,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "lord",
+        "position": "MELEE",
+        "profession": "WARRIOR",
+        "rarity": 3
+      },
+      "name": "月见夜",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_283_midn",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "range_id": "3-12"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": null,
+            "heal_mode": false,
+            "range_override": null,
+            "runtime_supported": true,
+            "skill_id": "skchr_midn_1",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": false
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.35
+          },
+          "charges": 1,
+          "duration": 40.0,
+          "duration_type": "NONE",
+          "initial_sp": 30,
+          "level_index": 6,
+          "name": "武器附魔·α型",
+          "range_id": null,
+          "skill_id": "skchr_midn_1",
+          "skill_type": "MANUAL",
+          "source_path": "$.skchr_midn_1.levels[6]",
+          "sp_cost": 70,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 497,
+        "attack_interval": 1.3,
+        "block_count": 2,
+        "cost": 16,
+        "def": 282,
+        "max_hp": 1653,
+        "redeploy_time": 70,
+        "res": 10.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 55,
+        "phase_index": 1,
+        "potential_level": 1,
+        "rarity": 3,
+        "required_potential_rank": 0,
+        "skill_level_index": 6,
+        "skill_rank": 7,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "guardian",
+        "position": "MELEE",
+        "profession": "TANK",
+        "rarity": 3
+      },
+      "name": "斑点",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_284_spot",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "range_id": "0-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [
+          {
+            "base_attack_time_override": 1.3,
+            "heal_mode": true,
+            "range_override": [
+              [
+                1,
+                -1
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                0,
+                -1
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                -1,
+                -1
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                -1,
+                1
+              ]
+            ],
+            "runtime_supported": true,
+            "skill_id": "skchr_spot_1",
+            "status": "EXECUTABLE_APPROXIMATED",
+            "stops_normal_attacks_while_healing": true
+          }
+        ],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [
+        {
+          "blackboard": {
+            "atk": 0.45,
+            "base_attack_time": 1.3
+          },
+          "charges": 1,
+          "duration": 25.0,
+          "duration_type": "NONE",
+          "initial_sp": 25,
+          "level_index": 6,
+          "name": "次级治疗模式",
+          "range_id": "x-4",
+          "skill_id": "skchr_spot_1",
+          "skill_type": "MANUAL",
+          "source_path": "$.skchr_spot_1.levels[6]",
+          "sp_cost": 40,
+          "sp_type": "INCREASE_WITH_TIME"
+        }
+      ],
+      "stats": {
+        "atk": 320,
+        "attack_interval": 1.2,
+        "block_count": 3,
+        "cost": 17,
+        "def": 442,
+        "max_hp": 1833,
+        "redeploy_time": 70,
+        "res": 10.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "physician",
+        "position": "RANGED",
+        "profession": "MEDIC",
+        "rarity": 1
+      },
+      "name": "Lancet-2",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "HEAL",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_285_medic2",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 200.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "value",
+                  "value": 200.0,
+                  "valueStr": null
+                }
+              ],
+              "description": "部署后立即恢复全场友方单位200点生命",
+              "name": "救援喷雾·I",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_DEPLOYMENT_HEAL_ALL"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 70,
+        "attack_interval": 2.85,
+        "block_count": 1,
+        "cost": 3,
+        "def": 27,
+        "max_hp": 435,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fearless",
+        "position": "MELEE",
+        "profession": "WARRIOR",
+        "rarity": 1
+      },
+      "name": "Castle-3",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_286_cast3",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 353,
+        "attack_interval": 1.5,
+        "block_count": 1,
+        "cost": 3,
+        "def": 90,
+        "max_hp": 1191,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "executor",
+        "position": "MELEE",
+        "profession": "SPECIAL",
+        "rarity": 1
+      },
+      "name": "THRM-EX",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_376_therex",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "range_id": "x-4"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 260,
+        "attack_interval": 0.93,
+        "block_count": 0,
+        "cost": 3,
+        "def": 443,
+        "max_hp": 1443,
+        "redeploy_time": 200,
+        "res": 50.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fastshot",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 1
+      },
+      "name": "正义骑士号",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4000_jnight",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 172,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 3,
+        "def": 41,
+        "max_hp": 495,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "bombarder",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 1
+      },
+      "name": "泰拉大陆调查团",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4077_palico",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            -1,
+            3
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "range_id": "3-3"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_TWO_HIT_GROUND_ATTACK",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_MULTI_HIT"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 276,
+        "attack_interval": 2.1,
+        "block_count": 1,
+        "cost": 3,
+        "def": 51,
+        "max_hp": 518,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "bard",
+        "position": "RANGED",
+        "profession": "SUPPORT",
+        "rarity": 1
+      },
+      "name": "U-Official",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4091_ulika",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "range_id": "x-4"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_CONTINUOUS_AURA_HEAL",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_AURA_HEAL"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 102,
+        "attack_interval": 1.3,
+        "block_count": 1,
+        "cost": 3,
+        "def": 28,
+        "max_hp": 385,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "protector",
+        "position": "MELEE",
+        "profession": "TANK",
+        "rarity": 1
+      },
+      "name": "Friston-3",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4093_frston",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "range_id": "0-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 198,
+        "attack_interval": 1.2,
+        "block_count": 3,
+        "cost": 3,
+        "def": 235,
+        "max_hp": 1152,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "ritualist",
+        "position": "RANGED",
+        "profession": "SUPPORT",
+        "rarity": 1
+      },
+      "name": "PhonoR-0",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4136_phonor",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "y-2"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 205,
+        "attack_interval": 1.6,
+        "block_count": 1,
+        "cost": 3,
+        "def": 30,
+        "max_hp": 395,
+        "redeploy_time": 200,
+        "res": 5.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "pioneer",
+        "position": "MELEE",
+        "profession": "PIONEER",
+        "rarity": 1
+      },
+      "name": "CONFESS-47",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4188_confes",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 192,
+        "attack_interval": 1.05,
+        "block_count": 2,
+        "cost": 3,
+        "def": 154,
+        "max_hp": 770,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "tactician",
+        "position": "RANGED",
+        "profession": "PIONEER",
+        "rarity": 1
+      },
+      "name": "罗德岛隐秘队",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4215_buddy",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 107,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 3,
+        "def": 45,
+        "max_hp": 590,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "sword",
+        "position": "MELEE",
+        "profession": "WARRIOR",
+        "rarity": 1
+      },
+      "name": "虎狼丸",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_4220_kormr",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "BRANCH_TWO_HIT_GROUND_ATTACK",
+          "runtime_supported": false,
+          "status": "UNSUPPORTED_MULTI_HIT"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 242,
+        "attack_interval": 1.3,
+        "block_count": 2,
+        "cost": 3,
+        "def": 125,
+        "max_hp": 904,
+        "redeploy_time": 200,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 1,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "corecaster",
+        "position": "RANGED",
+        "profession": "CASTER",
+        "rarity": 1
+      },
+      "name": "GALLUS²",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "ARTS"
+      },
+      "operator_id": "char_4227_gallus",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-6"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 261,
+        "attack_interval": 1.6,
+        "block_count": 1,
+        "cost": 3,
+        "def": 52,
+        "max_hp": 525,
+        "redeploy_time": 200,
+        "res": 10.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 2,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "protector",
+        "position": "MELEE",
+        "profession": "TANK",
+        "rarity": 2
+      },
+      "name": "黑角",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_500_noirc",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "range_id": "0-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 240,
+        "attack_interval": 1.2,
+        "block_count": 3,
+        "cost": 14,
+        "def": 315,
+        "max_hp": 1670,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 2,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "corecaster",
+        "position": "RANGED",
+        "profession": "CASTER",
+        "rarity": 2
+      },
+      "name": "杜林",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "ARTS"
+      },
+      "operator_id": "char_501_durin",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-6"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 340,
+        "attack_interval": 1.6,
+        "block_count": 1,
+        "cost": 12,
+        "def": 62,
+        "max_hp": 952,
+        "redeploy_time": 70,
+        "res": 10.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 2,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "pioneer",
+        "position": "MELEE",
+        "profession": "PIONEER",
+        "rarity": 2
+      },
+      "name": "夜刀",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_502_nblade",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "range_id": "1-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "PLANNER_SAFE_WITH_KNOWN_LIMITS",
+        "skills": [],
+        "talent": {
+          "active_talents": [
+            {
+              "blackboard": [
+                {
+                  "key": "respawn_time",
+                  "value": -30.0,
+                  "valueStr": null
+                }
+              ],
+              "description": "再部署时间-30秒",
+              "name": "快速重新部署",
+              "runtime_supported": true,
+              "status": "RUNTIME_SUPPORTED_REDEPLOY_DELTA"
+            }
+          ],
+          "runtime_supported": true,
+          "status": "RUNTIME_SUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 232,
+        "attack_interval": 1.05,
+        "block_count": 2,
+        "cost": 7,
+        "def": 192,
+        "max_hp": 1030,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    },
+    {
+      "debug_configuration": {
+        "legal_for_debug": true,
+        "level": 30,
+        "phase_index": 0,
+        "potential_level": 1,
+        "rarity": 2,
+        "required_potential_rank": 0,
+        "skill_level_index": null,
+        "skill_rank": null,
+        "trust": 0
+      },
+      "identity": {
+        "branch": "fastshot",
+        "position": "RANGED",
+        "profession": "SNIPER",
+        "rarity": 2
+      },
+      "name": "巡林者",
+      "normal_attack": {
+        "base_target_count": 1,
+        "combat_output": "DAMAGE",
+        "damage_type": "PHYSICAL"
+      },
+      "operator_id": "char_503_rang",
+      "qualification": {
+        "normal_mode": true
+      },
+      "range": {
+        "cells": [
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            1
+          ],
+          [
+            -1,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "range_id": "3-1"
+      },
+      "runtime_support": {
+        "deployment_heal_all_value": 0.0,
+        "deployment_sp_bonus": 0.0,
+        "normal_attack": {
+          "mechanic": "GENERIC_NORMAL_ATTACK",
+          "runtime_supported": true,
+          "status": "GENERIC_APPROXIMATION"
+        },
+        "overall": "NOT_PLANNER_SAFE",
+        "skills": [],
+        "talent": {
+          "active_talents": [],
+          "runtime_supported": false,
+          "status": "PARTIALLY_UNVERIFIED_OR_UNSUPPORTED"
+        }
+      },
+      "selected_skills": [],
+      "stats": {
+        "atk": 269,
+        "attack_interval": 1.0,
+        "block_count": 1,
+        "cost": 7,
+        "def": 66,
+        "max_hp": 780,
+        "redeploy_time": 70,
+        "res": 0.0
+      }
+    }
+  ],
+  "previous_plan_to_revise": {
+    "corridor_responsibilities": [
+      {
+        "responsibility": "Placeholder route; no interception duty.",
+        "routes": [
+          "route-0"
+        ]
+      },
+      {
+        "responsibility": "Melantha supplies the fixed-projectile opening handoff. Delayed Steward kills artillery; both medics and reserved Spot healing preserve his output. Resolve residual projectiles after source death.",
+        "routes": [
+          "route-1"
+        ]
+      },
+      {
+        "responsibility": "Midnight destroys eastern restraint #3 and intercepts upper-outer officers. Western Steward destroys #1. Protect civilian #3 throughout both restraints; ordinary operators cannot block or heal it.",
+        "routes": [
+          "route-2"
+        ]
+      },
+      {
+        "responsibility": "Opening Melantha destroys eastern restraint #4. Spot contains subsequent lower-outer officers. Returning western Melantha destroys #2 and permits the second safe arrival.",
+        "routes": [
+          "route-15"
+        ]
+      },
+      {
+        "responsibility": "Fang retains upper-central enemies. Midnight's arts and available crossfire remove armor before paired runners overflow two blocks; Steward damages approaches.",
+        "routes": [
+          "route-3",
+          "route-4",
+          "route-12",
+          "route-13",
+          "route-20",
+          "route-21",
+          "route-30",
+          "route-31"
+        ]
+      },
+      {
+        "responsibility": "Friston retains lower-central enemies. Returning Melantha removes armor and runners. Final armor #34 follows row4 from column9 toward column1 and requires observed contact, sustained damage and eventual death.",
+        "routes": [
+          "route-5",
+          "route-6",
+          "route-11",
+          "route-14",
+          "route-18",
+          "route-19",
+          "route-28",
+          "route-29"
+        ]
+      },
+      {
+        "responsibility": "Midnight retains upper-outer enemies. Actual extended Ansel heals must restore him; self-blocked enemies can interrupt central assistance.",
+        "routes": [
+          "route-7",
+          "route-8",
+          "route-17",
+          "route-22",
+          "route-23",
+          "route-24"
+        ]
+      },
+      {
+        "responsibility": "Melantha handles opening lower-outer enemies; Spot receives later traffic. His healing stops attacks and must not permit a fourth queued enemy.",
+        "routes": [
+          "route-9",
+          "route-10",
+          "route-16",
+          "route-25",
+          "route-26",
+          "route-27"
+        ]
+      }
+    ],
+    "deployment_positions_and_directions": [
+      {
+        "direction": "UP",
+        "operator_id": "char_123_fang",
+        "role": "Upper-central blocking, income and lower-central assistance.",
+        "tile": [
+          3,
+          5
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "operator_id": "char_4093_frston",
+        "role": "Permanent lower-central three-block containment.",
+        "tile": [
+          4,
+          5
+        ]
+      },
+      {
+        "direction": "UP",
+        "operator_id": "char_283_midn",
+        "role": "Upper-outer interception, eastern upper restraint and central crossfire.",
+        "tile": [
+          1,
+          5
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "operator_id": "char_208_melan",
+        "role": "Opening lower-outer clearance and projectile bait.",
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "direction": "DOWN",
+        "operator_id": "char_212_ansel",
+        "role": "First medical support, mutual medic recovery and periodic extended healing of Midnight.",
+        "tile": [
+          5,
+          6
+        ]
+      },
+      {
+        "direction": "UP",
+        "operator_id": "char_120_hibisc",
+        "role": "Mutual medical support and first-ready barrage boost.",
+        "tile": [
+          2,
+          6
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "operator_id": "char_284_spot",
+        "role": "Lower-outer successor; active healing supports Ansel.",
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "direction": "DOWN",
+        "operator_id": "char_210_stward",
+        "role": "Delayed artillery removal and late approach damage.",
+        "tile": [
+          5,
+          7
+        ]
+      },
+      {
+        "direction": "RIGHT",
+        "operator_id": "char_208_melan",
+        "role": "Returning damage against enemies held by Friston.",
+        "tile": [
+          4,
+          4
+        ]
+      },
+      {
+        "direction": "DOWN",
+        "operator_id": "char_210_stward",
+        "role": "Western upper restraint clearance.",
+        "tile": [
+          2,
+          2
+        ]
+      },
+      {
+        "direction": "LEFT",
+        "operator_id": "char_208_melan",
+        "role": "Western lower restraint clearance.",
+        "tile": [
+          6,
+          3
+        ]
+      }
+    ],
+    "formation_structure": {
+      "artillery_output": {
+        "basis": "2444 + 44*48, assuming immediate first contact and uninterrupted 1.6-second attacks.",
+        "cadence_lower_bound_frame": 4556,
+        "limitation": "4556 is an optimistic cadence calculation, not a promised kill frame. Attack alignment, projectiles, target availability and enhanced-hit distribution must be observed. Require death before protected-target exposure becomes lethal.",
+        "reference_budget": "36 ordinary hits at 249.1 plus nine enhanced hits at 473.29 total 13227.21 against 13000 HP.",
+        "required_observation": "At least 45 actual artillery hits with sufficient enhanced-hit contribution, or an independently observed equivalent lethal damage total."
+      },
+      "central_clearance": "Friston never withdraws. Returning Melantha attacks his held enemies; Midnight supplies upper arts while respecting self-block priority. Steward remains for late approach damage but receives no credit for attacking enemies settled outside his verified range.",
+      "classification": "CURRENT_MODEL_CHECKABLE",
+      "distinct_ids": 8,
+      "early_exposure_change": "Steward is absent for predicted impacts 2293 and 2443. Entering at 2444 retains a potential artillery attack window through the eastern northern wait while limiting the initial shared exposure to predicted impacts 2593 and 2743. Both physicians are boosted for these two impacts.",
+      "economy": {
+        "conditional_post_deployment_balances": [
+          [
+            0,
+            0
+          ],
+          [
+            91,
+            0.033333
+          ],
+          [
+            571,
+            6.033333
+          ],
+          [
+            841,
+            0.033333
+          ],
+          [
+            1321,
+            5.033333
+          ],
+          [
+            1681,
+            0.033333
+          ],
+          [
+            2341,
+            18.033333
+          ],
+          [
+            2444,
+            3.466667
+          ],
+          [
+            4155,
+            45.5
+          ]
+        ],
+        "credited_opening_fang_grants": [
+          570,
+          1320,
+          2070
+        ],
+        "dependency": "The ledger assumes surviving Fang grants and Melantha's living withdrawal. Losing those contributions is a survival or handoff failure. Death gives no refund; later DP clipping can reduce credited refunds.",
+        "gross_scheduled_deployment_dp": 161,
+        "initial_dp": 10,
+        "living_refunds_before_cap": [
+          [
+            2054,
+            7
+          ],
+          [
+            7000,
+            9
+          ],
+          [
+            8100,
+            7
+          ]
+        ],
+        "natural_dp_per_second": 1,
+        "redeployment_costs_current_model": {
+          "char_208_melan": 15,
+          "char_210_stward": 18
+        }
+      },
+      "maximum_simultaneous_operators": 8,
+      "medical_geometry": "Both ordinary physicians cover Fang, Friston, each other and eastern Steward. Neither normally covers Midnight, Spot or central Melantha. Ansel's active DOWN extension reaches Midnight. Spot's active nine-cell range reaches himself and Ansel, excluding Steward, Friston and central Melantha.",
+      "splash_geometry": "Ansel and Steward share radius-1.2 splash. An Ansel-centered impact excludes Friston and Spot at diagonal distance sqrt(2). Hibiscus is diagonally separated from Fang and Midnight. Melantha's opening locked point excludes Ansel at sqrt(2).",
+      "status": "STATIC_RANGE_DP_SP_CHECKED_UNSIMULATED",
+      "western_rotation": "Steward returns after 2101 frames for upper clearance. Melantha remains centrally until 8100, then returns after 2101 frames for lower clearance. Neither withdrawal may release an unfinished blocking or damage responsibility."
+    },
+    "formation_transitions": [
+      {
+        "frame": 1321,
+        "transition": "Ansel begins central medicine before Hibiscus; his first boost is therefore legal at 2072."
+      },
+      {
+        "frame": 2054,
+        "transition": "Withdraw living Melantha after the predicted second projectile is born and her lane is empty."
+      },
+      {
+        "frame": 2341,
+        "transition": "Spot occupies the lower-outer lane after the residual impact."
+      },
+      {
+        "frame": 2444,
+        "transition": "Steward enters after the 2443 impact rather than during the early shared barrage."
+      },
+      {
+        "frame": 2582,
+        "transition": "Hibiscus activates at first readiness before the predicted 2593 shared impact."
+      },
+      {
+        "frame": 3330,
+        "transition": "Spot begins reserved second-barrage healing of Ansel."
+      },
+      {
+        "frame": 3873,
+        "transition": "Ansel's second boost bridges the later lower barrage into northern recovery."
+      },
+      {
+        "frame": 4083,
+        "transition": "Hibiscus's second boost covers northern impacts and initial armor pressure."
+      },
+      {
+        "frame": 4155,
+        "transition": "Melantha returns centrally after 2101 frames."
+      },
+      {
+        "frame": 7000,
+        "transition": "Steward leaves after artillery death and final approach duties."
+      },
+      {
+        "frame": 8100,
+        "transition": "Melantha leaves only after lower-central clearance."
+      },
+      {
+        "frame": 9101,
+        "transition": "Steward returns for western upper clearance."
+      },
+      {
+        "frame": 10201,
+        "transition": "Melantha returns for western lower clearance."
+      }
+    ],
+    "operational_plan_id": "R8_7_GPT_M69_V2",
+    "parent_hypothesis_id": "R8_7_M69_H2",
+    "pressure_window_responsibilities": [
+      {
+        "duties": "Preserve four interceptions, Fang income and early Ansel medicine. Complete Melantha's clearance and projectile handoff. Ansel receives the intervening lower impacts without Steward sharing them.",
+        "window_frames": [
+          0,
+          2443
+        ]
+      },
+      {
+        "duties": "Both boosted physicians must recover Steward and Ansel between the two predicted shared impacts. Survive the subsequent isolated northern medic exposure; observe actual healing recipients.",
+        "window_frames": [
+          2444,
+          3182
+        ]
+      },
+      {
+        "duties": "Spot3330 supports Ansel through the second lower barrage. Ansel3873 and Hibiscus4083 bridge the later hits. Restore central Melantha4155 and complete artillery damage.",
+        "window_frames": [
+          3183,
+          4683
+        ]
+      },
+      {
+        "duties": "Keep both central holders alive against armor arts damage. Midnight5073 and Melantha5356 accelerate armor clearance; preserve capacity for paired runners.",
+        "window_frames": [
+          4684,
+          6450
+        ]
+      },
+      {
+        "duties": "Contain final armor #33/#34 and all outer officers. Complete lower clearance before Melantha's withdrawal; keep necessary blockers and medicine.",
+        "window_frames": [
+          6451,
+          9000
+        ]
+      },
+      {
+        "duties": "Destroy both western restraints, retain unfinished combat duties, and observe two distinct safe arrivals and full hostile exhaustion.",
+        "window_frames": [
+          9001,
+          12000
+        ]
+      }
+    ],
+    "selected_low_star_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "skill_intents": [
+      {
+        "intent": "Automatic income; credit only grants actually produced while deployed and alive.",
+        "operator_id": "char_123_fang"
+      },
+      {
+        "intent": "Ordinary containment; no unsupported robot talent.",
+        "operator_id": "char_4093_frston"
+      },
+      {
+        "frames": [
+          1772,
+          5073,
+          8374
+        ],
+        "intent": "Opening restraint and outer pressure, upper armor clearance, then residual armor. Active time pauses SP.",
+        "operator_id": "char_283_midn"
+      },
+      {
+        "frames": [
+          2072,
+          3873,
+          5674,
+          7475,
+          9276
+        ],
+        "intent": "Early shared-barrage recovery, later medical bridge and extended Midnight healing; no probabilistic extra heal.",
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "frames": [
+          2582,
+          4083,
+          5584,
+          7085,
+          8586,
+          10087
+        ],
+        "intent": "First-ready boost before Steward's first shared impact, then legal recovery cycles through armor and settlement.",
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "frames": [
+          3330,
+          5281,
+          7232,
+          9183
+        ],
+        "intent": "Reserve first healing for the second lower barrage; later windows sustain Ansel and the outer queue. No dodge talent.",
+        "operator_id": "char_284_spot"
+      },
+      {
+        "frames": [
+          5356,
+          7157
+        ],
+        "intent": "Returning central attack boosts; first readiness is recomputed from deployment4155.",
+        "operator_id": "char_208_melan"
+      },
+      {
+        "intent": "Supported automatic enhanced attacks and high-defense priority; count actual artillery damage rather than elapsed time.",
+        "operator_id": "char_210_stward"
+      }
+    ],
+    "tactical_thesis": "Deploy Ansel first to obtain his frame-2072 boost. Keep Melantha through projectile birth 2053, withdraw at 2054, and leave the locked landing point empty. Delay Steward until 2444, after the 2443 impact, reducing his first eastern barrage exposure to two predicted shared impacts. Start Hibiscus at her first legal readiness, 2582, and reserve Spot's first healing period for the second lower barrage. Preserve central blocking, Melantha's returning damage, eastern approach fire and separate western clearance duties. This is a statically checked, unsimulated full-stage hypothesis."
+  },
+  "prior_diagnostic_feedback": {
+    "civilian_blocking": "CONFIRMED_NOT_ORDINARY_BLOCK_TARGET",
+    "civilian_operator_targetability": "CONFIRMED_NOT_ORDINARY_TARGET",
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "clean_route_count": 19,
+    "corrected_mechanism_support": {
+      "neutral_faction_and_ordinary_blocking": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+      "officer_protected_target_attack_radius": "SUPPORTED_BY_PRTS_AND_RUNTIME",
+      "ordinary_operator_targeting_neutrals": "SUPPORTED_AS_REJECTED",
+      "protected_target_life_scoring": "SUPPORTED_BY_GAMEDATA_AND_RUNTIME",
+      "remaining_life_win_condition": "SUPPORTED_BY_RUNTIME",
+      "roadblock_special_blocking_for_ursus_civilians": "SUPPORTED_BY_PRTS_AND_RUNTIME_RADIUS_0_4472"
+    },
+    "deployment_errors": [],
+    "first_leak": {
+      "details": {
+        "amount": 1
+      },
+      "event_type": "ENEMY_LEAK",
+      "frame": 4611,
+      "source_id": "enemy_1107_uoffcr#19",
+      "target_id": null,
+      "time": 153.7
+    },
+    "first_objective_failure": {
+      "details": {
+        "reason": "ENEMY_LEAK",
+        "remaining_life": 0,
+        "time": 168.2
+      },
+      "event_type": "OBJECTIVE_FAILURE",
+      "frame": 5046,
+      "source_id": null,
+      "target_id": null,
+      "time": 168.2
+    },
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "objective_failure_summary": {
+      "count": 13,
+      "full_failure_timeline_source": "SAVED_DIAGNOSTIC_EVENTS",
+      "reason_counts": {
+        "null": 13
+      }
+    },
+    "objective_failures": [
+      {
+        "details": {
+          "reason": "ENEMY_LEAK",
+          "remaining_life": 0,
+          "time": 168.2
+        },
+        "event_type": "OBJECTIVE_FAILURE",
+        "frame": 5046,
+        "source_id": null,
+        "target_id": null,
+        "time": 168.2
+      },
+      {
+        "details": {
+          "reason": "PROTECTED_TARGET_DEATH",
+          "remaining_life": -1,
+          "time": 178.4333333333
+        },
+        "event_type": "OBJECTIVE_FAILURE",
+        "frame": 5353,
+        "source_id": null,
+        "target_id": null,
+        "time": 178.4333333333
+      }
+    ],
+    "operator_death_events": [
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 3073,
+        "source_id": "char_120_hibisc",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 3073,
+        "source_id": "char_210_stward",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 3970,
+        "source_id": "char_212_ansel",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 4180,
+        "source_id": "char_4093_frston",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 4269,
+        "source_id": "char_123_fang",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 4903,
+        "source_id": "char_283_midn",
+        "target_id": null
+      },
+      {
+        "details": {},
+        "event_type": "OPERATOR_DEATH",
+        "frame": 5053,
+        "source_id": "char_208_melan",
+        "target_id": null
+      }
+    ],
+    "protected_target_deaths": [
+      {
+        "details": {
+          "kill_counted": false,
+          "life_delta": -1
+        },
+        "event_type": "ENEMY_DEATH",
+        "frame": 5353,
+        "source_id": "enemy_1112_emppnt#0",
+        "target_id": "enemy_3001_upeopl#3",
+        "time": 178.4333333333
+      }
+    ],
+    "protected_target_reached_events": [
+      {
+        "details": {
+          "amount": 0
+        },
+        "event_type": "PROTECTED_TARGET_REACHED",
+        "frame": 12018,
+        "source_id": "enemy_3001_upeopl#14",
+        "target_id": null,
+        "time": 400.6
+      }
+    ],
+    "result_metrics": {
+      "enemies_killed": 19,
+      "enemies_leaked": 14,
+      "final_dp": 99.0,
+      "operator_deaths": 7,
+      "remaining_life": -12,
+      "win": false
+    },
+    "source_plan_id": "R8_7_GPT_M69_V3"
+  },
+  "prior_tactical_feedback": {
+    "authorization": {
+      "candidate_attempts_used": 3,
+      "candidate_slots_remaining": 2,
+      "new_cli_slots_remaining": 2,
+      "new_real_cli_starts_used": 2,
+      "simulation_slots_remaining": 2,
+      "stage_simulations_used": 3
+    },
+    "candidate2_best_observed": {
+      "closed": {
+        "#22": "Friston blocked@4796-5304; Melantha/Midnight/Friston killed it.",
+        "#34": "Friston blocked@6596-7194; Melantha 4854.12, Midnight 422.45 and Friston 178.2 killed it@7194."
+      },
+      "main_gaps": [
+        "#21 had only 246.6 damage; Fang blocked@4646 then died@4786 and unblocked it; no successor killed it before leak@5185.",
+        "Steward died@2743 after artillery hits@2593/2743 and only one 558.9 heal; artillery remained alive and leaked@5759.",
+        "#27/#29/#32/#33 leaked with no effective BLOCK/closure after central collapse.",
+        "Protected #3 was blocked by roadblock#1@2773, survived until artillery hit@5053/5203/5353 and died; roadblock#1 destroyed only@9917."
+      ],
+      "plan_id": "R8_7_GPT_M69_V2",
+      "result": "LOSS 27 kills/6 leaks/3 death events/life-4; first leak #21@5185, artillery@5759, protected #3 death@5353, #14 reached@11118.",
+      "structure": "M69_DELAYED_STEWARD_RESERVED_SPOT"
+    },
+    "candidate3_counterexample": {
+      "closure_facts": {
+        "#21": "Only 49.7 damage and no BLOCK.",
+        "#22": "Melantha dealt 2079.28 and blocked@4863-5053, but died before killing it.",
+        "#34": "Zero operator damage and zero BLOCK; leaked@6996.",
+        "protected14": "Blocked by roadblock#2@3620, passed@11686 and reached@12018.",
+        "protected3": "Passed roadblock#3@2404, blocked by roadblock#1@2773, then died@5353 to artillery @5053/5203/5353 plus officer#23 hits @5264/5324."
+      },
+      "deaths": {
+        "char_120_hibisc": "Artillery hit@2923 and@3073; died@3073.",
+        "char_123_fang": "Blocked #19@4148 but died and unblocked it@4269 after repeated officer hits.",
+        "char_208_melan": "Blocked #22@4863 but died and unblocked it@5053.",
+        "char_210_stward": "Artillery hit@2923 and@3073; dealt only 4658.17 total to artillery and died@3073.",
+        "char_212_ansel": "Survived six artillery hits until death@3970 after @3670/3820/3970.",
+        "char_283_midn": "Died@4903 after artillery hits@4753/4903.",
+        "char_4093_frston": "Died@4180; no #34 contribution."
+      },
+      "exact_leaks": [
+        "#19@4611",
+        "#20@4625",
+        "#21@5046",
+        "#22@5386",
+        "officer#23@5555",
+        "artillery#0@5759",
+        "#27@5932",
+        "officer#25@5975",
+        "#28@6082",
+        "#29@6142",
+        "#31@6292",
+        "officer#30@6425",
+        "#33@6846",
+        "#34@6996"
+      ],
+      "plan_id": "R8_7_GPT_M69_V3",
+      "result": "LOSS 19 kills/14 leaks/7 death events/life-12; first leak #19@4611, first objective failure@5046.",
+      "roadblocks": {
+        "trap1": 9917,
+        "trap2": 11686,
+        "trap3": 2404,
+        "trap4": 2266
+      },
+      "structure": "M69_EARLY_REAR_SPOT_NORTHERN_FIRE"
+    },
+    "lesson": "Candidate2 was materially closer, but Candidate3 shows that moving artillery timing or medical/central duties can kill both Hibiscus and Steward at @3073 and lose all late contact. GPT may rebuild, but must recompute these exact pressure windows rather than inherit Candidate3.",
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "model_gaps": [
+      "No reliable pre-swing target lock.",
+      "Spot dodge talent and Ansel probability extra heal unsupported."
+    ],
+    "policy": "GPT chooses structure, roster, parent branch and all actions. Do not force Candidate2, Candidate3, or any operator; preserve only evidence-supported invariants where useful.",
+    "requirements": [
+      "Handle mixed officer/artillery damage with per-hit survival, not total healing.",
+      "Ensure artillery accumulates enough real damage while nobody in range dies across its hit pairs.",
+      "Keep #21 blocked long enough for enough accumulated damage or kill it without losing the blocker.",
+      "Avoid the Candidate3 same-frame Hibiscus/Steward artillery deaths and restore Candidate2-level #22/#34 closure.",
+      "Close #27/#29/#32/#33 or officer intermediates with actual route/BLOCK/output contact.",
+      "Protect #3 through roadblock#1 and the artillery/officer window; do not treat roadblock#1 late destruction as safe passage.",
+      "Recompute all retreats, refunds, redeploy windows and successors; death refunds nothing."
+    ],
+    "schema_version": "KIMIARK_M69_V4_TACTICAL_FEEDBACK_V1",
+    "source_scope": "M69 candidate2/candidate3 original events and compact M67/M68 references; no inferred ablation",
+    "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+  },
+  "provenance": {
+    "generator": "scripts/build_gpt_tactical_stage_facts_v1.py",
+    "operator_facts": {
+      "bytes": 422387,
+      "path": "output/normal_low_star_facts_v1/normal_low_star_facts.json",
+      "sha256": "968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307"
+    },
+    "operator_support": {
+      "bytes": 64883,
+      "path": "output/normal_low_star_facts_v1/normal_low_star_mechanism_support.json",
+      "sha256": "e83187222b017a602a44ea277334bde9b59d3a5ca4c2d5838d56a044dd89b324"
+    },
+    "parent_plan_complete_artifact": "output/r8_1_r8_7_batch_v1/main_08-07/m69_projectile_query_contract_v1/candidate_v2/llm_structured_output.json",
+    "raw_level": {
+      "bytes": 94688,
+      "path": "data/ArknightsGameData/zh_CN/gamedata/levels/obt/main/level_main_08-07.json",
+      "sha256": "c9c376e3d5b37e5f764006fce5d1c94f12f233c995545adfe36c2beb8573cdc8"
+    },
+    "revision_source": {
+      "path": "output/r8_1_r8_7_batch_v1/main_08-07/m69_projectile_query_contract_v1/candidate_v2",
+      "relationship": "prior_simulated_candidate_not_parent_hypothesis",
+      "revision_policy": "GPT decides tactical changes; deterministic checks may only reject the original fixed actions"
+    }
+  },
+  "roadblock_clearance_evidence": null,
+  "schema_version": "GPT_TACTICAL_STAGE_FACTS_V1",
+  "simulation_domain": {
+    "action_clock": "30 FPS, frame/30 seconds",
+    "natural_dp_model": "+1 DP per source costIncreaseTime second",
+    "omitted_or_unknown_mechanics": [
+      "exact client attack windup and integer rounding",
+      "complete AoE splash geometry",
+      "probability talents and target-order deviations",
+      "unsupported talents and summons",
+      "complex status effects",
+      "active device effect on ordinary WALK navigation",
+      "precise client wait/block priority",
+      "stage-specific non-lifePointReduce loss mechanisms unless listed as supported"
+    ],
+    "supported_action_types": [
+      "DEPLOY",
+      "ACTIVATE_SKILL",
+      "RETREAT"
+    ],
+    "supported_mechanics": [
+      "source stats, deployment costs, ranges, blocking and ordinary attacks",
+      "bounded source-backed manual ATK/DEF/attack-speed/heal skills",
+      "attack-SP next-attack scaled-hit pattern",
+      "deployment SP, deployment global heal, neutral self-cost talent, selected redeploy-time delta",
+      "merchant upkeep",
+      "active predefined device deployment occupancy",
+      "ordinary low-star basic healing"
+    ]
+  },
+  "source_routes": [
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [],
+      "end_row_col": [
+        0,
+        0
+      ],
+      "motion_mode": "E_NUM",
+      "route_id": "route-0",
+      "source_route_index": 0,
+      "start_row_col": [
+        0,
+        0
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            5,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 3.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            2,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            5,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            5,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            2,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            5,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            2,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        },
+        {
+          "position_row_col": [
+            2,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            0,
+            0
+          ],
+          "time_seconds": 10.0,
+          "type": "WAIT_FOR_SECONDS"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "FLY",
+      "route_id": "route-1",
+      "source_route_index": 1,
+      "start_row_col": [
+        7,
+        2
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            6
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-2",
+      "source_route_index": 2,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-3",
+      "source_route_index": 3,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-4",
+      "source_route_index": 4,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-5",
+      "source_route_index": 5,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-6",
+      "source_route_index": 6,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-7",
+      "source_route_index": 7,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-8",
+      "source_route_index": 8,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-9",
+      "source_route_index": 9,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-10",
+      "source_route_index": 10,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-11",
+      "source_route_index": 11,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-12",
+      "source_route_index": 12,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-13",
+      "source_route_index": 13,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-14",
+      "source_route_index": 14,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            6
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            2
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-15",
+      "source_route_index": 15,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-16",
+      "source_route_index": 16,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-17",
+      "source_route_index": 17,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-18",
+      "source_route_index": 18,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-19",
+      "source_route_index": 19,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-20",
+      "source_route_index": 20,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-21",
+      "source_route_index": 21,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-22",
+      "source_route_index": 22,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-23",
+      "source_route_index": 23,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            1,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            1,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-24",
+      "source_route_index": 24,
+      "start_row_col": [
+        1,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-25",
+      "source_route_index": 25,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-26",
+      "source_route_index": 26,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            6,
+            7
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            6,
+            3
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-27",
+      "source_route_index": 27,
+      "start_row_col": [
+        6,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-28",
+      "source_route_index": 28,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            4,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            5,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        5,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-29",
+      "source_route_index": 29,
+      "start_row_col": [
+        4,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-30",
+      "source_route_index": 30,
+      "start_row_col": [
+        3,
+        9
+      ]
+    },
+    {
+      "allow_diagonal_move": true,
+      "checkpoints": [
+        {
+          "position_row_col": [
+            3,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        },
+        {
+          "position_row_col": [
+            2,
+            1
+          ],
+          "time_seconds": 0.0,
+          "type": "MOVE"
+        }
+      ],
+      "end_row_col": [
+        2,
+        0
+      ],
+      "motion_mode": "WALK",
+      "route_id": "route-31",
+      "source_route_index": 31,
+      "start_row_col": [
+        3,
+        9
+      ]
+    }
+  ],
+  "source_wave_schedule": {
+    "fragments": [
+      {
+        "fragment_index": 0,
+        "pre_delay_seconds": 0.0,
+        "spawn_actions": [
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1112_emppnt",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 3.0,
+            "route_id": "route-1",
+            "source_route_index": 1
+          }
+        ]
+      },
+      {
+        "fragment_index": 1,
+        "pre_delay_seconds": 3.0,
+        "spawn_actions": [
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_3001_upeopl",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 12.0,
+            "route_id": "route-2",
+            "source_route_index": 2
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 5.0,
+            "route_id": "route-3",
+            "source_route_index": 3
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 27.0,
+            "route_id": "route-4",
+            "source_route_index": 4
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 10.0,
+            "route_id": "route-5",
+            "source_route_index": 5
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 32.0,
+            "route_id": "route-6",
+            "source_route_index": 6
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 20.0,
+            "route_id": "route-7",
+            "source_route_index": 7
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 35.0,
+            "route_id": "route-8",
+            "source_route_index": 8
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 25.0,
+            "route_id": "route-9",
+            "source_route_index": 9
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 40.0,
+            "route_id": "route-10",
+            "source_route_index": 10
+          }
+        ]
+      },
+      {
+        "fragment_index": 2,
+        "pre_delay_seconds": 25.0,
+        "spawn_actions": [
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 13.0,
+            "route_id": "route-11",
+            "source_route_index": 11
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 8.0,
+            "route_id": "route-12",
+            "source_route_index": 12
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 20.0,
+            "route_id": "route-13",
+            "source_route_index": 13
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 25.0,
+            "route_id": "route-14",
+            "source_route_index": 14
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_3001_upeopl",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 30.0,
+            "route_id": "route-15",
+            "source_route_index": 15
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 2,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 10.0,
+            "pre_delay_seconds": 45.0,
+            "route_id": "route-16",
+            "source_route_index": 16
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 2,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 10.0,
+            "pre_delay_seconds": 40.0,
+            "route_id": "route-17",
+            "source_route_index": 17
+          }
+        ]
+      },
+      {
+        "fragment_index": 3,
+        "pre_delay_seconds": 0.0,
+        "spawn_actions": [
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 10.0,
+            "route_id": "route-18",
+            "source_route_index": 18
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1110_uamord",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 25.0,
+            "route_id": "route-19",
+            "source_route_index": 19
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 5.0,
+            "route_id": "route-20",
+            "source_route_index": 20
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1110_uamord",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 20.0,
+            "route_id": "route-21",
+            "source_route_index": 21
+          }
+        ]
+      },
+      {
+        "fragment_index": 4,
+        "pre_delay_seconds": 0.0,
+        "spawn_actions": [
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 15.0,
+            "route_id": "route-22",
+            "source_route_index": 22
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 30.0,
+            "route_id": "route-23",
+            "source_route_index": 23
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 45.0,
+            "route_id": "route-24",
+            "source_route_index": 24
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 20.0,
+            "route_id": "route-25",
+            "source_route_index": 25
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 32.0,
+            "route_id": "route-26",
+            "source_route_index": 26
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1107_uoffcr",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 50.0,
+            "route_id": "route-27",
+            "source_route_index": 27
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 2,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 7.0,
+            "pre_delay_seconds": 40.0,
+            "route_id": "route-28",
+            "source_route_index": 28
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1110_uamord",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 60.0,
+            "route_id": "route-29",
+            "source_route_index": 29
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 2,
+            "enemy_id": "enemy_1108_uterer",
+            "interval_seconds": 7.0,
+            "pre_delay_seconds": 35.0,
+            "route_id": "route-30",
+            "source_route_index": 30
+          },
+          {
+            "action_type": "SPAWN",
+            "count": 1,
+            "enemy_id": "enemy_1110_uamord",
+            "interval_seconds": 1.0,
+            "pre_delay_seconds": 55.0,
+            "route_id": "route-31",
+            "source_route_index": 31
+          }
+        ]
+      }
+    ],
+    "source_path": "$.waves[0].fragments[*]",
+    "source_semantics": "preDelay and interval are exact source offsets; the simulator applies its fixed hierarchical second-quantized policy.",
+    "wave_count": 1
+  },
+  "stage_active_facts": {
+    "active_device_tiles_col_row": [
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "coordinate_conventions": {
+      "active_fact_arrays": "Arrays named col_row are [x=col, y=row].",
+      "compiler_runtime_action_tile": "Runtime Action.tile is (x=col,y=row), converted from [row,col] as (col,row).",
+      "game_data_predefines": "Named row and col fields in field bottom-left coordinates; do not invert route/device positions.",
+      "plan_action_tile": "Plan/action JSON tile arrays are [row, col].",
+      "serialized_map_array": "Serialized row is reversed for runtime tile conversion."
+    },
+    "deployable_ground_tiles_col_row": [
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "deployable_high_ground_tiles_col_row": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        7,
+        5
+      ]
+    ],
+    "devices": [
+      {
+        "device_id": "trap_020_roadblock#1",
+        "ordinary_targetable": true,
+        "template_id": "trap_020_roadblock",
+        "tile_col_row": [
+          2,
+          1
+        ]
+      },
+      {
+        "device_id": "trap_020_roadblock#2",
+        "ordinary_targetable": true,
+        "template_id": "trap_020_roadblock",
+        "tile_col_row": [
+          2,
+          6
+        ]
+      },
+      {
+        "device_id": "trap_020_roadblock#3",
+        "ordinary_targetable": true,
+        "template_id": "trap_020_roadblock",
+        "tile_col_row": [
+          6,
+          1
+        ]
+      },
+      {
+        "device_id": "trap_020_roadblock#4",
+        "ordinary_targetable": true,
+        "template_id": "trap_020_roadblock",
+        "tile_col_row": [
+          6,
+          6
+        ]
+      }
+    ],
+    "enemy_runtime": [
+      {
+        "ability_count": 0,
+        "attack_timing_evidence_class": "EXACT_CLIENT_DERIVED",
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1107_uoffcr.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1107_uoffcr].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1107_uoffcr",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1107_uoffcr].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN",
+        "supported_abilities": []
+      },
+      {
+        "ability_count": 0,
+        "attack_timing_evidence_class": "EXACT_CLIENT_DERIVED",
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1108_uterer.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1108_uterer].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1108_uterer",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1108_uterer].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN",
+        "supported_abilities": []
+      },
+      {
+        "ability_count": 0,
+        "attack_timing_evidence_class": "NONE",
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1110_uamord.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1110_uamord].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1110_uamord",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1110_uamord].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN",
+        "supported_abilities": []
+      },
+      {
+        "ability_count": 1,
+        "attack_timing_evidence_class": "NONE",
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1112_emppnt.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1112_emppnt",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN",
+        "supported_abilities": [
+          "enemy_1112_emppnt_artillery"
+        ]
+      },
+      {
+        "ability_count": 0,
+        "attack_timing_evidence_class": "NONE",
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_3001_upeopl.isInvalidKilled",
+          "status": "KNOWN",
+          "value": false
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "death_life_point_reduce": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.talentBlackboard[dead.value]",
+          "status": "KNOWN",
+          "value": 1
+        },
+        "enemy_id": "enemy_3001_upeopl",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "operator_targetability": "UNKNOWN",
+        "supported_abilities": []
+      }
+    ],
+    "map_size_col_row": [
+      10,
+      8
+    ],
+    "roadblock_plan_tiles_row_col": [
+      [
+        1,
+        2
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "roadblock_tiles_col_row": [
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "runtime_adapter_routes": [
+      {
+        "model_length": 0.0,
+        "route_id": "route-0",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "model_length": 29.0,
+        "route_id": "route-1",
+        "waits": [
+          {
+            "distance": 2.0,
+            "duration": 3.0
+          },
+          {
+            "distance": 5.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 8.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 13.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 16.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 19.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 22.0,
+            "duration": 10.0
+          },
+          {
+            "distance": 27.0,
+            "duration": 10.0
+          }
+        ],
+        "waypoints_col_row": [
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-2",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-3",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-4",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-5",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-6",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-7",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-8",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-9",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-10",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-11",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-12",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-13",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-14",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-15",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-16",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-17",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-18",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-19",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-20",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-21",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-22",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-23",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-24",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-25",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-26",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-27",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-28",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-29",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-30",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      {
+        "model_length": 10.0,
+        "route_id": "route-31",
+        "waits": [],
+        "waypoints_col_row": [
+          [
+            9,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      }
+    ],
+    "source": "GameData level plus ApproximateRealSimulationAdapter with RealSimulationApproximationPolicy.m11_second_quantized",
+    "status": "CURRENT_PUBLIC_RUNTIME_ACTIVE_FACTS",
+    "terrain_ground_tiles_col_row": [
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        1
+      ]
+    ],
+    "terrain_high_ground_tiles_col_row": [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        2
+      ]
+    ]
+  },
+  "stage_id": "main_08-07",
+  "stage_mechanism_support": {
+    "enemy_semantics": [
+      {
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1107_uoffcr.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1107_uoffcr].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1107_uoffcr",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1107_uoffcr].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN"
+      },
+      {
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1108_uterer.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1108_uterer].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1108_uterer",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1108_uterer].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN"
+      },
+      {
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1112_emppnt.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1112_emppnt",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1112_emppnt].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN"
+      },
+      {
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_1110_uamord.isInvalidKilled",
+          "status": "KNOWN",
+          "value": true
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1110_uamord].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "death_life_point_reduce": {
+          "confidence": 0.0,
+          "source_file": null,
+          "source_path": null,
+          "status": "UNKNOWN",
+          "value": null
+        },
+        "enemy_id": "enemy_1110_uamord",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_1110_uamord].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "operator_targetability": "UNKNOWN"
+      },
+      {
+        "blockability": "UNKNOWN",
+        "counts_as_kill": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/excel/enemy_handbook_table.json",
+          "source_path": "$.enemyData.enemy_3001_upeopl.isInvalidKilled",
+          "status": "KNOWN",
+          "value": false
+        },
+        "counts_as_leak": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": false
+        },
+        "death_life_point_reduce": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.talentBlackboard[dead.value]",
+          "status": "KNOWN",
+          "value": 1
+        },
+        "enemy_id": "enemy_3001_upeopl",
+        "is_friendly": {
+          "confidence": 1.0,
+          "source_file": "zh_CN/gamedata/levels/enemydata/enemy_database.json",
+          "source_path": "$.enemies[Key=enemy_3001_upeopl].Value[level=0].enemyData.description",
+          "status": "KNOWN",
+          "value": true
+        },
+        "operator_targetability": "UNKNOWN"
+      }
+    ],
+    "friendly_unit_blocking": "UNKNOWN",
+    "full_stage_result_support": "PARTIAL_SIMULATION_ONLY",
+    "operator_targetability_of_friendly_units": "UNKNOWN",
+    "protected_target_arrival_semantics": "SOURCE_BACKED_NO_LIFE_DELTA",
+    "protected_target_death_life_delta": "SOURCE_BACKED_BY_dead.value",
+    "protected_target_kill_counting": "SOURCE_BACKED_NOT_COUNTED",
+    "raw_route_checkpoint_types": [
+      "MOVE",
+      "WAIT_FOR_SECONDS"
+    ],
+    "runtime_adapter_status": "OK",
+    "runtime_adapter_supported_checkpoint_types": [
+      "MOVE",
+      "WAIT_FOR_SECONDS"
+    ],
+    "runtime_adapter_unsupported_checkpoint_types": []
+  },
+  "stage_options": {
+    "cost_increase_time_seconds": 1.0,
+    "deployment_limit": 8,
+    "initial_cost": 10,
+    "max_cost": 99,
+    "max_life_point": 3
+  },
+  "tactical_experience": {
+    "records": [
+      {
+        "evidence_status": null,
+        "experience_id": "KIMIARK_M69_V4_TACTICAL_FEEDBACK_V1",
+        "scope": {
+          "mechanics_version": "m38b-2781-animation-speed-v1",
+          "stage_id": "main_08-07"
+        },
+        "source": null,
+        "summary": "Current M38b replay feedback is the available conditional evidence; do not reference unregistered plan IDs as experience IDs."
+      }
+    ],
+    "retrieval_limit": 0,
+    "schema_version": "KIMIARK_EVENT_QUERY_V2",
+    "usage_policy": [
+      "Use only experience_id values listed in records.",
+      "Treat this record as conditional evidence, not a universal deadline.",
+      "A VERIFIED prediction only confirms its declared observable event; it does not prove the full plan."
+    ]
+  },
+  "tactical_provider": {
+    "compatibility": "USER_CONFIRMED_CLI_LOGIN",
+    "model": "gpt-6.1-sol",
+    "provider": "codex-cli",
+    "reasoning_effort": "high",
+    "sandbox": "read-only"
+  },
+  "user_confirmed_tactical_premise": "Enemy attacks have intervals; many attacks point at one object and occupy the attacker during the action. Operators may bait attacks, absorb key hits, buy replacement/output windows, and may deliberately withdraw or sacrifice for these effects. This is USER_CONFIRMED_TACTICAL_PREMISE, not new client evidence. Do not generalize it to all attacks, phases, targets, cooldowns, retreats, landing tiles, or cycles; every tactic must identify the known or assumed behavior it uses."
+}

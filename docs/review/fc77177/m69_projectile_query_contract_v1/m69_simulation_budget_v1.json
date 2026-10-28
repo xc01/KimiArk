@@ -1,0 +1,17 @@
+{
+  "candidate_attempt_rule": "There are five candidate slots. Candidate 1 is the restored M68 V3 plan without a new model call. Candidates 2-5 may use at most one new real tactical CLI each. Contract or static failures retain the slot; only STARTED processes and simulations count against their applicable limits.",
+  "counting_rule": "Count each real tactical CLI process and each fixed full-stage simulation at STARTED, including failures and timeouts. Stop immediately on an 8-ID WIN. No automatic retry, resume, replacement call, historical balance transfer, or sixth candidate. A pre-STARTED gate rejection without a model process does not count a CLI; a pre-reservation gate rejection without Simulator.run does not count a simulation.",
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "max_candidate_attempts": 5,
+  "max_new_real_tactical_cli_starts": 4,
+  "max_stage_simulations": 5,
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "non_stackable": "M68 ended at CLI 3/3 and simulation 2/3; its unused simulation does not transfer. M52 V1 nine-operator WIN remains the frozen baseline until an M69 8-ID WIN is verified.",
+  "prior_stage_simulations": 0,
+  "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+  "stage_id": "main_08-07",
+  "started_candidate_attempts": 5,
+  "started_new_real_tactical_cli_starts": 4,
+  "started_stage_simulations": 5,
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

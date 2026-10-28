@@ -117,6 +117,20 @@ def test_real_event_protocol_and_alias_semantics() -> None:
     }, [])
     assert invalid["status"] == "INVALID_QUERY"
 
+    projectile_query = {
+        "event_type": "PROJECTILE_BORN", "source_id": "enemy_1112_emppnt#0",
+        "target_id": "char_4093_frston", "earliest_frame": 2052, "latest_frame": 2053,
+    }
+    projectile = {"event_type": "PROJECTILE_BORN", "source_id": "enemy_1112_emppnt#0", "target_id": "char_4093_frston", "frame": 2053, "details": {}}
+    projectile_parsed = {"revision_hypothesis": {"expected_first_observable_event": projectile_query}}
+    assert experience.evaluate_revision_hypothesis(projectile_parsed, [projectile])["status"] == "VERIFIED"
+    assert experience.evaluate_revision_hypothesis(
+        projectile_parsed, [{**projectile, "target_id": "char_208_melan"}]
+    )["status"] == "EVENT_NOT_OBSERVED"
+    assert experience.evaluate_revision_hypothesis(
+        projectile_parsed, [{**projectile, "frame": 2054}]
+    )["status"] == "EVENT_NOT_OBSERVED"
+
 
 def test_operator_death_subject_semantics_rejects_targeted_query() -> None:
     parsed = {

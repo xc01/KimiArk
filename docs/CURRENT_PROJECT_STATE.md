@@ -593,3 +593,21 @@ unsupported `PROJECTILE_BORN`; it was not simulated and was not reinterpreted as
 a tactical LOSS. M68 ends at CLI 3/3 and simulation 2/3. M52 V1 remains the best
 verified current-model fixed-simulator WIN; evidence is under
 `docs/review/fc77177/m68_m67_v1_causal_revision_v1/evidence/`.
+
+M69 added exact read-only support for `PROJECTILE_BORN` event queries and then
+used five authorized candidate slots, four real CLI starts, and five fixed full
+simulations. Candidate 1 was the verbatim M68 V3 plan and lost 23/10/5/life -8.
+Candidate 2 was the strongest at 27/6/3/life -4 and actually killed #34 after a
+Friston block, but still released #21 and lost Steward/artillery/#3. Candidate 3
+regressed to 19/14/7/life -12 after Hibiscus and Steward died to the same
+artillery hits@3073. Candidate 4 reached 12753.92 artillery damage but still
+lost 23/10/5/life -8, exposed protected #3@3343, and gave #34 no contact.
+Candidate 5 came closest at 30/3/1/life 0 with both protected targets safe and
+no deployment errors: it killed artillery@4273 after 13227.21 damage, but
+Friston died@6577 and released #28/#31; #34 still leaked@6996 with 722.39
+damage and zero BLOCK.
+
+M69 has no eight-ID WIN and no remaining budget. The frozen best remains M52 V1
+at nine IDs in the current fixed simulator; no real-game, faithful, robust,
+probabilistic, global-minimum, or eight-ID-impossible claim is made. Evidence is
+under `docs/review/fc77177/m69_projectile_query_contract_v1/evidence/`.

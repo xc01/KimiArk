@@ -1,0 +1,82 @@
+{
+  "authorization": {
+    "candidate_attempts_used": 3,
+    "candidate_slots_remaining": 2,
+    "new_cli_slots_remaining": 2,
+    "new_real_cli_starts_used": 2,
+    "simulation_slots_remaining": 2,
+    "stage_simulations_used": 3
+  },
+  "candidate2_best_observed": {
+    "plan_id": "R8_7_GPT_M69_V2",
+    "structure": "M69_DELAYED_STEWARD_RESERVED_SPOT",
+    "result": "LOSS 27 kills/6 leaks/3 death events/life-4; first leak #21@5185, artillery@5759, protected #3 death@5353, #14 reached@11118.",
+    "closed": {
+      "#22": "Friston blocked@4796-5304; Melantha/Midnight/Friston killed it.",
+      "#34": "Friston blocked@6596-7194; Melantha 4854.12, Midnight 422.45 and Friston 178.2 killed it@7194."
+    },
+    "main_gaps": [
+      "#21 had only 246.6 damage; Fang blocked@4646 then died@4786 and unblocked it; no successor killed it before leak@5185.",
+      "Steward died@2743 after artillery hits@2593/2743 and only one 558.9 heal; artillery remained alive and leaked@5759.",
+      "#27/#29/#32/#33 leaked with no effective BLOCK/closure after central collapse.",
+      "Protected #3 was blocked by roadblock#1@2773, survived until artillery hit@5053/5203/5353 and died; roadblock#1 destroyed only@9917."
+    ]
+  },
+  "candidate3_counterexample": {
+    "plan_id": "R8_7_GPT_M69_V3",
+    "structure": "M69_EARLY_REAR_SPOT_NORTHERN_FIRE",
+    "result": "LOSS 19 kills/14 leaks/7 death events/life-12; first leak #19@4611, first objective failure@5046.",
+    "deaths": {
+      "char_120_hibisc": "Artillery hit@2923 and@3073; died@3073.",
+      "char_210_stward": "Artillery hit@2923 and@3073; dealt only 4658.17 total to artillery and died@3073.",
+      "char_212_ansel": "Survived six artillery hits until death@3970 after @3670/3820/3970.",
+      "char_4093_frston": "Died@4180; no #34 contribution.",
+      "char_123_fang": "Blocked #19@4148 but died and unblocked it@4269 after repeated officer hits.",
+      "char_283_midn": "Died@4903 after artillery hits@4753/4903.",
+      "char_208_melan": "Blocked #22@4863 but died and unblocked it@5053."
+    },
+    "exact_leaks": [
+      "#19@4611",
+      "#20@4625",
+      "#21@5046",
+      "#22@5386",
+      "officer#23@5555",
+      "artillery#0@5759",
+      "#27@5932",
+      "officer#25@5975",
+      "#28@6082",
+      "#29@6142",
+      "#31@6292",
+      "officer#30@6425",
+      "#33@6846",
+      "#34@6996"
+    ],
+    "closure_facts": {
+      "#21": "Only 49.7 damage and no BLOCK.",
+      "#22": "Melantha dealt 2079.28 and blocked@4863-5053, but died before killing it.",
+      "#34": "Zero operator damage and zero BLOCK; leaked@6996.",
+      "protected3": "Passed roadblock#3@2404, blocked by roadblock#1@2773, then died@5353 to artillery @5053/5203/5353 plus officer#23 hits @5264/5324.",
+      "protected14": "Blocked by roadblock#2@3620, passed@11686 and reached@12018."
+    },
+    "roadblocks": {"trap1": 9917, "trap2": 11686, "trap3": 2404, "trap4": 2266}
+  },
+  "lesson": "Candidate2 was materially closer, but Candidate3 shows that moving artillery timing or medical/central duties can kill both Hibiscus and Steward at @3073 and lose all late contact. GPT may rebuild, but must recompute these exact pressure windows rather than inherit Candidate3.",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot dodge talent and Ansel probability extra heal unsupported."
+  ],
+  "policy": "GPT chooses structure, roster, parent branch and all actions. Do not force Candidate2, Candidate3, or any operator; preserve only evidence-supported invariants where useful.",
+  "requirements": [
+    "Handle mixed officer/artillery damage with per-hit survival, not total healing.",
+    "Ensure artillery accumulates enough real damage while nobody in range dies across its hit pairs.",
+    "Keep #21 blocked long enough for enough accumulated damage or kill it without losing the blocker.",
+    "Avoid the Candidate3 same-frame Hibiscus/Steward artillery deaths and restore Candidate2-level #22/#34 closure.",
+    "Close #27/#29/#32/#33 or officer intermediates with actual route/BLOCK/output contact.",
+    "Protect #3 through roadblock#1 and the artillery/officer window; do not treat roadblock#1 late destruction as safe passage.",
+    "Recompute all retreats, refunds, redeploy windows and successors; death refunds nothing."
+  ],
+  "schema_version": "KIMIARK_M69_V4_TACTICAL_FEEDBACK_V1",
+  "source_scope": "M69 candidate2/candidate3 original events and compact M67/M68 references; no inferred ablation",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}
