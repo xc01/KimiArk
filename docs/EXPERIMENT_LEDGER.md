@@ -1271,3 +1271,22 @@ impossibility or operator uselessness. Evidence, prompts/schema/replies,
 candidate comparisons, frozen plans, preflight/static results, gzipped original
 events, feedback, budget, protocol diff/tests, and 174 verified hashes are under
 `docs/review/fc77177/m69_projectile_query_contract_v1/evidence/`.
+
+## 2026-10-29 — M70 full-roster reassessment wins at eight IDs
+
+M70 built a new independent ledger and required an original-event row for every
+M69 C5 operator, explicitly stating that no role was mandatory. GPT compared
+`M70_LOWER_EXCLUSIVE_ARTS`, `M70_SPOT_CENTRAL_BEAGLE_BACKUP`, and
+`M70_YATO_WINDUP_ROTATION`, then selected the first structure. Its 29-action,
+8-ID plan passed schema/semantic, execution-input, and static gates with 0
+conflicts/unknowns, then won the first authorized full simulation: 33 kills,
+zero leaks, zero operator deaths, life 3, and both protected targets safe.
+
+Observed closure was Fang/Midnight/Melantha killing #21/#22/#33, Steward
+killing artillery#0 after 13227.21 damage, and Fang/Friston/Midnight/Steward
+combining for 5092.32 damage before Steward killed #34. The model stopped after
+candidate 1, leaving candidate 4/5, CLI 4/5, and simulation 4/5 unused. M52 V1
+is superseded as the best verified count by this current fixed-simulator M70
+eight-ID WIN. Full evidence, hashes, prompts, comparisons, frozen plan, static/
+preflight, gzipped events, and closeout are under
+`docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/`.

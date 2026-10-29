@@ -611,3 +611,17 @@ M69 has no eight-ID WIN and no remaining budget. The frozen best remains M52 V1
 at nine IDs in the current fixed simulator; no real-game, faithful, robust,
 probabilistic, global-minimum, or eight-ID-impossible claim is made. Evidence is
 under `docs/review/fc77177/m69_projectile_query_contract_v1/evidence/`.
+
+M70 reassessed every M69 C5 operator from original events, made no operator
+mandatory, and compared three structures before GPT selected
+`M70_LOWER_EXCLUSIVE_ARTS`. Its 29-action, 8-ID plan passed schema/semantic,
+execution-input, and static gates, then won the first authorized full
+simulation: 33 kills, zero leaks, zero operator deaths, life 3, and both
+protected targets safely reached.
+
+Steward killed artillery#0 after 13227.21 damage, and the #34 closure used
+5092.32 damage across Fang/Friston/Midnight/Steward with Steward as the killing
+path. M70 stopped immediately after candidate 1, leaving candidate attempts 4/5,
+real CLI 4/5, and simulations 4/5 unused. This current fixed-simulator 8-ID WIN
+supersedes M52 V1 as the best verified result. Evidence is under
+`docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/`.

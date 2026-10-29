@@ -1,0 +1,77 @@
+{
+  "result": {
+    "status": "COMPLETE_EIGHT_ID_WIN",
+    "scope": "current fixed simulator only; no real-game, faithful, robust, probabilistic, or global-minimum claim",
+    "candidate": 1,
+    "plan_id": "R8_7_GPT_M70_V1",
+    "structure": "M70_LOWER_EXCLUSIVE_ARTS",
+    "parent_hypothesis_id": "R8_7_M70_H1",
+    "parent_plan_id": "R8_7_GPT_M69_V5",
+    "actions": 29,
+    "operator_union": 8,
+    "simulator_win": true,
+    "kills": 33,
+    "leaks": 0,
+    "enemies_remaining": 0,
+    "operator_death_events": 0,
+    "unique_operators_died": 0,
+    "remaining_life": 3,
+    "protected_targets": "#14 reached@11119; #3 reached@11349",
+    "deployment_errors": 0
+  },
+  "roster_chinese": {
+    "char_123_fang": "芬",
+    "char_4093_frston": "Friston-3",
+    "char_283_midn": "月见夜",
+    "char_208_melan": "玫兰莎",
+    "char_212_ansel": "安赛尔",
+    "char_120_hibisc": "芙蓉",
+    "char_284_spot": "斑点",
+    "char_210_stward": "史都华德"
+  },
+  "full_roster_assessment_effect": "All eight C5 roles were assessed from original events before the model call; no operator was marked mandatory. GPT retained the same IDs but reassigned pressure through the selected M70_LOWER_EXCLUSIVE_ARTS structure, and the first validated result achieved zero leaks and zero deaths.",
+  "observed_contributions": {
+    "char_123_fang": "17538.75 damage, 9 BLOCKs, 9 kills.",
+    "char_4093_frston": "4098.4 damage, 9 BLOCKs, no kill credit; sustained early/central queue.",
+    "char_283_midn": "51798.74 damage, 7 BLOCKs, 12 kills.",
+    "char_208_melan": "24312.36 damage, 2 BLOCKs, 4 kills; destroyed roadblock#4@1966 and roadblock#2@10787.",
+    "char_212_ansel": "25339.1 healing.",
+    "char_120_hibisc": "20156.8 healing.",
+    "char_284_spot": "13090 damage, 4493.6 healing, 5 BLOCKs, 4 kills.",
+    "char_210_stward": "22289.47 damage, 4 kills; artillery#0 took 13227.21 from Steward and died; #34 took 4658.17 from Steward in the closure."
+  },
+  "closure_chain": {
+    "artillery": "char_210_stward killed enemy_1112_emppnt#0; 45 hits and 13227.21 total damage.",
+    "#21": "Fang/Midnight/Melantha dealt 5106.92 total; Melantha was the killer path.",
+    "#22": "Fang/Friston/Midnight/Steward dealt 5173.72 total; Midnight was the killer path.",
+    "#33": "Fang/Melantha dealt 5015.17 total; Melantha was the killer path.",
+    "#34": "Fang/Friston/Midnight/Steward dealt 5092.32 total; Steward was the killer path.",
+    "roadblocks": {"trap1": 11017, "trap2": 10787, "trap3": 2404, "trap4": 1966}
+  },
+  "budget": {
+    "candidate_attempts_used": 1,
+    "candidate_attempts_max": 5,
+    "candidate_attempts_remaining": 4,
+    "new_real_tactical_cli_starts_used": 1,
+    "new_real_tactical_cli_starts_max": 5,
+    "new_real_tactical_cli_starts_remaining": 4,
+    "stage_simulations_used": 1,
+    "stage_simulations_max": 5,
+    "stage_simulations_remaining": 4,
+    "stop_reason": "COMPLETE_EIGHT_ID_WIN_ON_CANDIDATE_1",
+    "m69_balance_transfered": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL"
+  },
+  "frozen_hashes": {
+    "plan_canonical_sha256": "c9c83914f17a294c32aa16b247743b15a38476ef695143270bc3f94689fbdc40",
+    "actions_canonical_sha256": "62382a8d08b446feea7d26278afae648d5288ada5feb61f9504369766dd8b71e",
+    "structured_output_file_sha256": "ab6460fda4631d48ff7a84dfa29cbf1fcd34d37ff9fa01c91b5d9ee959f8fdfe"
+  },
+  "model_gaps": [
+    "No reliable pre-swing target lock.",
+    "Spot physical-dodge talent unsupported.",
+    "Ansel probability extra heal unsupported."
+  ],
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "schema_version": "KIMIARK_M70_CLOSEOUT_V1"
+}
