@@ -1,0 +1,51 @@
+{
+  "schema_version": "KIMIARK_M71_V4_TACTICAL_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M71_V4",
+  "source_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m71_fewer_operator_search_v1/attempt_04_diagnostic/manifest.json",
+  "evidence_status": "VERIFIED_FROM_M71_V4_FIXED_SIMULATOR_EVENTS",
+  "result": {
+    "win": false,
+    "enemies_killed": 11,
+    "enemies_leaked": 22,
+    "operator_death_events": 7,
+    "unique_operators_died": 7,
+    "remaining_life": -21,
+    "runtime_action_errors": 8,
+    "protected_targets_reached": [],
+    "protected_target_deaths": [
+      "#3 killed by artillery#0@3310",
+      "#14 killed by officer#32@6314"
+    ]
+  },
+  "earliest_failure_chain": [
+    "Hibiscus deployed@1321 at JSON tile [5,3] (runtime 3,5) and healed Friston/Friston/self; no HEAL to Melantha occurred before the predicted window ended@1892.",
+    "Artillery hit Hibiscus 890 physical@1421 and again@1571; Hibiscus died@1571 before the first planned Hibiscus skill@2222.",
+    "Artillery hit Melantha 845@1961 and 845@2111; Ansel was hit 891@1961 and 891@2111; both died@2111.",
+    "Steward was hit 910@2261 and 910@2411 and died@2411; Friston died@2860 after 765 artillery; Fang died@2949; Midnight died@4586.",
+    "First leak was officer#11@3201; protected #3 died@3310. Eight later skill/retreat commands referenced already-dead operators.",
+    "#34 had zero operator DAMAGE; #28/#31 also had zero operator DAMAGE; artillery received only 2216.99 from Steward and leaked@5759."
+  ],
+  "operator_facts": {
+    "char_120_hibisc": "Died@1571 after two artillery hits; healed Friston 745.2 and self 372.6 before death.",
+    "char_208_melan": "Died@2111 after artillery 1690 plus earlier physical pressure; dealt 8064.48 and destroyed trap4@1966.",
+    "char_212_ansel": "Died@2111 after artillery 1782; healed 1810 total.",
+    "char_210_stward": "Died@2411 after artillery 1820 plus his own earlier artillery exposure; dealt 2216.99 to artillery.",
+    "char_4093_frston": "Died@2860 after mixed officer and artillery pressure; dealt only 1744.4.",
+    "char_123_fang": "Died@2949; dealt 9100 and held four enemies.",
+    "char_283_midn": "Died@4586; dealt 24149 and held four enemies, but artillery and later #34 remained open."
+  },
+  "planned_structure": {
+    "operational_plan_id": "R8_7_GPT_M71_V4",
+    "selected_structure_id": "CONTINUOUS_STEWARD_PERMANENT_MELANTHA",
+    "removed_operator": "char_284_spot",
+    "failed_hypothesis": "Permanent Melantha plus relocated direct medicine and continuous Steward did not survive the changed artillery targeting window."
+  },
+  "verified_m70_dependencies_to_preserve_or_replace": {
+    "opening": "Fang/Friston/Midnight/Melantha opening can be a parent reference, but not an automatic guarantee.",
+    "artillery": "M70 Steward dealt 13227.21 and killed artillery@4273; V4 only reached 2216.99 before dying.",
+    "late": "M70 Friston held #28/#31/#34 while Steward/Midnight/Fang dealt; V4 had no late contact with #34.",
+    "healing": "M70 Ansel 25339.10 and Hibiscus 20156.80 healed from positions that survived; do not assume any tile outside artillery range without checking geometry."
+  },
+  "revision_instruction": "Use the final candidate to correct V4's survival chain without fabricating mechanics. All seven roles remain open to replacement; the plan must specify who survives each artillery cast, who actually attacks #34, how roadblocks are cleared, and how both protected targets reach safely.",
+  "model_gaps": ["No reliable pre-swing target lock.", "Spot physical-dodge talent unsupported.", "Ansel probability extra heal unsupported."]
+}

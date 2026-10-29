@@ -1,0 +1,57 @@
+{
+  "schema_version": "KIMIARK_M71_M70_BASELINE_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M70_V1",
+  "source_manifest": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/manifest.json",
+  "evidence_status": "VERIFIED_FROM_M70_FIXED_SIMULATOR_EVENTS",
+  "scope": "These are observed conditions of the M70 actions, not portable deadlines or proof that removing one operator preserves targeting or healing competition.",
+  "result": {
+    "win": true,
+    "enemies_killed": 33,
+    "enemies_leaked": 0,
+    "operator_death_events": 0,
+    "unique_operators_died": 0,
+    "remaining_life": 3,
+    "deployment_errors": 0,
+    "protected_targets_reached": "#14@11119 and #3@11349"
+  },
+  "plan": {
+    "operational_plan_id": "R8_7_GPT_M70_V1",
+    "action_count": 29,
+    "distinct_operator_union": 8,
+    "selected_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ]
+  },
+  "roadblocks": {
+    "trap4_destroyed": 1966,
+    "trap3_destroyed": 2404,
+    "trap2_destroyed": 10787,
+    "trap1_destroyed": 11017,
+    "protected_passage": "#14 blocked by trap2 from 3620 until 10787; #3 blocked by trap1 from 2773 until 11017"
+  },
+  "operator_rows": [
+    {"id":"char_123_fang","name":"芬","observed":"Deployed@0 for 10 DP; 9 blocks, 17538.75 damage, 9 kills, including #21 and #33. No death or retreat.","replacement_space":"Need another economic opener plus live blocking for #1/#6/#10/#12/#19/#27/#29/#33 or a structural change covering those windows."},
+    {"id":"char_4093_frston","name":"Friston-3","observed":"Deployed@91 for 3 DP; 9 blocks, 4098.4 damage, no kill credit, 17510 incoming. Held #22@4796-6429, #28@5871-6681, #31@6081-6886, and #34@6596-7197.","replacement_space":"The late simultaneous #28/#31/#34 queue is the key risk; replacement must supply three-capacity blocking, enough survival, and arts output overlap."},
+    {"id":"char_283_midn","name":"月见夜","observed":"Deployed@571 for 16 DP; 7 blocks, 51798.74 damage, 12 kills, with skills@1772 and 5073.","replacement_space":"A substitute must cover many officers plus #28/#31; physical armor may make raw attack value insufficient."},
+    {"id":"char_208_melan","name":"玫兰莎","observed":"Deployed@841, destroyed trap4@1966, retreated@2054 with refund; returned@4155, dealt 24312.36, killed #21@5154 and #27@5839, destroyed trap2@10787, then returned again@10202.","replacement_space":"Opening trap4, early officer kills, #21/#27 damage, trap2 timing, and late western deployment all need substitutes if removed."},
+    {"id":"char_212_ansel","name":"安赛尔","observed":"Deployed@1321; healed 25339.10 total, including 10256.10 to Friston, 5169.80 to Steward, and 2690 to Fang. No death.","replacement_space":"Effective HPS in late #28/#31/#34 overlap matters; probability extra heal is unsupported."},
+    {"id":"char_120_hibisc","name":"芙蓉","observed":"Deployed@1681; healed 20156.80 total, including 7253.90 to Friston and 2110.20 to Steward. No death.","replacement_space":"A single healer replacement must handle the same target competition and artillery recovery, not merely match total healing."},
+    {"id":"char_284_spot","name":"斑点","observed":"Deployed@2341 after Melantha retreat; 5 blocks, 13090 damage, 4 kills, 4493.60 healing (2794.10 to Ansel and 1699.50 self). Held lower officers #16/#18/#24/#26/#32.","replacement_space":"Could merge damage/block/self-sustain or be replaced, but lower-lane officer queue and #32 timing must stay covered."},
+    {"id":"char_210_stward","name":"史都华德","observed":"Deployed@2071 for 18 DP, killed artillery@4273 after 13227.21 damage, retreated@4280; returned@6381, killed #22@6429 and #34@7197, then retreated@8100. Total 22289.47 damage and 4 kills.","replacement_space":"Artillery timing, #22/#34 arts overlap, and later trap1 closure must be preserved or deliberately restructured."}
+  ],
+  "late_contact_chain": {
+    "#28": {"spawn":5730,"block":{"operator":"char_4093_frston","start":5871,"end":6681},"first_operator_damage":6438,"kill":{"operator":"char_283_midn","frame":6681},"damage":{"char_123_fang":225.0,"char_283_midn":2779.0,"char_4093_frston":686.0},"operator_attacks_on_friston":18,"operator_damage_to_friston":2610.0},
+    "#31": {"spawn":5940,"block":{"operator":"char_4093_frston","start":6081,"end":6886},"first_operator_damage":6708,"kill":{"operator":"char_123_fang","frame":6886},"damage":{"char_4093_frston":490.0,"char_283_midn":1985.0,"char_123_fang":1125.0},"operator_attacks_on_friston":18,"operator_damage_to_friston":2610.0},
+    "#34": {"spawn":6330,"block":{"operator":"char_4093_frston","start":6596,"end":7197},"first_operator_damage":{"operator":"char_210_stward","frame":6477},"kill":{"operator":"char_210_stward","frame":7197},"damage":{"char_123_fang":146.25,"char_283_midn":198.8,"char_4093_frston":89.1,"char_210_stward":4658.17}},
+    "artillery": {"spawn":90,"first_steward_damage":2161,"kill":{"operator":"char_210_stward","frame":4273},"steward_damage":13227.21,"steward_hits":45}
+  },
+  "optimization_instruction": "Do not merely remove or retain a named operator. Compare faster kill/contact, rotation/handoff, and repositioned blocking/fire support. Verify target selection, real contact windows, mixed physical/arts damage, healing competition, retreat/refund/redeploy cooldown, and released enemies.",
+  "model_gaps": ["No reliable pre-swing target lock.", "Spot physical-dodge talent unsupported.", "Ansel probability extra heal unsupported."]
+}

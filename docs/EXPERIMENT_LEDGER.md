@@ -1290,3 +1290,35 @@ is superseded as the best verified count by this current fixed-simulator M70
 eight-ID WIN. Full evidence, hashes, prompts, comparisons, frozen plan, static/
 preflight, gzipped events, and closeout are under
 `docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/`.
+
+## 2026-10-29 — M71 exhausts five shared slots without a seven-ID WIN
+
+M71 initialized target K=7 with a shared budget of five candidates, five real
+CLI starts, and five fixed simulations. All ordinary-1–3-star contracts, K=7
+hard-limit fixtures, prompts, schemas, preflight, and static checks were kept
+separate from M70/M69 ledgers. Candidates 1–3 each occupied one candidate slot
+and one real CLI start, but failed after STARTED with
+`Selected model is at capacity. Please try a different model.` They produced no
+plan and were recorded as execution failures, not tactical LOSS.
+
+Candidate 4 selected `CONTINUOUS_STEWARD_PERMANENT_MELANTHA`. Its 7-ID, 22-action
+plan passed contract and static gates, then lost 11 kills / 22 leaks / 7 operator
+death events / life -21. Hibiscus was hit by artillery 890@1421 and 890@1571 and
+died before her planned skill; Ansel and Melantha died@2111, Steward@2411, and
+the first protected failure was artillery#0 killing #3@3310. Artillery received
+only 2216.99 Steward damage; #34/#28/#31 had zero operator DAMAGE.
+
+Candidate 5 selected `EARLY_MIDNIGHT_CONTINUOUS_LOWER_CASTER`. Its 7-ID,
+25-action plan passed contract and static gates, then lost 15 / 18 / 6 / life
+-17. Melantha and Ansel died together@2111, Steward@2411, first leak was
+officer#16@4070, #3 died@5384, #14 died@6314, and #34 still had zero operator
+DAMAGE. Midnight@481 was deployed as the declared observable event, but that
+single observation did not establish the full hypothesis.
+
+M71 ends with candidate attempts 5/5, real CLI starts 5/5, simulations 2/5, and
+no seven-ID WIN. M70 V1 remains the best verified current-model fixed-simulator
+result at eight IDs. Seven-ID feasibility remains UNKNOWN; neither the two
+tactical LOSS results nor three capacity failures prove infeasibility. Evidence,
+prompts/schema/replies, frozen attempts, static/preflight, gzipped events,
+feedback, budget, and 117 verified hashes are under
+`docs/review/fc77177/m71_fewer_operator_search_v1/evidence/`.

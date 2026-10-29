@@ -983,13 +983,22 @@ def build_prompt(evidence: dict[str, Any], schema: dict[str, Any] | None = None)
     open_roster_policy = evidence.get("m58_open_roster_policy")
     open_roster_instruction = ""
     if open_roster_policy:
+        target_roster_size = (evidence.get("milestone_constraints") or {}).get(
+            "max_unique_deployed_operator_ids"
+        )
+        roster_scope = (
+            f"at most {target_roster_size} distinct deployed IDs"
+            if isinstance(target_roster_size, int) else "the configured distinct deployed-ID limit"
+        )
         open_roster_instruction = (
             "M58 OPEN-ROSTER COMPARISON REQUIRED. In one call, compare at least three "
             "substantively different structures before selecting one complete plan. Explore roles "
-            "beyond the frozen nine-ID roster, including blocking/healing fusion, attack baiting, "
+            "beyond the frozen parent-WIN roster, including blocking/healing fusion, attack baiting, "
             "staged retreats, different output/economic openings, and stage rotations. Do not force "
             "any operator into or out of the roster, set a new-operator quota, or require a death.\n"
-            "For each candidate, record its roster, how it removes one slot versus the nine-ID baseline, "
+            "Treat every operator as replaceable and reassess contribution, substitution, and role "
+            "elimination independently. For each candidate, record its roster, how it fits "
+            f"{roster_scope}, "
             "same-phase/staged responsibilities, opening cost and pressure, most dangerous window, and cost. "
             "Recompute deployment and medical timing from its own structure; do not reject it merely because "
             "it cannot reuse an old opening. If it baits, retreats, or sacrifices, identify the enemy and attack, "
@@ -1125,6 +1134,13 @@ def validate_final(parsed: Any, execution: dict[str, Any]) -> dict[str, Any]:
             errors.append(f"operational_plan_id must identify {PLAN_LABEL}")
         if evidence.get("m58_open_roster_policy"):
             errors.extend(validate_open_roster_contract(parsed, evidence, MAX_UNIQUE_DEPLOYED_OPERATORS))
+        elif MAX_UNIQUE_DEPLOYED_OPERATORS is not None:
+            distinct = distinct_deployed_operator_ids(plan)
+            if len(distinct) > MAX_UNIQUE_DEPLOYED_OPERATORS:
+                errors.append(
+                    "distinct selected/deployed operator union has "
+                    f"{len(distinct)} IDs; hard limit is {MAX_UNIQUE_DEPLOYED_OPERATORS}"
+                )
     validation = {
         "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_PLAN_VALIDATION",
         "status": "PASS" if not errors else "FAIL",

@@ -625,3 +625,20 @@ path. M70 stopped immediately after candidate 1, leaving candidate attempts 4/5,
 real CLI 4/5, and simulations 4/5 unused. This current fixed-simulator 8-ID WIN
 supersedes M52 V1 as the best verified result. Evidence is under
 `docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/`.
+
+M71 searched for a seven-ID WIN from the M70 baseline but ended at candidate
+attempts 5/5, real CLI 5/5, and simulations 2/5. Candidates 1–3 each started a
+real CLI and then failed with "Selected model is at capacity"; none produced a
+tactical plan and none was reinterpreted as a tactical LOSS. Candidate 4
+(`CONTINUOUS_STEWARD_PERMANENT_MELANTHA`) passed contract/static gates but lost
+11/22/7/life -21; Hibiscus died@1571, protected #3 died@3310, artillery took
+only 2216.99, and #34 had zero operator damage. Candidate 5
+(`EARLY_MIDNIGHT_CONTINUOUS_LOWER_CASTER`) also passed gates but lost
+15/18/6/life -17; Melantha and Ansel died@2111, #34 had zero operator damage,
+and neither protected target reached.
+
+M70 V1 therefore remains the best verified fixed-simulator result at eight IDs.
+Seven-ID feasibility remains UNKNOWN under the current action space because the
+shared M71 budget was exhausted; neither candidate losses nor capacity failures
+prove impossibility. Evidence is under
+`docs/review/fc77177/m71_fewer_operator_search_v1/evidence/`.
