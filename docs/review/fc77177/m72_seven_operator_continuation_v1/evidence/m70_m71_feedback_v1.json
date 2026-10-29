@@ -1,0 +1,42 @@
+{
+  "schema_version": "KIMIARK_M72_M70_M71_FEEDBACK_V1",
+  "source_baseline_plan_id": "R8_7_GPT_M70_V1",
+  "source_baseline_manifest": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/manifest.json",
+  "source_revision_plan_id": "R8_7_GPT_M71_V4",
+  "source_revision_manifest": "output/r8_1_r8_7_batch_v1/main_08-07/m71_fewer_operator_search_v1/attempt_04_diagnostic/manifest.json",
+  "evidence_status": "VERIFIED_FROM_M70_AND_M71_FIXED_SIMULATOR_EVENTS",
+  "scope": "All frames are conditional on the old action timelines. They are evidence for what must be recomputed, not portable deadlines.",
+  "baseline_m70": {
+    "result": "COMPLETE_8_ID_WIN: 33 kills, 0 leaks, 0 operator deaths, life 3; both protected targets reached.",
+    "second_projectile_handoff": "Projectile born@2053 locked Melantha's position; she retreated alive@2054; no operator damage was recorded from that impact. Spot deployed@2341 to replace her.",
+    "artillery_and_34": "Steward killed artillery@4273 after 13227.21 damage, retreated@4280, returned@6381, hit #22 then #34 from 6477; Friston blocked #34@6596-7197; Steward killed #34@7197.",
+    "late_pressure_timing": "#28 was blocked@5871, first operator damage@6438, died@6681; #31 was blocked@6081, first operator damage@6708, died@6886.",
+    "spot_duties": "Spot blocked five officers, killed four, dealt 13090 damage, and healed 4493.6 (2673.6 mainly to Ansel after 3330; 1518 self after 6500). Replacement must cover blocking, output, and staged healing."
+  },
+  "m71_candidate_4": {
+    "plan_id": "R8_7_GPT_M71_V4",
+    "structure": "CONTINUOUS_STEWARD_PERMANENT_MELANTHA",
+    "result": "LOSS 11/22/7 operator death events/7 unique operators/life -21.",
+    "failure_chain": "Hibiscus took 890 artillery@1421, healed herself 372.6@1493, then took 890@1571 and died before the first planned skill. Melantha and Ansel died together@2111. First leak was officer#11@3201; protected #3 died@3310. No early retreat handoff was used.",
+    "late_contact": "Artillery received only 2216.99 Steward damage; #34/#28/#31 had zero operator DAMAGE."
+  },
+  "m71_candidate_5": {
+    "plan_id": "R8_7_GPT_M71_V5",
+    "structure": "EARLY_MIDNIGHT_CONTINUOUS_LOWER_CASTER",
+    "result": "LOSS 15/18/6 operator death events/6 unique operators/life -17.",
+    "failure_chain": "Melantha and Ansel took simultaneous artillery splash 845/891@1961, received 362/372.6@2047/2071, then took 845/891@2111 and died. First leak was officer#16@4070; first objective failure was officer#19 leak@4475. No early retreat handoff was used.",
+    "late_contact": "Artillery received only 2441.18 Steward damage; #34 had zero operator DAMAGE."
+  },
+  "operator_rows_m70": [
+    {"id":"char_123_fang","name":"芬","observed":"17538.75 damage, 9 blocks, 9 kills; deployed@0 for 10 DP.","replacement_space":"Early economy plus #1/#6/#10/#12/#19/#27/#29/#33 blocking need live coverage."},
+    {"id":"char_4093_frston","name":"Friston-3","observed":"4098.4 damage, 9 blocks; held #22, #28, #31 and #34 through late overlap.","replacement_space":"Need three-capacity late blocking plus survival and arts-overlap conditions."},
+    {"id":"char_283_midn","name":"月见夜","observed":"51798.74 damage, 7 blocks, 12 kills.","replacement_space":"Officers and #28/#31 require enough physical damage and BLOCK."},
+    {"id":"char_208_melan","name":"玫兰莎","observed":"24312.36 damage, 2 blocks, 4 kills; destroyed trap4@1966 and trap2@10787; early projectile handoff retreat and later rotations.","replacement_space":"Opening trap4, #21/#27 damage, trap2 timing and western return need substitutes."},
+    {"id":"char_212_ansel","name":"安赛尔","observed":"25339.1 healing; 10256.1 to Friston.","replacement_space":"Late target competition and effective HPS matter, not total healing."},
+    {"id":"char_120_hibisc","name":"芙蓉","observed":"20156.8 healing; 7253.9 to Friston.","replacement_space":"Must cover same-window competing recipients without entering lethal artillery overlap."},
+    {"id":"char_284_spot","name":"斑点","observed":"13090 damage, 5 blocks, 4 kills, 4493.6 healing; replaced Melantha@2341.","replacement_space":"Removing Spot requires fused or separate blocking/output/healing coverage of the lower officer queue."},
+    {"id":"char_210_stward","name":"史都华德","observed":"22289.47 damage, 4 kills; killed artillery@4273 and #34@7197.","replacement_space":"Artillery contact timing and #34 arts overlap must be preserved or restructured."}
+  ],
+  "optimization_instruction": "Compare early effective kill pressure, output-while-tank rotations, and blocking/healing fusion. Do not target one operator by name. Any rotation must show release risk, successor arrival, real blocking capacity, refunds, cooldown, and projectile resolution. Every artillery cast must be traced from target selection through projectile birth, locked position, hit, healing and survival.",
+  "model_gaps": ["No reliable pre-swing target lock.", "Spot physical-dodge talent unsupported.", "Ansel probability extra heal unsupported."]
+}

@@ -642,3 +642,21 @@ Seven-ID feasibility remains UNKNOWN under the current action space because the
 shared M71 budget was exhausted; neither candidate losses nor capacity failures
 prove impossibility. Evidence is under
 `docs/review/fc77177/m71_fewer_operator_search_v1/evidence/`.
+
+M72 searched seven IDs with a fresh five-candidate budget. C1-C3 each passed
+contract/static gates and completed one full simulation, losing 16/17/5/life -16,
+16/17/6/life -16, and 16/17/7/life -15 respectively. Their early breaks were:
+Ansel failed DP@1381 in C1; the C2 central chain died at 2111/2561/3043; and C3
+moved Spot central, leaving `#5` to leak@1282 before all seven died.
+
+C4 was consumed by a pre-model prompt-limit failure (144572 > 140000 bytes) with
+no CLI or simulation. C5 produced a valid 7-ID plan but stopped at static checks:
+Steward's @6525 deployment targeted Hibiscus' occupied tile, and Hibiscus' @2811
+skill was short of SP. The simulation did not start. M72 ends at candidate 5/5,
+real CLI 4/5, and simulation 3/5.
+
+M70 V1 remains the best verified current-model fixed-simulator result at eight
+IDs. Seven-ID feasibility remains UNKNOWN under the current model, catalog,
+action space, and acceptance conditions; M72's losses and budget exhaustion do
+not prove impossibility. Evidence is under
+`docs/review/fc77177/m72_seven_operator_continuation_v1/evidence/`.

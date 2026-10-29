@@ -1,0 +1,721 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 421,
+      "operator_id": "char_500_noirc",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 571,
+      "operator_id": "char_192_falco",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1051,
+      "operator_id": "char_284_spot",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 1381,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 1741,
+      "operator_id": "char_501_durin",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2011,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 2101,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2551,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3511,
+      "operator_id": "char_192_falco"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 3780,
+      "operator_id": "char_501_durin",
+      "rationale": "Prediction: restraint4 is destroyed and Durin is alive; retain all pending shell accounting."
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3962,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4352,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5641,
+      "operator_id": "char_192_falco"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 5881,
+      "operator_id": "char_501_durin",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5913,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6153,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7864,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7954,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 8400,
+      "operator_id": "char_210_stward",
+      "rationale": "Prediction: all hostile central traffic is cleared."
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 8401,
+      "operator_id": "char_192_falco",
+      "rationale": "Prediction: all upper-outer hostiles are cleared."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 10501,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 10502,
+      "operator_id": "char_192_falco",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "All four holders, Ansel and Durin are alive and deployed before Spot's first activation.",
+      "failure_effect_on_later_phases": "A missed interception or lost Fang grant invalidates subsequent survival, income and caster timing.",
+      "goal": "Establish four interceptions without an unsupported economic or healing dependency.",
+      "handoff_requirements": [
+        "Spot contributes officer damage before healing stops his attacks.",
+        "Durin must clear that remaining queue early enough to obtain artillery contact."
+      ],
+      "phase_id": "OPENING",
+      "responsibilities": [
+        "Fang holds upper center and supplies automatic income.",
+        "Noil Corne holds the first lower runner with stronger ordinary defense.",
+        "Plume and Spot establish both outer lanes.",
+        "Ansel begins central recovery; Durin assists the lower queue."
+      ],
+      "start_condition": "Stage begins with 10 DP and no deployed operators.",
+      "survival_dependencies": [
+        "Spot's deployment precedes lower-outer contact.",
+        "Plume survives her opening runner and officer until extended healing.",
+        "Noil Corne's early survival uses actual defense and HP, not a medic assumed to exist earlier."
+      ]
+    },
+    {
+      "completion_condition": "Eastern restraint4 is destroyed, Durin withdraws alive, and all pending impacts are accounted for.",
+      "failure_effect_on_later_phases": "Caster death, insufficient artillery damage or delayed restraint destruction can kill a protected target or prevent central armor clearance.",
+      "goal": "Survive exposed casts while obtaining enough artillery damage and releasing the lower civilian.",
+      "handoff_requirements": [
+        "Durin's withdrawal releases no blocked enemy.",
+        "His living refund is 6 DP and his next deployment waits more than 70 seconds.",
+        "Steward retains artillery and central coverage during Durin's absence."
+      ],
+      "phase_id": "ARTILLERY_AND_EASTERN_RELEASE",
+      "responsibilities": [
+        "Spot heals local damaged operators while retaining lower blocking.",
+        "Ansel delivers timed caster healing and extended upper-outer recovery.",
+        "Durin damages artillery and destroys restraint4.",
+        "Steward preserves sustained artillery contact."
+      ],
+      "start_condition": "Spot activates at frame 2011 and Steward enters at 2101.",
+      "survival_dependencies": [
+        "Individual heal delivery must keep both fragile casters above lethal thresholds.",
+        "Durin must survive exposure until restraint4 destruction.",
+        "A released civilian must escape further acquisition before accumulated shells become lethal."
+      ]
+    },
+    {
+      "completion_condition": "Artillery is dead with residual shells resolved, and central blocking remains available for the runner pairs.",
+      "failure_effect_on_later_phases": "Uncleared old armor consumes the slots needed by later runners and final armor.",
+      "goal": "Finish artillery and remove old central armor before paired runners exhaust holder capacity.",
+      "handoff_requirements": [
+        "Durin's return tile remains available.",
+        "No hostile is released to gain a nominal blocking slot."
+      ],
+      "phase_id": "FIRST_ARMOR",
+      "responsibilities": [
+        "Steward switches from artillery to armor whenever high-defense targeting permits.",
+        "Fang and Noil Corne retain their lanes.",
+        "Ansel's second activation supports the later artillery exposure and central recovery.",
+        "Spot holds and heals through the lower officer pair."
+      ],
+      "start_condition": "Durin has withdrawn and first central armor approaches.",
+      "survival_dependencies": [
+        "Steward's predicted contact count must actually produce artillery death before western civilian exposure.",
+        "Armor clearance must be observed rather than inferred from elapsed time.",
+        "Medical allocation must preserve both holders."
+      ]
+    },
+    {
+      "completion_condition": "All hostile spawns are exhausted and all hostile enemies are defeated without leaks.",
+      "failure_effect_on_later_phases": "A lost holder, overflowing queue or delayed armor kill defeats zero-leak acceptance even if civilians later arrive.",
+      "goal": "Clear the final runner and armor overlap with two arts attackers.",
+      "handoff_requirements": [
+        "Confirm central and upper-outer hostile clearance before the scheduled western withdrawals.",
+        "Retain all seven-ID and cooldown constraints."
+      ],
+      "phase_id": "FINAL_MIXED_PRESSURE",
+      "responsibilities": [
+        "Durin restores lower-central and lower-outer damage.",
+        "Steward attacks central armor with supported priority.",
+        "Fang and Noil Corne provide actual blocking.",
+        "Spot, Ansel and Plume execute their final pressure skills."
+      ],
+      "start_condition": "Durin redeploys at frame 5881.",
+      "survival_dependencies": [
+        "Both physicians' nominal capacity is not assumed; this structure has one physician and Spot's limited local healing.",
+        "Use observed damage type and recipients; conservatively retain the prior full 340/2.8 armored incoming term until contradicted.",
+        "Noil Corne's defense reduces runner damage but does not prove survival of the mixed queue."
+      ]
+    },
+    {
+      "completion_condition": "Both expected protected targets have distinct safe-arrival events, with positive life, zero leaks, zero protected deaths and no active enemies.",
+      "failure_effect_on_later_phases": "An unreleased or dead protected target prevents project acceptance regardless of remaining life.",
+      "goal": "Release both western restraints and verify both protected objectives.",
+      "handoff_requirements": [
+        "Both redeployment gaps exceed 2100 frames.",
+        "Observe safe arrivals rather than treating restraint destruction as completion."
+      ],
+      "phase_id": "WESTERN_CLEARANCE",
+      "responsibilities": [
+        "Steward destroys western restraint1.",
+        "Plume destroys western restraint2.",
+        "Remaining holders preserve cleared corridors while civilians move."
+      ],
+      "start_condition": "Hostile clearance is complete before frames 8400 and 8401.",
+      "survival_dependencies": [
+        "Artillery and hostile officers are already dead.",
+        "Neither western deployment occupies a forbidden device tile."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "Steward and Durin jointly kill artillery. Born shells persist through retreat and source death; account for their remaining impacts.",
+      "routes": [
+        "route-1"
+      ]
+    },
+    {
+      "responsibility": "Plume destroys eastern restraint3. Keep western restraint1 until artillery and hostile upper traffic are cleared; final Steward releases the civilian safely.",
+      "routes": [
+        "route-2"
+      ]
+    },
+    {
+      "responsibility": "Durin destroys eastern restraint4 before withdrawing. Spot blocks hostile officers, never the civilian. Final Plume destroys western restraint2.",
+      "routes": [
+        "route-15"
+      ]
+    },
+    {
+      "responsibility": "Fang holds upper-central traffic. Steward supplies armor damage after artillery clearance. Clear an existing occupant before any third enemy reaches Fang's two-block position.",
+      "routes": [
+        "route-3",
+        "route-4",
+        "route-12",
+        "route-13",
+        "route-20",
+        "route-21",
+        "route-30",
+        "route-31"
+      ]
+    },
+    {
+      "responsibility": "Noil Corne holds lower-central traffic. Returning Durin and persistent Steward clear armor and runners before a fourth enemy reaches the three-block holder.",
+      "routes": [
+        "route-5",
+        "route-6",
+        "route-11",
+        "route-14",
+        "route-18",
+        "route-19",
+        "route-28",
+        "route-29"
+      ]
+    },
+    {
+      "responsibility": "Plume intercepts upper-outer enemies. Her first attack skill separates the ten-second officer pair; Ansel's active extension must restore her opening damage.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-17",
+        "route-22",
+        "route-23",
+        "route-24"
+      ]
+    },
+    {
+      "responsibility": "Spot contains lower-outer enemies throughout. Durin supplies damage when Spot heals; healing cannot erase an uncleared queue.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-16",
+        "route-25",
+        "route-26",
+        "route-27"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Upper-central interception, adjacent lower-central assistance and living deployment income.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_500_noirc",
+      "role": "Lower-central three-block containment; use ordinary stats without an unsupported talent.",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_192_falco",
+      "role": "Upper-outer interception and eastern upper restraint clearance.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_284_spot",
+      "role": "Lower-outer interception, ordinary officer damage and timed local healing.",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_212_ansel",
+      "role": "Both central holders and both initial caster positions; active extension also covers Plume.",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_501_durin",
+      "role": "Supplementary artillery damage, lower-outer clearance and eastern lower restraint destruction; return here after withdrawal.",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Artillery during available contact windows, then continuous arts coverage of both central holders.",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Final western upper restraint clearance.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_192_falco",
+      "role": "Final western lower restraint clearance.",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "formation_structure": {
+    "artillery_damage_hypothesis": {
+      "conditional_budget": "41 ordinary Steward attack events, including eight enhanced events, plus six Durin arts hits give approximately 13026.62 damage to the 13000-HP artillery enemy.",
+      "deadline": "Artillery must die before its western approach can repeatedly attack the protected target held at the western upper restraint.",
+      "limitation": "This is a conditional damage calculation, not a verified contact count. Durin's blocked-officer targeting and Steward's interrupted range windows can invalidate it.",
+      "minimum_observable_contribution": "Durin must obtain at least six actual artillery damage events if Steward obtains only the stated 41-event budget."
+    },
+    "classification": "CURRENT_MODEL_CHECKABLE",
+    "distinct_operator_ids": 7,
+    "economy": {
+      "dependency": "Fang grants require survival and deployment. Refunds require living withdrawals; death refunds zero. No charger kill income, unsupported talent or client cost escalation is assumed.",
+      "first_deployment_gross_dp": 98,
+      "full_scheduled_deployment_gross_dp": 138,
+      "initial_dp": 10,
+      "natural_dp_per_second": 1,
+      "opening_post_payment_balances": [
+        [
+          0,
+          0
+        ],
+        [
+          421,
+          0.033333
+        ],
+        [
+          571,
+          1.033333
+        ],
+        [
+          1051,
+          0.033333
+        ],
+        [
+          1381,
+          0.033333
+        ],
+        [
+          1741,
+          0.033333
+        ],
+        [
+          2101,
+          0.033333
+        ]
+      ],
+      "redeployment_costs_current_model": {
+        "char_192_falco": 10,
+        "char_210_stward": 18,
+        "char_501_durin": 12
+      },
+      "required_early_fang_grants": [
+        570,
+        1320,
+        2070
+      ],
+      "scheduled_living_refunds": [
+        [
+          3780,
+          "char_501_durin",
+          6
+        ],
+        [
+          8400,
+          "char_210_stward",
+          9
+        ],
+        [
+          8401,
+          "char_192_falco",
+          5
+        ]
+      ]
+    },
+    "maximum_simultaneous_operators": 7,
+    "medical_geometry": {
+      "ansel_active_additionally_covers": [
+        "Plume"
+      ],
+      "ansel_ordinary_covers": [
+        "Fang",
+        "Noil Corne",
+        "Durin",
+        "Steward",
+        "Ansel"
+      ],
+      "limitation": "Spot's healing is single-target, stops his attacks and does not guarantee Ansel can deliver every required central or caster heal.",
+      "spot_active_covers": [
+        "Spot",
+        "Ansel",
+        "Durin"
+      ],
+      "spot_active_excludes": [
+        "Fang",
+        "Noil Corne",
+        "Steward"
+      ]
+    },
+    "structure": "Four persistent lane holders, one physician, a healing guardian within the four holders, and two arts attackers with different coverage.",
+    "validation": "Read-only roster, range, opening DP, declared SP spacing and redeployment-gap calculations performed. No stage simulation was run; full-stage success is unverified."
+  },
+  "formation_transitions": [
+    {
+      "frame": 1051,
+      "transition": "Finish four-lane interception before the first lower-outer runner reaches column five."
+    },
+    {
+      "frame": 2011,
+      "transition": "Spot changes from officer damage to healing after contributing to the opening lower queue. Durin inherits the remaining lower damage duty."
+    },
+    {
+      "frame": 2551,
+      "transition": "Ansel activates extended, stronger healing for upper-outer recovery and the first exposed caster interval."
+    },
+    {
+      "frame": 3780,
+      "transition": "Scheduled living Durin withdrawal after eastern lower restraint destruction and resolution of his assigned exposure. No blocked enemy is released because he occupies high ground."
+    },
+    {
+      "frame": 3962,
+      "transition": "Spot resumes healing during the later lower exposure and officer queue."
+    },
+    {
+      "frame": 4352,
+      "transition": "Ansel's second activation supports the later upper artillery exposure and central recovery."
+    },
+    {
+      "frame": 5881,
+      "transition": "Durin returns after 2101 frames, restoring lower-central and lower-outer arts damage."
+    },
+    {
+      "frame": 6153,
+      "transition": "Ansel's third activation supports the final central armor and runner overlap."
+    },
+    {
+      "frame": 8400,
+      "transition": "Withdraw Steward only under the plan's prediction that hostile clearance is already complete."
+    },
+    {
+      "frame": 8401,
+      "transition": "Withdraw Plume after upper-outer clearance; permanent central and lower holders remain."
+    },
+    {
+      "frame": 10501,
+      "transition": "Return Steward west to destroy the upper restraint."
+    },
+    {
+      "frame": 10502,
+      "transition": "Return Plume west to destroy the lower restraint and complete both protected-target routes."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "id": "ROSTER",
+      "requirement": "The selected list and every DEPLOY use exactly the same seven legal normal-mode rarity-1-to-3 IDs."
+    },
+    {
+      "id": "TILES",
+      "requirement": "Never deploy on [[1,2],[6,2],[1,6],[6,6]]. Every deployment uses integer [row,col] and an explicit cardinal direction."
+    },
+    {
+      "id": "OBJECTIVES",
+      "requirement": "Acceptance requires positive remaining life, zero leaks, zero protected-target deaths, both expected safe arrivals, exhausted spawns and no active enemies."
+    },
+    {
+      "id": "MEDICAL_DELIVERY",
+      "requirement": "Observe individual heals and pre-impact HP. Durin must exceed 938 HP before an otherwise unmitigated 938-damage shell; Steward must survive every 910-damage shell. Nominal combined HPS does not establish either."
+    },
+    {
+      "id": "NO_NEUTRAL_INTERCEPTION",
+      "requirement": "Ordinary operators neither attack nor block civilians. Roadblock destruction releases civilians; physicians do not directly heal them."
+    },
+    {
+      "id": "ARTILLERY_ACCOUNTING",
+      "requirement": "Track selection, projectile birth, locked position, impact, splash recipients and intervening healing for every actual cast. Retreat never deletes a born shell."
+    },
+    {
+      "id": "LOWER_RELEASE",
+      "requirement": "Eastern restraint4 must be destroyed before Durin's scheduled withdrawal. Civilian artillery damage is permitted only while survival and eventual safe arrival remain established."
+    },
+    {
+      "id": "BLOCK_CAPACITY",
+      "requirement": "Observe actual BLOCK events. Fang has two slots and Noil Corne three; ranged occupants do not supply ground blocking."
+    },
+    {
+      "id": "ACTION_VALIDITY",
+      "requirement": "Skill and retreat actions require a living deployed operator. A failed survival prediction invalidates dependent actions; it is not repaired by assumed refunds or instant replacement."
+    },
+    {
+      "id": "DEATH_ACCOUNTING",
+      "requirement": "No death is required. Any death is assessed by absorbed attacks, damage, released enemies, lost income, zero refund, cooldown and successor coverage; it does not itself establish project failure."
+    }
+  ],
+  "operational_plan_id": "R8_7_GPT_M72_V1",
+  "parent_hypothesis_id": "R8_7_M72_H1",
+  "pressure_window_responsibilities": [
+    {
+      "duties": "Meet all four interception deadlines, retain Fang income, absorb opening damage with Noil Corne's ordinary defense, and damage the lower officer before Spot stops attacking.",
+      "window_frames": [
+        0,
+        2010
+      ]
+    },
+    {
+      "duties": "Spot heals Ansel and Durin during clustered impacts. Ansel sustains the isolated upper caster and restores Plume. Durin must add artillery damage and finish eastern restraint4 before his scheduled withdrawal.",
+      "window_frames": [
+        2011,
+        3780
+      ]
+    },
+    {
+      "duties": "Resolve remaining shells, kill artillery before western civilian exposure, and have Steward clear the first central armor before paired runners exhaust blocking capacity.",
+      "window_frames": [
+        3781,
+        5880
+      ]
+    },
+    {
+      "duties": "Restore Durin's lower damage, preserve actual block slots for the final armor, and use medical activations for delivered healing rather than nominal HPS.",
+      "window_frames": [
+        5881,
+        8401
+      ]
+    },
+    {
+      "duties": "Keep cleared corridors safe, complete both western restraints and observe both distinct protected-target arrivals.",
+      "window_frames": [
+        8402,
+        12000
+      ]
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_500_noirc",
+    "char_192_falco",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_501_durin",
+    "char_210_stward"
+  ],
+  "skill_intents": [
+    {
+      "intent": "Automatic supported DP only while alive and deployed.",
+      "operator_id": "char_123_fang"
+    },
+    {
+      "intent": "No manual skill or unsupported talent is credited.",
+      "operator_id": "char_500_noirc"
+    },
+    {
+      "frames": [
+        3511,
+        5641
+      ],
+      "intent": "First boost prevents overlap of the ten-second upper officer pair; second accelerates final upper-outer clearance. No unsupported kill-DP talent is credited.",
+      "operator_id": "char_192_falco"
+    },
+    {
+      "frames": [
+        2011,
+        3962,
+        5913,
+        7864
+      ],
+      "intent": "Heal Ansel, Durin and self in the supported nine-cell range. Attacks stop for 25 seconds; no dodge is credited.",
+      "operator_id": "char_284_spot"
+    },
+    {
+      "frames": [
+        2551,
+        4352,
+        6153,
+        7954
+      ],
+      "intent": "Support exposed casters, restore Plume through range extension, and cover late central pressure. Do not assume probabilistic extra healing.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "intent": "Ordinary arts damage only; unsupported dodge or other talent effects contribute zero.",
+      "operator_id": "char_501_durin"
+    },
+    {
+      "intent": "Use supported automatic enhanced attacks and high-defense priority. Artillery takes priority while in range; afterward central armor receives sustained arts damage.",
+      "operator_id": "char_210_stward"
+    }
+  ],
+  "tactical_thesis": "Use seven IDs with four early interceptions, stronger lower-central defense, and two complementary casters. Spot combines lower-outer blocking with staged healing. Durin supplements Steward's artillery damage and clears the eastern lower restraint; Steward subsequently retains coverage of both central holders. This is an unsimulated, CURRENT_MODEL_CHECKABLE hypothesis. Artillery damage, healing allocation, restraint clearance and actual interception remain decisive, falsifiable dependencies."
+}

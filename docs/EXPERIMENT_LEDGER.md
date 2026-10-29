@@ -1322,3 +1322,33 @@ tactical LOSS results nor three capacity failures prove infeasibility. Evidence,
 prompts/schema/replies, frozen attempts, static/preflight, gzipped events,
 feedback, budget, and 117 verified hashes are under
 `docs/review/fc77177/m71_fewer_operator_search_v1/evidence/`.
+
+## 2026-10-29 — M72 ends five shared seven-ID slots without a WIN
+
+M72 continued from M70 with target K=7 and a fresh shared ledger of five
+candidate slots, five real CLI starts, and five fixed simulations. C1 selected
+`M72_TWO_CASTER_GUARDIAN_OUTER`; contract/static gates passed, but Ansel failed
+deployment for insufficient DP@1381, Fang died@1209, and `#6` first leaked@1551.
+The complete LOSS was 16/17/5 deaths/life -16.
+
+C2 selected `M72_V2_DUAL_PIONEER_CROSS_ASSIST`. It fixed the opening DP, but
+Durin died@2111, Vanilla and Ansel died@2561, Steward died@3043, and `#11` first
+leaked@3065. The complete LOSS was 16/17/6 deaths/life -16. C3 selected
+`M72_V3_DUAL_PHYSICIAN_GUARDIAN`; its expected Spot heal was verified, but moving
+Spot central left `#5` unblocked and it leaked@1282. All seven operators died by
+4818 and the complete LOSS was 16/17/7 deaths/life -15.
+
+C4 was rejected before model start because the prompt was 144572 bytes over the
+140000-byte limit; it consumed the candidate position under the static-failure
+rule but no CLI or simulation. C5 used the fourth real CLI and produced a valid
+7-ID plan `M72_V5_WESTERN_INTERCEPT_SPLIT_MEDICINE`, but static checking found
+three conflicts: Steward tried to deploy@6525 into Hibiscus' occupied tile, and
+Hibiscus' skill@2811 had 28.6667 SP against a required 30. No simulation started.
+
+M72 closes at candidate attempts 5/5, real CLI starts 4/5, and simulations 3/5.
+M70 V1 remains the best verified fixed-simulator result at eight IDs. Seven-ID
+feasibility remains UNKNOWN; static failure, three losses, and unused budget do
+not prove impossibility. Evidence, prompts/replies, comparisons, preflight/static
+records, STARTED logs, gzipped full events with round-trip hashes, feedback,
+budget, and closeout are under
+`docs/review/fc77177/m72_seven_operator_continuation_v1/evidence/`.

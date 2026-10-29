@@ -1,0 +1,112 @@
+{
+  "best_verified_result": {
+    "plan_id": "R8_7_GPT_M70_V1",
+    "distinct_operator_ids": 8,
+    "result": "CURRENT_MODEL_FIXED_SIMULATOR_WIN",
+    "kills": 33,
+    "leaks": 0,
+    "operator_death_events": 0,
+    "remaining_life": 3,
+    "protected_targets_reached": 2,
+    "scope": "Current fixed simulator only; not real game, faithful, robust, probabilistic, or globally minimal."
+  },
+  "target": {
+    "initial_distinct_operator_ids": 7,
+    "final_distinct_operator_ids": 7,
+    "next_target_if_win_would_have_been": 6
+  },
+  "budget": {
+    "candidate_attempts": 5,
+    "max_candidate_attempts": 5,
+    "real_tactical_cli_starts": 4,
+    "max_real_tactical_cli_starts": 5,
+    "full_stage_simulations": 3,
+    "max_full_stage_simulations": 5,
+    "unused_cli_starts": 1,
+    "unused_simulations": 2,
+    "historical_balance_transferred": false
+  },
+  "candidate_results": [
+    {
+      "candidate": 1,
+      "plan_id": "R8_7_GPT_M72_V1",
+      "structure_id": "M72_TWO_CASTER_GUARDIAN_OUTER",
+      "distinct_operator_ids": 7,
+      "contract_validation": "PASS",
+      "static_conflicts": 0,
+      "simulation": "COMPLETE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "operator_death_events": 5,
+      "remaining_life": -16,
+      "first_leak": "enemy_1107_uoffcr#6@1551",
+      "first_life_zero": "ENEMY_LEAK enemy_1107_uoffcr#12@3275",
+      "key_break": "Ansel@1381 insufficient DP; later artillery killed Steward@3043 and Durin@3553."
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M72_V2",
+      "structure_id": "M72_V2_DUAL_PIONEER_CROSS_ASSIST",
+      "distinct_operator_ids": 7,
+      "contract_validation": "PASS",
+      "static_conflicts": 0,
+      "simulation": "COMPLETE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "operator_death_events": 6,
+      "remaining_life": -16,
+      "first_leak": "enemy_1107_uoffcr#11@3065",
+      "first_life_zero": "PROTECTED_TARGET_DEATH enemy_3001_upeopl#14@3966",
+      "key_break": "Durin@2111, Vanilla+Ansel@2561, and Steward@3043 died, leaving the central lower route uncovered."
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M72_V3",
+      "structure_id": "M72_V3_DUAL_PHYSICIAN_GUARDIAN",
+      "distinct_operator_ids": 7,
+      "contract_validation": "PASS",
+      "static_conflicts": 0,
+      "simulation": "COMPLETE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "operator_death_events": 7,
+      "remaining_life": -15,
+      "first_leak": "enemy_1108_uterer#5@1282",
+      "first_life_zero": "ENEMY_LEAK enemy_1110_uamord#21@5046",
+      "key_break": "Moving Spot central opened lower-outer interception; all seven operators then died by 4818."
+    },
+    {
+      "candidate": 4,
+      "plan_id": null,
+      "structure_id": null,
+      "result": "PREPARE_PROMPT_LIMIT_STATIC_FAILURE",
+      "prompt_bytes": 144572,
+      "prompt_limit_bytes": 140000,
+      "real_cli_starts": 0,
+      "simulations": 0,
+      "position_consumed": true
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M72_V5",
+      "structure_id": "M72_V5_WESTERN_INTERCEPT_SPLIT_MEDICINE",
+      "distinct_operator_ids": 7,
+      "contract_validation": "PASS",
+      "static_conflicts": 3,
+      "simulation": "NOT_STARTED",
+      "static_conflict_summary": [
+        "Steward DEPLOY@6525 to [2,5] conflicts with living Hibiscus",
+        "Hibiscus ACTIVATE_SKILL@2811 has SP 28.6666666667 but requires 30",
+        "Static checker reports the occupied-tile deployment twice"
+      ],
+      "position_consumed": true
+    }
+  ],
+  "service_capacity_blocking": false,
+  "seven_id_feasibility": "UNKNOWN",
+  "no_impossibility_claim": true,
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE",
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "remote_push_status": "NOT_PUSHED_BY_THIS_MILESTONE"
+}
