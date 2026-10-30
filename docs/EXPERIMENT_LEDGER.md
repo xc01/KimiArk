@@ -1352,3 +1352,28 @@ not prove impossibility. Evidence, prompts/replies, comparisons, preflight/stati
 records, STARTED logs, gzipped full events with round-trip hashes, feedback,
 budget, and closeout are under
 `docs/review/fc77177/m72_seven_operator_continuation_v1/evidence/`.
+
+## 2026-10-30 — M73 closes five dependency-aware seven-ID attempts
+
+M73 used a fresh five-candidate ledger and kept target K=7. Candidate 1
+(`M73_DUAL_ARTS_GUARDIAN_OUTER`) lost 19/14/6/life -13 with first leak
+`#19@4611`. Candidate 2 (`M73V2_CHEAP_CHARGER_SPLIT_MEDICAL`) lost
+21/12/7/life -10 after Friston died@3159 and released `#13`, which leaked@3501.
+Candidate 3 (`EASTERN_STEWARD_MELANTHA_SPLIT_MEDICAL`) verified Melantha's
+declared early BLOCK but repeated the same #13 release and lost
+19/14/7/life -12. Candidate 4 (`M73_V4_TWO_MEDICS_DELAYED_WEST_ENTRY`) verified
+Vanilla's early income and reduced deaths, but `#21` was never blocked and
+leaked@5046; it lost 21/12/5/life -10. Candidate 5
+(`SPOT_FUSION_OCCUPANCY_CONDITIONAL`) verified Spot's early BLOCK and improved to
+23/10/6/life -9, but the declared full protection hypothesis remained
+`USER_PREMISE_NOT_EXPRESSIBLE`; `#22` first leaked@5196.
+
+One C3 preparation rejection occurred before `STARTED` because
+`features.apps=false` was missing; it consumed no CLI, candidate, or simulation
+and is archived in `candidate_v3/cli_prestart_rejection.json`. M73 ended at
+candidate attempts 5/5, real CLI starts 5/5, and full simulations 5/5. M70 V1
+remains the best verified fixed-simulator result at eight IDs. Seven-ID
+feasibility remains UNKNOWN; these losses and budget exhaustion do not prove
+impossibility. Evidence, prompts/replies, comparisons, contracts, static checks,
+freeze manifests, gzipped events, feedback, hash manifest, and closeout are under
+`docs/review/fc77177/m73_open_dependency_reduction_v1/evidence/`.

@@ -1,0 +1,19 @@
+{
+  "candidate_attempt_rule": "Five candidate slots are shared across all K targets. Each may use at most one new real tactical CLI and one fixed full-stage simulation. Contract or static failures retain the slot; only STARTED processes and simulations count against their applicable limits.",
+  "capacity_stop_rule": "If a started real CLI fails with an explicit service-capacity message and produces no tactical output, archive the failure, stop starting further M73 CLI calls this round, and preserve unused M73 budget as blocked by service capacity.",
+  "counting_rule": "Count each real tactical CLI process and each fixed full-stage simulation at STARTED, including failures and timeouts. A WIN freezes that candidate, updates best N, and sets the next K=N-1; continue only while total M73 slots remain. No automatic retry, resume, replacement call, historical balance transfer, or sixth candidate.",
+  "initial_target_distinct_operator_ids": 7,
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "max_candidate_attempts": 5,
+  "max_new_real_tactical_cli_starts": 5,
+  "max_stage_simulations": 5,
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "non_stackable": "M72 ended at candidate attempts 5/5, CLI 4/5, and simulation 3/5; its unused balances do not transfer. M70 V1 remains the frozen 8-ID WIN until a smaller-ID M73 WIN is verified.",
+  "prior_stage_simulations": 0,
+  "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+  "stage_id": "main_08-07",
+  "started_candidate_attempts": 5,
+  "started_new_real_tactical_cli_starts": 5,
+  "started_stage_simulations": 5,
+  "user_premise": "USER_CONFIRMED_TACTICAL_PREMISE"
+}

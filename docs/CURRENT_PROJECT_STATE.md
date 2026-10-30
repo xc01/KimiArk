@@ -660,3 +660,19 @@ IDs. Seven-ID feasibility remains UNKNOWN under the current model, catalog,
 action space, and acceptance conditions; M72's losses and budget exhaustion do
 not prove impossibility. Evidence is under
 `docs/review/fc77177/m72_seven_operator_continuation_v1/evidence/`.
+
+M73 continued seven-ID exploration with dependency-aware feedback. All five
+candidate slots, real CLI starts, and full simulations were used without a WIN.
+The complete results were 19/14/6/life -13, 21/12/7/life -10, 19/14/7/life -12,
+21/12/5/life -10, and 23/10/6/life -9. Their first leaks were `#19@4611`,
+`#13@3501`, `#13@3501`, `#21@5046`, and `#22@5196`; the repeated upstream issue
+was loss of a live blocker or sustained medical coverage before later
+insufficient-DP and not-deployed actions became visible. C5's selected
+`SPOT_FUSION_OCCUPANCY_CONDITIONAL` was explicitly `USER_PREMISE_NOT_EXPRESSIBLE`
+as a complete protection solution even though its early Spot BLOCK was verified.
+
+M70 V1 remains the best verified current-model fixed-simulator result at eight
+IDs. Seven-ID feasibility remains UNKNOWN under the current model, catalog,
+action space, time range, and acceptance conditions; M73's five losses and
+exhausted budget do not prove impossibility. Evidence and the closeout are under
+`docs/review/fc77177/m73_open_dependency_reduction_v1/evidence/`.
