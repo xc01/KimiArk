@@ -1,0 +1,46 @@
+{
+  "schema_version": "KIMIARK_M74_CONTINUATION_V1",
+  "status": "BLOCKED_AFTER_SECOND_SERVICE_EXECUTION_FAILURE",
+  "prior_closeout_preserved": "m74_closeout_v1.json",
+  "target_k": 7,
+  "budget": {
+    "candidate_attempts": {"max": 5, "used": 2, "remaining": 3},
+    "real_tactical_cli_starts": {"max": 5, "used": 2, "remaining": 3},
+    "full_simulations": {"max": 5, "used": 0, "remaining": 5},
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL"
+  },
+  "next_candidate": "candidate_v3",
+  "recovery_evidence": "m74_routing_recovery_v1.json",
+  "rules": [
+    "Candidate 1 is not retried or deleted.",
+    "Remaining candidate and CLI balances are shared across all roster-size targets.",
+    "At most one full simulation per candidate.",
+    "A WIN updates best N and reduces target K only within remaining shared budget."
+  ],
+  "service_failure_stop_rule": "Candidate 2 started and produced no tactical output, so no further M74 CLI calls are started this session. The remaining three candidate slots and three CLI starts remain preserved.",
+  "candidates": [
+    {
+      "candidate": "candidate_v2",
+      "plan_id": "R8_7_GPT_M74_V2",
+      "target_k": 7,
+      "classification": "SERVICE_EXECUTION_FAILURE_NO_TACTICAL_OUTPUT",
+      "tactical_loss": false,
+      "simulation_started": false,
+      "result": null,
+      "prompt_bytes": 123177,
+      "prompt_sha256": "a2dbec1863ef0d146080d908b476df3f530b172a96501e5fa618d1558cb959fa",
+      "failure": {
+        "exit_code": 1,
+        "timed_out": false,
+        "message": "workspace routing discovery failed",
+        "model_refresh_status": 403,
+        "model_refresh_url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+        "cloudflare_ray": ["a5312b15ff930f1c-HKG", "a5312b160b56e2fb-HKG"],
+        "service_capacity_message": false
+      },
+      "attempt_record": "candidate_v2_raw/cli_process_attempt.json",
+      "execution_log": "candidate_v2_raw/codex_exec.jsonl",
+      "stderr": "candidate_v2_raw/codex_stderr.txt"
+    }
+  ]
+}

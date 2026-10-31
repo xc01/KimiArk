@@ -1,0 +1,59 @@
+{
+  "schema_version": "KIMIARK_M74_ROUTING_RECOVERY_V1",
+  "scope": "Local execution transport recovery only; no model request was used to test recovery and no tactical hypothesis is proven.",
+  "candidate1_failure": {
+    "classification": "SERVICE_EXECUTION_FAILURE_NO_TACTICAL_OUTPUT",
+    "message": "workspace routing discovery failed",
+    "stderr": [
+      "failed to refresh available models: request timed out"
+    ],
+    "not_capacity_message": true,
+    "not_prompt_length_diagnosis": true,
+    "not_tactical_failure": true
+  },
+  "diagnosis": {
+    "auth_mode": "chatgpt",
+    "chatgpt_account_id_present": true,
+    "proxy_prestart_chatgpt_https": 200,
+    "pre_fix_https_symptom": "HTTP CONNECT succeeded, then TLS handshake ended with unexpected EOF for chatgpt.com, api.openai.com, Google, and GitHub through 127.0.0.1:7890.",
+    "direct_network_contrast": "PyPI and api.github.com HTTPS worked directly; chatgpt.com and api.openai.com timed out directly.",
+    "mihomo_runtime_chain_before": {
+      "AI_platform": "🚀 选择节点",
+      "main_selector": "🔑 所有手动",
+      "manual_selector": "🇯🇵 直連｜日本-04 [2.0][gRPC]",
+      "observed_node_delay": 0,
+      "japan_group_delay_request": "HTTP 504 timeout"
+    },
+    "control_plane": {
+      "endpoint": "http://127.0.0.1:9090/version",
+      "result": "meta alpha-9b9dc8a"
+    }
+  },
+  "minimal_fix": {
+    "method": "Mihomo external controller runtime selector change; no config rewrite and no process restart.",
+    "selector": "🚀 选择节点",
+    "changed_from": "🔑 所有手动",
+    "changed_to": "⚡ 最快线路",
+    "resolved_chain": [
+      "⚡ 最快线路",
+      "🇭🇰 直連｜香港-07 [1.0][家寬][gRPC]"
+    ],
+    "validation": [
+      "HTTPS HEAD to chatgpt.com succeeded via Cloudflare HKG",
+      "HTTPS HEAD to api.openai.com succeeded via Cloudflare HKG",
+      "HTTPS HEAD to google.com succeeded",
+      "HTTPS HEAD to github.com succeeded",
+      "git fetch origin master succeeded"
+    ],
+    "remaining_unknown": "Runtime selector changes may not survive a Mihomo restart; persistence was not changed."
+  },
+  "remote_publish_check": {
+    "fetched_refs": [
+      {"ref":"HEAD","sha":"d3e1a392ebace615da9adb0aa4e32b143e5bc680"},
+      {"ref":"refs/heads/master","sha":"d3e1a392ebace615da9adb0aa4e32b143e5bc680"}
+    ],
+    "local_m74_commit": "cae6be837fd38873510238ccb4829ad2015e114a",
+    "remote_branch_containing_local_m74_commit": [],
+    "conclusion": "The M74 commit was not visible on any checked remote branch; no push result is inferred and no force push was performed."
+  }
+}
