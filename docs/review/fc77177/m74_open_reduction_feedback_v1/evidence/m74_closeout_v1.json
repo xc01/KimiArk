@@ -1,0 +1,60 @@
+{
+  "schema_version": "KIMIARK_M74_CLOSEOUT_V1",
+  "stage_id": "main_08-07",
+  "status": "BLOCKED_AFTER_SERVICE_EXECUTION_FAILURE",
+  "scope": "Current fixed simulator only; no real-device, faithful, robust, probabilistic-WIN, or global-minimum claim.",
+  "target_k_final": 7,
+  "best_frozen_win": {
+    "claim": "Frozen current-model fixed-simulator WIN; not a global minimum claim.",
+    "distinct_operator_ids": 8,
+    "milestone": "M70",
+    "plan_id": "M70_LOWER_EXCLUSIVE_ARTS"
+  },
+  "verified_smaller_operator_win": null,
+  "seven_operator_feasibility": "UNKNOWN",
+  "win": false,
+  "model": {
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "features_apps": false
+  },
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "budget": {
+    "candidate_attempts": {"max": 5, "used": 1, "remaining": 4},
+    "real_tactical_cli_starts": {"max": 5, "used": 1, "remaining": 4},
+    "full_simulations": {"max": 5, "used": 0, "remaining": 5},
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "historical_balance_transferred": false
+  },
+  "candidates": [
+    {
+      "candidate": "candidate_v1",
+      "plan_id": "R8_7_GPT_M74_V1",
+      "target_k": 7,
+      "classification": "SERVICE_EXECUTION_FAILURE_NO_TACTICAL_OUTPUT",
+      "tactical_loss": false,
+      "simulation_started": false,
+      "result": null,
+      "prompt_bytes": 123177,
+      "prompt_sha256": "44e78610e5c31cf7b07642829f19d500b7193ea2392aff66d1736f4ab9fcd164",
+      "failure": {
+        "exit_code": 1,
+        "timed_out": false,
+        "message": "workspace routing discovery failed",
+        "service_capacity_message": false
+      },
+      "attempt_record": "candidate_v1_raw/cli_process_attempt.json",
+      "execution_log": "candidate_v1_raw/codex_exec.jsonl",
+      "stderr": "candidate_v1_raw/codex_stderr.txt"
+    }
+  ],
+  "service_failure_policy": "Candidate 1 was a real STARTED process and therefore consumed one candidate slot and one CLI start. It produced no tactical output and was not retried or resumed; the remaining M74 slots remain preserved.",
+  "zero_budget_verification": {
+    "causal_classification": "m74_m73_causal_classification_v1.json",
+    "initial_feedback": "m74_initial_feedback_v1.json",
+    "roster_fixture": "m74_candidate1_roster_fixture.txt",
+    "roster_fixture_summary": "K=7 passes a 7-ID union; an 8-ID union is rejected; duplicate same-ID redeploy counts one unique ID."
+  },
+  "evidence_manifest": "sha256_manifest.txt"
+}
