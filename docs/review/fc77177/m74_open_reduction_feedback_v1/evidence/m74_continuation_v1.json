@@ -1,6 +1,6 @@
 {
   "schema_version": "KIMIARK_M74_CONTINUATION_V1",
-  "status": "BLOCKED_AFTER_SECOND_SERVICE_EXECUTION_FAILURE",
+  "status": "BLOCKED_BEFORE_CANDIDATE3_MODELS_ENDPOINT_403",
   "prior_closeout_preserved": "m74_closeout_v1.json",
   "target_k": 7,
   "budget": {
@@ -11,6 +11,13 @@
   },
   "next_candidate": "candidate_v3",
   "recovery_evidence": "m74_routing_recovery_v1.json",
+  "model_switch": {
+    "authorization_record": "m74_astra_authorization_v1.json",
+    "next_model": "gpt-6-astra",
+    "next_reasoning_effort": "high",
+    "availability_record": "m74_astra_availability_v1.json",
+    "candidate_started": false
+  },
   "rules": [
     "Candidate 1 is not retried or deleted.",
     "Remaining candidate and CLI balances are shared across all roster-size targets.",

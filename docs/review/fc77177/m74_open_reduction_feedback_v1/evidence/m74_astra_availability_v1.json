@@ -1,0 +1,54 @@
+{
+  "schema_version": "KIMIARK_M74_ASTRA_AVAILABILITY_V1",
+  "generated_at_utc": "2026-10-31T13:14:51Z",
+  "conclusion": "BLOCKED_BEFORE_CANDIDATE3_MODELS_ENDPOINT_403",
+  "model_identity_check": {
+    "source": "Local Codex model catalog and codex debug models output",
+    "model": "gpt-6-astra",
+    "display_name": "GPT-6-Astra",
+    "supported_in_api": true,
+    "visibility": "list",
+    "default_reasoning_level": "low",
+    "supported_reasoning_levels": ["low", "medium", "high", "xhigh", "max", "ultra"],
+    "context_window": 272000,
+    "max_context_window": 872000,
+    "limitation": "The local catalog check proves identity and high support, not live service discovery."
+  },
+  "selected_configuration_doctor": {
+    "command": "codex doctor --json -c model=\"gpt-6-astra\" -c model_provider=\"openai\" -c model_reasoning_effort=\"high\" -c features.apps=false",
+    "overall_status": "warning",
+    "codex_version": "0.162.1",
+    "config_model": "gpt-6-astra",
+    "config_model_provider": "openai",
+    "feature_flag_overrides": ["apps=false"],
+    "auth_status": "ok",
+    "stored_auth_mode": "chatgpt",
+    "stored_api_key": false,
+    "stored_chatgpt_tokens": true,
+    "network_provider_reachability_status": "ok",
+    "network_provider_reachability_meaning": "HTTP transport reached the endpoint, but the reported inference route returned HTTP 403.",
+    "network_provider_reachability_http": 403,
+    "websocket_handshake": "HTTP 403 Forbidden; HTTPS fallback may still work"
+  },
+  "live_models_endpoint_check": {
+    "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.162.1",
+    "method": "authenticated GET using the current stored ChatGPT credentials",
+    "http_status": 403,
+    "response_shape": "HTML challenge/blocked response, not JSON",
+    "secrets_output_or_archived": false,
+    "access_control_bypass_attempted": false,
+    "service_capacity_message": false
+  },
+  "decision": {
+    "candidate_v3_started": false,
+    "tactical_cli_started": false,
+    "simulation_started": false,
+    "reason": "The actual authenticated model-discovery endpoint remained HTTP 403; starting candidate 3 would be a service test rather than a tactical attempt.",
+    "remaining_balances_preserved": true
+  },
+  "external_recovery_conditions": [
+    "The Codex ChatGPT models endpoint must return JSON and include gpt-6-astra under normal stored-credential auth.",
+    "The OpenAI provider workspace routing chain must complete without 403 or routing-discovery failure.",
+    "No proxy-region change, access-control bypass, model change, or credential change is authorized by this milestone."
+  ]
+}
