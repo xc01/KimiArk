@@ -1,0 +1,53 @@
+{
+  "schema_version": "GPT_TACTICAL_STAGE_SESSION_V1_STATIC_CONFLICT_FEEDBACK",
+  "source": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v3/static_compile_results.json",
+  "source_plan_id": "R8_7_GPT_M74_V3",
+  "simulation_status": "NO_SIMULATION",
+  "compact_scope": "Only the five deterministic static conflicts; complete ledger and full static checks remain in the cited source artifact.",
+  "conflicts": [
+    {
+      "candidate_plan_id": "R8_7_GPT_M74_V3",
+      "action_index": 4,
+      "conflict": "INSUFFICIENT_DP",
+      "frame": 871,
+      "operator_id": "char_208_melan",
+      "required_value": 15,
+      "available_value": 14.033333333333331,
+      "battle_result_status": "NO_SIMULATION"
+    },
+    {
+      "candidate_plan_id": "R8_7_GPT_M74_V3",
+      "action_index": 9,
+      "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "frame": 2072,
+      "operator_id": "char_208_melan",
+      "battle_result_status": "NO_SIMULATION"
+    },
+    {
+      "candidate_plan_id": "R8_7_GPT_M74_V3",
+      "action_index": 16,
+      "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "frame": 3873,
+      "operator_id": "char_208_melan",
+      "battle_result_status": "NO_SIMULATION"
+    },
+    {
+      "candidate_plan_id": "R8_7_GPT_M74_V3",
+      "action_index": 22,
+      "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "frame": 5674,
+      "operator_id": "char_208_melan",
+      "battle_result_status": "NO_SIMULATION"
+    },
+    {
+      "candidate_plan_id": "R8_7_GPT_M74_V3",
+      "action_index": 29,
+      "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "frame": 7475,
+      "operator_id": "char_208_melan",
+      "battle_result_status": "NO_SIMULATION"
+    }
+  ],
+  "causal_summary": "Resolve the frame-871 Melantha deployment first. Once it is deployed, the same operator's later skill activations need their own legal SP and deployment-state checks.",
+  "full_evidence_status": "PRESERVED_IN_SOURCE"
+}

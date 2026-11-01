@@ -1,0 +1,47 @@
+{
+  "schema_version": "KIMIARK_M74_CANDIDATE_BATTLE_RESULT_V1",
+  "candidate": "candidate_v4",
+  "plan_id": "R8_7_GPT_M74_V4",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "classification": "LEGAL_BATTLE_LOSS",
+  "contract_validation": "PASS",
+  "static_conflict_count": 0,
+  "simulation_started": true,
+  "simulation_completed": true,
+  "result": {
+    "win": false,
+    "enemies_killed": 21,
+    "enemies_leaked": 12,
+    "enemies_remaining": 0,
+    "remaining_life": -10,
+    "final_dp": 96.63333333333159,
+    "operator_death_event_count": 6,
+    "unique_dead_operators": ["char_210_stward", "char_123_fang", "char_212_ansel", "char_283_midn", "char_240_wyvern", "char_120_hibisc"],
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1
+  },
+  "early_causal_chain": [
+    {"frame": 3310, "event": "PROTECTED_TARGET_DEATH", "source_id": "enemy_1112_emppnt#0", "target_id": "enemy_3001_upeopl#3"},
+    {"frame": 3460, "event": "OPERATOR_DEATH", "source_id": "char_210_stward"},
+    {"frame": 4440, "event": "PLANNED_STEWARD_RETREAT_BECAME_NOT_DEPLOYED"},
+    {"frame": 5046, "event": "FIRST_LEAK", "source_id": "enemy_1110_uamord#21"},
+    {"frame": 5525, "event": "LIFE_ZERO_OBJECTIVE_FAILURE"}
+  ],
+  "key_interpretation": "The plan expected lethal artillery damage before the 4440 Steward retreat, but the artillery survived and leaked. This invalidated downstream Steward actions and contributed to central/upper misses. Static checks correctly found no pre-battle DP or deployment conflict; death and targeting were the unmet battle assumptions.",
+  "artifacts": {
+    "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v4/diagnostic/diagnostic_summary.json",
+    "diagnostic_events": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v4/diagnostic/diagnostic_events.json"
+  },
+  "sha256": {
+    "diagnostic_summary": "ef55bb9f0697a4686cc97d842e91ac1b7cdc099e82d0ead16a98ca140253b968",
+    "diagnostic_events": "de9e1e373419654c24192295bd9d996b1a83c13aeb5a02db0d4934d2e4aec981",
+    "plan_snapshot": "f7b5ff81003958e65ce151fc6c9db166c821714aebd618ee02775f74e88f4221",
+    "action_snapshot": "ba1ee6f5ebd2bd09dd04c95236bd4fa400e318cf3d586980628f72a5b6ab4436"
+  },
+  "budget_after_attempt": {
+    "candidate_attempts": {"used": 4, "remaining": 1},
+    "real_tactical_cli_starts": {"used": 4, "remaining": 1},
+    "stage_simulations": {"used": 1, "remaining": 4, "normally_reachable": 1}
+  }
+}

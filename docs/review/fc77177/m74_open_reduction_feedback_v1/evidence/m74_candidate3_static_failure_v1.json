@@ -1,0 +1,37 @@
+{
+  "schema_version": "KIMIARK_M74_CANDIDATE_STATIC_FAILURE_V1",
+  "candidate": "candidate_v3",
+  "plan_id": "R8_7_GPT_M74_V3",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "classification": "B_STATIC_CONFLICT",
+  "contract_validation": "PASS",
+  "real_cli_started": true,
+  "tactical_output_received": true,
+  "stage_simulation_started": false,
+  "tactical_loss": false,
+  "conflict_count": 5,
+  "conflicts": [
+    {"frame": 871, "operator_id": "char_208_melan", "conflict": "INSUFFICIENT_DP", "required_value": 15, "available_value": 14.033333333333331},
+    {"frame": 2072, "operator_id": "char_208_melan", "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 3873, "operator_id": "char_208_melan", "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 5674, "operator_id": "char_208_melan", "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 7475, "operator_id": "char_208_melan", "conflict": "ACTIVATE_SKILL_BEFORE_DEPLOY"}
+  ],
+  "interpretation": "The first conflict is the hard deployment blocker; the four skill-before-deploy conflicts follow from the same unmet Melantha deployment. No battle behavior was inferred and no simulation was started.",
+  "artifacts": {
+    "prompt": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v3/codex_prompt.txt",
+    "structured_output": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v3/llm_structured_output.json",
+    "static_results": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v3/static_compile_results.json"
+  },
+  "sha256": {
+    "prompt": "db02f753740547cb2d59b4302ebbae0dc045f70592bc4b28b3d905a3f6067e09",
+    "structured_output": "714504f0678d60f6e61efc6e8a4d859cd2826273176fbeaf146f3dddcb74b625",
+    "static_results": "0229ebdfc1a5f9c4131347765c24d3c1e1e6c9e9e447df3bbec645dbf8621478"
+  },
+  "budget_after_attempt": {
+    "candidate_attempts": {"used": 3, "remaining": 2},
+    "real_tactical_cli_starts": {"used": 3, "remaining": 2},
+    "stage_simulations": {"used": 0, "remaining": 5, "normally_reachable": 2}
+  }
+}

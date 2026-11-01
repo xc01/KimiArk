@@ -1,0 +1,79 @@
+{
+  "schema_version": "KIMIARK_M74_CONTINUATION_CLOSEOUT_V2",
+  "status": "CLOSED_FIVE_CANDIDATES_USAGE_LIMIT_NO_SEVEN_ID_WIN",
+  "best_verified_result": {
+    "milestone": "M70_V1",
+    "distinct_operator_ids": 8,
+    "roster": [
+      "char_123_fang",
+      "char_402_friston3",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward",
+      "char_404_spot"
+    ],
+    "win": true,
+    "scope": "CURRENT_FIXED_SIMULATOR_ONLY"
+  },
+  "target_k": 7,
+  "candidate_results": [
+    {
+      "candidate": "candidate_v1",
+      "model": "gpt-6.1-sol",
+      "classification": "SERVICE_EXECUTION_FAILURE_NO_TACTICAL_OUTPUT",
+      "tactical_loss": false,
+      "simulation": false
+    },
+    {
+      "candidate": "candidate_v2",
+      "model": "gpt-6.1-sol",
+      "classification": "SERVICE_ROUTING_FAILURE_NO_TACTICAL_OUTPUT",
+      "tactical_loss": false,
+      "simulation": false
+    },
+    {
+      "candidate": "candidate_v3",
+      "model": "gpt-6-astra",
+      "plan_id": "R8_7_GPT_M74_V3",
+      "classification": "B_STATIC_CONFLICT",
+      "tactical_loss": false,
+      "simulation": false,
+      "record": "m74_candidate3_static_failure_v1.json"
+    },
+    {
+      "candidate": "candidate_v4",
+      "model": "gpt-6-astra",
+      "plan_id": "R8_7_GPT_M74_V4",
+      "classification": "LEGAL_BATTLE_LOSS",
+      "tactical_loss": true,
+      "simulation": true,
+      "metrics": {"enemies_killed": 21, "enemies_leaked": 12, "operator_death_event_count": 6, "remaining_life": -10, "protected_target_deaths": 1, "protected_targets_reached": 1},
+      "record": "m74_candidate4_battle_loss_v1.json"
+    },
+    {
+      "candidate": "candidate_v5",
+      "model": "gpt-6-astra",
+      "classification": "CLI_USAGE_LIMIT_NO_TACTICAL_OUTPUT",
+      "tactical_loss": false,
+      "simulation": false,
+      "record": "m74_candidate5_usage_limit_v1.json"
+    }
+  ],
+  "budget": {
+    "candidate_attempts": {"max": 5, "used": 5, "remaining": 0},
+    "real_tactical_cli_starts": {"max": 5, "used": 5, "remaining": 0},
+    "fixed_full_simulations": {"max": 5, "used": 1, "remaining": 4},
+    "normally_reachable_simulations": 1,
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL"
+  },
+  "service_history": [
+    "candidate_v1: workspace routing discovery failed after STARTED; no tactical output",
+    "candidate_v2: models endpoint HTTP 403 then routing discovery failed after STARTED; no tactical output",
+    "candidate_v5: usage limit after STARTED; no structured final plan"
+  ],
+  "seven_id_feasibility": "UNKNOWN",
+  "infeasibility_claim": false,
+  "scope": "CURRENT_FIXED_SIMULATOR_ONLY"
+}

@@ -1377,3 +1377,31 @@ feasibility remains UNKNOWN; these losses and budget exhaustion do not prove
 impossibility. Evidence, prompts/replies, comparisons, contracts, static checks,
 freeze manifests, gzipped events, feedback, hash manifest, and closeout are under
 `docs/review/fc77177/m73_open_dependency_reduction_v1/evidence/`.
+
+## 2026-11-01 — M74 continuation closes five shared seven-ID slots
+
+M74 continuation repaired the routing/service chain without spending a new
+tactical call, then switched the authorized model to Astra
+(`gpt-6-astra/high`, `features.apps=false`) for candidate 3 onward. Candidate 1
+and 2 remain service failures with no tactical output. Candidate 3 produced a
+valid seven-ID plan `R8_7_GPT_M74_V3`, but static checking found one
+hard `INSUFFICIENT_DP` blocker at Melantha@871 and four downstream
+skill-before-deploy conflicts, so no simulation started.
+
+Candidate 4 (`R8_7_GPT_M74_V4`) passed contract and static checks and started
+the round's only simulation. It lost with 21 kills, 12 leaks, 6 operator-death
+events, and life -10. The artillery survived and leaked; protected target #3
+died@3310, Steward died@3460, the planned 4440 retreat became a
+not-deployed error, #21 first leaked@5046, and life reached zero@5525.
+Candidate 5 started but reached the Astra usage limit before a structured plan;
+it remains a service/limit failure, not tactical LOSS.
+
+M74 closes at candidate attempts 5/5, real CLI starts 5/5, simulations 1/5, and
+no seven-ID WIN. Four fixed-simulation slots were unused, but the five shared
+candidate positions are exhausted. M70 V1 remains the best verified
+current-model fixed-simulator result at eight IDs; seven-ID feasibility remains
+UNKNOWN and is not disproven by service failures, one battle loss, or budget
+exhaustion. The continuation evidence, routing repair, Astra authorization,
+raw prompts/replies/logs, static and battle artifacts, gzipped full events,
+hashes, and closeout are under
+`docs/review/fc77177/m74_open_reduction_feedback_v1/evidence/`.

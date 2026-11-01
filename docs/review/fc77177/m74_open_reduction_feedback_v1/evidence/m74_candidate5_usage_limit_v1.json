@@ -1,0 +1,26 @@
+{
+  "schema_version": "KIMIARK_M74_CANDIDATE_SERVICE_FAILURE_V1",
+  "candidate": "candidate_v5",
+  "plan_id": null,
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "classification": "CLI_USAGE_LIMIT_NO_TACTICAL_OUTPUT",
+  "tactical_loss": false,
+  "real_cli_started": true,
+  "operational_plan_received": false,
+  "stage_simulation_started": false,
+  "prompt_bytes": 123850,
+  "prompt_sha256": "23fc299d35ea8bd2c33462c8a3fe8cda9d25a2fd41406438fcad398784ce0c0f",
+  "started_at": "2026-11-01T07:30:27.673255+00:00",
+  "exit_code": 1,
+  "timed_out": false,
+  "stderr_bytes": 0,
+  "service_message": "You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:19 PM.",
+  "rule": "Usage limit occurred after STARTED; it consumes this candidate and CLI slot, is not a tactical LOSS, and no retry, resume, model substitution, or sixth candidate is authorized.",
+  "note": "The turn had already run read-only arithmetic/range checks and emitted a short non-final message, but the final structured operational plan was not produced.",
+  "artifacts": {
+    "prompt": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v5/codex_prompt.txt",
+    "exec_log": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v5/codex_exec.jsonl",
+    "final_status": "output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v5/final_status.json"
+  }
+}

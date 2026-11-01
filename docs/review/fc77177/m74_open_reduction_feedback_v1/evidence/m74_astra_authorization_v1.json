@@ -1,7 +1,11 @@
 {
-  "schema_version": "KIMIARK_M74_ASTRA_AUTHORIZATION_V1",
+  "schema_version": "KIMIARK_CODEX_CLI_AUTHORIZATION_V1",
   "source": "User prompt authorized the next actual tactical call and subsequent continuation calls to use gpt-6-astra at reasoning effort high.",
   "scope": "M74 candidate_v3 and later; candidates 1 and 2 retain their actual gpt-6.1-sol model history.",
+  "container_fix": {
+    "reason": "The existing runner requires schema_version KIMIARK_CODEX_CLI_AUTHORIZATION_V1.",
+    "result": "The unsupported custom schema was rejected before CLI STARTED; no candidate or CLI balance was consumed."
+  },
   "provider": "openai",
   "model": "gpt-6-astra",
   "reasoning_effort": "high",

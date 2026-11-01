@@ -1,0 +1,67 @@
+{
+  "schema_version": "KIMIARK_M74_SERVICE_RECOVERY_V2",
+  "generated_at_utc": "2026-11-01T06:22:39Z",
+  "conclusion": "SERVICE_READY_BEFORE_CANDIDATE3",
+  "candidate_v3_started": false,
+  "prior_failures_preserved": [
+    "candidate_v1 gpt-6.1-sol workspace routing discovery failed after models-refresh timeout",
+    "candidate_v2 gpt-6.1-sol models endpoint HTTP 403 followed by workspace routing discovery failed"
+  ],
+  "root_cause_split": {
+    "transport": "The HKG Cloudflare/Vercel egress path rejected the same public and authenticated requests even after transport reachability was restored.",
+    "client_version": "Codex CLI 0.162.1 was stale relative to 0.166.0; upgrade alone did not clear HTTP 403 on the HKG path.",
+    "not_capacity": "The prior failures contained no capacity message."
+  },
+  "minimal_fix": {
+    "codex_cli": {
+      "previous_version": "0.162.1",
+      "new_version": "0.166.0",
+      "install_scope": "user-local at /home/bigdata/.local",
+      "global_install_result": "EACCES; system package was not modified",
+      "runtime_path": "/home/bigdata/.local/bin/codex"
+    },
+    "proxy_selector": {
+      "selector": "🚀 选择节点",
+      "changed_to": "🇺🇸 美国自动",
+      "method": "Mihomo external controller; no access-control bypass and no repeated region search",
+      "validation_edge": "Cloudflare sfo1"
+    }
+  },
+  "pre_fix_evidence": {
+    "codex_cli_version": "0.162.1",
+    "developers_openai_manual_via_hkg": "HTTP 403, x-vercel-mitigated deny, both proxy and direct",
+    "authenticated_models_endpoint_via_hkg": "HTTP 403 HTML challenge response"
+  },
+  "post_fix_evidence": {
+    "codex_cli_version": "0.166.0",
+    "developers_openai_manual_via_us": "HTTP 308 redirect to learn.chatgpt.com/docs/codex-manual.md via Vercel sfo1",
+    "authenticated_models_endpoint": {
+      "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.166.0",
+      "http_status": 200,
+      "body_bytes": 697527,
+      "authentication": "current stored ChatGPT credentials",
+      "secrets_output_or_archived": false
+    },
+    "codex_doctor": {
+      "config_model": "gpt-6-astra",
+      "model_provider": "openai",
+      "feature_overrides": ["features.apps=false"],
+      "auth_status": "ok",
+      "provider_reachability_http": 405,
+      "websocket_handshake": "HTTP 101 Switching Protocols",
+      "overall_status": "warning",
+      "warning_note": "Non-blocking legacy config warning remains; it does not indicate service denial."
+    },
+    "model_catalog_check": {
+      "slug": "gpt-6-astra",
+      "supported_in_api": true,
+      "visibility": "list",
+      "supported_reasoning_levels": ["low", "medium", "high", "xhigh", "max", "ultra"]
+    }
+  },
+  "remaining_limitations": [
+    "No tactical CLI or simulation has started.",
+    "The 200 model check does not guarantee a successful tactical turn or simulation WIN.",
+    "The proxy selector is a runtime change and may not persist across a Mihomo restart."
+  ]
+}
