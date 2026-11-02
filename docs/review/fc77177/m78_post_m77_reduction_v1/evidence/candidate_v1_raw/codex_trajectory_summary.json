@@ -1,0 +1,82 @@
+{
+  "event_count": 6,
+  "event_type_counts": {
+    "error": 1,
+    "item.completed": 2,
+    "thread.started": 1,
+    "turn.failed": 1,
+    "turn.started": 1
+  },
+  "events": [
+    {
+      "event": {
+        "thread_id": "01a19bea-b00f-7723-9546-01b7907debc8",
+        "type": "thread.started"
+      },
+      "event_type": "thread.started",
+      "item_type": null,
+      "line": 1
+    },
+    {
+      "event": {
+        "item": {
+          "id": "item_0",
+          "message": "Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.\n  user (/home/bigdata/.codex/config.toml): `model_supports_reasoning_summaries` is ignored.",
+          "type": "error"
+        },
+        "type": "item.completed"
+      },
+      "event_type": "item.completed",
+      "item_type": "error",
+      "line": 2
+    },
+    {
+      "event": {
+        "item": {
+          "id": "item_1",
+          "message": "Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.\n  user (/home/bigdata/.codex/config.toml): `model_supports_reasoning_summaries` is ignored.",
+          "type": "error"
+        },
+        "type": "item.completed"
+      },
+      "event_type": "item.completed",
+      "item_type": "error",
+      "line": 3
+    },
+    {
+      "event": {
+        "type": "turn.started"
+      },
+      "event_type": "turn.started",
+      "item_type": null,
+      "line": 4
+    },
+    {
+      "event": {
+        "message": "Selected model is at capacity. Please try a different model.",
+        "type": "error"
+      },
+      "event_type": "error",
+      "item_type": null,
+      "line": 5
+    },
+    {
+      "event": {
+        "error": {
+          "message": "Selected model is at capacity. Please try a different model."
+        },
+        "type": "turn.failed"
+      },
+      "event_type": "turn.failed",
+      "item_type": null,
+      "line": 6
+    }
+  ],
+  "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+  "malformed_lines": [],
+  "session_ids": [],
+  "thread_ids": [
+    "01a19bea-b00f-7723-9546-01b7907debc8"
+  ],
+  "usage_records": []
+}
