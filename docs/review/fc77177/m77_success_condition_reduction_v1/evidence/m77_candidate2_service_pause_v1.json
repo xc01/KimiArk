@@ -1,0 +1,24 @@
+{
+  "schema_version": "KIMIARK_M77_SERVICE_PAUSE_V1",
+  "candidate": "candidate_v2",
+  "plan_id": "R8_7_GPT_M77_V2",
+  "status": "CLI_FAILED_AFTER_STARTED_NO_TACTICAL_OUTPUT",
+  "classification": "SERVICE_ROUTING_DISCOVERY_TIMEOUT",
+  "counts_cli_or_candidate_or_simulation": {
+    "candidate_attempt": true,
+    "real_tactical_cli_start": true,
+    "stage_simulation": false,
+    "tactical_loss": false
+  },
+  "primary_error": "workspace routing discovery timed out",
+  "secondary_observation": "Model-list refresh requests timed out before turn output; no usage record was recorded.",
+  "tactical_output": "NONE",
+  "recovery": {
+    "next_candidate": "candidate_v3",
+    "next_plan_id": "R8_7_GPT_M77_V3",
+    "prior_cli_starts_for_resume": 2,
+    "ledger": "docs/review/fc77177/m77_success_condition_reduction_v1/m77_simulation_budget_v1.json",
+    "candidate2_prepared_context": "output/r8_1_r8_7_batch_v1/main_08-07/m77_success_condition_reduction_v1/candidate_v2/codex_prompt.txt"
+  },
+  "automatic_retry": false
+}
