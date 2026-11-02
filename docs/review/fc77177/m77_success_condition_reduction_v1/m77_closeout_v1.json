@@ -1,0 +1,117 @@
+{
+  "schema_version": "KIMIARK_M77_CLOSEOUT_V1",
+  "status": "PHASE_COMPLETE_NO_NEW_WIN",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "target_distinct_operator_ids": 7,
+  "best_verified_result": {
+    "milestone": "M70",
+    "distinct_operator_count": 8,
+    "operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "result": "WIN",
+    "evidence_scope": "Current fixed simulator only"
+  },
+  "budget": {
+    "candidate_attempts": "5/5",
+    "real_tactical_cli_starts": "5/5",
+    "stage_simulations_started": "3/5",
+    "remaining_candidate_attempts": 0,
+    "remaining_real_tactical_cli_starts": 0,
+    "remaining_stage_simulations": 2,
+    "balance_transfer_rule": "The two unused simulation slots are not transferable because no sixth candidate position exists."
+  },
+  "candidate_results": [
+    {
+      "candidate": 1,
+      "plan_id": "R8_7_GPT_M77_V1",
+      "structure": "A_CONTINUOUS_MELANTHA",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 19,
+      "leaks": 14,
+      "remaining_life": -12,
+      "operator_death_events": 7,
+      "primary_chain": "Both medics died by3043; artillery survived, Steward died@3820, first scheduled leak #19@4611, and life first reached0 with #21@5046."
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M77_V2",
+      "structure": null,
+      "result": "SERVICE_ROUTING_DISCOVERY_TIMEOUT",
+      "tactical_output": "NONE",
+      "counts_as_tactical_loss": false,
+      "primary_chain": "Started CLI counted; workspace routing discovery timed out before any plan."
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M77_V3",
+      "structure": "A_SPLIT_MEDIC_SPOT_PERMANENT",
+      "result": "STATIC_CONTRACT_FAILED_NO_STAGE_SIMULATION",
+      "primary_chain": "Spot DEPLOY@1231 lacked 5.9667 DP; three later Spot skill errors were derived from the failed deployment."
+    },
+    {
+      "candidate": 4,
+      "plan_id": "R8_7_GPT_M77_V4",
+      "structure": "A_SPLIT_MEDIC_PERMANENT_MELANTHA",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 14,
+      "leaks": 19,
+      "remaining_life": -18,
+      "operator_death_events": 8,
+      "distinct_operators_died": 7,
+      "primary_chain": "C3 economy root was repaired, but Ansel@2111 and Melantha@2261 died before #13 leaked@3425; #18@4370 first brought life to0."
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M77_V5",
+      "structure": "C_CARDIGAN_PERMANENT_FUSION",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "remaining_life": -16,
+      "operator_death_events": 7,
+      "distinct_operators_died": 6,
+      "primary_chain": "Cardigan's early BLOCK prediction occurred, but Friston died@1479, #7 leaked@1821, and #13@3425 first brought life to0."
+    }
+  ],
+  "success_condition_findings": [
+    "No candidate preserved the M70 eight-ID success chain: artillery, protected passage, continuous blocking and late mixed-pressure closure were never jointly held.",
+    "The artillery enemy survived in every full simulation; it killed protected #3 and leaked@5759.",
+    "Candidate1 tested continuous lower damage without Spot; candidate4 tested a different split-medic permanent-Melantha repair; candidate5 tested Cardigan output/fusion. No complete WIN followed.",
+    "Candidate2 was a service routing timeout with no tactical output and is not a tactical counterexample.",
+    "Early retreat/relay was not forced by the prompt; no candidate returned a complete plan relying on the unsupported pre-swing lock."
+  ],
+  "next_state": {
+    "best_verified_operator_count": 8,
+    "next_target_distinct_operator_ids_if_resumed": 7,
+    "seven_operator_feasibility": "UNKNOWN",
+    "unknown_reason": "Three fixed-plan LOSS simulations, one static contract failure, and one no-output service failure exhaust candidate positions but do not establish infeasibility; no scoped complete search or necessary-condition lower-bound proof was produced."
+  },
+  "evidence_archive": {
+    "raw_candidates": [
+      "evidence/candidate_v1_raw",
+      "evidence/candidate_v2_raw",
+      "evidence/candidate_v3_raw",
+      "evidence/candidate_v4_raw",
+      "evidence/candidate_v5_raw"
+    ],
+    "diagnostic_raw_candidates": [
+      "evidence/candidate_v1_diagnostic_raw",
+      "evidence/candidate_v4_diagnostic_raw",
+      "evidence/candidate_v5_diagnostic_raw"
+    ],
+    "checksum_manifest": "m77_evidence_archive_manifest_v1.sha256",
+    "large_json_policy": "Losslessly gzip -n compressed; checksums and restored JSON/JSONL parsing were verified."
+  }
+}
