@@ -1,0 +1,30 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE4_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M75_V3",
+  "parent_hypothesis_id": "R8_7_M75_H1",
+  "source_result": "m75_candidate3_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Keep the #7 interception alive through frame 1821: either heal Friston before its frame-1479 death, add an in-range replacement before release, or move the interception to a survivable blocker/output pair.",
+  "candidate3_progress": "Ansel at [2,5] survived the early artillery pressure that killed it in candidate2, but Friston's death released #7 and advanced the first leak to frame 1821.",
+  "candidate3_failure_chain": [
+    "Friston BLOCKs officer #7 at frame 1358.",
+    "Friston dies and releases #7 at frame 1479.",
+    "Spot is already deployed but its healing skill is not activated until 1772; no live replacement closes the release.",
+    "#7 leaks at 1821 and later deaths/protected-target deaths remain downstream."
+  ],
+  "must_preserve": "Candidate3's Ansel placement demonstrated survival past the early artillery window, but this only helps if it or another unit actually heals/supports #7's blocker in range before 1479. Opening BLOCK, roadblock passage, protected survival, artillery kill, and #34 interception remain mandatory.",
+  "open_alternatives": [
+    "Deploy a lower-cost medic earlier, ensuring range to Friston and sufficient healing before frame 1479.",
+    "Move Friston or replace it with a higher-survival blocker; recheck path, range, and subsequent officer coverage.",
+    "Use Spot's heal/block mode earlier if SP and range allow it before 1479.",
+    "Retain Ansel@1459 as a healer only if its range reaches the #7 blocker; otherwise replace or relocate it.",
+    "Change the parent structure entirely if maintaining both early artillery survival and #7 interception is not viable."
+  ],
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "death_refund": "None; dead Friston cannot provide retreat refund, skill income, or replacement BLOCK.",
+    "deployment": "Cannot use a tile still occupied; new units do not attack instantly and must legally cover the release gap."
+  },
+  "required_repair_card": "State who BLOCKs #7 from 1358, who heals or replaces them before 1479, why the replacement/recovery covers through 1821, and which prior success may change."
+}

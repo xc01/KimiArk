@@ -1,0 +1,719 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 511,
+      "operator_id": "char_284_spot",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 811,
+      "operator_id": "char_283_midn",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 1111,
+      "operator_id": "char_192_falco",
+      "tile": [
+        6,
+        3
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1351,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 1441,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1951,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2012,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 2311,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        7
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2342,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2702,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3302,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3600,
+      "operator_id": "char_192_falco"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3843,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4503,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5253,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5313,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5344,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5701,
+      "operator_id": "char_192_falco"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6304,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6845,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7204,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7802,
+      "operator_id": "char_192_falco"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 8105,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 8346,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 8614,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 9000,
+      "operator_id": "char_283_midn",
+      "rationale": "Requires completed hostile and projectile clearance."
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 9001,
+      "operator_id": "char_192_falco",
+      "rationale": "Requires completed lower hostile and western restraint clearance."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 11101,
+      "operator_id": "char_283_midn",
+      "tile": [
+        1,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 11102,
+      "operator_id": "char_192_falco",
+      "tile": [
+        6,
+        5
+      ]
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "All four blockers are deployed and the first outer runners are intercepted.",
+      "failure_effect_on_later_phases": "An escaped runner or dead opening blocker invalidates zero-leak acceptance and the later economy.",
+      "goal": "Establish four affordable interception points.",
+      "handoff_requirements": [
+        "Spot must remain deployed for its frame-1351 skill.",
+        "Hibiscus must begin lower healing before accumulated damage kills Plume."
+      ],
+      "phase_id": "P1",
+      "responsibilities": [
+        "Fang funds the opening and holds upper central.",
+        "Spot holds lower central without relying on an external medic.",
+        "Midnight takes upper outer; Plume uses the farther-west lower tile to accommodate its later deployment."
+      ],
+      "start_condition": "Stage starts with 10 DP.",
+      "survival_dependencies": [
+        "Fang must earn the first grant.",
+        "Plume's deployment margin against the first runner is narrow and must be checked against actual movement and block acquisition.",
+        "Midnight and Plume initially survive without physicians."
+      ]
+    },
+    {
+      "completion_condition": "Spot retains #7 through frame 1821 or kills it, with both physicians subsequently deployed.",
+      "failure_effect_on_later_phases": "A released #7 repeats the causal interception failure; lost physicians also remove the artillery-clearance foundation.",
+      "goal": "Repair the verified #7 failure and establish continuous medicine.",
+      "handoff_requirements": [
+        "No Friston death or retreat gap exists in this structure.",
+        "Fang's continued grants must fund Ansel and Steward."
+      ],
+      "phase_id": "P2",
+      "responsibilities": [
+        "Spot activates before the old #7 contact and sustains central units.",
+        "Hibiscus heals Spot and Plume from frame 1441.",
+        "Ansel joins at frame 1951 to support the upper formation."
+      ],
+      "start_condition": "Four interceptions are established.",
+      "survival_dependencies": [
+        "Healing selection and attack cycles must provide actual recovery; range membership alone is insufficient.",
+        "Spot must survive artillery as well as ordinary attacks.",
+        "Lower medicine must sustain Plume through its first officer."
+      ]
+    },
+    {
+      "completion_condition": "Artillery is dead and its born projectiles are resolved without protected-target death.",
+      "failure_effect_on_later_phases": "Surviving artillery can kill operators or civilians and invalidate both combat clearance and evacuation.",
+      "goal": "Remove artillery while preserving both civilians and all lanes.",
+      "handoff_requirements": [
+        "Confirm artillery death before western-return exposure.",
+        "Retain sufficient central capacity for the first armored enemies."
+      ],
+      "phase_id": "P3",
+      "responsibilities": [
+        "Steward accumulates artillery damage over eastern patrol contact.",
+        "Ansel prioritization is observed during its first boosted interval.",
+        "Spot and Hibiscus maintain central and lower survival.",
+        "Plume's first burst clears paired lower officers."
+      ],
+      "start_condition": "Steward deploys at frame 2311.",
+      "survival_dependencies": [
+        "Steward must survive long enough to deliver the required hit budget.",
+        "Ansel cannot be assumed to heal two targets per attack.",
+        "A civilian held at a restraint remains vulnerable to enemy attacks."
+      ]
+    },
+    {
+      "completion_condition": "The spawn schedule is exhausted and every hostile, including final armor #34, is dead.",
+      "failure_effect_on_later_phases": "Any overflow or uncleared hostile makes the scheduled evacuation rotation unsafe.",
+      "goal": "Clear final officers, runners and armor without overflow.",
+      "handoff_requirements": [
+        "Resolve residual projectiles before either outer operator withdraws.",
+        "Verify western lower restraint destruction before Plume leaves."
+      ],
+      "phase_id": "P4",
+      "responsibilities": [
+        "Midnight's second arts interval assists central armor.",
+        "Spot holds three lower-central enemies while Hibiscus heals.",
+        "Fang retains upper-central capacity.",
+        "Plume kills lower-outer officers before a second enemy exceeds its single block."
+      ],
+      "start_condition": "Late waves approach from approximately 146 seconds onward.",
+      "survival_dependencies": [
+        "Spot's healing mode removes its damage contribution.",
+        "Steward's eastern placement does not cover enemies already held at both central tiles.",
+        "Earlier armor must not remain indefinitely and consume final-runner capacity."
+      ]
+    },
+    {
+      "completion_condition": "All acceptance invariants hold, including exactly two protected arrivals.",
+      "failure_effect_on_later_phases": "An uncleared restraint or missing arrival prevents project acceptance even if all hostile enemies are dead.",
+      "goal": "Finish restraint clearance and verify both safe arrivals.",
+      "handoff_requirements": [
+        "Observe restraint destruction and civilian movement.",
+        "Continue observation beyond the nominal horizon if arrival has not occurred; do not declare success from elapsed time."
+      ],
+      "phase_id": "P5",
+      "responsibilities": [
+        "Midnight redeploys west after more than 70 seconds.",
+        "Plume redeploys east after more than 70 seconds.",
+        "Maintain their basic attacks until the respective restraints are destroyed."
+      ],
+      "start_condition": "Combat and projectile clearance are confirmed before the scheduled withdrawals.",
+      "survival_dependencies": [
+        "Both withdrawing operators must be alive.",
+        "No restraint HP, destruction time or safe arrival is inferred solely from the schedule."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "Placeholder route; no combat allocation.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Steward damages the eastern artillery patrol; Ansel sustains him. Source death does not cancel born projectiles.",
+      "routes": [
+        "route-1"
+      ]
+    },
+    {
+      "responsibility": "Midnight damages the eastern upper restraint and intercepts upper officers, then clears the western restraint after combat. Civilian arrival is observed separately.",
+      "routes": [
+        "route-2"
+      ]
+    },
+    {
+      "responsibility": "Plume clears the western lower restraint from the initial tile, then rotates east after combat. The eastern restraint delays civilian passage but does not make the civilian immune to artillery.",
+      "routes": [
+        "route-15"
+      ]
+    },
+    {
+      "responsibility": "Fang holds upper central; Midnight assists within range, Steward damages eastern approaches, and Ansel plus active Spot supply healing. Clear queues before Fang's two-block limit is exceeded.",
+      "routes": [
+        "route-3",
+        "route-4",
+        "route-12",
+        "route-13",
+        "route-20",
+        "route-21",
+        "route-30",
+        "route-31"
+      ]
+    },
+    {
+      "responsibility": "Spot holds lower central, Hibiscus heals continuously, and Midnight plus Steward provide reachable damage. Spot's active healing removes his attacks; do not count those attacks toward clearance. Retain interception through final armor #34.",
+      "routes": [
+        "route-5",
+        "route-6",
+        "route-11",
+        "route-14",
+        "route-18",
+        "route-19",
+        "route-28",
+        "route-29"
+      ]
+    },
+    {
+      "responsibility": "Midnight holds upper outer and Ansel supports him after deployment. Prevent officer access to the upper civilian; eastern restraint destruction alone is not protection.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-17",
+        "route-22",
+        "route-23",
+        "route-24"
+      ]
+    },
+    {
+      "responsibility": "Plume holds lower outer at [6,3], with Hibiscus healing. Its one-block capacity requires sequential kills, especially the officers spawned at 116 and 126 seconds.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-16",
+        "route-25",
+        "route-26",
+        "route-27"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Upper-central interception and conditional economy.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_284_spot",
+      "role": "Lower-central three-block interception and central healing.",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_283_midn",
+      "role": "Upper-outer interception, eastern upper restraint damage and central assistance.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_192_falco",
+      "role": "Delayed-contact lower interception and western lower restraint damage.",
+      "tile": [
+        6,
+        3
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_120_hibisc",
+      "role": "Continuous healing of Spot, Plume and herself.",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_212_ansel",
+      "role": "Upper healing of Midnight, Fang, Steward and himself.",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Sustained eastern artillery-patrol damage.",
+      "tile": [
+        2,
+        7
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_283_midn",
+      "role": "Post-combat western upper restraint clearance.",
+      "tile": [
+        1,
+        3
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_192_falco",
+      "role": "Post-combat eastern lower restraint clearance.",
+      "tile": [
+        6,
+        5
+      ]
+    }
+  ],
+  "formation_structure": {
+    "artillery_clearance": {
+      "contact": "[2,7] UP covers the eastern vertical patrol including both endpoint waits.",
+      "damage_budget": "Using the prior supported 249.10 ordinary and 473.29 enhanced artillery-hit values, 36 ordinary plus 9 enhanced hits exceed 13000 HP. Actual competing targets, contact gaps and survival determine whether this budget is delivered.",
+      "deadline": "Kill before western return and before artillery can reproduce the protected-target death near frame 5341. Frame 4500 is a planning checkpoint, not a verified kill time.",
+      "owner": "char_210_stward",
+      "principal_risk": "Steward starts at frame 2311. Its required contact and Ansel's shared healing may be insufficient; this remains the decisive full-stage uncertainty.",
+      "support": "Ansel, with Spot relieving some Fang healing demand."
+    },
+    "classification": "CURRENT_MODEL_CHECKABLE",
+    "distinct_operator_ids": 7,
+    "economy": {
+      "conditional_fang_grant_frames": [
+        570,
+        1320,
+        2070
+      ],
+      "effective_fang_cost": 10,
+      "initial_dp": 10,
+      "late_rotation_basis": "Use the supplied current-model same-cost redeployment basis: Midnight 16 and Plume 10, with ordinary living-withdrawal refunds 8 and 5 respectively. Neither refund is needed for affordability. Both wait more than 70 seconds; no client cost-escalation equivalence is asserted.",
+      "natural_dp_per_second": 1,
+      "opening_basis": "Fang 10, Spot 17, Midnight 16, Plume 10, Hibiscus 17, Ansel 17, Steward 18. No kill income or retreat refund funds the opening. Fang must survive and remain deployed for all three grants.",
+      "opening_cost": 105,
+      "opening_post_action_balances": [
+        [
+          0,
+          0
+        ],
+        [
+          511,
+          0.033333
+        ],
+        [
+          811,
+          0.033333
+        ],
+        [
+          1111,
+          0.033333
+        ],
+        [
+          1441,
+          0.033333
+        ],
+        [
+          1951,
+          0.033333
+        ],
+        [
+          2311,
+          0.033333
+        ]
+      ]
+    },
+    "execution_semantics": "Fixed actions only. Preconditions are validity assertions, not executable branches or automatic rescheduling. A failed assertion invalidates the corresponding continuation.",
+    "maximum_simultaneous_operators": 7,
+    "medical_geometry": "Hibiscus [5,5] LEFT covers Spot [4,5], Plume [6,3] and herself. Spot's active nine-cell healing covers Fang [3,5], himself and Hibiscus [5,5], but not Plume. Ansel [2,5] RIGHT covers Midnight [1,5], Fang [3,5], Steward [2,7] and himself. These are range claims, not guaranteed target allocation.",
+    "repair_card": {
+      "blocker_from_frame_1358": "Spot occupies [4,5] from frame 511; he inherits the route-6 interception rather than replacing a dying Friston.",
+      "changed_prior_success": "Ansel retains [2,5] RIGHT but deploys later, and the lower formation changes artillery selection and healing competition. The prior placement's early survival is evidence about geometry, not a transferable survival guarantee.",
+      "coverage_through_frame_1821": "Spot's first healing interval lasts to approximately 2101; Hibiscus supplies ordinary healing from 1441. Spot's three-block duty persists during healing, while his damage pauses.",
+      "recovery_before_frame_1479": "Spot activates at 1351 and Hibiscus deploys at 1441. The active heal mode begins before the parent #7 contact; actual first healing requires missing HP and an attack cycle.",
+      "survival_budget": "At catalog defense 442, ordinary officer hits deal 16.5 and runner hits 19 under the supplied damage floor. A 1000-ATK physical hit deals 558 before other modifiers. This greatly reduces ordinary attrition relative to Friston, but does not establish survival against concentrated artillery."
+    },
+    "validation_status": "UNSIMULATED"
+  },
+  "formation_transitions": [
+    {
+      "frame": 511,
+      "transition": "Install the durable lower-central blocker before its first runner; eliminate Friston and the subsequent replacement obligation."
+    },
+    {
+      "frame": 1111,
+      "transition": "Complete four-lane interception with Plume farther west, buying deployment time through additional enemy travel."
+    },
+    {
+      "frame": 1351,
+      "transition": "Enable Spot's first healing burst before the parent #7 interception window."
+    },
+    {
+      "frame": 1441,
+      "transition": "Add continuous lower healing; Spot's later inactive intervals no longer remove all lower medical support."
+    },
+    {
+      "frame": 2311,
+      "transition": "Complete artillery damage and upper medical formation."
+    },
+    {
+      "frame": 5313,
+      "transition": "Start Midnight's second arts interval for the final central armor and outer officers."
+    },
+    {
+      "frame": 9000,
+      "transition": "Withdraw Midnight only after the asserted hostile and projectile clearance."
+    },
+    {
+      "frame": 9001,
+      "transition": "Withdraw Plume only after the same clearance and western lower restraint destruction."
+    },
+    {
+      "frame": 11102,
+      "transition": "Finish legal redeployments for the two remaining restraint duties; retain formation until both protected arrivals are observed."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "id": "legal_roster",
+      "requirement": "Exactly the seven listed catalog IDs; each has rarity 1–3 and normal_mode true. No reserve units or additional deployed IDs."
+    },
+    {
+      "id": "legal_tiles",
+      "requirement": "Every DEPLOY uses an integer [row,col], legal terrain and a cardinal direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+    },
+    {
+      "id": "economic_survival",
+      "requirement": "Fang survives through required grants. Failed income is a survival/economic dependency failure, not an arithmetic correction."
+    },
+    {
+      "id": "continuous_interception",
+      "requirement": "Spot holds #7 without a release gap, and all four corridors retain sufficient block capacity through their final enemies."
+    },
+    {
+      "id": "protected_targets",
+      "requirement": "Ordinary operators neither attack nor block civilians. No protected-target deaths; both expected targets must safely reach their objectives."
+    },
+    {
+      "id": "action_validity",
+      "requirement": "Only living deployed units receive skill or retreat actions. Dead units produce no refund. No unlisted same-ID recovery is assumed."
+    },
+    {
+      "id": "rotation_gate",
+      "requirement": "Before frames 9000–9001, all hostiles and born projectiles must be resolved; Plume's western lower restraint duty must be complete. Otherwise the fixed rotation is invalid."
+    },
+    {
+      "id": "acceptance",
+      "requirement": "Require remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two safe protected arrivals. Record operator deaths separately."
+    }
+  ],
+  "operational_plan_id": "R8_7_GPT_M75_V4",
+  "parent_hypothesis_id": "R8_7_M75_H4",
+  "pressure_window_responsibilities": [
+    {
+      "duties": "Fund and establish four lanes. Midnight must intercept the first upper-outer runner; Plume must deploy before the first lower runner passes [6,3].",
+      "window_frames": [
+        0,
+        1111
+      ]
+    },
+    {
+      "duties": "Keep Plume alive until Hibiscus begins healing, preserve Fang's second grant, and verify Spot holds #7 through the parent release and leak windows.",
+      "window_frames": [
+        1112,
+        1951
+      ]
+    },
+    {
+      "duties": "Establish artillery damage, preserve both physicians, and use Plume's 120-second burst for the paired lower officers. Confirm artillery damage accumulation rather than inferring it from elapsed time.",
+      "window_frames": [
+        1952,
+        4500
+      ]
+    },
+    {
+      "duties": "Finish artillery before western protected-target exposure; preserve central capacity through final runners and armor. Midnight's arts interval supplies late central damage.",
+      "window_frames": [
+        4501,
+        6630
+      ]
+    },
+    {
+      "duties": "Kill remaining hostiles, including #34, and resolve every born projectile before releasing combat responsibilities.",
+      "window_frames": [
+        6631,
+        9001
+      ]
+    },
+    {
+      "duties": "Complete both cooldowns, destroy remaining restraints and observe both protected targets safely arriving. A timed horizon does not establish acceptance.",
+      "window_frames": [
+        9002,
+        15000
+      ]
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_284_spot",
+    "char_283_midn",
+    "char_192_falco",
+    "char_120_hibisc",
+    "char_212_ansel",
+    "char_210_stward"
+  ],
+  "skill_intents": [
+    {
+      "intent": "Automatic DP only while alive and deployed; do not credit grants after death or withdrawal.",
+      "operator_id": "char_123_fang"
+    },
+    {
+      "frames": [
+        1351,
+        3302,
+        5253,
+        7204
+      ],
+      "intent": "Heal central blockers and the lower physician; 25 active plus at least 40 inactive seconds between starts. No dodge assumed; attacks stop during healing.",
+      "operator_id": "char_284_spot"
+    },
+    {
+      "frames": [
+        2012,
+        5313,
+        8614
+      ],
+      "intent": "Arts conversion for restraints, outer enemies and reachable central armor; at least 40 active plus 70 inactive seconds between starts.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "frames": [
+        3600,
+        5701,
+        7802
+      ],
+      "intent": "Accelerate lower-outer kills during paired and late pressure. First readiness is after 45 deployed seconds; repeats allow 25 active plus 45 inactive seconds.",
+      "operator_id": "char_192_falco"
+    },
+    {
+      "frames": [
+        2342,
+        3843,
+        5344,
+        6845,
+        8346
+      ],
+      "intent": "Boost continuous lower healing; first use follows 30 inactive seconds and repeats allow 20 active plus 30 inactive seconds.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "frames": [
+        2702,
+        4503,
+        6304,
+        8105
+      ],
+      "intent": "Concentrate the first burst around 90–115 seconds of eastern artillery exposure; later bursts respect 25 active plus 35 inactive seconds. No extra-heal talent assumed.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "intent": "Automatic enhanced attacks with supported high-defense priority. Record actual artillery damage independently of device and ground-enemy damage.",
+      "operator_id": "char_210_stward"
+    }
+  ],
+  "tactical_thesis": "Replace Friston with Spot as the lower-central blocker itself, eliminating the failed delayed-healing handoff. Replace Melantha with Plume at the western lower interception to afford four lanes, then install continuous lower healing before upper medical support and artillery damage. Spot supplies additional central healing while Hibiscus sustains Spot and Plume. Retain Ansel's supported upper placement, but retime its burst around eastern artillery exposure. This is a complete, unsimulated CURRENT_MODEL_CHECKABLE hypothesis, not a demonstrated WIN."
+}

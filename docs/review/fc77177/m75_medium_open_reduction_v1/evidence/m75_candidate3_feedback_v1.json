@@ -1,0 +1,43 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE3_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M75_V2",
+  "parent_hypothesis_id": "R8_7_M75_H1",
+  "source_result": "m75_candidate2_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Close the opening survival chain before #11 can leak: keep the first medicine and first blocking pair alive through consecutive artillery splash, then preserve downstream BLOCK/output coverage.",
+  "candidate2_failure_chain": [
+    {
+      "frame": 1571,
+      "event": "Ansel died after two 891 artillery hits; 372.6 self-heal was insufficient."
+    },
+    {
+      "frame": 2143,
+      "event": "Melantha died with 3290 incoming and no observed healing."
+    },
+    {
+      "frame": 2293,
+      "event": "Friston died after early melee support was lost."
+    },
+    {
+      "frame": 3065,
+      "event": "Officer #11 leaked; later deaths and protected-target deaths were downstream consequences."
+    }
+  ],
+  "must_preserve": "Opening survival, live BLOCK before every ground leak, protected-target passage, roadblock clearance, artillery kill, and #34 interception/output remain mandatory. These are objectives, not permission to freeze candidate2 positions.",
+  "candidate2_verified_observation": "Fang BLOCK@471 on uterer#1 was verified, but the full survival chain was not.",
+  "candidate2_artillery": "enemy_1112_emppnt#0 survived and leaked@5759; early medicine exposure and its 891 splash hits are the concrete upstream risk.",
+  "open_alternatives": [
+    "Move Ansel or the blocker out of the artillery splash footprint while retaining healing/BLOCK coverage.",
+    "Change the first blocker/healer pairing or use an earlier lower-cost survivor rather than preserving all candidate2 positions.",
+    "Create earlier officer kill pressure before the downstream leak, but verify actual contact, damage type, and attack timing.",
+    "Change the parent branch entirely if candidate2's exposed opening structure is not worth repairing."
+  ],
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "ordinary_operator_attacks": "ATTACK_STRIKE targeting; no windup lock.",
+    "artillery": "Cast begins cooldown and locks target; projectile born locks position, then delayed splash hits.",
+    "death_refund": "None; dead operators cannot provide later skill income, retreat refund, healing, or BLOCK."
+  },
+  "required_repair_card": "State the opening survivor roles, exact fee/SP conditions, who must live until which coverage event, and the observable that proves the #11 leak window is closed."
+}

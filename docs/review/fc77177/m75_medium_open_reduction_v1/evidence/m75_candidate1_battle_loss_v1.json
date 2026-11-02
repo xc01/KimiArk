@@ -1,0 +1,48 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE_BATTLE_RESULT_V1",
+  "candidate": "candidate_v1",
+  "plan_id": "R8_7_GPT_M75_V1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "classification": "LEGAL_BATTLE_LOSS",
+  "contract_validation": "PASS",
+  "static_conflict_count": 0,
+  "simulation_started": true,
+  "simulation_completed": true,
+  "result": {
+    "win": false,
+    "enemies_killed": 16,
+    "enemies_leaked": 17,
+    "enemies_remaining": 0,
+    "remaining_life": -15,
+    "operator_death_event_count": 8,
+    "unique_dead_operators": ["char_212_ansel", "char_4093_frston", "char_120_hibisc", "char_210_stward", "char_283_midn", "char_123_fang", "char_208_melan"],
+    "protected_target_deaths": 1,
+    "protected_targets_reached": 1
+  },
+  "timeline": {
+    "first_operator_death": {"frame": 2593, "operator": "char_212_ansel"},
+    "first_upstream_blocker_death": {"frame": 3159, "operator": "char_4093_frston"},
+    "first_leak": {"frame": 3501, "enemy": "enemy_1107_uoffcr#13"},
+    "first_life_zero_objective_failure": {"frame": 4220},
+    "first_acceptance_break": {"frame": 5191, "event": "PROTECTED_TARGET_DEATH", "source": "enemy_1112_emppnt#0", "target": "enemy_3001_upeopl#3"},
+    "final_operator_death": {"frame": 6637, "operator": "char_208_melan"}
+  },
+  "key_chains": {
+    "ansel": {"artillery_hits": [{"time": 81.4333333333, "amount": 891}, {"time": 86.4333333333, "amount": 891}], "self_heal": {"time": 84.1666666667, "amount": 506.8}, "death_frame": 2593},
+    "friston": {"incoming": {"count": 21, "total": 2965}, "ansel_healing": {"count": 5, "total": 1725}, "death_frame": 3159, "then": "#13 leaked@3501"},
+    "artillery": {"ability_starts": 14, "projectiles_born": 14, "ability_hits": 16, "not_killed": true, "leak_frame": 5759},
+    "post_failure_leaks": ["#15@4176", "#17@4220", "#19@4611", "#20@4625", "#21@5046", "#22@5196", "#23@5525"]
+  },
+  "interpretation": "Ansel died to two artillery hits, then Friston died to sustained physical/artillery pressure; #13 leak repeated the M73 release pattern. This invalidated later medicine and central coverage. The declared Fang BLOCK@471 was verified but did not establish the full hypothesis.",
+  "artifacts": {
+    "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/candidate_v1/diagnostic/diagnostic_summary.json",
+    "diagnostic_events": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/candidate_v1/diagnostic/diagnostic_events.json"
+  },
+  "sha256": {
+    "diagnostic_summary": "3926702b8ef6ef9350663a3f7629b123f94a4cf1e7bf95d9c37c8e22b613e597",
+    "diagnostic_events": "55a6ab2497c74b8da9498d8662c5dd8a916aca4df597fe5bb0c7d309bc393dbc",
+    "plan_snapshot": "fae3e30de1eb59200d95a042a4e25e6551eaf9c6b0bc2a4a29bb3eb2fcd226b2",
+    "action_snapshot": "b8dcaff875f67b80e407b996250cc17561596c02db8ad945115d58ee6ddad9b2"
+  }
+}

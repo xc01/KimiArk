@@ -1,0 +1,28 @@
+{
+  "schema_version": "KIMIARK_M75_SERVICE_AVAILABILITY_V1",
+  "checked_at": "2026-11-02T11:32:29+08:00",
+  "codex_version": "0.166.0",
+  "doctor": {
+    "command": "codex doctor",
+    "exit_code": 0,
+    "failed": 0,
+    "warning": 1,
+    "note": "Default provider in user config was volcengine; every tactical invocation must explicitly override model_provider=openai."
+  },
+  "model_catalog": {
+    "command": "codex debug models -c model_provider=\"openai\" -c model=\"gpt-6-astra\" -c model_reasoning_effort=\"medium\"",
+    "exit_code": 0,
+    "selected_model": "gpt-6-astra",
+    "medium_supported": true,
+    "supported_reasoning_levels": ["low", "medium", "high", "xhigh", "max", "ultra"],
+    "supported_in_api": true,
+    "raw_catalog_temp_path": "/tmp/m75_models_catalog.json"
+  },
+  "usage_limit": {
+    "m74_candidate5_message_reset_time": "2026-11-01T19:19:00+08:00",
+    "reset_time_has_passed": true,
+    "actual_quota_verified_without_generation": false,
+    "policy": "Catalog and doctor only justify starting candidate_v1 once; if STARTED then usage limit occurs, record it and stop."
+  },
+  "secrets_archived": false
+}

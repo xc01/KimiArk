@@ -1,0 +1,731 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 91,
+      "operator_id": "char_4093_frston",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 571,
+      "operator_id": "char_283_midn",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 841,
+      "operator_id": "char_208_melan",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 1321,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1681,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1772,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2042,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 2071,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        7
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2072,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2910,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3843,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3873,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 4320,
+      "operator_id": "char_210_stward",
+      "rationale": "Validity requires observed artillery death and living Steward."
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4411,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5073,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5644,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5674,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5912,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 6421,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7413,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7445,
+      "operator_id": "char_208_melan"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7475,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 8374,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 9000,
+      "operator_id": "char_210_stward",
+      "rationale": "Requires complete hostile clearance."
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 9001,
+      "operator_id": "char_208_melan",
+      "rationale": "Requires an empty lower-outer lane and complete hostile clearance."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 11101,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 11102,
+      "operator_id": "char_208_melan",
+      "tile": [
+        6,
+        3
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 12303,
+      "operator_id": "char_208_melan",
+      "rationale": "Accelerate lower western restraint clearance if still present; operator remains deployed."
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "Both physicians deployed and all opening hostile lanes intercepted.",
+      "failure_effect_on_later_phases": "A missing grant, dead blocker or escaped runner invalidates the opening and all downstream timing.",
+      "goal": "Establish four interceptions with corridor-specific healing.",
+      "handoff_requirements": [
+        "The caster deployment must be affordable from actual income.",
+        "Both eastern restraint duties remain assigned to live outer operators."
+      ],
+      "phase_id": "P1_OPEN",
+      "responsibilities": [
+        "Fang holds upper central and funds the opening.",
+        "Friston holds lower central; Midnight and Melantha hold outer lanes.",
+        "Ansel takes lower recovery; Hibiscus takes upper recovery."
+      ],
+      "start_condition": "Frame0 with10DP and all selected operators available.",
+      "survival_dependencies": [
+        "Fang must survive to each credited DP grant.",
+        "Friston must survive until Ansel arrives; Melantha's initial runner must be killed without losing her lane."
+      ]
+    },
+    {
+      "completion_condition": "Artillery death observed, both eastern restraints cleared and residual projectiles accounted for.",
+      "failure_effect_on_later_phases": "A surviving artillery or dead civilian already breaks acceptance; caster death also removes the funded central return.",
+      "goal": "Kill artillery while keeping both civilians and all required holders alive.",
+      "handoff_requirements": [
+        "Steward is alive and artillery is dead before4320.",
+        "No actor assumes artillery death cancels a born projectile."
+      ],
+      "phase_id": "P2_ARTILLERY",
+      "responsibilities": [
+        "Steward attacks artillery across the eastern vertical segment.",
+        "Hibiscus heals upper Steward and the upper holders.",
+        "Ansel heals southern recipients; Melantha remains on her lane and uses attack buffs."
+      ],
+      "start_condition": "Steward enters the upper eastern platform at2071.",
+      "survival_dependencies": [
+        "Actual targeting and splash must not overwhelm either isolated medical group.",
+        "Hibiscus's2910 burst must cover the actual northern pressure, not merely the old schedule.",
+        "Civilian3 must leave its eastern restraint before lethal northern exposure."
+      ]
+    },
+    {
+      "completion_condition": "Steward returns6421 with both holders alive and no escaped hostile.",
+      "failure_effect_on_later_phases": "Any release or capacity leak breaks acceptance before the returning caster can repair the formation.",
+      "goal": "Maintain real central containment during Steward's redeployment cooldown.",
+      "handoff_requirements": [
+        "The6421 tile is free and the70-second cooldown has elapsed.",
+        "Returning Steward must actually attack enemies held at the central tiles."
+      ],
+      "phase_id": "P3_CASTER_ABSENCE",
+      "responsibilities": [
+        "Fang holds upper armor and runners.",
+        "Friston holds lower armor and runners under dedicated Ansel healing.",
+        "Midnight uses the5073 arts window for central damage whenever not occupied by upper officers.",
+        "Melantha continues lower-outer clearance."
+      ],
+      "start_condition": "Steward withdraws alive at4320 after artillery clearance.",
+      "survival_dependencies": [
+        "Upper armor clearance must precede overflow of Fang's two-block capacity.",
+        "Friston must survive concurrent armor and runner attacks.",
+        "Midnight's own officer queue can consume his damage window; it is not assumed away."
+      ]
+    },
+    {
+      "completion_condition": "Spawn schedule exhausted after6330 and every hostile killed with zero leaks.",
+      "failure_effect_on_later_phases": "An unfinished hostile queue makes the western rotation unsafe and invalidates its scheduled withdrawals.",
+      "goal": "Clear every remaining hostile while preserving the protected targets.",
+      "handoff_requirements": [
+        "Actual hostile clearance precedes9000 and9001 withdrawals.",
+        "No protected target is released into an officer attack radius."
+      ],
+      "phase_id": "P4_FINAL_COMBAT",
+      "responsibilities": [
+        "Steward clears central armor; Fang and Friston retain BLOCK.",
+        "Midnight and Melantha finish their outer queues.",
+        "Both physicians maintain their assigned groups."
+      ],
+      "start_condition": "Returning Steward is deployed centrally at6421.",
+      "survival_dependencies": [
+        "Neither central holder dies before its queue empties.",
+        "Lower officers must die quickly enough for Melantha's single-block capacity."
+      ]
+    },
+    {
+      "completion_condition": "Both expected protected targets arrived, no active enemies remain and every acceptance invariant holds.",
+      "failure_effect_on_later_phases": "A surviving restraint, civilian death or missing arrival prevents project acceptance even if ordinary combat is finished.",
+      "goal": "Release both western restraints and observe two safe arrivals.",
+      "handoff_requirements": [
+        "Both returns obey actual cooldown and cost.",
+        "Do not infer arrival from restraint destruction alone."
+      ],
+      "phase_id": "P5_ESCORT_COMPLETION",
+      "responsibilities": [
+        "Steward destroys western restraint1 from[2,2].",
+        "Melantha destroys western restraint2 from[6,3].",
+        "Observe civilian movement and arrival events without ordinary civilian attacks or blocking."
+      ],
+      "start_condition": "Hostiles cleared and Steward/Melantha withdrawn for their final rotations.",
+      "survival_dependencies": [
+        "Both civilians remain alive through release and travel.",
+        "No residual projectile or hostile remains."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "Placeholder; no combat allocation.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Steward supplies artillery lethal damage; Hibiscus preserves him during northern contact. Ansel preserves lower recipients during southern contact. Resolve all born projectiles after source death.",
+      "routes": [
+        "route-1"
+      ]
+    },
+    {
+      "responsibility": "Midnight destroys eastern restraint3 while holding upper officers. Keep civilian3 alive through transit to the western restraint; Steward later destroys restraint1.",
+      "routes": [
+        "route-2"
+      ]
+    },
+    {
+      "responsibility": "Melantha destroys eastern restraint4 and kills lower officers before they can attack civilian14. After hostile clearance, she destroys restraint2.",
+      "routes": [
+        "route-15"
+      ]
+    },
+    {
+      "responsibility": "Fang supplies actual upper-central BLOCK. Midnight supplies intermittent damage and returning Steward supplies arts. No returning Melantha is budgeted; first-armor and runner capacity is a decisive validation gate.",
+      "routes": [
+        "route-3",
+        "route-4",
+        "route-12",
+        "route-13",
+        "route-20",
+        "route-21",
+        "route-30",
+        "route-31"
+      ]
+    },
+    {
+      "responsibility": "Friston supplies actual lower-central BLOCK, Ansel supplies sustain, Midnight supplies available arts, and returning Steward clears armor. Friston must remain alive through the return.",
+      "routes": [
+        "route-5",
+        "route-6",
+        "route-11",
+        "route-14",
+        "route-18",
+        "route-19",
+        "route-28",
+        "route-29"
+      ]
+    },
+    {
+      "responsibility": "Midnight holds the upper outer lane with ordinary Hibiscus coverage.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-17",
+        "route-22",
+        "route-23",
+        "route-24"
+      ]
+    },
+    {
+      "responsibility": "Melantha holds the lower outer lane throughout; Ansel sustains her. Her one-block capacity requires each officer to die before the next escapes interception.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-16",
+        "route-25",
+        "route-26",
+        "route-27"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Upper-central blocking and automatic income.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_4093_frston",
+      "role": "Lower-central three-block containment.",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_283_midn",
+      "role": "Upper-outer interception, eastern upper restraint clearance and intermittent central damage.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_208_melan",
+      "role": "Lower-outer interception and eastern lower restraint clearance; remains through the final outer officer.",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_212_ansel",
+      "role": "Lower medicine covering Friston and Melantha.",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_120_hibisc",
+      "role": "Upper medicine covering Midnight, Fang and eastern Steward.",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Eastern artillery damage, separated from Hibiscus by two tiles.",
+      "tile": [
+        2,
+        7
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Returning arts coverage of both central holder tiles.",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Western upper restraint clearance.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "LEFT",
+      "operator_id": "char_208_melan",
+      "role": "Western lower restraint clearance after all hostile queues are empty.",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "formation_structure": {
+    "artillery_budget": {
+      "limitation": "The relocated caster's first contact, target selection, damage cadence and survival are unverified. The old4273 kill is conditional history, not a portable prediction.",
+      "reference_sufficient_hit_mix": "36 ordinary hits at249.10 plus9 enhanced hits at473.29 =13227.21.",
+      "required_damage": 13000,
+      "required_observed_death_before_retreat": 4320,
+      "scheduled_entry_frame": 2071
+    },
+    "central_capacity_risk": "Without returning Melantha, Fang's first armor must be killed before armor plus surviving runners exceeds block2. Midnight's169-second arts window and interrupted access may be insufficient. This is an explicit decisive uncertainty, not clearance credit from range overlap.",
+    "classification": "CURRENT_MODEL_CHECKABLE",
+    "distinct_operator_ids": 7,
+    "economy": {
+      "conditional_fang_grants": [
+        570,
+        1320,
+        2070
+      ],
+      "dependency": "The first three Fang grants require her survival. Missing income is a survival failure. Refunds require living withdrawal; death provides zero refund.",
+      "effective_first_fang_cost": 10,
+      "gross_scheduled_deployment_dp": 147,
+      "initial_dp": 10,
+      "natural_dp_per_second": 1,
+      "opening_deployment_cost": 96,
+      "opening_post_action_balances": [
+        [
+          0,
+          0
+        ],
+        [
+          91,
+          0.033333
+        ],
+        [
+          571,
+          6.033333
+        ],
+        [
+          841,
+          0.033333
+        ],
+        [
+          1321,
+          5.033333
+        ],
+        [
+          1681,
+          0.033333
+        ],
+        [
+          2071,
+          1.033333
+        ]
+      ],
+      "redeployment_basis": "Supplied current-model costs remain Steward18 and Melantha15; each scheduled return exceeds the stated 70-second cooldown.",
+      "scheduled_living_refunds": [
+        {
+          "amount": 9,
+          "frame": 4320
+        },
+        {
+          "amount": 9,
+          "frame": 9000
+        },
+        {
+          "amount": 7,
+          "frame": 9001
+        }
+      ]
+    },
+    "execution_semantics": "Actions are fixed. Invariants are validity checks, not conditional commands or automatic rescheduling. An absent prerequisite invalidates the planned continuation.",
+    "maximum_simultaneous_operators": 7,
+    "medical_geometry": "Ansel [5,6] LEFT covers Friston [4,5], Melantha [6,5] and himself. Hibiscus [2,5] RIGHT covers Midnight [1,5], Fang [3,5], Steward [2,7] and herself. The physicians do not ordinarily cover each other. Returning Steward [2,6] is inside Hibiscus's range.",
+    "output_geometry": "Steward [2,7] UP includes eastern artillery positions [2,7] through [5,7]. Returning Steward [2,6] UP includes [3,5] and [4,5]. Midnight's own blocks interrupt his central assistance. Eastern Steward receives no credit for clearing central armor.",
+    "validation_status": "UNSIMULATED_MANUAL_STATIC_REASONING; no stage simulation or helper execution performed"
+  },
+  "formation_transitions": [
+    {
+      "frame": 1321,
+      "transition": "Establish dedicated lower medicine before adding upper medicine."
+    },
+    {
+      "frame": 2071,
+      "transition": "Add upper-platform artillery damage while keeping Melantha on the lower lane; no projectile-bait withdrawal."
+    },
+    {
+      "frame": 2910,
+      "transition": "Strengthen upper healing for the hypothesized northern artillery exposure window."
+    },
+    {
+      "frame": 4320,
+      "transition": "Withdraw Steward only under the validity assertion that artillery is already dead; residual projectiles remain live."
+    },
+    {
+      "frame": 5073,
+      "transition": "Midnight's second arts window supplies central armor damage whenever his own lane permits."
+    },
+    {
+      "frame": 6421,
+      "transition": "Return Steward at [2,6] UP to cover both central holders without displacing Hibiscus."
+    },
+    {
+      "frame": 9000,
+      "transition": "After actual hostile clearance, withdraw Steward and then Melantha for western restraint clearance."
+    },
+    {
+      "frame": 11101,
+      "transition": "Return the two clearance operators west; continue until both civilians actually arrive."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "id": "legal_roster",
+      "requirement": "Exactly the seven listed normal-mode catalog IDs; all have rarity1-3. No reserve units or additional deployed IDs."
+    },
+    {
+      "id": "legal_tiles",
+      "requirement": "Every deployment uses the stated integer [row,col] and cardinal direction. Never deploy on [[1,2],[6,2],[1,6],[6,6]]."
+    },
+    {
+      "id": "economic_survival",
+      "requirement": "Fang survives through each credited opening grant. No refund or skill income is credited after death."
+    },
+    {
+      "id": "real_interception",
+      "requirement": "Every hostile central passage has a live blocker with capacity. Damage contact and range overlap do not replace BLOCK."
+    },
+    {
+      "id": "medical_partition",
+      "requirement": "Observe actual recovery of Melantha/Friston and Midnight/Fang/Steward independently. Aggregate healing is not proof of individual survival."
+    },
+    {
+      "id": "artillery_clearance",
+      "requirement": "Artillery is dead before Steward's4320 withdrawal. Pending projectiles remain dangerous; withdrawal does not cancel them."
+    },
+    {
+      "id": "protected_targets",
+      "requirement": "No ordinary attack or blocking assignment targets civilians. Require both eastern restraints destroyed without exposing either civilian to lethal artillery or officer attacks."
+    },
+    {
+      "id": "central_handoff",
+      "requirement": "Fang and Friston remain alive and within block capacity until Steward returns6421. Upper armor must not allow the second late runner to pass."
+    },
+    {
+      "id": "deaths",
+      "requirement": "Deaths are evaluated by effect, not prohibited categorically. Here no scheduled death has a funded successor: a blocker death releases its enemies, gives zero refund and invalidates dependent actions."
+    },
+    {
+      "id": "west_release",
+      "requirement": "Both hostile queues and residual artillery effects are resolved before9000/9001 withdrawal. Western roadblocks must actually be destroyed."
+    },
+    {
+      "id": "acceptance",
+      "requirement": "remaining_life>0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and exactly two expected protected targets safely arrived."
+    }
+  ],
+  "operational_plan_id": "R8_7_GPT_M75_V1",
+  "parent_hypothesis_id": "R8_7_M75_H1",
+  "pressure_window_responsibilities": [
+    {
+      "duties": "Establish all four live interceptions and both corridor physicians. Preserve Fang's economic dependencies and begin both eastern restraint clearances.",
+      "window_frames": [
+        0,
+        2070
+      ]
+    },
+    {
+      "duties": "Keep Melantha blocking through southern artillery pressure; heal upper Steward through northern pressure; complete artillery lethal damage before western return threatens protected targets.",
+      "window_frames": [
+        2071,
+        4320
+      ]
+    },
+    {
+      "duties": "Preserve central blockers during the caster cooldown. Midnight must clear enough armor before runner saturation; lower Ansel must keep Friston alive.",
+      "window_frames": [
+        4321,
+        6420
+      ]
+    },
+    {
+      "duties": "Returning Steward clears both central queues. Melantha and Midnight finish outer officers. Maintain medicine until every hostile is dead.",
+      "window_frames": [
+        6421,
+        9000
+      ]
+    },
+    {
+      "duties": "Complete legal cooldowns, destroy western restraints, and observe both protected arrivals. Frame15000 is an observation horizon, not an automatic success condition.",
+      "window_frames": [
+        9001,
+        15000
+      ]
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward"
+  ],
+  "skill_intents": [
+    {
+      "intent": "Automatic DP only while alive and deployed; no manual action.",
+      "operator_id": "char_123_fang"
+    },
+    {
+      "intent": "Ordinary blocking only; no robot talent credit.",
+      "operator_id": "char_4093_frston"
+    },
+    {
+      "frames": [
+        1772,
+        5073,
+        8374
+      ],
+      "intent": "Eastern restraint and outer output first; central armor and final cleanup later. Each40-second active period pauses SP; subsequent activations are at least110 seconds apart.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "frames": [
+        2042,
+        3843,
+        5644,
+        7445
+      ],
+      "intent": "Boost lower-lane and restraint damage without surrendering BLOCK. First activation is more than40 seconds after deployment; later spacing exceeds60 seconds.",
+      "operator_id": "char_208_melan"
+    },
+    {
+      "frames": [
+        2072,
+        3873,
+        5674,
+        7475
+      ],
+      "intent": "Southern artillery recovery followed by lower-central armor and runner sustain. Use only supported single-target healing; no extra-heal talent.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frames": [
+        2910,
+        4411,
+        5912,
+        7413
+      ],
+      "intent": "First burst targets the newly hypothesized northern artillery window; later bursts preserve Fang, Midnight and returning Steward. Readiness permits these50-second cycles.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "intent": "Automatic enhanced attacks and supported high-defense priority; record actual artillery and armor damage.",
+      "operator_id": "char_210_stward"
+    }
+  ],
+  "tactical_thesis": "Use seven operators by retaining Melantha as the permanent lower-outer blocker and removing the Spot handoff. Split medicine by corridor and move the artillery caster to the upper eastern platform: Ansel covers Melantha and Friston; Hibiscus covers Midnight, Fang and Steward. Steward faces UP from [2,7], covering the eastern artillery transit and both eastern waiting points. After artillery clearance, rotate him into central coverage. This is an unsimulated, falsifiable full-stage hypothesis, not a demonstrated seven-operator WIN. The principal unresolved bottleneck is upper-central armor clearance before Fang's late runner queue exceeds two."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE2_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M75_V1",
+  "parent_hypothesis_id": "R8_7_M75_H1",
+  "source_result": "m75_candidate1_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Prevent the early Ansel/Friston deaths that caused #13 release; do not merely patch later not-deployed actions.",
+  "early_chain": [
+    {"frame": 2593, "event": "OPERATOR_DEATH", "operator": "char_212_ansel", "cause": "two 891 physical artillery hits with one 506.8 self-heal"},
+    {"frame": 3159, "event": "OPERATOR_DEATH", "operator": "char_4093_frston", "cause": "2965 incoming with only 1725 healing from the now-dead Ansel"},
+    {"frame": 3501, "event": "ENEMY_LEAK", "enemy": "enemy_1107_uoffcr#13"}
+  ],
+  "must_preserve": "Candidate1's declared Fang BLOCK@471 was verified, but the full plan failed. Any new plan must still close opening blocks, artillery survival, protected survival, central armor, and roadblock passage.",
+  "accepted_observations": [
+    "Friston sustained 2965 incoming; 1725 healing was insufficient once Ansel died.",
+    "The artillery used 14 ability starts/14 projectiles/16 hits and leaked@5759.",
+    "After the first release, #15/#17/#19/#20/#21/#22/#23 also leaked."
+  ],
+  "open_alternatives": [
+    "Relocate medicine and artillery exposure before the first two shells.",
+    "Use a different lower blocker/healer fusion or sacrifice timing.",
+    "Change parent branch entirely if preserving candidate1's structure is not optimal."
+  ],
+  "constraints": {"max_unique_operator_ids": 7, "mechanics_version": "m38b-2781-animation-speed-v1", "features_apps": false}
+}

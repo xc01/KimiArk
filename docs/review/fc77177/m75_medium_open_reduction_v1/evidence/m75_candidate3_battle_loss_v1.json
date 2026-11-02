@@ -1,0 +1,111 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE3_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M75_V3",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 17,
+  "enemies_leaked": 16,
+  "remaining_life": -14,
+  "operator_death_events": 6,
+  "operator_death_ids": [
+    "char_4093_frston",
+    "char_210_stward",
+    "char_212_ansel",
+    "char_123_fang",
+    "char_283_midn",
+    "char_284_spot"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 26,
+  "static_conflict_count": 0,
+  "repair_progress": {
+    "candidate2_risk": "Ansel died@1571 from artillery; Melantha died@2143; first leak was #11@3065.",
+    "candidate3_change": "Ansel was redeployed to tile [2,5] and survived past the first artillery window; Spot replaced Hibiscus as a blocker/healer fusion.",
+    "new_upstream_failure": "Friston died@1479 while BLOCKING officer #7; its unblock released #7, which leaked@1821."
+  },
+  "first_death": {
+    "frame": 1479,
+    "operator_id": "char_4093_frston",
+    "evidence": "Death and UNBLOCK of enemy_1107_uoffcr#7 occurred on the same frame."
+  },
+  "early_causal_chain": [
+    {
+      "frame": 1358,
+      "event_type": "BLOCK",
+      "source_id": "char_4093_frston",
+      "target_id": "enemy_1107_uoffcr#7"
+    },
+    {
+      "frame": 1479,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_4093_frston"
+    },
+    {
+      "frame": 1479,
+      "event_type": "UNBLOCK",
+      "source_id": "char_4093_frston",
+      "target_id": "enemy_1107_uoffcr#7"
+    },
+    {
+      "frame": 1821,
+      "event_type": "ENEMY_LEAK",
+      "source_id": "enemy_1107_uoffcr#7"
+    }
+  ],
+  "first_objective_failure": {
+    "frame": 3425,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": 0
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 5341,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 3,
+    "real_tactical_cli_starts": 3,
+    "stage_simulations_started": 3
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "becca99792c273524d52675ccac682babd0a56f078bbca7aa5dad7f04e962e26",
+    "llm_structured_output.json": "c26f573a4469d5a010716e83242d8064ec2e0cb9b062665f98482f8e0e14b75b",
+    "codex_final_message.txt": "67dc0959694fb78189a0fd5629bcca6882ac1f8f7c1a0a2e3660f94d3571d8e0",
+    "direction_complete_action_candidate.json": "e8ff70ba3963195cf0c86a4080c758064d7a5a9f39e91de8f2956cbeddb3fe81",
+    "static_compile_results.json": "67579bccc48f246ac4a5cbb2b1d2e145c5bc113e23653c84b0659a3ed4d180ce",
+    "diagnostic/diagnostic_events.json": "a862893652d767239ce489c081b78b7cc3bc16bea8ae0eb333db5a26b3faf549",
+    "diagnostic/diagnostic_summary.json": "6f647eb5f8a1a4ed6aeb5bb69a015dcced9896afa631db564afa579afe68f49d",
+    "diagnostic/final_status.json": "280394014f7767cef9b0f629c354f192618150a85c39cbba61045aa7bdc1d695",
+    "diagnostic/plan_snapshot.json": "43d6c3135caf2246d8e6539457ef16a7b2da6c6386e041f558047dc515bcf054",
+    "diagnostic/action_snapshot.json": "30b0dc819b33f15344e2dcaba73d34c76b9e0d68cc93d819b23c70a96ce9f711"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/candidate_v3"
+}

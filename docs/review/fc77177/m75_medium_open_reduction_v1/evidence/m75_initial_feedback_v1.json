@@ -1,0 +1,102 @@
+{
+  "schema_version": "KIMIARK_M75_INITIAL_FEEDBACK_V1",
+  "scope": "Compact M75 input assembled from verified M70/M72/M73/M74 artifacts. Frames and timings are conditional evidence for old actions, not portable deadlines.",
+  "best_frozen_win": {
+    "milestone": "M70_V1",
+    "distinct_operator_ids": 8,
+    "result": {"win": true, "kills": 33, "leaks": 0, "operator_death_events": 0, "remaining_life": 3, "protected_targets_reached": "#14@11119 and #3@11349"},
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "m74_state": {
+    "budget_final": {"candidate_attempts": "5/5", "real_tactical_cli_starts": "5/5", "fixed_full_simulations": "1/5"},
+    "model_high_win_rate_claim": "FORBIDDEN: only candidate_v4 produced a complete battle; candidate_v5 was usage-limit failure and candidate_v3 was static failure.",
+    "candidate_v3": {
+      "classification": "B_STATIC_CONFLICT",
+      "contract": "PASS",
+      "independent_conflict": {
+        "frame": 871,
+        "operator_id": "char_208_melan",
+        "reason": "INSUFFICIENT_DP",
+        "required": 15,
+        "balance_before": 14.033333333333331,
+        "ledger": [
+          {"frame": 751, "event": "NATURAL_DP", "delta": 4, "after": 4.033333333333331},
+          {"frame": 751, "event": "SKILL_DP_INCOME", "operator_id": "char_240_wyvern", "delta": 6, "after": 10.033333333333331},
+          {"frame": 871, "event": "NATURAL_DP", "delta": 4, "after": 14.033333333333331},
+          {"frame": 871, "event": "DEPLOY_COST_REJECTED", "cost": 15}
+        ]
+      },
+      "derived_conflicts": [
+        {"frame": 2072, "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+        {"frame": 3873, "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+        {"frame": 5674, "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+        {"frame": 7475, "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"}
+      ],
+      "interpretation": "Do not treat the four skill conflicts as four independent errors; fix or replace the 871 deployment first, then recheck each skill against legal SP and deployed state."
+    },
+    "candidate_v4": {
+      "classification": "LEGAL_BATTLE_LOSS",
+      "contract": "PASS",
+      "static_conflicts": 0,
+      "result": {"win": false, "kills": 21, "leaks": 12, "operator_death_events": 6, "remaining_life": -10, "protected_target_deaths": 1, "protected_targets_reached": 1},
+      "timeline": {
+        "first_acceptance_break": {"frame": 3310, "event": "PROTECTED_TARGET_DEATH", "source": "enemy_1112_emppnt#0", "target": "enemy_3001_upeopl#3"},
+        "first_operator_death": {"frame": 3460, "operator": "char_210_stward"},
+        "first_leak": {"frame": 5046, "enemy": "enemy_1110_uamord#21"},
+        "life_zero": {"frame": 5525, "enemy": "enemy_1107_uoffcr#23"},
+        "artillery_leak": {"frame": 5759, "enemy": "enemy_1112_emppnt#0"}
+      },
+      "artillery_chain": {
+        "spawn_time": 3.0,
+        "ability_starts": 14,
+        "projectiles_born": 39,
+        "ability_hits": 21,
+        "steward_hits": 25,
+        "steward_damage": 7348.45,
+        "steward_damage_first": {"time": 76.0333333333, "amount": 249.1},
+        "steward_damage_last": {"time": 114.4333333333, "amount": 473.29},
+        "result": "SURVIVED_AND_LEAKED"
+      },
+      "steward_failure": {
+        "artillery_ability_hits": [
+          {"time": 100.3333333333, "amount": 910, "locked_position": [6.6, 1.0]},
+          {"time": 105.3333333333, "amount": 910, "locked_position": [6.6, 1.0]},
+          {"time": 110.3333333333, "amount": 910, "locked_position": [6.6, 1.0]},
+          {"time": 115.3333333333, "amount": 910, "locked_position": [7, 2]}
+        ],
+        "ansel_heals_to_steward": {"count": 5, "total": 2326.8, "last": {"time": 112.5333333333, "amount": 506.8}},
+        "death": {"time": 115.3333333333, "frame": 3460}
+      },
+      "central_armor": {
+        "#21": {"block": false, "damage_from": {"char_240_wyvern": 70.929, "char_283_midn": 670.95}, "leak_time": 168.2},
+        "#22": {"block": "char_240_wyvern@159.8666666667", "damage_from_char_240_wyvern": 1033.263, "incoming_to_char_240_wyvern": 7140, "leak_time": 224.3},
+        "#34": {"block": false, "damage_from": {"char_210_stward": 498.2}, "leak_time": 233.2}
+      },
+      "lesson": "Output contact without live BLOCK did not stop #21/#34; Steward died before his planned 4440 retreat and later Steward/Ansel actions became not-deployed errors. The upstream repairs are artillery survival, protected survival, and live blocking."
+    },
+    "candidate_v5": {"classification": "CLI_USAGE_LIMIT_NO_TACTICAL_OUTPUT", "tactical_loss": false, "note": "No seven-ID tactical conclusion can be drawn from it."}
+  },
+  "known_dependency_counterexamples": {
+    "m72_c1": "Fang died@1209, so her 6 DP income@1320 did not occur and Ansel@1381 was short. Static conditional PASS is not verified survival.",
+    "m73_c2_c3": "Friston died@3159 and released #13, which leaked@3501; damage did not substitute for live BLOCK.",
+    "m73_c4": "#21 had Vanilla/Midnight output but no BLOCK and leaked@5046.",
+    "m73_c5_model_gap": "MODEL_GAP is limited to artillery attack occupancy/contact delay. Protected deaths, roadblock #4 not destroyed, operator deaths, and #22 leak are separately legal battle failures."
+  },
+  "m70_open_contribution_rows": [
+    {"id": "char_123_fang", "name": "芬", "observed": "Economic opener, 9 blocks, 17538.75 damage, 9 kills; helped #31 and #33 closures.", "cost": "Central tile, physical exposure, no refund after death.", "replacement_space": "Can be replaced only if another opener plus live blocker covers #1/#6/#10/#12/#19/#27/#29/#33 windows."},
+    {"id": "char_4093_frston", "name": "Friston-3", "observed": "3 DP central blocker, 4098.4 damage, no kill credit, 17510 incoming; held #22/#28/#31/#34.", "cost": "High incoming and two medic competition.", "replacement_space": "Needs a live blocker or split blockers with enough capacity and survival, not just damage."},
+    {"id": "char_283_midn", "name": "月见夜", "observed": "7 blocks, 51798.74 damage, 12 kills, key #28 kill.", "cost": "Central tile and physical/arts matchup constraints.", "replacement_space": "Replacement must match officer queue and #28/#31 armor-window damage."},
+    {"id": "char_208_melan", "name": "玫兰莎", "observed": "Trap4@1966, #21/#27 kills, 24312.36 damage, trap2@10787, later return.", "cost": "Opening DP and roadblock timing.", "replacement_space": "Can be replaced or re-timed, but trap and outer-kill duties must remain."},
+    {"id": "char_212_ansel", "name": "安赛尔", "observed": "25339.1 healing, including Friston/Steward; probability extra heal unsupported.", "cost": "Healing competition and central range.", "replacement_space": "Can merge with another sustain only if mixed physical/artillery peaks are covered."},
+    {"id": "char_120_hibisc", "name": "芙蓉", "observed": "20156.8 healing, including Friston/Steward.", "cost": "Healing competition and opening cost.", "replacement_space": "Can be removed only if fewer effective hits or another healer covers late central pressure."},
+    {"id": "char_284_spot", "name": "斑点", "observed": "5 blocks, 4 kills, 13090 damage, 4493.6 healing; held officer queue.", "cost": "Deployment slot and attack pause during healing.", "replacement_space": "Can merge with a defender/physician only if lower officers and #32 timing remain covered."},
+    {"id": "char_210_stward", "name": "史都华德", "observed": "Artillery killed@4273 after 13227.21 damage, retreated@4280, returned@6381, killed #22@6429 and #34@7197.", "cost": "18 DP and real 70-second redeploy cooldown.", "replacement_space": "Can rotate only with actual refund/cooldown/contact; death has no refund."}
+  ],
+  "open_strategy_directions": [
+    "Faster artillery kill or changed placement must prove actual contact, sufficient mixed damage, and protected survival; do not assume output-wait frames are all removable.",
+    "Output-and-tank rotation must prove release, live successor BLOCK, legal tile/deployment, cost/refund/cooldown, and no fatal output/heal gap.",
+    "Blocking/medical fusion may use the full legal 1-3-star catalog; compare concrete officer and armor windows, not aggregate totals."
+  ],
+  "model_gaps": ["No reliable pre-swing target lock.", "Spot physical-dodge talent unsupported.", "Ansel probability extra heal unsupported."],
+  "acceptance": {"max_unique_operator_ids": 7, "zero_leaks": true, "protected_target_deaths": 0, "protected_targets_reached": 2, "all_enemies_settled": true, "no_active_enemies": true}
+}

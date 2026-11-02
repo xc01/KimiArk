@@ -1,0 +1,108 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE2_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M75_V2",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 16,
+  "enemies_leaked": 17,
+  "remaining_life": -16,
+  "operator_death_events": 7,
+  "operator_death_ids": [
+    "char_212_ansel",
+    "char_208_melan",
+    "char_4093_frston",
+    "char_210_stward",
+    "char_123_fang",
+    "char_120_hibisc",
+    "char_283_midn"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_120_hibisc",
+    "char_123_fang",
+    "char_208_melan",
+    "char_210_stward",
+    "char_212_ansel",
+    "char_283_midn",
+    "char_4093_frston"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 27,
+  "static_conflict_count": 0,
+  "first_death": {
+    "frame": 1571,
+    "operator_id": "char_212_ansel",
+    "evidence": "Two 891 physical artillery hits; one 372.6 heal was insufficient."
+  },
+  "early_causal_chain": [
+    {
+      "frame": 1571,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_212_ansel",
+      "cause": "Second observed 891 artillery hit; 372.6 self-heal did not prevent death."
+    },
+    {
+      "frame": 2143,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_208_melan",
+      "cause": "3290 incoming damage with zero healing observed in the available early window."
+    },
+    {
+      "frame": 2293,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_4093_frston",
+      "cause": "Loss of early melee interception after Melantha death."
+    },
+    {
+      "frame": 3065,
+      "event_type": "ENEMY_LEAK",
+      "source_id": "enemy_1107_uoffcr#11",
+      "cause": "Downstream consequence of failed early survival and BLOCK coverage."
+    }
+  ],
+  "first_objective_failure": {
+    "frame": 4070,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": 0
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 5353,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 2,
+    "real_tactical_cli_starts": 2,
+    "stage_simulations_started": 2
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "ff7fade326388b32dde20af3709ddfa91551751df3959b27db15f4428819970e",
+    "llm_structured_output.json": "a84f96efc7e19362506ea6e2288ca2aaf55220777c30d21d919da16fcf16fa59",
+    "codex_final_message.txt": "f0baf44f5a7f31ddce18e47f2d7b1941e2f570cee79345c112335c58de67ab94",
+    "direction_complete_action_candidate.json": "2558af368b1862f913bb8dfe9d2802208f45c31db1bfe009c0a7389c1c9eb483",
+    "diagnostic/diagnostic_events.json": "95c92ca3e181479c2a26f382d47286fb0c94ecb15decbd3862fec67be160dd50",
+    "diagnostic/diagnostic_summary.json": "eea1eb28afc291285b5cb9df8eebd845b4e9af0225defaf1225ad65e282b8054",
+    "diagnostic/final_status.json": "d7b8f75cf623aceac1dbcb35e9c6bb4e2635c125b76e029b6e6bf740fe3998e1",
+    "diagnostic/plan_snapshot.json": "697b6ef969cbe6d511077e3574365fd29fdadeb328d716ac2afcf180ddea2907",
+    "diagnostic/action_snapshot.json": "d336ee38b20b03eeb41c95c811ba17310c7566f3a19a3adcf24e1e60e8cf6b07"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/candidate_v2"
+}

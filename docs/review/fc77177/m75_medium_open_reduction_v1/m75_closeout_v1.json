@@ -1,0 +1,116 @@
+{
+  "schema_version": "KIMIARK_M75_CLOSEOUT_V1",
+  "status": "PHASE_COMPLETE_NO_NEW_WIN",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "target_distinct_operator_ids": 7,
+  "best_verified_result": {
+    "milestone": "M70",
+    "distinct_operator_count": 8,
+    "operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "result": "WIN",
+    "evidence_scope": "Current fixed simulator only"
+  },
+  "budget": {
+    "candidate_attempts": "5/5",
+    "real_tactical_cli_starts": "5/5",
+    "stage_simulations_started": "5/5",
+    "remaining_candidate_attempts": 0,
+    "remaining_real_tactical_cli_starts": 0,
+    "remaining_stage_simulations": 0
+  },
+  "candidate_results": [
+    {
+      "candidate": 1,
+      "plan_id": "R8_7_GPT_M75_V1",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "remaining_life": -15,
+      "primary_chain": "Ansel died@2593 to artillery, Friston died@3159, #13 leaked@3501.",
+      "evidence": "evidence/m75_candidate1_battle_loss_v1.json"
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M75_V2",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 16,
+      "leaks": 17,
+      "remaining_life": -16,
+      "primary_chain": "Ansel died@1571 to consecutive artillery, Melantha died@2143, Friston died@2293, #11 leaked@3065.",
+      "evidence": "evidence/m75_candidate2_battle_loss_v1.json"
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M75_V3",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 17,
+      "leaks": 16,
+      "remaining_life": -14,
+      "primary_chain": "Ansel artillery relocation improved early survival, but Friston died@1479 while blocking #7 and #7 leaked@1821.",
+      "evidence": "evidence/m75_candidate3_battle_loss_v1.json"
+    },
+    {
+      "candidate": 4,
+      "plan_id": "R8_7_GPT_M75_V4",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 15,
+      "leaks": 18,
+      "remaining_life": -17,
+      "primary_chain": "Spot held #7 through 1903, but Falco died@1603 and the adjacent officer chain opened; #9 leaked@1925.",
+      "evidence": "evidence/m75_candidate4_battle_loss_v1.json"
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M75_V5",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 17,
+      "leaks": 16,
+      "remaining_life": -14,
+      "primary_chain": "Wyvern helped close the candidate4 opening, but Ansel died@2593 and later officer #15 was not held; #15 leaked@4176.",
+      "evidence": "evidence/m75_candidate5_battle_loss_v1.json"
+    }
+  ],
+  "common_unclosed_requirements": [
+    "No M75 candidate killed artillery enemy_1112_emppnt#0; it leaked@5759 in each completed simulation.",
+    "No candidate kept both protected targets alive and reached.",
+    "No candidate achieved zero leaks or simulator WIN."
+  ],
+  "prepare_failure_record": {
+    "candidate3": {
+      "classification": "PREPARE_CONFIGURATION_REJECTED_BEFORE_CLI_STARTED",
+      "counts_cli_or_candidate": false,
+      "evidence": "evidence/m75_candidate3_prepare_auth_rejection_v1.json",
+      "repair": "Regenerated command with --extra-config features.apps=false."
+    }
+  },
+  "next_state": {
+    "best_verified_operator_count": 8,
+    "next_target_distinct_operator_ids_if_resumed": 7,
+    "seven_operator_feasibility": "UNKNOWN",
+    "unknown_reason": "Five fixed-plan LOSS attempts and exhausted budget do not establish infeasibility; no scoped complete search or necessary-condition lower-bound proof was produced."
+  },
+  "evidence_archive": {
+    "raw_candidates": [
+      "evidence/candidate_v1_raw",
+      "evidence/candidate_v2_raw",
+      "evidence/candidate_v3_raw",
+      "evidence/candidate_v4_raw",
+      "evidence/candidate_v5_raw"
+    ],
+    "large_json_policy": "Losslessly gzip -n compressed; checksum manifest is m75_evidence_archive_manifest_v1.sha256.",
+    "restoration": "gunzip each tracked .gz file and verify restored JSON parsing or byte hashes against the manifest."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "KIMIARK_M75_PREPARE_FAILURE_V1",
+  "candidate": "candidate_v3",
+  "plan_id": "R8_7_GPT_M75_V3",
+  "classification": "PREPARE_CONFIGURATION_REJECTED_BEFORE_CLI_STARTED",
+  "cli_started": false,
+  "counts_candidate": false,
+  "counts_real_tactical_cli_start": false,
+  "reason": "Authorization validation required features.apps=false, but the prepared command omitted the --extra-config value.",
+  "validator_error": "Codex CLI authorization rejected before STARTED: configuration key mismatch: missing=['features.apps'], unexpected=[]",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "prompt_bytes": 115401,
+  "prompt_sha256": "becca99792c273524d52675ccac682babd0a56f078bbca7aa5dad7f04e962e26",
+  "recovery": "Regenerate candidate_v3 with --extra-config features.apps=false; do not retry the rejected CLI command and do not consume a candidate or CLI slot.",
+  "preserved_output": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/failed_prepare/candidate_v3_auth_key_mismatch"
+}

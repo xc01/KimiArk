@@ -1,0 +1,102 @@
+{
+  "schema_version": "KIMIARK_M75_CANDIDATE5_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M75_V5",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 17,
+  "enemies_leaked": 16,
+  "remaining_life": -14,
+  "operator_death_events": 7,
+  "operator_death_ids": [
+    "char_212_ansel",
+    "char_123_fang",
+    "char_240_wyvern",
+    "char_283_midn",
+    "char_120_hibisc",
+    "char_210_stward",
+    "char_208_melan"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_240_wyvern",
+    "char_283_midn",
+    "char_208_melan",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 38,
+  "static_conflict_count": 0,
+  "repair_progress": {
+    "candidate4_risk": "Falco died@1603 and #9 leaked@1925.",
+    "candidate5_change": "Wyvern replaced Falco and helped block #2/#7; opening officer #6-#9 chain survived past the candidate4 first-leak window.",
+    "new_upstream_failure": "Ansel died@2593; Fang later died and officer #15 was not held, leaking@4176."
+  },
+  "verified_prediction": "Melantha BLOCK enemy_1108_uterer#5 between frames 1065-1095 was VERIFIED.",
+  "early_causal_chain": [
+    {
+      "frame": 1358,
+      "event_type": "BLOCK",
+      "source_id": "char_240_wyvern",
+      "target_id": "enemy_1107_uoffcr#7"
+    },
+    {
+      "frame": 2593,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_212_ansel"
+    },
+    {
+      "frame": 4176,
+      "event_type": "ENEMY_LEAK",
+      "source_id": "enemy_1107_uoffcr#15"
+    }
+  ],
+  "first_objective_failure": {
+    "frame": 5046,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": -3
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 5341,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 5,
+    "real_tactical_cli_starts": 5,
+    "stage_simulations_started": 5
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "4cbc748eb4b1f445b860be33905a74a35f5de4c1a892a16f265236db07ec7976",
+    "llm_structured_output.json": "81a8852cd0dd1e2a455020950077c475ac2969ba4c1ac8365010a254048cdd7a",
+    "codex_final_message.txt": "971cf03960554d8307cd72bb5fe918dbcda21b52c7c51f2f52036fe87e592a9a",
+    "direction_complete_action_candidate.json": "74044d5f3ea295f4e7fe83411d50f114fecc2f7c5a0c58ce60fa078349e8f530",
+    "static_compile_results.json": "01b8d85c4027e403a043ecabf5d9fb145136013efea945735746543fbd836709",
+    "diagnostic/diagnostic_events.json": "fe65fe3f3e494525dd68c648a047719f6e7f6f3f164a4a91cb3641887f5db58e",
+    "diagnostic/diagnostic_summary.json": "add059b628110161e99cd0f5aac9ab086b670e744d00b16b3170bd41b7b22070",
+    "diagnostic/final_status.json": "41782f6683c7c90f845fe3696a9f40b610c026f730387b6b9645bdc1c89611d0",
+    "diagnostic/plan_snapshot.json": "d3cadcccaf455e4e6d8f078f1850ac37033784eb287e43b6546e86507a4bb3bf",
+    "diagnostic/action_snapshot.json": "169133a95f1dbe7463ff65858840dddfee4350be44eda6fdf65b4fa10859d461"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m75_medium_open_reduction_v1/candidate_v5"
+}
