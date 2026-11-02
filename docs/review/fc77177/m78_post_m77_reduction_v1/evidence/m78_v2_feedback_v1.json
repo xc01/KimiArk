@@ -1,0 +1,71 @@
+{
+  "schema_version": "KIMIARK_M78_CANDIDATE_2_COMPACT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M78_V2",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_death_events": 4,
+    "remaining_life": -8,
+    "first_leak": {
+      "frame": 5152,
+      "source_id": "enemy_1110_uamord#21",
+      "route_id": "route-21"
+    },
+    "first_life_zero": {
+      "frame": 5196,
+      "reason": "ENEMY_LEAK"
+    },
+    "leaks": [
+      "route-21:#21@5152",
+      "route-19:#22@5196",
+      "route-31:#33@6846",
+      "route-29:#34@6996",
+      "route-28:#28@6082,#31@6292",
+      "route-30:#27@5932,#29@6142",
+      "route-1:artillery#0@5759"
+    ]
+  },
+  "failure_chain": [
+    {
+      "fact": "Hibiscus deployed at [3,5] frame1741; artillery cast selected that position, projectile birth1751, first890 hit1841, second890 hit1991 killed her.",
+      "meaning": "The selected medical position entered the artillery lock radius and died before the later artillery-contact role could be established."
+    },
+    {
+      "fact": "Steward deployed at [7,2] frame2101; artillery later locked that tile repeatedly and Steward died frame3191.",
+      "meaning": "The artillery-output station was not survivable under the selected treatment sequence."
+    },
+    {
+      "fact": "Planned Steward retreat at4500 was illegal because he had died; Friston and Fang died4753/4768; artillery survived and leaked5759.",
+      "meaning": "This was not a missing DP error: death removed the retreat and later artillery kill."
+    },
+    {
+      "fact": "#21 leaked5152 and #22 leaked5196; no event shows either was blocked.",
+      "meaning": "After Fang/Friston died, lower-central interception was already broken before the first objective-failure frame."
+    },
+    {
+      "fact": "Protected #14 died3966 to officer#18; protected #3 died5353 to artillery#0.",
+      "meaning": "Both protection failure classes occurred: officer contact and artillery/clearance exposure."
+    }
+  ],
+  "artillery_observations": {
+    "cast_selects_position_or_target": "SUPPORTED_BY_EVENTS",
+    "projectile_birth_locks_position": "SUPPORTED_BY_EVENTS",
+    "first_hit_at_position_3_5": {"born": 1751, "hit": 1841, "amount": 890},
+    "death_hit_at_position_3_5": {"born": 1901, "hit": 1991, "amount": 890},
+    "steward_death_window": "Steward died3191 after repeated artillery locks/hits on [7,2].",
+    "artillery_killed": false
+  },
+  "repair_requirements": [
+    "Primary repair target: separate the first medic deployment from the artillery lock radius or prove survival for the exact consecutive890-hit window; do not merely shift later deployments.",
+    "Keep the artillery recipient alive or select a supported survivor/relay; legal retreat is impossible after death.",
+    "Close lower-central #21/#22 with an actual live BLOCK plus enough damage before their leak frames.",
+    "Ensure #28/#31/#34 have live interception and kill chains; do not rely on dead Fang/Friston/Steward or the failed4500 retreat.",
+    "Keep both protected targets away from officer contact and artillery; roadblock clearance must precede their passage."
+  ],
+  "sources": {
+    "candidate": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v2",
+    "diagnostic_events": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v2_diagnostic/diagnostic_events.json",
+    "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v2_diagnostic/diagnostic_summary.json"
+  }
+}

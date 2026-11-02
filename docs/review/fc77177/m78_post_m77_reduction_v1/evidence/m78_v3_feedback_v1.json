@@ -1,0 +1,46 @@
+{
+  "schema_version": "KIMIARK_M78_CANDIDATE_3_COMPACT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M78_V3",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 12,
+    "enemies_leaked": 21,
+    "operator_death_events": 8,
+    "remaining_life": -20,
+    "first_leak": {"frame": 3065, "source_id": "enemy_1107_uoffcr#11", "route_id": "route-11"},
+    "first_life_zero": {"frame": 4086, "reason": "ENEMY_LEAK"},
+    "protected_deaths": [
+      "enemy_3001_upeopl#3@5341 by artillery#0",
+      "enemy_3001_upeopl#14@6314 by officer#32"
+    ]
+  },
+  "failure_chain": [
+    {
+      "fact": "Artillery#0 locked [5,5] and at frame2111 hit Friston 765, Melantha 845, Hibiscus 890, and Ansel 891.",
+      "meaning": "The eastern medical/interception cluster concentrated four critical recipients inside one projectile splash; Friston, Hibiscus and Ansel died together."
+    },
+    {
+      "fact": "Steward deployed at [7,5] frame2071, but artillery survived and Steward later died2561.",
+      "meaning": "Moving the output station did not establish enough contact or survival to close artillery."
+    },
+    {
+      "fact": "First leak #11@3065 occurred before life reached zero; subsequent lower-central and outer lanes leaked broadly.",
+      "meaning": "This was an interception/handoff failure after the cluster collapse, not a DP-only issue."
+    },
+    {
+      "fact": "Eight operator deaths included two Steward generations; the planned4320 retreat was illegal after his first death.",
+      "meaning": "Death removed retreat/refund and the planned late relay."
+    }
+  ],
+  "repair_requirements": [
+    "Primary repair target: do not concentrate the lower-central blocker, lower medic and ranged medic in one artillery splash radius; prove a live central blocker and medical chain through the exact2111 hit.",
+    "Place or relay Steward so it obtains real artillery contact and damage without entering the same lethal lock without treatment; death cannot refund or retreat.",
+    "Restore #11/#13/#16/#18/#20 lower and outer interception with actual BLOCK before leak windows.",
+    "Close #28/#31/#34 and both protected-target paths; officer contact and artillery/clearance must both be checked."
+  ],
+  "sources": {
+    "candidate": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v3",
+    "diagnostic_events": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v3_diagnostic/diagnostic_events.json",
+    "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v3_diagnostic/diagnostic_summary.json"
+  }
+}

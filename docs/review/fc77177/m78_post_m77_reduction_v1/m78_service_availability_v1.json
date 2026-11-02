@@ -13,5 +13,12 @@
     "prior_service_record": "docs/review/fc77177/m77_success_condition_reduction_v1/m77_service_availability_v1.json"
   },
   "decision": "Proceed to no-model preparation because the immediately prior M77 session demonstrably completed Astra/medium after its transient routing pause.",
+  "resume_evidence": {
+    "candidate_2": "COMPLETED with tactical output after the archived capacity pause.",
+    "candidate_3": "COMPLETED with tactical output.",
+    "candidate_4": "COMPLETED with tactical output after a long runtime window; no timeout or service failure.",
+    "candidate_5": "COMPLETED with tactical output.",
+    "quota_or_capacity_errors_during_resume": 0
+  },
   "service_failure_rule": "If an M78 STARTED CLI returns usage limit, rate limit, capacity, HTTP 403, or routing failure without tactical output, archive it and stop this session; report the raw error category to the user."
 }

@@ -1,0 +1,125 @@
+{
+  "schema_version": "KIMIARK_M78_CLOSEOUT_V1",
+  "status": "PHASE_COMPLETE_NO_NEW_WIN",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "target_distinct_operator_ids": 7,
+  "best_verified_result": {
+    "milestone": "M70",
+    "distinct_operator_count": 8,
+    "operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "result": "WIN",
+    "evidence_scope": "Current fixed simulator only"
+  },
+  "budget": {
+    "candidate_attempts": "5/5",
+    "real_tactical_cli_starts": "5/5",
+    "stage_simulations_started": "4/5",
+    "remaining_candidate_attempts": 0,
+    "remaining_real_tactical_cli_starts": 0,
+    "remaining_stage_simulations": 1,
+    "balance_transfer_rule": "The one unused simulation slot is not transferable because no sixth candidate position exists."
+  },
+  "candidate_results": [
+    {
+      "candidate": 1,
+      "plan_id": null,
+      "structure": null,
+      "result": "SELECTED_MODEL_AT_CAPACITY",
+      "tactical_output": "NONE",
+      "counts_as_tactical_loss": false,
+      "primary_chain": "The started CLI failed with the archived Selected model is at capacity error before tactical output."
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M78_V2",
+      "structure": "A_WEST_MEDIC_SPOT_FUSION",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 24,
+      "leaks": 9,
+      "remaining_life": -8,
+      "operator_death_events": 4,
+      "primary_chain": "Hibiscus deployed into the artillery lock at [3,5] and died@1991; Steward died@3191; Fang/Friston died4753/4768; #21@5152 and #22@5196 were not blocked."
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M78_V3",
+      "structure": "A_DIRECT_LOWER_MEDIC_FUSION",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 12,
+      "leaks": 21,
+      "remaining_life": -20,
+      "operator_death_events": 8,
+      "primary_chain": "Artillery@2111 hit four clustered recipients; Friston, Hibiscus and Ansel died together. Steward died@2561 and #11@3065 leaked before broader interception collapsed."
+    },
+    {
+      "candidate": 4,
+      "plan_id": "R8_7_GPT_M78_V4",
+      "structure": "B_DELAYED_WESTERN_MEDIC",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 24,
+      "leaks": 9,
+      "remaining_life": -7,
+      "operator_death_events": 3,
+      "primary_chain": "Steward died@2593 under repeated [7,5] artillery hits; Fang/Friston died4852/4768; #22@5196 leaked and protected #3 died@5353."
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M78_V5",
+      "structure": "A_SPOT_OPEN_TWO_PHYSICIANS",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 24,
+      "leaks": 9,
+      "remaining_life": -8,
+      "operator_death_events": 4,
+      "primary_chain": "Steward died@2443 before the planned4400 retreat; Fang/Friston died4786/4768; #21@5185 and #22@5196 were not closed."
+    }
+  ],
+  "success_condition_findings": [
+    "No M78 candidate preserved the M70 eight-ID success chain; artillery survived in every complete simulation.",
+    "Candidate2 moved the medic but exposed Hibiscus to two890 shell hits; candidate3 concentrated four recipients in one splash; candidate4 survived longer but Steward still died@2593; candidate5 kept Spot but lost Steward@2443.",
+    "All four simulated candidates lost central #21/#22 interception after losing Fang/Friston or Steward.",
+    "The early Steward retreat was illegal in candidates4 and5 because he had died; late retreats did not repair earlier acceptance failures.",
+    "The service resume produced four tactical outputs and four simulations; capacity was not the limiting factor during this continuation."
+  ],
+  "next_state": {
+    "best_verified_operator_count": 8,
+    "next_target_distinct_operator_ids_if_resumed": 7,
+    "seven_operator_feasibility": "UNKNOWN",
+    "unknown_reason": "Five candidate positions are exhausted, but four conditional fixed-plan LOSS simulations, one no-output capacity failure, and one unused simulation slot do not establish infeasibility; no scoped complete search or necessary-condition lower-bound proof was produced."
+  },
+  "evidence_archive": {
+    "raw_candidates": [
+      "evidence/candidate_v1_raw",
+      "evidence/candidate_v2_raw",
+      "evidence/candidate_v3_raw",
+      "evidence/candidate_v4_raw",
+      "evidence/candidate_v5_raw"
+    ],
+    "diagnostic_raw_candidates": [
+      "evidence/candidate_v2_diagnostic_raw",
+      "evidence/candidate_v3_diagnostic_raw",
+      "evidence/candidate_v4_diagnostic_raw",
+      "evidence/candidate_v5_diagnostic_raw"
+    ],
+    "feedback_files": [
+      "evidence/m78_v2_feedback_v1.json",
+      "evidence/m78_v3_feedback_v1.json",
+      "evidence/m78_v4_feedback_v1.json"
+    ],
+    "checksum_manifest": "m78_evidence_archive_manifest_v1.sha256",
+    "large_json_policy": "Losslessly gzip -n compressed; checksums and restored JSON/JSONL parsing were verified."
+  }
+}

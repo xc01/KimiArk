@@ -1,0 +1,43 @@
+{
+  "schema_version": "KIMIARK_M78_CANDIDATE_4_COMPACT_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M78_V4",
+  "result": {
+    "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_death_events": 3,
+    "remaining_life": -7,
+    "first_leak": {"frame": 5196, "source_id": "enemy_1110_uamord#22", "route_id": "route-19"},
+    "first_life_zero": {"frame": 5353, "reason": "PROTECTED_TARGET_DEATH"},
+    "protected_deaths": ["enemy_3001_upeopl#3@5353 by artillery#0"]
+  },
+  "failure_chain": [
+    {
+      "fact": "Steward and Ansel were both hit at [7,5] by artillery on2443 and2593; Steward died2593.",
+      "meaning": "The eastern artillery-contact station failed before the planned4280 retreat; the retreat became illegal."
+    },
+    {
+      "fact": "Artillery hit Fang and Friston at [5,3] on4300,4753 and4853; Friston died4768 and Fang died4852.",
+      "meaning": "Central containment lost both holders before #21/#22 leaks."
+    },
+    {
+      "fact": "#22 leaked5196, #21 leaked5251, and protected #3 died5353 to artillery.",
+      "meaning": "First acceptance break was the central interception collapse; the protected-artillery failure immediately zeroed life."
+    },
+    {
+      "fact": "Late Steward@8100 and Melantha@8101 retreats did occur, but not the planned early4280 Steward retreat.",
+      "meaning": "A retreat-only feedback should distinguish the actual late refund from the failed early relay."
+    }
+  ],
+  "repair_requirements": [
+    "Primary repair target: make the Steward artillery station survive consecutive910 hits, or replace it with a living relay; death at2593 cannot retreat or refund.",
+    "Prevent artillery splash from killing the [5,3] central holders after4768; keep a live lower-central blocker for #21/#22.",
+    "Clear or block the artillery route before protected #3 reaches three shell windows; late retreats do not repair this death.",
+    "Retain the useful lower/outer split and late roadblock handoff, but recompute all dependency timing after any earlier survival change."
+  ],
+  "sources": {
+    "candidate": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v4",
+    "diagnostic_events": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v4_diagnostic/diagnostic_events.json",
+    "diagnostic_summary": "output/r8_1_r8_7_batch_v1/main_08-07/m78_post_m77_reduction_v1/candidate_v4_diagnostic/diagnostic_summary.json"
+  }
+}

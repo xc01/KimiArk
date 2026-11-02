@@ -1,0 +1,748 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 91,
+      "operator_id": "char_4093_frston",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 571,
+      "operator_id": "char_283_midn",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 901,
+      "operator_id": "char_284_spot",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 1321,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1352,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 1741,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1772,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2072,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 2101,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        7
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2642,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3303,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3873,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4143,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 4400,
+      "operator_id": "char_210_stward",
+      "rationale": "Requires living Steward, dead artillery and destroyed restraint4."
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5073,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5644,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5674,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6500,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 6501,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7145,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7475,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 8100,
+      "operator_id": "char_210_stward",
+      "rationale": "Requires actual hostile clearance."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 10201,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 12000,
+      "operator_id": "char_210_stward",
+      "rationale": "Requires destroyed western upper restraint."
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 14101,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        2
+      ]
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "Both physicians are deployed and all four lanes remain contained at2100.",
+      "failure_effect_on_later_phases": "A missing blocker, grant or physician invalidates station deployment or survival.",
+      "goal": "Establish four independent interceptions and medical support.",
+      "handoff_requirements": [
+        "Both physicians are alive before Steward enters.",
+        "Midnight retains eastern upper-restraint duty."
+      ],
+      "phase_id": "OPEN",
+      "responsibilities": [
+        "Fang supplies upper-central block and earned income.",
+        "Friston holds lower central; Midnight holds upper outer.",
+        "Spot captures lower outer and uses opening self-healing."
+      ],
+      "start_condition": "Stage begins with10DP.",
+      "survival_dependencies": [
+        "Fang survives grants570 and1320.",
+        "Spot's healing pause does not overflow three block.",
+        "Friston survives until Ansel1321."
+      ]
+    },
+    {
+      "completion_condition": "Artillery and both eastern restraints are destroyed; Steward can withdraw alive4400.",
+      "failure_effect_on_later_phases": "Surviving artillery threatens central holders and protected3; a dead Steward cannot fund or perform the relay.",
+      "goal": "Destroy artillery and eastern restraints without losing interception.",
+      "handoff_requirements": [
+        "Confirm source death and residual projectile impacts.",
+        "Withdraw Steward only after both eastern duties are complete."
+      ],
+      "phase_id": "ARTILLERY",
+      "responsibilities": [
+        "Steward attacks artillery and restraint4.",
+        "Both physicians recover shared-hit recipients.",
+        "Spot3303 supports Ansel; Midnight completes restraint3."
+      ],
+      "start_condition": "Steward deploys2101 with the opening intact.",
+      "survival_dependencies": [
+        "Steward receives sufficient recovery between910 hits.",
+        "Ansel survives his own splash rather than spending all healing on Steward.",
+        "Spot remains within block capacity during healing."
+      ]
+    },
+    {
+      "completion_condition": "All33 hostile enemies are killed with zero leaks and all surviving projectiles resolved.",
+      "failure_effect_on_later_phases": "Any leak breaks acceptance; any uncleared officer can threaten the protected passage.",
+      "goal": "Contain and eliminate all remaining hostile traffic.",
+      "handoff_requirements": [
+        "Do not withdraw central Steward8100 before actual clearance.",
+        "Keep western restraints intact until enemy threats are gone."
+      ],
+      "phase_id": "CENTRAL",
+      "responsibilities": [
+        "Fang and Friston hold their queues under two physicians.",
+        "Midnight5073 supplies available arts.",
+        "Steward6501 covers both holders; Spot finishes lower outer."
+      ],
+      "start_condition": "Artillery is dead and Steward begins redeploy cooldown.",
+      "survival_dependencies": [
+        "Upper armor does not overflow Fang before6501.",
+        "Friston remains alive to block final lower armor.",
+        "Outer duties retain priority over speculative central assistance."
+      ]
+    },
+    {
+      "completion_condition": "Both expected protected targets arrive alive, with positive life, zero leaks, exhausted spawns and no active enemies.",
+      "failure_effect_on_later_phases": "A surviving restraint or missing arrival leaves the project incomplete even if hostile combat is finished.",
+      "goal": "Release both protected targets safely and satisfy complete acceptance.",
+      "handoff_requirements": [
+        "Confirm restraint1 destruction before12000 withdrawal.",
+        "Continue observation beyond the last deployment until both arrivals occur."
+      ],
+      "phase_id": "ARRIVAL",
+      "responsibilities": [
+        "Steward10201 destroys restraint1.",
+        "Steward14101 destroys restraint2 after a living withdrawal and full cooldown.",
+        "Observe two distinct safe arrivals."
+      ],
+      "start_condition": "Hostile clearance is confirmed and Steward withdraws8100.",
+      "survival_dependencies": [
+        "Both civilians survived earlier artillery and officer windows.",
+        "No residual hostile attack remains."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "responsibility": "Placeholder route; no combat duty.",
+      "routes": [
+        "route-0"
+      ]
+    },
+    {
+      "responsibility": "Steward kills artillery before western civilian exposure; resolve already-born shells after its death.",
+      "routes": [
+        "route-1"
+      ]
+    },
+    {
+      "responsibility": "Midnight clears restraint3; Steward later clears restraint1. Observe protected3 arriving alive.",
+      "routes": [
+        "route-2"
+      ]
+    },
+    {
+      "responsibility": "Eastern Steward clears restraint4; western lower Steward clears restraint2. Observe protected14 arriving alive.",
+      "routes": [
+        "route-15"
+      ]
+    },
+    {
+      "responsibility": "Fang contains upper central; physicians sustain him; Midnight and central Steward provide armor damage.",
+      "routes": [
+        "route-3",
+        "route-4",
+        "route-12",
+        "route-13",
+        "route-20",
+        "route-21",
+        "route-30",
+        "route-31"
+      ]
+    },
+    {
+      "responsibility": "Friston contains lower central; physicians sustain him; require actual block and lethal damage on final armor.",
+      "routes": [
+        "route-5",
+        "route-6",
+        "route-11",
+        "route-14",
+        "route-18",
+        "route-19",
+        "route-28",
+        "route-29"
+      ]
+    },
+    {
+      "responsibility": "Midnight owns upper outer before assisting centrally.",
+      "routes": [
+        "route-7",
+        "route-8",
+        "route-17",
+        "route-22",
+        "route-23",
+        "route-24"
+      ]
+    },
+    {
+      "responsibility": "Spot owns lower outer continuously; his three-block limit and attack stoppage remain binding.",
+      "routes": [
+        "route-9",
+        "route-10",
+        "route-16",
+        "route-25",
+        "route-26",
+        "route-27"
+      ]
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "direction": "UP",
+      "operator_id": "char_123_fang",
+      "role": "Upper-central interception and conditional income.",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_4093_frston",
+      "role": "Lower-central three-block containment.",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_283_midn",
+      "role": "Upper-outer interception, eastern upper restraint and intermittent central damage.",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "direction": "RIGHT",
+      "operator_id": "char_284_spot",
+      "role": "Permanent lower-outer block and periodic self/Ansel recovery.",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_212_ansel",
+      "role": "Central and artillery-station healing; skill extends to Midnight.",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_120_hibisc",
+      "role": "Second physician for central holders, Ansel and Steward.",
+      "tile": [
+        2,
+        6
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Artillery damage and eastern lower-restraint clearance.",
+      "tile": [
+        5,
+        7
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Returning arts damage over both central holders.",
+      "tile": [
+        2,
+        5
+      ]
+    },
+    {
+      "direction": "DOWN",
+      "operator_id": "char_210_stward",
+      "role": "Western upper-restraint clearance.",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "direction": "UP",
+      "operator_id": "char_210_stward",
+      "role": "Western lower-restraint clearance.",
+      "tile": [
+        5,
+        2
+      ]
+    }
+  ],
+  "formation_structure": {
+    "artillery_budget": "Steward begins30 frames later than the referenced2071 opening. Forty-five uninterrupted artillery-directed strikes suffice using36*249.10+9*473.29=13227.21 damage. Actual contact, competing targets and attack-SP phase determine completion;4400 is a proposed withdrawal deadline, not an observed kill.",
+    "classification": "CURRENT_MODEL_CHECKABLE",
+    "distinct_operator_ids": 7,
+    "earliest_window_projection": [
+      {
+        "projection": "Spot enters60 frames later than the old Melantha opening and has three block. He lacks Melantha's damage; runner capture and the first officer queue are the first new survival checks.",
+        "window": [
+          901,
+          1321
+        ]
+      },
+      {
+        "projection": "Spot's first skill is ready after450 deployed frames. Its750-frame duration suppresses his attacks; self-healing must preserve the opening queue and first artillery recipient.",
+        "window": [
+          1352,
+          2102
+        ]
+      },
+      {
+        "projection": "The old projectile times are conditional reference points. Spot remains deployed across this interval; no empty-tile or pre-swing-lock benefit is assumed.",
+        "window": [
+          1903,
+          2143
+        ]
+      },
+      {
+        "projection": "Possible shared station impacts are the decisive early check. A full-health Steward survives910 with190HP, requiring more than720 recovery before another910 hit. Ansel also needs separate recovery; summed HPS alone is insufficient.",
+        "window": [
+          2293,
+          2743
+        ]
+      },
+      {
+        "projection": "Spot's second skill supports Ansel during renewed lower pressure. Steward must finish artillery and restraint4 before withdrawal; competition can miss this deadline.",
+        "window": [
+          3303,
+          4400
+        ]
+      },
+      {
+        "projection": "Upper/lower armor must remain contained until central Steward returns. Midnight5073 provides arts between his own outer blocks; Fang must never face a third uncontained occupant.",
+        "window": [
+          4380,
+          6501
+        ]
+      }
+    ],
+    "eastern_lower_clearance": "Steward[5,7]DOWN geometrically covers restraint[6,6]. Spot has same-tile normal range and receives no adjacent-roadblock damage credit. Steward must actually destroy restraint4 before his first withdrawal.",
+    "economy": {
+      "conditional_fang_grants": [
+        570,
+        1320,
+        2070
+      ],
+      "dependency": "Fang must survive through every credited grant. No death refund or invented increased income is used; later DP is capped at99.",
+      "fang_effective_initial_cost": 10,
+      "gross_scheduled_deployment_cost": 152,
+      "initial_dp": 10,
+      "later_steward_deployment_cost_each": 18,
+      "living_steward_refund_each": 9,
+      "natural_dp_per_second": 1,
+      "nominal_living_refunds": 27,
+      "opening_gross_cost": 98,
+      "opening_post_deploy_balances": [
+        [
+          0,
+          0
+        ],
+        [
+          91,
+          0.0333
+        ],
+        [
+          571,
+          6.0333
+        ],
+        [
+          901,
+          0.0333
+        ],
+        [
+          1321,
+          3.0333
+        ],
+        [
+          1741,
+          0.0333
+        ],
+        [
+          2101,
+          0.0333
+        ]
+      ],
+      "redeploy_separation_frames": 2101
+    },
+    "execution_semantics": "Fixed actions; stated preconditions are validity assertions, not executable conditional branches. A failed prerequisite invalidates dependent actions.",
+    "global_responsibility_check": {
+      "artillery": "Steward supplies lethal arts while two physicians maintain the station.",
+      "lower_central": "Friston blocks; physicians sustain; Midnight and returning Steward clear armor and runners.",
+      "lower_outer": "Spot intercepts permanently; healing pauses must not produce a fourth occupant.",
+      "protected_targets": "Midnight and eastern Steward clear eastern restraints; western Steward clears both remaining restraints after hostile clearance.",
+      "unclosed_conditions": "Station healing allocation, Spot's opening queue, combined artillery/restraint damage budget and central clearance without Melantha require event verification.",
+      "upper_central": "Fang blocks; physicians sustain; Midnight and returning Steward clear armor.",
+      "upper_outer": "Midnight intercepts and clears restraint3; Ansel skill supplies extended healing."
+    },
+    "late_tradeoff": "Removing Melantha removes her upper-central armor damage as well as her opening bait. Midnight's second arts period and returning Steward now own both central armor queues; their nominal coverage does not prove sufficient damage or capacity.",
+    "maximum_simultaneous_operators": 7,
+    "medical_geometry": "Both physicians cover the central holders, each other and eastern Steward. Ansel's active extension reaches Midnight. Spot's active nine-cell range reaches Ansel and himself, but not eastern Steward or either central holder.",
+    "success_condition_difference_table": [
+      {
+        "M78_V4": "Steward died2593 after shared hits.",
+        "M78_V5": "Restore Hibiscus, activate Ansel2072 and Hibiscus2642, and retain Spot's3303 recovery for Ansel. Both consecutive-hit recipients must survive.",
+        "condition": "Artillery-station survival"
+      },
+      {
+        "M78_V4": "Useful lower/outer split retained.",
+        "M78_V5": "Spot opens lower outer at901; no Melantha withdrawal, refund or replacement gap is required.",
+        "condition": "Four-lane opening"
+      },
+      {
+        "M78_V4": "Melantha supplied damage.",
+        "M78_V5": "Steward must clear it while still eastern; this competes with artillery damage.",
+        "condition": "Eastern lower restraint"
+      },
+      {
+        "M78_V4": "Both holders died before armor leaks.",
+        "M78_V5": "Two physicians remain; artillery must die before its western barrage, and central damage is reassigned to Midnight plus Steward6501.",
+        "condition": "Central survival and clearance"
+      },
+      {
+        "M78_V4": "Protected3 died5353.",
+        "M78_V5": "Kill artillery before4400, clear eastern restraints before departing their stations, then clear western restraints sequentially after hostile clearance.",
+        "condition": "Protected arrival"
+      }
+    ],
+    "validation_status": "EVIDENCE_ONLY_UNSIMULATED_HYPOTHESIS"
+  },
+  "formation_transitions": [
+    {
+      "frame": 901,
+      "transition": "Spot begins the permanent lower-outer role; eliminate the opening Melantha relay."
+    },
+    {
+      "frame": 2101,
+      "transition": "Steward enters the eastern station with both physicians already present."
+    },
+    {
+      "frame": 3303,
+      "transition": "Spot exchanges attacks for recovery of himself and Ansel."
+    },
+    {
+      "frame": 4400,
+      "transition": "Withdraw living Steward only if artillery and restraint4 are already destroyed; any residual projectile remains active."
+    },
+    {
+      "frame": 6501,
+      "transition": "Steward returns centrally after2101 frames of redeploy time."
+    },
+    {
+      "frame": 8100,
+      "transition": "After actual hostile clearance, withdraw Steward for western restraint work."
+    },
+    {
+      "frame": 10201,
+      "transition": "Steward clears western upper restraint."
+    },
+    {
+      "frame": 12000,
+      "transition": "Withdraw only after restraint1 is destroyed; preserve the living refund."
+    },
+    {
+      "frame": 14101,
+      "transition": "Steward returns to clear western lower restraint and enable the second safe arrival."
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "id": "LEGAL",
+      "requirement": "Exactly these seven distinct normal-mode rarity1-3 IDs; every deployment uses a listed legal tile and direction."
+    },
+    {
+      "id": "FORBIDDEN_TILES",
+      "requirement": "Never deploy on[[1,2],[6,2],[1,6],[6,6]]."
+    },
+    {
+      "id": "ECONOMY",
+      "requirement": "Missing Fang income is a survival failure; death yields no refund. Only deployed living operators receive skill or retreat actions."
+    },
+    {
+      "id": "PROJECTILES",
+      "requirement": "Retreat or source death never cancels an already-born shell; inspect landing point and splash recipients."
+    },
+    {
+      "id": "CAPACITY",
+      "requirement": "Fang occupancy<=2; Friston and Spot occupancy<=3; no released enemy receives fictional interception credit."
+    },
+    {
+      "id": "HANDOFF",
+      "requirement": "Steward4400 retreat requires actual artillery death and restraint4 destruction;8100 requires hostile clearance;12000 requires restraint1 destruction."
+    },
+    {
+      "id": "NEUTRALS",
+      "requirement": "Ordinary operators neither attack nor block civilians; officers must not gain civilian attack access."
+    },
+    {
+      "id": "ACCEPTANCE",
+      "requirement": "remaining_life>0, zero leaks, exhausted spawns, no active enemies, zero protected deaths and exactly two expected safe protected arrivals. Record operator deaths separately."
+    }
+  ],
+  "operational_plan_id": "R8_7_GPT_M78_V5",
+  "parent_hypothesis_id": "R8_7_M78_H5",
+  "pressure_window_responsibilities": [
+    {
+      "duties": "Establish four blockers and both physicians; preserve Fang income, Spot survival and Midnight's eastern clearance.",
+      "window_frames": [
+        0,
+        2100
+      ]
+    },
+    {
+      "duties": "Maintain both shared-hit recipients, kill artillery, clear eastern lower restraint and prevent outer overflow.",
+      "window_frames": [
+        2101,
+        4400
+      ]
+    },
+    {
+      "duties": "Contain both armor lanes with two physicians; Midnight supplies available arts without abandoning upper outer.",
+      "window_frames": [
+        4401,
+        6500
+      ]
+    },
+    {
+      "duties": "Central Steward clears both queues; capture and kill final armor while Spot finishes lower outer.",
+      "window_frames": [
+        6501,
+        8100
+      ]
+    },
+    {
+      "duties": "Clear both western restraints sequentially and observe two arrivals;16000 is an observation horizon, not automatic victory.",
+      "window_frames": [
+        8101,
+        16000
+      ]
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward"
+  ],
+  "skill_intents": [
+    {
+      "intent": "Automatic income while alive and continuously deployed.",
+      "operator_id": "char_123_fang"
+    },
+    {
+      "intent": "Basic blocking only; no unsupported talent.",
+      "operator_id": "char_4093_frston"
+    },
+    {
+      "frames": [
+        1772,
+        5073
+      ],
+      "intent": "Eastern restraint damage, then central arts between own blocked targets.",
+      "operator_id": "char_283_midn"
+    },
+    {
+      "frames": [
+        1352,
+        3303,
+        6500
+      ],
+      "intent": "Opening self-recovery; second-barrage Ansel support; late recovery after final outer capture. Each activation stops normal attacks.",
+      "operator_id": "char_284_spot"
+    },
+    {
+      "frames": [
+        2072,
+        3873,
+        5674,
+        7475
+      ],
+      "intent": "Station recovery and extended Midnight healing; no extra-heal talent assumed.",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frames": [
+        2642,
+        4143,
+        5644,
+        7145
+      ],
+      "intent": "Second-physician recovery beginning at first readiness after1741 deployment.",
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "intent": "Automatic enhanced hits and supported high-defense priority; record actual target damage.",
+      "operator_id": "char_210_stward"
+    }
+  ],
+  "tactical_thesis": "Replace the separate Melantha-to-Spot relay with permanent lower-outer Spot, retain both physicians, and transfer eastern lower-roadblock damage to Steward. This seven-ID hypothesis restores two-physician recovery at the artillery station while retaining four ground interceptions. Spot supplies temporary recovery for Ansel during the second lower barrage. Steward rotates centrally after artillery clearance and later clears both western restraints from two deployments. Survival, target allocation and clearance remain unverified; this is not a claimed WIN."
+}
