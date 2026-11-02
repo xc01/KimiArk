@@ -1,0 +1,101 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE4_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M76_V4",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 12,
+  "enemies_leaked": 21,
+  "remaining_life": -20,
+  "operator_death_events": 6,
+  "operator_death_ids": [
+    "char_4093_frston",
+    "char_212_ansel",
+    "char_210_stward",
+    "char_285_medic2",
+    "char_123_fang",
+    "char_283_midn"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_285_medic2",
+    "char_283_midn",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 26,
+  "static_conflict_count": 0,
+  "selected_structure": "EARLY_ROBOT_BRIDGE_SPOT_FUSION",
+  "verified_progress": {
+    "medic2_deploy": "char_285_medic2 DEPLOY@181 cost 3 at runtime tile [5,2] was VERIFIED; the candidate3 opening DP root was repaired.",
+    "no_early_artillery_retreat": false,
+    "first_leak_worse": "Opening deploy order consumed fee before enough blocker/output pressure."
+  },
+  "new_upstream_failure_chain": [
+    {
+      "frame": 982,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_4093_frston",
+      "fact": "Friston died to uterer#2 while medic2 had only 70 heals per cycle; #2 then leaked@1211."
+    },
+    {
+      "frame": 2411,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "fact": "One artillery splash killed Ansel and Steward together; 506.8 self-heal and 70 from medic2 were insufficient."
+    },
+    {
+      "frame": 3065,
+      "event_type": "OBJECTIVE_FAILURE",
+      "reason": "ENEMY_LEAK",
+      "remaining_life": 0
+    }
+  ],
+  "first_leak": {
+    "frame": 1211,
+    "enemy": "enemy_1108_uterer#2"
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 3945,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 4,
+    "real_tactical_cli_starts": 4,
+    "stage_simulations_started": 3
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "191c4e47dad74b164e8b8268a06ca216fc48ba9888df6bbdf9f08fd0092b5eba",
+    "llm_structured_output.json": "62ea162ef8e333c5838a9db3798201482438258a14897f4aefedcb3f0c42f42a",
+    "codex_final_message.txt": "1e177d4a303341115dc76d47552c68aeeebeb541289e6932b5bad15aaa85e7be",
+    "direction_complete_action_candidate.json": "9110a747236835b9b469ffd2e232575f6c78c2ccab9eea93cb122f432c8df2f2",
+    "static_compile_results.json": "d595f9904a3a969118176a7f6d418304535a82ddc98c3c4c120a5447320711eb",
+    "diagnostic/diagnostic_events.json": "35fe0e65760ac9e29eebad3f6d69ad9237c1caa506d55ca54355891ccee7e515",
+    "diagnostic/diagnostic_summary.json": "5814f27b5671e6b64da614989abafd061a715b70770569c52b3b57c385eb102b",
+    "diagnostic/final_status.json": "a8636b15b4b097fb612a869e0aeb5cf46fa99684015aef1328c15ea742d2a3c6",
+    "diagnostic/plan_snapshot.json": "00c9b35b6abecb7c880818fdbd926e54031f3286797332a93d2a4cdc75266862",
+    "diagnostic/action_snapshot.json": "2b922cfa59a458891f32cdec20ad59f322c68504cfd7b9fc13443fa6fc076a6a"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v4"
+}

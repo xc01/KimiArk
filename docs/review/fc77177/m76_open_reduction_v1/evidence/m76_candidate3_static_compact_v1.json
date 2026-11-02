@@ -1,0 +1,21 @@
+{
+  "schema_version": "KIMIARK_M76_STATIC_FEEDBACK_COMPACT_V1",
+  "source_plan_id": "R8_7_GPT_M76_V3",
+  "source_static_report": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v3/static_compile_results.json",
+  "static_conflict_count": 6,
+  "root_conflict": {
+    "operator_id": "char_212_ansel",
+    "action_type": "DEPLOY",
+    "frame": 1231,
+    "conflict": "INSUFFICIENT_DP"
+  },
+  "derived_conflicts": [
+    {"frame": 1982, "operator_id": "char_212_ansel", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 3783, "operator_id": "char_212_ansel", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 5584, "operator_id": "char_212_ansel", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 7385, "operator_id": "char_212_ansel", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"},
+    {"frame": 9186, "operator_id": "char_212_ansel", "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY"}
+  ],
+  "causal_policy": "Treat insufficient opening DP as the root and later Ansel skill errors as derived; do not patch only late actions.",
+  "full_source_policy": "Full report remains available by source path and source hash; it is not recursively embedded in the model prompt."
+}

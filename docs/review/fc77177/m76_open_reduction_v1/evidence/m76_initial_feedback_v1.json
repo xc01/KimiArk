@@ -1,0 +1,70 @@
+{
+  "schema_version": "KIMIARK_M76_INITIAL_FEEDBACK_V1",
+  "parent_hypothesis_id": "R8_7_M76_H1",
+  "best_verified_result": "M70 eight-ID fixed-simulator WIN; do not freeze its actions or assume any operator is mandatory.",
+  "m75_summary": {
+    "result": "Five different seven-ID fixed plans all COMPLETE_LEGAL_BATTLE_LOSS; no early RETREAT was used and the earliest retreat was frame 4320, so early retreat rotation remains untested.",
+    "candidate5": "Fang, Wyvern, Midnight, Melantha, Ansel, Hibiscus, Steward; 17 kills, 16 leaks, life -14, first leak #15@4176."
+  },
+  "m75_candidate5_artillery_chain": [
+    {
+      "frame": 2439,
+      "fact": "Ansel healed Melantha 338.2."
+    },
+    {
+      "frame": 2443,
+      "fact": "Ansel took 891 physical artillery splash at locked position [6,5]."
+    },
+    {
+      "frame": 2525,
+      "fact": "Ansel self-healed 506.8."
+    },
+    {
+      "frame": 2593,
+      "fact": "Second 891 physical splash killed Ansel; death preceded Hibiscus death@3310 and Steward death@3610."
+    }
+  ],
+  "m70_verified_window": [
+    {
+      "frame": 2053,
+      "fact": "Artillery PROJECTILE_BORN locked Melantha position [5,6], radius 1.2."
+    },
+    {
+      "frame": 2054,
+      "fact": "Melantha successfully retreated before the locked splash resolved; no operator hit was recorded for that shell."
+    },
+    {
+      "frame": 2341,
+      "fact": "Spot deployed to the vacated tile [5,6]."
+    },
+    {
+      "frame": 7197,
+      "fact": "Steward killed #34 while Friston was blocking it."
+    }
+  ],
+  "required_comparison": [
+    {
+      "structure_id": "A_CONTINUED_DAMAGE_WITH_MORTAL_GAP_CHECK",
+      "idea": "Keep an exposed blocker/healer through consecutive artillery, but specify two-hit survival arithmetic, healing timing, and every other task lost while healing.",
+      "condition_to_beat": "M75 C5 Ansel had two 891 hits 150 frames apart and only 506.8 self-heal between them."
+    },
+    {
+      "structure_id": "B_POST_LOCK_TRANSFER_OR_RETREAT",
+      "idea": "Use a supported retreat after a projectile locks a position, then redeploy a live replacement; verify released enemies, tile, fee, redeploy cooldown, and replacement attack/BLOCK startup.",
+      "known_supported_observation": "M70 retreat@2054 after PROJECTILE_BORN@2053 avoided the splash and Spot deployed@2341 in a successful full plan."
+    },
+    {
+      "structure_id": "C_EARLIER_PRESSURE_REDUCTION",
+      "idea": "Change route contact, focus fire, or economy so artillery or another pressure source dies earlier; must identify real contact time, damage type, and which abandoned target is covered.",
+      "constraint": "Paper DPS and total healing are insufficient; compare actual attack intervals and blocked path/contact timing."
+    }
+  ],
+  "mandatory_closure": "Zero leaks, both protected targets alive and reached, all enemies settled, artillery killed, #34 killed, and continuous roadblock passage remain requirements.",
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "artillery": "Cast starts cooldown and target selection; projectile born locks position; splash hits after delay. Retreating after lock does not guarantee avoiding every future shell.",
+    "ordinary_attacks": "Target at ATTACK_STRIKE; no windup lock. Replacement does not reset enemy cooldown.",
+    "death": "No refund and no later skill, healing, retreat, or BLOCK."
+  }
+}

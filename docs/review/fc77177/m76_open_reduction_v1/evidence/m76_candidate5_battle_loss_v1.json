@@ -1,0 +1,106 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE5_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M76_V5",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 19,
+  "enemies_leaked": 14,
+  "remaining_life": -13,
+  "operator_death_events": 4,
+  "operator_death_ids": [
+    "char_4093_frston",
+    "char_124_kroos",
+    "char_210_stward",
+    "char_123_fang"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_124_kroos",
+    "char_283_midn",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 34,
+  "static_conflict_count": 0,
+  "selected_structure": "S1_OUTPUT_FIRST_SEPARATED_MEDICAL",
+  "early_retreat_occurred": false,
+  "runtime_action_errors": [],
+  "new_upstream_failure_chain": [
+    {
+      "frame": 1282,
+      "event_type": "ENEMY_LEAK",
+      "source_id": "enemy_1108_uterer#5",
+      "fact": "Kroos deployment@421 restored early output but the opening still lacked a live BLOCK path for #5."
+    },
+    {
+      "frame": 2111,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_4093_frston",
+      "fact": "Friston survived longer than candidate4's 982 but still died before the officer chain closed."
+    },
+    {
+      "frame": 3043,
+      "event_type": "OPERATOR_DEATH",
+      "fact": "Kroos and Steward died on the same frame; #11 leaked@3065."
+    },
+    {
+      "frame": 3966,
+      "event_type": "ENEMY_DEATH",
+      "source_id": "enemy_1107_uoffcr#18",
+      "target_id": "enemy_3001_upeopl#14",
+      "fact": "First protected target death."
+    },
+    {
+      "frame": 5353,
+      "event_type": "ENEMY_DEATH",
+      "source_id": "enemy_1112_emppnt#0",
+      "target_id": "enemy_3001_upeopl#3",
+      "fact": "Second protected target death."
+    }
+  ],
+  "first_leak": {
+    "frame": 1282,
+    "enemy": "enemy_1108_uterer#5"
+  },
+  "first_objective_failure": {
+    "frame": 3425,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": 0
+  },
+  "protected_target_death_frames": [3966, 5353],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 5,
+    "real_tactical_cli_starts": 5,
+    "stage_simulations_started": 4
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "d22a034b5c5064691f1dac4d4bc528bf1946c966d7875640f51221f0b5b5d81a",
+    "llm_structured_output.json": "b8b83ce34aecddcf085a524c8b444d51c4d95baaaae7501684a428e8b1b5df25",
+    "codex_final_message.txt": "a89e1854268480929667e1cebe969af3c51f35ec150ec07465e6c8f59fc9f9ab",
+    "direction_complete_action_candidate.json": "919290c42263cb34b8c3606886aabf9108f974b8be6f63afe62ddb6f8ebd98b7",
+    "static_compile_results.json": "48094710586a518af7c155a734cdbc32bb414183646e67f92298927679e54b9f",
+    "diagnostic/diagnostic_events.json": "3da33d005851c70613119e9bffd043135443356e01001e8e5d6daed895c91fee",
+    "diagnostic/diagnostic_summary.json": "42641d0ec38afdb770444cb2acc5c156deaf63d97f59fa4a257b464ffc90e31c",
+    "diagnostic/final_status.json": "3d0466cffe652014af5f0c0684fea004706056a855a71ad63c2578bedc2d50d8",
+    "diagnostic/plan_snapshot.json": "84e78bf72ac1c70689c792bf4fb5b4700f28d04ca4a511dbb01d41511eb135d0",
+    "diagnostic/action_snapshot.json": "047c41c206ee11b8dba8aec3889f39cf7326688ab377f0064ef5b5b733ad87cd"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v5"
+}

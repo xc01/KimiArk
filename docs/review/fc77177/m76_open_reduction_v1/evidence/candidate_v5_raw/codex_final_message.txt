@@ -1,0 +1,318 @@
+{
+  "revised_operational_plans": [
+    {
+      "operational_plan_id": "R8_7_GPT_M76_V5",
+      "parent_hypothesis_id": "R8_7_M76_H5",
+      "tactical_thesis": "Restore early Kroos damage before medical expenditure, retain four ground interceptions, separate Steward from Ansel, and reserve Spot healing for the exposed medical window. After artillery clearance, rotate ranged output through armor and roadblock duties. This is a complete, unsimulated CURRENT_MODEL_CHECKABLE hypothesis; protected-target survival until artillery clearance remains its principal unresolved risk.",
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_124_kroos",
+        "char_283_midn",
+        "char_284_spot",
+        "char_212_ansel",
+        "char_210_stward"
+      ],
+      "deployment_positions_and_directions": [
+        {"operator_id":"char_123_fang","tile":[3,5],"direction":"UP","role":"Upper-central interception and adjacent lower-central damage."},
+        {"operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT","role":"Lower-central interception supported by Fang and Kroos."},
+        {"operator_id":"char_124_kroos","tile":[2,5],"direction":"UP","role":"Opening damage across both central lanes."},
+        {"operator_id":"char_283_midn","tile":[1,5],"direction":"RIGHT","role":"Upper-outer interception and eastern upper roadblock."},
+        {"operator_id":"char_284_spot","tile":[6,5],"direction":"RIGHT","role":"Lower-outer interception and adjacent medical reinforcement."},
+        {"operator_id":"char_212_ansel","tile":[5,5],"direction":"DOWN","role":"Central healing, Steward healing and extended-range upper support."},
+        {"operator_id":"char_210_stward","tile":[2,6],"direction":"UP","role":"Upper eastern artillery contact, separated from Ansel."},
+        {"operator_id":"char_210_stward","tile":[5,6],"direction":"LEFT","role":"Post-artillery central armor clearance."},
+        {"operator_id":"char_124_kroos","tile":[5,7],"direction":"LEFT","role":"Eastern lower roadblock and lower-lane damage after artillery clearance."},
+        {"operator_id":"char_283_midn","tile":[1,3],"direction":"LEFT","role":"Western upper roadblock clearance."},
+        {"operator_id":"char_210_stward","tile":[5,3],"direction":"UP","role":"Western lower roadblock clearance."}
+      ],
+      "formation_structure": {
+        "classification":"CURRENT_MODEL_CHECKABLE",
+        "distinct_operator_ids":7,
+        "validation_status":"UNSIMULATED; no shell commands, file mutations, simulations or other AI providers used.",
+        "execution_semantics":"Fixed actions only. Handoff requirements are assertions, not executable branches. Failure of an assertion invalidates dependent actions; it does not create a substitute deployment.",
+        "economy":{
+          "initial_dp":10,
+          "natural_dp_per_second":1,
+          "first_four_deployments":[
+            {"frame":0,"operator_id":"char_123_fang","fee":10,"source":"Initial DP, including supported self-cost reduction.","balance":0},
+            {"frame":91,"operator_id":"char_4093_frston","fee":3,"source":"Natural income only.","balance":0.033333},
+            {"frame":421,"operator_id":"char_124_kroos","fee":11,"source":"Natural income only.","balance":0.033333},
+            {"frame":721,"operator_id":"char_283_midn","fee":16,"source":"Natural income plus Fang's first observed 6-DP grant.","balance":0.033333}
+          ],
+          "remaining_opening":[
+            {"frame":1231,"operator_id":"char_284_spot","fee":17,"source":"17 natural DP after Midnight; no second grant needed.","balance":0.033333},
+            {"frame":1561,"operator_id":"char_212_ansel","fee":17,"source":"11 natural DP plus Fang's second observed 6-DP grant.","balance":0.033333},
+            {"frame":2071,"operator_id":"char_210_stward","fee":18,"source":"17 natural DP plus Fang's third observed 6-DP grant.","balance":5.033333}
+          ],
+          "first_deployment_gross_dp":92,
+          "rotation_gross_dp":63,
+          "rotation_refunds":[
+            {"frame":9000,"operator_id":"char_210_stward","dp":9},
+            {"frame":9001,"operator_id":"char_124_kroos","dp":5},
+            {"frame":9300,"operator_id":"char_283_midn","dp":8},
+            {"frame":12600,"operator_id":"char_210_stward","dp":9}
+          ],
+          "redeployment_basis":"Supplied prior inspected current-model unchanged fees: Steward 18, Kroos 11, Midnight 16; each scheduled redeployment exceeds 70 seconds off field. Natural income independently funds rotations. Refunds require successful living retreats.",
+          "conditional_dependency":"Missing Fang income is a survival or skill-execution failure. No future grant, death refund or undeployed skill is credited."
+        },
+        "medical_geometry":"Ansel [5,5] DOWN covers Fang [3,5], Friston [4,5], Kroos [2,5] and Steward [2,6]. His extension reaches Midnight [1,5]. Spot [6,5] heals himself and Ansel during skill. Ansel does not ordinarily heal Spot.",
+        "artillery_geometry":"At frames 2321 and 2411, Ansel is [5,5] and Steward is [2,6], separated by sqrt(10) tiles. This removes their previous adjacent placement. Exact splash radius is not supplied, so disjoint splash coverage is a verification requirement, not an established fact. Kroos remains adjacent to Steward and is a residual shared-splash risk.",
+        "artillery_output":"Steward UP from [2,6] covers eastern patrol cells around [2,7], [3,7] and [4,7], but not the lower [5,7] wait. Approximately 75 seconds of exclusive equivalent contact are needed using the conservative 470-ATK estimate. Actual contact, competition and survival must establish the kill; deployment duration cannot substitute for damage.",
+        "mortality_policy":"No required death. An operator death may have contributed damage or blocking, but yields no refund and releases blocked enemies. No death-dependent redeploy is scheduled. An unexpected central death has no guaranteed substitute and invalidates the containment hypothesis."
+      },
+      "formation_transitions": [
+        {"frame":421,"transition":"Kroos supplies central kill pressure before any medical expenditure."},
+        {"frame":721,"transition":"Midnight establishes upper-outer interception."},
+        {"frame":1231,"transition":"Spot establishes lower-outer interception."},
+        {"frame":1561,"transition":"Ansel assumes central recovery after the output-funded opening."},
+        {"frame":1952,"transition":"Spot enters healing mode across the historical medical-collapse window."},
+        {"frame":2071,"transition":"Steward enters the separated upper eastern firing position."},
+        {"frame":9000,"transition":"Begin ranged rotation only with artillery dead and dangerous projectiles resolved."},
+        {"frame":9300,"transition":"Midnight leaves only after upper-outer clearance."},
+        {"frame":11102,"transition":"Steward resumes central armor damage; Kroos begins eastern lower roadblock clearance."},
+        {"frame":11401,"transition":"Midnight clears the western upper restraint."},
+        {"frame":12600,"transition":"Steward leaves central duty only after all hostile clearance, including #34."},
+        {"frame":14701,"transition":"Steward clears the western lower restraint; await both protected arrivals."}
+      ],
+      "corridor_responsibilities": [
+        {"routes":["route-1"],"responsibility":"Steward owns artillery damage. Flying artillery is never credited as blocked. Its death before civilian lethal damage and route exit is mandatory."},
+        {"routes":["route-2"],"responsibility":"Midnight clears upper eastern then western roadblocks. Civilians remain neutral and are neither attacked nor blocked by operators."},
+        {"routes":["route-15"],"responsibility":"Kroos clears the lower eastern roadblock after artillery clearance; Steward later clears the western roadblock. Spot intercepts pursuing officers."},
+        {"routes":["route-3","route-4","route-12","route-13","route-20","route-21","route-30","route-31"],"responsibility":"Fang blocks upper central; Kroos supplies initial damage, Ansel heals, and returning Steward clears armor."},
+        {"routes":["route-5","route-6","route-11","route-14","route-18","route-19","route-28","route-29"],"responsibility":"Friston blocks lower central; Fang and Kroos shorten exposure. Ansel sustains the lane; returning Steward must kill remaining armor including #34."},
+        {"routes":["route-7","route-8","route-17","route-22","route-23","route-24"],"responsibility":"Midnight owns upper outer through its last hostile clearance, with temporary extended Ansel coverage."},
+        {"routes":["route-9","route-10","route-16","route-25","route-26","route-27"],"responsibility":"Spot owns lower outer, alternating damage with self-healing. Healing-mode damage is zero; retained enemies must remain within three-block capacity."}
+      ],
+      "pressure_window_responsibilities": [
+        {"window_frames":[0,1561],"duties":"Kroos must reduce central trooper exposure enough for Friston to survive frame 982 and reach Ansel deployment. Fang must survive and produce the first two grants. Midnight and Spot must intercept their first outer troopers before passage."},
+        {"window_frames":[1562,2702],"duties":"Ansel recovers central operators. Spot's 1952 activation keeps adjacent medical reinforcement active at 2321/2411. Steward occupies [2,6], not [5,6]. No old projectile lock time is assumed to recur exactly."},
+        {"window_frames":[2703,9000],"duties":"Maintain four interceptions while Steward accumulates actual artillery contact. Protected survival must be observed throughout; a living civilian at phase end is insufficient if either earlier died. Adjacent Kroos/Steward splash and healer target selection remain material risks."},
+        {"window_frames":[9001,11102],"duties":"Fang and Friston retain unresolved central enemies without Kroos or Steward. No remaining artillery or projectile may threaten the rotation. Block capacity and survival during this 70-second gap are explicit feasibility obligations."},
+        {"window_frames":[11103,14701],"duties":"Steward clears central armor before leaving; Kroos and Midnight clear eastern lower and western upper restraints. Spot continues lower interception."},
+        {"window_frames":[14702,18000],"duties":"Destroy the western lower roadblock and observe both safe arrivals. Extend observation beyond this illustrative horizon if necessary; never infer acceptance from elapsed time."}
+      ],
+      "skill_intents": [
+        {"operator_id":"char_123_fang","intent":"Automatic DP only while deployed and alive. Opening budgets require grants near 19, 44 and 69 seconds; do not issue manual actions."},
+        {"operator_id":"char_124_kroos","intent":"Automatic enhanced attacks; no probabilistic talent credited."},
+        {"operator_id":"char_283_midn","frames":[1922,5223,8524],"intent":"Upper-outer and eastern restraint arts windows; subsequent activations allow more than 40 active plus 70 inactive seconds."},
+        {"operator_id":"char_284_spot","frames":[1952,3903,5854,7805,9756,11707,13658,15609],"intent":"Delayed first healing window covers historical medical collapse; later windows obey 25 active plus 40 inactive seconds. No dodge or simultaneous attacks credited."},
+        {"operator_id":"char_212_ansel","frames":[2312,4113,5914,7715,9516,11317,13118,14919],"intent":"Boost central healing and extend toward Midnight while he remains deployed. First use follows more than 25 seconds of charging; later uses follow 25 active plus 35 inactive seconds. No extra-heal talent credited."},
+        {"operator_id":"char_210_stward","intent":"Automatic enhanced arts hits and supported defense priority; roadblocks and other targets can reduce artillery contact."}
+      ],
+      "mandatory_tactical_invariants": [
+        {"id":"LEGAL_ROSTER","requirement":"Exactly these seven distinct catalog IDs; every identity rarity is 1-3 and normal_mode is true. No reserve units or hidden substitutes."},
+        {"id":"LEGAL_TILES","requirement":"Every deployment uses integer [row,col] and an explicit direction; never deploy on [[1,2],[6,2],[1,6],[6,6]]."},
+        {"id":"SURVIVAL_DEPENDENCIES","requirement":"Friston survives beyond 982 and until effective medical support; Fang remains alive for credited opening income. Early output is a proposed causal repair, not a verified survival result."},
+        {"id":"SPLASH_REPAIR","requirement":"Ansel [5,5] and Steward [2,6] at 2321/2411; verify actual splash separation and each unit's HP. Spot skill must be active during that window."},
+        {"id":"NO_IMPLICIT_HANDOFF","requirement":"Retreat only has its planned justification if its required kill/clearance assertion holds. Released enemies, projectiles and vacant-lane capacity must all be accounted for."},
+        {"id":"CIVILIAN_SAFETY","requirement":"Zero protected-target deaths and exactly two safe arrivals. Neither ordinary operator targeting nor healing is assumed to manipulate civilians."},
+        {"id":"ARTILLERY_DEADLINE","requirement":"Artillery must die before it causes any protected-target death and before its exit. Historical civilian deaths at 3945 and 5341 are warning checkpoints, not guaranteed timings under this formation."},
+        {"id":"CLEARANCE","requirement":"No retreat from central damage duty before #34 and every remaining hostile are dead."},
+        {"id":"ACCEPTANCE","requirement":"remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and two safe arrivals. Operator deaths are recorded separately."}
+      ],
+      "action_timeline": [
+        {"frame":0,"action_type":"DEPLOY","operator_id":"char_123_fang","tile":[3,5],"direction":"UP"},
+        {"frame":91,"action_type":"DEPLOY","operator_id":"char_4093_frston","tile":[4,5],"direction":"RIGHT"},
+        {"frame":421,"action_type":"DEPLOY","operator_id":"char_124_kroos","tile":[2,5],"direction":"UP"},
+        {"frame":721,"action_type":"DEPLOY","operator_id":"char_283_midn","tile":[1,5],"direction":"RIGHT"},
+        {"frame":1231,"action_type":"DEPLOY","operator_id":"char_284_spot","tile":[6,5],"direction":"RIGHT"},
+        {"frame":1561,"action_type":"DEPLOY","operator_id":"char_212_ansel","tile":[5,5],"direction":"DOWN"},
+        {"frame":1922,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":1952,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":2071,"action_type":"DEPLOY","operator_id":"char_210_stward","tile":[2,6],"direction":"UP"},
+        {"frame":2312,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":3903,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":4113,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":5223,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":5854,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":5914,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":7715,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":7805,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":8524,"action_type":"ACTIVATE_SKILL","operator_id":"char_283_midn"},
+        {"frame":9000,"action_type":"RETREAT","operator_id":"char_210_stward","rationale":"Requires artillery death and resolved dangerous projectiles."},
+        {"frame":9001,"action_type":"RETREAT","operator_id":"char_124_kroos","rationale":"Requires central queues to fit surviving blockers during the damage gap."},
+        {"frame":9300,"action_type":"RETREAT","operator_id":"char_283_midn","rationale":"Requires all upper-outer enemies dead and eastern upper roadblock destroyed."},
+        {"frame":9516,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":9756,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":11101,"action_type":"DEPLOY","operator_id":"char_210_stward","tile":[5,6],"direction":"LEFT"},
+        {"frame":11102,"action_type":"DEPLOY","operator_id":"char_124_kroos","tile":[5,7],"direction":"LEFT"},
+        {"frame":11317,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":11401,"action_type":"DEPLOY","operator_id":"char_283_midn","tile":[1,3],"direction":"LEFT"},
+        {"frame":11707,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":12600,"action_type":"RETREAT","operator_id":"char_210_stward","rationale":"Requires all hostiles dead, including lower armor #34."},
+        {"frame":13118,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":13658,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"},
+        {"frame":14701,"action_type":"DEPLOY","operator_id":"char_210_stward","tile":[5,3],"direction":"UP"},
+        {"frame":14919,"action_type":"ACTIVATE_SKILL","operator_id":"char_212_ansel"},
+        {"frame":15609,"action_type":"ACTIVATE_SKILL","operator_id":"char_284_spot"}
+      ],
+      "battle_phases": [
+        {
+          "phase_id":"P1",
+          "goal":"Establish four interceptions without displacing opening damage.",
+          "start_condition":"Battle begins with 10 DP.",
+          "completion_condition":"Ansel deploys at 1561 with all four corridors contained.",
+          "responsibilities":["Fang and Friston block central lanes.","Kroos shortens central trooper exposure.","Midnight and Spot intercept outer lanes before passage."],
+          "survival_dependencies":["Fang survives credited DP readiness.","Kroos damage prevents the prior Friston failure despite absent early healing."],
+          "handoff_requirements":["Ansel receives living central blockers with recoverable HP.","No trooper has already passed an unfilled interception."],
+          "failure_effect_on_later_phases":"A dead blocker or missed grant invalidates containment and subsequent funding; later medical deployment cannot repair an earlier leak."
+        },
+        {
+          "phase_id":"P2",
+          "goal":"Sustain interception and protect both civilians while killing artillery.",
+          "start_condition":"Central medical support is deployed.",
+          "completion_condition":"Artillery is dead, dangerous projectiles have resolved, and both civilians remain alive or have safely arrived.",
+          "responsibilities":["Steward attacks the covered eastern patrol.","Ansel heals central operators and Steward.","Spot reinforces Ansel during the historical collapse window.","Midnight holds upper outer and attacks its eastern roadblock."],
+          "survival_dependencies":["Actual splash geometry separates Ansel and Steward.","Steward and Kroos survive shared local splash.","Protected targets survive until artillery dies; this is unverified."],
+          "handoff_requirements":["Artillery death is observed before frame-9000 withdrawal.","Central queues remain within blocker capacity during the planned ranged absence."],
+          "failure_effect_on_later_phases":"Any protected death permanently fails project acceptance; an artillery survivor invalidates the exposed rotations."
+        },
+        {
+          "phase_id":"P3",
+          "goal":"Rotate ranged roles and finish central armor.",
+          "start_condition":"Artillery clearance and projectile-resolution assertions hold.",
+          "completion_condition":"All hostile enemies, including #34, are dead.",
+          "responsibilities":["Fang and Friston hold during ranged redeployment cooldown.","Returning Steward clears both central queues.","Kroos attacks the lower eastern roadblock.","Midnight transfers to the western upper roadblock after upper-outer clearance."],
+          "survival_dependencies":["Ansel sustains central blockers through the damage gap.","No blocked queue exceeds capacity.","Spot continues lower-outer interception until its hostile clearance."],
+          "handoff_requirements":["No unresolved hostile remains when Steward leaves at 12600.","No upper-outer hostile is released by Midnight's retreat."],
+          "failure_effect_on_later_phases":"A leak or released pursuer invalidates the plan; western roadblock work cannot compensate for lost containment."
+        },
+        {
+          "phase_id":"P4",
+          "goal":"Release both protected routes and verify full-stage acceptance.",
+          "start_condition":"All hostile spawns are exhausted and all hostile enemies are dead.",
+          "completion_condition":"Both protected targets safely arrive, no active enemies remain, zero leaks and protected deaths are recorded, and remaining life is positive.",
+          "responsibilities":["Midnight destroys the western upper roadblock.","Kroos completes the eastern lower roadblock.","Steward destroys the western lower roadblock.","Observe safe-arrival events instead of inferring them from empty lanes."],
+          "survival_dependencies":["Both protected targets survived previous phases.","Each roadblock attacker remains deployed and can actually target its assigned device."],
+          "handoff_requirements":["All four required roadblock destructions are observed.","Both expected protected-arrival events are counted."],
+          "failure_effect_on_later_phases":"A surviving restraint or missing arrival means the plan is incomplete, even if hostile combat has ended."
+        }
+      ]
+    }
+  ],
+  "revised_stage_understanding": {
+    "causal_revision":"V4's cheap medic was affordable but displaced required opening damage. Its failure was exposure and survival, not arithmetic. V5 restores Kroos before medical spending and changes the Ansel/Steward geometry and Spot healing window. Neither change is presented as a demonstrated WIN.",
+    "evidence_boundaries":{
+      "GameData":"Catalog stats, legal terrain, source routes, skills and spawn definitions.",
+      "current_model":"Action execution, ordinary attacks, supported skills, neutral civilians, roadblock restraint and delayed fixed-point artillery splash.",
+      "USER_CONFIRMED_TACTICAL_PREMISE":"Attack occupation can justify baiting or sacrifice when the specific observable behavior supports it; it does not establish pre-swing target lock.",
+      "UNKNOWN":"Exact client timing, complete splash geometry, arbitrary targeting ties and ordinary navigation around active devices."
+    },
+    "m58_open_roster_comparison": {
+      "selected_structure_id":"S1_OUTPUT_FIRST_SEPARATED_MEDICAL",
+      "candidates":[
+        {
+          "structure_id":"S1_OUTPUT_FIRST_SEPARATED_MEDICAL",
+          "selected":true,
+          "classification":"CURRENT_MODEL_CHECKABLE",
+          "roster":["char_123_fang","char_4093_frston","char_124_kroos","char_283_midn","char_284_spot","char_212_ansel","char_210_stward"],
+          "distinct_deployed_ids":7,
+          "same_phase_responsibilities":"Four ground interceptions, Kroos central damage, Ansel primary medical support, Steward artillery damage. Spot fuses blocking with periodic healing.",
+          "staged_responsibilities":"Steward rotates from artillery to armor to western lower restraint. Kroos rotates from central damage to eastern lower restraint. Midnight rotates from upper interception to western upper restraint.",
+          "opening_cost_and_pressure":"First four cost 40: Fang 10@0, Friston 3@91, Kroos 11@421, Midnight 16@721. The fourth requires one observed Fang grant. Spot@1231, Ansel@1561 and Steward@2071 use this structure's own income schedule.",
+          "most_dangerous_window":"Before Ansel arrives, Friston depends on kills rather than healing. Later, artillery may kill protected targets before sufficient eastern contact; separation does not solve target selection.",
+          "cost":{"initial_deployments_dp":92,"rotations_dp":63,"conditional_retreat_refunds_dp":31,"required_deaths":0},
+          "replaceability_assessment":"Fang's economy and adjacent damage are both used. Friston's low cost buys early Kroos but leaves a survival liability. Kroos replaces Lancet because shortening exposure is currently more valuable than 70-ATK healing. Midnight combines outer damage and device reach. Spot replaces a separate lower medic. Ansel supplies broad central coverage. Steward supplies armor/artillery arts. Each duty could be substituted only with a newly funded geometry and timing calculation.",
+          "selection_reason":"Best direct repair of the verified failure chain within seven IDs and existing executable actions. Selection is comparative, not a claim that protected survival or the later damage gap is proven.",
+          "bait_or_sacrifice":"None required; ordinary blocking consumes completed enemy attacks without assuming pre-swing lock. Retreats occur after asserted clearance, so no released enemy is intentionally transferred."
+        },
+        {
+          "structure_id":"S2_DOUBLE_GUARDIAN_ECONOMY",
+          "selected":false,
+          "classification":"CURRENT_MODEL_CHECKABLE",
+          "roster":["char_240_wyvern","char_284_spot","char_209_ardign","char_283_midn","char_124_kroos","char_212_ansel","char_210_stward"],
+          "distinct_deployed_ids":7,
+          "same_phase_responsibilities":"Vanilla upper central, Spot lower central, Cardigan lower outer and Midnight upper outer. Kroos supplies central damage; Ansel provides shared healing; Steward supplies arts.",
+          "staged_responsibilities":"Spot bridges central healing before Ansel; Cardigan self-heals outer pressure; ranged operators later rotate through artillery, armor and restraints.",
+          "opening_cost_and_pressure":"Vanilla 11@31; activate around452 for six DP; Spot 17@361; Kroos 11@691; Midnight 16@1171. These first four cost55 and need the first grant. Cardigan costs another18 and is naturally affordable only around1711 without further grants. A second Vanilla activation cannot simply be assumed at the first skill's expiration because active time pauses SP.",
+          "medical_timing":"Spot first becomes ready around812 and can bridge centrally; Ansel's17 DP comes after the second outer blocker unless the opening is reordered. Delaying outer blocking to buy healing creates a different interception risk.",
+          "most_dangerous_window":"Lower-outer first trooper can pass before Cardigan is funded. Moving Cardigan earlier instead delays upper-outer Midnight or central output. Stronger central defense does not repair that uncovered lane.",
+          "cost":{"initial_deployments_dp":108,"rotation_cost":"At least 18+11+16 DP for first role rotations, independently of additional returns.","required_deaths":0},
+          "replaceability_assessment":"This independently replaces both cheap central assumptions with supported defensive sustain, but pays 15 more DP for Cardigan versus Friston and loses Fang's automatic economy. Eliminating Kroos reduces cost but recreates prolonged central exposure; eliminating Ansel leaves intermittent healing and artillery survival unresolved.",
+          "selection_reason":"Not selected because the independently recomputed opening shifts the failure to an outer interception before its stronger sustain can contribute.",
+          "bait_or_sacrifice":"No required bait or death; self-heal and guardian healing are executable, but neither creates an absent fourth interceptor."
+        },
+        {
+          "structure_id":"S3_YATO_STRIKE_BAIT_ROTATION",
+          "selected":false,
+          "classification":"USER_PREMISE_NOT_EXPRESSIBLE",
+          "roster":["char_123_fang","char_502_nblade","char_283_midn","char_284_spot","char_124_kroos","char_212_ansel","char_210_stward"],
+          "distinct_deployed_ids":7,
+          "raw_plan":"Fang upper central; Yato temporarily blocks lower central; Kroos damages both. Midnight and Spot take outer lanes. Retreat Yato during a lower-trooper attack windup to preserve her and transfer the occupied attack window to ranged clearance; later reuse Yato as an artillery decoy. Ansel heals the permanent core, Steward kills artillery, and surviving damage operators rotate to restraints.",
+          "opening_cost_and_pressure":"Fang10@0, Yato7@211, Kroos11@541, Midnight16@841 using Fang's first6 DP. Spot17@1351 uses the second grant if observed; Ansel17@1861 and Steward18@2401 can then use natural income without borrowing a third grant. First four cost44.",
+          "medical_timing":"Ansel arrives around62 seconds under this conservative schedule. Yato's lower defense and HP face a longer unhealed interval than Friston, making a successful attack-transfer maneuver decisive.",
+          "bait_details":{
+            "enemy_and_attack":"Lower-central enemy_1108_uterer ordinary melee attack; later enemy_1112_emppnt artillery ability.",
+            "decoy_survival":"Yato must survive until a completed strike if cooldown consumption is to be established by current rules. Retreating before ATTACK_STRIKE does not establish that consumption.",
+            "cooldown":"Completed ordinary attacks retain their cooldown after target changes. Artillery cast starts its cooldown; PROJECTILE_BORN fixes the impact point.",
+            "beneficiary":"Kroos and Fang would gain damage time, and the medical core would avoid a shell only if the decoy was actually selected at an isolated location.",
+            "successor":"There is no spare eighth blocker. A lower-central successor would require moving Spot away from lower outer; that move has a 70-second cooldown and leaves another corridor vacant.",
+            "residual_risk":"Yato retreat releases the trooper immediately. A born projectile remains dangerous at its locked point. Civilian promotion can defeat the desired artillery selection.",
+            "refund_and_redeploy":"A living first Yato retreat refunds3 DP under the supplied half-cost model; death refunds0. Supported redeploy reduction gives40 seconds off field. Subsequent cost must follow inspected runtime behavior, not an assumed cheap reset."
+          },
+          "most_dangerous_window":"Lower-central pre-strike withdrawal and the ensuing vacancy; later artillery selection near protected civilians.",
+          "cost":{"initial_deployments_dp":96,"rotation_cost":"At least one additional Yato deployment plus output and restraint rotations; no death refund credited.","required_deaths":0},
+          "exact_action_enemy_phase_gap":"DEPLOY/RETREAT/ACTIVATE_SKILL cannot express a guaranteed enemy_1108_uterer pre-swing target lock or a successor in an occupied/vacated lane without its own cooldown. No supplied action forces artillery to select Yato instead of a civilian.",
+          "replaceability_assessment":"Yato trades four extra opening DP and lower block capacity for a shorter redeploy. That flexibility has value after clearance, but does not independently replace permanent lower-central containment.",
+          "selection_reason":"Not selected because its decisive first-phase attack-transfer assumption is absent from the executor and its later bait selection is unproven. The user-authorized tactic is retained as a raw candidate rather than rewritten into favorable mechanics."
+        }
+      ]
+    }
+  },
+  "revised_tactical_requirements": {
+    "repair_card":{
+      "first_four":"Fang@0, Friston@91, Kroos@421, Midnight@721; fees and sources are explicitly listed in the selected plan.",
+      "friston_past_982":"Proposed cause: Kroos begins central damage at421, replacing the early medic expenditure and shortening incoming trooper exposure. This is a falsifiable survival hypothesis, not a guaranteed kill order.",
+      "positions_2321_2411":"Ansel [5,5] DOWN; Steward [2,6] UP. Spot's healing mode is active1952-2702, and Ansel's boost starts2312.",
+      "vacancies":"No opening retreat or intended vacancy. Later ranged vacancies leave four ground interceptions intact but require explicit queue-capacity and survival assertions. Midnight leaves only after its lane is clear."
+    },
+    "acceptance":"Positive remaining life; zero leaks; exhausted spawns; no active enemies; zero protected-target deaths; both expected protected targets safely arrived.",
+    "death_accounting":"Record damage absorbed, output, blocking time and any cooldown actually consumed. Also record released enemies, missing refund, lost role and real redeploy delay. A useful death is not automatically forbidden, but no death here has a guaranteed successor.",
+    "verification_priorities":[
+      "Does Kroos actually shorten the central trooper engagements enough to keep Friston alive through Ansel deployment?",
+      "Do Fang's three required grants occur before dependent deployments?",
+      "Does the separated placement prevent simultaneous Ansel/Steward damage at actual shell impacts, and can Steward survive adjacent Kroos splash?",
+      "Can both civilians survive until sufficient artillery contact? This is the selected plan's largest unresolved feasibility risk.",
+      "Can the central blockers survive the post-artillery ranged rotation and retain every armor unit until Steward returns?",
+      "Are all four roadblocks destroyed and both safe arrivals explicitly observed?"
+    ]
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id":"R8_7_M76_H5",
+      "statement":"Early central damage is a stronger repair of V4's first survival failure than an early weak medic. Separating Steward from Ansel and moving Spot's first healing window later may preserve artillery output and medical support without an eighth operator.",
+      "classification":"CURRENT_MODEL_CHECKABLE",
+      "falsifiers":[
+        "Friston dies or releases a leaking trooper before Ansel can stabilize the central lane.",
+        "A required Fang grant is absent.",
+        "Artillery splash still removes the separated core or either civilian dies before artillery clearance.",
+        "A central queue leaks during the ranged rotation.",
+        "A required roadblock or protected arrival remains unresolved."
+      ],
+      "confidence":"Unverified. The opening repair is causally motivated; full-stage acceptance remains uncertain."
+    }
+  ],
+  "revision_hypothesis": {
+    "hypothesis_id":"R8_7_M76_REVISION_H5",
+    "parent_plan_id":"R8_7_GPT_M76_V4",
+    "operational_plan_id":"R8_7_GPT_M76_V5",
+    "referenced_experience_ids":["KIMIARK_M76_CANDIDATE5_FEEDBACK_V1"],
+    "tactical_hypothesis":"Replace the early Lancet deployment with Kroos-funded kill pressure, separate Steward from Ansel, and synchronize Spot's first healing window with the exposed medical phase; these changes target the verified survival chain without assuming that economic legality proves survival.",
+    "changed_responsibilities":[
+      "Kroos replaces Lancet and owns early central exposure reduction rather than supplemental healing.",
+      "Steward attacks from [2,6] while Ansel remains [5,5], changing the previously lethal adjacent geometry.",
+      "Spot delays its first healing activation to1952 so medical reinforcement covers2321/2411.",
+      "Kroos later clears the lower eastern roadblock; Steward rotates through central armor and the western lower roadblock.",
+      "Protected survival until artillery death remains an explicit unresolved obligation rather than an inferred consequence of separated operators."
+    ],
+    "expected_first_observable_event":{
+      "event_type":"DEPLOY",
+      "source_id":"char_124_kroos",
+      "target_id":null,
+      "earliest_frame":421,
+      "latest_frame":422
+    },
+    "if_expected_event_absent":"Invalidate the output-first opening and inspect deployment execution and actual DP. Do not borrow a future grant or credit missing damage. Even if deployment occurs, separately require Friston survival beyond982 and through effective Ansel support before treating the causal repair as confirmed."
+  }
+}

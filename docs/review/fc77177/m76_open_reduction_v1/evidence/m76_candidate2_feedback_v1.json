@@ -1,0 +1,34 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE2_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M76_V1",
+  "parent_hypothesis_id": "R8_7_M76_H1",
+  "source_result": "m76_candidate1_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Preserve Ansel and Steward through the 2053/2143/2293 artillery window; do not place them in overlapping splash, and keep Friston alive so #13 cannot leak at 3501.",
+  "candidate1_verified_progress": [
+    "Post-lock retreat was not hypothetical: Melantha retreated@1967 after a shell locked [5,6]@1903.",
+    "Spot replaced her@1968 and blocked the vacancy, but took 558 splash@1993 on the same tile.",
+    "This proves early rotation is executable, not that it is free."
+  ],
+  "candidate1_failure_chain": [
+    "A shell locked Ansel at [6,5]@2053.",
+    "Steward deployed into the adjacent [7,5]@2071.",
+    "The 2143 shell hit both Ansel 891 and Steward 910.",
+    "The 2293 shell killed Ansel and Steward together.",
+    "Friston died@3159; #13 leaked@3501."
+  ],
+  "must_preserve": "Opening BLOCK, surviving artillery, protected passage, roadblock clearance, artillery kill, and #34 closure remain mandatory. Candidate1's verified retreat observable is transferable only with the new tile/timing conditions recalculated.",
+  "open_alternatives": [
+    "Move Ansel or delay Steward until after 2293, then verify any BLOCK/output vacancy remains closed.",
+    "Keep both but supply enough healing before 2293; account for actual heal cycles, target competition, and range.",
+    "Abandon early Melantha retreat if it worsens fee/output coverage, but state the concrete tradeoff rather than complexity.",
+    "Use earlier kill pressure only with a real contact/damage-type path and identify who covers displaced targets."
+  ],
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "death_refund": "None; dead Ansel/Steward cannot heal, block, retreat, or generate skill income.",
+    "replacement": "A new unit does not attack instantly and cannot be deployed onto an occupied tile."
+  },
+  "required_repair_card": "State where each operator is during 2053-2293, why they survive both hits, who covers every BLOCK/output gap, and why #13 is still intercepted before 3501."
+}

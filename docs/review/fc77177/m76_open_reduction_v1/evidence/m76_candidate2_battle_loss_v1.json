@@ -1,0 +1,109 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE2_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M76_V2",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 14,
+  "enemies_leaked": 19,
+  "remaining_life": -18,
+  "operator_death_events": 7,
+  "operator_death_ids": [
+    "char_120_hibisc",
+    "char_208_melan",
+    "char_210_stward",
+    "char_212_ansel",
+    "char_4093_frston",
+    "char_123_fang",
+    "char_283_midn"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 29,
+  "static_conflict_count": 0,
+  "selected_structure": "M76V2_SEPARATED_CASTER_DUAL_MEDIC",
+  "early_retreat_occurred": false,
+  "new_upstream_failure_chain": [
+    {
+      "frame": 1931,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "target": "char_120_hibisc",
+      "amount": 890,
+      "locked_position": [5, 3],
+      "result": "Hibiscus died immediately."
+    },
+    {
+      "frames": [2081, 2231, 2381],
+      "event_type": "ENEMY_ABILITY_HIT",
+      "target": "char_208_melan",
+      "amount_each": 845,
+      "locked_position": [6, 5],
+      "result": "Melantha remained in the same locked tile through three shells and died@2381."
+    },
+    {
+      "frame": 3131,
+      "event_type": "OPERATOR_DEATH",
+      "source": "char_210_stward"
+    },
+    {
+      "frame": 4070,
+      "event_type": "ENEMY_LEAK",
+      "source": "enemy_1107_uoffcr#16"
+    }
+  ],
+  "verified_prediction": "Hibiscus DEPLOY@1681 at tile [5,3] was VERIFIED, but the full artillery survival hypothesis failed.",
+  "first_objective_failure": {
+    "frame": 4070,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": 0
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 5341,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 2,
+    "real_tactical_cli_starts": 2,
+    "stage_simulations_started": 2
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "c39a3c221989f12da27c68ad3f2e8e1dc68425dce0f679fd47350209845c8476",
+    "llm_structured_output.json": "7893781b3d6c08db4870df47bf9d5590d6e2f9c6af828bf110b44632bf681d46",
+    "codex_final_message.txt": "cd867bb16412ebd9b776922786f46e3db8fd1bb243f9f871611f8c6e86effdbd",
+    "direction_complete_action_candidate.json": "7c69e990e9d857354d0b04eac3b527dc551e4e8be1a9c55e186dfcca40a5967a",
+    "static_compile_results.json": "972687a5be7ab0b78a107d88cb650a49617fe1fb26357312242d9d754eea6f98",
+    "diagnostic/diagnostic_events.json": "83e89f02da30f89a14e8f7bf9e59764c7d2b823500bc761abdea2dfaca5c7676",
+    "diagnostic/diagnostic_summary.json": "b87d5c2baac122046de256f7346378974516006b5f5fb078d83ce963ff5795e0",
+    "diagnostic/final_status.json": "dc3fe297b91f2ac7572de277bf192c48f0a00c02070c01b3223dc5462097413a",
+    "diagnostic/plan_snapshot.json": "6bb91cf4cc4c092f9e8a9c72c40eef8cc8780c62fea2af46691af227c4affe03",
+    "diagnostic/action_snapshot.json": "ecb88de4a0b9d31d98984afce40ed2e7f25ee2767be387aa8e9af7d39b34f079"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v2"
+}

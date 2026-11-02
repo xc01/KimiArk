@@ -1,0 +1,32 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE3_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M76_V2",
+  "parent_hypothesis_id": "R8_7_M76_H1",
+  "source_result": "m76_candidate2_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Break the repeated same-tile artillery chain: move or retreat the [5,6] occupant before 2231/2381, and do not place Hibiscus in the [5,3] splash that killed it@1931.",
+  "candidate2_failure": [
+    "Hibiscus was deployed at [5,3] and died@1931 after 890 physical splash.",
+    "Melantha stayed at [5,6] and took 845 physical splash at 2081, 2231, and 2381; the third killed her.",
+    "Steward died@3131 and officer #16 leaked@4070."
+  ],
+  "available_observations": [
+    "Candidate1 showed a supported post-lock retreat: shell locked [5,6]@1903, Melantha retreated@1967, Spot deployed@1968, and Spot took 558 splash@1993.",
+    "M70 showed the same family of post-lock transfer at 2053/2054 with Spot deployed later@2341, but that successful observation is not proof that any later timing is free.",
+    "Candidate2 showed that continuing to hold [5,6] through three shells is not viable without far more effective healing than available."
+  ],
+  "must_preserve": "Opening BLOCK, protected passage, roadblock clearance, artillery kill, #34 closure, and zero leaks remain mandatory. If Melantha retreats, verify which enemy/path/roadblock job is released and whether the replacement has enough fee/range/startup.",
+  "open_alternatives": [
+    "Retreat Melantha after the 2141 projectile locks [5,6], before the 2231 hit; do not redeploy into the same locked footprint unless the next shell has resolved or the replacement can survive it.",
+    "Move the lower caster/medicine to a different tile that still covers roadblocks and wounded units, avoiding known artillery footprints.",
+    "Use another blocker/output unit instead of retaining Melantha through repeated shells, while checking fee, BLOCK capacity, and #13/#16 timing.",
+    "Try earlier artillery kill pressure only if actual contact, range, and damage type are concrete."
+  ],
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "post_lock_retreat": "A retreat after PROJECTILE_BORN may avoid that shell for the retreating unit; it does not clear other locked shells and does not make the tile safe for an immediate replacement unless timing proves it.",
+    "death_refund": "None; dead units cannot provide later skills, heals, blocks, or refunds."
+  },
+  "required_repair_card": "Name the [5,6] and [5,3] occupants at every shell, show survival/absence, identify who covers released work, and state the observable proving #16 does not leak@4070."
+}

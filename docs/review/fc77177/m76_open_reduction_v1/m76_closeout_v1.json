@@ -1,0 +1,125 @@
+{
+  "schema_version": "KIMIARK_M76_CLOSEOUT_V1",
+  "status": "PHASE_COMPLETE_NO_NEW_WIN",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "target_distinct_operator_ids": 7,
+  "best_verified_result": {
+    "milestone": "M70",
+    "distinct_operator_count": 8,
+    "operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "result": "WIN",
+    "evidence_scope": "Current fixed simulator only"
+  },
+  "budget": {
+    "candidate_attempts": "5/5",
+    "real_tactical_cli_starts": "5/5",
+    "stage_simulations_started": "4/5",
+    "remaining_candidate_attempts": 0,
+    "remaining_real_tactical_cli_starts": 0,
+    "remaining_stage_simulations": 1,
+    "balance_transfer_rule": "The unused simulation slot is not transferable because no sixth candidate position exists."
+  },
+  "candidate_results": [
+    {
+      "candidate": 1,
+      "plan_id": "R8_7_GPT_M76_V1",
+      "structure": "B_STAGED_GUARDIAN_TRANSFER",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 19,
+      "leaks": 14,
+      "remaining_life": -12,
+      "primary_chain": "Post-lock Melantha retreat@1967 and Spot deploy@1968 occurred; Spot took 558 splash@1993. Steward@2071 entered the 2053 shell footprint; Ansel/Steward died@2293, Friston died@3159, #13 leaked@3501."
+    },
+    {
+      "candidate": 2,
+      "plan_id": "R8_7_GPT_M76_V2",
+      "structure": "M76V2_SEPARATED_CASTER_DUAL_MEDIC",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 14,
+      "leaks": 19,
+      "remaining_life": -18,
+      "primary_chain": "Hibiscus died@1931; Melantha held [5,6] through 845 hits at 2081/2231/2381 and died; Steward died@3131; #16 leaked@4070."
+    },
+    {
+      "candidate": 3,
+      "plan_id": "R8_7_GPT_M76_V3",
+      "structure": "FUSION_SEPARATED_OUTPUT",
+      "result": "STATIC_CONTRACT_FAILED_NO_STAGE_SIMULATION",
+      "kills": null,
+      "leaks": null,
+      "remaining_life": null,
+      "primary_chain": "Ansel DEPLOY@1231 was INSUFFICIENT_DP; five later Ansel skills were derived ACTIVATE_SKILL_BEFORE_DEPLOY errors."
+    },
+    {
+      "candidate": 4,
+      "plan_id": "R8_7_GPT_M76_V4",
+      "structure": "EARLY_ROBOT_BRIDGE_SPOT_FUSION",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 12,
+      "leaks": 21,
+      "remaining_life": -20,
+      "primary_chain": "Cheap medic2 legally deployed@181 but delayed opening pressure; Friston died@982, #2 leaked@1211, and artillery killed Ansel/Steward@2411."
+    },
+    {
+      "candidate": 5,
+      "plan_id": "R8_7_GPT_M76_V5",
+      "structure": "S1_OUTPUT_FIRST_SEPARATED_MEDICAL",
+      "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+      "kills": 19,
+      "leaks": 14,
+      "remaining_life": -13,
+      "primary_chain": "Kroos output restored some early damage but #5 leaked@1282; Friston died@2111, Kroos/Steward died@3043, and protected targets died@3966/5353."
+    }
+  ],
+  "experiment_findings": [
+    "Early post-lock retreat was actually tested in candidate1, but its replacement immediately occupied the same locked tile and took splash; the following Steward deployment entered another shell footprint.",
+    "Continued same-tile damage failed in candidate2 because repeated artillery hits reached a lethal gap.",
+    "Opening economy repair alone failed in candidate4 when cheap medicine displaced blocker/output priority.",
+    "Output-first repair improved early kill count in candidate5 but still lacked a continuous BLOCK chain."
+  ],
+  "common_unclosed_requirements": [
+    "No simulated M76 candidate killed artillery enemy_1112_emppnt#0; it leaked@5759 in every full simulation.",
+    "No candidate kept both protected targets alive and reached.",
+    "No candidate achieved zero leaks or simulator WIN."
+  ],
+  "prepare_failures": [
+    {
+      "candidate": 4,
+      "classification": "PREPARE_PROMPT_LENGTH_REJECTED_BEFORE_CLI_STARTED",
+      "counts_cli_or_candidate_or_simulation": false,
+      "evidence": "evidence/m76_candidate4_prepare_prompt_oversize_v1.json",
+      "repair": "Rebuilt with a compact static summary at 117608 prompt bytes."
+    }
+  ],
+  "next_state": {
+    "best_verified_operator_count": 8,
+    "next_target_distinct_operator_ids_if_resumed": 7,
+    "seven_operator_feasibility": "UNKNOWN",
+    "unknown_reason": "Four fixed-plan LOSS simulations, one static contract failure, and exhausted candidate positions do not establish infeasibility; no scoped complete search or necessary-condition lower-bound proof was produced."
+  },
+  "evidence_archive": {
+    "raw_candidates": [
+      "evidence/candidate_v1_raw",
+      "evidence/candidate_v2_raw",
+      "evidence/candidate_v3_raw",
+      "evidence/candidate_v4_raw",
+      "evidence/candidate_v5_raw"
+    ],
+    "failed_prepare": "evidence/failed_prepare_candidate_v4_prompt_oversize",
+    "large_json_policy": "Losslessly gzip -n compressed; checksum manifest is m76_evidence_archive_manifest_v1.sha256.",
+    "restoration": "gunzip each tracked .gz and verify restored JSON parsing or byte hashes against the manifest."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE3_STATIC_FAILURE_V1",
+  "plan_id": "R8_7_GPT_M76_V3",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "classification": "STATIC_CONTRACT_FAILED_NO_STAGE_SIMULATION",
+  "simulator_started": false,
+  "counts_candidate": true,
+  "counts_real_tactical_cli_start": true,
+  "counts_stage_simulation": false,
+  "selected_structure": "FUSION_SEPARATED_OUTPUT",
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_124_kroos",
+    "char_210_stward"
+  ],
+  "action_count": 25,
+  "static_conflict_count": 6,
+  "root_conflict": {
+    "operator_id": "char_212_ansel",
+    "action_type": "DEPLOY",
+    "frame": 1231,
+    "conflict": "INSUFFICIENT_DP"
+  },
+  "derived_conflicts": [
+    {
+      "frame": 1982,
+      "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frame": 3783,
+      "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frame": 5584,
+      "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frame": 7385,
+      "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "frame": 9186,
+      "reason": "ACTIVATE_SKILL_BEFORE_DEPLOY",
+      "operator_id": "char_212_ansel"
+    }
+  ],
+  "interpretation": "The insufficient opening fee is the root contract failure; the later skill errors are derived consequences, not five independent strategy failures.",
+  "budget_consumed": {
+    "candidate_attempts": 3,
+    "real_tactical_cli_starts": 3,
+    "stage_simulations_started": 2
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "4b3953131c1596fceca891548fa0f58ef6f764b6ef50f1d7a75a08571f0df58c",
+    "llm_structured_output.json": "2038190af2182656dc0ed295076be69e8184449aedda46fe8a94542d1bcda605",
+    "codex_final_message.txt": "82dbd481681e104da8a310467cc6ed249fa0994a7e9e02e5e4c0f239f45b5f5c",
+    "direction_complete_action_candidate.json": "562400469c890541a3b25773fe73ba6b22332e802cbe8c512bf47155705e2725",
+    "static_compile_results.json": "36f8b7559f3caee2d7cd8c0afa1de528e730a1926c87bec55bf3c5534e331f25"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v3"
+}

@@ -1,0 +1,133 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE1_BATTLE_LOSS_V1",
+  "plan_id": "R8_7_GPT_M76_V1",
+  "stage_id": "main_08-07",
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "result": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "simulator_win": false,
+  "enemies_killed": 19,
+  "enemies_leaked": 14,
+  "remaining_life": -12,
+  "operator_death_events": 6,
+  "operator_death_ids": [
+    "char_212_ansel",
+    "char_210_stward",
+    "char_4093_frston",
+    "char_123_fang",
+    "char_283_midn",
+    "char_208_melan"
+  ],
+  "protected_targets_zero_deaths": false,
+  "protected_targets_all_reached": false,
+  "zero_leaks": false,
+  "all_enemies_settled": true,
+  "unique_deployed_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_208_melan",
+    "char_212_ansel",
+    "char_284_spot",
+    "char_210_stward"
+  ],
+  "unique_deployed_operator_count": 7,
+  "configured_max_unique_deployed_operators": 7,
+  "action_count": 28,
+  "static_conflict_count": 0,
+  "selected_structure": "B_STAGED_GUARDIAN_TRANSFER",
+  "early_rotation_result": {
+    "retreat_occurred": true,
+    "retreat_frame": 1967,
+    "retreat_operator": "char_208_melan",
+    "replacement_deploy_frame": 1968,
+    "replacement_operator": "char_284_spot",
+    "replacement_tile": [5, 6],
+    "locked_shell_frame": 1903,
+    "locked_position": [5, 6],
+    "shell_hit_replacement": {
+      "frame": 1993,
+      "target": "char_284_spot",
+      "amount": 558,
+      "kind": "PHYSICAL"
+    },
+    "interpretation": "The post-lock retreat was executable and avoided the first shell for Melantha, but it did not create a no-cost transfer: Spot occupied the same locked tile and took 558 splash."
+  },
+  "new_upstream_failure_chain": [
+    {
+      "frame": 2053,
+      "event_type": "PROJECTILE_BORN",
+      "source_id": "enemy_1112_emppnt#0",
+      "locked_position": [6, 5],
+      "fact": "Shell locked Ansel's tile while Steward had not yet deployed."
+    },
+    {
+      "frame": 2071,
+      "event_type": "DEPLOY",
+      "source_id": "char_210_stward",
+      "tile": [7, 5],
+      "fact": "Steward was deployed into the overlapping splash footprint before the shell resolved."
+    },
+    {
+      "frame": 2143,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "fact": "The shell hit Ansel for 891 and Steward for 910."
+    },
+    {
+      "frame": 2293,
+      "event_type": "ENEMY_ABILITY_HIT",
+      "fact": "The next shell killed Ansel and Steward on the same frame."
+    },
+    {
+      "frame": 3159,
+      "event_type": "OPERATOR_DEATH",
+      "source_id": "char_4093_frston",
+      "fact": "Friston died after the opening support loss."
+    },
+    {
+      "frame": 3501,
+      "event_type": "ENEMY_LEAK",
+      "source_id": "enemy_1107_uoffcr#13",
+      "fact": "First leak."
+    }
+  ],
+  "first_objective_failure": {
+    "frame": 5046,
+    "reason": "ENEMY_LEAK",
+    "remaining_life": 0
+  },
+  "protected_target_deaths": [
+    {
+      "frame": 5341,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    },
+    {
+      "frame": 6314,
+      "event_type": "PROTECTED_TARGET_DEATH"
+    }
+  ],
+  "artillery_result": {
+    "enemy_id": "enemy_1112_emppnt#0",
+    "killed": false,
+    "leaked_frame": 5759
+  },
+  "budget_consumed": {
+    "candidate_attempts": 1,
+    "real_tactical_cli_starts": 1,
+    "stage_simulations_started": 1
+  },
+  "source_hashes": {
+    "codex_prompt.txt": "fb30bb234312fb9358412bae4b3854c9c044ec6bc138fe3f6fcad90c0abbda7e",
+    "llm_structured_output.json": "4f7f3a16e8de63a0fdf19f2f33f40ad4d4e57e3164bacf5e7a804e7c65c6f8ce",
+    "codex_final_message.txt": "d8a978216330eba25808bdf570eb11dcdfa986448da746814f2e93c28d3ccd58",
+    "direction_complete_action_candidate.json": "71c60065ed65b44a4e6cb8e6d3511b8d336458a4414869c9c4d018a6e0dfb667",
+    "static_compile_results.json": "19013150a0d08e6ad0e2952cb8d3244ef56b49a7dc4adad4068e93cc1093a22d",
+    "diagnostic/diagnostic_events.json": "7793422b27591513f8b0f37534ad6b1189637c4ce4f88433a6883ee75c6d686d",
+    "diagnostic/diagnostic_summary.json": "feddd1640a66a35156a9feeb86685396e48f1051d86dcbc28dc3122116d7b6dc",
+    "diagnostic/final_status.json": "c71049689d213e7c8712a1978bd0a57305864de2bcb34ede47f8a391ac5294c5",
+    "diagnostic/plan_snapshot.json": "766b01369438b13816dfaf0f8a6ef344b278a9ea16dea455ab4d7be7f431af27",
+    "diagnostic/action_snapshot.json": "97d4cd4cf9c1c95e566b56e348ead224c3f9ad0923d60d9cf9d0f523e8066710"
+  },
+  "raw_artifact_root": "output/r8_1_r8_7_batch_v1/main_08-07/m76_open_reduction_v1/candidate_v1"
+}

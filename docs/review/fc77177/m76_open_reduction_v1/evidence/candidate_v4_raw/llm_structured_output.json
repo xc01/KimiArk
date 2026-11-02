@@ -1,0 +1,862 @@
+{
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 181,
+          "operator_id": "char_285_medic2",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 661,
+          "operator_id": "char_283_midn",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 991,
+          "operator_id": "char_284_spot",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1442,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1501,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1862,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 2041,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2252,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3393,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4053,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5163,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5344,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 5700,
+          "operator_id": "char_210_stward",
+          "rationale": "Assert artillery dead, eastern lower roadblock destroyed and dangerous pending impacts resolved."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5854,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7295,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7655,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 7801,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8464,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 9000,
+          "operator_id": "char_283_midn",
+          "rationale": "Assert upper-outer hostile clearance and no future upper-outer spawn."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9246,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9456,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 10800,
+          "operator_id": "char_210_stward",
+          "rationale": "Assert all hostiles dead, including #34, and no harmful projectile remains."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 11101,
+          "operator_id": "char_283_midn",
+          "tile": [
+            1,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 12901,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            3
+          ]
+        }
+      ],
+      "battle_phases": [
+        {
+          "completion_condition": "Ansel deploys at frame 1501 with all four interception duties intact.",
+          "failure_effect_on_later_phases": "Missing income, a passed trooper or central death invalidates subsequent protection and deployment assumptions.",
+          "goal": "Establish four interceptions with an affordable early medical bridge.",
+          "handoff_requirements": [
+            "Ansel successfully deploys and begins actual healing; a scheduled action alone is insufficient."
+          ],
+          "phase_id": "P1",
+          "responsibilities": [
+            "Fang and Friston hold central lanes.",
+            "Lancet heals central damage from frame 181.",
+            "Midnight and Spot establish outer interceptions before crossings."
+          ],
+          "start_condition": "Battle begins with 10 DP.",
+          "survival_dependencies": [
+            "Fang survives its first automatic DP grant.",
+            "Lancet survives and its single-target throughput prevents central collapse.",
+            "Spot reaches its first skill without losing the lower lane."
+          ]
+        },
+        {
+          "completion_condition": "Artillery and eastern restraints are destroyed before Steward's frame 5700 retreat, with no leaks or protected deaths.",
+          "failure_effect_on_later_phases": "Insufficient artillery damage risks an irreversible leak; splash collapse or civilian death prevents project acceptance.",
+          "goal": "Destroy eastern restraints and kill artillery while protecting both civilians.",
+          "handoff_requirements": [
+            "Artillery death and projectile resolution are observed before withdrawal.",
+            "Remaining blockers can retain every unresolved central enemy."
+          ],
+          "phase_id": "P2",
+          "responsibilities": [
+            "Midnight clears the upper eastern restraint.",
+            "Steward clears the lower eastern restraint and damages artillery during actual contact.",
+            "Ansel sustains central units and Steward; Spot adds adjacent burst healing while retaining blocks."
+          ],
+          "start_condition": "Opening interceptions and Ansel are established.",
+          "survival_dependencies": [
+            "Steward survives each actual splash sequence.",
+            "Healing selection and intervals provide sufficient recovery without unsupported talents.",
+            "Officers are intercepted before attacking exposed civilians."
+          ]
+        },
+        {
+          "completion_condition": "All hostile enemies, explicitly including #34, are dead by the asserted final hostile-clearance handoff.",
+          "failure_effect_on_later_phases": "A released enemy can leak or reach a civilian; premature rotations leave mandatory kills unfinished.",
+          "goal": "Hold remaining waves through Steward's cooldown and clear central armor.",
+          "handoff_requirements": [
+            "Upper-outer clearance precedes Midnight's retreat.",
+            "Complete hostile clearance precedes Steward's second retreat."
+          ],
+          "phase_id": "P3",
+          "responsibilities": [
+            "Four ground units retain their assigned corridors.",
+            "Ansel and Lancet sustain central queues.",
+            "Steward returns LEFT at frame 7801 and clears both central armor queues."
+          ],
+          "start_condition": "Artillery duty is complete and Steward retreats at frame 5700.",
+          "survival_dependencies": [
+            "Central queues never exceed live block capacity.",
+            "No unsupported ranged contribution is credited during Steward's absence."
+          ]
+        },
+        {
+          "completion_condition": "Both civilians reach objectives and every WIN and project-acceptance condition holds.",
+          "failure_effect_on_later_phases": "A surviving restraint or missing arrival leaves the project incomplete even if hostile combat has ended.",
+          "goal": "Release both western restraints and confirm safe completion.",
+          "handoff_requirements": [
+            "Roadblock destruction must actually release each protected route.",
+            "Final evaluation includes protected arrivals independently of hostile kill count."
+          ],
+          "phase_id": "P4",
+          "responsibilities": [
+            "Midnight destroys the western upper roadblock.",
+            "Steward destroys the western lower roadblock.",
+            "Observe both protected arrivals without attempting ordinary civilian blocking or targeting."
+          ],
+          "start_condition": "Hostile responsibilities are complete and scheduled redeployment cooldowns have elapsed.",
+          "survival_dependencies": [
+            "No harmful residual projectile remains.",
+            "Both civilians remain alive until arrival."
+          ]
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "responsibility": "Steward owns artillery damage during actual eastern contact. No ground operator is credited with blocking the flying enemy. Its kill must precede route exit.",
+          "routes": [
+            "route-1"
+          ]
+        },
+        {
+          "responsibility": "Midnight clears eastern then western upper restraints in separate deployments. Operators never attack or block the civilian.",
+          "routes": [
+            "route-2"
+          ]
+        },
+        {
+          "responsibility": "Steward clears eastern then western lower restraints. Spot intercepts pursuing hostiles; safe arrival is separately required.",
+          "routes": [
+            "route-15"
+          ]
+        },
+        {
+          "responsibility": "Fang holds upper central; Lancet and Ansel heal. Returning Steward clears reachable armor.",
+          "routes": [
+            "route-3",
+            "route-4",
+            "route-12",
+            "route-13",
+            "route-20",
+            "route-21",
+            "route-30",
+            "route-31"
+          ]
+        },
+        {
+          "responsibility": "Friston holds lower central with reachable Fang assistance. Lancet bridges early healing; Ansel sustains later pressure; returning Steward kills #34.",
+          "routes": [
+            "route-5",
+            "route-6",
+            "route-11",
+            "route-14",
+            "route-18",
+            "route-19",
+            "route-28",
+            "route-29"
+          ]
+        },
+        {
+          "responsibility": "Midnight intercepts upper outer and receives Ansel only during extended-range windows.",
+          "routes": [
+            "route-7",
+            "route-8",
+            "route-17",
+            "route-22",
+            "route-23",
+            "route-24"
+          ]
+        },
+        {
+          "responsibility": "Spot retains three-block lower interception, self-heals during skill and receives reachable Steward damage support. Healing pauses Spot's attacks.",
+          "routes": [
+            "route-9",
+            "route-10",
+            "route-16",
+            "route-25",
+            "route-26",
+            "route-27"
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "UP",
+          "operator_id": "char_123_fang",
+          "role": "Upper-central interception, conditional automatic DP, and reachable lower-central assistance.",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_4093_frston",
+          "role": "Lower-central three-block interception.",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_285_medic2",
+          "role": "Early central healing and deployment heal; permanent supplemental central healing.",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_283_midn",
+          "role": "Upper-outer interception and eastern upper roadblock damage.",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_284_spot",
+          "role": "Lower-outer interception; skill heals himself, Ansel and Steward.",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_212_ansel",
+          "role": "Central and Steward healing; extended skill reaches Midnight.",
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_210_stward",
+          "role": "Eastern artillery contact, eastern lower roadblock damage and lower-outer ranged support.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_210_stward",
+          "role": "Post-artillery central armor clearance, including lower armor #34.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_210_stward",
+          "role": "Western lower roadblock clearance after hostile clearance.",
+          "tile": [
+            5,
+            3
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_283_midn",
+          "role": "Western upper roadblock clearance after upper-outer hostile clearance.",
+          "tile": [
+            1,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "artillery_budget": "A base 470-ATK arts hit against 50 RES deals 235 before any supported talent modifier. The enhanced-hit cycle yields approximately 173 ideal sustained DPS before contact and competing targets. Roughly 75 seconds of exclusive equivalent contact are required for 13000 HP. Elapsed deployment time is not proof of sufficient contact.",
+        "classification": "CURRENT_MODEL_CHECKABLE",
+        "distinct_operator_ids": 7,
+        "economy": {
+          "conditional_refunds": [
+            {
+              "dp": 9,
+              "frame": 5700,
+              "operator_id": "char_210_stward"
+            },
+            {
+              "dp": 8,
+              "frame": 9000,
+              "operator_id": "char_283_midn"
+            },
+            {
+              "dp": 9,
+              "frame": 10800,
+              "operator_id": "char_210_stward"
+            }
+          ],
+          "failure_interpretation": "Absence of Fang's first grant is a survival/deployment/skill-execution dependency failure. Do not borrow future grants or interpret an unfunded Spot deployment as successful.",
+          "first_deployment_gross_dp": 84,
+          "first_medic_repair": "Lancet deploys at frame 181 using natural DP only, before the first central trooper spawn. Ansel is no longer the opening's first available healer.",
+          "full_deployment_gross_dp": 136,
+          "initial_dp": 10,
+          "natural_dp_per_second": 1,
+          "opening_deployments": [
+            {
+              "balance_source": "Initial 10 DP; supported self-cost reduction.",
+              "fee": 10,
+              "frame": 0,
+              "operator_id": "char_123_fang",
+              "predicted_balance": 0
+            },
+            {
+              "balance_source": "Natural income since Fang deployment.",
+              "fee": 3,
+              "frame": 91,
+              "operator_id": "char_4093_frston",
+              "predicted_balance": 0.033333
+            },
+            {
+              "balance_source": "Natural income; no skill income required.",
+              "fee": 3,
+              "frame": 181,
+              "operator_id": "char_285_medic2",
+              "predicted_balance": 0.033333
+            },
+            {
+              "balance_source": "Natural income alone already funds this deployment; first Fang grant, if observed, remains available.",
+              "fee": 16,
+              "frame": 661,
+              "operator_id": "char_283_midn",
+              "predicted_balance_with_first_fang_grant": 6.033333,
+              "predicted_balance_without_skill_income": 0.033333
+            },
+            {
+              "balance_source": "Natural income plus exactly one observed 6-DP Fang grant.",
+              "fee": 17,
+              "frame": 991,
+              "operator_id": "char_284_spot",
+              "predicted_balance": 0.033333
+            },
+            {
+              "balance_source": "17 additional natural DP since Spot; no second Fang grant required.",
+              "fee": 17,
+              "frame": 1501,
+              "operator_id": "char_212_ansel",
+              "predicted_balance": 0.033333
+            },
+            {
+              "balance_source": "18 additional natural DP since Ansel; no further skill income required.",
+              "fee": 18,
+              "frame": 2041,
+              "operator_id": "char_210_stward",
+              "predicted_balance": 0.033333
+            }
+          ],
+          "opening_ledger_basis": "Credit only the first 6-DP Fang grant, conditional on Fang remaining alive and deployed through readiness. Later grants are deliberately excluded from the listed opening balances. Natural income uses frame/30. No opening refund is assumed.",
+          "rotation_costs": "Use the supplied prior inspected current-model unchanged-cost behavior: Steward 18, Midnight 16. Each redeployment follows more than 70 seconds off field. Refunds are credited only for successful living retreats; later deployments do not require them."
+        },
+        "execution_semantics": "The timeline is fixed. Handoff conditions are assertions, not executable conditional actions. An unmet assertion invalidates the dependent schedule; it does not authorize a replacement action or an action on an absent operator.",
+        "medical_geometry": "Lancet [2,5] UP covers Fang [3,5] and Friston [4,5]. Ansel [5,5] DOWN covers those central blockers, Lancet and Steward [5,6]; extended range reaches Midnight [1,5]. Spot [6,5] skill covers Spot, Ansel [5,5] and Steward [5,6]. Neither medic is credited with ordinary healing of Spot.",
+        "mortality_policy": "No death is required or automatically disqualifying. A death can have absorbed damage or contributed blocking/output, but releases its blocked enemies, gives zero refund, removes subsequent actions on that deployment, and invalidates any unfulfilled duty. No death-dependent same-ID redeployment is encoded.",
+        "output_geometry": "Midnight RIGHT reaches eastern upper roadblock [1,6]. Steward UP from [5,6] reaches eastern lower roadblock [6,6] and the eastern patrol around [5,7], but does not cover the entire eastern vertical patrol. Steward LEFT from [5,6] reaches both central interception positions. Final Steward [5,3] UP reaches [6,2]; final Midnight [1,3] LEFT reaches [1,2].",
+        "validation_status": "UNSIMULATED; no tools, file mutations, stage simulation or external AI providers used."
+      },
+      "formation_transitions": [
+        {
+          "frame": 181,
+          "transition": "Lancet establishes central healing before first hostile contact."
+        },
+        {
+          "frame": 661,
+          "transition": "Midnight establishes upper-outer interception and upper eastern roadblock damage."
+        },
+        {
+          "frame": 991,
+          "transition": "Spot establishes lower-outer interception before its first trooper crosses the blocking position; crossing time must be checked rather than inferred from a different opening."
+        },
+        {
+          "frame": 1501,
+          "transition": "Ansel takes primary central healing; Lancet remains supplemental."
+        },
+        {
+          "frame": 2041,
+          "transition": "Steward takes eastern lower roadblock and artillery output under Ansel, with periodic Spot reinforcement."
+        },
+        {
+          "frame": 5700,
+          "transition": "Steward withdraws only under the asserted artillery kill and cleared dangerous projectile queue."
+        },
+        {
+          "frame": 7801,
+          "transition": "Steward returns LEFT for both central armor queues."
+        },
+        {
+          "frame": 9000,
+          "transition": "Midnight leaves only after all upper-outer hostiles are dead; no later upper-outer spawns remain."
+        },
+        {
+          "frame": 10800,
+          "transition": "Steward leaves only after hostile clearance, including #34."
+        },
+        {
+          "frame": 11101,
+          "transition": "Midnight returns at the western upper roadblock."
+        },
+        {
+          "frame": 12901,
+          "transition": "Steward returns at the western lower roadblock; maintain observation until both protected arrivals."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "LEGAL_ROSTER",
+          "requirement": "Exactly the seven listed IDs; all have rarity 1-3 and normal_mode true. No reserve-mode units or aliases."
+        },
+        {
+          "id": "LEGAL_TILES",
+          "requirement": "Never deploy on [[1,2],[6,2],[1,6],[6,6]]. Every DEPLOY has an integer [row,col] and cardinal direction."
+        },
+        {
+          "id": "ECONOMY",
+          "requirement": "Every deployment must have its fee at execution. No dead-source DP or dead-unit refund. Fang's first grant is explicitly conditional."
+        },
+        {
+          "id": "MEDICAL_BRIDGE",
+          "requirement": "Lancet must deploy successfully at frame 181 and sustain the central interception until Ansel arrives. Its low throughput is a testable dependency, not assumed equivalence to Ansel."
+        },
+        {
+          "id": "PROTECTED_TARGETS",
+          "requirement": "Zero protected deaths and both expected protected targets reaching their objectives. Ordinary operators neither attack nor block civilians; officer contact within 1.2 remains dangerous."
+        },
+        {
+          "id": "ARTILLERY",
+          "requirement": "Kill artillery before its route exit and account for already-created projectiles. Withdrawal never erases a projectile or guarantees a safe replacement tile."
+        },
+        {
+          "id": "HANDOFFS",
+          "requirement": "Before each retreat, its departing hostile responsibility must be completed or explicitly held by remaining deployed units. Only deployed units receive skills or retreats."
+        },
+        {
+          "id": "ACCEPTANCE",
+          "requirement": "remaining_life > 0, zero leaks, exhausted spawns, no active enemies, zero protected deaths and exactly two protected arrivals. Operator deaths are recorded separately."
+        }
+      ],
+      "operational_plan_id": "R8_7_GPT_M76_V4",
+      "parent_hypothesis_id": "R8_7_M76_H4",
+      "pressure_window_responsibilities": [
+        {
+          "duties": "Lancet must actually heal both central blockers when injured. Fang must survive its first DP grant. Spot must intercept the first lower trooper before it passes.",
+          "window_frames": [
+            0,
+            1501
+          ]
+        },
+        {
+          "duties": "Ansel and Spot divide central versus adjacent artillery-splash recovery. Steward must clear the lower eastern roadblock and accumulate sufficient actual artillery damage. Verify officer #16 interception before the historical frame 4070 leak; that frame is a comparison checkpoint, not a universal deadline.",
+          "window_frames": [
+            1502,
+            5700
+          ]
+        },
+        {
+          "duties": "Central blockers retain all unresolved armor within capacity during Steward's redeployment gap. No invisible reserve or extra damage source is assumed.",
+          "window_frames": [
+            5701,
+            7801
+          ]
+        },
+        {
+          "duties": "Steward clears both central queues, including #34. Midnight retains upper interception until its asserted clearance handoff.",
+          "window_frames": [
+            7802,
+            10800
+          ]
+        },
+        {
+          "duties": "Complete western roadblock destruction and both protected arrivals. Continue beyond the illustrative horizon if arrival is pending; time alone never establishes acceptance.",
+          "window_frames": [
+            10801,
+            16000
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_284_spot",
+        "char_285_medic2",
+        "char_212_ansel",
+        "char_210_stward"
+      ],
+      "skill_intents": [
+        {
+          "intent": "Supported automatic 6-DP grants only while alive and deployed. First readiness is approximately frame 570; observe the grant rather than counting an additional manual activation.",
+          "operator_id": "char_123_fang"
+        },
+        {
+          "intent": "Deployment heal of 200 and ordinary single-target healing only; no active skill or invented healing priority.",
+          "operator_id": "char_285_medic2"
+        },
+        {
+          "frames": [
+            1862,
+            5163,
+            8464
+          ],
+          "intent": "Upper roadblock and outer-lane arts windows; allow 40 active plus over 70 inactive seconds between activations.",
+          "operator_id": "char_283_midn"
+        },
+        {
+          "frames": [
+            1442,
+            3393,
+            5344,
+            7295,
+            9246
+          ],
+          "intent": "First self-healing bridge, then adjacent recovery for Ansel and Steward. Allow 25 active plus over 40 inactive seconds; do not credit dodge or damage while healing.",
+          "operator_id": "char_284_spot"
+        },
+        {
+          "frames": [
+            2252,
+            4053,
+            5854,
+            7655,
+            9456
+          ],
+          "intent": "Central healing boost and temporary extension to Midnight. Allow 25 active plus over 35 inactive seconds. No probabilistic extra heal.",
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "intent": "Automatic enhanced arts attacks and supported high-defense priority. No manual target-order command is assumed.",
+          "operator_id": "char_210_stward"
+        }
+      ],
+      "tactical_thesis": "Replace Kroos with an early Lancet-2 medical bridge. Retain four independent ground interceptions, fund Ansel only after sufficient income actually exists, and combine Steward's lower-restraint/artillery damage with Spot's adjacent healing. This is a complete CURRENT_MODEL_CHECKABLE hypothesis, not a demonstrated WIN. The decisive risks are Lancet's opening throughput, survival under repeated artillery splash, and Steward's actual artillery contact before its exit."
+    }
+  ],
+  "revised_stage_understanding": {
+    "evidence_resolution": "The immediate V3 static-feedback object reports NO_SIMULATION and an empty conflicts array. Separately, the supplied authoritative tactical repair card identifies an unfunded Ansel deployment and five derived skill failures. V2 diagnostic deaths and leaks remain V2 evidence, not results of V3. V4 repairs the reported economic dependency and introduces early medical coverage; no new battle result is claimed.",
+    "knowledge_classes": {
+      "GameData": "Catalog stats, source routes, skill parameters, terrain and protected-target life scoring.",
+      "UNKNOWN": "Exact client timing, target ties, build equivalence, ordinary WALK interaction with active roadblocks, and this formation's actual survival/contact outcomes.",
+      "USER_CONFIRMED_TACTICAL_PREMISE": "Attack occupation and baiting are authorized tactical concepts; they do not establish pre-swing locking or cancellation rules.",
+      "current_model": "Neutral civilians reject ordinary attack/blocking; roadblocks restrain civilians; supported skills, fixed-point artillery projectiles and ordinary target selection at ATTACK_STRIKE."
+    },
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "cost": {
+            "all_deployments": 136,
+            "conditional_living_refunds": 26,
+            "first_deployments": 84,
+            "required_deaths": 0
+          },
+          "distinct_deployed_ids": 7,
+          "medical_timing": "First medical coverage precedes the first central spawn. Ansel's delayed arrival is bridged by actual Lancet healing, not an empty vacancy. Spot first heals at 48.067 seconds.",
+          "most_dangerous_window": "Steward's eastern deployment through the artillery kill: repeated splash can overwhelm the adjacent healing cluster, and contact gaps can prevent the kill.",
+          "opening_cost_and_pressure": "Initial deployment total 84 DP. Lancet costs 3 and arrives at 6.033 seconds from natural income. Midnight arrives at 22.033; Spot at 33.033 uses one conditional Fang grant; Ansel at 50.033 and Steward at 68.033 require no later grant.",
+          "roster": [
+            "char_123_fang",
+            "char_4093_frston",
+            "char_283_midn",
+            "char_284_spot",
+            "char_285_medic2",
+            "char_212_ansel",
+            "char_210_stward"
+          ],
+          "same_phase_responsibilities": "Four ground interceptions; Lancet bridges central healing, Ansel supplies sustained healing, Spot combines lower blocking with adjacent recovery, Steward combines artillery and lower restraint output.",
+          "selected": true,
+          "selection_reason": "Adds a funded early healing responsibility and uses supported Spot fusion without relying on pre-swing target lock. Every hostile corridor, artillery, both restraint pairs and #34 retain explicit owners. Survival remains a falsifiable hypothesis.",
+          "staged_responsibilities": "Steward rotates to central armor then western lower restraint; Midnight rotates to western upper restraint after its last hostile duty.",
+          "structure_id": "EARLY_ROBOT_BRIDGE_SPOT_FUSION"
+        },
+        {
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "cost": {
+            "additional_cost": "Repeated manual economy scheduling and an unresolved lower-lane medical handoff.",
+            "first_deployments": 83,
+            "required_deaths": 0
+          },
+          "distinct_deployed_ids": 7,
+          "medical_timing": "Lancet begins at 7.033 seconds. Ansel begins at 49.067 seconds. His DOWN ordinary coverage still excludes Melantha at [6,5].",
+          "most_dangerous_window": "Lower-outer interception during artillery pressure: Melantha lacks self-healing and has only one block; this structure has no equivalent to Spot's adjacent recovery.",
+          "not_selected_reason": "Faster single-target output does not resolve the lower duelist's established exposure class. The decisive defect is healing and block capacity, not inability to reuse Fang's timing.",
+          "opening_cost_and_pressure": "First deployment total 83. One successful 6-DP Vanilla skill funds the proposed 32.067-second Melantha and 49.067-second Ansel timings. Lower-blocker deployment is recomputed independently of Fang's opening.",
+          "raw_opening": "Vanilla [3,5] UP at frame 31; Friston [4,5] RIGHT at 121; Lancet [2,5] UP at 211; Vanilla skill at 452; Midnight [1,5] RIGHT at 512; Melantha [6,5] RIGHT at 962; Ansel [5,5] DOWN at 1472; Steward [5,6] UP at 2012. Subsequent output rotations would assign western restraints to Midnight and Steward after hostile clearance.",
+          "roster": [
+            "char_240_wyvern",
+            "char_4093_frston",
+            "char_283_midn",
+            "char_208_melan",
+            "char_285_medic2",
+            "char_212_ansel",
+            "char_210_stward"
+          ],
+          "same_phase_responsibilities": "Vanilla and Friston hold central lanes, Midnight and Melantha hold outer lanes, Lancet and Ansel heal, Steward handles artillery and armor.",
+          "selected": false,
+          "staged_responsibilities": "Vanilla's manual skill trades timed DP and damage for active-SP pauses; Steward still needs artillery-to-armor rotation. Removing Lancet would worsen the opening, while replacing Ansel would require a new sustained-healing solution.",
+          "structure_id": "VANILLA_OUTPUT_ECONOMY_DUAL_MEDIC"
+        },
+        {
+          "bait_contract": {
+            "beneficiary": "Ansel and ranged output would gain a short recovery/damage interval.",
+            "cooldown": "A completed attack consumes its normal interval; a pre-strike retreat is not credited with consuming or locking it.",
+            "death_and_refund": "Yato death gives no refund and releases its queue; living retreat uses the runtime refund rule. Same-ID return requires the supported 40-second effective cooldown and an affordable redeployment.",
+            "decoy_survival": "Yato must survive until a real strike completes if cooldown consumption is required.",
+            "enemy_and_attack": "Lower-central enemy_1108_uterer ordinary melee swing, or a later enemy_1107_uoffcr melee swing.",
+            "residual_risk": "Released enemies continue moving and officers may attack civilians. Artillery projectiles already born persist.",
+            "successor": "No immediate unused successor exists within this roster; rotating Spot or Midnight requires retreat, at least 70 seconds off field and a newly uncovered outer lane."
+          },
+          "classification": "USER_PREMISE_NOT_EXPRESSIBLE",
+          "cost": {
+            "additional_cost": "Lost blocking during retreat, repeated deployment fees and output time spent killing released enemies.",
+            "first_deployments": 96,
+            "required_deaths": 0
+          },
+          "distinct_deployed_ids": 7,
+          "exact_action_enemy_phase_gap": "There is no dependable ordinary-attack pre-swing target lock and no action that freezes movement through a retreat. The proposed first central handoff has neither an immediate successor nor an expressible guaranteed occupied-attacker window.",
+          "medical_timing": "Ansel cannot arrive before 51 seconds under that conservative ledger; no early medic exists. Reordering Ansel ahead of Spot displaces the lower-outer interception and needs a separate survival solution.",
+          "most_dangerous_window": "The first lower-central handoff and any bait attempted near an exposed civilian.",
+          "not_selected_reason": "The authorized premise is evaluated, but this raw structure depends on unavailable pre-swing behavior and an unfilled handoff. Post-projectile-lock artillery retreat is expressible, yet does not solve these central blocking and medical deficits.",
+          "opening_cost_and_pressure": "Initial fees total 96. Yato costs 7 rather than Friston's 3 and supplies two blocks with lower defense. Using only the first Fang grant gives earliest cumulative fee thresholds of 0, 7, 17, 34, 51, 69 and 80 seconds for this order; those thresholds alone do not establish interception or survival.",
+          "raw_plan": "Deploy Fang at [3,5] UP, Yato at [4,5] RIGHT, Midnight at [1,5] RIGHT, Spot at [6,5] RIGHT, Ansel at [5,5] DOWN, Steward at [5,6] UP and Kroos at [5,7] UP as funds permit. Attempt to retreat Yato during a lower-central enemy's committed swing, then rotate a surviving outer blocker into that duty after cooldown while ranged damage removes the released enemy.",
+          "roster": [
+            "char_123_fang",
+            "char_502_nblade",
+            "char_283_midn",
+            "char_284_spot",
+            "char_212_ansel",
+            "char_210_stward",
+            "char_124_kroos"
+          ],
+          "same_phase_responsibilities": "Fang holds upper central; Yato temporarily holds lower central; Midnight and Spot hold outer lanes; Ansel heals; Steward and Kroos provide ranged output.",
+          "selected": false,
+          "structure_id": "YATO_BAIT_AND_STAGED_OUTPUT"
+        }
+      ],
+      "role_reassessment": "No operator is mandatory by identity. Fang's value is cheap two-block interception plus conditional income; Vanilla offers controllable economy but weaker defense. Friston compresses three-block cost but needs healing. Midnight combines upper interception and ranged restraint access; Melantha cannot replace that reach. Spot replaces a lower duelist and supplies local healing at the cost of attack downtime. Lancet replaces Kroos to solve the opening bridge, reducing output. Ansel remains for sustained coverage; Hibiscus loses the required extended reach. Steward supplies supported arts and armor priority; Durin reduces cost but damage/contact budget worsens. Unsupported splash or talent effects are not used to make a replacement appear sufficient.",
+      "selected_structure_id": "EARLY_ROBOT_BRIDGE_SPOT_FUSION"
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "falsifiers": [
+        "Lancet cannot sustain central opening damage.",
+        "Fang's first grant is absent.",
+        "The lower trooper passes before Spot intercepts.",
+        "Repeated artillery splash overwhelms the cluster.",
+        "Steward lacks sufficient actual artillery contact.",
+        "A retreat leaves unresolved hostile duty or either civilian fails to arrive."
+      ],
+      "hypothesis_id": "R8_7_M76_H4",
+      "statement": "An early 3-DP Lancet bridge can preserve the central blockers and Fang's first grant, making the later Ansel deployment affordable. Spot's supported local healing can then sustain the eastern Steward position long enough to complete artillery and lower-restraint duties before staged central and western clearance.",
+      "status": "UNVERIFIED_CURRENT_MODEL_CHECKABLE"
+    }
+  ],
+  "revised_tactical_requirements": {
+    "artillery_observables": [
+      "Measure actual Steward hits and damage, not elapsed contact assumptions.",
+      "Record each selected artillery target, fixed impact position and surviving projectile.",
+      "Reject the hypothesis if repeated splash defeats the assigned healing or artillery approaches exit alive."
+    ],
+    "closure_observables": [
+      "Officer #16 is killed without leaking.",
+      "Armor #34 is killed.",
+      "All four roadblocks are destroyed as required for passage.",
+      "Both expected civilians arrive alive."
+    ],
+    "failure_handling": "Do not silently shift actions, synthesize DP, select substitutes, or execute skills on absent units. Record the first failed dependency and its downstream handoff consequences.",
+    "opening_observables": [
+      "Lancet deployment succeeds at frame 181.",
+      "Central injured blockers receive Lancet healing before Ansel arrives.",
+      "Fang's first 6-DP grant occurs before Spot's deployment.",
+      "Spot blocks the first lower-outer trooper before it passes the interception position."
+    ],
+    "static_repair": "The former unfunded Ansel@1231 and its five dependent skill actions are removed. Ansel now deploys at 1501 with a separately stated ledger; first skill is 2252, more than 25 seconds later. Lancet supplies the new opening medical duty."
+  },
+  "revision_hypothesis": {
+    "changed_responsibilities": [
+      "Lancet takes early central healing before any central hostile spawn.",
+      "Ansel moves from the failed frame 1231 deployment to funded frame 1501 and receives newly computed skill timings.",
+      "Steward inherits lower eastern restraint clearance from Kroos and rotates through central armor to western lower clearance.",
+      "Spot adds adjacent Steward recovery while retaining lower interception.",
+      "Midnight inherits final western upper restraint clearance through a separate legal redeployment."
+    ],
+    "expected_first_observable_event": {
+      "earliest_frame": 181,
+      "event_type": "DEPLOY",
+      "latest_frame": 182,
+      "source_id": "char_285_medic2",
+      "target_id": null
+    },
+    "hypothesis_id": "R8_7_M76_REV4",
+    "if_expected_event_absent": "Treat the opening medical bridge as absent and invalidate dependent survival assumptions. Inspect deployment legality and the natural-DP ledger; do not count later healing, Fang income, or Ansel actions as successfully established.",
+    "operational_plan_id": "R8_7_GPT_M76_V4",
+    "parent_plan_id": "R8_7_GPT_M76_V3",
+    "referenced_experience_ids": [
+      "KIMIARK_M76_CANDIDATE4_FEEDBACK_V1"
+    ],
+    "tactical_hypothesis": "Replacing Kroos with a naturally funded early Lancet deployment changes the opening survival chain rather than merely delaying Ansel. A conservative ledger credits only one observed Fang grant, while Spot and Ansel jointly support Steward's revised eastern output duty."
+  }
+}

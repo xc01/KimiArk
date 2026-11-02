@@ -1,0 +1,28 @@
+{
+  "schema_version": "KIMIARK_M76_CANDIDATE5_FEEDBACK_V1",
+  "source_plan_id": "R8_7_GPT_M76_V4",
+  "parent_hypothesis_id": "R8_7_M76_H1",
+  "source_result": "m76_candidate4_battle_loss_v1.json",
+  "simulation_status": "COMPLETE_LEGAL_BATTLE_LOSS",
+  "primary_repair": "Restore the opening blocker/output priority before adding any extra unit, and keep Ansel/Steward out of the same or overlapping artillery splash after 2300.",
+  "candidate4_progress": "The candidate3 economic repair worked: cheap medic2 legally deployed@181, but its fee displaced enough opening pressure that Friston died@982 and #2 leaked@1211.",
+  "candidate4_failure_chain": [
+    "Friston sustained repeated 145 physical hits and died@982; #2 leaked@1211.",
+    "A shell locked the Ansel/Steward area@2321 and killed both@2411 despite medic2 70 and Ansel 506.8 heals.",
+    "First life-zero failure was ENEMY_LEAK@3065."
+  ],
+  "must_preserve": "Opening BLOCK and kill pressure, protected survival, roadblock clearance, artillery kill, #34 kill, and zero leaks remain mandatory. Cheap medic deployment is a valid economy tool only if it does not delay required output/blocking.",
+  "open_alternatives": [
+    "Delay medic2 or remove it from the first four deployments; show the fee source for later support without weakening Friston/Midnight.",
+    "Use a cheaper/lower-priority unit elsewhere only after the Friston survival window, if required.",
+    "Retreat one artillery target after its projectile locks, or separate the other units so one splash cannot kill two core roles.",
+    "Move Ansel/Steward to non-overlapping tiles while retaining healing and output range."
+  ],
+  "constraints": {
+    "max_unique_operator_ids": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "economy": "Natural DP plus conditional skill income/refunds; dead units generate no income or refund.",
+    "artillery": "PROJECTILE_BORN locks a position; delayed splash can hit multiple operators in radius. Retreat after lock only helps the retreating unit for that shell."
+  },
+  "required_repair_card": "State the first four deployments and fee sources, why Friston survives past 982, the exact Ansel/Steward positions at 2321/2411, and who covers any vacancy or released enemy."
+}
