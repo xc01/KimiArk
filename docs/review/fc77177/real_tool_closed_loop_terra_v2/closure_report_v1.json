@@ -1,0 +1,188 @@
+{
+  "schema_version": "KIMIARK_REAL_TOOL_CLOSED_LOOP_TERRA_V2_CLOSURE_REPORT_V1",
+  "status": "COMPLETE_BUDGET_EXHAUSTED",
+  "outcome": "REAL_TOOL_LOOP_PARTIAL_AND_TACTICAL_LOSS",
+  "session_id": "real-tool-loop-terra-v2",
+  "previous_failure_reference": "docs/review/fc77177/real_tool_closed_loop_terra_v1/closure_report_v1.json",
+  "authorization": {
+    "provider": "openai",
+    "model": "gpt-6.1-terra",
+    "reasoning_effort": "medium",
+    "features_apps": false,
+    "stage_id": "main_08-07",
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "max_unique_deployed_operators": 7,
+    "execution_backend": "CONTROLLED_RUNNER",
+    "allow_fake_execution": false
+  },
+  "approval_fix": {
+    "previous_error": "MCP tool call requires approval, but approval policy is never",
+    "codex_version": "codex-cli 0.166.0",
+    "supported_source_reference": "openai/codex tag rust-v0.166.0, commit 6ff1e1ca3b30fc8b914720681fcf5fe62e95f856; codex-rs/config/src/mcp_types.rs",
+    "configuration_keys": [
+      "mcp_servers.kimiark.required=true",
+      "mcp_servers.kimiark.default_tools_approval_mode=\"approve\"",
+      "mcp_servers.kimiark.enabled_tools=[\"get_session_status\",\"check_plan\",\"run_simulation\",\"query_events\"]"
+    ],
+    "unsupported_keys_avoided": [
+      "trusted",
+      "auto_approve"
+    ],
+    "approval_scope": "Tool-layer approval only; service authorization and budgets remain authoritative.",
+    "codex_mcp_get_verified": true,
+    "doctor_credentials_and_provider_reachability_ok": true,
+    "user_global_config_modified": false,
+    "preexisting_user_global_config_warning": "model_supports_reasoning_summaries is ignored; left unchanged"
+  },
+  "candidate_cap_correction": {
+    "previous_v1_reported": 4,
+    "previous_v1_original_ledger": "docs/review/fc77177/real_tool_closed_loop_terra_v1/candidate_ledger_v1.json",
+    "previous_v1_original_retained": true,
+    "new_v2_max_candidates": 2,
+    "rationale": "The v2 independent authorization explicitly sets two candidates, matching two full simulations."
+  },
+  "zero_model_prechecks": {
+    "pytest_command": "uv run pytest -q tests/test_kimiark_tactical_stdio_service_v1.py tests/test_tactical_experience_loop_v1.py tests/test_gpt_tactical_stage_session_v1.py tests/test_kimiark_real_tool_closed_loop_terra_v2_config.py",
+    "pytest_result": {
+      "passed": 54,
+      "failed": 0,
+      "skipped": 0
+    },
+    "no_model_mcp_status_transcript": "mcp_no_model_status_transcript_v1.json",
+    "no_model_status_remaining_candidates": 2,
+    "no_model_status_remaining_simulations": 2,
+    "real_model_request_used_for_precheck": false
+  },
+  "cli": {
+    "started": true,
+    "completed": true,
+    "exit_code": 0,
+    "timed_out": false,
+    "automatic_retry": false,
+    "automatic_resume": false,
+    "codex_home": null,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "thread_id_from_prior_v1_not_applicable": true
+  },
+  "tools": {
+    "transport": "stdio",
+    "summary": "tool_call_summary_v1.json",
+    "discovered": [
+      "get_session_status",
+      "check_plan",
+      "run_simulation",
+      "query_events"
+    ],
+    "called": {
+      "get_session_status": 2,
+      "check_plan": 2,
+      "run_simulation": 1,
+      "query_events": 14
+    },
+    "same_session_tool_loop": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "12244778d97b7ed7cd771b839dab7dbd2ddeefa47c5dc558eef9a3a7843c0c43",
+      "plan_id": "R87_REAL_TOOL_TERRA_1",
+      "check_status": "PASS",
+      "unique_deployed_operator_count": 7,
+      "action_count": 36,
+      "simulation_status": "COMPLETED",
+      "simulation_started_counted": true,
+      "simulator_win": false,
+      "final": {
+        "kills": 22,
+        "leaks": 11,
+        "remaining_life": -9,
+        "operator_death_events": 4,
+        "unique_dead_operators": 4,
+        "protected_targets_reached": 1,
+        "first_observed_operator_death": {
+          "source_id": "char_210_stward",
+          "frame": 2593
+        },
+        "first_acceptance_break": {
+          "description": "Protected target #3 died",
+          "event_type": "ENEMY_DEATH",
+          "frame": 3193
+        },
+        "first_leak": {
+          "source_id": "enemy_1107_uoffcr#16",
+          "frame": 4070
+        },
+        "life_zero_or_failure": {
+          "event_type": "OBJECTIVE_FAILURE",
+          "frame": 4370
+        }
+      },
+      "result_ref": "session/candidates/candidate-001/simulation/final_status.json"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "d86ed4ac4395e989c517c7527134f477d708db1a8361bc317e2a72a23b2603a3",
+      "plan_id": "R87_REAL_TOOL_TERRA_2",
+      "check_status": "FAIL",
+      "errors": [
+        "event: EVENT_TYPE_NOT_DECLARED_SUPPORTED: ACTIVATE_SKILL"
+      ],
+      "simulation_status": "NOT_STARTED",
+      "simulation_started_counted": false,
+      "candidate_counted": true,
+      "result_ref": "session/candidates/candidate-002/source/llm_plan_validation.json"
+    }
+  ],
+  "autonomous_revision": {
+    "event_queries_performed": 14,
+    "second_candidate_submitted": true,
+    "second_candidate_substantive": true,
+    "second_check_passed": false,
+    "second_simulation_started": false,
+    "explanation": "Terra queried real events, submitted a revised candidate, but the service correctly rejected its unsupported expected-event type ACTIVATE_SKILL. The invalid candidate consumed the final candidate slot; no second simulation was started."
+  },
+  "real_execution_chain": {
+    "static_validation_verified": true,
+    "execution_input_gate_verified": true,
+    "budget_gate_consume_evaluation_verified": true,
+    "controlled_diagnostic_runner_verified": true,
+    "simulation_reservation_started_counted": true,
+    "full_settlement_after_life_zero": true,
+    "direct_simulator_bypass_detected": false
+  },
+  "budget": {
+    "max_candidates": 2,
+    "used_candidates": 2,
+    "remaining_candidates": 0,
+    "max_simulations": 2,
+    "used_simulations": 1,
+    "remaining_simulations": 1,
+    "why_second_simulation_not_used": "No remaining candidate passed static validation.",
+    "new_win": false,
+    "best_known_operators": 8
+  },
+  "usage": {
+    "input_tokens": 789233,
+    "cached_input_tokens": 740736,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6913,
+    "reasoning_output_tokens": 1614
+  },
+  "claims": {
+    "mcp_closed_loop_verified": true,
+    "real_gate_verified": true,
+    "seven_operator_win": false,
+    "new_best_roster": false,
+    "real_machine_faithful": false,
+    "robust_or_probabilistic": false,
+    "global_minimum_operator_count_proven": false
+  },
+  "unverified_boundaries": [
+    "OS-level process isolation and write separation are not provided by tool argument constraints.",
+    "The client-side approval configuration was verified by supported source/config inspection, codex mcp get, doctor, and actual calls, but not by a separate independent UI approval process.",
+    "No second diagnostic run occurred because candidate 2 was rejected before simulation.",
+    "The remaining simulation slot cannot be transferred to another milestone.",
+    "Model identity is recorded from configured CLI inputs and visible trajectory, not cryptographically proven by the service."
+  ],
+  "artifact_manifest": "artifact_manifest_v1.json"
+}

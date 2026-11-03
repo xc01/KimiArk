@@ -37,7 +37,7 @@ def _write_json(path: Path, payload: Any) -> None:
 def _support_files(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, model: str = "gpt-test", effort: str = "medium"
 ) -> dict[str, Path]:
-    service.ROOT = tmp_path
+    monkeypatch.setattr(service, "ROOT", tmp_path)
     monkeypatch.setattr(service.gate, "ROOT", tmp_path)
     facts = tmp_path / "facts"
     budget = tmp_path / "budget.json"

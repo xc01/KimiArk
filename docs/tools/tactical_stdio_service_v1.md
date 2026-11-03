@@ -19,6 +19,19 @@ The service uses newline-delimited JSON-RPC 2.0 over stdio and implements the MC
 
 The local fake closed-loop test starts this script as a child process, performs the MCP handshake, discovers exactly four tools, calls status/check/run/query, closes stdin, and verifies a clean exit. It does not register Codex globally and does not prove that a particular Codex installation will accept this server; that client registration remains a separate authorization step.
 
+For Codex CLI 0.166.0, the supported scoped registration can restrict exposure and tool-layer approval without using `--approve-for-me` or bypassing approvals globally:
+
+```toml
+[mcp_servers.kimiark]
+command = "PLACEHOLDER_PYTHON"
+args = ["PLACEHOLDER_SERVICE_SCRIPT", "PLACEHOLDER_SESSION_CONFIG"]
+required = true
+enabled_tools = ["get_session_status", "check_plan", "run_simulation", "query_events"]
+default_tools_approval_mode = "approve"
+```
+
+`enabled_tools` is an MCP exposure allow-list. `default_tools_approval_mode = "approve"` only avoids the client-side per-tool approval prompt; it does not alter service authorization, candidate quota, simulation quota, frozen input hashes, static gates, or execution preflight. A per-tool override is `mcp_servers.kimiark.tools.<tool>.approval_mode = "approve"`. Avoid unsupported names such as `trusted` or `auto_approve`.
+
 The implementation intentionally uses the repository's existing JSON-RPC style and standard library rather than adding an MCP SDK dependency.
 
 ## Why a fixed-session adapter
@@ -127,6 +140,4 @@ The old runner and MCP server remain unchanged. This adapter adds an explicit op
 
 A FAKE_TEST record is kept at `docs/tools/tactical_stdio_service_test_log_v1.json`. It records the targeted pytest command, result counts, protocol transcript summary, fake executor invocation count, and budget counters. Temporary fixtures are removed; the committed record contains no credential or full tactical evidence.
 
-## Written but not executed
-
-The fake/stub tests in `tests/test_kimiark_tactical_stdio_service_v1.py` were written but not executed. No service, simulation, tactical model call, or live MCP connection was started. Risks requiring later verification include real schema behavior, static compile integration, actual gate reservation, subprocess timeout behavior, filesystem concurrency under simultaneous processes, and remote Astra tool-call compatibility.
+The later Terra v2 recovery used the scoped Codex CLI fields above. A real session proved the four tool calls and one real diagnostic run; its per-milestone evidence remains under `docs/review/fc77177/real_tool_closed_loop_terra_v2/`. Tool-layer approval is still not an operating-system sandbox, and a passing fake test does not validate model tactics.
