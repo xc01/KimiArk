@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from arknights_planner.models.simulation import EventType
+
 
 EXPERIENCE_SCHEMA_VERSION = "KIMIARK_TACTICAL_EXPERIENCE_RECORD_V2"
 REVISION_HYPOTHESIS_SCHEMA_VERSION = "KIMIARK_REVISION_HYPOTHESIS_V2"
@@ -201,14 +203,11 @@ def add_revision_hypothesis_schema(schema: dict[str, Any]) -> dict[str, Any]:
     return updated
 
 
-EVENT_ALIASES = {"ENEMY_BLOCKED": "BLOCK"}
-OBSERVED_EVENT_TYPES = {
-    "BLOCK", "UNBLOCK", "DAMAGE", "HEAL", "DEPLOY", "RETREAT", "SPAWN",
-    "ENEMY_DEATH", "OPERATOR_DEATH", "ENEMY_LEAK", "OBJECTIVE_FAILURE",
-    "ENEMY_ABILITY_START", "ENEMY_ABILITY_HIT", "PROTECTED_TARGET_REACHED",
-    "SKILL_ACTIVATE", "SKILL_END", "DEVICE_DAMAGE", "DEVICE_DESTROYED",
-    "PROJECTILE_BORN",
+EVENT_ALIASES = {
+    "ENEMY_BLOCKED": EventType.BLOCK.value,
+    "ACTIVATE_SKILL": EventType.SKILL_ACTIVATE.value,
 }
+OBSERVED_EVENT_TYPES = frozenset(item.value for item in EventType)
 
 
 def normalize_event_query(expected: dict[str, Any] | None) -> dict[str, Any]:
@@ -230,7 +229,17 @@ def normalize_event_query(expected: dict[str, Any] | None) -> dict[str, Any]:
             return {"status": "INVALID_QUERY", "reason": f"INVALID_{key.upper()}"}
     result = {**expected, "event_type": EVENT_ALIASES.get(event_type, event_type), "event_type_declared": event_type}
     if result["event_type"] not in OBSERVED_EVENT_TYPES:
-        return {**result, "status": "INVALID_QUERY", "reason": "EVENT_TYPE_NOT_DECLARED_SUPPORTED"}
+        return {
+            **result,
+            "status": "INVALID_QUERY",
+            "reason": "EVENT_TYPE_NOT_DECLARED_SUPPORTED",
+            "error_path": "/revision_hypothesis/expected_first_observable_event/event_type",
+            "received_value": event_type,
+            "legal_event_type": None,
+            "supported_event_types": sorted(OBSERVED_EVENT_TYPES),
+            "supported_action_aliases": {key: value for key, value in EVENT_ALIASES.items() if value in OBSERVED_EVENT_TYPES},
+            "repair_hint": "Use one supported event_type; ACTIVATE_SKILL is a legal action alias for the SKILL_ACTIVATE event.",
+        }
     if result["event_type"] == "OPERATOR_DEATH" and not isinstance(result.get("source_id"), str):
         return {**result, "status": "INVALID_QUERY", "reason": "OPERATOR_DEATH_REQUIRES_SOURCE_OPERATOR"}
     if result["event_type"] == "OPERATOR_DEATH" and result.get("target_id") is not None:

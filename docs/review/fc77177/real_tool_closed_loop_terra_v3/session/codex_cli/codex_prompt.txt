@@ -1,0 +1,43 @@
+You are gpt-6.1-terra (reasoning medium) in one authorized Codex CLI session for the KimiArk real tool closed loop. Work only in the current repository and use only the local MCP server named `kimiark`.
+
+First call `get_session_status`. Confirm the model, K=7, mechanics, facts, production `CONTROLLED_RUNNER`, 20 check calls, 5 actual run candidates, and 5 complete simulations. The previous Terra v2 result used CLI 1, candidate 2, and simulation 1; its unused simulation did not transfer.
+
+The four tools are:
+1. `get_session_status`: read-only status and action/event vocabulary.
+2. `check_plan`: no-battle validation. Every executed or idempotent call consumes one of 20 check calls; only PASS creates and consumes one of 5 actual candidates.
+3. `run_simulation`: one complete fixed-plan real simulation. STARTED failures count and never retry.
+4. `query_events`: read-only event query. `ACTIVATE_SKILL` is accepted as an explicit alias for the log event `SKILL_ACTIVATE`; plan action names and event names are distinct.
+
+Do not call any other model, agent, web service, simulator command, Python tactical search, or shell simulation. Do not modify code, mechanism, budget, authorization or result files. You may use read-only shell to inspect supplied facts. All tactical choices are yours.
+
+Use the fixed facts in `output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v4/llm_evidence_context.json` and `revision_output_schema.json`. Build one complete ordinary-mode 1-3-star R8-7/main_08-07 plan exactly matching that schema and its existing contract/lineage fields. New plan IDs start with `R87_REAL_TOOL_TERRA_`; use the supplied previous plan as the parent/lineage reference.
+
+All roles are open. Do not preserve the M70 roster by default or force any removal. Compare at least three substantive structures internally, then select one: earlier kill/decompression, output-plus-tanking, retreat relay, split routes, economy/blocking/medical fusion, or another legal structure. Selected and all DEPLOY union <= 7.
+
+Key context, not universal deadlines:
+- M70 eight-person WIN used Fang, Friston-3, Midnight, Melanite, Ansel, Hibiscus, Spot, and Steward. Artillery died at 4273; both protected targets arrived.
+- Melanite retreated at 2054 after the second shell locked her old position; Spot deployed later at 2341. A replacement entering the old or adjacent splash zone can still be hit.
+- Steward killed artillery at 4273, retreated, returned, and killed #34 after it was actually blocked at 6596.
+- Terra v2 candidate 1 LOSS had 22 kills, 11 leaks, life -9: Steward first died at 2593, protected #3 died at 3193, officer #16 first leaked at 4070, and life zeroed at 4370.
+- Terra v2 candidate 2 was substantively revised but rejected only because its predicted event used `ACTIVATE_SKILL`; no battle ran. Treat it as a reference, not a failure result.
+
+For each version give a short difference note in existing explanatory fields: artillery contact and sufficient kill timing, continuous shell locks and in-flight splash, medical target competition and survival, economy/refund/deployment handoff, central pressure and #34, road-clearing and protected arrival. State which parts are simulation assumptions. Death has no refund; do not depend on dead operators.
+
+Loop autonomously:
+- Check a plan. If static fails, fix the actual schema/contract/action/version issue and check again while check calls remain.
+- If PASS, run the exact returned candidate/hash once.
+- On LOSS, query focused event windows first, compare prediction to observation, find the earliest upstream break, then submit a substantive revision.
+- On WIN, stop after enough queries to verify the final report.
+- Stop on check/candidate/simulation exhaustion, service failure, timeout, incomplete result, STARTED_UNKNOWN, hash mismatch, or unexpected repeated execution. Do not retry, resume, or change model.
+
+Do not repeat the same plan to use quota. A single event does not verify a hypothesis. WIN requires legal union <= K, simulator WIN, zero leaks, both protected targets alive and arrived, all enemies settled, and no active enemies.
+
+Final assistant message must be one compact JSON object with no markdown:
+{
+  "status": "COMPLETE|STOPPED_SERVICE|STOPPED_BUDGET",
+  "candidate_results": [{"candidate_id": "...", "check_id": "...", "candidate_sha256": "...", "check_status": "...", "simulation_status": "...", "win": true|false|null, "summary": "..."}],
+  "key_event_queries": [{"candidate_id": "...", "event_type": "...", "frame_window": [0,0], "match_count": 0, "interpretation": "..."}],
+  "tool_loop_verified": true,
+  "remaining_budget": {"checks": 0, "candidates": 0, "simulations": 0},
+  "notes": "..."
+}

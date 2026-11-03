@@ -21,6 +21,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import tactical_evaluation_gate_v1 as gate
 import tactical_experience_v1 as experience
 from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
+from arknights_planner.models.simulation import EventType
+from arknights_planner.models.strategy import ActionType
 from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
 from run_gpt_tactical_stage_session_v1 import (
     distinct_deployed_operator_ids,
@@ -35,7 +37,10 @@ from run_gpt_tactical_stage_session_v1 import (
 SERVICE_INFO = {"name": "kimiark-closed-loop-tools", "version": "1.0.0"}
 PROTOCOL_VERSION = "2025-06-18"
 CONFIG_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_SESSION_CONFIG_V1"
-CANDIDATE_LEDGER_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V1"
+CANDIDATE_LEDGER_SCHEMA_V1 = "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V1"
+CANDIDATE_LEDGER_SCHEMA_V2 = "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2"
+CANDIDATE_LEDGER_SCHEMA_VERSION = CANDIDATE_LEDGER_SCHEMA_V1
+SUPPORTED_CANDIDATE_LEDGER_SCHEMAS = {CANDIDATE_LEDGER_SCHEMA_V1, CANDIDATE_LEDGER_SCHEMA_V2}
 CANDIDATE_RECORD_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_CANDIDATE_RECORD_V1"
 SIMULATION_REQUEST_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_SIMULATION_REQUEST_V1"
 EVENT_QUERY_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_EVENT_QUERY_V1"
@@ -43,6 +48,9 @@ CANDIDATE_ID_RE = re.compile(r"candidate-[0-9]{3,}")
 DETAIL_KEY_RE = re.compile(r"[A-Za-z0-9_.-]{1,64}(?:\.[A-Za-z0-9_.-]{1,64})*")
 MAX_EVENT_PAGE_SIZE = 200
 MAX_EVENT_RESPONSE_BYTES = 1_048_576
+ACTION_TYPE_NAMES = sorted(item.value for item in ActionType)
+SUPPORTED_EVENT_TYPE_NAMES = sorted(item.value for item in EventType)
+QUERY_EVENT_TYPE_NAMES = sorted({*SUPPORTED_EVENT_TYPE_NAMES, *experience.EVENT_ALIASES})
 
 CONTROLLED_EXECUTION_FILES = (
     "scripts/kimiark_tactical_stdio_service_v1.py",
@@ -56,12 +64,12 @@ CONTROLLED_EXECUTION_FILES = (
 TOOLS = [
     {
         "name": "get_session_status",
-        "description": "Read a service-owned session without creating budget or extending limits.",
+        "description": "Read a service-owned session, quotas, and the distinction between action names and event names.",
         "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
     },
     {
         "name": "check_plan",
-        "description": "Free, no-battle contract, roster, execution-fact, and static check. A new candidate attempt is counted even when invalid.",
+        "description": "No-battle contract, roster, execution-fact, and static check. Valid action_type is ACTIVATE_SKILL; valid observed event_type is SKILL_ACTIVATE. A check consumes the configured check-call budget; only PASS creates and consumes a real candidate slot.",
         "inputSchema": {
             "type": "object", "required": ["plan"],
             "properties": {"plan": {"type": "object"}},
@@ -89,7 +97,7 @@ TOOLS = [
             "properties": {
                 "candidate_id": {"type": "string"},
                 "candidate_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-                "event_type": {"type": "string"},
+                "event_type": {"type": "string", "enum": QUERY_EVENT_TYPE_NAMES},
                 "source_id": {"type": ["string", "null"]},
                 "target_id": {"type": ["string", "null"]},
                 "earliest_frame": {"type": "integer"},
@@ -134,6 +142,7 @@ class SessionConfig:
     authorization_config_path: Path
     max_unique_deployed_operators: int
     max_candidates: int
+    max_check_calls: int | None
     simulation_timeout_seconds: int
     execution_backend: str
     allow_fake_execution: bool
@@ -278,6 +287,9 @@ def load_session_config(path: Path) -> SessionConfig:
         raise RuntimeError("candidate ledger session_id does not match session config")
     if ledger.get("max_candidates") != config.get("max_candidates"):
         raise RuntimeError("candidate ledger max_candidates does not match session config")
+    if ledger.get("schema_version") == CANDIDATE_LEDGER_SCHEMA_V2:
+        if config.get("max_check_calls") != ledger.get("max_check_calls"):
+            raise RuntimeError("check-call ledger max_check_calls does not match session config")
     budget = gate.load_budget(repository_path(config["budget_path"]))
     if budget.get("stage_id") != config.get("stage_id"):
         raise RuntimeError("simulation budget stage_id does not match session config")
@@ -298,6 +310,10 @@ def load_session_config(path: Path) -> SessionConfig:
         authorization_config_path=repository_path(config["authorization_config_path"]),
         max_unique_deployed_operators=_required_int(config, "max_unique_deployed_operators", minimum=1),
         max_candidates=_required_int(config, "max_candidates", minimum=1),
+        max_check_calls=(
+            _required_int(config, "max_check_calls", minimum=1)
+            if config.get("max_check_calls") is not None else None
+        ),
         simulation_timeout_seconds=_required_int(config, "simulation_timeout_seconds", minimum=1),
         execution_backend=execution_backend,
         allow_fake_execution=allow_fake_execution,
@@ -314,7 +330,7 @@ def controlled_code_hashes() -> dict[str, str]:
 
 def load_candidate_ledger(path: Path) -> dict[str, Any]:
     ledger = load_json(path)
-    if not isinstance(ledger, dict) or ledger.get("schema_version") != CANDIDATE_LEDGER_SCHEMA_VERSION:
+    if not isinstance(ledger, dict) or ledger.get("schema_version") not in SUPPORTED_CANDIDATE_LEDGER_SCHEMAS:
         raise RuntimeError("unsupported candidate ledger schema")
     if not isinstance(ledger.get("session_id"), str):
         raise RuntimeError("candidate ledger session_id is missing")
@@ -325,6 +341,16 @@ def load_candidate_ledger(path: Path) -> dict[str, Any]:
         raise RuntimeError("candidate ledger attempts must be an array")
     if ledger["used_candidates"] != len(ledger["attempts"]):
         raise RuntimeError("candidate ledger used_candidates and attempts count disagree")
+    if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2:
+        for key in ("max_check_calls", "used_check_calls"):
+            if not isinstance(ledger.get(key), int) or isinstance(ledger.get(key), bool) or ledger[key] < 0:
+                raise RuntimeError(f"candidate ledger {key} must be a non-negative integer")
+        if ledger["max_check_calls"] < 1:
+            raise RuntimeError("candidate ledger max_check_calls must be positive")
+        if not isinstance(ledger.get("checks"), list):
+            raise RuntimeError("candidate ledger checks must be an array")
+        if ledger["used_check_calls"] != len(ledger["checks"]):
+            raise RuntimeError("candidate ledger used_check_calls and checks count disagree")
     return ledger
 
 
@@ -378,7 +404,7 @@ def session_status(config: SessionConfig) -> dict[str, Any]:
         0, budget["max_stage_simulations"] - budget["prior_stage_simulations"] - budget["started_stage_simulations"]
     )
     remaining_candidates = max(0, ledger["max_candidates"] - ledger["used_candidates"])
-    return {
+    status: dict[str, Any] = {
         "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
         "session_id": config.session_id,
         "stage_id": budget.get("stage_id"),
@@ -398,6 +424,19 @@ def session_status(config: SessionConfig) -> dict[str, Any]:
         "controlled_code_sha256": controlled_code_hashes(),
         "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
     }
+    status["interface_vocab"] = {
+        "action_type_names": ACTION_TYPE_NAMES,
+        "event_type_names": SUPPORTED_EVENT_TYPE_NAMES,
+        "query_event_type_aliases": dict(sorted(experience.EVENT_ALIASES.items())),
+        "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.",
+    }
+    if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2:
+        status["check_call_ledger"] = {
+            "max_check_calls": ledger["max_check_calls"],
+            "used_check_calls": ledger["used_check_calls"],
+            "remaining_check_calls": max(0, ledger["max_check_calls"] - ledger["used_check_calls"]),
+        }
+    return status
 
 
 def _plan_operation_id(plan: dict[str, Any]) -> Any:
@@ -482,28 +521,81 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
         ledger = load_candidate_ledger(config.candidate_ledger_path)
         if ledger.get("session_id") != config.session_id:
             raise RuntimeError("candidate ledger belongs to a different session")
+        if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2 and ledger["used_check_calls"] >= ledger["max_check_calls"]:
+            return {
+                "status": "CHECK_BUDGET_EXHAUSTED", "resource": "check_calls",
+                "check_call_ledger": {
+                    "max_check_calls": ledger["max_check_calls"], "used_check_calls": ledger["used_check_calls"]
+                },
+                "check_call_counted": False, "candidate_counted": False, "simulation_started": False,
+            }
         matching = [item for item in ledger.get("attempts", []) if item.get("candidate_sha256") == candidate_sha256]
         if matching:
             candidate_id = matching[0].get("candidate_id")
             validate_identifier(candidate_id)
             record = load_json(safe_output_path(config.session_root, "candidates", candidate_id, "candidate_record.json"))
+            if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2:
+                if ledger["used_check_calls"] >= ledger["max_check_calls"]:
+                    return {"status": "CHECK_BUDGET_EXHAUSTED", "resource": "check_calls", "check_call_counted": False, "candidate_counted": False, "simulation_started": False}
+                check_number = ledger["used_check_calls"] + 1
+                check_id = f"check-{check_number:03d}"
+                check_root = safe_output_path(config.session_root, "checks", check_id)
+                if check_root.exists():
+                    raise RuntimeError("check directory collision")
+                check_root.mkdir(parents=True, exist_ok=True)
+                atomic_write_json(check_root / "check_record.json", {
+                    "schema_version": "KIMIARK_CLOSED_LOOP_CHECK_RECORD_V1", "check_call_number": check_number,
+                    "kind": "IDEMPOTENT_RECHECK", "candidate_sha256": candidate_sha256,
+                    "candidate_id": candidate_id, "status": "IDEMPOTENT_RECHECK",
+                })
+                ledger["used_check_calls"] += 1
+                ledger["checks"].append({"check_id": check_id, "kind": "IDEMPOTENT_RECHECK", "candidate_sha256": candidate_sha256, "candidate_id": candidate_id, "status": "IDEMPOTENT_RECHECK"})
+                atomic_write_json(config.candidate_ledger_path, ledger)
             return {"status": "IDEMPOTENT_RECHECK", "candidate_id": candidate_id, "candidate_sha256": candidate_sha256, "candidate_record": record}
         if ledger["used_candidates"] >= ledger["max_candidates"]:
+            if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2:
+                if ledger["used_check_calls"] < ledger["max_check_calls"]:
+                    check_number = ledger["used_check_calls"] + 1
+                    check_id = f"check-{check_number:03d}"
+                    check_root = safe_output_path(config.session_root, "checks", check_id)
+                    if check_root.exists():
+                        raise RuntimeError("check directory collision")
+                    check_root.mkdir(parents=True, exist_ok=True)
+                    atomic_write_json(check_root / "check_record.json", {
+                        "schema_version": "KIMIARK_CLOSED_LOOP_CHECK_RECORD_V1", "check_call_number": check_number,
+                        "kind": "CANDIDATE_BUDGET_EXHAUSTED", "candidate_sha256": candidate_sha256,
+                        "candidate_id": None, "status": "BUDGET_EXHAUSTED",
+                    })
+                    ledger["used_check_calls"] += 1
+                    ledger["checks"].append({"check_id": check_id, "kind": "CANDIDATE_BUDGET_EXHAUSTED", "candidate_sha256": candidate_sha256, "candidate_id": None, "status": "BUDGET_EXHAUSTED"})
+                    atomic_write_json(config.candidate_ledger_path, ledger)
             return {
                 "status": "BUDGET_EXHAUSTED", "resource": "candidates",
                 "candidate_ledger": {"max_candidates": ledger["max_candidates"], "used_candidates": ledger["used_candidates"]},
                 "candidate_counted": False, "simulation_started": False,
             }
-        candidate_number = ledger["used_candidates"] + 1
-        candidate_id = f"candidate-{candidate_number:03d}"
-        candidate_root = safe_output_path(config.session_root, "candidates", candidate_id)
-        if candidate_root.exists():
-            raise RuntimeError("candidate directory collision")
-        candidate_root.mkdir(parents=True, exist_ok=True)
-        source_dir = safe_output_path(candidate_root, "source")
+        check_id: str | None = None
+        check_root: Path | None = None
+        if ledger["schema_version"] == CANDIDATE_LEDGER_SCHEMA_V2:
+            check_number = ledger["used_check_calls"] + 1
+            check_id = f"check-{check_number:03d}"
+            check_root = safe_output_path(config.session_root, "checks", check_id)
+            if check_root.exists():
+                raise RuntimeError("check directory collision")
+            check_root.mkdir(parents=True, exist_ok=True)
+            work_root = check_root
+        else:
+            candidate_number = ledger["used_candidates"] + 1
+            candidate_id = f"candidate-{candidate_number:03d}"
+            candidate_root = safe_output_path(config.session_root, "candidates", candidate_id)
+            if candidate_root.exists():
+                raise RuntimeError("candidate directory collision")
+            candidate_root.mkdir(parents=True, exist_ok=True)
+            work_root = candidate_root
+        source_dir = safe_output_path(work_root, "source")
         source_dir.mkdir(parents=True, exist_ok=True)
         atomic_write_json(source_dir / "llm_structured_output.json", plan)
-        atomic_write_json(source_dir / "original_request.json", {"candidate_id": candidate_id, "plan": plan})
+        atomic_write_json(source_dir / "original_request.json", {"check_id": check_id, "candidate_id": None, "plan": plan})
         shutil.copyfile(config.facts_source_dir / "llm_evidence_context.json", source_dir / "llm_evidence_context.json")
         shutil.copyfile(config.facts_source_dir / "revision_output_schema.json", source_dir / "revision_output_schema.json")
         evidence = load_json(source_dir / "llm_evidence_context.json")
@@ -534,6 +626,36 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
             validation["errors"] = errors
             atomic_write_json(source_dir / "llm_plan_validation.json", validation)
         check_status = "PASS" if not errors else "FAIL"
+        if check_root is not None and check_status == "FAIL":
+            atomic_write_json(check_root / "check_record.json", {
+                "schema_version": "KIMIARK_CLOSED_LOOP_CHECK_RECORD_V1", "check_call_number": int(check_id.rsplit("-", 1)[1]),
+                "kind": "FAILED_CHECK", "candidate_sha256": candidate_sha256,
+                "candidate_id": None, "status": "FAIL", "errors": errors,
+            })
+            ledger["used_check_calls"] += 1
+            ledger["checks"].append({
+                "check_id": check_id, "kind": "FAILED_CHECK", "candidate_sha256": candidate_sha256,
+                "candidate_id": None, "status": "FAIL", "errors": errors,
+            })
+            atomic_write_json(config.candidate_ledger_path, ledger)
+            return {
+                "status": "FAIL", "check_id": check_id, "check_call_counted": True,
+                "candidate_id": None, "candidate_sha256": candidate_sha256,
+                "candidate_counted": False, "simulation_started": False, "errors": errors,
+                "layers": {key: value for key, value in layered.items() if isinstance(value, list)},
+                "execution_input_gate": execution_result,
+                "check_record_path": str((check_root / "check_record.json").relative_to(ROOT)),
+            }
+        if check_root is not None:
+            candidate_number = ledger["used_candidates"] + 1
+            candidate_id = f"candidate-{candidate_number:03d}"
+            candidate_root = safe_output_path(config.session_root, "candidates", candidate_id)
+            if candidate_root.exists():
+                raise RuntimeError("candidate directory collision")
+            shutil.copytree(check_root, candidate_root)
+            atomic_write_json(candidate_root / "source" / "original_request.json", {
+                "check_id": check_id, "candidate_id": candidate_id, "plan": plan,
+            })
         frozen_inputs = {
             "llm_structured_output.json": file_record(source_dir / "llm_structured_output.json"),
             "llm_evidence_context.json": file_record(source_dir / "llm_evidence_context.json"),
@@ -546,6 +668,7 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
             "schema_version": CANDIDATE_RECORD_SCHEMA_VERSION,
             "session_id": config.session_id,
             "candidate_id": candidate_id,
+            "check_id": check_id,
             "candidate_sha256": candidate_sha256,
             "plan_id": _plan_operation_id(plan),
             "stage_id": config.stage_id,
@@ -572,9 +695,17 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
         }
         ledger["used_candidates"] += 1
         ledger["attempts"].append(attempt)
+        if check_root is not None:
+            ledger["used_check_calls"] += 1
+            ledger["checks"].append({
+                "check_id": check_id, "kind": "PASS", "candidate_sha256": candidate_sha256,
+                "candidate_id": candidate_id, "status": "PASS",
+            })
         atomic_write_json(config.candidate_ledger_path, ledger)
         return {
             "status": check_status,
+            "check_id": check_id,
+            "check_call_counted": check_root is not None,
             "candidate_id": candidate_id,
             "candidate_sha256": candidate_sha256,
             "candidate_counted": True,
@@ -926,6 +1057,16 @@ def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, 
     event_type = arguments.get("event_type")
     if not isinstance(event_type, str) or not event_type:
         raise RuntimeError("event_type must be a non-empty string")
+    if event_type not in QUERY_EVENT_TYPE_NAMES:
+        return {
+            "status": "INVALID_EVENT_TYPE", "error_path": "/event_type",
+            "received_value": event_type, "legal_event_type": None,
+            "supported_event_types": SUPPORTED_EVENT_TYPE_NAMES,
+            "supported_action_aliases": dict(sorted(experience.EVENT_ALIASES.items())),
+            "repair_hint": "Use a supported event_type; ACTIVATE_SKILL aliases SKILL_ACTIVATE.",
+            "observation_coverage": "UNKNOWN",
+        }
+    normalized_event_type = experience.EVENT_ALIASES.get(event_type, event_type)
     filters: list[dict[str, Any]] = []
     for key in ("source_id", "target_id"):
         if key in arguments:
@@ -950,7 +1091,7 @@ def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, 
             raise RuntimeError("details_equal value must be a primitive")
     matches: list[dict[str, Any]] = []
     for event in events:
-        if not isinstance(event, dict) or event.get("event_type") != event_type:
+        if not isinstance(event, dict) or event.get("event_type") != normalized_event_type:
             continue
         if any(event.get(item["key"]) != item["value"] for item in filters):
             continue
@@ -1002,7 +1143,9 @@ def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, 
     return {
         "schema_version": EVENT_QUERY_SCHEMA_VERSION,
         "candidate_id": record.get("candidate_id"),
-        "event_type": event_type,
+        "declared_event_type": event_type,
+        "event_type": normalized_event_type,
+        "event_type_alias_applied": normalized_event_type != event_type,
         "events": page,
         "pagination": {
             "offset": offset, "limit": limit, "total_matches": len(matches),

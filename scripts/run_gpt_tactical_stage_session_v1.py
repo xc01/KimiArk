@@ -494,7 +494,11 @@ def validate_plan_payload(parsed: Any, evidence: dict[str, Any], schema: dict[st
     if isinstance(revision, dict) and "expected_first_observable_event" in revision:
         query = experience.normalize_event_query(revision["expected_first_observable_event"])
         if query["status"] != "VALID_QUERY":
-            event_query_errors.append(f"{query.get('reason')}: {query.get('event_type_declared') or query.get('event_type')}")
+            event_query_errors.append(
+                f"{query.get('reason')}: path={query.get('error_path')}; "
+                f"received={query.get('event_type_declared') or query.get('event_type')!r}; "
+                f"legal={query.get('legal_event_type')!r}; hint={query.get('repair_hint')}"
+            )
 
     plans = parsed.get("revised_operational_plans") if isinstance(parsed, dict) else None
     plan = plans[0] if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict) else None

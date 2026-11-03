@@ -32,6 +32,10 @@ default_tools_approval_mode = "approve"
 
 `enabled_tools` is an MCP exposure allow-list. `default_tools_approval_mode = "approve"` only avoids the client-side per-tool approval prompt; it does not alter service authorization, candidate quota, simulation quota, frozen input hashes, static gates, or execution preflight. A per-tool override is `mcp_servers.kimiark.tools.<tool>.approval_mode = "approve"`. Avoid unsupported names such as `trusted` or `auto_approve`.
 
+## Action and event names
+
+Plan `action_type` uses `DEPLOY`, `ACTIVATE_SKILL`, and `RETREAT`. Simulator logs are events and use `DEPLOY`, `RETREAT`, and `SKILL_ACTIVATE`; they also include damage, healing, projectile, ability, device, death, leak, and objective event types. `get_session_status` exposes both lists. `query_events` accepts `ACTIVATE_SKILL` only as an explicit lossless alias for `SKILL_ACTIVATE`, returns the declared and normalized names, and never guesses an unknown event. Invalid expected-event fields return the JSON path, received value, supported set, and repair hint.
+
 The implementation intentionally uses the repository's existing JSON-RPC style and standard library rather than adding an MCP SDK dependency.
 
 ## Why a fixed-session adapter
@@ -61,6 +65,8 @@ Each candidate is written under the service-owned session root as `candidates/ca
 ## Candidate and simulation accounting
 
 The candidate ledger must already exist and be bound to the configured session ID. A new distinct canonical plan hash consumes one candidate slot on first `check_plan`, including a contract, capability, execution-fact, roster, K, or static failure. Rechecking the same hash is idempotent and does not consume a second slot.
+
+Versioned ledgers may instead use `KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2`. A V2 ledger enforces `max_check_calls` separately from `max_candidates`. Every non-over-limit `check_plan` call—including a failed check, idempotent recheck, and candidate-budget-exhausted check—is recorded under `checks/check-NNN` and consumes one check call. Only a PASS creates `candidates/candidate-NNN` and consumes an actual run-candidate slot. This preserves failed revisions while preventing unbounded protocol repair.
 
 `run_simulation` accepts only a checked PASS candidate ID plus its exact SHA-256. It re-verifies frozen input hashes, source-fact hashes, controlled code hashes, active mechanics, K, static conflicts, and execution input. It then performs a non-starting preflight and invokes the existing runner's `simulate` phase. That runner calls the existing gate and performs budget reservation before battle.
 
