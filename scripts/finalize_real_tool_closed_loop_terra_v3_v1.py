@@ -177,8 +177,17 @@ def main():
         "self_sha256_path": "closure_report_v1.json.sha256",
         "files": [],
     }
-    for path in sorted(root.rglob("*")):
-        if not path.is_file() or path.name in {"artifact_manifest_v1.json", "closure_report_v1.json.sha256"}:
+    all_paths = sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix(),
+    )
+    for path in all_paths:
+        if not path.is_file() or path.name in {
+            "diagnostic_events.json",
+            "diagnostic_summary.json",
+            "artifact_manifest_v1.json",
+            "closure_report_v1.json.sha256",
+        }:
             continue
         relative_path = path.relative_to(root).as_posix()
         entry = {
