@@ -1,0 +1,74 @@
+{
+  "schema_version": "KIMIARK_REAL_TOOL_CLOSED_LOOP_FAILURE_REPORT_V1",
+  "status": "STOPPED_SERVICE_APPROVAL_POLICY",
+  "session_id": "real-tool-loop-terra-v1",
+  "thread_id": "01a19fec-ae12-7023-8985-cf623bf0b730",
+  "capture_head": "e6fc2f4644392f2b722a58a5e80dbbd8a686ec5f",
+  "model": "gpt-6.1-terra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "mcp": {
+    "server": "kimiark",
+    "transport": "stdio",
+    "tools_discovered": true,
+    "first_tool_call": {
+      "tool": "get_session_status",
+      "arguments": {},
+      "status": "failed",
+      "error": "MCP tool call requires approval, but approval policy is never"
+    },
+    "production_backend": "CONTROLLED_RUNNER",
+    "allow_fake_execution": false
+  },
+  "cli": {
+    "started": true,
+    "completed": true,
+    "exit_code": 0,
+    "timed_out": false,
+    "automatic_retry": false,
+    "automatic_resume": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "usage": {
+      "input_tokens": 57904,
+      "cached_input_tokens": 39296,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 344,
+      "reasoning_output_tokens": 48
+    }
+  },
+  "budget": {
+    "used_candidates": 0,
+    "max_candidates": 4,
+    "used_simulations": 0,
+    "max_simulations": 2,
+    "remaining_candidates": 4,
+    "remaining_simulations": 2
+  },
+  "outcome": {
+    "plans_submitted": 0,
+    "real_simulations_started": 0,
+    "real_gate_verified": false,
+    "diagnostic_runner_verified": false,
+    "event_query_verified": false,
+    "autonomous_revision_verified": false,
+    "tactical_loss": false,
+    "tactical_win": false
+  },
+  "recovery_gate": "Requires fresh explicit user authorization before starting another real CLI; this ledger retains its existing 1/1 CLI consumption.",
+  "offline_regression": {
+    "command": "uv run pytest -q tests/test_kimiark_tactical_stdio_service_v1.py tests/test_tactical_experience_loop_v1.py tests/test_gpt_tactical_stage_session_v1.py && python -m py_compile scripts/run_kimiark_real_tool_closed_loop_v1.py scripts/codex_model_authorization_v1.py scripts/kimiark_tactical_stdio_service_v1.py",
+    "result": "52 tests passed; Python compilation succeeded"
+  },
+  "artifact_sha256": {
+    "session_config_v1.json": "08443899899add81f2b7267a846425bb4723dd0719d62463317e6ac65e209d40",
+    "model_authorization_v1.json": "af37205f26ab9361fa78a94834d17369338bbc02215495d83b14fa66558399c6",
+    "simulation_budget_v1.json": "e6f651d0317b5c63979f2655982671ec2758ad7024b512e3e1e15d01e64be5c8",
+    "candidate_ledger_v1.json": "55cfdfc242a39ceaccf18046c66a36cb47f6c45fb0551b523ef57b08908a710e",
+    "cli_process_attempt.json": "edfa5ae6f475d17b168521fd179777d45e70c27652b988f7582594a3c2214ebf",
+    "cli_process_result.json": "c6a19e84f56b90b7f2ad5ea2e88d00b3018d45a18db6cc1783d938ad3c2f1d0f",
+    "codex_exec.jsonl": "abe89b474a91663a55703a58aba90b928f5896c56db1b09877876111dfa4d4d5",
+    "codex_stderr.txt": "e098f33400602da088cfbe16d1862d770e105135480f40e5eb523db092aa3f50",
+    "codex_final_message.txt": "d9f2d16cd5ede58905a3d42de7acbb2ccdcf7f57007224e5f32d67989a59923f",
+    "codex_trajectory_summary.json": "7d968c320ab4e2a385d1020b0d962a5169b4ff27dc13b8eefbd58b4a3212fad3"
+  }
+}

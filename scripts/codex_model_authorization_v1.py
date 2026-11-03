@@ -66,8 +66,10 @@ def validate_cli_authorization(
         "model_provider": config["provider"],
         "model_reasoning_effort": config["reasoning_effort"],
         **{
-            key: value.strip('"')
-            for key, value in (item.split("=", 1) for item in config["extra_config_values"])
+            parsed[0].split("=", 1)[0]: parsed[0].split("=", 1)[1]
+            for item in config["extra_config_values"]
+            for parsed in [shlex.split(item)]
+            if len(parsed) == 1 and parsed[0].count("=") >= 1
         },
     }
     if malformed_overrides:

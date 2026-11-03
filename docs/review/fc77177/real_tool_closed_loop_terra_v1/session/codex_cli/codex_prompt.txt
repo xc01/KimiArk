@@ -1,0 +1,42 @@
+You are gpt-6.1-terra (reasoning medium) in one authorized Codex CLI session for the KimiArk real tool closed loop. Work only in the current repository and use only the local MCP server named `kimiark`.
+
+First discover the actual MCP tool names. They expose these four functions; the Codex names may be prefixed (for example `mcp__kimiark__get_session_status`):
+1. `get_session_status`: read-only session, K, mechanics, facts and remaining budget.
+2. `check_plan`: validate one complete candidate; a newly distinct candidate hash consumes a candidate slot even if invalid.
+3. `run_simulation`: run one complete fixed-action full-stage simulation through the real budgeted gate; STARTED failures count and are never retried.
+4. `query_events`: read-only query of registered real simulation events.
+
+Do not call any other model, agent, web service, simulator command, Python tactical search, or shell simulation. Do not modify code, mechanism, budget, authorization or result files. You may use read-only shell to inspect supplied facts. All tactical choices are yours.
+
+Budget and rules:
+- This session has at most 4 checked candidate positions and 2 complete real simulations, controlled by the service.
+- K is exactly 7: the union of `selected_low_star_operator_ids` and every DEPLOY `operator_id` must be at most 7 unique IDs. Robots/transitional units count.
+- Check a plan before running it. Only run a candidate whose `check_plan` result is PASS and whose exact returned `candidate_sha256` you use.
+- If the first complete simulation is a WIN, stop after querying enough evidence to verify the final report; do not use candidate 2.
+- If it is a LOSS, query real events around the relevant failures, then submit a substantive revised candidate and run it once. Do not merely change late frames or repeat the same plan.
+- If a tool returns budget exhaustion, STARTED_UNKNOWN, incomplete result, timeout, service failure, hash mismatch, or an unexpected repeated execution, stop and report it. Do not retry, resume, change model, or invent a replacement run.
+
+Use the fixed facts in `output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v4/llm_evidence_context.json` and `revision_output_schema.json`. Build one complete ordinary-mode 1-3-star R8-7/main_08-07 plan exactly matching that schema and its existing contract/lineage fields. Your new plan IDs must start with `R87_REAL_TOOL_TERRA_`; use the supplied previous plan as the parent/lineage reference.
+
+All roles are open. Do not assume the M70 eight-person roster must be preserved or that one person must be removed. Compare at least three substantive structures internally and state a brief comparison: earlier kill/decompression, output-plus-tanking, retreat relay, split routes, economy/blocking/medical fusion, or another legal structure. Selected and DEPLOY union <= 7.
+
+Useful fixed context, not universal deadlines:
+- M70 eight-person WIN used Fang, Friston-3, Midnight, Melanite, Ansel, Hibiscus, Spot, and Steward. Artillery died at 4273; both protected targets arrived.
+- Melanite retreated at 2054 after the second shell locked her old position; Spot deployed later at 2341. A replacement entering the old or adjacent splash zone can still be hit.
+- Steward killed artillery at 4273, retreated, returned, and killed #34 after it was actually blocked at 6596.
+- Known failures include a replacement taking continuous shells, medical/output interruption, an economy operator dying before skill income, and retreat releasing enemies without timely replacement. Re-derive targeting, treatment, paths and timing for your roster.
+
+Your first check_plan submission must include a concise machine-readable difference note in existing explanatory fields: which M70 success conditions change, who inherits each role, cost/SP/timing assumptions, artillery/#34 closure, protected-target passage, and what remains a simulation assumption. Conditional PASS does not prove survival or income; observe events.
+
+After each real simulation, return only factual observations. Distinguish the earliest responsibility failure, first acceptance break, first leak, life-zero, and final state. Death event count and unique dead operator count are separate. A single BLOCK/HEAL/PROJECTILE_BORN does not verify a hypothesis. Do not claim WIN unless remaining_life > 0, zero leaks, both protected targets alive and arrived, all spawns settled, and no active enemies.
+
+Final assistant message must be one compact JSON object with no markdown:
+{
+  "status": "COMPLETE|STOPPED_SERVICE|STOPPED_BUDGET",
+  "candidate_results": [{"candidate_id": "...", "candidate_sha256": "...", "check_status": "...", "simulation_status": "...", "win": true|false|null, "summary": "..."}],
+  "key_event_queries": [{"candidate_id": "...", "event_type": "...", "frame_window": [0,0], "match_count": 0, "interpretation": "..."}],
+  "tool_loop_verified": true,
+  "remaining_budget": {"candidates": 0, "simulations": 0},
+  "notes": "..."
+}
+
