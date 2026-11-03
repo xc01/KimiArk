@@ -1,0 +1,58 @@
+{
+  "schema_version": "KIMIARK_STDIO_SERVICE_TEST_LOG_V1",
+  "FAKE_TEST": true,
+  "record_kind": "LOCAL_TOOL_AND_FAKE_EXECUTOR_TEST",
+  "real_model_calls": 0,
+  "real_simulations": 0,
+  "real_budget_reservations": 0,
+  "interpreter": "uv-managed project virtualenv, Python 3.12.13",
+  "test_command": "uv run pytest tests/test_kimiark_tactical_stdio_service_v1.py -vv --tb=short",
+  "result": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "dynamic": true
+  },
+  "protocol_verification": {
+    "transport": "newline-delimited JSON-RPC 2.0 stdio",
+    "mcp_methods_verified": [
+      "initialize",
+      "notifications/initialized",
+      "tools/list",
+      "tools/call",
+      "clean stdin close"
+    ],
+    "tools_discovered": [
+      "get_session_status",
+      "check_plan",
+      "run_simulation",
+      "query_events"
+    ],
+    "stdout_contained_protocol_only": true,
+    "stderr_was_empty": true,
+    "child_exit_code": 0,
+    "global_codex_config_modified": false
+  },
+  "fake_closed_loop": {
+    "execution_backend": "TEST_ONLY_FAKE",
+    "fake_run_starts": 2,
+    "duplicate_run_starts": 0,
+    "candidate_checks_counted": 2,
+    "idempotent_candidate_rechecks_counted": 0,
+    "budget_after": {
+      "max_stage_simulations": 2,
+      "prior_stage_simulations": 0,
+      "started_stage_simulations": 2
+    },
+    "quota_exhaustion_rejected_new_candidate": true,
+    "results_marked_FAKE_TEST": true,
+    "temporary_fixture_removed": true
+  },
+  "boundaries": {
+    "actual_codex_registration_verified": false,
+    "real_gate_consume_evaluation_verified": false,
+    "real_diagnostic_compatibility_verified": false,
+    "operating_system_sandbox_provided": false,
+    "causal_inference_implemented": false
+  }
+}

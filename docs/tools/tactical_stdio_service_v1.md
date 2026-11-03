@@ -13,9 +13,17 @@ It is an execution adapter, not a planner. The model still supplies every roster
 
 This task only packages the tool layer. It does not authorize any tactical CLI call, complete simulation, live MCP integration, or a new tactical milestone.
 
-## Why a custom stdio adapter
+## Protocol
 
-The repository already has a minimal JSON-RPC MCP server in `scripts/kimiark_mcp_server.py`, but its existing tools accept caller-provided paths. That is suitable for the old runner but does not bind one experiment to a fixed session root, budget, authorization, or candidate ledger.
+The service uses newline-delimited JSON-RPC 2.0 over stdio and implements the MCP methods used by a local client: `initialize`, `notifications/initialized`, `tools/list`, `tools/call`, `ping`, and `notifications/cancelled`. Its advertised protocol version is `2025-06-18`. Stdout carries protocol messages only; there are no service log lines on stdout. JSON messages are flushed after every line.
+
+The local fake closed-loop test starts this script as a child process, performs the MCP handshake, discovers exactly four tools, calls status/check/run/query, closes stdin, and verifies a clean exit. It does not register Codex globally and does not prove that a particular Codex installation will accept this server; that client registration remains a separate authorization step.
+
+The implementation intentionally uses the repository's existing JSON-RPC style and standard library rather than adding an MCP SDK dependency.
+
+## Why a fixed-session adapter
+
+The repository also has an older MCP server in `scripts/kimiark_mcp_server.py`, but its existing tools accept caller-provided paths. That is suitable for the old runner but does not bind one experiment to a fixed session root, budget, authorization, or candidate ledger.
 
 The new adapter uses the repository's stdlib JSON-RPC style and routes execution through the existing controlled chain:
 
@@ -46,6 +54,18 @@ The candidate ledger must already exist and be bound to the configured session I
 After reservation, any failure, timeout, incomplete result, or lost process is counted. The service does not refund, restart, resume, or retry. A repeated completed request returns the saved result. While a service run lock is held, it returns `IN_PROGRESS`. If a reservation is present without a locally determinable outcome, it returns `STARTED_UNKNOWN` and reconciliation is required.
 
 The example `max_candidates: 5` and `max_stage_simulations` are placeholder numbers only. This task does not create an active budget.
+
+## Fake test backend
+
+Production config must use:
+
+```json
+{"execution_backend": "CONTROLLED_RUNNER", "allow_fake_execution": false}
+```
+
+A fake backend is possible only when all of the following are true in the startup config: `execution_backend` is `TEST_ONLY_FAKE`, `allow_fake_execution` is true, `session_id` begins with `TEST_ONLY-`, and `stage_id` begins with `FAKE_TEST-`. The fake executor writes events and summaries marked `FAKE_TEST`; it never calls the diagnostic runner or `Simulator`. Its outputs are not tactical results and must not be archived as battle evidence.
+
+Model-facing tool arguments cannot switch the backend. Switching to fake execution requires modifying the trusted startup configuration.
 
 ## Event semantics
 
@@ -102,6 +122,10 @@ WIN still means legal union <= K, current-model simulator WIN, zero leaks, both 
 ## Old-runner compatibility
 
 The old runner and MCP server remain unchanged. This adapter adds an explicit opt-in service; no startup script or global configuration is registered here. Existing milestone evidence, frozen plans, budgets, and M79 accounting are not modified.
+
+## Local dynamic test record
+
+A FAKE_TEST record is kept at `docs/tools/tactical_stdio_service_test_log_v1.json`. It records the targeted pytest command, result counts, protocol transcript summary, fake executor invocation count, and budget counters. Temporary fixtures are removed; the committed record contains no credential or full tactical evidence.
 
 ## Written but not executed
 

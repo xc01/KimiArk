@@ -42,6 +42,7 @@ EVENT_QUERY_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_EVENT_QUERY_V1"
 CANDIDATE_ID_RE = re.compile(r"candidate-[0-9]{3,}")
 DETAIL_KEY_RE = re.compile(r"[A-Za-z0-9_.-]{1,64}(?:\.[A-Za-z0-9_.-]{1,64})*")
 MAX_EVENT_PAGE_SIZE = 200
+MAX_EVENT_RESPONSE_BYTES = 1_048_576
 
 CONTROLLED_EXECUTION_FILES = (
     "scripts/kimiark_tactical_stdio_service_v1.py",
@@ -134,6 +135,8 @@ class SessionConfig:
     max_unique_deployed_operators: int
     max_candidates: int
     simulation_timeout_seconds: int
+    execution_backend: str
+    allow_fake_execution: bool
 
 
 def load_json(path: Path) -> Any:
@@ -237,7 +240,10 @@ def load_session_config(path: Path) -> SessionConfig:
             resolved = repository_path(value)
             if resolved.is_symlink():
                 raise RuntimeError(f"session config {key} must not be a symlink")
-            if not resolved.is_file():
+            if key == "facts_source_dir":
+                if not resolved.is_dir():
+                    raise RuntimeError(f"session config {key} does not exist")
+            elif not resolved.is_file():
                 raise RuntimeError(f"session config {key} does not exist")
     authorization = load_json(repository_path(config["authorization_config_path"]))
     model = authorization.get("model")
@@ -252,6 +258,21 @@ def load_session_config(path: Path) -> SessionConfig:
     for name in ("llm_evidence_context.json", "revision_output_schema.json"):
         if not (facts_source_dir / name).is_file():
             raise RuntimeError(f"facts source missing {name}")
+    execution_backend = config.get("execution_backend", "CONTROLLED_RUNNER")
+    allow_fake_execution = config.get("allow_fake_execution", False)
+    if execution_backend not in {"CONTROLLED_RUNNER", "TEST_ONLY_FAKE"}:
+        raise RuntimeError("execution_backend must be CONTROLLED_RUNNER or TEST_ONLY_FAKE")
+    if not isinstance(allow_fake_execution, bool):
+        raise RuntimeError("allow_fake_execution must be boolean")
+    if execution_backend == "TEST_ONLY_FAKE":
+        if not allow_fake_execution:
+            raise RuntimeError("TEST_ONLY_FAKE requires allow_fake_execution=true")
+        if not str(config.get("session_id", "")).startswith("TEST_ONLY-"):
+            raise RuntimeError("TEST_ONLY_FAKE session_id must begin with TEST_ONLY-")
+        if not str(config.get("stage_id", "")).startswith("FAKE_TEST-"):
+            raise RuntimeError("TEST_ONLY_FAKE stage_id must begin with FAKE_TEST-")
+    elif allow_fake_execution:
+        raise RuntimeError("allow_fake_execution is forbidden without TEST_ONLY_FAKE")
     ledger = load_candidate_ledger(repository_path(config["candidate_ledger_path"]))
     if ledger.get("session_id") != config["session_id"]:
         raise RuntimeError("candidate ledger session_id does not match session config")
@@ -278,6 +299,8 @@ def load_session_config(path: Path) -> SessionConfig:
         max_unique_deployed_operators=_required_int(config, "max_unique_deployed_operators", minimum=1),
         max_candidates=_required_int(config, "max_candidates", minimum=1),
         simulation_timeout_seconds=_required_int(config, "simulation_timeout_seconds", minimum=1),
+        execution_backend=execution_backend,
+        allow_fake_execution=allow_fake_execution,
     )
 
 
@@ -384,6 +407,13 @@ def _plan_operation_id(plan: dict[str, Any]) -> Any:
     return None
 
 
+def _selected_plan(plan: dict[str, Any]) -> dict[str, Any]:
+    plans = plan.get("revised_operational_plans")
+    if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
+        return plans[0]
+    return {}
+
+
 def _validation_layers(
     config: SessionConfig, plan: dict[str, Any], evidence: dict[str, Any], schema: dict[str, Any]
 ) -> tuple[dict[str, Any], list[str], dict[str, Any]]:
@@ -402,14 +432,24 @@ def _validation_layers(
     operation_id = _plan_operation_id(plan)
     if not isinstance(operation_id, str) or not operation_id.startswith(config.plan_id_prefix):
         errors.append(f"operational_plan_id must identify {config.plan_label}")
-    distinct_ids = distinct_deployed_operator_ids(plan)
+    selected_plan = _selected_plan(plan)
+    distinct_ids = distinct_deployed_operator_ids(selected_plan)
     if len(distinct_ids) > config.max_unique_deployed_operators:
         errors.append(
             f"distinct selected/deployed operator union has {len(distinct_ids)} IDs; "
             f"hard limit is {config.max_unique_deployed_operators}"
         )
-    capability_errors = validate_normal_low_star_capability_source(evidence)
-    execution_errors = validate_execution_input(evidence, plan)
+    try:
+        capability_observed = validate_normal_low_star_capability_source(evidence)
+        capability_errors = [
+            f"{key}: {value}" for key, value in capability_observed.items() if not value
+        ]
+    except Exception as exc:
+        capability_errors = [f"{type(exc).__name__}: {exc}"]
+    try:
+        execution_errors = validate_execution_input(evidence, plan)
+    except Exception as exc:
+        execution_errors = [f"{type(exc).__name__}: {exc}"]
     if evidence.get("m58_open_roster_policy"):
         roster_errors = validate_open_roster_contract(plan, evidence, config.max_unique_deployed_operators)
     else:
@@ -418,7 +458,7 @@ def _validation_layers(
         "schema_version": "KIMIARK_CLOSED_LOOP_EXECUTION_INPUT_GATE_V1",
         "status": "BLOCKED_EXECUTION_INPUT" if execution_errors or capability_errors else "PASS",
         "checked_operator_ids": sorted(distinct_ids),
-        "errors": execution_errors + capability_errors,
+        "errors": [*execution_errors, *capability_errors],
         "roster_errors": roster_errors,
     }
     return layered, errors + roster_errors, execution_result
@@ -510,7 +550,7 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
             "plan_id": _plan_operation_id(plan),
             "stage_id": config.stage_id,
             "check_status": check_status,
-            "unique_deployed_operator_count": len(distinct_deployed_operator_ids(plan)),
+            "unique_deployed_operator_count": len(distinct_deployed_operator_ids(_selected_plan(plan))),
             "max_unique_deployed_operators": config.max_unique_deployed_operators,
             "frozen_inputs_sha256": {name: item["sha256"] for name, item in frozen_inputs.items()},
             "frozen_inputs": frozen_inputs,
@@ -542,7 +582,7 @@ def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, An
             "errors": errors,
             "layers": {key: value for key, value in layered.items() if isinstance(value, list)},
             "execution_input_gate": execution_result,
-            "candidate_record_path": str(candidate_record.relative_to(ROOT)),
+            "candidate_record_path": str((candidate_root / "candidate_record.json").relative_to(ROOT)),
         }
 
 
@@ -667,6 +707,66 @@ def _executor(
     return subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False, timeout=config.simulation_timeout_seconds)
 
 
+def _fake_test_executor(
+    config: SessionConfig, source_dir: Path, output_dir: Path, plan_id: str
+) -> subprocess.CompletedProcess[str]:
+    if config.execution_backend != "TEST_ONLY_FAKE" or not config.allow_fake_execution:
+        raise RuntimeError("fake execution backend is not authorized")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    if any(output_dir.iterdir()):
+        raise RuntimeError("fake diagnostic output directory is not empty")
+    budget = gate.load_budget(config.budget_path)
+    budget["started_stage_simulations"] += 1
+    atomic_write_json(config.budget_path, budget)
+    candidate_number = int(source_dir.parent.name.split("-")[-1])
+    fake_win = candidate_number == 2
+    result = {
+        "FAKE_TEST": True,
+        "win": fake_win,
+        "enemies_killed": 2 if fake_win else 1,
+        "enemies_leaked": 0 if fake_win else 1,
+        "operator_deaths": [],
+        "remaining_life": 3 if fake_win else 2,
+        "final_dp": 10,
+        "deployment_errors": [],
+    }
+    events = [
+        {
+            "frame": 100, "time": 100 / 30, "event_type": "PROJECTILE_BORN",
+            "source_id": "fake_artillery", "target_id": "fake_tile",
+            "details": {"FAKE_TEST": True, "legal": True},
+        },
+        {
+            "frame": 200, "time": 200 / 30, "event_type": "DEPLOY",
+            "source_id": "fake_operator", "target_id": "fake_tile",
+            "details": {"FAKE_TEST": True, "legal": False},
+        },
+        {
+            "frame": 300, "time": 300 / 30, "event_type": "OPERATOR_DEATH",
+            "source_id": "fake_operator", "target_id": None,
+            "details": {"FAKE_TEST": True, "legal": True},
+        },
+    ]
+    summary = {
+        "FAKE_TEST": True,
+        "result": result,
+        "classification": "FAKE_TEST_DIAGNOSTIC_WIN" if fake_win else "FAKE_TEST_DIAGNOSTIC_LOSS",
+        "protected_target_deaths": [],
+        "protected_target_reached_events": [],
+    }
+    atomic_write_json(output_dir / "plan_snapshot.json", {"FAKE_TEST": True, "plan_id": plan_id})
+    atomic_write_json(output_dir / "action_snapshot.json", {"FAKE_TEST": True})
+    atomic_write_json(output_dir / "simulation_attempt.json", {"status": "COMPLETED", "result_saved": True, "FAKE_TEST": True})
+    atomic_write_json(output_dir / "diagnostic_events.json", {"FAKE_TEST": True, "events": events})
+    atomic_write_json(output_dir / "diagnostic_summary.json", summary)
+    atomic_write_json(output_dir / "manifest.json", {"FAKE_TEST": True, "stage_id": config.stage_id, "plan_id": plan_id})
+    atomic_write_json(output_dir.with_name(output_dir.name + ".simulation_reservation.json"), {
+        "FAKE_TEST": True, "status": "COMPLETED", "result_saved": True,
+        "reservation_index": budget["started_stage_simulations"],
+    })
+    return type("CompletedProcess", (), {"returncode": 0, "stdout": "FAKE_TEST", "stderr": "FAKE_TEST"})()
+
+
 def run_simulation(
     config: SessionConfig, arguments: dict[str, Any], *, executor: Callable[..., subprocess.CompletedProcess[str]] | None = None
 ) -> dict[str, Any]:
@@ -689,7 +789,7 @@ def run_simulation(
             return _compact_simulation_summary(config, summary, output_dir, {"status": "IDEMPOTENT_COMPLETED", "simulation_started_counted": True, "state": state})
         if state["status"] not in {"NOT_STARTED"}:
             simulation_started_counted = (
-                "UNKNOWN" if state["status"] in {"UNKNOWN_NONEMPTY_OUTPUT"} or state["status"].startswith("RESERVATION_") else True
+                "UNKNOWN" if state["status"] in {"STARTED_UNKNOWN", "UNKNOWN_NONEMPTY_OUTPUT"} or state["status"].startswith("RESERVATION_") else True
             )
             return {
                 "status": state["status"], "candidate_id": candidate_id, "state": state,
@@ -733,7 +833,7 @@ def run_simulation(
             ledger["attempts"] = list(attempts.values())
             atomic_write_json(config.candidate_ledger_path, ledger)
             return {"status": "PREFLIGHT_FAILED", "error": f"{type(exc).__name__}: {exc}", "simulation_started_counted": False}
-        runner = executor or _executor
+        runner = executor or (_fake_test_executor if config.execution_backend == "TEST_ONLY_FAKE" else _executor)
         try:
             completed = runner(config, candidate_root / "source", output_dir, plan_id)
         except Exception as exc:
@@ -788,8 +888,12 @@ def run_simulation(
 
 
 def _details_value(event: dict[str, Any], key: str) -> Any:
-    value: Any = event.get("details")
-    for part in key.split("."):
+    parts = key.split(".")
+    if key.startswith("details."):
+        value: Any = event
+    else:
+        value = event.get("details")
+    for part in parts:
         if not isinstance(value, dict) or part not in value:
             return object()
         value = value[part]
@@ -882,6 +986,8 @@ def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, 
             "field": field,
             "matched_event_count": len(matches),
             "numeric_value_count": len(values),
+            "unique_source_id_count": len({event.get("source_id") for event in matches}),
+            "unique_target_id_count": len({event.get("target_id") for event in matches}),
             "sum": sum(values) if values else None,
             "minimum": min(values) if values else None,
             "maximum": max(values) if values else None,
@@ -889,12 +995,23 @@ def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, 
             "scope": "matched events in this registered log only",
         }
     page = matches[offset:offset + limit]
+    byte_budget_truncated = False
+    while page and len(canonical_json(page).encode("utf-8")) > MAX_EVENT_RESPONSE_BYTES:
+        page.pop()
+        byte_budget_truncated = True
     return {
         "schema_version": EVENT_QUERY_SCHEMA_VERSION,
         "candidate_id": record.get("candidate_id"),
         "event_type": event_type,
         "events": page,
-        "pagination": {"offset": offset, "limit": limit, "total_matches": len(matches), "next_offset": offset + limit if offset + limit < len(matches) else None, "truncated": offset + limit < len(matches)},
+        "pagination": {
+            "offset": offset, "limit": limit, "total_matches": len(matches),
+            "returned_matches": len(page),
+            "next_offset": offset + limit if offset + limit < len(matches) else None,
+            "truncated": offset + limit < len(matches),
+            "byte_budget_truncated": byte_budget_truncated,
+        },
+        "response_event_bytes": len(canonical_json(page).encode("utf-8")),
         "aggregate": aggregate_result,
         "observation_coverage": "COMPLETE" if observation_complete else "UNKNOWN",
         "zero_match_status": "EVENT_NOT_OBSERVED" if not matches and observation_complete else ("UNKNOWN" if not matches else None),
@@ -921,9 +1038,21 @@ def handle_message(config: SessionConfig, message: dict[str, Any]) -> dict[str, 
     method = message.get("method")
     request_id = message.get("id")
     if method == "initialize":
-        return {"jsonrpc": "2.0", "id": request_id, "result": {"protocolVersion": PROTOCOL_VERSION, "serverInfo": SERVICE_INFO, "capabilities": {"tools": {}}}}
+        requested_version = (message.get("params") or {}).get("protocolVersion")
+        response_version = requested_version if isinstance(requested_version, str) and requested_version else PROTOCOL_VERSION
+        return {
+            "jsonrpc": "2.0", "id": request_id,
+            "result": {
+                "protocolVersion": response_version, "serverInfo": SERVICE_INFO,
+                "capabilities": {"tools": {"listChanged": False}},
+            },
+        }
     if method == "notifications/initialized":
         return None
+    if method == "notifications/cancelled":
+        return None
+    if method == "ping":
+        return {"jsonrpc": "2.0", "id": request_id, "result": {}}
     if method == "tools/list":
         return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": TOOLS}}
     if method == "tools/call":
