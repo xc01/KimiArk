@@ -1,0 +1,21 @@
+{
+  "schema_version": "KIMIARK_M79_SERVICE_AVAILABILITY_V1",
+  "provider": "openai",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "features_apps": false,
+  "codex_cli_version": "0.166.0",
+  "no_new_model_probe_used": true,
+  "current_quota_reset": "UNKNOWN_NO_PROBE",
+  "evidence": {
+    "immediately_prior_successful_astra_medium_cli": "M78 candidates2 through5 completed with tactical output; no capacity or quota error occurred during that resume.",
+    "m78_closeout": "docs/review/fc77177/m78_post_m77_reduction_v1/m78_closeout_v1.json"
+  },
+  "decision": "Proceed to no-model preparation based on the immediately prior M78 Astra/medium completion evidence.",
+  "resume_outcome": {
+    "candidate_1": "STARTED at 2026-11-03T02:45:14Z, then failed with Selected model is at capacity before tactical output.",
+    "tactical_output": "NONE",
+    "counted_as_tactical_loss": false
+  },
+  "service_failure_rule": "If an M79 STARTED CLI returns usage limit, rate limit, capacity, HTTP 403, or routing failure without tactical output, archive it and stop this session; report the raw error category and preserve unused budget."
+}

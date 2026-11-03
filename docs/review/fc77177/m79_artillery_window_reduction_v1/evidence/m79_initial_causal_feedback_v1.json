@@ -1,0 +1,32 @@
+{
+  "schema_version": "KIMIARK_M79_INITIAL_CAUSAL_FEEDBACK_V1",
+  "scope": "M78 fixed-plan evidence plus retained M76/M72 counterexamples. Frames are conditional evidence, not portable deadlines.",
+  "m78_results": [
+    {"candidate": 2, "plan_id": "R8_7_GPT_M78_V2", "result": "LOSS", "kills": 24, "leaks": 9, "life": -8, "key_failure": "Hibiscus died@1991 after two artillery hits at [3,5]; Steward died@3191; #21/#22 were not closed."},
+    {"candidate": 3, "plan_id": "R8_7_GPT_M78_V3", "result": "LOSS", "kills": 12, "leaks": 21, "life": -20, "key_failure": "Artillery@2111 hit four clustered recipients; Friston/Hibiscus/Ansel died together, then Steward died@2561 and #11@3065 leaked."},
+    {"candidate": 4, "plan_id": "R8_7_GPT_M78_V4", "result": "LOSS", "kills": 24, "leaks": 9, "life": -7, "key_failure": "Steward died@2593 under repeated [7,5] artillery hits; Fang/Friston later died and protected #3 died@5353."},
+    {"candidate": 5, "plan_id": "R8_7_GPT_M78_V5", "result": "LOSS", "kills": 24, "leaks": 9, "life": -8, "key_failure": "Steward died@2443 before the planned4400 retreat; #21/#22 leaked and artillery survived."}
+  ],
+  "artillery_window_requirements": [
+    "State from where and when the selected output can hit artillery, real range/contact assumptions, expected hits, and a kill point; mark uncertain targeting/contact as assumptions.",
+    "Account for every shell as cast selection, projectile birth lock, delayed hit, splash radius, co-hit risk, treatment competition and attack cooldown.",
+    "If rotation is used, retreat must occur while the unit is alive; death has no refund. Name the live successor and check blocking/output vacancy.",
+    "Do not trade central #21/#22, #28/#31/#34 or protected-target clearance for an isolated artillery kill."
+  ],
+  "retained_counterexamples": [
+    {"source": "M76_C1", "fact": "Artillery locked Melantha's old position at1903; she retreated1967 and Spot redeployed1968, then Spot took558@1993. Next shell locked Ansel; Steward entered splash@2071 and died with Ansel after2293.", "lesson": "Retreat plus same-tile replacement does not automatically avoid the locked projectile or future locks."},
+    {"source": "M72_C1", "fact": "Fang died@1209, so the1320 six-DP income did not occur and the planned1381 Ansel deployment lacked DP.", "lesson": "Conditional skill income requires verified survival and deployment at the income frame."}
+  ],
+  "m70_reference_only": {
+    "operator_ids": ["char_123_fang", "char_4093_frston", "char_283_midn", "char_208_melan", "char_212_ansel", "char_120_hibisc", "char_284_spot", "char_210_stward"],
+    "result": "WIN with 33 kills, zero leaks, zero operator deaths, life3; artillery killed@4273 and #34 blocked@6596/killed@7197.",
+    "limitation": "A successful responsibility reference, not a fixed opening or transferable event timing."
+  },
+  "sources": {
+    "m78_closeout": "docs/review/fc77177/m78_post_m77_reduction_v1/m78_closeout_v1.json",
+    "m78_events": "docs/review/fc77177/m78_post_m77_reduction_v1/evidence/candidate_v{2,3,4,5}_diagnostic_raw/diagnostic_events.json.gz",
+    "m78_candidate2_feedback": "docs/review/fc77177/m78_post_m77_reduction_v1/evidence/m78_v2_feedback_v1.json",
+    "m78_candidate3_feedback": "docs/review/fc77177/m78_post_m77_reduction_v1/evidence/m78_v3_feedback_v1.json",
+    "m78_candidate4_feedback": "docs/review/fc77177/m78_post_m77_reduction_v1/evidence/m78_v4_feedback_v1.json"
+  }
+}
