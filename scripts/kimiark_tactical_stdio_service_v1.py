@@ -1,0 +1,969 @@
+from __future__ import annotations
+
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from contextlib import contextmanager
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable, Iterator
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import tactical_evaluation_gate_v1 as gate
+import tactical_experience_v1 as experience
+from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
+from compile_r8_1_lowstar_c2_plan_v1 import compile_plan
+from run_gpt_tactical_stage_session_v1 import (
+    distinct_deployed_operator_ids,
+    validate_execution_input,
+    validate_normal_low_star_capability_source,
+    validate_open_roster_contract,
+    validate_parent_hypothesis_reference,
+    validate_plan_payload,
+)
+
+
+SERVICE_INFO = {"name": "kimiark-closed-loop-tools", "version": "1.0.0"}
+PROTOCOL_VERSION = "2025-06-18"
+CONFIG_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_SESSION_CONFIG_V1"
+CANDIDATE_LEDGER_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V1"
+CANDIDATE_RECORD_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_CANDIDATE_RECORD_V1"
+SIMULATION_REQUEST_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_SIMULATION_REQUEST_V1"
+EVENT_QUERY_SCHEMA_VERSION = "KIMIARK_CLOSED_LOOP_EVENT_QUERY_V1"
+CANDIDATE_ID_RE = re.compile(r"candidate-[0-9]{3,}")
+DETAIL_KEY_RE = re.compile(r"[A-Za-z0-9_.-]{1,64}(?:\.[A-Za-z0-9_.-]{1,64})*")
+MAX_EVENT_PAGE_SIZE = 200
+
+CONTROLLED_EXECUTION_FILES = (
+    "scripts/kimiark_tactical_stdio_service_v1.py",
+    "scripts/kimiark_mcp_server.py",
+    "scripts/run_gpt_tactical_stage_session_v1.py",
+    "scripts/run_gpt_tactical_stage_diagnostic_v1.py",
+    "scripts/tactical_evaluation_gate_v1.py",
+    "scripts/compile_r8_1_lowstar_c2_plan_v1.py",
+)
+
+TOOLS = [
+    {
+        "name": "get_session_status",
+        "description": "Read a service-owned session without creating budget or extending limits.",
+        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+    },
+    {
+        "name": "check_plan",
+        "description": "Free, no-battle contract, roster, execution-fact, and static check. A new candidate attempt is counted even when invalid.",
+        "inputSchema": {
+            "type": "object", "required": ["plan"],
+            "properties": {"plan": {"type": "object"}},
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "run_simulation",
+        "description": "Run one authorized complete fixed-plan simulation through the existing gate. STARTED failures count and are never retried.",
+        "inputSchema": {
+            "type": "object",
+            "required": ["candidate_id", "candidate_sha256"],
+            "properties": {
+                "candidate_id": {"type": "string"},
+                "candidate_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "query_events",
+        "description": "Read-only deterministic query of a service-registered event log. No model or causal inference.",
+        "inputSchema": {
+            "type": "object", "required": ["candidate_id", "candidate_sha256", "event_type"],
+            "properties": {
+                "candidate_id": {"type": "string"},
+                "candidate_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+                "event_type": {"type": "string"},
+                "source_id": {"type": ["string", "null"]},
+                "target_id": {"type": ["string", "null"]},
+                "earliest_frame": {"type": "integer"},
+                "latest_frame": {"type": "integer"},
+                "details_equal": {
+                    "type": "array",
+                    "items": {
+                        "type": "object", "required": ["key", "value"],
+                        "properties": {"key": {"type": "string"}, "value": {}},
+                        "additionalProperties": False,
+                    },
+                },
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200},
+                "offset": {"type": "integer", "minimum": 0},
+                "aggregate": {
+                    "type": "object", "required": ["field"],
+                    "properties": {"field": {"type": "string"}},
+                    "additionalProperties": False,
+                },
+            },
+            "additionalProperties": False,
+        },
+    },
+]
+
+
+@dataclass(frozen=True)
+class SessionConfig:
+    path: Path
+    session_id: str
+    stage_id: str
+    plan_id_prefix: str
+    plan_label: str
+    model: str
+    reasoning_effort: str
+    features_apps: bool
+    mechanics_version: str
+    facts_source_dir: Path
+    session_root: Path
+    budget_path: Path
+    candidate_ledger_path: Path
+    authorization_config_path: Path
+    max_unique_deployed_operators: int
+    max_candidates: int
+    simulation_timeout_seconds: int
+
+
+def load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def canonical_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def sha256_path(path: Path) -> str:
+    return sha256_bytes(path.read_bytes())
+
+
+def repository_path(value: str) -> Path:
+    path = (ROOT / value).resolve()
+    try:
+        path.relative_to(ROOT)
+    except ValueError as exc:
+        raise RuntimeError(f"path outside KimiArk repository is forbidden: {value}") from exc
+    return path
+
+
+def safe_output_path(root: Path, *parts: str) -> Path:
+    candidate = root
+    for part in parts:
+        if part in {".", ".."} or "/" in part or "\\" in part:
+            raise RuntimeError("unsafe path component")
+        candidate = candidate / part
+        if candidate.is_symlink():
+            raise RuntimeError("symlink escape is forbidden")
+    resolved = candidate.resolve()
+    try:
+        resolved.relative_to(root.resolve())
+    except ValueError as exc:
+        raise RuntimeError("path traversal outside session root is forbidden") from exc
+    return resolved
+
+
+def atomic_write_json(path: Path, payload: Any, *, exclusive: bool = False) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    if exclusive and path.exists():
+        raise RuntimeError(f"immutable output already exists: {path}")
+    temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    try:
+        temporary.write_text(text, encoding="utf-8")
+        with temporary.open("rb") as handle:
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def validate_identifier(candidate_id: Any) -> str:
+    if not isinstance(candidate_id, str) or not CANDIDATE_ID_RE.fullmatch(candidate_id):
+        raise RuntimeError("invalid candidate_id")
+    return candidate_id
+
+
+def _required_string(config: dict[str, Any], key: str) -> str:
+    value = config.get(key)
+    if not isinstance(value, str) or not value:
+        raise RuntimeError(f"session config {key} must be a non-empty string")
+    return value
+
+
+def _required_int(config: dict[str, Any], key: str, *, minimum: int) -> int:
+    value = config.get(key)
+    if not isinstance(value, int) or isinstance(value, bool) or value < minimum:
+        raise RuntimeError(f"session config {key} must be an integer >= {minimum}")
+    return value
+
+
+def load_session_config(path: Path) -> SessionConfig:
+    config_path = repository_path(str(path))
+    config = load_json(config_path)
+    if not isinstance(config, dict) or config.get("schema_version") != CONFIG_SCHEMA_VERSION:
+        raise RuntimeError("unsupported closed-loop session config schema")
+    if config.get("features_apps") is not False:
+        raise RuntimeError("features_apps must be false for this service")
+    if config.get("mechanics_version") != ACTIVE_MECHANICS_VERSION:
+        raise RuntimeError("configured mechanics version does not match repository active mechanics")
+    paths = ("facts_source_dir", "session_root", "budget_path", "candidate_ledger_path", "authorization_config_path")
+    for key in paths:
+        value = _required_string(config, key)
+        if key == "session_root":
+            candidate_root = repository_path(value)
+            if candidate_root.is_symlink():
+                raise RuntimeError("session_root must not be a symlink")
+            if candidate_root.exists() and not candidate_root.is_dir():
+                raise RuntimeError("session_root must be a directory")
+            for parent in candidate_root.parents:
+                if parent.is_symlink():
+                    raise RuntimeError("session_root path contains symlink")
+        else:
+            resolved = repository_path(value)
+            if resolved.is_symlink():
+                raise RuntimeError(f"session config {key} must not be a symlink")
+            if not resolved.is_file():
+                raise RuntimeError(f"session config {key} does not exist")
+    authorization = load_json(repository_path(config["authorization_config_path"]))
+    model = authorization.get("model")
+    effort = authorization.get("reasoning_effort")
+    if not isinstance(model, str) or not model or model != config.get("model"):
+        raise RuntimeError("authorization model does not match session config")
+    if not isinstance(effort, str) or not effort or effort != config.get("reasoning_effort"):
+        raise RuntimeError("authorization reasoning effort does not match session config")
+    if not isinstance(config.get("session_id"), str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{2,63}", config["session_id"]):
+        raise RuntimeError("invalid session_id")
+    facts_source_dir = repository_path(config["facts_source_dir"])
+    for name in ("llm_evidence_context.json", "revision_output_schema.json"):
+        if not (facts_source_dir / name).is_file():
+            raise RuntimeError(f"facts source missing {name}")
+    ledger = load_candidate_ledger(repository_path(config["candidate_ledger_path"]))
+    if ledger.get("session_id") != config["session_id"]:
+        raise RuntimeError("candidate ledger session_id does not match session config")
+    if ledger.get("max_candidates") != config.get("max_candidates"):
+        raise RuntimeError("candidate ledger max_candidates does not match session config")
+    budget = gate.load_budget(repository_path(config["budget_path"]))
+    if budget.get("stage_id") != config.get("stage_id"):
+        raise RuntimeError("simulation budget stage_id does not match session config")
+    return SessionConfig(
+        path=config_path,
+        session_id=config["session_id"],
+        stage_id=_required_string(config, "stage_id"),
+        plan_id_prefix=_required_string(config, "plan_id_prefix"),
+        plan_label=_required_string(config, "plan_label"),
+        model=model,
+        reasoning_effort=effort,
+        features_apps=False,
+        mechanics_version=config["mechanics_version"],
+        facts_source_dir=facts_source_dir,
+        session_root=repository_path(config["session_root"]),
+        budget_path=repository_path(config["budget_path"]),
+        candidate_ledger_path=repository_path(config["candidate_ledger_path"]),
+        authorization_config_path=repository_path(config["authorization_config_path"]),
+        max_unique_deployed_operators=_required_int(config, "max_unique_deployed_operators", minimum=1),
+        max_candidates=_required_int(config, "max_candidates", minimum=1),
+        simulation_timeout_seconds=_required_int(config, "simulation_timeout_seconds", minimum=1),
+    )
+
+
+def file_record(path: Path) -> dict[str, Any]:
+    return {"path": str(path.relative_to(ROOT)), "sha256": sha256_path(path), "bytes": path.stat().st_size}
+
+
+def controlled_code_hashes() -> dict[str, str]:
+    return {name: sha256_path(ROOT / name) for name in CONTROLLED_EXECUTION_FILES}
+
+
+def load_candidate_ledger(path: Path) -> dict[str, Any]:
+    ledger = load_json(path)
+    if not isinstance(ledger, dict) or ledger.get("schema_version") != CANDIDATE_LEDGER_SCHEMA_VERSION:
+        raise RuntimeError("unsupported candidate ledger schema")
+    if not isinstance(ledger.get("session_id"), str):
+        raise RuntimeError("candidate ledger session_id is missing")
+    for key in ("max_candidates", "used_candidates"):
+        if not isinstance(ledger.get(key), int) or isinstance(ledger.get(key), bool):
+            raise RuntimeError(f"candidate ledger {key} must be an integer")
+    if not isinstance(ledger.get("attempts"), list):
+        raise RuntimeError("candidate ledger attempts must be an array")
+    if ledger["used_candidates"] != len(ledger["attempts"]):
+        raise RuntimeError("candidate ledger used_candidates and attempts count disagree")
+    return ledger
+
+
+@contextmanager
+def candidate_ledger_lock(path: Path) -> Iterator[None]:
+    lock_path = path.with_name(path.name + ".service.lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def simulation_run_lock(path: Path) -> Iterator[bool]:
+    lock_path = path.with_name("simulation.run.lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        try:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            yield False
+            return
+        try:
+            yield True
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def compact_attempt(ledger: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {
+            "candidate_id": attempt.get("candidate_id"),
+            "candidate_sha256": attempt.get("candidate_sha256"),
+            "check_status": attempt.get("check_status"),
+            "simulation_status": attempt.get("simulation_status"),
+            "simulation_started_counted": attempt.get("simulation_started_counted", False),
+        }
+        for attempt in ledger.get("attempts", [])
+    ]
+
+
+def session_status(config: SessionConfig) -> dict[str, Any]:
+    budget = gate.load_budget(config.budget_path)
+    ledger = load_candidate_ledger(config.candidate_ledger_path)
+    if ledger.get("session_id") != config.session_id:
+        raise RuntimeError("candidate ledger belongs to a different session")
+    remaining_simulations = max(
+        0, budget["max_stage_simulations"] - budget["prior_stage_simulations"] - budget["started_stage_simulations"]
+    )
+    remaining_candidates = max(0, ledger["max_candidates"] - ledger["used_candidates"])
+    return {
+        "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+        "session_id": config.session_id,
+        "stage_id": budget.get("stage_id"),
+        "model": config.model,
+        "reasoning_effort": config.reasoning_effort,
+        "features_apps": False,
+        "mechanics_version": config.mechanics_version,
+        "max_unique_deployed_operators": config.max_unique_deployed_operators,
+        "budget": {**budget, "remaining_stage_simulations": remaining_simulations},
+        "candidate_ledger": {
+            "schema_version": ledger.get("schema_version"),
+            "max_candidates": ledger["max_candidates"],
+            "used_candidates": ledger["used_candidates"],
+            "remaining_candidates": remaining_candidates,
+            "attempts": compact_attempt(ledger),
+        },
+        "controlled_code_sha256": controlled_code_hashes(),
+        "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+    }
+
+
+def _plan_operation_id(plan: dict[str, Any]) -> Any:
+    plans = plan.get("revised_operational_plans")
+    if isinstance(plans, list) and len(plans) == 1 and isinstance(plans[0], dict):
+        return plans[0].get("operational_plan_id")
+    return None
+
+
+def _validation_layers(
+    config: SessionConfig, plan: dict[str, Any], evidence: dict[str, Any], schema: dict[str, Any]
+) -> tuple[dict[str, Any], list[str], dict[str, Any]]:
+    layered = validate_plan_payload(plan, evidence, schema)
+    layered["previous_plan_id"] = evidence.get("previous_plan_id")
+    layered["declared_parent_plan_id"] = experience.extract_declared_parent_plan_id(plan)
+    layered["plan_parent_plan_id"] = experience.extract_parent_plan_id(plan)
+    lineage = list(layered.get("lineage_errors") or [])
+    lineage.extend(validate_parent_hypothesis_reference(plan))
+    layered["lineage_errors"] = lineage
+    errors: list[str] = []
+    errors.extend(f"schema: {item}" for item in layered.get("schema_errors", []))
+    errors.extend(f"semantic: {item}" for item in layered.get("semantic_errors", []))
+    errors.extend(f"event: {item}" for item in layered.get("event_query_errors", []))
+    errors.extend(f"lineage: {item}" for item in lineage)
+    operation_id = _plan_operation_id(plan)
+    if not isinstance(operation_id, str) or not operation_id.startswith(config.plan_id_prefix):
+        errors.append(f"operational_plan_id must identify {config.plan_label}")
+    distinct_ids = distinct_deployed_operator_ids(plan)
+    if len(distinct_ids) > config.max_unique_deployed_operators:
+        errors.append(
+            f"distinct selected/deployed operator union has {len(distinct_ids)} IDs; "
+            f"hard limit is {config.max_unique_deployed_operators}"
+        )
+    capability_errors = validate_normal_low_star_capability_source(evidence)
+    execution_errors = validate_execution_input(evidence, plan)
+    if evidence.get("m58_open_roster_policy"):
+        roster_errors = validate_open_roster_contract(plan, evidence, config.max_unique_deployed_operators)
+    else:
+        roster_errors = []
+    execution_result = {
+        "schema_version": "KIMIARK_CLOSED_LOOP_EXECUTION_INPUT_GATE_V1",
+        "status": "BLOCKED_EXECUTION_INPUT" if execution_errors or capability_errors else "PASS",
+        "checked_operator_ids": sorted(distinct_ids),
+        "errors": execution_errors + capability_errors,
+        "roster_errors": roster_errors,
+    }
+    return layered, errors + roster_errors, execution_result
+
+
+def _write_static_result(source_dir: Path, static_result: dict[str, Any] | None, error: Exception | None) -> dict[str, Any]:
+    if error is not None:
+        result = {"schema_version": "KIMIARK_CLOSED_LOOP_STATIC_RESULT_V1", "conflicts": [f"{type(error).__name__}: {error}"]}
+    else:
+        result = static_result or {"schema_version": "KIMIARK_CLOSED_LOOP_STATIC_RESULT_V1", "conflicts": ["compile_plan returned no result"]}
+    atomic_write_json(source_dir / "static_compile_results.json", result)
+    return result
+
+
+def check_plan(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, Any]:
+    plan = arguments.get("plan")
+    if not isinstance(plan, dict):
+        raise RuntimeError("plan must be an object")
+    candidate_sha256 = sha256_bytes(canonical_json(plan).encode("utf-8"))
+    with candidate_ledger_lock(config.candidate_ledger_path):
+        ledger = load_candidate_ledger(config.candidate_ledger_path)
+        if ledger.get("session_id") != config.session_id:
+            raise RuntimeError("candidate ledger belongs to a different session")
+        matching = [item for item in ledger.get("attempts", []) if item.get("candidate_sha256") == candidate_sha256]
+        if matching:
+            candidate_id = matching[0].get("candidate_id")
+            validate_identifier(candidate_id)
+            record = load_json(safe_output_path(config.session_root, "candidates", candidate_id, "candidate_record.json"))
+            return {"status": "IDEMPOTENT_RECHECK", "candidate_id": candidate_id, "candidate_sha256": candidate_sha256, "candidate_record": record}
+        if ledger["used_candidates"] >= ledger["max_candidates"]:
+            return {
+                "status": "BUDGET_EXHAUSTED", "resource": "candidates",
+                "candidate_ledger": {"max_candidates": ledger["max_candidates"], "used_candidates": ledger["used_candidates"]},
+                "candidate_counted": False, "simulation_started": False,
+            }
+        candidate_number = ledger["used_candidates"] + 1
+        candidate_id = f"candidate-{candidate_number:03d}"
+        candidate_root = safe_output_path(config.session_root, "candidates", candidate_id)
+        if candidate_root.exists():
+            raise RuntimeError("candidate directory collision")
+        candidate_root.mkdir(parents=True, exist_ok=True)
+        source_dir = safe_output_path(candidate_root, "source")
+        source_dir.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(source_dir / "llm_structured_output.json", plan)
+        atomic_write_json(source_dir / "original_request.json", {"candidate_id": candidate_id, "plan": plan})
+        shutil.copyfile(config.facts_source_dir / "llm_evidence_context.json", source_dir / "llm_evidence_context.json")
+        shutil.copyfile(config.facts_source_dir / "revision_output_schema.json", source_dir / "revision_output_schema.json")
+        evidence = load_json(source_dir / "llm_evidence_context.json")
+        schema = load_json(source_dir / "revision_output_schema.json")
+        layered, errors, execution_result = _validation_layers(config, plan, evidence, schema)
+        static_error: Exception | None = None
+        static_result: dict[str, Any] | None = None
+        try:
+            static_result = compile_plan(source_dir)
+        except Exception as exc:
+            static_error = exc
+        static_result = _write_static_result(source_dir, static_result, static_error)
+        static_conflicts = static_result.get("conflicts") or []
+        errors.extend(f"static: {item}" for item in static_conflicts)
+        if static_error is not None:
+            atomic_write_json(source_dir / "static_error.json", {"message": str(static_error)})
+        validation = {
+            "schema_version": "KIMIARK_CLOSED_LOOP_PLAN_VALIDATION_V1",
+            "status": "PASS" if not errors else "FAIL",
+            "errors": errors,
+            "layers": layered,
+        }
+        atomic_write_json(source_dir / "llm_plan_validation.json", validation)
+        atomic_write_json(source_dir / "execution_input_gate.json", execution_result)
+        if not errors and execution_result["status"] != "PASS":
+            errors.append("execution input gate failed")
+            validation["status"] = "FAIL"
+            validation["errors"] = errors
+            atomic_write_json(source_dir / "llm_plan_validation.json", validation)
+        check_status = "PASS" if not errors else "FAIL"
+        frozen_inputs = {
+            "llm_structured_output.json": file_record(source_dir / "llm_structured_output.json"),
+            "llm_evidence_context.json": file_record(source_dir / "llm_evidence_context.json"),
+            "revision_output_schema.json": file_record(source_dir / "revision_output_schema.json"),
+            "llm_plan_validation.json": file_record(source_dir / "llm_plan_validation.json"),
+            "static_compile_results.json": file_record(source_dir / "static_compile_results.json"),
+            "execution_input_gate.json": file_record(source_dir / "execution_input_gate.json"),
+        }
+        candidate_record = {
+            "schema_version": CANDIDATE_RECORD_SCHEMA_VERSION,
+            "session_id": config.session_id,
+            "candidate_id": candidate_id,
+            "candidate_sha256": candidate_sha256,
+            "plan_id": _plan_operation_id(plan),
+            "stage_id": config.stage_id,
+            "check_status": check_status,
+            "unique_deployed_operator_count": len(distinct_deployed_operator_ids(plan)),
+            "max_unique_deployed_operators": config.max_unique_deployed_operators,
+            "frozen_inputs_sha256": {name: item["sha256"] for name, item in frozen_inputs.items()},
+            "frozen_inputs": frozen_inputs,
+            "facts_source_sha256": {
+                "llm_evidence_context.json": sha256_path(config.facts_source_dir / "llm_evidence_context.json"),
+                "revision_output_schema.json": sha256_path(config.facts_source_dir / "revision_output_schema.json"),
+            },
+            "controlled_code_sha256": controlled_code_hashes(),
+            "simulation_status": "NOT_STARTED",
+            "simulation_started_counted": False,
+        }
+        atomic_write_json(candidate_root / "candidate_record.json", candidate_record)
+        attempt = {
+            "candidate_id": candidate_id,
+            "candidate_sha256": candidate_sha256,
+            "check_status": check_status,
+            "simulation_status": "NOT_STARTED",
+            "simulation_started_counted": False,
+        }
+        ledger["used_candidates"] += 1
+        ledger["attempts"].append(attempt)
+        atomic_write_json(config.candidate_ledger_path, ledger)
+        return {
+            "status": check_status,
+            "candidate_id": candidate_id,
+            "candidate_sha256": candidate_sha256,
+            "candidate_counted": True,
+            "simulation_started": False,
+            "errors": errors,
+            "layers": {key: value for key, value in layered.items() if isinstance(value, list)},
+            "execution_input_gate": execution_result,
+            "candidate_record_path": str(candidate_record.relative_to(ROOT)),
+        }
+
+
+def _load_candidate(config: SessionConfig, arguments: dict[str, Any]) -> tuple[Path, dict[str, Any], dict[str, Any]]:
+    candidate_id = validate_identifier(arguments.get("candidate_id"))
+    requested_sha = arguments.get("candidate_sha256")
+    if not isinstance(requested_sha, str) or not re.fullmatch(r"[a-f0-9]{64}", requested_sha):
+        raise RuntimeError("invalid candidate_sha256")
+    with candidate_ledger_lock(config.candidate_ledger_path):
+        ledger = load_candidate_ledger(config.candidate_ledger_path)
+        if ledger.get("session_id") != config.session_id:
+            raise RuntimeError("candidate ledger belongs to a different session")
+        attempts = [item for item in ledger.get("attempts", []) if item.get("candidate_id") == candidate_id]
+        if len(attempts) != 1:
+            raise RuntimeError("candidate is not registered by this service")
+        if attempts[0].get("candidate_sha256") != requested_sha:
+            raise RuntimeError("candidate ledger hash mismatch")
+    candidate_root = safe_output_path(config.session_root, "candidates", candidate_id)
+    record_path = candidate_root / "candidate_record.json"
+    if not record_path.is_file():
+        raise RuntimeError("candidate has not been checked by this service")
+    record = load_json(record_path)
+    if record.get("session_id") != config.session_id:
+        raise RuntimeError("candidate belongs to a different session")
+    if record.get("candidate_sha256") != requested_sha:
+        raise RuntimeError("candidate hash mismatch")
+    if record.get("check_status") != "PASS":
+        raise RuntimeError("only PASS candidates may run simulation")
+    return candidate_root, record, record
+
+
+def _verify_frozen_candidate(config: SessionConfig, candidate_root: Path, record: dict[str, Any]) -> None:
+    source_dir = candidate_root / "source"
+    expected = record.get("frozen_inputs_sha256") or {}
+    for name, expected_sha in expected.items():
+        path = source_dir / name
+        if not path.is_file() or sha256_path(path) != expected_sha:
+            raise RuntimeError("frozen candidate input changed after check_plan")
+    current_facts = {
+        "llm_evidence_context.json": sha256_path(config.facts_source_dir / "llm_evidence_context.json"),
+        "revision_output_schema.json": sha256_path(config.facts_source_dir / "revision_output_schema.json"),
+    }
+    if current_facts != record.get("facts_source_sha256"):
+        raise RuntimeError("configured facts source changed after check_plan")
+    if controlled_code_hashes() != record.get("controlled_code_sha256"):
+        raise RuntimeError("controlled execution code changed after check_plan")
+    if config.mechanics_version != ACTIVE_MECHANICS_VERSION:
+        raise RuntimeError("active mechanics changed after check_plan")
+
+
+def _simulation_output_state(output_dir: Path) -> dict[str, Any]:
+    reservation_path = output_dir.with_name(output_dir.name + ".simulation_reservation.json")
+    attempt_path = output_dir / "simulation_attempt.json"
+    manifest_path = output_dir / "manifest.json"
+    summary_path = output_dir / "diagnostic_summary.json"
+    if reservation_path.is_file():
+        reservation = gate.load_json(reservation_path)
+        complete = manifest_path.is_file() and summary_path.is_file() and attempt_path.is_file() and (
+            gate.load_json(attempt_path).get("status") == "COMPLETED"
+            if attempt_path.is_file() else False
+        )
+        status = reservation.get("status")
+        if status == "COMPLETED" and complete:
+            return {"status": "COMPLETED", "reservation": reservation}
+        if status == "FAILED":
+            outcome = gate._failure_outcome(output_dir)
+            return {"status": outcome, "reservation": reservation}
+        return {"status": "STARTED_UNKNOWN" if status == "RESERVED" else f"RESERVATION_{status}", "reservation": reservation}
+    if output_dir.exists() and any(output_dir.iterdir()):
+        return {"status": "UNKNOWN_NONEMPTY_OUTPUT"}
+    return {"status": "NOT_STARTED"}
+
+
+def _compact_simulation_summary(
+    config: SessionConfig, summary: dict[str, Any], output_dir: Path, output: dict[str, Any]
+) -> dict[str, Any]:
+    result = summary.get("result") if isinstance(summary.get("result"), dict) else {}
+    result_sha256 = {
+        name: sha256_path(output_dir / name) for name in (
+            "diagnostic_events.json", "diagnostic_summary.json", "manifest.json"
+        ) if (output_dir / name).is_file()
+    }
+    return {
+        "event_log_reference": str((output_dir / "diagnostic_events.json").relative_to(ROOT)),
+        "summary_reference": str((output_dir / "diagnostic_summary.json").relative_to(ROOT)),
+        "manifest_reference": str((output_dir / "manifest.json").relative_to(ROOT)),
+        "result_sha256": result_sha256,
+        "budget": gate.load_budget(config.budget_path),
+        "result": {
+            "win": result.get("win"),
+            "classification": summary.get("classification"),
+            "enemies_killed": result.get("enemies_killed"),
+            "enemies_leaked": result.get("enemies_leaked"),
+            "operator_deaths": result.get("operator_deaths"),
+            "remaining_life": result.get("remaining_life"),
+            "final_dp": result.get("final_dp"),
+            "deployment_errors": result.get("deployment_errors"),
+            "protected_target_deaths": summary.get("protected_target_deaths"),
+            "protected_target_reached_events": summary.get("protected_target_reached_events"),
+        },
+        "status_boundary": "Static compliance and observed events are not proof of a tactical hypothesis.",
+        **output,
+    }
+
+
+def _executor(
+    config: SessionConfig, source_dir: Path, output_dir: Path, plan_id: str
+) -> subprocess.CompletedProcess[str]:
+    command = [
+        sys.executable, str(ROOT / "scripts/run_gpt_tactical_stage_session_v1.py"), "simulate",
+        "--stage-id", config.stage_id,
+        "--facts-dir", str(source_dir.relative_to(ROOT)),
+        "--output-dir", str(source_dir.relative_to(ROOT)),
+        "--diagnostic-output-dir", str(output_dir.relative_to(ROOT)),
+        "--plan-id", plan_id,
+        "--plan-label", config.plan_label,
+        "--plan-id-prefix", config.plan_id_prefix,
+        "--max-unique-deployed-operators", str(config.max_unique_deployed_operators),
+        "--authorization-config", str(config.authorization_config_path.relative_to(ROOT)),
+        "--simulation-budget-path", str(config.budget_path.relative_to(ROOT)),
+    ]
+    return subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False, timeout=config.simulation_timeout_seconds)
+
+
+def run_simulation(
+    config: SessionConfig, arguments: dict[str, Any], *, executor: Callable[..., subprocess.CompletedProcess[str]] | None = None
+) -> dict[str, Any]:
+    candidate_root, record, _ = _load_candidate(config, arguments)
+    candidate_id = record["candidate_id"]
+    output_dir = safe_output_path(candidate_root, "simulation")
+    plan_id = record.get("plan_id")
+    if not isinstance(plan_id, str) or not plan_id:
+        raise RuntimeError("candidate has no operational_plan_id")
+    with simulation_run_lock(candidate_root) as acquired:
+        if not acquired:
+            state = _simulation_output_state(output_dir)
+            return {
+                "status": "IN_PROGRESS", "candidate_id": candidate_id, "state": state,
+                "simulation_started_counted": state.get("status") != "NOT_STARTED",
+            }
+        state = _simulation_output_state(output_dir)
+        if state["status"] == "COMPLETED":
+            summary = gate.load_json(output_dir / "diagnostic_summary.json")
+            return _compact_simulation_summary(config, summary, output_dir, {"status": "IDEMPOTENT_COMPLETED", "simulation_started_counted": True, "state": state})
+        if state["status"] not in {"NOT_STARTED"}:
+            simulation_started_counted = (
+                "UNKNOWN" if state["status"] in {"UNKNOWN_NONEMPTY_OUTPUT"} or state["status"].startswith("RESERVATION_") else True
+            )
+            return {
+                "status": state["status"], "candidate_id": candidate_id, "state": state,
+                "simulation_started_counted": simulation_started_counted, "retry": False,
+            }
+        _verify_frozen_candidate(config, candidate_root, record)
+        with candidate_ledger_lock(config.candidate_ledger_path):
+            ledger = load_candidate_ledger(config.candidate_ledger_path)
+            attempts = {item.get("candidate_id"): item for item in ledger.get("attempts", [])}
+            attempt = attempts.get(candidate_id)
+            if attempt is None:
+                raise RuntimeError("candidate attempt missing from ledger")
+        budget = gate.load_budget(config.budget_path)
+        if budget.get("stage_id") != config.stage_id:
+            raise RuntimeError("simulation budget stage mismatch")
+        remaining = budget["max_stage_simulations"] - budget["prior_stage_simulations"] - budget["started_stage_simulations"]
+        if remaining <= 0:
+            return {"status": "BUDGET_EXHAUSTED", "resource": "simulations", "remaining_stage_simulations": 0, "simulation_started_counted": False}
+        budget_started_before = budget["started_stage_simulations"]
+        request_path = safe_output_path(candidate_root, "simulation_request.json")
+        atomic_write_json(request_path, {
+            "schema_version": SIMULATION_REQUEST_SCHEMA_VERSION,
+            "session_id": config.session_id,
+            "candidate_id": candidate_id,
+            "candidate_sha256": record["candidate_sha256"],
+            "output_dir": str(output_dir.relative_to(ROOT)),
+            "mechanics_version": config.mechanics_version,
+            "automatic_retry": False,
+        })
+        try:
+            gate.prepare_evaluation(
+                source_dir=candidate_root / "source", diagnostic_output_dir=output_dir,
+                budget_path=config.budget_path, stage_id=config.stage_id, expected_plan_id=plan_id,
+            )
+        except Exception as exc:
+            request = gate.load_json(request_path)
+            request.update({"status": "PREFLIGHT_FAILED", "error": f"{type(exc).__name__}: {exc}", "simulation_started_counted": False})
+            atomic_write_json(request_path, request)
+            attempt["simulation_status"] = "PREFLIGHT_FAILED"
+            attempts[candidate_id] = attempt
+            ledger["attempts"] = list(attempts.values())
+            atomic_write_json(config.candidate_ledger_path, ledger)
+            return {"status": "PREFLIGHT_FAILED", "error": f"{type(exc).__name__}: {exc}", "simulation_started_counted": False}
+        runner = executor or _executor
+        try:
+            completed = runner(config, candidate_root / "source", output_dir, plan_id)
+        except Exception as exc:
+            state = _simulation_output_state(output_dir)
+            simulation_started_counted = state.get("status") != "NOT_STARTED"
+            request = gate.load_json(request_path)
+            request.update({"status": "EXECUTION_EXCEPTION", "error": f"{type(exc).__name__}: {exc}", "output_state": state, "simulation_started_counted": simulation_started_counted})
+            atomic_write_json(request_path, request)
+            attempt["simulation_status"] = state["status"]
+            attempt["simulation_started_counted"] = simulation_started_counted
+            attempts[candidate_id] = attempt
+            ledger["attempts"] = list(attempts.values())
+            atomic_write_json(config.candidate_ledger_path, ledger)
+            return {
+                "status": "EXECUTION_EXCEPTION", "error": f"{type(exc).__name__}: {exc}",
+                "output_state": state, "simulation_started_counted": simulation_started_counted, "retry": False,
+                "reconciliation_required": state.get("status") == "STARTED_UNKNOWN",
+            }
+        state = _simulation_output_state(output_dir)
+        stdout_tail = completed.stdout[-4000:]
+        stderr_tail = completed.stderr[-4000:]
+        budget_after = gate.load_budget(config.budget_path)
+        request = gate.load_json(request_path)
+        if completed.returncode == 0 and state["status"] == "COMPLETED":
+            request.update({"status": "COMPLETED", "exit_code": 0, "simulation_started_counted": True})
+            atomic_write_json(request_path, request)
+            attempt.update({"simulation_status": "COMPLETED", "simulation_started_counted": True})
+            attempts[candidate_id] = attempt
+            ledger["attempts"] = list(attempts.values())
+            atomic_write_json(config.candidate_ledger_path, ledger)
+            summary = gate.load_json(output_dir / "diagnostic_summary.json")
+            return _compact_simulation_summary(config, summary, output_dir, {"status": "COMPLETED", "exit_code": 0, "simulation_started_counted": True})
+        no_start = state["status"] == "NOT_STARTED" and budget_after["started_stage_simulations"] == budget_started_before
+        simulation_started_counted = not no_start
+        status = "PREFLIGHT_FAILED_NO_START" if no_start else ("FAILED_AFTER_START" if completed.returncode != 0 else "FAILED_INCOMPLETE_RESULT")
+        request.update({
+            "status": status, "exit_code": completed.returncode,
+            "stdout_tail": stdout_tail, "stderr_tail": stderr_tail,
+            "output_state": state, "simulation_started_counted": simulation_started_counted, "retry": False,
+        })
+        atomic_write_json(request_path, request)
+        attempt["simulation_status"] = state["status"] if state["status"] != "NOT_STARTED" else status
+        attempt["simulation_started_counted"] = simulation_started_counted
+        attempts[candidate_id] = attempt
+        ledger["attempts"] = list(attempts.values())
+        atomic_write_json(config.candidate_ledger_path, ledger)
+        return {
+            "status": status, "exit_code": completed.returncode, "output_state": state,
+            "stdout_tail": stdout_tail, "stderr_tail": stderr_tail,
+            "simulation_started_counted": simulation_started_counted, "retry": False,
+        }
+
+
+def _details_value(event: dict[str, Any], key: str) -> Any:
+    value: Any = event.get("details")
+    for part in key.split("."):
+        if not isinstance(value, dict) or part not in value:
+            return object()
+        value = value[part]
+    return value
+
+
+def _aggregate_value(event: dict[str, Any], field: str) -> Any:
+    if field in {"frame"}:
+        return event.get(field)
+    return _details_value(event, field)
+
+
+def query_events(config: SessionConfig, arguments: dict[str, Any]) -> dict[str, Any]:
+    candidate_root, record, _ = _load_candidate(config, arguments)
+    output_dir = candidate_root / "simulation"
+    events_path = output_dir / "diagnostic_events.json"
+    manifest_path = output_dir / "manifest.json"
+    attempt_path = output_dir / "simulation_attempt.json"
+    if not events_path.is_file():
+        return {"status": "NO_REGISTERED_EVENT_LOG", "candidate_id": record.get("candidate_id"), "observation_coverage": "UNKNOWN"}
+    payload = gate.load_json(events_path)
+    events = payload.get("events") if isinstance(payload, dict) else payload
+    if not isinstance(events, list):
+        return {"status": "INVALID_EVENT_LOG", "observation_coverage": "UNKNOWN"}
+    observation_complete = (
+        manifest_path.is_file() and attempt_path.is_file()
+        and gate.load_json(attempt_path).get("status") == "COMPLETED"
+        and gate.load_json(attempt_path).get("result_saved") is True
+    )
+    event_type = arguments.get("event_type")
+    if not isinstance(event_type, str) or not event_type:
+        raise RuntimeError("event_type must be a non-empty string")
+    filters: list[dict[str, Any]] = []
+    for key in ("source_id", "target_id"):
+        if key in arguments:
+            value = arguments[key]
+            if value is not None and not isinstance(value, str):
+                raise RuntimeError(f"{key} must be a string or null")
+            filters.append({"key": key, "value": value})
+    earliest = arguments.get("earliest_frame")
+    latest = arguments.get("latest_frame")
+    for name, value in (("earliest_frame", earliest), ("latest_frame", latest)):
+        if value is not None and (not isinstance(value, int) or isinstance(value, bool)):
+            raise RuntimeError(f"{name} must be an integer")
+    if earliest is not None and latest is not None and earliest > latest:
+        raise RuntimeError("earliest_frame exceeds latest_frame")
+    detail_conditions = arguments.get("details_equal") or []
+    if not isinstance(detail_conditions, list) or len(detail_conditions) > 4:
+        raise RuntimeError("details_equal must contain at most four conditions")
+    for condition in detail_conditions:
+        if not isinstance(condition, dict) or not isinstance(condition.get("key"), str) or not DETAIL_KEY_RE.fullmatch(condition["key"]):
+            raise RuntimeError("details_equal key must be a constrained dotted key")
+        if not isinstance(condition.get("value"), (str, int, float, bool, type(None))):
+            raise RuntimeError("details_equal value must be a primitive")
+    matches: list[dict[str, Any]] = []
+    for event in events:
+        if not isinstance(event, dict) or event.get("event_type") != event_type:
+            continue
+        if any(event.get(item["key"]) != item["value"] for item in filters):
+            continue
+        frame = event.get("frame")
+        if not isinstance(frame, int) or isinstance(frame, bool):
+            continue
+        if earliest is not None and frame < earliest:
+            continue
+        if latest is not None and frame > latest:
+            continue
+        if any(_details_value(event, item["key"]) != item["value"] for item in detail_conditions):
+            continue
+        matches.append(event)
+    limit = arguments.get("limit", 100)
+    offset = arguments.get("offset", 0)
+    for name, value in (("limit", limit), ("offset", offset)):
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+            raise RuntimeError(f"{name} must be a non-negative integer")
+    if limit > MAX_EVENT_PAGE_SIZE:
+        raise RuntimeError(f"limit exceeds {MAX_EVENT_PAGE_SIZE}")
+    aggregate_result: dict[str, Any] | None = None
+    aggregate = arguments.get("aggregate")
+    if aggregate is not None:
+        field = aggregate.get("field")
+        if not isinstance(field, str) or not DETAIL_KEY_RE.fullmatch(field):
+            raise RuntimeError("aggregate field must be a constrained key")
+        values = []
+        for event in matches:
+            value = _aggregate_value(event, field)
+            if isinstance(value, (int, float)) and not isinstance(value, bool):
+                values.append(value)
+        aggregate_result = {
+            "field": field,
+            "matched_event_count": len(matches),
+            "numeric_value_count": len(values),
+            "sum": sum(values) if values else None,
+            "minimum": min(values) if values else None,
+            "maximum": max(values) if values else None,
+            "average": sum(values) / len(values) if values else None,
+            "scope": "matched events in this registered log only",
+        }
+    page = matches[offset:offset + limit]
+    return {
+        "schema_version": EVENT_QUERY_SCHEMA_VERSION,
+        "candidate_id": record.get("candidate_id"),
+        "event_type": event_type,
+        "events": page,
+        "pagination": {"offset": offset, "limit": limit, "total_matches": len(matches), "next_offset": offset + limit if offset + limit < len(matches) else None, "truncated": offset + limit < len(matches)},
+        "aggregate": aggregate_result,
+        "observation_coverage": "COMPLETE" if observation_complete else "UNKNOWN",
+        "zero_match_status": "EVENT_NOT_OBSERVED" if not matches and observation_complete else ("UNKNOWN" if not matches else None),
+        "boundary": "Raw matches may include legal:false actions; they never verify a tactical hypothesis by themselves.",
+    }
+
+
+HANDLERS: dict[str, Callable[[SessionConfig, dict[str, Any]], dict[str, Any]]] = {
+    "get_session_status": lambda config, arguments: session_status(config),
+    "check_plan": check_plan,
+    "run_simulation": lambda config, arguments: run_simulation(config, arguments),
+    "query_events": query_events,
+}
+
+
+def tool_result(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [{"type": "text", "text": json.dumps(result, ensure_ascii=False, sort_keys=True)}],
+        "structuredContent": result,
+    }
+
+
+def handle_message(config: SessionConfig, message: dict[str, Any]) -> dict[str, Any] | None:
+    method = message.get("method")
+    request_id = message.get("id")
+    if method == "initialize":
+        return {"jsonrpc": "2.0", "id": request_id, "result": {"protocolVersion": PROTOCOL_VERSION, "serverInfo": SERVICE_INFO, "capabilities": {"tools": {}}}}
+    if method == "notifications/initialized":
+        return None
+    if method == "tools/list":
+        return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": TOOLS}}
+    if method == "tools/call":
+        params = message.get("params") or {}
+        name = params.get("name")
+        arguments = params.get("arguments") or {}
+        handler = HANDLERS.get(name)
+        try:
+            if handler is None:
+                result = {"error": "UNKNOWN_TOOL", "tool": name}
+                is_error = True
+            else:
+                result = handler(config, arguments)
+                is_error = False
+        except Exception as exc:
+            result = {"error": type(exc).__name__, "message": str(exc), "automatic_retry": False}
+            is_error = True
+        response = {"jsonrpc": "2.0", "id": request_id, "result": tool_result(result)}
+        response["result"]["isError"] = is_error
+        return response
+    return {"jsonrpc": "2.0", "id": request_id, "error": {"code": -32601, "message": f"Method not found: {method}"}}
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="KimiArk fixed-session tactical closed-loop stdio tools")
+    parser.add_argument("config", help="repository-relative session configuration JSON path")
+    arguments = parser.parse_args()
+    config = load_session_config(Path(arguments.config))
+    for line in sys.stdin:
+        if not line.strip():
+            continue
+        try:
+            message = json.loads(line)
+        except json.JSONDecodeError as exc:
+            response = {"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": f"Parse error: {exc}"}}
+        else:
+            response = handle_message(config, message)
+        if response is not None:
+            print(json.dumps(response, ensure_ascii=False, separators=(",", ":")), flush=True)
+
+
+if __name__ == "__main__":
+    main()
