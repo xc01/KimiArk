@@ -106,6 +106,71 @@ def _pass_layers() -> tuple[dict[str, Any], list[str], dict[str, Any]]:
     }
 
 
+def _prepare_cold_start_check(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, used_candidates: int = 0
+) -> tuple[dict[str, Any], dict[str, Path], str]:
+    paths = _support_files(tmp_path, monkeypatch)
+    root_plan_id = "COLD_ROOT"
+    _write_json(paths["facts"] / "llm_evidence_context.json", {
+        "cold_start_task_root": {
+            "schema_version": "KIMIARK_COLD_START_TASK_ROOT_V1",
+            "root_plan_id": root_plan_id,
+            "root_experience_id": "COLD_ROOT_EXPERIENCE",
+        },
+        "m58_open_roster_policy": True,
+    })
+    _write_json(paths["ledger"], {
+        "schema_version": service.CANDIDATE_LEDGER_SCHEMA_VERSION,
+        "session_id": "test-session", "max_candidates": 2,
+        "used_candidates": used_candidates,
+        "attempts": [
+            {"candidate_id": f"candidate-{index:03d}", "simulation_status": "COMPLETED"}
+            for index in range(1, used_candidates + 1)
+        ],
+    })
+    monkeypatch.setattr(service, "controlled_code_hashes", lambda: {"code": "0" * 64})
+    monkeypatch.setattr(service, "compile_plan", lambda source: {"conflicts": []})
+    monkeypatch.setattr(service, "validate_plan_payload", lambda plan, evidence, schema: _pass_layers()[0])
+    monkeypatch.setattr(service, "validate_execution_input", lambda evidence, plan: [])
+    monkeypatch.setattr(service, "validate_normal_low_star_capability_source", lambda evidence: {})
+    monkeypatch.setattr(service, "validate_open_roster_contract", lambda plan, evidence, limit: [])
+    return paths, {"ledger": paths["ledger"]}, root_plan_id
+
+
+def test_cold_start_root_parent_is_accepted(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    paths, _ledger, root_plan_id = _prepare_cold_start_check(tmp_path, monkeypatch)
+    plan = _plan("PLAN_A")
+    plan["revised_operational_plans"][0]["action_timeline"] = [
+        {"action_type": "DEPLOY", "operator_id": "op_a", "frame": 1, "tile": [0, 0]},
+    ]
+    plan["revised_operational_plans"][0]["selected_low_star_operator_ids"] = ["op_a"]
+    plan["revised_operational_plans"][0]["parent_hypothesis_id"] = "ROOT_HYPOTHESIS"
+    plan["revised_operational_plans"][0]["parent_plan_id"] = root_plan_id
+    plan["revised_operational_plans"][0]["referenced_experience_ids"] = ["COLD_ROOT_EXPERIENCE"]
+    plan["revision_hypothesis"]["parent_plan_id"] = root_plan_id
+    plan["revised_strategic_hypotheses"] = [{"hypothesis_id": "ROOT_HYPOTHESIS"}]
+    result = service.check_plan(paths["config"], {"plan": plan})
+    assert result["status"] == "PASS", result["errors"]
+
+
+def test_cold_start_revision_requires_completed_parent(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    paths, handles, root_plan_id = _prepare_cold_start_check(tmp_path, monkeypatch, used_candidates=1)
+    plan = _plan("PLAN_B")
+    plan["revised_operational_plans"][0]["action_timeline"] = [
+        {"action_type": "DEPLOY", "operator_id": "op_a", "frame": 1, "tile": [0, 0]},
+    ]
+    plan["revised_operational_plans"][0]["selected_low_star_operator_ids"] = ["op_a"]
+    plan["revised_operational_plans"][0]["parent_hypothesis_id"] = "ROOT_HYPOTHESIS"
+    plan["revised_operational_plans"][0]["parent_plan_id"] = "FORGED_PARENT"
+    plan["revised_operational_plans"][0]["revision_hypothesis"] = {"parent_plan_id": "FORGED_PARENT"}
+    plan["revised_operational_plans"][0]["referenced_experience_ids"] = ["COLD_ROOT_EXPERIENCE"]
+    plan["revision_hypothesis"]["parent_plan_id"] = "FORGED_PARENT"
+    plan["revised_strategic_hypotheses"] = [{"hypothesis_id": "ROOT_HYPOTHESIS"}]
+    result = service.check_plan(paths["config"], {"plan": plan})
+    assert result["status"] == "FAIL"
+    assert any("must reference a completed candidate" in error for error in result["errors"])
+
+
 def test_check_plan_counts_invalid_candidate_without_simulation(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     paths = _support_files(tmp_path, monkeypatch)
     monkeypatch.setattr(service, "controlled_code_hashes", lambda: {"code": "0" * 64})

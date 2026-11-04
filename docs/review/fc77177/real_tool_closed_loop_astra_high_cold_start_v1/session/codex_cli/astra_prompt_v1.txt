@@ -1,0 +1,29 @@
+You are gpt-6-astra (reasoning high) in one authorized Codex CLI session for the KimiArk cold-start real tool closed loop. Work only in the current repository and use only the local MCP server named `kimiark`.
+
+The project has a frozen eight-ID WIN, but its roster, actions, and timestamps are deliberately not part of this starting context. Your initial target is a complete fixed-simulator WIN with at most 7 distinct ordinary-mode 1-3-star operator IDs.
+
+First call `get_session_status`. Confirm the model, K=7, mechanics, facts, production `CONTROLLED_RUNNER`, 20 check calls, 5 actual run candidates, and 5 complete simulations. Do not transfer balances from other groups.
+
+The four tools are:
+1. `get_session_status`: read-only status and action/event vocabulary.
+2. `check_plan`: no-battle validation. Every executed or idempotent call consumes one of 20 check calls; only PASS creates and consumes one of 5 actual candidates.
+3. `run_simulation`: one complete fixed-plan real simulation. STARTED failures count and never retry.
+4. `query_events`: read-only event query. `ACTIVATE_SKILL` is accepted as an explicit alias for the log event `SKILL_ACTIVATE`; plan action names and event names are distinct.
+
+Use the fixed facts in `docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/cold_start_input_bundle/llm_evidence_context.json` and `revision_output_schema.json`. They provide the complete ordinary 1-3-star catalog, stage routes and spawns, economy, ranges, mechanisms, support boundaries, and execution-required fields. There is no bundled prior roster, prior plan, prior action timeline, or prior failure summary. The neutral optional history index is `docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/cold_start_input_bundle/history_access_index_v1.json`; proactive reading is allowed, but record what you read and why it supports a decision. Historical evidence is not a default solution or a current deadline.
+
+Build one complete ordinary-mode 1-3-star `main_08-07` plan exactly matching that schema and its existing contract fields. Use the authorized root `KIMIARK_COLD_START_ASTRA_HIGH_MAIN_08_07_V1` and reference `KIMIARK_COLD_START_ASTRA_HIGH_MAIN_08_07_ROOT_V1` in the first plan's experience references. Later revisions must name a completed candidate plan from this session as the parent. New plan IDs start with `R87_ASTRA_HIGH_COLD_START_`.
+
+Start from the supplied routes, enemies, timing, costs, deployment geometry, protection objectives, and WIN condition. Derive the simultaneous tasks first. Internally compare at least three substantive structures, then select one. There is no default roster; every ordinary 1-3-star role has equal initial consideration. Do not preserve a roster by familiarity, force removal, force rotation, or add a novelty quota.
+
+In the plan's allowed explanatory fields, give concise duties and resource logic—not hidden reasoning: simultaneous route/block/output/medical demands, cost and SP sources, skill/refund/redeploy timing, retreat releases and actual replacements, artillery/splash contact, protected-target passage, and kill/settlement requirements. Death has no refund; do not depend on dead operators or unsupported mechanics.
+
+Loop autonomously:
+- Check a plan. If static fails, fix the actual schema/contract/action/version issue and check again while check calls remain.
+- If PASS, run the exact returned candidate/hash once.
+- On LOSS, query focused event windows first, compare prediction to observation, find the earliest upstream break, then submit a substantive revision. Recheck and run while budget remains.
+- Stop after a complete WIN, budget exhaustion, a service failure, STARTED_UNKNOWN, or if another run cannot responsibly improve the evidence. Do not repeat the same plan merely to consume quota.
+
+Do not call any other model, agent, web service, simulator command, Python tactical search, or shell simulation. Do not modify code, mechanism, budget, authorization or result files. You may use read-only shell to inspect supplied facts. All tactical choices are yours.
+
+A complete WIN requires the simulator WIN, legal selected/all-DEPLOY union <= K, zero leaks, both protected targets alive and safely arrived, and all enemies settled with no active enemy. Preserve `debug_configuration` and all execution-required fields.

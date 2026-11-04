@@ -1,0 +1,81 @@
+{
+  "budget": {
+    "candidate_ledger": {
+      "attempts": [],
+      "checks": [],
+      "max_candidates": 5,
+      "max_check_calls": 20,
+      "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+      "session_id": "real-tool-loop-astra-high-cold-start-v1",
+      "used_candidates": 0,
+      "used_check_calls": 0
+    },
+    "max_real_cli_starts": 1,
+    "simulation_budget": {
+      "max_stage_simulations": 5,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 0
+    },
+    "used_real_cli_starts": 1
+  },
+  "closure": {
+    "best_person_count": 8,
+    "best_plan_scope": "M70 eight-operator frozen WIN; not re-run or updated",
+    "candidates_simulated": 0,
+    "tactical_result": "NO_TACTICAL_RESULT_AND_NOT_LOSS",
+    "win": false
+  },
+  "fault": {
+    "automatic_resume_or_retry": false,
+    "category": "HOST_SESSION_ABORTED_WITHOUT_TURN_COMPLETION",
+    "final_message": false,
+    "model_catalog_refresh_warnings": 18,
+    "model_inference_count": "UNKNOWN_CLI_INTERNAL",
+    "started": true
+  },
+  "preflight": {
+    "cold_start_context_audit": {
+      "bundled_prior_keys_present": {
+        "previous_plan_to_revise": false,
+        "prior_diagnostic_feedback": false,
+        "prior_execution_interruptions": false,
+        "prior_static_feedback": false,
+        "prior_tactical_feedback": false
+      },
+      "captured_at": "2026-11-04T08:54:22.932902+00:00",
+      "catalog_operator_count": 34,
+      "default_roster_present": false,
+      "failure_summary_present": false,
+      "history_index_records": [
+        "m70_full_roster_attempt_01",
+        "real_tool_astra_high_v1",
+        "real_tool_sol_high_v1",
+        "real_tool_terra_v3"
+      ],
+      "prior_plan_present": false,
+      "prompt_bytes": 4346,
+      "prompt_remaining_bytes": 135654,
+      "prompt_sha256": "f7ef597f0ded2ed3959966d535f545ffffbe5ed0b5538cf743e30f8980573a7f",
+      "route_count": 32,
+      "runner_byte_limit": 140000,
+      "schema_version": "KIMIARK_COLD_START_CONTEXT_AUDIT_V1"
+    },
+    "focused_service_tests": {
+      "command": ".venv/bin/pytest -q tests/test_kimiark_tactical_stdio_service_v1.py --junit-xml docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/focused_service_tests.junit.xml",
+      "errors": 0,
+      "failures": 0,
+      "junit_xml": "focused_service_tests.junit.xml",
+      "log": "focused_service_tests.log",
+      "result": "PASS",
+      "schema_version": "KIMIARK_COLD_START_FOCUS_TEST_RESULT_V1",
+      "skipped": 0,
+      "tests": 18,
+      "time_seconds": 1.695
+    },
+    "mcp_handshake": "PASS"
+  },
+  "schema_version": "KIMIARK_COLD_START_FAULT_REPORT_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1"
+}

@@ -1,0 +1,24 @@
+{
+  "adapter_boundary": "Initial task/lineage only; no mechanism, catalog, simulator, roster limit, budget, static gate, or acceptance change.",
+  "files": {
+    "scripts/kimiark_tactical_stdio_service_v1.py": {
+      "change": "Explicit KIMIARK_COLD_START_TASK_ROOT_V1 validation; first candidate may use authorized root, later candidates must reference a completed plan_id in this session.",
+      "sha256": "91c1b8132d90027f6190c3b280ce7ee3e437661d0eece26d0477defd30cc766f"
+    },
+    "tests/test_kimiark_tactical_stdio_service_v1.py": {
+      "change": "Focused fake tests for root parent acceptance, forged/late-root rejection, and experience-reference requirement.",
+      "sha256": "5175069862e587dd12532d67f7154a02e48446d22f4efc3af509ce7144e9d498"
+    }
+  },
+  "regression": {
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "reference": "focused_service_test_results_v1.json"
+  },
+  "schema_version": "KIMIARK_COLD_START_ROOT_ADAPTER_V1",
+  "supported_modes": [
+    "cold_start_root",
+    "legacy_revision_without_cold_start_root"
+  ]
+}

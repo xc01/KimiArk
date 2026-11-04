@@ -464,6 +464,56 @@ def _validation_layers(
     layered["plan_parent_plan_id"] = experience.extract_parent_plan_id(plan)
     lineage = list(layered.get("lineage_errors") or [])
     lineage.extend(validate_parent_hypothesis_reference(plan))
+    cold_start_root = evidence.get("cold_start_task_root")
+    if isinstance(cold_start_root, dict):
+        root_plan_id = cold_start_root.get("root_plan_id")
+        root_experience_id = cold_start_root.get("root_experience_id")
+        if not isinstance(root_plan_id, str) or not root_plan_id:
+            lineage.append("cold_start_task_root.root_plan_id must be a non-empty string")
+        if not isinstance(root_experience_id, str) or not root_experience_id:
+            lineage.append("cold_start_task_root.root_experience_id must be a non-empty string")
+        if cold_start_root.get("schema_version") != "KIMIARK_COLD_START_TASK_ROOT_V1":
+            lineage.append("cold_start_task_root.schema_version must be KIMIARK_COLD_START_TASK_ROOT_V1")
+        selected_plan_for_lineage = _selected_plan(plan)
+        referenced_experience_ids = (
+            plan.get("referenced_experience_ids")
+            or selected_plan_for_lineage.get("referenced_experience_ids")
+            or (plan.get("revision_hypothesis") or {}).get("referenced_experience_ids")
+            or (selected_plan_for_lineage.get("revision_hypothesis") or {}).get("referenced_experience_ids")
+        )
+        if root_experience_id and (
+            not isinstance(referenced_experience_ids, list)
+            or root_experience_id not in referenced_experience_ids
+        ):
+            lineage.append("referenced_experience_ids must include cold_start_task_root.root_experience_id")
+        declared_parent_plan_id = layered.get("declared_parent_plan_id")
+        if root_plan_id and declared_parent_plan_id is not None:
+            plan_parent_plan_id = layered.get("plan_parent_plan_id")
+            if plan_parent_plan_id != declared_parent_plan_id:
+                lineage.append("cold_start plan parent_plan_id and revision_hypothesis parent_plan_id must agree")
+            cold_start_ledger = (
+                load_candidate_ledger(config.candidate_ledger_path)
+                if config.candidate_ledger_path.exists() else None
+            )
+            if declared_parent_plan_id == root_plan_id:
+                if cold_start_ledger and cold_start_ledger.get("used_candidates", 0) > 0:
+                    lineage.append("after the first run candidate, cold_start root is no longer a valid parent")
+            else:
+                completed_parent_plan_ids: set[str] = set()
+                for attempt in (cold_start_ledger or {}).get("attempts", []):
+                    if attempt.get("simulation_status") == "COMPLETED":
+                        candidate_record_path = safe_output_path(
+                            config.session_root,
+                            "candidates",
+                            str(attempt.get("candidate_id", "")),
+                            "candidate_record.json",
+                        )
+                        if candidate_record_path.is_file():
+                            candidate_record = load_json(candidate_record_path)
+                            if isinstance(candidate_record.get("plan_id"), str):
+                                completed_parent_plan_ids.add(candidate_record["plan_id"])
+                if declared_parent_plan_id not in completed_parent_plan_ids:
+                    lineage.append("cold_start revisions must reference a completed candidate plan_id in this session")
     layered["lineage_errors"] = lineage
     errors: list[str] = []
     errors.extend(f"schema: {item}" for item in layered.get("schema_errors", []))
