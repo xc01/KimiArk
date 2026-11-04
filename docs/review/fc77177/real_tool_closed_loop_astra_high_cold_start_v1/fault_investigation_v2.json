@@ -1,0 +1,37 @@
+{
+  "attribution": {
+    "confirmed": "OUTER_HOST_EXECUTION_SESSION_CANCELLATION",
+    "confidence": "HIGH",
+    "exit_signal_or_code": "UNKNOWN",
+    "model_catalog_refresh_warnings_cause": "UNKNOWN_AND_NOT_DECISIVE",
+    "reasoning": [
+      "The outer wait returned an aborted state while the foreground CLI was running.",
+      "The codex JSONL has no turn.completed and no final message was written.",
+      "A subsequent process check found no codex or kimiark service process.",
+      "stdout and stderr remained writable through 2026-11-04T09:00:39/45Z with no CLI crash traceback.",
+      "The last codex JSONL item was a successfully completed read-only shell command."
+    ]
+  },
+  "attempt_1": {
+    "cli_started_at_utc": "2026-11-04T08:55:54.191083811Z",
+    "codex_stdout_last_mtime_utc": "2026-11-04T09:00:39.951692+00:00",
+    "codex_stderr_last_mtime_utc": "2026-11-04T09:00:45.788416+00:00",
+    "last_jsonl_event_line": 70,
+    "last_jsonl_event": "item.completed command_execution id=item_36 status=completed exit_code=0",
+    "mcp_get_session_status_completed": 1,
+    "turn_completed": false,
+    "final_message_exists": false,
+    "model_catalog_refresh_warnings": 18,
+    "used_candidates": 0,
+    "used_checks": 0,
+    "started_simulations": 0,
+    "thread_id": "01a1a5c5-a021-7cd1-a44f-a63c455ee413"
+  },
+  "remediation": {
+    "automatic_retry": false,
+    "change_scope": "Outer process lifecycle only; no tactical facts, mechanism, catalog, budget, or acceptance change.",
+    "implementation": "Fixed-path detached attempt2 runner holds an exclusive lock, writes STARTED, persists exit/timeout state, and never retries.",
+    "fake_tests": "tests/test_astra_high_cold_start_attempt2_runner.py"
+  },
+  "schema_version": "KIMIARK_COLD_START_FAULT_INVESTIGATION_V2"
+}

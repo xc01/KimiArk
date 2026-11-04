@@ -1,0 +1,85 @@
+{
+  "schema_version": "KIMIARK_COLD_START_ATTEMPT2_FAILURE_REPORT_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1",
+  "attempt": 2,
+  "closure": {
+    "best_person_count": 8,
+    "best_plan_scope": "M70 eight-operator frozen WIN; not re-run or updated",
+    "candidates_simulated": 0,
+    "experiment_stopped_reason": "CUMULATIVE_REAL_CLI_START_AUTHORIZATION_EXHAUSTED",
+    "tactical_result": "NO_TACTICAL_RESULT_AND_NOT_LOSS",
+    "win": false
+  },
+  "budget": {
+    "candidate_ledger": {
+      "attempts": [],
+      "checks": [],
+      "max_candidates": 5,
+      "max_check_calls": 20,
+      "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+      "session_id": "real-tool-loop-astra-high-cold-start-v1",
+      "used_candidates": 0,
+      "used_check_calls": 0
+    },
+    "max_real_cli_starts": 2,
+    "simulation_budget": {
+      "max_stage_simulations": 5,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 0
+    },
+    "used_real_cli_starts": 2
+  },
+  "fault": {
+    "attribution": {
+      "category": "CODEX_CLI_CLOUD_CONFIG_BUNDLE_TIMEOUT",
+      "confidence": "CONFIRMED_FOR_EXIT_CAUSE",
+      "evidence": "Codex exited with code 1 and wrote only 'Error: timed out waiting for cloud config bundle after 20s' to stderr.",
+      "model_catalog_refresh_warnings_cause": "UNKNOWN_AND_NOT_DECISIVE",
+      "network_root_cause": "UNKNOWN_NOT_PROVEN",
+      "outer_process_lifecycle_failure": "NOT_OBSERVED_IN_ATTEMPT_2"
+    },
+    "automatic_resume_or_retry": false,
+    "attempt_3_authorized": false,
+    "cli_started": true,
+    "completed_at_utc": "2026-11-04T11:48:31.000000000Z",
+    "completed_at_precision": "SECOND_FROM_LOCAL_FILE_MTIME",
+    "exit_code": 1,
+    "final_message_bytes": 0,
+    "jsonl_bytes": 0,
+    "jsonl_event_count": 0,
+    "model_inference_count": "UNKNOWN_CLI_INTERNAL",
+    "service_layer": "CODEX_CLIENT_INITIALIZATION_BEFORE_MODEL_TRANSCRIPT",
+    "stderr_bytes": 59,
+    "started_at_utc": "2026-11-04T11:48:10.901901478Z",
+    "timed_out_by_runner": false,
+    "turn_completed": false
+  },
+  "recovery": {
+    "cold_start_bundle_unchanged": true,
+    "no_tool_calls_observed": true,
+    "original_failure_report_preserved": "failure_report_v1.json",
+    "remaining_candidates": 5,
+    "remaining_check_calls": 20,
+    "remaining_simulations": 5,
+    "restore_condition": "Requires explicit new real-CLI authorization after the cloud-config-bundle availability issue is resolved."
+  },
+  "preflight": {
+    "focused_recovery_tests": {
+      "command": ".venv/bin/pytest -q tests/test_astra_high_cold_start_attempt2_runner.py tests/test_kimiark_tactical_stdio_service_v1.py --junit-xml docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/focused_recovery_tests.junit.xml",
+      "errors": 0,
+      "failures": 0,
+      "junit_xml": "focused_recovery_tests.junit.xml",
+      "result": "PASS",
+      "skipped": 0,
+      "tests": 20,
+      "time_seconds": 1.939
+    },
+    "mcp_no_model_transcript": "mcp_no_model_status_transcript_attempt2_v1.json",
+    "mcp_handshake": "PASS",
+    "prompt_bytes": 4695,
+    "prompt_sha256": "c309e4d95dac3fb99ad6532766d6fc209525e9d6e8b714b1c4d2ef2f76fbee0f",
+    "runner_byte_limit": 140000
+  }
+}
