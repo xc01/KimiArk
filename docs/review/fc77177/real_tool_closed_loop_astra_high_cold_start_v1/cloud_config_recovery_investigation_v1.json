@@ -1,0 +1,180 @@
+{
+  "schema_version": "KIMIARK_COLD_START_CLOUD_CONFIG_RECOVERY_INVESTIGATION_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1",
+  "captured_at_utc": "2026-11-04T15:26:06.436627Z",
+  "scope": "Zero-model cloud config bundle startup diagnosis; no Codex exec/resume, model inference, simulation, budget reservation, or STARTED.",
+  "experiment_ledger_after_investigation": {
+    "max_real_cli_starts": 2,
+    "used_real_cli_starts": 2,
+    "max_candidates": 5,
+    "used_candidates": 0,
+    "max_check_calls": 20,
+    "used_check_calls": 0,
+    "max_simulations": 5,
+    "started_simulations": 0,
+    "changed": false
+  },
+  "attempt2_error": {
+    "direct_error": "Error: timed out waiting for cloud config bundle after 20s",
+    "exit_code": 1,
+    "stdout_bytes": 0,
+    "codex_jsonl_bytes": 0,
+    "turn_completed": false,
+    "final_message_bytes": 0,
+    "model_inference_count": "UNKNOWN_CLI_INTERNAL",
+    "original_report_preserved": "failure_report_attempt2_v1.json"
+  },
+  "implementation": {
+    "codex_cli_version": "0.166.0",
+    "package_name": "@openai/codex",
+    "package_version": "0.166.0",
+    "install_path": "/home/bigdata/.local/lib/node_modules/@openai/codex",
+    "native_binary": "/home/bigdata/.local/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex",
+    "source_tag": "rust-v0.166.0",
+    "source_commit_sha256_or_git_sha": "6ff1e1ca3b30fc8b914720681fcf5fe62e95f856",
+    "source_evidence": [
+      "codex-rs/cloud-config/src/service.rs defines CLOUD_CONFIG_BUNDLE_TIMEOUT as Duration::from_secs(20), wraps startup load in timeout, and emits the observed timeout message.",
+      "codex-rs/exec/src/lib.rs calls managed_config_bundle_loader_for_storage before final config loading; a bundle error fails configuration loading.",
+      "codex-rs/backend-client/src/client.rs maps the ChatGPT backend base URL to GET /wham/config/bundle.",
+      "codex-rs/cloud-config/src/service.rs prefers a valid identity-matched cache and otherwise fetches remote with retries.",
+      "codex-rs/login/src/oauth_session.rs refreshes an expired OAuth token before the bundle request; storage lock timeout is 60 seconds and can be bounded by the outer 20-second cloud timeout.",
+      "codex-rs/login/src/oauth_session_storage.rs locks ~/.codex/secrets/gateway_oauth.lock for credential refresh/persistence."
+    ]
+  },
+  "timeline": [
+    {
+      "at_utc": "2026-11-04T11:48:10.901901478Z",
+      "event": "Attempt2 CLI STARTED; runner timeout was 3600s and did not fire.",
+      "evidence_level": "LOG_FACT"
+    },
+    {
+      "at_utc": "2026-11-04T11:48:31.086203533Z",
+      "event": "Codex exited 1 after writing the 20-second cloud-config timeout to stderr; stdout and JSONL remained empty.",
+      "evidence_level": "LOG_FACT"
+    },
+    {
+      "at_utc": "2026-11-04T15:23:42.045747Z",
+      "event": "Targeted zero-model GET to the source-identified bundle endpoint returned HTTP 401 token_expired in 1231 ms.",
+      "evidence_level": "CHECK_OBSERVATION"
+    },
+    {
+      "at_utc": "2026-11-04T15:26:06.436627Z",
+      "event": "Official auth.openai.com OpenID configuration returned HTTP 200 in 1191 ms.",
+      "evidence_level": "CHECK_OBSERVATION"
+    }
+  ],
+  "local_state": {
+    "cloud_config_bundle_cache": {
+      "path": "~/.codex/cloud-config-bundle-cache.json",
+      "present": false,
+      "evidence_level": "LOG_FACT",
+      "consequence": "Startup could not use a cache hit and had to authenticate and fetch remotely."
+    },
+    "oauth_state": {
+      "auth_file_present": true,
+      "auth_mode": "chatgpt",
+      "openai_api_key_present": false,
+      "last_refresh_utc": "2026-10-25T11:46:05.803258892Z",
+      "access_token_expired_at_attempt2_start": true,
+      "access_token_expired_at_check": true,
+      "access_token_expired_at_utc": "2026-11-04T11:46:05Z",
+      "attempt2_started_seconds_after_access_expiry": 125,
+      "secrets_directory_present": false,
+      "gateway_oauth_lock_present": false,
+      "evidence_level": "LOG_FACT"
+    },
+    "network": {
+      "proxy_program": "mihomo",
+      "proxy_pid": 1188,
+      "proxy_listen": "127.0.0.1:7890",
+      "proxy_present_for_http_https_socks": true,
+      "evidence_level": "CHECK_OBSERVATION"
+    },
+    "codex_processes_at_investigation": [
+      {
+        "pid": 3668,
+        "command_summary": "codex --profile agent resume --all",
+        "started_local": "2026-11-04 18:50:52 +0800",
+        "action": "PRESERVED_NOT_KILLED"
+      },
+      {
+        "pid": 20885,
+        "command_summary": "VS Code extension codex app-server",
+        "started_local": "2026-11-04 22:48:06 +0800",
+        "action": "PRESERVED_NOT_KILLED"
+      }
+    ]
+  },
+  "attribution": {
+    "confirmed_exit_layer": "CODEX_CLIENT_CLOUD_CONFIG_BUNDLE_STARTUP_TIMEOUT",
+    "confirmed_configuration_semantics": "Cloud bundle supplies enterprise-managed config and requirements fragments; startup waits and fails closed.",
+    "confirmed_network_status_now": "Both bundle endpoint and auth issuer reached promptly through the normal local proxy.",
+    "confirmed_auth_status": "Stored access token expired before attempt2; expired-token bundle request returned promptly with HTTP 401.",
+    "root_cause_confidence": "MEDIUM_FOR_EXPIRED_AUTH_REFRESH_OR_TRANSIENT_UPSTREAM_PATH",
+    "root_cause_status": "NOT_PROVEN",
+    "excluded_now": "The normal proxy listener is present, and current endpoint/auth-issuer checks do not reproduce a 20-second hang.",
+    "not_excluded": [
+      "OAuth refresh was slow, blocked, rejected in a way that did not finish within the outer timeout, or entered interactive login.",
+      "Transient mihomo/upstream/network failure occurred only during attempt2.",
+      "An unrelated cloud-config service fault occurred only during attempt2."
+    ],
+    "attempt1_root_cause_remains": "OUTER_HOST_EXECUTION_SESSION_CANCELLATION with 18 model catalog refresh warnings non-decisive; not merged into attempt2."
+  },
+  "checks_performed": [
+    {
+      "name": "bundle_endpoint_expired_token_probe",
+      "url": "https://chatgpt.com/backend-api/wham/config/bundle",
+      "method": "GET",
+      "status_code": 401,
+      "elapsed_ms": 1231,
+      "request_id": "a5549f11fd6f90ae-DFW",
+      "credentials_used": "normal local OAuth token; value not printed or archived",
+      "generation_side_effect": false,
+      "evidence_level": "CHECK_OBSERVATION"
+    },
+    {
+      "name": "auth_openid_discovery",
+      "url": "https://auth.openai.com/.well-known/openid-configuration",
+      "method": "GET",
+      "status_code": 200,
+      "elapsed_ms": 1191,
+      "request_id": "573bf0d8-5119-4c9d-9116-1e97a08511dd",
+      "credentials_used": false,
+      "generation_side_effect": false,
+      "evidence_level": "CHECK_OBSERVATION"
+    }
+  ],
+  "minimal_fix": {
+    "code_or_config_change_made": false,
+    "rationale": "The 20-second timeout is a source constant with no observed supported override. Current network checks are healthy, while stored auth is expired; performing an OAuth refresh or re-login would change user credentials and is an external/user action.",
+    "recommended_user_action": "Refresh/re-authenticate Codex through the supported normal flow, then verify codex-cli 0.166.0 and a single bounded authenticated bundle probe or allow one explicitly authorized startup.",
+    "forbidden_actions": [
+      "No forged cache file.",
+      "No timeout bypass or cloud-config check disablement.",
+      "No account/region/fingerprint workaround.",
+      "No automatic CLI upgrade/downgrade without compatibility evidence."
+    ]
+  },
+  "test_boundary": {
+    "offline_runner_service_tests_previously_run": {
+      "result": "PASS",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_xml": "focused_recovery_tests.junit.xml"
+    },
+    "real_cloud_path_after_reauth": "UNVERIFIED",
+    "real_cli_startup_recovery": "REQUIRES_SEPARATE_AUTHORIZATION"
+  },
+  "recovery_preparation": {
+    "attempt3_authorized": false,
+    "cumulative_start_accounting": "A future authorized startup would be attempt 3 and used_real_cli_starts=3; budgets are not reset.",
+    "remaining_candidates": 5,
+    "remaining_checks": 20,
+    "remaining_simulations": 5,
+    "cold_start_bundle_unchanged": true,
+    "prior_m70_history_access_record_preserved": true,
+    "on_new_service_fault": "Stop immediately, preserve STARTED/result evidence, do not retry/resume or launch another CLI."
+  }
+}
