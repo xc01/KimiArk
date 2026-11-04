@@ -1,0 +1,33 @@
+{
+  "schema_version": "KIMIARK_COLD_START_ATTEMPT3_CONDITIONAL_AUTHORIZATION_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1",
+  "authorization_source": "User prompt dated 2026-11-05",
+  "authorization": "After normal supported authentication readiness passes, one additional gpt-6-astra/high CLI start is authorized for attempt3; features.apps=false; no retry/resume, model change, reasoning-tier change, or attempt4.",
+  "activation": {
+    "status": "PENDING_AUTHENTICATION_READINESS",
+    "required_condition": "Stored ChatGPT credentials must be normally refreshed or re-authenticated; login status alone is insufficient because the stored access token remains expired.",
+    "effective_attempt_authorized_now": false
+  },
+  "ledger_guard": {
+    "current_max_real_cli_starts": 2,
+    "current_used_real_cli_starts": 2,
+    "authorized_max_if_activated": 3,
+    "budget_reset_forbidden": true,
+    "simulation_balance_reset_or_expansion_forbidden": true
+  },
+  "original_budget": {
+    "max_candidates": 5,
+    "used_candidates": 0,
+    "max_check_calls": 20,
+    "used_check_calls": 0,
+    "max_simulations": 5,
+    "started_simulations": 0
+  },
+  "model": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "vendor_prefix_rule": "Use the locally supported openai/gpt-6-astra identifier; do not silently change model or tier."
+  },
+  "fault_policy": "On service, approval, gateway, result, or STARTED_UNKNOWN failure, stop immediately and preserve evidence; do not retry, resume, or start another CLI."
+}

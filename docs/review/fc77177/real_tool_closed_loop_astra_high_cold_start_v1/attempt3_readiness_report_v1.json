@@ -1,0 +1,37 @@
+{
+  "schema_version": "KIMIARK_COLD_START_ATTEMPT3_READINESS_REPORT_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1",
+  "captured_at_utc": "2026-11-04T16:32:06.748545384Z",
+  "decision": "STOP_BEFORE_REAL_CLI_START",
+  "auth_check": "auth_check_attempt3_v1.json",
+  "authorization_record": "real_cli_attempt3_authorization_v1.json",
+  "readiness": {
+    "existing_experiment_preserved": true,
+    "cold_start_input_bundle_unchanged": true,
+    "production_four_tool_boundary_unchanged": true,
+    "no_tactical_prompt_change": true,
+    "attempt1_attempt2_evidence_preserved": true,
+    "authentication_ready": false,
+    "effective_attempt3_authorized": false,
+    "real_cli_started": false
+  },
+  "ledger": {
+    "max_real_cli_starts": 2,
+    "used_real_cli_starts": 2,
+    "max_candidates": 5,
+    "used_candidates": 0,
+    "max_check_calls": 20,
+    "used_check_calls": 0,
+    "max_simulations": 5,
+    "started_simulations": 0
+  },
+  "required_user_action": "Run the supported normal `codex login` flow and complete browser/device sign-in. Do not manually replace authentication files. After completion, request continuation so timestamps and readiness can be rechecked before the conditional attempt3 is activated.",
+  "boundaries": {
+    "full_refresh_and_cli_startup_recovered": "UNKNOWN_NOT_VERIFIED",
+    "attempt3_authorized_after_readiness": true,
+    "attempt3_authorized_now": false,
+    "attempt4_authorized": false
+  },
+  "real_model_requests": 0,
+  "real_simulations": 0
+}

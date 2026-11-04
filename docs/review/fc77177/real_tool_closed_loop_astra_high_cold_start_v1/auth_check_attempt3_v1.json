@@ -1,0 +1,30 @@
+{
+  "schema_version": "KIMIARK_COLD_START_ATTEMPT3_AUTH_CHECK_V1",
+  "session_id": "real-tool-loop-astra-high-cold-start-v1",
+  "captured_start_utc": "2026-11-04T16:32:06.544884217Z",
+  "captured_end_utc": "2026-11-04T16:32:06.748545384Z",
+  "command": "timeout 30s codex login status",
+  "codex_cli_version": "0.166.0",
+  "exit_code": 0,
+  "timed_out_by_wrapper": false,
+  "output_redacted": ["Logged in using ChatGPT"],
+  "auth_file_observations": {
+    "present": true,
+    "auth_mode_is_chatgpt": true,
+    "openai_api_key_present": false,
+    "last_refresh_utc": "2026-10-25T11:46:05.803258892Z",
+    "access_token_expires_at_utc": "2026-11-04T11:46:05Z",
+    "access_token_expired_after_status_check": true
+  },
+  "interpretation": {
+    "supported_login_status_result": "LOGIN_STORE_PRESENT",
+    "startup_authentication_readiness": "NOT_CONFIRMED",
+    "reason": "codex login status reads stored identity and does not refresh an expired access token.",
+    "full_cloud_and_refresh_path_after_reauth": "UNVERIFIED"
+  },
+  "real_model_requests": 0,
+  "real_cli_starts": 0,
+  "real_simulations": 0,
+  "secret_material_archived": false,
+  "next_user_action": "Complete the supported codex login flow; do not use the pending attempt3 authorization until authentication has been refreshed."
+}
