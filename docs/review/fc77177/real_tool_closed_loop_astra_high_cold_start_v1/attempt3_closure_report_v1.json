@@ -1,0 +1,144 @@
+{
+  "schema_version": "KIMIARK_COLD_START_ATTEMPT3_CLOSURE_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_cold_start_v1",
+  "closure_status": "BUDGET_EXHAUSTED_NO_NEW_WIN",
+  "attempt3_summary": {
+    "attempt": 3,
+    "status": "COMPLETED",
+    "exit_code": 0,
+    "turn_completed": true,
+    "timed_out": false,
+    "automatic_retry": false,
+    "started_at_utc": "2026-11-04T16:48:12.409198820Z",
+    "ended_at_utc": "2026-11-04T17:32:34.750966403Z",
+    "thread_id": "01a1a776-0ac6-7dd0-acff-dd0930b23f84",
+    "process_result_path": "session/codex_cli/attempt_03/cli_process_result.json",
+    "process_result_sha256": "67e31374456515f91444b7da2297cbd348e14290fbbf282e501e5e8f56d17737"
+  },
+  "model": {
+    "configured_model": "gpt-6-astra",
+    "configured_reasoning_effort": "high",
+    "features_apps": false,
+    "provider": "openai",
+    "model_identity_boundary": "The service records configured identity only and cannot prove remote model identity from CLI configuration alone."
+  },
+  "authorization_and_budget": {
+    "real_cli_starts": {
+      "limit": 3,
+      "used": 3,
+      "attempt_1": "FAILED_SESSION_ABORTED",
+      "attempt_2": "FAILED_CLOUD_CONFIG_BUNDLE_TIMEOUT",
+      "attempt_3": "COMPLETED"
+    },
+    "check_plan_calls": {
+      "limit": 20,
+      "used": 6,
+      "failed_checks": ["check-002"],
+      "passed_checks": ["check-001", "check-003", "check-004", "check-005", "check-006"]
+    },
+    "real_candidates": {"limit": 5, "used": 5},
+    "real_simulations": {"limit": 5, "used": 5, "all_completed": true},
+    "ledger_paths": ["candidate_ledger_v1.json", "simulation_budget_v1.json"],
+    "ledger_note": "Budgets were not reset or transferred."
+  },
+  "same_session_autonomy": {
+    "thread_started_event_present": true,
+    "turn_completed_event_present": true,
+    "first_item_id": "item_3",
+    "last_item_id": "item_73",
+    "tool_calls": {"get_session_status": 2, "check_plan": 6, "run_simulation": 5, "query_events": 34},
+    "shell_observation_commands": 15,
+    "autonomy_conclusion": "The same thread submitted checks, ran simulations, queried focused event windows, and produced five sequential parent-linked revisions without outer-loop model restarts.",
+    "history_access": {
+      "cold_start_input_was_preserved": true,
+      "model_proactively_read_allowed_history": true,
+      "records": [
+        {"record_id": "real_tool_astra_high_v1", "read_scope": ["closure_report_v1.json", "session/candidates/candidate-001/source/llm_structured_output.json"]},
+        {"record_id": "m70_full_roster_attempt_01", "read_scope": ["simulation_parameters.json", "plan_snapshot.json", "diagnostic_events.json.gz"]}
+      ],
+      "classification": "COLD_START_WITH_PROACTIVE_HISTORY_ACCESS"
+    }
+  },
+  "outcome": {
+    "new_complete_win": false,
+    "best_known_complete_win": "M70 eight-ID WIN",
+    "best_after_attempt": "M70 eight-ID WIN",
+    "current_target_k": 7,
+    "seven_or_fewer_feasibility": "UNKNOWN",
+    "all_five_candidates": "LOSS",
+    "candidate_summary_path": "attempt3_candidate_summary_v1.json"
+  },
+  "visible_usage": {
+    "turn_completed_records": 1,
+    "input_tokens": 3784761,
+    "cached_input_tokens": 3683712,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 59648,
+    "reasoning_output_tokens": 39912,
+    "cached_input_is_subset_of_input": true,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "cost": "NOT_CALCULATED"
+  },
+  "evidence": {
+    "prompt_sha256": "81f9ba58f62b23d8f06d4c574c7ca85cb4c8fb9ed9fcfc4fc47a0e32117f2164",
+    "jsonl_sha256": "95892cca5f9fe28bde231713ce72c04fd0af50364c8357de1658a21d612e0fa6",
+    "final_message_sha256": "2228674cc159e3a508c73a76e20fcb52fdf02c80014ce2ed68bbe63db9febf01",
+    "candidate_ledger_sha256": "564ab1e7eeaa6cb742e8d931314f32e3d4defd841bffb7588b8f37e7f94c32fa",
+    "simulation_budget_sha256": "64a4c80b2474dc55a12ea3c3496425ff9442bce90fea90706cf126a97e5517ad",
+    "large_json": "Diagnostic event and summary JSON are preserved as lossless gzip files; hashes are in attempt3_closure_manifest_v1.json."
+  },
+  "lossless_gzip_artifacts": {
+    "compression": "gzip -9 -n",
+    "verification": "gzip -t on every file passed.",
+    "candidates": {
+      "candidate-001": {
+        "diagnostic_events_original_sha256": "b7abf6b155dcee43c461bcf90b5c9d796837266508b9e39a71900693f05760a7",
+        "diagnostic_events_gzip_sha256": "ff3ce1a9909c3e93d884b9423ade2a57ba126ee52362c3520ed298a36029acfd",
+        "diagnostic_summary_original_sha256": "328821a668611ac86e02e12f9f42360943c1aab06a27551e39d14329cd34a565",
+        "diagnostic_summary_gzip_sha256": "501c659b6ad45f0233cf374d2a8a61aef6063933df04d18326351cdf4e8b6aad"
+      },
+      "candidate-002": {
+        "diagnostic_events_original_sha256": "701069ddf8629e264b57880fa42402930d84f3cbbe3f10684c58404d7ae3c74c",
+        "diagnostic_events_gzip_sha256": "ee129f2c561e56bde7d60defdd870f4adf916e0245ba6cf833c7be6a5b0647b4",
+        "diagnostic_summary_original_sha256": "a78b6472ec26a5fd44afbbe4f3a7178204a1b38ebd4dce234d90cf9c134656bd",
+        "diagnostic_summary_gzip_sha256": "48ec7cd42c2b415123e10cd1546b9f49692725b639ac8c172e76541884dd1c4f"
+      },
+      "candidate-003": {
+        "diagnostic_events_original_sha256": "c431deefb5d1fafd4c11027b2ae2f6b2b003b4f74105439bfa6a6e104884ad62",
+        "diagnostic_events_gzip_sha256": "51d39a901eb1e96d73c267724a985e05662b49bc8def22da94da97d4ebe899a4",
+        "diagnostic_summary_original_sha256": "0f4bcd363585f51eaf8a10d278a60c4e432a73fda13b1c51d90d38c5877a94d9",
+        "diagnostic_summary_gzip_sha256": "22212db363618ee001d03b9873416a5e9025f732cef1be5512b55767fce50ce5"
+      },
+      "candidate-004": {
+        "diagnostic_events_original_sha256": "60cc354b6b1b09bf1264424cdda55105b1d18af4a0f1b001af4069153dfa41a8",
+        "diagnostic_events_gzip_sha256": "cc71658f526eff50bb196dadcc330a48da96b725bf38b1c21f29bd2cc01373fe",
+        "diagnostic_summary_original_sha256": "d6a33ccd7a823d3477fe414f717ad4c17747b4deb5e0d4a216d71bf892a8f605",
+        "diagnostic_summary_gzip_sha256": "1464f34a1864773549bd860f03566597dc284a13e5b1583a128387cfe7f84a3d"
+      },
+      "candidate-005": {
+        "diagnostic_events_original_sha256": "0dba20e9f56a2f95cc04863d4c83dd108854abe9f63f794ac2b2ef8c83e10e95",
+        "diagnostic_events_gzip_sha256": "28182638ff156618ed4c830dd8b202145e8979905692bd2dd05b2ad8134dd219",
+        "diagnostic_summary_original_sha256": "0df8c7dae6f0dcdbeb126ebc24ad4578bc97f64c2047c6f37fe2e94b990f8f56",
+        "diagnostic_summary_gzip_sha256": "bef9835079a1643450fe438b6c37483fd2492ecc42915607331721da7b9886c1"
+      }
+    }
+  },
+  "failure_analysis": {
+    "common_terminal_reason": "ENEMY_LEAK",
+    "best_candidate_by_first_objective_failure": {"candidate_id": "candidate-003", "time": 175.0333333333},
+    "key_breaks": [
+      {"candidate_id": "candidate-002", "evidence": "Hibiscus healed Melantha but occupied an artillery splash cluster and died at frame 2143; later medical stream remained unresolved."},
+      {"candidate_id": "candidate-003", "evidence": "First barrage survived, but a lower roadblock remained uncleared; the protected target and Steward were inside later artillery splash and died at frame 3943."},
+      {"candidate_id": "candidate-004", "evidence": "Hibiscus died between self-heals at frame 2593, delayed Midnight arts left an upper protected target exposed, and its proposed Midnight aircraft contribution was not observed."},
+      {"candidate_id": "candidate-005", "evidence": "First leak moved later to frame 3561, but terminal life failure still began with ENEMY_LEAK; one protected target reached and one remained unsuccessful."}
+    ],
+    "no_feasibility_claim": "Five bounded LOSS candidates do not prove seven or fewer operators infeasible."
+  },
+  "unverified_boundaries": [
+    "Fixed simulator scope only; no real-game, faithful, robust, probabilistic-WIN, or global-minimum claim.",
+    "Service can verify configured model identity but cannot prove remote model identity from that setting alone.",
+    "Visible turn usage does not expose all internal CLI/model requests; internal request count remains UNKNOWN_CLI_INTERNAL.",
+    "Tool parameter restrictions do not establish OS-level sandbox isolation.",
+    "No complete seven-or-fewer feasibility proof was obtained."
+  ]
+}
