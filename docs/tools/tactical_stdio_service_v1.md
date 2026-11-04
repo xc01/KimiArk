@@ -36,6 +36,8 @@ default_tools_approval_mode = "approve"
 
 Plan `action_type` uses `DEPLOY`, `ACTIVATE_SKILL`, and `RETREAT`. Simulator logs are events and use `DEPLOY`, `RETREAT`, and `SKILL_ACTIVATE`; they also include damage, healing, projectile, ability, device, death, leak, and objective event types. `get_session_status` exposes both lists. `query_events` accepts `ACTIVATE_SKILL` only as an explicit lossless alias for `SKILL_ACTIVATE`, returns the declared and normalized names, and never guesses an unknown event. Invalid expected-event fields return the JSON path, received value, supported set, and repair hint.
 
+`get_session_status` also exposes the configured `execution_backend` and `allow_fake_execution` flag so the model can confirm that a production session uses `CONTROLLED_RUNNER`; this is configuration evidence, not proof of remote model identity.
+
 The implementation intentionally uses the repository's existing JSON-RPC style and standard library rather than adding an MCP SDK dependency.
 
 ## Why a fixed-session adapter

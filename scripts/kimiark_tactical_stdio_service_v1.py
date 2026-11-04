@@ -412,6 +412,8 @@ def session_status(config: SessionConfig) -> dict[str, Any]:
         "reasoning_effort": config.reasoning_effort,
         "features_apps": False,
         "mechanics_version": config.mechanics_version,
+        "execution_backend": config.execution_backend,
+        "allow_fake_execution": config.allow_fake_execution,
         "max_unique_deployed_operators": config.max_unique_deployed_operators,
         "budget": {**budget, "remaining_stage_simulations": remaining_simulations},
         "candidate_ledger": {
