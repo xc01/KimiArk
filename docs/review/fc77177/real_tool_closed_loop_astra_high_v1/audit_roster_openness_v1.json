@@ -1,0 +1,142 @@
+{
+  "baseline_bundle_sha256": {
+    "m70_diagnostic_events.json.gz": "d8ea88ad9499dbc86e2fce51f649f0df23f12f3ebf95dd7e33086b8b40b0b83d",
+    "m70_final_status.json": "5c7e58fd5b66e428cb7fbfaa5cc7c8a1619c093a0715e5fada30a98bcd57d738",
+    "m70_plan_snapshot.json": "fe265c2837d962184647bded4ce0725f4fdd3f8bef013d05cf5ade5ef89ddf9d",
+    "m70_success_summary.json": "cadf5188e9ae6ce10d8d99c9974d41f1dc61975cb503e652b5004bb25eeb1fd0",
+    "m74_llm_evidence_context.json": "b961273bf9be777b36f3628b02007692e453407e84ea34bf62698ed6102509a9",
+    "m74_revision_output_schema.json": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "manifest.json": "2fbb75e272161c92454e574b15e7ade3dd2fe79daa2de490d8913cdf0e65c11f",
+    "terra_v3_closure_report.json": "4890b1930cc63a4fbf120bcd8d8246d1b67bb425fe9077a08d334eb109415f36",
+    "terra_v3_failure_summary.json": "aa8949b72f31bc529f62269d424150a94e37c800cb8b8925d712f2464d8eb904",
+    "tools_schema.json": "60437f05b5056090041052a2166a0ef527e22e61f67736e2d5f406eb10823cd6"
+  },
+  "catalog": {
+    "count": 34,
+    "normal_mode_low_star_ids": [
+      "char_009_12fce",
+      "char_120_hibisc",
+      "char_121_lava",
+      "char_122_beagle",
+      "char_123_fang",
+      "char_124_kroos",
+      "char_192_falco",
+      "char_208_melan",
+      "char_209_ardign",
+      "char_210_stward",
+      "char_211_adnach",
+      "char_212_ansel",
+      "char_240_wyvern",
+      "char_278_orchid",
+      "char_281_popka",
+      "char_282_catap",
+      "char_283_midn",
+      "char_284_spot",
+      "char_285_medic2",
+      "char_286_cast3",
+      "char_376_therex",
+      "char_4000_jnight",
+      "char_4077_palico",
+      "char_4091_ulika",
+      "char_4093_frston",
+      "char_4136_phonor",
+      "char_4188_confes",
+      "char_4215_buddy",
+      "char_4220_kormr",
+      "char_4227_gallus",
+      "char_500_noirc",
+      "char_501_durin",
+      "char_502_nblade",
+      "char_503_rang"
+    ],
+    "operator_ids": [
+      "char_009_12fce",
+      "char_120_hibisc",
+      "char_121_lava",
+      "char_122_beagle",
+      "char_123_fang",
+      "char_124_kroos",
+      "char_192_falco",
+      "char_208_melan",
+      "char_209_ardign",
+      "char_210_stward",
+      "char_211_adnach",
+      "char_212_ansel",
+      "char_240_wyvern",
+      "char_278_orchid",
+      "char_281_popka",
+      "char_282_catap",
+      "char_283_midn",
+      "char_284_spot",
+      "char_285_medic2",
+      "char_286_cast3",
+      "char_376_therex",
+      "char_4000_jnight",
+      "char_4077_palico",
+      "char_4091_ulika",
+      "char_4093_frston",
+      "char_4136_phonor",
+      "char_4188_confes",
+      "char_4215_buddy",
+      "char_4220_kormr",
+      "char_4227_gallus",
+      "char_500_noirc",
+      "char_501_durin",
+      "char_502_nblade",
+      "char_503_rang"
+    ],
+    "schema_role_constraints": [
+      {
+        "key": "const",
+        "path": "$.properties.revised_operational_plans.items.properties.action_timeline.items.allOf[0].if.properties.action_type",
+        "value": "DEPLOY"
+      }
+    ]
+  },
+  "conclusion": {
+    "actual_sol_roster_unchanged_cause": "MODEL_CHOICE_WITH_INPUT_ANCHOR_RISK; hidden reasoning UNKNOWN",
+    "full_static_support_for_arbitrary_new_tactical_plan": "UNKNOWN_NOT_TESTED",
+    "hidden_hard_roster_limit": "NOT_FOUND"
+  },
+  "gates": {
+    "max_unique_union_rule": "selected_low_star_operator_ids plus DEPLOY action operator_ids",
+    "require_all_catalog_only_for_capability_source": true,
+    "runner_executes_selected_and_deploy_union_only": true,
+    "schema_role_enum": false,
+    "service_role_whitelist": false
+  },
+  "no_model_fixture": {
+    "full_static_and_simulation": "UNKNOWN_NOT_TESTED",
+    "kind": "LAYERED_STATIC_GATE_ONLY_NO_SIMULATION_NO_FULL_TACTICAL_PLAN",
+    "role_outside_parent_plan": "char_284_spot",
+    "role_replaced_from_existing_sol_candidate": "char_120_hibisc",
+    "selected_and_deploy_union": [
+      "char_123_fang",
+      "char_208_melan",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_283_midn",
+      "char_284_spot",
+      "char_4093_frston"
+    ],
+    "validate_execution_input_errors": [],
+    "validate_execution_input_status": "PASS",
+    "validate_open_roster_contract_errors": [],
+    "validate_open_roster_contract_status": "PASS"
+  },
+  "prompt": {
+    "all_roles_open_line_present": true,
+    "anchor_risk": "Moderate input anchoring from previous plan/Terra roster context; no hard roster restriction found.",
+    "fixed_core_or_retention_instruction": false,
+    "parent_plan_selected_ids": [
+      "char_123_fang",
+      "char_240_wyvern",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ]
+  },
+  "schema_version": "KIMIARK_CLOSED_LOOP_ROSTER_OPENNESS_AUDIT_V1"
+}

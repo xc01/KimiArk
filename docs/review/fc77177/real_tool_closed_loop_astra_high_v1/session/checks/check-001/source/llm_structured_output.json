@@ -1,0 +1,713 @@
+{
+  "explicit_assumptions": [
+    "All contact/kill/heal/block timings are fixed-simulator hypotheses, not guaranteed client behavior. Conditional baseline artillery contact2161 and kill4273 are predictions for this version.",
+    "Spot old-position2144 handoff assumes prior shell impact2143; inspect continuous locks and delayed splash rather than trusting withdrawal alone.",
+    "No unsupported Ansel extra heal, Spot dodge, pre-swing lock, enemy reset, movement hold or death refund."
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1321,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2054,
+          "operator_id": "char_208_melan",
+          "rationale": "Living withdrawal after assigned projectile birth; empty held queue required."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2072,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 2144,
+          "operator_id": "char_284_spot",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3330,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3873,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 4155,
+          "operator_id": "char_208_melan",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 4280,
+          "operator_id": "char_210_stward",
+          "rationale": "Artillery must already be dead and its residual projectiles resolved."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5073,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5900,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6350,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 6381,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6500,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7701,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 8100,
+          "operator_id": "char_210_stward",
+          "rationale": "Central hostile clearance must be complete."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 8101,
+          "operator_id": "char_208_melan",
+          "rationale": "Upper-central hostile clearance must be complete."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 10201,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 10202,
+          "operator_id": "char_208_melan",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "battle_phases": [
+        {
+          "completion_condition": "All opening duties are intact, restraint4 is destroyed and the assigned shell is born before Melantha2054 withdrawal.",
+          "failure_effect_on_later_phases": "Any lost holder, missing artillery kill or dead returning operator invalidates downstream handoffs.",
+          "goal": "Establish four live interceptions and eastern device clearance.",
+          "handoff_requirements": [
+            "Actual clearance, live withdrawal, completed cooldown, affordable deployment and no unresolved lethal splash."
+          ],
+          "phase_id": "P1_OPENING",
+          "responsibilities": [
+            "Execute fixed timeline and measured duties in formation_structure; Ansel is sole physician and Spot supplies local healing."
+          ],
+          "start_condition": "Stage begins with10 DP and no deployed operators.",
+          "survival_dependencies": [
+            "No death refund or actions credited to dead operators; single-physician targeting and cadence remain assumptions."
+          ]
+        },
+        {
+          "completion_condition": "Artillery is actually dead, its residual shells have resolved and Steward withdraws alive at4280.",
+          "failure_effect_on_later_phases": "Any lost holder, missing artillery kill or dead returning operator invalidates downstream handoffs.",
+          "goal": "Resolve locked shell and sustain artillery output with one physician.",
+          "handoff_requirements": [
+            "Actual clearance, live withdrawal, completed cooldown, affordable deployment and no unresolved lethal splash."
+          ],
+          "phase_id": "P2_ARTILLERY",
+          "responsibilities": [
+            "Execute fixed timeline and measured duties in formation_structure; Ansel is sole physician and Spot supplies local healing."
+          ],
+          "start_condition": "Melantha has withdrawn and eastern Steward deploys at2071.",
+          "survival_dependencies": [
+            "No death refund or actions credited to dead operators; single-physician targeting and cadence remain assumptions."
+          ]
+        },
+        {
+          "completion_condition": "Upper runner capacity remains available as Ansel5900 and Hibiscus6100 begin the final recovery sequence.",
+          "failure_effect_on_later_phases": "Any lost holder, missing artillery kill or dead returning operator invalidates downstream handoffs.",
+          "goal": "Split upper and lower armor clearance with real blocking.",
+          "handoff_requirements": [
+            "Actual clearance, live withdrawal, completed cooldown, affordable deployment and no unresolved lethal splash."
+          ],
+          "phase_id": "P3_RESERVE_OUTPUT",
+          "responsibilities": [
+            "Execute fixed timeline and measured duties in formation_structure; Ansel is sole physician and Spot supplies local healing."
+          ],
+          "start_condition": "Artillery is closed and Melantha supports Fang.",
+          "survival_dependencies": [
+            "No death refund or actions credited to dead operators; single-physician targeting and cadence remain assumptions."
+          ]
+        },
+        {
+          "completion_condition": "Both final central armored enemies and all central runners are dead before8100 withdrawals.",
+          "failure_effect_on_later_phases": "Any lost holder, missing artillery kill or dead returning operator invalidates downstream handoffs.",
+          "goal": "Clear western devices and observe both protected arrivals.",
+          "handoff_requirements": [
+            "Actual clearance, live withdrawal, completed cooldown, affordable deployment and no unresolved lethal splash."
+          ],
+          "phase_id": "P4_SPLIT_FINAL_ARMOR",
+          "responsibilities": [
+            "Execute fixed timeline and measured duties in formation_structure; Ansel is sole physician and Spot supplies local healing."
+          ],
+          "start_condition": "Ansel's third boost begins5900 and Hibiscus follows6100.",
+          "survival_dependencies": [
+            "No death refund or actions credited to dead operators; single-physician targeting and cadence remain assumptions."
+          ]
+        },
+        {
+          "completion_condition": "Both expected protected targets safely arrive, spawns are exhausted, no active enemies remain, zero leaks and zero protected-target deaths are recorded, and life remains positive.",
+          "failure_effect_on_later_phases": "Any lost holder, missing artillery kill or dead returning operator invalidates downstream handoffs.",
+          "goal": "Clear western devices and observe both protected arrivals.",
+          "handoff_requirements": [
+            "Actual clearance, live withdrawal, completed cooldown, affordable deployment and no unresolved lethal splash."
+          ],
+          "phase_id": "P5_PROTECTED_EXIT",
+          "responsibilities": [
+            "Execute fixed timeline and measured duties in formation_structure; Ansel is sole physician and Spot supplies local healing."
+          ],
+          "start_condition": "Central clearance permits the8100 and8101 living withdrawals.",
+          "survival_dependencies": [
+            "No death refund or actions credited to dead operators; single-physician targeting and cadence remain assumptions."
+          ]
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "responsibility": "Zero-length placeholder; no combat allocation.",
+          "routes": [
+            "route-0"
+          ]
+        },
+        {
+          "responsibility": "Execute only the supported fixed-projectile withdrawal. Eastern Steward kills artillery; Ansel alone sustain exposed recipients and Spot supplements the second lower barrage. Source death does not remove existing projectiles.",
+          "routes": [
+            "route-1"
+          ]
+        },
+        {
+          "responsibility": "Midnight destroys eastern restraint3 while holding upper-outer hostiles. Artillery must die before a dangerous western return. Final western clearance must permit civilian3 to arrive safely.",
+          "routes": [
+            "route-2"
+          ]
+        },
+        {
+          "responsibility": "Opening Melantha destroys eastern restraint4. Spot intercepts later lower-outer officers. Final western Melantha destroys restraint2 after hostile clearance and permits civilian14 to arrive safely.",
+          "routes": [
+            "route-15"
+          ]
+        },
+        {
+          "responsibility": "Fang blocks upper-central traffic. Melantha kills armor21, clears runners without her reserved skill, then uses that skill against armor33. Returning Steward is deliberately excluded from this holder.",
+          "routes": [
+            "route-3",
+            "route-4",
+            "route-12",
+            "route-13",
+            "route-20",
+            "route-21",
+            "route-30",
+            "route-31"
+          ]
+        },
+        {
+          "responsibility": "Friston contains lower-central traffic. Midnight contributes whenever his own queue permits. Returning Steward clears armor22 and34; a slot must open for actual BLOCK on34 before it passes the holder.",
+          "routes": [
+            "route-5",
+            "route-6",
+            "route-11",
+            "route-14",
+            "route-18",
+            "route-19",
+            "route-28",
+            "route-29"
+          ]
+        },
+        {
+          "responsibility": "Midnight remains upper-outer interceptor. His own blocked enemies take precedence over central assistance. Ansel's delayed active extension must preserve him through the final officer.",
+          "routes": [
+            "route-7",
+            "route-8",
+            "route-17",
+            "route-22",
+            "route-23",
+            "route-24"
+          ]
+        },
+        {
+          "responsibility": "Melantha handles the opening; Spot holds all subsequent officers. Avoid attack stoppage before the final officer is captured. Returning Steward may assist when no higher-defense lower-central target competes.",
+          "routes": [
+            "route-9",
+            "route-10",
+            "route-16",
+            "route-25",
+            "route-26",
+            "route-27"
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "UP",
+          "operator_id": "char_123_fang",
+          "role": "Upper-central two-block interception, adjacent lower-central attacks and automatic income.",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_4093_frston",
+          "role": "Lower-central three-block containment; survival depends on timely clearance and effective medical targeting.",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": "UP",
+          "operator_id": "char_283_midn",
+          "role": "Upper-outer interception, eastern restraint3 clearance and available central assistance.",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_208_melan",
+          "role": "Opening lower-outer interception, restraint4 destruction and one fixed-projectile withdrawal.",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_212_ansel",
+          "role": "Central and eastern medicine; active extension also reaches Midnight.",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_210_stward",
+          "role": "First deployment: sustained artillery clearance.",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_284_spot",
+          "role": "Persistent lower-outer successor and local healing support.",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_208_melan",
+          "role": "Second deployment: direct damage to enemies held by Fang, with attack skill reserved for final upper armor.",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "operator_id": "char_210_stward",
+          "role": "Second deployment: lower-exclusive central arts coverage and lower-outer assistance.",
+          "tile": [
+            5,
+            5
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "operator_id": "char_210_stward",
+          "role": "Final western upper restraint clearance.",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "operator_id": "char_208_melan",
+          "role": "Final western lower restraint clearance.",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "artillery": "Steward [5,7]DOWN at2071 is assumed to contact by2161 and deliver45 attacks by4273; retreat4280 requires actual lethal damage. All repeated locks and in-flight splash remain live. Spot2144 is after conditional old-position impact2143, not before it.",
+        "central": "Upper Fang plus returned Melantha clear #21/#33; Friston lower must maintain actual BLOCK through #34 until lower-exclusive Steward6381 kills. Single-physician endurance is a simulation assumption.",
+        "classification": "CURRENT_MODEL_CHECKABLE",
+        "distinct_operator_ids": 7,
+        "economy": "Removing Hibiscus saves17DP; opening other costs and Fang grants unchanged. Spot2144 is affordable after living Melantha2054 refunds7; no death refund. Steward and Melantha redeploy only after2101frames. No action depends on a dead provider.",
+        "maximum_simultaneous_operators": 7,
+        "medical": "Ansel alone must select Steward for enough 506.8 heals during2293-2743. Spot heals himself and Ansel during3330-4080, reducing medical competition but does not cover eastern Steward or Friston. Survival of the second caster barrage and late Friston queue is explicitly unverified.",
+        "primary_repair": "Replace a dedicated second physician with actual Ansel recovery plus Spot local healing, retaining separate damage for upper armor and #34.",
+        "road": "Midnight and opening Melantha clear eastern devices. Their later western rotations preserve both protected arrivals; release only succeeds if hostile/artillery clearance occurred.",
+        "validation_status": "UNSIMULATED"
+      },
+      "formation_transitions": [
+        {
+          "frame": 2054,
+          "transition": "Withdraw living Melantha after the assigned projectile is born; the lower-outer queue and restraint4 must already be cleared."
+        },
+        {
+          "frame": 2071,
+          "transition": "Deploy eastern Steward outside the locked former Melantha impact."
+        },
+        {
+          "frame": 2144,
+          "transition": "Spot inherits the lower-outer tile after the residual impact."
+        },
+        {
+          "frame": 3330,
+          "transition": "Spot temporarily replaces attacks with local healing through the second lower artillery exposure."
+        },
+        {
+          "frame": 4155,
+          "transition": "Return Melantha beside Fang for upper armor and runner damage."
+        },
+        {
+          "frame": 4280,
+          "transition": "Withdraw Steward after actual artillery death and resolution of its residual projectiles. This advances his central return by40 frames."
+        },
+        {
+          "frame": 5900,
+          "transition": "Begin the delayed third Ansel skill, covering late outer interception and the coming lower queue."
+        },
+        {
+          "frame": 6350,
+          "transition": "Activate Melantha's reserved attack skill for final upper armor, rather than spending it on the earlier runner window."
+        },
+        {
+          "frame": 6381,
+          "transition": "Return Steward at [5,5]RIGHT to clear lower armor without upper armor target competition."
+        },
+        {
+          "frame": 6500,
+          "transition": "Spot heals locally only after the final lower-outer officer is actually captured."
+        },
+        {
+          "frame": 8100,
+          "transition": "After hostile central clearance, withdraw Steward; withdraw Melantha at8101."
+        },
+        {
+          "frame": 10201,
+          "transition": "Return Steward west; return Melantha at10202 to finish both western restraints and observe protected-target arrivals."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "LEGAL_ROSTER",
+          "requirement": "Exactly seven selected/deployed IDs from fixed normal 1-3-star catalog; debug_configuration and execution facts preserved unchanged."
+        },
+        {
+          "id": "LEGAL_TILES",
+          "requirement": "Every DEPLOY uses integer [row,col] and a declared cardinal direction. Never deploy on [1,2], [6,2], [1,6] or [6,6], even after device destruction."
+        },
+        {
+          "id": "FIXED_ACTIONS",
+          "requirement": "The timeline is fixed. Preconditions are validity assertions, not executable conditional rescheduling. A failed prerequisite invalidates its dependent handoff."
+        },
+        {
+          "id": "ARTILLERY_WITHDRAWAL",
+          "requirement": "Melantha survives through projectile birth, withdraws alive with no held enemy, and Spot enters after the residual impact. Steward4280 requires observed artillery death and resolved residual shells."
+        },
+        {
+          "id": "FINAL_SPLIT",
+          "requirement": "Steward returns at [5,5]RIGHT. Melantha owns upper armor33; Steward owns lower armor clearance. Range coverage alone is not evidence of damage or interception."
+        },
+        {
+          "id": "LOWER_CONTAINMENT",
+          "requirement": "Armor22 or another lower occupant must die before armor34 would overflow three-block capacity. Armor34 requires an actual BLOCK event and subsequent lethal damage."
+        },
+        {
+          "id": "DEATH_ACCOUNTING",
+          "requirement": "Deaths are evaluated by damage absorbed, blocking, output and handoff contribution. Death refunds zero and releases held enemies. No scheduled sacrifice is required; a death that breaks containment or a later action invalidates this candidate."
+        },
+        {
+          "id": "PROTECTED_TARGETS",
+          "requirement": "Ordinary operators neither attack nor block civilians. Officers can attack civilians within1.2. Device destruction releases restrained civilians, so releases must remain safe."
+        },
+        {
+          "id": "ACCEPTANCE",
+          "requirement": "Require remaining_life>0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and safe arrival of both expected protected targets. Operator deaths are recorded separately."
+        },
+        {
+          "id": "EFFECTIVE_MEDICINE",
+          "requirement": "One physician plus Spot, not two physicians. Actual healing allocation and live blocking are required; no extra-heal or dodge talent credit."
+        }
+      ],
+      "operational_plan_id": "R87_REAL_TOOL_ASTRA_HIGH_1",
+      "parent_hypothesis_id": "R87_REAL_TOOL_ASTRA_HIGH_H1",
+      "pressure_window_responsibilities": [
+        {
+          "duties": "Establish four interceptions and Ansel, preserve Fang income, clear Melantha's queue and restraint4, and survive through projectile birth.",
+          "window_frames": [
+            0,
+            2053
+          ]
+        },
+        {
+          "duties": "Finish the projectile handoff, sustain eastern Steward through artillery clearance, use Spot for the second lower barrage and preserve Midnight's interception.",
+          "window_frames": [
+            2054,
+            4280
+          ]
+        },
+        {
+          "duties": "Melantha removes armor21 and then upper runners without spending her reserved attack skill. Friston holds armor22; maintain medical recovery while the third boosts remain reserved.",
+          "window_frames": [
+            4281,
+            5899
+          ]
+        },
+        {
+          "duties": "Deliver Ansel boost with local Spot support, activate Melantha for upper armor33, and return lower-exclusive Steward. Clear armor22 or another occupant before34 needs a block slot. Verify healing recipients and actual BLOCK events.",
+          "window_frames": [
+            5900,
+            6700
+          ]
+        },
+        {
+          "duties": "Finish lower armor and runners before containment fails, finish upper armor through Melantha, and preserve Spot's final officer containment. Later medical activations support remaining recovery.",
+          "window_frames": [
+            6701,
+            8101
+          ]
+        },
+        {
+          "duties": "Finish remaining outer hostiles, complete western restraint clearance and observe both distinct safe arrivals. Do not infer acceptance from a quiet screen or positive life alone.",
+          "window_frames": [
+            8102,
+            12000
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "skill_intents": [
+        {
+          "intent": "Automatic income only while living and deployed; no manual action.",
+          "operator_id": "char_123_fang"
+        },
+        {
+          "intent": "Ordinary three-block containment; no unsupported robot talent.",
+          "operator_id": "char_4093_frston"
+        },
+        {
+          "frames": [
+            1772,
+            5073
+          ],
+          "intent": "Eastern restraint clearance, then available central arts assistance. Own blocked officers can interrupt that assistance.",
+          "operator_id": "char_283_midn"
+        },
+        {
+          "frames": [
+            2072,
+            3873,
+            5900,
+            7701
+          ],
+          "intent": "Preserve early artillery recovery; delay the third activation until it covers late interception and the former fatal queue. No probabilistic extra heal.",
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "frames": [
+            3330,
+            6500
+          ],
+          "intent": "Local healing during the second lower barrage and after the last outer officer is captured. Healing stops attacks; dodge is not credited.",
+          "operator_id": "char_284_spot"
+        },
+        {
+          "frames": [
+            6350
+          ],
+          "intent": "Reserve the first skill of the second deployment for final upper armor. Earlier armor21 and runners use ordinary attacks.",
+          "operator_id": "char_208_melan"
+        },
+        {
+          "intent": "Supported automatic enhanced hits and high-defense priority. First deployment closes artillery; second excludes upper armor by range.",
+          "operator_id": "char_210_stward"
+        }
+      ],
+      "tactical_thesis": "Seven-ID healing/blocking fusion and split central output: Ansel is the sole physician, Spot succeeds the living lower-outer Melantha after the fixed shell resolves and supplies local healing. Melantha returns to upper-central output; returning Steward exclusively clears lower armor. This is an unverified simulation hypothesis, not inherited M70 success."
+    }
+  ],
+  "revised_stage_understanding": {
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "assessment": "Fang/Melantha/Midnight/Spot costs58DP and delays the fourth interception beyond its eastern window; shifting west and road duty adds unresolved exposure.",
+          "selected": false,
+          "structure_id": "EARLY_FOUR_STRONG_MELEE"
+        },
+        {
+          "assessment": "Two central pioneers fund deployment but have two-slot armor pressure; supplied Terra evidence exposes caster recovery failure.",
+          "selected": false,
+          "structure_id": "DUAL_PIONEER_CONTINUOUS_OUTER"
+        },
+        {
+          "assessment": "Retains affordable robot opening and direct armor damage while fusing lower blocking/local healing. Caster and Friston medical competition are the principal falsifiable risks.",
+          "selected": true,
+          "structure_id": "SINGLE_PHYSICIAN_SPOT_SPLIT"
+        }
+      ],
+      "selected_structure_id": "SINGLE_PHYSICIAN_SPOT_SPLIT"
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis": "Seven-ID healing/blocking fusion and split central output: Ansel is the sole physician, Spot succeeds the living lower-outer Melantha after the fixed shell resolves and supplies local healing. Melantha returns to upper-central output; returning Steward exclusively clears lower armor. This is an unverified simulation hypothesis, not inherited M70 success.",
+      "hypothesis_id": "R87_REAL_TOOL_ASTRA_HIGH_H1"
+    }
+  ],
+  "revised_tactical_requirements": {
+    "primary_repair_target": "Measure whether one physician with local Spot healing preserves caster output and Friston live BLOCK through lower #34.",
+    "required_observations": [
+      "Artillery dead before4280 with committed projectiles resolved.",
+      "Friston actual BLOCK on#34 and lower-exclusive lethal output.",
+      "Zero leaks, both protected targets alive and reached, no active enemy, exhausted spawns, simulator WIN."
+    ]
+  },
+  "revision_hypothesis": {
+    "changed_responsibilities": [
+      "Spot inherits lower outer at2144 after predicted residual impact; Ansel becomes sole physician.",
+      "Melantha supplies upper-central output after living withdrawal and cooldown; Steward returns lower-exclusive."
+    ],
+    "expected_first_observable_event": {
+      "earliest_frame": 2290,
+      "event_type": "HEAL",
+      "latest_frame": 2442,
+      "source_id": "char_212_ansel",
+      "target_id": "char_210_stward"
+    },
+    "hypothesis_id": "R87_REAL_TOOL_ASTRA_HIGH_H1",
+    "if_expected_event_absent": "Inspect shell locks, actual caster damage and all Ansel patients before interpreting downstream leakage; reject single-physician recovery if lethal.",
+    "operational_plan_id": "R87_REAL_TOOL_ASTRA_HIGH_1",
+    "parent_plan_id": "R8_7_GPT_M74_V3",
+    "referenced_experience_ids": [
+      "KIMIARK_M74_INITIAL_FEEDBACK_V1"
+    ],
+    "tactical_hypothesis": "Seven-ID healing/blocking fusion and split central output: Ansel is the sole physician, Spot succeeds the living lower-outer Melantha after the fixed shell resolves and supplies local healing. Melantha returns to upper-central output; returning Steward exclusively clears lower armor. This is an unverified simulation hypothesis, not inherited M70 success."
+  }
+}

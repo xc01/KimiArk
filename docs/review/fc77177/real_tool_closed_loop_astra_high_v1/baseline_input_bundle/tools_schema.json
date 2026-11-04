@@ -1,0 +1,166 @@
+{
+  "schema_version": "KIMIARK_CLOSED_LOOP_TOOL_SCHEMA_SNAPSHOT_V1",
+  "tools": [
+    {
+      "description": "Read a service-owned session, quotas, and the distinction between action names and event names.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "name": "get_session_status"
+    },
+    {
+      "description": "No-battle contract, roster, execution-fact, and static check. Valid action_type is ACTIVATE_SKILL; valid observed event_type is SKILL_ACTIVATE. A check consumes the configured check-call budget; only PASS creates and consumes a real candidate slot.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "plan": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "plan"
+        ],
+        "type": "object"
+      },
+      "name": "check_plan"
+    },
+    {
+      "description": "Run one authorized complete fixed-plan simulation through the existing gate. STARTED failures count and are never retried.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "candidate_sha256": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "candidate_sha256"
+        ],
+        "type": "object"
+      },
+      "name": "run_simulation"
+    },
+    {
+      "description": "Read-only deterministic query of a service-registered event log. No model or causal inference.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "aggregate": {
+            "additionalProperties": false,
+            "properties": {
+              "field": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "field"
+            ],
+            "type": "object"
+          },
+          "candidate_id": {
+            "type": "string"
+          },
+          "candidate_sha256": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "details_equal": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {}
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "earliest_frame": {
+            "type": "integer"
+          },
+          "event_type": {
+            "enum": [
+              "ACTIVATE_SKILL",
+              "ATTACK_RECOVERY_END",
+              "ATTACK_START",
+              "ATTACK_STRIKE",
+              "ATTACK_WINDUP",
+              "BLOCK",
+              "DAMAGE",
+              "DEPLOY",
+              "DEVICE_DAMAGE",
+              "DEVICE_DESTROYED",
+              "DEVICE_TARGET_SELECTION",
+              "DP_CHANGE",
+              "ENEMY_ABILITY_CANCELLED",
+              "ENEMY_ABILITY_HIT",
+              "ENEMY_ABILITY_START",
+              "ENEMY_BLOCKED",
+              "ENEMY_DEATH",
+              "ENEMY_LEAK",
+              "ENEMY_STATUS_HIT",
+              "HEAL",
+              "OBJECTIVE_FAILURE",
+              "OPERATOR_DEATH",
+              "PROJECTILE_BORN",
+              "PROJECTILE_HIT",
+              "PROTECTED_TARGET_REACHED",
+              "RETREAT",
+              "SKILL_ACTIVATE",
+              "SKILL_END",
+              "SKILL_READY",
+              "SPAWN",
+              "TARGET_SELECTION",
+              "UNBLOCK"
+            ],
+            "type": "string"
+          },
+          "latest_frame": {
+            "type": "integer"
+          },
+          "limit": {
+            "maximum": 200,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "offset": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "source_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "candidate_id",
+          "candidate_sha256",
+          "event_type"
+        ],
+        "type": "object"
+      },
+      "name": "query_events"
+    }
+  ]
+}
