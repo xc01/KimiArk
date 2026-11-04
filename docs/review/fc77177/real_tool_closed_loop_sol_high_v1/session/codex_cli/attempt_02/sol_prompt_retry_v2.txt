@@ -1,0 +1,33 @@
+RETRY CONTEXT: This is authorized CLI start 2 on the same ledger. CLI start 1 failed before any MCP tool call, candidate, or simulation due to a model catalog refresh timeout. Do not reset budgets; call get_session_status first and continue with the remaining 20 checks, 5 candidates, and 5 simulations.
+
+You are gpt-6.1-sol (reasoning high) in one authorized Codex CLI session for the KimiArk real tool closed loop. Work only in the current repository and use only the local MCP server named `kimiark`.
+
+First call `get_session_status`. Confirm the model, K=7, mechanics, facts, production `CONTROLLED_RUNNER`, 20 check calls, 5 actual run candidates, and 5 complete simulations. Terra v3 ended CLI 1/1, candidate 5/5, simulation 5/5 with no WIN; no balance transfers.
+
+The four tools are:
+1. `get_session_status`: read-only status and action/event vocabulary.
+2. `check_plan`: no-battle validation. Every executed or idempotent call consumes one of 20 check calls; only PASS creates and consumes one of 5 actual candidates.
+3. `run_simulation`: one complete fixed-plan real simulation. STARTED failures count and never retry.
+4. `query_events`: read-only event query. `ACTIVATE_SKILL` is accepted as an explicit alias for the log event `SKILL_ACTIVATE`; plan action names and event names are distinct.
+
+Do not call any other model, agent, web service, simulator command, Python tactical search, or shell simulation. Do not modify code, mechanism, budget, authorization or result files. You may use read-only shell to inspect supplied facts. All tactical choices are yours.
+
+Use the fixed facts in `output/r8_1_r8_7_batch_v1/main_08-07/m74_open_reduction_feedback_v1/candidate_v4/llm_evidence_context.json` and `revision_output_schema.json`. Build one complete ordinary-mode 1-3-star R8-7/main_08-07 plan exactly matching that schema and its existing contract/lineage fields. New plan IDs start with `R87_REAL_TOOL_SOL_HIGH_`; use the supplied previous plan as the parent/lineage reference.
+
+All roles are open. Do not preserve the M70 roster by default or force any removal. Compare at least three substantive structures internally, then select one: earlier kill/decompression, output-plus-tanking, retreat relay, split routes, economy/blocking/medical fusion, or another legal structure. Selected and all DEPLOY union <= 7.
+
+Key context, not universal deadlines:
+- M70 eight-person WIN used Fang, Friston-3, Midnight, Melanite, Ansel, Hibiscus, Spot, and Steward. Artillery died at 4273; both protected targets arrived.
+- Melanite retreated at 2054 after the second shell locked her old position; Spot deployed later at 2341. A replacement entering the old or adjacent splash zone can still be hit.
+- Steward killed artillery at 4273, retreated, returned, and killed #34 after it was actually blocked at 6596.
+- Terra v3 completed five LOSS candidates: 21/12/-10, 21/12/-10, 19/14/-13, 14/19/-18, and 20/13/-11 kills/leaks/life. Its roster retained Fang, Vanilla, Midnight, Melanite, Ansel, Hibiscus, and Steward with timing/medical revisions. C1 to C2 delayed Steward's death from 3310 to 3460 but did not close the structural failure. Do not infer a model generalization or global infeasibility from these bounded results.
+
+For each version give a short difference note in existing explanatory fields: artillery contact and sufficient kill timing, continuous shell locks and in-flight splash, medical target competition and survival, economy/refund/deployment handoff, central pressure and #34, road-clearing and protected arrival. State which parts are simulation assumptions. Death has no refund; do not depend on dead operators.
+
+Loop autonomously:
+- Check a plan. If static fails, fix the actual schema/contract/action/version issue and check again while check calls remain.
+- If PASS, run the exact returned candidate/hash once.
+- On LOSS, query focused event windows first, compare prediction to observation, find the earliest upstream break, then submit a substantive revision. Recheck and run while budget remains.
+- Stop after a complete WIN (then the authorized ledger has no further simulation), budget exhaustion, a service failure, STARTED_UNKNOWN, or if another run cannot responsibly improve the evidence. Do not repeat the same plan merely to consume quota.
+
+A complete WIN requires the simulator WIN, legal union <= K, zero leaks, both protected targets alive and safely arrived, and all enemies settled with no active enemy. Preserve `debug_configuration` and all execution-required fields. The full baseline snapshot is under `docs/review/fc77177/real_tool_closed_loop_sol_high_v1/baseline_input_bundle/`.
