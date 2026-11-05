@@ -214,6 +214,8 @@ def write_manifest() -> None:
     for path in sorted(EXPERIMENT.rglob("*")):
         if not path.is_file() or path == MANIFEST:
             continue
+        if "__pycache__" in path.parts:
+            continue
         relative_name = path.relative_to(EXPERIMENT).as_posix()
         compressed_copy = path.with_suffix(path.suffix + ".gz")
         has_compressed_copy = (
