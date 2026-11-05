@@ -1446,3 +1446,32 @@ change and did not alter the frozen run hashes. No seven-ID WIN was found; M70
 V1 remains best at eight IDs and seven-or-fewer feasibility remains UNKNOWN.
 Evidence, compressed artifacts, the 80-entry manifest, and closure report are
 under `docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/`.
+
+## 2026-11-05 — Astra high small-learning closes at two focused simulations
+
+This independent small-learning run used one completed real CLI start of
+`gpt-6-astra/high` with `features.apps=false`, 2/10 check calls, 2/2 candidate
+slots, and 2/2 complete simulations. Its prompt required a concrete validation
+card before each run and allowed stopping early. Candidate 001 tested a
+permanent Midn lower-row block plus Fang support and lost 6/27/6/life -26; its
+central test was invalidated before frame 4380 when Fang/Friston/Ansel died at
+1389/1554/1571 and #6 first leaked@1731.
+
+Candidate 002 was a real child of completed candidate 001. It changed healer
+order/contact and repaired the opening: Hibiscus healed Fang/Friston at
+1321/1407, Fang generated +6 DP@2070, and Steward deployed legally@2071. It
+improved to 14/19/7/life -17 with protected #14 reached, but Ansel died@2593
+after an 891 shell, Steward died@3460 after 25 artillery hits totaling
+7,348.45, Midn died@3640, and artillery survived/leaked@5759. Protected #3
+also died to artillery@3310 and roadblock #3 received zero device damage in
+both runs, while #4 was destroyed@1966. Thus #4 clearance did not establish
+protected passage, and the data do not prove clearance caused central collapse.
+
+The session used 50 bounded event queries and distinguished `DAMAGE`,
+`ENEMY_ABILITY_HIT`, and `DEVICE_DAMAGE`. Visible usage was 1,493,703 input
+tokens (1,373,568 cached subset) and 18,300 output tokens including 8,694
+reasoning tokens; internal model requests remain `UNKNOWN_CLI_INTERNAL`. No
+seven-ID WIN was found; M70 V1 remains best at eight IDs and seven-or-fewer
+feasibility remains UNKNOWN. Evidence, validation cards, compressed events,
+91-entry manifest, and closure report are under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/`.

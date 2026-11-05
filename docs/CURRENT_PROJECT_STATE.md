@@ -699,3 +699,18 @@ only opening clearance. A post-run guard now rejects an undeclared lineage
 parent. No seven-ID WIN was found; M70 V1 remains best at eight IDs and
 seven-or-fewer feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/`.
+
+The following small-learning Astra high experiment deliberately stopped at two
+simulations. C1 tested a permanent Midn lower-row block plus Fang support but
+lost the opening before its central window: Fang/Friston/Ansel died at
+1389/1554/1571, first leaked #6@1731, and reached life zero@2915. C2 then
+changed healer order/contact and repaired the opening (Hibiscus heals
+Fang/Friston at 1321/1407, Fang +6 DP@2070, Steward deploys@2071), but Ansel
+died@2593 after the 891 shell, Steward died@3460 after 7,348.45 artillery
+damage, and the central chain failed again. C2 improved to 14/19/life -17 with
+protected #14 reached, while protected #3 died to artillery@3310 and #3 had
+zero device damage in both runs. #4 was destroyed@1966 both runs, but that did
+not establish protected passage or prove clearance caused central collapse.
+No seven-ID WIN was found; M70 V1 remains best at eight IDs, and seven-or-fewer
+feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/`.
