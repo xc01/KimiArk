@@ -676,3 +676,26 @@ IDs. Seven-ID feasibility remains UNKNOWN under the current model, catalog,
 action space, time range, and acceptance conditions; M73's five losses and
 exhausted budget do not prove impossibility. Evidence and the closeout are under
 `docs/review/fc77177/m73_open_dependency_reduction_v1/evidence/`.
+
+The Astra cold-start continuation ultimately used three real CLI starts, all 20
+check calls, five candidate slots, and five fixed simulations. Attempts 1–2
+aborted before a tactical result. Attempt 3's strongest candidate `C3` passed
+the gates and lost 24/9/3/life -7: one protected target reached, one died@3430,
+#22 first leaked@5196, artillery survived, and #21/#22/#28/#31/#33/#34 all
+leaked. The derived comparison was later corrected to distinguish ordinary
+damage, `ENEMY_ABILITY_HIT`, and `DEVICE_DAMAGE`, and to preserve the distinct
+shell-2 lock points (M70 `[5,6]`; C3 `[6,5]`). M70 V1 remains the best verified
+result at eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is
+under `docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/`.
+
+The joint-feedback Astra high experiment used one completed CLI start, 4/20
+checks, 4/5 candidates, and 4/5 simulations. The model autonomously revised in
+session. All four candidates retained the same seven IDs and all lost. Their
+kill/leak/death/life results were 10/23/7/-22, 17/16/7/-15, 24/9/3/-7, and
+12/21/8/-20. All destroyed roadblock #4, but artillery survived all four runs;
+#21/#22/#28/#31/#33/#34 also leaked in every run, so the remaining failure was
+the coupled central-interception/artillery/protected-passage problem rather than
+only opening clearance. A post-run guard now rejects an undeclared lineage
+parent. No seven-ID WIN was found; M70 V1 remains best at eight IDs and
+seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/`.

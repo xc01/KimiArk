@@ -1405,3 +1405,44 @@ exhaustion. The continuation evidence, routing repair, Astra authorization,
 raw prompts/replies/logs, static and battle artifacts, gzipped full events,
 hashes, and closeout are under
 `docs/review/fc77177/m74_open_reduction_feedback_v1/evidence/`.
+
+## 2026-11-05 — Astra cold-start closes without a seven-ID WIN
+
+The independent cold-start experiment ultimately consumed three authorized real
+CLI starts, 20/20 check calls, 5/5 candidate slots, and 5/5 fixed simulations.
+Attempt 1 ended in an outer-host session cancellation; attempt 2 timed out
+waiting for the cloud configuration bundle; neither produced a tactical result.
+Attempt 3 completed normally. Its best candidate `R87_ASTRA_HIGH_COLD_START_003`
+lost 24/9/3/life -7 with one protected target arrived and one dead@3430. It also
+showed broad central misses: #21/#22/#28/#31/#33/#34 all leaked, while artillery
+survived and leaked.
+
+A follow-up evidence correction distinguished `DAMAGE`, `ENEMY_ABILITY_HIT`, and
+`DEVICE_DAMAGE`, and restored the distinct shell-2 lock points: M70's second
+shell locked `[5,6]`, while C3's locked `[6,5]` at frame 2053. The two targeted
+correction regression tests pass. M70 V1 remains the best verified
+fixed-simulator result at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
+The original attempts, corrected comparison, and tests are under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/`,
+`docs/review/fc77177/m70_vs_astra_c3_comparison_v1/`, and `tests/`.
+
+## 2026-11-05 — Astra high joint feedback closes 4/5 without WIN
+
+The targeted joint-feedback experiment used one completed real CLI start of
+`gpt-6-astra/high` with `features.apps=false`, 4/20 checks, 4/5 candidates, and
+4/5 fixed simulations. The model made all tactical revisions in one session and
+issued 34 bounded event queries. Its four candidates kept the same seven IDs as
+C3 and lost 10/23/7/life -22, 17/16/7/life -15, 24/9/3/life -7, and
+12/21/8/life -20. Candidate 3 was the best terminal sample but still broke the
+WIN contract when protected #14 died@3430.
+
+The failures were coupled. Every candidate destroyed roadblock #4 with
+14 `DEVICE_DAMAGE` hits totaling 8,358.56, but artillery survived all four and
+received only ordinary Steward damage (8/2,216.99, 18/5,156.37, 10/2,939.38,
+13/3,686.68). The central enemies #21/#22/#28/#31/#33/#34 leaked every run. A
+post-run lineage guard now requires an explicit root parent and, after the first
+run, a completed candidate parent; this guard was disclosed as a post-run code
+change and did not alter the frozen run hashes. No seven-ID WIN was found; M70
+V1 remains best at eight IDs and seven-or-fewer feasibility remains UNKNOWN.
+Evidence, compressed artifacts, the 80-entry manifest, and closure report are
+under `docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/`.
