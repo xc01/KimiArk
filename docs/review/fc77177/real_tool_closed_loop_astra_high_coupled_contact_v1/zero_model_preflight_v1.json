@@ -1,0 +1,59 @@
+{
+  "schema_version": "KIMIARK_COUPLED_CONTACT_ZERO_MODEL_PREFLIGHT_V1",
+  "checked_at_utc": "2026-11-05T10:35:14Z",
+  "repository": {
+    "local_head": "ba75637b13c407496b3e33b6f14303d89efe8998",
+    "origin_master": "ba75637b13c407496b3e33b6f14303d89efe8998",
+    "unrelated_dirty_files_preserved": true,
+    "no_local_agents_md": true
+  },
+  "model": {
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "codex_cli_version": "0.166.0",
+    "local_login_status": "LOGGED_IN_USING_CHATGPT",
+    "generation_request_used": false,
+    "remote_identity_proof_boundary": "No generation request was made; configured identity and local login only."
+  },
+  "controlled_code_sha256": {
+    "scripts/kimiark_tactical_stdio_service_v1.py": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+    "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+    "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+    "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b",
+    "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe"
+  },
+  "input_bundle": {
+    "manifest_entries": 6,
+    "manifest_verification": "PASS",
+    "context_bytes": 167919,
+    "prompt_bytes": 5782,
+    "prompt_sha256": "f4bc761b1109327e94a140c8c42a13ce922b5fddfc8a38b7d845b61bba9d1f2d",
+    "prompt_limit_bytes": 140000,
+    "debug_configuration_present": true
+  },
+  "service_status": {
+    "session_id": "real-tool-loop-astra-high-coupled-contact-v1",
+    "transcript": "mcp_no_model_status_transcript_v1.json",
+    "remaining_cli_starts": 1,
+    "remaining_candidates": 2,
+    "remaining_check_calls": 10,
+    "remaining_stage_simulations": 2,
+    "enabled_tools": [
+      "get_session_status",
+      "check_plan",
+      "run_simulation",
+      "query_events"
+    ]
+  },
+  "focused_tests": {
+    "command": "uv run pytest -q tests/test_kimiark_tactical_stdio_service_v1.py tests/test_m70_vs_c3_comparison_stats_v1.py",
+    "passed": 21,
+    "failed": 0,
+    "generation_requests": 0,
+    "real_simulations": 0
+  },
+  "pre_start_gate": "PASS"
+}

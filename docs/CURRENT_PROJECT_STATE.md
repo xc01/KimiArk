@@ -722,3 +722,11 @@ truncated by opening deaths, C2 repaired opening deployment/DP but not
 chain preservation, Ansel/Steward shell survival through 3460, and live
 `#21/#22` contact during 4380-5500. See
 `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/`.
+
+The follow-up coupled-contact experiment passed its zero-model preflight but its
+single authorized Astra high CLI failed with `workspace routing discovery
+failed` before any MCP tool call, candidate, or simulation. It is archived as
+`CLI 1/1`, `check 0/10`, `candidate 0/2`, and `simulation 0/2`; this is not a
+tactical LOSS. M70 V1 remains best at eight IDs, seven-or-fewer feasibility
+remains UNKNOWN, and another start requires separate authorization. Evidence is
+under `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/`.

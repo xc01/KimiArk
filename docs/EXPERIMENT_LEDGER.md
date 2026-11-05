@@ -1496,3 +1496,19 @@ sets. The next question is whether one seven-ID structure can preserve C2's
 opening chain and shell survival through 3460 while creating live `#21/#22`
 contact in 4380-5500. Evidence, fixture tests, and reproducible summaries are
 under `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/`.
+
+## 2026-11-05 — coupled-contact start blocked by routing failure
+
+A new independent experiment passed its 21-test zero-model preflight and
+configured one Astra high CLI with K=7, 10 checks, 2 candidates, and 2 complete
+simulations. Codex started a thread at 10:35:44Z, but failed with `workspace
+routing discovery failed` after WebSocket and HTTPS retries. Three catalog
+refresh warnings were contemporaneous but were not treated as the proven root
+cause. The process ended at 10:36:12Z with no turn completion, final message,
+MCP call, candidate, or simulation.
+
+The authorized start is counted `CLI 1/1`; `check 0/10`, `candidate 0/2`, and
+`simulation 0/2` remain unused. This is not a tactical LOSS, and visible usage is
+unavailable. No retry, resume, alternate model, or second CLI was made. The
+failure report and 25-entry artifact manifest are under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/`.

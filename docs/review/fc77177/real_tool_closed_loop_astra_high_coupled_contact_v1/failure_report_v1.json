@@ -1,0 +1,51 @@
+{
+  "schema_version": "KIMIARK_COUPLED_CONTACT_SERVICE_FAILURE_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_coupled_contact_v1",
+  "classification": "CLI_SERVICE_ROUTING_FAILURE_BEFORE_TACTICAL_OUTPUT",
+  "tactical_loss": false,
+  "automatic_retry_or_resume": false,
+  "model_identity": {
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false
+  },
+  "timeline": {
+    "zero_model_preflight_pass": "2026-11-05T10:35:14Z",
+    "cli_started_at_utc": "2026-11-05T10:35:44.603075184Z",
+    "model_catalog_refresh_errors": [
+      "2026-11-05T10:35:49.375283Z Connection failed: error sending request",
+      "2026-11-05T10:35:49.667406Z Connection failed: error sending request",
+      "2026-11-05T10:35:53.809010Z Connection failed: error sending request"
+    ],
+    "cli_ended_at_utc": "2026-11-05T10:36:12.630299984Z",
+    "final_cli_error": "workspace routing discovery failed",
+    "exit_code": 1,
+    "turn_completed": false,
+    "timed_out": false
+  },
+  "evidence": {
+    "stdout_thread_started": true,
+    "final_message_bytes": 0,
+    "stdout_sha256": "030350b19c9d97be954c95e1987db9a5760c0785fa526a3e894fec02f6e276e6",
+    "stderr_sha256": "cb6bcb272825087549a678564a97ac8588f17bdcc5d7e759098c3fff78439fa3",
+    "mcp_tool_calls_observed": 0,
+    "candidate_sha256": null,
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "root_cause_boundary": "The direct terminal error was workspace routing discovery. The three model-catalog refresh warnings are contemporaneous observations, not proof that they caused routing failure."
+  },
+  "budget_after_stop": {
+    "authorized_real_cli_starts": 1,
+    "used_real_cli_starts": 1,
+    "used_candidates": 0,
+    "max_candidates": 2,
+    "used_check_calls": 0,
+    "max_check_calls": 10,
+    "started_stage_simulations": 0,
+    "max_stage_simulations": 2,
+    "visible_usage": "NOT_AVAILABLE_FOR_FAILED_TURN",
+    "cached_input_boundary": "If later obtained, cached_input is a subset of input and is not additive."
+  },
+  "stop_condition": "Stop without retry, resume, alternate account/region/model, or another CLI start. A new attempt requires the user to grant a separate authorization after routing recovery.",
+  "best_result_boundary": "No new tactical result was produced. M70 eight-ID WIN remains best; seven-or-fewer feasibility remains UNKNOWN."
+}
