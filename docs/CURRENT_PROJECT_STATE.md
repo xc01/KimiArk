@@ -714,3 +714,11 @@ not establish protected passage or prove clearance caused central collapse.
 No seven-ID WIN was found; M70 V1 remains best at eight IDs, and seven-or-fewer
 feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/`.
+
+A read-only review of that small-learning run confirmed C1's central test was
+truncated by opening deaths, C2 repaired opening deployment/DP but not
+`[7,5]`/`[7,2]` shell survival, and neither run assigned roadblock
+`trap_020_roadblock#3`. The resulting single next question couples opening
+chain preservation, Ansel/Steward shell survival through 3460, and live
+`#21/#22` contact during 4380-5500. See
+`docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/`.

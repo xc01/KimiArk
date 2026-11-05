@@ -1473,5 +1473,26 @@ tokens (1,373,568 cached subset) and 18,300 output tokens including 8,694
 reasoning tokens; internal model requests remain `UNKNOWN_CLI_INTERNAL`. No
 seven-ID WIN was found; M70 V1 remains best at eight IDs and seven-or-fewer
 feasibility remains UNKNOWN. Evidence, validation cards, compressed events,
-91-entry manifest, and closure report are under
+90-entry manifest, and closure report are under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/`.
+
+## 2026-11-05 — read-only review isolates small-learning dependency chain
+
+The archived C1/C2 artifacts, 90-entry manifest, and event hashes were
+rechecked without model calls or simulations. C1 was not a valid central-window
+test: Fang/Friston had no prior heal and died at 1389/1554, while Ansel received
+two 891-shell hits at `[3,5]` before death at 1571. C2 restored Hibiscus heals,
+Fang's +6 DP, and Steward deployment, but Ansel died after two `[7,5]` shell
+hits and Steward died after four 910-shell hits despite 25 artillery-damage
+events totaling 7,348.45. In 4380-5500 neither `#21` nor `#22` received a live
+operator block, ordinary damage, or ability damage.
+
+The review also separated `trap_020_roadblock#3` from protected
+`enemy_3001_upeopl#3`: the device was not assigned in either plan and received
+zero `DEVICE_DAMAGE`, while the protected target died to artillery at 3310.
+All 50 event queries were complete with no exact duplicates; seven partial raw
+pages were not offset-continued, but aggregate totals covered complete filtered
+sets. The next question is whether one seven-ID structure can preserve C2's
+opening chain and shell survival through 3460 while creating live `#21/#22`
+contact in 4380-5500. Evidence, fixture tests, and reproducible summaries are
+under `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/`.
