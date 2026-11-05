@@ -1,0 +1,151 @@
+{
+  "authorization": {
+    "budget_boundary": "Historical experiment CLI 3/3, candidate 5/5, simulation 5/5 balances are closed and are not transferred.",
+    "extra_config_values": [
+      "features.apps=false",
+      "mcp_servers.kimiark.command=\"/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python\"",
+      "mcp_servers.kimiark.args=[\"/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py\",\"/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/session_config_v1.json\"]",
+      "mcp_servers.kimiark.required=true",
+      "mcp_servers.kimiark.default_tools_approval_mode=\"approve\"",
+      "mcp_servers.kimiark.enabled_tools=[\"get_session_status\",\"check_plan\",\"run_simulation\",\"query_events\"]"
+    ],
+    "features_apps": false,
+    "model": "gpt-6-astra",
+    "provider": "openai",
+    "real_cli_starts": {
+      "authorized_real_cli_starts": 1,
+      "automatic_resume": false,
+      "automatic_retry": false,
+      "model_change_or_tier_change_forbidden": true,
+      "schema_version": "KIMIARK_REAL_CLI_START_POLICY_V2",
+      "used_real_cli_starts": 0
+    },
+    "reasoning_effort": "high",
+    "schema_version": "KIMIARK_CODEX_CLI_AUTHORIZATION_V1"
+  },
+  "checks": {
+    "allow_fake_execution": false,
+    "execution_backend": "CONTROLLED_RUNNER",
+    "features_apps": false,
+    "focused_fakes": "PASS: comparison stats 2, tactical stdio 32, replay 20",
+    "four_tools_only": true,
+    "k_and_budgets": "K=7 checks=0/20 candidates=0/5 simulations=0/5",
+    "model_effort_matches_authorization": true,
+    "service_handshake": "PASS"
+  },
+  "codex_cli_version": "codex-cli 0.166.0",
+  "codex_login_status": "Logged in using ChatGPT",
+  "input_bundle": {
+    "history_access_index_v1.json": {
+      "bytes": 917,
+      "sha256": "44a2ae021f466ca3e0eab44fbc918a769ecf864c2c3bbae68fe77c29cc592193"
+    },
+    "joint_feedback_summary_v2.json": {
+      "bytes": 3509,
+      "sha256": "695576e5bc6e59516a77f25b5355ab070418bf5d4a85c5c5235d791c5bce07f7"
+    },
+    "llm_evidence_context.json": {
+      "bytes": 167919,
+      "sha256": "565d572418fb5034a99b1c7e9249d8f35c7c1ac88a8309a3bd6a9930252e73a1"
+    },
+    "revision_output_schema.json": {
+      "bytes": 13077,
+      "sha256": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480"
+    }
+  },
+  "model_identity_proof_boundary": "Configuration records gpt-6-astra/high; it cannot prove remote model identity.",
+  "no_active_experiment_lock_or_pid": true,
+  "prompt": {
+    "at_or_below_limit_with_margin": true,
+    "body_limit_bytes": 140000,
+    "bytes": 5778,
+    "path": "docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/session/codex_cli/astra_prompt_v1.txt",
+    "sha256": "5b33bfdc42ffd34df3be8379781867daf72efdf97505fa307a99d4cf5f4c45e4"
+  },
+  "schema_version": "KIMIARK_JOINT_FEEDBACK_ZERO_MODEL_PREFLIGHT_V1",
+  "service_status": {
+    "allow_fake_execution": false,
+    "budget": {
+      "max_stage_simulations": 5,
+      "prior_stage_simulations": 0,
+      "remaining_stage_simulations": 5,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 0
+    },
+    "candidate_ledger": {
+      "attempts": [],
+      "max_candidates": 5,
+      "remaining_candidates": 5,
+      "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+      "used_candidates": 0
+    },
+    "check_call_ledger": {
+      "max_check_calls": 20,
+      "remaining_check_calls": 20,
+      "used_check_calls": 0
+    },
+    "controlled_code_sha256": {
+      "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe",
+      "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+      "scripts/kimiark_tactical_stdio_service_v1.py": "186aab1326bb4ed7a9775d03d387ee26541ed663bc6d49c69f7e6f0faa309c2b",
+      "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+      "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+      "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b"
+    },
+    "execution_backend": "CONTROLLED_RUNNER",
+    "features_apps": false,
+    "interface_vocab": {
+      "action_type_names": [
+        "ACTIVATE_SKILL",
+        "DEPLOY",
+        "RETREAT"
+      ],
+      "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.",
+      "event_type_names": [
+        "ATTACK_RECOVERY_END",
+        "ATTACK_START",
+        "ATTACK_STRIKE",
+        "ATTACK_WINDUP",
+        "BLOCK",
+        "DAMAGE",
+        "DEPLOY",
+        "DEVICE_DAMAGE",
+        "DEVICE_DESTROYED",
+        "DEVICE_TARGET_SELECTION",
+        "DP_CHANGE",
+        "ENEMY_ABILITY_CANCELLED",
+        "ENEMY_ABILITY_HIT",
+        "ENEMY_ABILITY_START",
+        "ENEMY_DEATH",
+        "ENEMY_LEAK",
+        "ENEMY_STATUS_HIT",
+        "HEAL",
+        "OBJECTIVE_FAILURE",
+        "OPERATOR_DEATH",
+        "PROJECTILE_BORN",
+        "PROJECTILE_HIT",
+        "PROTECTED_TARGET_REACHED",
+        "RETREAT",
+        "SKILL_ACTIVATE",
+        "SKILL_END",
+        "SKILL_READY",
+        "SPAWN",
+        "TARGET_SELECTION",
+        "UNBLOCK"
+      ],
+      "query_event_type_aliases": {
+        "ACTIVATE_SKILL": "SKILL_ACTIVATE",
+        "ENEMY_BLOCKED": "BLOCK"
+      }
+    },
+    "max_unique_deployed_operators": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "model": "gpt-6-astra",
+    "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+    "reasoning_effort": "high",
+    "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+    "session_id": "real-tool-loop-astra-high-joint-feedback-v1",
+    "stage_id": "main_08-07"
+  }
+}

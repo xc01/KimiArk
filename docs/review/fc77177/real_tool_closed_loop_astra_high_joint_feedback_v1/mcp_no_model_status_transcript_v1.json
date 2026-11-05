@@ -1,0 +1,290 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "tools": {
+            "listChanged": false
+          }
+        },
+        "protocolVersion": "2025-06-18",
+        "serverInfo": {
+          "name": "kimiark-closed-loop-tools",
+          "version": "1.0.0"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "jsonrpc": "2.0",
+      "result": {
+        "tools": [
+          {
+            "description": "Read a service-owned session, quotas, and the distinction between action names and event names.",
+            "inputSchema": {
+              "additionalProperties": false,
+              "properties": {},
+              "type": "object"
+            },
+            "name": "get_session_status"
+          },
+          {
+            "description": "No-battle contract, roster, execution-fact, and static check. Valid action_type is ACTIVATE_SKILL; valid observed event_type is SKILL_ACTIVATE. A check consumes the configured check-call budget; only PASS creates and consumes a real candidate slot.",
+            "inputSchema": {
+              "additionalProperties": false,
+              "properties": {
+                "plan": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "plan"
+              ],
+              "type": "object"
+            },
+            "name": "check_plan"
+          },
+          {
+            "description": "Run one authorized complete fixed-plan simulation through the existing gate. STARTED failures count and are never retried.",
+            "inputSchema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidate_id": {
+                  "type": "string"
+                },
+                "candidate_sha256": {
+                  "pattern": "^[a-f0-9]{64}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "candidate_id",
+                "candidate_sha256"
+              ],
+              "type": "object"
+            },
+            "name": "run_simulation"
+          },
+          {
+            "description": "Read-only deterministic query of one event type at a time. Operator HP damage may be DAMAGE or ENEMY_ABILITY_HIT; DEVICE_DAMAGE is for roadblocks/devices. No model or causal inference.",
+            "inputSchema": {
+              "additionalProperties": false,
+              "properties": {
+                "aggregate": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "field": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "field"
+                  ],
+                  "type": "object"
+                },
+                "candidate_id": {
+                  "type": "string"
+                },
+                "candidate_sha256": {
+                  "pattern": "^[a-f0-9]{64}$",
+                  "type": "string"
+                },
+                "details_equal": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {}
+                    },
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "earliest_frame": {
+                  "type": "integer"
+                },
+                "event_type": {
+                  "enum": [
+                    "ACTIVATE_SKILL",
+                    "ATTACK_RECOVERY_END",
+                    "ATTACK_START",
+                    "ATTACK_STRIKE",
+                    "ATTACK_WINDUP",
+                    "BLOCK",
+                    "DAMAGE",
+                    "DEPLOY",
+                    "DEVICE_DAMAGE",
+                    "DEVICE_DESTROYED",
+                    "DEVICE_TARGET_SELECTION",
+                    "DP_CHANGE",
+                    "ENEMY_ABILITY_CANCELLED",
+                    "ENEMY_ABILITY_HIT",
+                    "ENEMY_ABILITY_START",
+                    "ENEMY_BLOCKED",
+                    "ENEMY_DEATH",
+                    "ENEMY_LEAK",
+                    "ENEMY_STATUS_HIT",
+                    "HEAL",
+                    "OBJECTIVE_FAILURE",
+                    "OPERATOR_DEATH",
+                    "PROJECTILE_BORN",
+                    "PROJECTILE_HIT",
+                    "PROTECTED_TARGET_REACHED",
+                    "RETREAT",
+                    "SKILL_ACTIVATE",
+                    "SKILL_END",
+                    "SKILL_READY",
+                    "SPAWN",
+                    "TARGET_SELECTION",
+                    "UNBLOCK"
+                  ],
+                  "type": "string"
+                },
+                "latest_frame": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "maximum": 200,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "offset": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "source_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "target_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "candidate_id",
+                "candidate_sha256",
+                "event_type"
+              ],
+              "type": "object"
+            },
+            "name": "query_events"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "text": "{\"allow_fake_execution\": false, \"budget\": {\"max_stage_simulations\": 5, \"prior_stage_simulations\": 0, \"remaining_stage_simulations\": 5, \"schema_version\": \"KIMIARK_STAGE_SIMULATION_BUDGET_V1\", \"stage_id\": \"main_08-07\", \"started_stage_simulations\": 0}, \"candidate_ledger\": {\"attempts\": [], \"max_candidates\": 5, \"remaining_candidates\": 5, \"schema_version\": \"KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2\", \"used_candidates\": 0}, \"check_call_ledger\": {\"max_check_calls\": 20, \"remaining_check_calls\": 20, \"used_check_calls\": 0}, \"controlled_code_sha256\": {\"scripts/compile_r8_1_lowstar_c2_plan_v1.py\": \"ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe\", \"scripts/kimiark_mcp_server.py\": \"54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7\", \"scripts/kimiark_tactical_stdio_service_v1.py\": \"186aab1326bb4ed7a9775d03d387ee26541ed663bc6d49c69f7e6f0faa309c2b\", \"scripts/run_gpt_tactical_stage_diagnostic_v1.py\": \"2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a\", \"scripts/run_gpt_tactical_stage_session_v1.py\": \"3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192\", \"scripts/tactical_evaluation_gate_v1.py\": \"da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b\"}, \"execution_backend\": \"CONTROLLED_RUNNER\", \"features_apps\": false, \"interface_vocab\": {\"action_type_names\": [\"ACTIVATE_SKILL\", \"DEPLOY\", \"RETREAT\"], \"boundary\": \"DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.\", \"event_type_names\": [\"ATTACK_RECOVERY_END\", \"ATTACK_START\", \"ATTACK_STRIKE\", \"ATTACK_WINDUP\", \"BLOCK\", \"DAMAGE\", \"DEPLOY\", \"DEVICE_DAMAGE\", \"DEVICE_DESTROYED\", \"DEVICE_TARGET_SELECTION\", \"DP_CHANGE\", \"ENEMY_ABILITY_CANCELLED\", \"ENEMY_ABILITY_HIT\", \"ENEMY_ABILITY_START\", \"ENEMY_DEATH\", \"ENEMY_LEAK\", \"ENEMY_STATUS_HIT\", \"HEAL\", \"OBJECTIVE_FAILURE\", \"OPERATOR_DEATH\", \"PROJECTILE_BORN\", \"PROJECTILE_HIT\", \"PROTECTED_TARGET_REACHED\", \"RETREAT\", \"SKILL_ACTIVATE\", \"SKILL_END\", \"SKILL_READY\", \"SPAWN\", \"TARGET_SELECTION\", \"UNBLOCK\"], \"query_event_type_aliases\": {\"ACTIVATE_SKILL\": \"SKILL_ACTIVATE\", \"ENEMY_BLOCKED\": \"BLOCK\"}}, \"max_unique_deployed_operators\": 7, \"mechanics_version\": \"m38b-2781-animation-speed-v1\", \"model\": \"gpt-6-astra\", \"model_identity_proof_boundary\": \"Service records configured identity only; it cannot prove remote model identity.\", \"reasoning_effort\": \"high\", \"schema_version\": \"KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1\", \"session_id\": \"real-tool-loop-astra-high-joint-feedback-v1\", \"stage_id\": \"main_08-07\"}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "allow_fake_execution": false,
+          "budget": {
+            "max_stage_simulations": 5,
+            "prior_stage_simulations": 0,
+            "remaining_stage_simulations": 5,
+            "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+            "stage_id": "main_08-07",
+            "started_stage_simulations": 0
+          },
+          "candidate_ledger": {
+            "attempts": [],
+            "max_candidates": 5,
+            "remaining_candidates": 5,
+            "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+            "used_candidates": 0
+          },
+          "check_call_ledger": {
+            "max_check_calls": 20,
+            "remaining_check_calls": 20,
+            "used_check_calls": 0
+          },
+          "controlled_code_sha256": {
+            "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe",
+            "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+            "scripts/kimiark_tactical_stdio_service_v1.py": "186aab1326bb4ed7a9775d03d387ee26541ed663bc6d49c69f7e6f0faa309c2b",
+            "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+            "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+            "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b"
+          },
+          "execution_backend": "CONTROLLED_RUNNER",
+          "features_apps": false,
+          "interface_vocab": {
+            "action_type_names": [
+              "ACTIVATE_SKILL",
+              "DEPLOY",
+              "RETREAT"
+            ],
+            "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.",
+            "event_type_names": [
+              "ATTACK_RECOVERY_END",
+              "ATTACK_START",
+              "ATTACK_STRIKE",
+              "ATTACK_WINDUP",
+              "BLOCK",
+              "DAMAGE",
+              "DEPLOY",
+              "DEVICE_DAMAGE",
+              "DEVICE_DESTROYED",
+              "DEVICE_TARGET_SELECTION",
+              "DP_CHANGE",
+              "ENEMY_ABILITY_CANCELLED",
+              "ENEMY_ABILITY_HIT",
+              "ENEMY_ABILITY_START",
+              "ENEMY_DEATH",
+              "ENEMY_LEAK",
+              "ENEMY_STATUS_HIT",
+              "HEAL",
+              "OBJECTIVE_FAILURE",
+              "OPERATOR_DEATH",
+              "PROJECTILE_BORN",
+              "PROJECTILE_HIT",
+              "PROTECTED_TARGET_REACHED",
+              "RETREAT",
+              "SKILL_ACTIVATE",
+              "SKILL_END",
+              "SKILL_READY",
+              "SPAWN",
+              "TARGET_SELECTION",
+              "UNBLOCK"
+            ],
+            "query_event_type_aliases": {
+              "ACTIVATE_SKILL": "SKILL_ACTIVATE",
+              "ENEMY_BLOCKED": "BLOCK"
+            }
+          },
+          "max_unique_deployed_operators": 7,
+          "mechanics_version": "m38b-2781-animation-speed-v1",
+          "model": "gpt-6-astra",
+          "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+          "reasoning_effort": "high",
+          "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+          "session_id": "real-tool-loop-astra-high-joint-feedback-v1",
+          "stage_id": "main_08-07"
+        }
+      }
+    }
+  ],
+  "returncode": 0,
+  "schema_version": "KIMIARK_JOINT_FEEDBACK_MCP_NO_MODEL_STATUS_TRANSCRIPT_V1",
+  "stderr": ""
+}

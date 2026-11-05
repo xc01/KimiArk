@@ -1,0 +1,44 @@
+{
+  "schema_version": "KIMIARK_JOINT_FEEDBACK_SUMMARY_V2",
+  "scope": "Read-only archived-event comparison; timestamps are old-action evidence, not universal deadlines.",
+  "m70_v1": {
+    "plan_id": "R8_7_GPT_M70_V1",
+    "roster_chinese_names": ["芬", "Friston-3", "月见夜", "玫兰莎", "安赛尔", "芙蓉", "斑点", "史都华德"],
+    "result": {"simulator_win": true, "kills": 33, "leaks": 0, "protected_reached": 2, "remaining_life": 3, "operator_deaths": 0},
+    "roadblock4": {"first_attack_frame": 841, "destroy_frame": 1966, "hit_count": 15, "damage": 8358.56, "source_id": "char_208_melan"},
+    "second_shell": {"projectile_born_frame": 2053, "target_id": "char_208_melan", "locked_position": [5, 6], "retreat_frame": 2054, "hit_count": 0},
+    "artillery": {"kill_frame": 4273, "steward_damage_event_count": 45, "steward_damage_total": 13227.21}
+  },
+  "astra_cold_start_c3": {
+    "plan_id": "R87_ASTRA_HIGH_COLD_START_003",
+    "roster_chinese_names": ["芬", "Friston-3", "月见夜", "斑点", "安赛尔", "芙蓉", "史都华德"],
+    "result": {"simulator_win": false, "kills": 24, "leaks": 9, "protected_reached": 0, "remaining_life": -8, "operator_deaths": 4},
+    "roadblock4": {"damage_event_count": 0, "destroyed": false, "block_14_frame": 3251, "death_14_frame": 3943},
+    "roadblocks_1_2": {"destroyed": false, "block_3_frame": 2773, "death_3_frame": 5353},
+    "second_shell": {"projectile_born_frame": 2053, "target_id": "char_212_ansel", "locked_position": [6, 5], "hits": [{"frame": 2143, "target_id": "char_212_ansel", "amount": 891.0}, {"frame": 2143, "target_id": "char_210_stward", "amount": 910.0}]},
+    "artillery": {"observed_kill_frame": null, "steward_damage_event_count": 38, "steward_damage_total": 11035.13, "first_operator_death_frame": 3943},
+    "first_leak": {"frame": 5196, "enemy_id": "enemy_1110_uamord#22"},
+    "first_acceptance_failure": {"frame": 3251, "event_type": "BLOCK", "enemy_id": "enemy_3001_upeopl#14", "device_id": "trap_020_roadblock#4"}
+  },
+  "damage_statistics_boundary": {
+    "ordinary_damage_event_type": "DAMAGE",
+    "ability_damage_event_type": "ENEMY_ABILITY_HIT",
+    "device_damage_event_type": "DEVICE_DAMAGE",
+    "device_damage_scope": "Roadblocks/devices, not operator HP",
+    "duplicate_handling": "Simulator categories are disjoint; totals sum categories without double-counting."
+  },
+  "operator_damage_taken_totals": {
+    "m70": {"char_123_fang": 6090.0, "char_4093_frston": 17510.0, "char_283_midn": 2222.0, "char_208_melan": 2445.0, "char_212_ansel": 8488.0, "char_120_hibisc": 6700.0, "char_284_spot": 1831.5, "char_210_stward": 7280.0},
+    "c3": {"char_123_fang": 3870.0, "char_4093_frston": 4065.0, "char_283_midn": 2288.0, "char_284_spot": 3987.0, "char_212_ansel": 10739.0, "char_120_hibisc": 7800.0, "char_210_stward": 7858.0}
+  },
+  "joint_tasks": [
+    "Open roadblocks #4 and later #1/#2 before protected targets require passage.",
+    "Establish enough actual artillery contact and survival/contact windows to remove it.",
+    "Simultaneously retain central BLOCK/output to kill #21/#22/#28/#31/#33/#34 and prevent leaks."
+  ],
+  "source_paths": [
+    "docs/review/fc77177/m70_vs_astra_c3_comparison_v1/m70_vs_astra_c3_comparison_v1.json.gz",
+    "docs/review/fc77177/m70_vs_astra_c3_comparison_v1/m70_vs_astra_c3_comparison_report_v1.md"
+  ],
+  "usage_boundary": "This is targeted archived evidence. It is not a fixed parent plan, roster, deadline, or guarantee that restoring Melantha wins."
+}

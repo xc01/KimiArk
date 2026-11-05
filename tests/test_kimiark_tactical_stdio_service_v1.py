@@ -171,6 +171,24 @@ def test_cold_start_revision_requires_completed_parent(tmp_path: Path, monkeypat
     assert any("must reference a completed candidate" in error for error in result["errors"])
 
 
+def test_cold_start_revision_missing_parent_is_rejected(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    paths, _handles, root_plan_id = _prepare_cold_start_check(tmp_path, monkeypatch, used_candidates=1)
+    plan = _plan("PLAN_B")
+    plan["revised_operational_plans"][0]["action_timeline"] = [
+        {"action_type": "DEPLOY", "operator_id": "op_a", "frame": 1, "tile": [0, 0]},
+    ]
+    plan["revised_operational_plans"][0]["selected_low_star_operator_ids"] = ["op_a"]
+    plan["revised_operational_plans"][0]["parent_hypothesis_id"] = "ROOT_HYPOTHESIS"
+    plan["revised_operational_plans"][0].pop("parent_plan_id", None)
+    plan["revised_operational_plans"][0]["revision_hypothesis"] = {}
+    plan["revised_operational_plans"][0]["referenced_experience_ids"] = [root_plan_id]
+    plan["revision_hypothesis"] = {}
+    plan["revised_strategic_hypotheses"] = [{"hypothesis_id": "ROOT_HYPOTHESIS"}]
+    result = service.check_plan(paths["config"], {"plan": plan})
+    assert result["status"] == "FAIL"
+    assert any("must declare parent_plan_id" in error for error in result["errors"])
+
+
 def test_check_plan_counts_invalid_candidate_without_simulation(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     paths = _support_files(tmp_path, monkeypatch)
     monkeypatch.setattr(service, "controlled_code_hashes", lambda: {"code": "0" * 64})

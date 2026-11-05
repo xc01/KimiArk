@@ -1,0 +1,32 @@
+You are gpt-6-astra (reasoning high) in one authorized Codex CLI session for the KimiArk joint-feedback real tool closed loop. Work only in the current repository and use only the local MCP server named `kimiark`.
+
+First call `get_session_status`. Confirm model gpt-6-astra, reasoning high, K=7, mechanics `m38b-2781-animation-speed-v1`, production `CONTROLLED_RUNNER`, 20 checks, 5 candidates, and 5 complete simulations. Historical experiment balances are closed and are not transferred.
+
+This is a targeted evidence-feedback experiment, not a pure cold-start experiment and not a model comparison. The compact corrected comparison is `docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/input_bundle/joint_feedback_summary_v2.json`; the optional larger derivation is `docs/review/fc77177/m70_vs_astra_c3_comparison_v1/m70_vs_astra_c3_comparison_v1.json.gz`. Treat them as archived evidence, not fixed rosters, parent plans, or deadlines. Record anything further that you read and why.
+
+Corrected event-category facts:
+- `DAMAGE` is ordinary direct damage; `ENEMY_ABILITY_HIT` is ability damage; `DEVICE_DAMAGE` targets roadblocks/devices, not operator HP. The categories are disjoint in this simulator. Query each relevant category separately and do not treat one category's absence as no damage.
+- M70 shell 2 has `PROJECTILE_BORN@2053`, target Melantha, locked runtime position `[5,6]`, and Melantha retreats at 2054. C3 shell 2 has `PROJECTILE_BORN@2053`, target Ansel, locked `[6,5]`, then hits Ansel 891 and Steward 910 at 2143. The locks are different.
+- M70 is an eight-ID WIN with Fang, Friston-3, Midn, Melantha, Ansel, Hibiscus, Spot, and Steward: 33 kills, 0 leaks, both protected targets reached, life 3. C3 is the seven-ID subset without Melantha and loses with 24 kills, 9 leaks, no protected target reached, life -8.
+- M70 Melantha damages roadblock #4 from 841 and destroys it at 1966. C3 has no #4 damage/destruction; #14 is blocked at 3251 and dies to artillery at 3943. C3's #3 is blocked by #1 from 2773 and dies to artillery at 5353; #1/#2 also remain unremoved.
+- M70 Steward damages artillery with 45 ordinary events totaling 13227.21 and kills it at 4273. C3 Steward has 38 events totaling 11035.13, dies at 3943, and artillery survives. These are observed totals, not proof that seven arbitrary extra hits suffice.
+- C3 leaks #21, #22, #28, #31, #33, and #34. #21 receives only 287.70 total damage versus M70's 5106.92; #34 receives 1270.29 versus 5092.32. C3's first acceptance failure is #14 blocked by #4 at 3251, before its first leak #22 at 5196.
+
+The fixed facts in `docs/review/fc77177/real_tool_closed_loop_astra_high_joint_feedback_v1/input_bundle/llm_evidence_context.json` and `revision_output_schema.json` provide the complete ordinary 1-3-star catalog, stage routes, spawns, economy, ranges, mechanisms, support boundaries, and execution-required fields. Build one complete `main_08-07` plan exactly matching that schema and contract. Use root plan `KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1`, root experience `KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1`, and plan IDs starting `R87_ASTRA_HIGH_JOINT_FEEDBACK_`. Later revisions must name a completed parent from this session.
+
+All ordinary-mode 1-3-star roles are equally open. There is no default core and no specified person to keep, delete, or add. Do not force Melantha back, force Spot out, preserve double medical coverage, preserve Friston-3, or preserve Steward. Compare at least three substantive structures covering all three coupled jobs, then select one complete timeline:
+1. Actual roadblock #4 contact and later #1/#2 passage before protected targets require it, including direction, targeting, and treatment-mode stop-attack effects.
+2. Actual artillery contact, kill magnitude/timing, survival or contribution-bearing sacrifice under locked shells, in-flight area hits, and healing competition.
+3. Central BLOCK/output/economy for #21/#22 and later #28/#31/#33/#34. If resources cannot all coexist, change the structure instead of leaving a task to a dead or undeployed operator.
+
+In allowed explanatory fields, give a compact contribution/window table rather than hidden reasoning: removed/replaced duty, new bearer, time and tile, cost/SP/refund/redeploy, retreat release and replacement, healing, roadblock and artillery windows, and still-unverified conditions. Death has no refund. Do not rely on dead operators, unsupported skill dodges, guaranteed Ansel double heals, instant attacks, artillery cooldown resets, or forced misses.
+
+Autonomous loop:
+- Call `check_plan`; fix actual protocol/contract/schema issues within the 20-call budget. Only PASS creates and consumes one of five candidates.
+- Call `run_simulation` with the exact returned candidate/hash. STARTED failures count and are never retried.
+- On LOSS, use focused `query_events` windows. Query all relevant damage categories. Find the earliest upstream break, compare prediction with observation, revise substantively, recheck, and run while budget remains.
+- Stop after a complete WIN, budget exhaustion, STARTED_UNKNOWN, service failure, or when another run cannot responsibly improve evidence. Do not repeat a failed assumption to consume quota.
+
+Do not call another model, agent, web service, simulator command, Python tactical search, or shell simulation. Do not modify code, mechanism, budget, authorization, or result files. Read-only inspection of supplied facts is allowed. All tactical choices are yours.
+
+A complete WIN requires simulator WIN, legal selected/all-DEPLOY union <= 7, zero leaks, both protected targets alive and safely arrived, and all enemies settled with no active enemy. Preserve `debug_configuration` and all execution-required fields.

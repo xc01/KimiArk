@@ -1,5 +1,5 @@
 {
-  "schema_version": "KIMIARK_M70_VS_ASTRA_C3_COMPARISON_MANIFEST_V1",
+  "schema_version": "KIMIARK_M70_VS_ASTRA_C3_COMPARISON_MANIFEST_V2",
   "base_commit_sha256": "fe300377c79629832bfd92095ae766417f403828",
   "analysis_scope": {
     "uses_original_archived_events_only": true,
@@ -12,12 +12,12 @@
   "artifacts": {
     "analysis_script": {
       "path": "build_comparison_v1.py",
-      "sha256": "3c62de2659599f9728561c9193c3166c48cf688a7788b7a83faecafc73b44b90"
+      "sha256": "d52c7cff45179e25200743e0483d07314fc04e6bf3e558064bc5e17e36de9d54"
     },
     "comparison_json_gzip": {
       "path": "m70_vs_astra_c3_comparison_v1.json.gz",
-      "sha256": "93f274822884d2192a8ec880207e8e176e812196ca746bcdf5ff3a36b5764662",
-      "restored_json_sha256": "b17375d4e413dfd9efe0b18cf33d51d8c07f5c58bbd161f955b22bdcf33fa437"
+      "sha256": "1ef5853c0198e0679b70b9a6527e3b58f88cfcb2168bb9680519a41d806cf79c",
+      "restored_json_sha256": "4eaa0ab8c6d8de098092073330c5efd7626711ed4a00e8868f289305fb3dbf37"
     },
     "replay_frame_evidence": {
       "path": "replay_frame_evidence_v1.txt",
@@ -25,7 +25,13 @@
     },
     "report": {
       "path": "m70_vs_astra_c3_comparison_report_v1.md",
-      "sha256": "3226eb3e4e80410197a72697f6a1008c7ae7452161b01eb74ac1b5ae1d040ec5"
+      "sha256": "d925d293e56dcf67e302e897eb7868868921ce6ec23e4c241142f85f8bbc1d52"
+    },
+    "focused_stats_test": {
+      "path": "tests/test_m70_vs_c3_comparison_stats_v1.py",
+      "sha256": "754191c2f7f242d7ae01fa213c4f3697d853bcfa15129f30b7ee3473900252a6",
+      "command": "uv run --no-sync pytest -q tests/test_m70_vs_c3_comparison_stats_v1.py tests/test_tactical_battle_replay_v1.py",
+      "result": "22 passed"
     }
   },
   "replay_tool": {
@@ -66,6 +72,6 @@
     "comparison_json_gzip_integrity_check": "PASS",
     "source_manifest_hash_checks": "PASS",
     "source_archive_restored_sha256_checks": "PASS",
-    "focused_replay_test": "PASS"
+    "focused_replay_and_stats_test": "PASS"
   }
 }

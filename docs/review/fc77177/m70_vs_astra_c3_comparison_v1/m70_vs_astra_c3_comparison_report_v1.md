@@ -19,6 +19,10 @@ Both sources declare mechanics `m38b-2781-animation-speed-v1`; both manifests ma
 
 Plan coordinates are stored as `[row,col]`; DEPLOY runtime events and replay display use `[col,row]`. This conversion is explicit in both the JSON and the replay tool.
 
+## v2 correction
+
+This revision corrects two derived summaries without changing either source archive. First, M70's second shell is born at frame 2053 with `locked_position=[5,6]` targeting Melantha, while C3's second shell at the same frame has `locked_position=[6,5]` targeting Ansel; its frame-2143 hits are Ansel 891 and Steward 910. The locks are not the same tile. Second, operator and enemy damage summaries now distinguish ordinary `DAMAGE`, `ENEMY_ABILITY_HIT`, and `DEVICE_DAMAGE` rather than treating the `DAMAGE` field alone as total damage. No observed damage is duplicated across those event categories in the simulator; the total is the sum of applicable category totals.
+
 ## Roster and earliest action divergence
 
 - Shared seven IDs: Fang, Friston-3, Midn, Ansel, Hibiscus, Spot, Steward.
@@ -44,9 +48,10 @@ The first two shell outcomes materially diverge:
 | First shell start | 1893 | 1893 |
 | First shell target/hit | Melantha, 845 | Spot, 558 |
 | Second shell start | 2043 | 2043 |
-| Second shell hits | none recorded | Ansel + Steward, 1,801 |
+| Second shell born lock | `[5,6]`, target Melantha | `[6,5]`, target Ansel |
+| Second shell hits | none recorded (Melantha retreats at 2054) | Ansel 891 + Steward 910 |
 
-The archived `PROJECTILE_BORN` events show the second shell locking `[6,5]`; Melantha has already retreated in M70, while C3 still has Spot there. This supports a precise risk difference at that window, but does not prove that keeping or removing Melantha uniquely determines the later outcome.
+The archived `PROJECTILE_BORN` events show distinct locks: M70 locks `[5,6]` where Melantha is about to retreat, while C3 locks `[6,5]` where Spot remains. The C3 lock can therefore still hit nearby operators; this supports a precise risk difference at that window, but does not prove that keeping or removing Melantha uniquely determines the later outcome.
 
 M70 removes artillery at 4273. C3's artillery survives past 5253, hits multiple operators and protected targets, and leaks at 5759. The read-only statistics do not claim that earlier artillery death alone is sufficient; leaks and central pressure also differ.
 
@@ -69,18 +74,20 @@ C3's first operator death is Steward at 3943; its first leak is #22 at 5196. The
 
 ## Contribution comparison
 
-Total damage values are descriptive, not a ranking of tactical value.
+Total damage values are split into ordinary `DAMAGE` and `ENEMY_ABILITY_HIT`; totals are descriptive, not a ranking of tactical value.
 
-| Operator | M70 damage dealt | M70 damage taken | C3 damage dealt | C3 damage taken |
-|---|---:|---:|---:|---:|
-| Fang | 17,538.75 | 6,090.00 | 14,113.75 | 3,130.00 |
-| Friston-3 | 4,098.40 | 17,510.00 | 2,569.90 | 3,300.00 |
-| Midn | 51,798.74 | 2,222.00 | 45,133.71 | 2,288.00 |
-| Melantha | 24,312.36 | 1,600.00 | absent | absent |
-| Ansel | 0.00 | 1,360.00 | 0.00 | 2,720.00 |
-| Hibiscus | 0.00 | 1,360.00 | 0.00 | 680.00 |
-| Spot | 13,090.00 | 1,831.50 | 23,920.00 | 3,429.00 |
-| Steward | 22,289.47 | 0.00 | 12,753.92 | 578.00 |
+| Operator | M70 normal taken | M70 ability taken | M70 total taken | C3 normal taken | C3 ability taken | C3 total taken |
+|---|---:|---:|---:|---:|---:|---:|
+| Fang | 6,090.00 | 0.00 | 6,090.00 | 3,130.00 | 740.00 | 3,870.00 |
+| Friston-3 | 17,510.00 | 0.00 | 17,510.00 | 3,300.00 | 765.00 | 4,065.00 |
+| Midn | 2,222.00 | 0.00 | 2,222.00 | 2,288.00 | 0.00 | 2,288.00 |
+| Melantha | 1,600.00 | 845.00 | 2,445.00 | absent | absent | absent |
+| Ansel | 1,360.00 | 7,128.00 | 8,488.00 | 2,720.00 | 8,019.00 | 10,739.00 |
+| Hibiscus | 1,360.00 | 5,340.00 | 6,700.00 | 680.00 | 7,120.00 | 7,800.00 |
+| Spot | 1,831.50 | 0.00 | 1,831.50 | 3,429.00 | 558.00 | 3,987.00 |
+| Steward | 0.00 | 7,280.00 | 7,280.00 | 578.00 | 7,280.00 | 7,858.00 |
+
+Damage-dealt totals likewise include ordinary and ability categories.
 
 The relevant question is not “add Melantha back” but whether a seven-ID structure can supply the same early #4 opening and roadblock clearing while retaining enough artillery and central output. No authorized replacement simulation was run.
 
@@ -106,6 +113,6 @@ M70 frames: 1893, 1993, 2053, 2093. C3 frames: 1893, 1993, 2053, 2143, 3793, 394
 
 1. Which window can supply 8,358.56 physical damage to roadblock #4 without starving the artillery-kill chain?
 2. How much Steward contact is needed before the frame-4273-equivalent kill point, and which operator supplies it if Melantha is absent?
-3. Can a lower-central blocker also open #4/#2/#1 while avoiding the C3 artillery cluster around `[6,5]`, `[7,5]`, and `[6.6,6]`?
+3. Can a lower-central blocker also open #4/#2/#1 while avoiding the distinct artillery locks `[5,6]` and `[6,5]` plus later clusters such as `[6.6,6]`?
 
 All three are bounded hypotheses for later model-directed work, not recommended plans or validated replacements.

@@ -160,17 +160,24 @@ def validate_manifest(source_dir: Path, simulation_dir: Path, event_path: Path, 
 def operator_stats(events: list[dict[str, Any]], operator_ids: list[str]) -> list[dict[str, Any]]:
     result = []
     for operator_id in operator_ids:
-        damage_dealt = 0.0
-        damage_taken = 0.0
+        normal_damage_dealt = 0.0
+        ability_damage_dealt = 0.0
+        normal_damage_taken = 0.0
+        ability_damage_taken = 0.0
         heal_amount = 0.0
         block_targets = []
         kills = 0
         for event in events:
             if event["event_type"] == "DAMAGE":
                 if event.get("source_id") == operator_id:
-                    damage_dealt += float(event["details"].get("amount", 0))
+                    normal_damage_dealt += float(event["details"].get("amount", 0))
                 if event.get("target_id") == operator_id:
-                    damage_taken += float(event["details"].get("amount", 0))
+                    normal_damage_taken += float(event["details"].get("amount", 0))
+            elif event["event_type"] == "ENEMY_ABILITY_HIT":
+                if event.get("source_id") == operator_id:
+                    ability_damage_dealt += float(event["details"].get("amount", 0))
+                if event.get("target_id") == operator_id:
+                    ability_damage_taken += float(event["details"].get("amount", 0))
             elif event["event_type"] == "HEAL" and event.get("source_id") == operator_id:
                 heal_amount += float(event["details"].get("amount", 0))
             elif event["event_type"] == "BLOCK" and event.get("source_id") == operator_id:
@@ -181,8 +188,12 @@ def operator_stats(events: list[dict[str, Any]], operator_ids: list[str]) -> lis
             {
                 "operator_id": operator_id,
                 "chinese_name": OPERATOR_NAMES.get(operator_id, operator_id),
-                "damage_dealt": rounded(damage_dealt),
-                "damage_taken": rounded(damage_taken),
+                "normal_damage_dealt": rounded(normal_damage_dealt),
+                "ability_damage_dealt": rounded(ability_damage_dealt),
+                "damage_dealt_total": rounded(normal_damage_dealt + ability_damage_dealt),
+                "normal_damage_taken": rounded(normal_damage_taken),
+                "ability_damage_taken": rounded(ability_damage_taken),
+                "damage_taken_total": rounded(normal_damage_taken + ability_damage_taken),
                 "heal_amount": rounded(heal_amount),
                 "block_event_count": len(block_targets),
                 "distinct_block_target_count": len(set(block_targets)),
@@ -198,7 +209,9 @@ def key_enemy_stats(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
         relevant = [event for event in events if event.get("source_id") == enemy_id or event.get("target_id") == enemy_id]
         critical = [compact_event(event) for event in relevant if event["event_type"] in CRITICAL_EVENT_TYPES]
         damage_to_enemy = [event for event in relevant if event["event_type"] == "DAMAGE" and event.get("target_id") == enemy_id]
+        ability_damage_to_enemy = [event for event in relevant if event["event_type"] == "ENEMY_ABILITY_HIT" and event.get("target_id") == enemy_id]
         damage_by_enemy = [event for event in relevant if event["event_type"] == "DAMAGE" and event.get("source_id") == enemy_id]
+        ability_damage_by_enemy = [event for event in relevant if event["event_type"] == "ENEMY_ABILITY_HIT" and event.get("source_id") == enemy_id]
         block_segments = [
             event
             for event in relevant
@@ -212,10 +225,19 @@ def key_enemy_stats(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
             {
                 "enemy_id": enemy_id,
                 "critical_event_count": len(critical),
-                "damage_taken": rounded(sum(float(event["details"].get("amount", 0)) for event in damage_to_enemy)),
+                "normal_damage_taken": rounded(sum(float(event["details"].get("amount", 0)) for event in damage_to_enemy)),
+                "ability_damage_taken": rounded(sum(float(event["details"].get("amount", 0)) for event in ability_damage_to_enemy)),
+                "damage_taken_total": rounded(
+                    sum(float(event["details"].get("amount", 0)) for event in damage_to_enemy + ability_damage_to_enemy)
+                ),
                 "damage_event_count": len(damage_to_enemy),
+                "ability_hit_event_count": len(ability_damage_to_enemy),
                 "damage_sources": {key: rounded(value) for key, value in sorted(damage_sources.items())},
-                "damage_dealt_by_enemy": rounded(sum(float(event["details"].get("amount", 0)) for event in damage_by_enemy)),
+                "normal_damage_dealt_by_enemy": rounded(sum(float(event["details"].get("amount", 0)) for event in damage_by_enemy)),
+                "ability_damage_dealt_by_enemy": rounded(sum(float(event["details"].get("amount", 0)) for event in ability_damage_by_enemy)),
+                "damage_dealt_total_by_enemy": rounded(
+                    sum(float(event["details"].get("amount", 0)) for event in damage_by_enemy + ability_damage_by_enemy)
+                ),
                 "block_unblock_events": block_segments,
                 "final_event": final_event,
                 "compact_critical_events": critical,
@@ -312,7 +334,7 @@ def comparison() -> dict[str, Any]:
     first_failure_c3 = first_event(c3_events, "OPERATOR_DEATH")
     objective_failure_c3 = first_event(c3_events, "OBJECTIVE_FAILURE")
     return {
-        "schema_version": "KIMIARK_M70_VS_ASTRA_C3_COMPARISON_V1",
+        "schema_version": "KIMIARK_M70_VS_ASTRA_C3_COMPARISON_V2",
         "analysis_scope": {
             "uses_original_archived_events_only": True,
             "starts_model": 0,
@@ -338,6 +360,13 @@ def comparison() -> dict[str, Any]:
                 "evidence_validation": c3_manifest,
                 "final_status": load_json(C3_DIR / "simulation/final_status.json"),
             },
+        },
+        "damage_event_statistics": {
+            "normal_damage_event_type": "DAMAGE",
+            "ability_damage_event_type": "ENEMY_ABILITY_HIT",
+            "device_damage_event_type": "DEVICE_DAMAGE",
+            "device_damage_scope": "Devices, not operator HP",
+            "duplicate_handling": "Categories are disjoint in simulator semantics; totals sum category totals without adding the same damage twice.",
         },
         "static_plan_comparison": {
             "m70": m70_static,
@@ -382,6 +411,20 @@ def comparison() -> dict[str, Any]:
         "artillery_window_comparison": {
             "m70": artillery_shells(m70_events),
             "c3": artillery_shells(c3_events),
+            "second_shell_comparison": {
+                "m70_projectile_born_frame": 2053,
+                "m70_target_id": "char_208_melan",
+                "m70_locked_position": [5, 6],
+                "m70_retreat_frame": 2054,
+                "c3_projectile_born_frame": 2053,
+                "c3_target_id": "char_212_ansel",
+                "c3_locked_position": [6, 5],
+                "c3_hits": [
+                    {"frame": 2143, "target_id": "char_212_ansel", "amount": 891.0},
+                    {"frame": 2143, "target_id": "char_210_stward", "amount": 910.0},
+                ],
+                "same_lock": False,
+            },
         },
         "protected_target_and_roadblock_comparison": {
             "m70": critical_events(
@@ -437,7 +480,7 @@ def comparison() -> dict[str, Any]:
                 "status": "OBSERVED",
             },
             {
-                "finding": "The first two artillery shells diverge materially: M70 shell 1 hits Melantha for 845 and shell 2 hits nobody; C3 shell 1 hits Spot for 558 and shell 2 locks [6,5], hitting Ansel+Steward for 1801. This is not proof that one replacement causes all later failures.",
+                "finding": "The first two artillery shells diverge materially: M70 shell 1 hits Melantha for 845 and shell 2 locks [5,6] before Melantha retreats, then hits nobody; C3 shell 1 hits Spot for 558 and shell 2 locks [6,5], hitting Ansel for 891 and Steward for 910. This is not proof that one replacement causes all later failures.",
                 "evidence": "artillery_window_comparison shell starts 1893 and 2043.",
                 "status": "OBSERVED",
             },

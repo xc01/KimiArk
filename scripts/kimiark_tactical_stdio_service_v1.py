@@ -91,7 +91,7 @@ TOOLS = [
     },
     {
         "name": "query_events",
-        "description": "Read-only deterministic query of a service-registered event log. No model or causal inference.",
+        "description": "Read-only deterministic query of one event type at a time. Operator HP damage may be DAMAGE or ENEMY_ABILITY_HIT; DEVICE_DAMAGE is for roadblocks/devices. No model or causal inference.",
         "inputSchema": {
             "type": "object", "required": ["candidate_id", "candidate_sha256", "event_type"],
             "properties": {
@@ -487,7 +487,9 @@ def _validation_layers(
         ):
             lineage.append("referenced_experience_ids must include cold_start_task_root.root_experience_id")
         declared_parent_plan_id = layered.get("declared_parent_plan_id")
-        if root_plan_id and declared_parent_plan_id is not None:
+        if root_plan_id and declared_parent_plan_id is None:
+            lineage.append("cold_start plan must declare parent_plan_id and revision_hypothesis.parent_plan_id")
+        elif root_plan_id and declared_parent_plan_id is not None:
             plan_parent_plan_id = layered.get("plan_parent_plan_id")
             if plan_parent_plan_id != declared_parent_plan_id:
                 lineage.append("cold_start plan parent_plan_id and revision_hypothesis parent_plan_id must agree")
