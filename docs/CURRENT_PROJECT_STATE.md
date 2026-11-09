@@ -764,3 +764,11 @@ model stopped without C2 because no sufficiently justified combined repair was
 identified. M70 V1 remains the best verified fixed-simulator result at eight
 IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/`.
+
+A later zero-model comparison corrected the between-hit healing summary:
+Hibiscus self-healed 558.9@3013 and received Ansel 362@3015, while exact HP
+remains UNKNOWN. It identified roadblock #4 non-clearance, first-lock/support
+geometry, and live central-block loss as observed difference chains without
+proving any role necessary. The read-only successor prompt is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/next_prompt_suggestion_v2.md`;
+it is not an authorization.

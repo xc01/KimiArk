@@ -36,3 +36,13 @@ Evidence is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/closeout_report_v1.json`.
 M70 remains best at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
 Additional starts or simulations require new authorization.
+
+The read-only seven-versus-M70 comparison corrected the healer summary and
+framed the next falsifiable entry around three observed chains: absent roadblock
+#4 clearance and protected #14 death@3966; artillery lock/support geometry with
+Hibiscus death@3161 (920.9 observed between-hit healing, exact HP UNKNOWN); and
+loss of live central blocking after Fang@4753/Friston-3@4768. The successor
+prompt is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/next_prompt_suggestion_v2.md`
+and is not an execution authorization. See
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/zero_model_comparison_report_v1.md`.
