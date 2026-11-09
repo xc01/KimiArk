@@ -9,7 +9,7 @@
 | M70 | WIN | 33 / 0 / 0 / 3 | #14@11119, #3@11349 |
 | Seven-recursive C1 | LOSS | 24 / 9 / 3 / -8 | #14 dies@3966; #3 dies@5353 |
 
-Coordinates below follow the DEPLOY event convention `[row,col]`; action snapshot tiles are `[x,y]`.
+Plan/action snapshot tiles use `[row,col]`; DEPLOY event detail tile strings use `[x,y]` after runtime conversion. Coordinates below follow the DEPLOY event convention.
 
 ## Earliest structural and geometry changes
 

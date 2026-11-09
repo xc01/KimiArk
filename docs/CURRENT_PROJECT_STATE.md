@@ -772,3 +772,14 @@ geometry, and live central-block loss as observed difference chains without
 proving any role necessary. The read-only successor prompt is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/next_prompt_suggestion_v2.md`;
 it is not an authorization.
+
+The focused seven-ID experiment used a fresh budget and closed at CLI 1/1,
+checks 2/10, candidates 2/2, and simulations 2/2. C1 lost 12/21/8 death
+events/life -20; C2 lost 24/9/3 deaths/life -7, with protected #14
+reached@11519 but #3 killed@5353. Both had zero remaining enemies. Steward's
+output gaps were target-eligibility gaps (`NO_CANDIDATE` 3205-3360) rather than
+proof that extending deployment fixes closure; continuous positions remain
+UNKNOWN. C2's earliest surviving issue is Steward's 910@2443, Ansel 506.8@2443,
+910@2593 sequence ending in Steward death@2593. M70 V1 remains best at eight
+IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_focused_v1/`.

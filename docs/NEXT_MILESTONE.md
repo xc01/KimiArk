@@ -46,3 +46,13 @@ prompt is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/next_prompt_suggestion_v2.md`
 and is not an execution authorization. See
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/zero_model_comparison_report_v1.md`.
+
+The focused seven-ID round closed at CLI 1/1, checks 2/10, candidates 2/2, and
+simulations 2/2. C1 lost 12/21 with 8 death events/life -20; C2 improved to
+24/9 with 3 deaths/life -7. Both settled with zero remaining enemies. The
+Steward output gaps were eligibility/targeting gaps (`NO_CANDIDATE` in
+2917-3361; continuous positions UNKNOWN), not justification for extending
+station time. C2's surviving question is Steward's 2443-2593 exposure and
+healing allocation. Evidence and the next unauthorized prompt are under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_focused_v1/`. M70
+remains best at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
