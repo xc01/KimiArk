@@ -751,3 +751,16 @@ verified fixed-simulator result at eight IDs; seven-or-fewer feasibility remains
 UNKNOWN. Attempt 3 and further simulations are not authorized. Evidence is
 under the same experiment directory, including
 `attempt2_continuation_report_v1.json` and the attempt 2 artifact manifest.
+
+The later seven-recursive experiment used a fresh budget, not the coupled-contact
+ledger. It reached a real Astra high session and used CLI 1/1, checks 2/10,
+candidates 1/2, and simulations 1/2. Its structural rebuild
+`R88_ASTRA_HIGH_SEVEN_RECURSIVE_001` lost with 24 kills/9 leaks/3 operator
+deaths/life -8. Hibiscus died@3161, Fang@4753, and Friston-3@4768; protected
+target #14 died@3966 and #3 died@5353. #21 was blocked but leaked@5152 after
+1,426.09 damage; #22 leaked@5196 after 283.85 and no block; #34 leaked@6996
+after 1,021.19 and no block; artillery leaked@5759 after 11,284.23 damage. The
+model stopped without C2 because no sufficiently justified combined repair was
+identified. M70 V1 remains the best verified fixed-simulator result at eight
+IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/`.

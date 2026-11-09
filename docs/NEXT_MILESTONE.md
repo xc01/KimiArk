@@ -1,4 +1,4 @@
-# Current continuation: M70 eight-ID WIN; coupled-contact two-round closed
+# Current continuation: M70 eight-ID WIN; latest seven-recursive round closed
 
 `R8_7_GPT_M70_V1` is the current best verified current-model fixed-simulator
 result: 8 IDs, 33 kills, 0 leaks, 0 operator deaths, both protected targets
@@ -26,12 +26,13 @@ and
 The read-only source of the coupled-contact question is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/read_only_review_v1.json`.
 
-No tactical experiment is queued. The user-authorized attempt 2 passed the real
-model session and reached MCP tool execution, but both seven-ID candidates lost.
-The coupled-contact ledger is closed at CLI 2/2, check 2/10, candidate 2/2, and
-simulation 2/2. The outer runner's child exit code is UNKNOWN because host
-recovery interrupted the runner before it recorded the result; `turn.completed`
-and the final message are archived. Candidate 2 confirmed roadblock-3 clearance
-and live central contact, but still leaked 15 enemies and #34 had no contact.
+No tactical experiment is queued. The separate user-authorized seven-recursive
+round reached a real Astra high session, but its structural rebuild lost with 24
+kills, 9 leaks, life -8, and 3 deaths. It closed at CLI 1/1, check 2/10,
+candidate 1/2, and simulation 1/2; the model stopped with one candidate and one
+simulation unused. The earliest decisive failure was Hibiscus's death at 3161;
+#21/#22/#34 and the artillery all leaked, and neither protected target reached.
+Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/closeout_report_v1.json`.
 M70 remains best at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
-Attempt 3 and further simulations are not authorized.
+Additional starts or simulations require new authorization.

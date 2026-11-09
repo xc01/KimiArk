@@ -1,0 +1,71 @@
+{
+  "schema_version": "KIMIARK_SEVEN_RECURSIVE_ZERO_MODEL_PREFLIGHT_V1",
+  "checked_at_utc": "2026-11-09T08:05:00Z",
+  "generation_request_used": false,
+  "repository": {
+    "local_head": "03ad93ea67d335810e50f1cf8f77e0ddfe41409a",
+    "origin_master": "7e36ca4132ab3bb9fe85f1f62f9c4c3d314da8cc",
+    "pushed": false,
+    "unrelated_dirty_files_preserved": true
+  },
+  "input_bundle": {
+    "manifest_entries_at_preflight": 12,
+    "manifest_entries_final": 11,
+    "manifest_all_hashes_match_final": true,
+    "manifest_correction": "The initial generated manifest included a stale self-entry; build_inputs_v1.py was corrected to exclude it before final archive. This metadata correction did not alter tactical facts or simulation results.",
+    "facts_sha256": "565d572418fb5034a99b1c7e9249d8f35c7c1ac88a8309a3bd6a9930252e73a1",
+    "schema_sha256": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "parent_reconciliation_sha256": "9f6d588389035add8608fd720b6a13eb2925c6b2363804d4379aa645754f0de1",
+    "parent_candidate_002_events_gz_sha256": "7a53303c93d00d7a23a067a82efa7c07a944ad5e2304771512be37257c67f3d3"
+  },
+  "task_configuration": {
+    "attempt": 1,
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "max_unique_deployed_operators": 7,
+    "max_candidates": 2,
+    "max_check_calls": 10,
+    "max_real_cli_starts": 1,
+    "used_real_cli_starts_before_start": 0,
+    "prompt_sha256": "e1c8b0f6199772307c8ed44f1104d82b0e7f7d26de001cc59934aef148b5e497",
+    "runner_sha256": "dbe6d1b65f3736211cdc073fed60b48cb10239f178f0d5dfa2a6c368db9b674f",
+    "authorization_sha256_before_start": "b69359ee7b7a9287eda1b029e6379be6dfaa250525d3f4c17fb0ccbed185fb5b",
+    "session_config_sha256": "022bcf728e253ba500148424f2bdcd812e0590eebfad79349c11501d9db9cb25"
+  },
+  "codex_doctor": {
+    "command": "codex doctor --json --network-only with openai/gpt-6-astra and four-tool MCP overrides",
+    "generation_request_used": false,
+    "overall_status": "warning",
+    "warning_reason": "One deprecated user-level config setting; task overrides loaded normally.",
+    "config_load": "WARNING",
+    "model_provider": "openai",
+    "model": "gpt-6-astra",
+    "mcp_servers": 1,
+    "network_env": "OK",
+    "provider_reachability": "OK; HTTP 405",
+    "websocket_reachability": "OK; HTTP 101 Switching Protocols",
+    "raw_output_sha256": "761cb6c914fed3c5999c01bc03749e607a59b6dd8b2bfdef4186b75b54e94c21"
+  },
+  "mcp_no_model_status": {
+    "exit_code": 0,
+    "generation_request_used": false,
+    "session_model": "gpt-6-astra",
+    "session_reasoning_effort": "high",
+    "remaining_checks": 10,
+    "remaining_candidates": 2,
+    "remaining_simulations": 2,
+    "transcript_sha256": "fb396d905a1e30ea58d5d4e5c4cc9ff5bf77b65ec3b0768ba39432b6a4448ed6"
+  },
+  "external_proxy": {
+    "configured_proxy": "http://127.0.0.1:7890; ALL_PROXY=socks5://127.0.0.1:7890",
+    "systemd_unit_state": "inactive",
+    "owned_mihomo_process_active": true,
+    "owned_process_pid": 263277,
+    "actual_endpoint_status": 401,
+    "actual_endpoint_meaning": "Unauthenticated request reached the protected endpoint; not proof of accepted credentials or a successful model turn."
+  },
+  "coverage_boundary": "These checks do not prove a real model session, MCP tool execution, usage, or turn.completed. Attempt 1 is the authorized real-session verification."
+}

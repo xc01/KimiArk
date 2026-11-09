@@ -1,0 +1,204 @@
+{
+  "schema_version": "KIMIARK_SEVEN_RECURSIVE_CLOSEOUT_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_seven_recursive_v1",
+  "best_verified_result": {
+    "operator_count": 8,
+    "plan_id": "R8_7_GPT_M70_V1",
+    "scope": "current fixed simulator only",
+    "seven_or_fewer_feasibility": "UNKNOWN"
+  },
+  "authorization_and_usage": {
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "real_cli_starts": "1/1",
+    "check_calls": "2/10",
+    "candidates": "1/2",
+    "simulations": "1/2",
+    "remaining_checks": 8,
+    "remaining_candidates": 1,
+    "remaining_simulations": 1,
+    "attempt_2_or_resume_authorized": false,
+    "old_coupled_contact_budget_transferred": false
+  },
+  "process": {
+    "started_at_utc": "2026-11-09T08:04:46.248141Z",
+    "ended_at_utc": "2026-11-09T08:23:14.506848Z",
+    "exit_code": 0,
+    "status": "COMPLETED",
+    "turn_completed": true,
+    "mcp_tool_calls": {
+      "total": 8,
+      "errors": 0,
+      "by_tool": {
+        "get_session_status": 1,
+        "check_plan": 2,
+        "run_simulation": 1,
+        "query_events": 4
+      }
+    },
+    "usage": {
+      "input_tokens": 2444110,
+      "cached_input_tokens": 2333568,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 23279,
+      "reasoning_output_tokens": 10398,
+      "cached_input_is_subset_of_input": true,
+      "internal_requests": "UNKNOWN_CLI_INTERNAL"
+    },
+    "stderr_observations": [
+      "2026-11-09T08:04:52.367196Z catalog refresh request timed out",
+      "2026-11-09T08:04:52.468399Z catalog refresh request timed out",
+      "2026-11-09T08:09:27.373375Z catalog refresh request timed out"
+    ],
+    "stderr_boundary": "Catalog refresh errors were observed but are not treated as the tactical cause."
+  },
+  "candidate_001": {
+    "candidate_sha256": "3e4a4e3860b4ff5ea5b808f9de31947a27ada8c319e1c54909d6bc1d412a29d5",
+    "plan_id": "R88_ASTRA_HIGH_SEVEN_RECURSIVE_001",
+    "structure": "STRUCTURAL_REBUILD",
+    "parent_plan_id": "R87_ASTRA_HIGH_COUPLED_CONTACT_002",
+    "parent_candidate_sha256": "74561564cc87370374fbb96b7a636c5b10aedac16c2274ef214fd78b9ce04315",
+    "check_status": "PASS",
+    "simulation_status": "COMPLETED",
+    "simulator_win": false,
+    "enemies_killed": 24,
+    "enemies_leaked": 9,
+    "operator_deaths": 3,
+    "unique_dead_operator_ids": 3,
+    "remaining_life": -8,
+    "first_objective_failure_reason": "ENEMY_LEAK",
+    "first_objective_failure_time": 173.2,
+    "roster_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_284_spot",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "roster_names": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "斑点",
+      "安赛尔",
+      "芙蓉",
+      "史都华德"
+    ],
+    "operator_deaths_observed": [
+      {
+        "frame": 3161,
+        "operator_id": "char_120_hibisc",
+        "name": "芙蓉"
+      },
+      {
+        "frame": 4753,
+        "operator_id": "char_123_fang",
+        "name": "芬"
+      },
+      {
+        "frame": 4768,
+        "operator_id": "char_4093_frston",
+        "name": "Friston-3"
+      }
+    ],
+    "leaks_observed": [
+      {
+        "frame": 5152,
+        "enemy_id": "enemy_1110_uamord#21"
+      },
+      {
+        "frame": 5196,
+        "enemy_id": "enemy_1110_uamord#22"
+      },
+      {
+        "frame": 5759,
+        "enemy_id": "enemy_1112_emppnt#0"
+      },
+      {
+        "frame": 5932,
+        "enemy_id": "enemy_1108_uterer#27"
+      },
+      {
+        "frame": 6082,
+        "enemy_id": "enemy_1108_uterer#28"
+      },
+      {
+        "frame": 6142,
+        "enemy_id": "enemy_1108_uterer#29"
+      },
+      {
+        "frame": 6292,
+        "enemy_id": "enemy_1108_uterer#31"
+      },
+      {
+        "frame": 6846,
+        "enemy_id": "enemy_1110_uamord#33"
+      },
+      {
+        "frame": 6996,
+        "enemy_id": "enemy_1110_uamord#34"
+      }
+    ],
+    "protected_targets": [
+      {
+        "enemy_id": "enemy_3001_upeopl#3",
+        "death_frame": 5353,
+        "killer_id": "enemy_1112_emppnt#0",
+        "reached": false
+      },
+      {
+        "enemy_id": "enemy_3001_upeopl#14",
+        "death_frame": 3966,
+        "killer_id": "enemy_1107_uoffcr#18",
+        "reached": false
+      }
+    ],
+    "key_contact_totals": {
+      "enemy_1110_uamord#21": {
+        "blocked": true,
+        "block_events": 1,
+        "damage_total": 1426.09,
+        "leak_frame": 5152
+      },
+      "enemy_1110_uamord#22": {
+        "blocked": false,
+        "damage_total": 283.85,
+        "leak_frame": 5196
+      },
+      "enemy_1110_uamord#34": {
+        "blocked": false,
+        "damage_total": 1021.19,
+        "leak_frame": 6996
+      },
+      "enemy_1112_emppnt#0": {
+        "damage_taken_total": 11284.23,
+        "leak_frame": 5759
+      }
+    },
+    "validation_findings": {
+      "opening": "SUPPORTED",
+      "upper_blocking": "SUPPORTED",
+      "artillery_closure": "REFUTED",
+      "central_closure": "REFUTED",
+      "protected_passage": "REFUTED",
+      "scheduled_late_device_cleanup": "TRUNCATED_BY_EARLIER_FAILURE"
+    },
+    "causal_conclusion": "Sustained output and upper Spot closure improved partial metrics, but Hibiscus died after two 890-damage artillery shells with only 558.9 healing between them. The later blocker chain then failed, leaving artillery, central armor, and protected targets unresolved.",
+    "why_c2_not_run": "No sufficiently justified combined repair was identified after complete original-event review; the remaining candidate and simulation were intentionally not used."
+  },
+  "decision": {
+    "new_win": false,
+    "best_verified_operator_count": 8,
+    "seven_or_fewer_feasibility": "UNKNOWN",
+    "next_minimal_question": "Preserve upper Spot closure and opening, but make healer survival and simultaneous artillery/roadblock timing the explicit first test before adding another central contact action."
+  },
+  "archive_notes": {
+    "candidate_record_stale_simulation_status": "candidate_record.json still says simulation_status NOT_STARTED; candidate_ledger_v1.json is authoritative with COMPLETED.",
+    "input_manifest_correction": "The initial generated input manifest had a stale self-entry. build_inputs_v1.py was corrected to exclude it and the final input manifest has 11 entries.",
+    "scope_boundary": "Fixed simulator only; no real-game, faithful, robust, probabilistic, or global-minimum claim."
+  }
+}

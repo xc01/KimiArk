@@ -1,0 +1,104 @@
+You are running one new, user-authorized bounded KimiArk seven-operator experiment.
+
+## Hard authorization and budget
+
+- Provider/model: openai/gpt-6-astra, reasoning effort high, features.apps=false. Do not change model, account, region, provider, or tier.
+- New experiment: `real-tool-loop-astra-high-seven-recursive-v1`. This is not an attempt 3 of `real_tool_closed_loop_astra_high_coupled_contact_v1`.
+- Use only the four MCP tools: get_session_status, check_plan, run_simulation, query_events.
+- Maximum: one real CLI start, 10 checks, 2 candidates, 2 complete simulations. Do not call the simulator outside MCP. Do not reset, resume, retry, or transfer historical budgets.
+- If a service, capacity, quota, approval, or host failure occurs, stop immediately and report the raw failure layer. Internal requests that you cannot observe are UNKNOWN_CLI_INTERNAL.
+- Check count is a gate, not a quality target. Prefer focused queries, but do not truncate evidence merely to save a check.
+
+## Authoritative facts and source files
+
+All paths are repository-relative from the current working directory.
+
+- Facts/catalog/routes/schedule: `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/input_bundle/llm_evidence_context.json`
+- Parent reconciliation: `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/input_bundle/coupled_contact_parent_reconciliation_v1.json`
+- Output schema: `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/input_bundle/revision_output_schema.json`
+- Parent C2 plan/actions/events (gzip): `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/input_bundle/parent_candidate-002/`
+- Parent C1 events (gzip): `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/input_bundle/parent_candidate-001/`
+- Previous experiment manifest: `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/attempt2_artifact_manifest_v1.json`
+
+First verify the files and their manifest hashes. The mechanics version remains `m38b-2781-animation-speed-v1`. The coordinate convention is: plan/action tiles are `[row,col]`; many runtime/event locked positions are `[x=col,y=row]`. Do not invert route/device positions casually.
+
+## Parent evidence, corrected
+
+The frozen M70 baseline is an 8-ID complete fixed-simulator WIN, plan `R8_7_GPT_M70_V1`: 33 kills, 0 leaks, 0 operator deaths, both protected targets safe, life 3. Do not rerun it. Seven or fewer remains UNKNOWN.
+
+Old coupled-contact attempt2 is closed at CLI 2/2, checks 2/10, candidates 2/2, simulations 2/2. Its C1 and C2 are evidence only.
+
+Original-event parent facts:
+
+- C1: 17 kills, 16 leaks, 5 operator deaths, life -14, LOSS. No DAMAGE/BLOCK/ENEMY_ABILITY_HIT contact with `enemy_1110_uamord#21`, `#22`, or `#34`. Protected `enemy_3001_upeopl#3` died at frame 3310.
+- C2: 18 kills, 15 leaks, 5 operator deaths, life -13, LOSS. `trap_020_roadblock#3` was destroyed at 2887. Midnight had real contact with #21/#22: 74.55 damage on #21, no #21 BLOCK; #22 received 869.75 damage and was BLOCKed by Midnight at 4796. Both still leaked (#21 at 5046, #22 at 5553). #34 had zero contact. Protected #3 died at 5110 from an artillery shell locked at `[2.6,1.0]`; protected #14 arrived safely at 13018.
+- C2 operator deaths: Fang and Hibiscus at 3310, Friston-3 at 3609, Midnight at 5154, Steward at 6450.
+- Do not interpret `ENEMY_DEATH.source_id` as the dying entity in these logs. In observed events, `target_id` is the dead entity and `source_id` is the killer.
+- "18 kills versus 17" is not progress toward WIN unless it preserves all required duties and removes leaks.
+
+Before any C1 plan, use the parent C2 original events to reconstruct, not merely cite:
+
+1. #21/#22 first contact through leak: blockers, damage sources, exact failure of hold/killing, whether release was caused by death, capacity, movement, late arrival, insufficient DPS, or no blocker.
+2. Midnight and supporting heal/block/output units: actual survival, heal windows, shell hits, ordinary/arts damage, skill state, and whether contact was enough to kill or hand off.
+3. Artillery timeline, output/kill gap, shell locks, and protected-target hit chain. Distinguish `trap_020_roadblock#3` from protected `enemy_3001_upeopl#3`.
+4. Why #34 had zero contact: route/space/timing, which live unit/output was required, and why a late-only action may not solve it.
+5. The earliest break that invalidated later central/protected work. Fix early dependencies before treating a late symptom.
+
+Use `query_events` or deterministic local reads of the parent archives. Aggregate where useful, then inspect exact windows. Record observation coverage and distinguish OBSERVED, STATIC_INFERRED, MODEL_GAP, and UNKNOWN.
+
+## Roster and tactical policy
+
+The roster is completely open to ordinary-mode 1–3-star IDs in the facts file. No role, robot, healer, vanguard, Spot, Ansel, Fang, Friston-3, Midnight, Melantha, Hibiscus, or Steward is mandatory. `selected_operator_ids` plus every DEPLOY `operator_id` union must be ≤7. Retreater and redeployer of the same ID still count once. Robots count.
+
+Compare substantive directions, at minimum:
+
+- A local repair of the existing contact chain: preserve viable parts, repair the earliest break, add or replace only necessary support.
+- A structural rebuild: different roster/output roles, blocking geometry, or staged rotation that avoids the observed death/heal/coverage chain.
+
+You may retain or replace any operator. Do not force a roster swap or forced death. Deaths may be acceptable only with an explicit contribution and replacement plan; they do not refund DP. Retreater does refund where legal. Distinguish contributions from insufficient partial success.
+
+Respect unsupported mechanics:
+
+- Spot: EXECUTABLE_APPROXIMATED; initial SP25/SP40, 25 seconds, ATK+45%, healing every 1.3 seconds, x-4 nine-cell range, and healing stops attacks. Physical-dodge talent is unsupported.
+- Ansel probabilistic extra heal is unsupported; never count double healing.
+- Ordinary attack target selection at ATTACK_STRIKE; no reliable pre-swing target lock in the current executor.
+- Artillery ability cast starts selection/cooldown; projectile birth locks the impact point; the delayed splash flow is independent.
+- USER_CONFIRMED_TACTICAL_PREMISE allows attack baiting/rotation, but do not invent guaranteed misses, exact unsupported pre-swing locks, or favorable cooldown resets. List any unexpressed behavior as MODEL_GAP and do not make the plan depend on it.
+
+Do not rewrite mechanics or bypass gates. The final answer and plan must be checkable with the existing simulator.
+
+## Required execution flow
+
+1. Call get_session_status once at the start. Confirm K=7, budgets, tools, and mechanics version.
+2. Reconcile parent evidence and decide the C1 hypothesis. Compare local repair versus structural rebuild in your working analysis before selecting.
+3. Before `check_plan`, create a concise validation card inside the candidate JSON (additional fields are allowed). Include:
+   - parent plan ID and hash;
+   - earliest broken dependency being repaired;
+   - key changes and causal reason;
+   - required duties that must remain intact;
+   - concrete predicted events that would support or refute the change;
+   - replacement roles and costs if the roster changes;
+   - any MODEL_GAP left untested.
+4. Run check_plan through MCP. Fix only contract/static/pure-protocol issues without changing tactical intent silently. Freeze the passing plan/actions exactly.
+5. Call run_simulation for the registered candidate only. It is a complete fixed-plan run and consumes one simulation.
+6. After C1 completes, query original events against the validation card. Report each component as SUPPORTED, REFUTED, TRUNCATED_BY_EARLIER_FAILURE, or UNKNOWN. Verify the earliest failure first. Check whether central contact was obtained by sacrificing artillery output, roadblock work, protected passage, opening survival, or a required role.
+7. Run C2 only if C1 gives a concrete, new, testable repair hypothesis. Before C2, write `C1 observed -> cause/uncertainty -> this change -> predicted events`, and verify that C1's already-supported necessary duties are retained or explicitly replaced. If no materially better C2 exists, stop and leave the remaining simulation unused.
+8. A complete WIN requires simulator WIN, zero leaks, both protected targets alive and safely reached, all enemies settled, legal operator union ≤7, and no active enemies. Partial contact, one heal, roadblock destruction, or damage alone is not closure.
+9. If a seven-ID WIN occurs, freeze it and stop immediately. Do not attempt six IDs.
+
+Do not modify configuration, mechanism code, facts, budgets, or plan/actions after freeze. Do not call the simulator from Python. Outer scripts may compile and verify but must not alter tactical decisions.
+
+## Final response
+
+End with a compact factual report:
+
+- whether the real CLI reached MCP tools;
+- exact check/candidate/simulation usage and any remaining budget;
+- C1/C2 final numbers, earliest failure, protected outcomes, and operator deaths;
+- whether #21/#22/#34 closure was achieved;
+- causal conclusion learned from events;
+- MODEL_GAP/UNKNOWN items;
+- whether a seven-ID WIN exists;
+- no real-game, faithful, robust, probabilistic, or global-minimum claim.
+
+Prefer conclusions grounded in complete original events over plausible summaries. If evidence is incomplete, say exactly what remains unknown.
