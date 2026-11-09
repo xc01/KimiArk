@@ -737,3 +737,17 @@ failed` before any MCP tool call, candidate, or simulation. It is archived as
 tactical LOSS. M70 V1 remains best at eight IDs, seven-or-fewer feasibility
 remains UNKNOWN, and another start requires separate authorization. Evidence is
 under `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/`.
+
+The later user-authorized coupled-contact attempt 2 reached a real Astra high
+session and executed MCP tools. Its seven-ID candidates both lost: C1 was 17
+kills/16 leaks/5 deaths/life -14; C2 was 18/15/5/-13. C2 destroyed roadblock 3
+and achieved Midnight contact with central #21/#22, including a #22 block, but
+both central enemies still leaked, #34 had no contact, and protected target #3
+died at 5110. The coupled-contact ledger is closed at CLI 2/2, check 2/10,
+candidate 2/2, and simulation 2/2. The outer child exit code is UNKNOWN because
+host recovery interrupted the runner before result recording, while
+`turn.completed` and final output are preserved. M70 V1 remains the best
+verified fixed-simulator result at eight IDs; seven-or-fewer feasibility remains
+UNKNOWN. Attempt 3 and further simulations are not authorized. Evidence is
+under the same experiment directory, including
+`attempt2_continuation_report_v1.json` and the attempt 2 artifact manifest.

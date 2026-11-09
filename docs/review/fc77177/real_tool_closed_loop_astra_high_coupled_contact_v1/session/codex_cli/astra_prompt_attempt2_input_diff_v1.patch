@@ -1,0 +1,12 @@
+--- docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/session/codex_cli/astra_prompt_v1.txt	2026-11-05 18:33:16.145838445 +0800
++++ docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/session/codex_cli/astra_prompt_attempt2_v1.txt	2026-11-09 14:59:02.405130110 +0800
+@@ -1,6 +1,8 @@
+ You are planning one focused two-simulation coupled-contact experiment for Arknights stage `main_08-07` using at most seven ordinary-mode 1-3-star operator IDs. The fixed facts in `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/input_bundle/llm_evidence_context.json` and `revision_output_schema.json` provide the complete ordinary 1-3-star catalog, stage routes/spawns, economy, ranges, mechanisms, support boundaries, and execution-required fields.
+ 
+-Call `get_session_status` first. Confirm: `gpt-6-astra/high`, one real CLI, K=7, two candidate slots, two complete simulations, ten check calls, and mechanics `m38b-2781-animation-speed-v1`. The closed small-learning balance is not transferred.
++Call `get_session_status` first. Confirm: `gpt-6-astra/high`, this is authorized attempt 2 of two cumulative real CLI starts, K=7, two candidate slots, two complete simulations, ten check calls, and mechanics `m38b-2781-animation-speed-v1`. Attempt 1 remains counted as `STARTED_COUNTED_FAILED`; do not reset or retry it. The closed small-learning balance is not transferred.
++
++Recovery context: attempt 1 failed after `turn.started` at workspace-routing discovery. Read `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/routing_recovery_diagnosis_v3.json` for the bounded diagnosis; do not repeat general fault investigation. Current no-model checks show the protected endpoint reachable and Codex's official WebSocket reachability check passed. This session is the real path test. If routing, auth, quota, approval, or host service fails again, stop immediately; no attempt 3 is authorized.
+ 
+ Read the compact review first: `input_bundle/coupled_contact_summary_v1.json`. Its cited read-only report and machine JSON are available read-only for source checks. Do not recursively embed old prompts or reports. The old frames are evidence from old actions and timings, not universal deadlines.
+ 

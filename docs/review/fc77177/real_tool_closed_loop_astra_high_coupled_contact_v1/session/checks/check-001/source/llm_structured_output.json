@@ -1,0 +1,749 @@
+{
+  "explicit_assumptions": [
+    "Continuous cast/birth/impact locks must be inspected, including DAMAGE and ENEMY_ABILITY_HIT. Spot at runtime(4,5) takes baseline1000-442=558/shell; HP1833 permits three isolated full shells, not four. Skill healing baseline320*1.45=464/1.3s, shared with Midnight/Melantha, active2132-2882 then downtime until4083. Their diagonal distance sqrt2>1.2 from a Spot-centered shell does not guarantee Spot selection or exclude other shell centers. Steward on(7,2) clears3 and retreats3450; off-board until5551, then(3,2)UP. Hibiscus competes for lower injured targets. MODEL_GAP: client tie-breaks/timing; assumption: upper lanes survive to2132, boss movement reduces Spot locks during downtime, chosen caster departure precedes lethal damage. No dodge, cooldown reset, instant strike or guaranteed miss.",
+    "New window4380-5700: Fang at runtime(5,3) block2 lies on #21 route21 y3; Midnight(5,4) block2 lies on #22 route19 y4. Midnight DOWN range includes row3 and own row4; blocked targets must actually be acquired. Listed arithmetic: Fang max(16.25,325-500)=16.25/hit; Midnight normal max(24.85,497-500)=24.85; skill arts497*1.35*0.5=335.475 before runtime modifiers. Contact is not adequate DPS. Steward5551(3,2)UP covers both central lanes, baseline470*1.06*0.5=249.1 arts/hit; first #21/#22 may be gone unless blockers hold. Battle assumptions: capacity not saturated, operators live, enemy blockability/strike targeting works in model. Query both targets separately.",
+    "Union exactly7. Initial spend96 at2071:10 Fang+3 Friston+16 Midnight+15 Melantha+17 Hibiscus+17 Spot+18 Steward; income10+69natural+18 Fang=97 only if Fang skills occur. No death refund assumed; redeploy windows exceed2100frames, later costs use accumulated natural DP. Melantha clears trap_020_roadblock#4 then late #1 at[1,3]LEFT and #2 at[6,3]LEFT; Steward clears trap_020_roadblock#3 at[2,7]LEFT. Both enemy_3001_upeopl#3/#14 must survive and reach; release alone insufficient. Friston+Midnight lower edge officers/runners, Melantha upper edge, Fang/Midnight central officers/runners and armored #21/#22/#33/#34, Spot upper sustain, Hibiscus lower sustain. Steward has lower artillery output then western artillery/central cleanup; artillery alive during gap remains a survival assumption. Late Melantha withdrawal requires all upper enemies settled; if not, duty breaks. All remaining enemies must settle without leaks."
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "rationale": "Central row3 opening block2 and time-SP economy.",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "rationale": "Cheap row1 block3; Midnight downward output shares this duty.",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "rationale": "Row4 block2 and output down row3 to row1.",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "rationale": "Upper edge block1 and trap_020_roadblock#4 clearance.",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1321,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Opening heals to Fang and Friston; later Steward within same range.",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1681,
+          "operator_id": "char_284_spot",
+          "rationale": "Ground tank at runtime(4,5), nine-cell skill healing reaches Midnight(5,4) and Melantha(5,6); each diagonal is outside radius1.2 shell centered on Spot.",
+          "tile": [
+            5,
+            4
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn",
+          "rationale": "First arts cycle: initial30/70, ready1771; supports opening lower lanes."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2042,
+          "operator_id": "char_208_melan",
+          "rationale": "First ATK cycle for upper officers and remaining roadblock4."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "rationale": "Clear roadblock3 at runtime(6,1), cover lower artillery pass and row3 damage.",
+          "tile": [
+            2,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2132,
+          "operator_id": "char_284_spot",
+          "rationale": "Initial25/40 ready2131; heal self and upper blockers, no attacks while healing."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2880,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Boost healing through first lower artillery pressure."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 3450,
+          "operator_id": "char_210_stward",
+          "rationale": "Bounded output tour ends; preserve caster ID before further shell cycles. This frame is a testable chosen departure, not guaranteed post-lock immunity."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3843,
+          "operator_id": "char_208_melan",
+          "rationale": "Next upper attack cycle, after20s active +40s charge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4083,
+          "operator_id": "char_284_spot",
+          "rationale": "Next heal cycle after25s active +40s recharge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4381,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Second lower support cycle after20s active +30s charge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5073,
+          "operator_id": "char_283_midn",
+          "rationale": "Second arts cycle after40s active +70s charge; central contact may precede skill."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 5551,
+          "operator_id": "char_210_stward",
+          "rationale": "70s redeploy complete; runtime(3,2) faces both central lanes and final westward artillery pass.",
+          "tile": [
+            2,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5644,
+          "operator_id": "char_208_melan",
+          "rationale": "Close later upper officers."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5882,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Third lower heal cycle."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6034,
+          "operator_id": "char_284_spot",
+          "rationale": "Heal during late central #33/#34 and runners."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 7000,
+          "operator_id": "char_208_melan",
+          "rationale": "Upper last-spawn lane assumed settled; starts west-roadblock cleanup handoff."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7383,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7985,
+          "operator_id": "char_284_spot",
+          "rationale": "Late central sustain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8374,
+          "operator_id": "char_283_midn",
+          "rationale": "Third arts cycle for surviving central armored enemies."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8884,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 9101,
+          "operator_id": "char_208_melan",
+          "rationale": "Redeploy to destroy trap_020_roadblock#1 and release first protected target if still alive.",
+          "tile": [
+            1,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9936,
+          "operator_id": "char_284_spot",
+          "rationale": "Late sustain if enemies remain."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 10000,
+          "operator_id": "char_208_melan",
+          "rationale": "After chosen 899-frame clearance window, transfer to last roadblock; destruction is observation-required."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 10385,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain if enemies remain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 11675,
+          "operator_id": "char_283_midn",
+          "rationale": "Late arts cleanup."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 11886,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain if enemies remain."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 12101,
+          "operator_id": "char_208_melan",
+          "rationale": "Destroy trap_020_roadblock#2, release second protected target; remains through settlement.",
+          "tile": [
+            6,
+            3
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 13302,
+          "operator_id": "char_208_melan",
+          "rationale": "Late cleanup attack skill if target remains."
+        }
+      ],
+      "battle_phases": [
+        {
+          "completion_condition": "Legal caster2071 and lower blockers alive",
+          "failure_effect_on_later_phases": "Earlier break truncates central test.",
+          "goal": "Preserve early four-lane blocks and economy",
+          "handoff_requirements": [
+            "Spot heals before upper lethal hit",
+            "Fang funds caster"
+          ],
+          "phase_id": "OPEN",
+          "responsibilities": [
+            "Fang economy and row3",
+            "Friston row1 plus Midnight support",
+            "Melantha row6/device4",
+            "Hibiscus heals lower"
+          ],
+          "start_condition": "Frame0 opening",
+          "survival_dependencies": [
+            "Fang+Friston survive until Hibiscus",
+            "Midnight/Melantha survive delayed Spot support"
+          ]
+        },
+        {
+          "completion_condition": "Device3 destroyed, caster withdrawn3450 alive",
+          "failure_effect_on_later_phases": "Dead or missing blocker invalidates central capacity hypothesis.",
+          "goal": "Tank upper shells and clear eastern lower roadblock",
+          "handoff_requirements": [
+            "Lower protected target released alive",
+            "Central blockers still alive"
+          ],
+          "phase_id": "SHELL_AND_CLEAR",
+          "responsibilities": [
+            "Spot self/upper healing",
+            "Steward device3 and artillery",
+            "Hibiscus lower healing"
+          ],
+          "start_condition": "Spot1681 and caster2071",
+          "survival_dependencies": [
+            "No lethal pre-SP upper damage",
+            "Shared heals sufficient"
+          ]
+        },
+        {
+          "completion_condition": "All central enemies killed without leaks",
+          "failure_effect_on_later_phases": "A contact event alone does not meet full lane duty.",
+          "goal": "Establish and sustain contact with #21/#22 and later #34",
+          "handoff_requirements": [
+            "Late runners and #33/#34 also closed",
+            "Upper lane finished before7000"
+          ],
+          "phase_id": "CENTRAL",
+          "responsibilities": [
+            "Fang row3 block2",
+            "Midnight row4 block2 and arts cycles",
+            "Steward western output5551",
+            "Spot upper healing"
+          ],
+          "start_condition": "First armored spawn4380",
+          "survival_dependencies": [
+            "No capacity overflow",
+            "Survive continuous artillery and ranged damage"
+          ]
+        },
+        {
+          "completion_condition": "SimulatorWIN, both protected arrived, zero active enemies",
+          "failure_effect_on_later_phases": "Any leak or protected death refutes complete WIN.",
+          "goal": "Clear west roadblocks and settle artillery/protected targets",
+          "handoff_requirements": [
+            "Observe both arrivals and every death/settlement"
+          ],
+          "phase_id": "CLEANUP",
+          "responsibilities": [
+            "Melantha devices1/2",
+            "Steward final artillery output",
+            "Remaining blockers and medics sustain"
+          ],
+          "start_condition": "Melantha withdrawal7000",
+          "survival_dependencies": [
+            "Protected targets alive throughout waiting",
+            "No upper enemies after handoff"
+          ]
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "duty": "Lower edge and central closure; protected route2 clearance from Steward/Melantha.",
+          "operators": [
+            "char_4093_frston",
+            "char_123_fang",
+            "char_283_midn",
+            "char_120_hibisc"
+          ],
+          "rows": [
+            1,
+            3
+          ]
+        },
+        {
+          "duty": "Upper central and edge closure; protected route15 devices4/2.",
+          "operators": [
+            "char_283_midn",
+            "char_208_melan",
+            "char_284_spot"
+          ],
+          "rows": [
+            4,
+            6
+          ]
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "rationale": "Central row3 opening block2 and time-SP economy.",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "rationale": "Cheap row1 block3; Midnight downward output shares this duty.",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "rationale": "Row4 block2 and output down row3 to row1.",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "rationale": "Upper edge block1 and trap_020_roadblock#4 clearance.",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1321,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Opening heals to Fang and Friston; later Steward within same range.",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 1681,
+          "operator_id": "char_284_spot",
+          "rationale": "Ground tank at runtime(4,5), nine-cell skill healing reaches Midnight(5,4) and Melantha(5,6); each diagonal is outside radius1.2 shell centered on Spot.",
+          "tile": [
+            5,
+            4
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "rationale": "Clear roadblock3 at runtime(6,1), cover lower artillery pass and row3 damage.",
+          "tile": [
+            2,
+            7
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 5551,
+          "operator_id": "char_210_stward",
+          "rationale": "70s redeploy complete; runtime(3,2) faces both central lanes and final westward artillery pass.",
+          "tile": [
+            2,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 9101,
+          "operator_id": "char_208_melan",
+          "rationale": "Redeploy to destroy trap_020_roadblock#1 and release first protected target if still alive.",
+          "tile": [
+            1,
+            3
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 12101,
+          "operator_id": "char_208_melan",
+          "rationale": "Destroy trap_020_roadblock#2, release second protected target; remains through settlement.",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "count": 7,
+        "opening": "Four lanes at x5; Hibiscus lower, Spot west of upper blockers; Steward east lower then west central."
+      },
+      "formation_transitions": [
+        {
+          "change": "Spot begins upper tank/heal responsibility; first heal mode2132.",
+          "frame": 1681
+        },
+        {
+          "change": "Steward leaves; Fang/Midnight maintain central contact until caster returns5551.",
+          "frame": 3450
+        },
+        {
+          "change": "Melantha transfers upper lane duty only after assumed last upper enemy closure, then clears western devices.",
+          "frame": 7000
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "rule": "No new IDs, no automatic repair, no unsupported dodge/double heal/strike lock."
+        },
+        {
+          "rule": "Both protected targets alive and safely arrived, every enemy settled, zero leaks are mandatory."
+        },
+        {
+          "rule": "Spot stops normal attacks while healing; ordinary target selection occurs at strike."
+        }
+      ],
+      "operational_plan_id": "R87_ASTRA_HIGH_COUPLED_CONTACT_001",
+      "parent_hypothesis_id": "COUPLED_SPOT_HANDOFF_001",
+      "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+      "pressure_window_responsibilities": [
+        {
+          "duty": "Spot survives pre-SP shells then shares heals while retaining block3.",
+          "window": [
+            1681,
+            2882
+          ]
+        },
+        {
+          "duty": "Fang/Midnight contact #21/#22, caster returns only after legal cooldown.",
+          "window": [
+            4380,
+            5700
+          ]
+        },
+        {
+          "duty": "Runners and #33/#34 settled by existing central blockers, Spot heals and western Steward.",
+          "window": [
+            5580,
+            7300
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_120_hibisc",
+        "char_284_spot",
+        "char_210_stward"
+      ],
+      "skill_intents": [
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn",
+          "rationale": "First arts cycle: initial30/70, ready1771; supports opening lower lanes."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2042,
+          "operator_id": "char_208_melan",
+          "rationale": "First ATK cycle for upper officers and remaining roadblock4."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2132,
+          "operator_id": "char_284_spot",
+          "rationale": "Initial25/40 ready2131; heal self and upper blockers, no attacks while healing."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2880,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Boost healing through first lower artillery pressure."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3843,
+          "operator_id": "char_208_melan",
+          "rationale": "Next upper attack cycle, after20s active +40s charge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4083,
+          "operator_id": "char_284_spot",
+          "rationale": "Next heal cycle after25s active +40s recharge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4381,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Second lower support cycle after20s active +30s charge."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5073,
+          "operator_id": "char_283_midn",
+          "rationale": "Second arts cycle after40s active +70s charge; central contact may precede skill."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5644,
+          "operator_id": "char_208_melan",
+          "rationale": "Close later upper officers."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5882,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Third lower heal cycle."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6034,
+          "operator_id": "char_284_spot",
+          "rationale": "Heal during late central #33/#34 and runners."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7383,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7985,
+          "operator_id": "char_284_spot",
+          "rationale": "Late central sustain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8374,
+          "operator_id": "char_283_midn",
+          "rationale": "Third arts cycle for surviving central armored enemies."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8884,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9936,
+          "operator_id": "char_284_spot",
+          "rationale": "Late sustain if enemies remain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 10385,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain if enemies remain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 11675,
+          "operator_id": "char_283_midn",
+          "rationale": "Late arts cleanup."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 11886,
+          "operator_id": "char_120_hibisc",
+          "rationale": "Lower sustain if enemies remain."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 13302,
+          "operator_id": "char_208_melan",
+          "rationale": "Late cleanup attack skill if target remains."
+        }
+      ],
+      "structure_comparison": [
+        {
+          "description": "Steward on upper platform earlier, single upper medic retained; earlier artillery damage but western/eastern shell exposure competes with opening healing and roadblock3 remains a separate duty.",
+          "selected": false,
+          "structure_id": "EARLY_CASTER_PRESSURE"
+        },
+        {
+          "description": "Four opening blockers and Hibiscus retained; Spot replaces upper medic, absorbs reduced physical shells while healing both upper blockers, Steward clears3 and later relocates centrally. Exposes one explicit upper survival/SP and shell-downtime hypothesis.",
+          "selected": true,
+          "structure_id": "SPOT_TANK_HANDOFF"
+        },
+        {
+          "description": "Replace robot with Beagle/Cardigan and reduce medic count; durable direct central blocking and self/DEF skills, but +15 opening cost delays support or a fourth lane, requiring a different unverified opening economy.",
+          "selected": false,
+          "structure_id": "DEFENDER_CENTRAL_REBUILD"
+        }
+      ],
+      "tactical_thesis": "Keep the lower verified opening duties, replace fragile upper medic with diagonal Spot healing/tanking, assign missing roadblock3 to left-facing Steward and preserve him by a fixed retreat/redeployment; test live two-lane central contact before claiming global progress.",
+      "validation_card": {
+        "artillery_condition": "Continuous cast/birth/impact locks must be inspected, including DAMAGE and ENEMY_ABILITY_HIT. Spot at runtime(4,5) takes baseline1000-442=558/shell; HP1833 permits three isolated full shells, not four. Skill healing baseline320*1.45=464/1.3s, shared with Midnight/Melantha, active2132-2882 then downtime until4083. Their diagonal distance sqrt2>1.2 from a Spot-centered shell does not guarantee Spot selection or exclude other shell centers. Steward on(7,2) clears3 and retreats3450; off-board until5551, then(3,2)UP. Hibiscus competes for lower injured targets. MODEL_GAP: client tie-breaks/timing; assumption: upper lanes survive to2132, boss movement reduces Spot locks during downtime, chosen caster departure precedes lethal damage. No dodge, cooldown reset, instant strike or guaranteed miss.",
+        "central_contact": "New window4380-5700: Fang at runtime(5,3) block2 lies on #21 route21 y3; Midnight(5,4) block2 lies on #22 route19 y4. Midnight DOWN range includes row3 and own row4; blocked targets must actually be acquired. Listed arithmetic: Fang max(16.25,325-500)=16.25/hit; Midnight normal max(24.85,497-500)=24.85; skill arts497*1.35*0.5=335.475 before runtime modifiers. Contact is not adequate DPS. Steward5551(3,2)UP covers both central lanes, baseline470*1.06*0.5=249.1 arts/hit; first #21/#22 may be gone unless blockers hold. Battle assumptions: capacity not saturated, operators live, enemy blockability/strike targeting works in model. Query both targets separately.",
+        "cost_and_global": "Union exactly7. Initial spend96 at2071:10 Fang+3 Friston+16 Midnight+15 Melantha+17 Hibiscus+17 Spot+18 Steward; income10+69natural+18 Fang=97 only if Fang skills occur. No death refund assumed; redeploy windows exceed2100frames, later costs use accumulated natural DP. Melantha clears trap_020_roadblock#4 then late #1 at[1,3]LEFT and #2 at[6,3]LEFT; Steward clears trap_020_roadblock#3 at[2,7]LEFT. Both enemy_3001_upeopl#3/#14 must survive and reach; release alone insufficient. Friston+Midnight lower edge officers/runners, Melantha upper edge, Fang/Midnight central officers/runners and armored #21/#22/#33/#34, Spot upper sustain, Hibiscus lower sustain. Steward has lower artillery output then western artillery/central cleanup; artillery alive during gap remains a survival assumption. Late Melantha withdrawal requires all upper enemies settled; if not, duty breaks. All remaining enemies must settle without leaks.",
+        "prediction_test": "First distinct event: Spot HEAL2132-2282 to self/Midnight/Melantha; absence with no death is failed heal-mode/contact prediction, earlier death truncates downstream. Upstream support requires complete HEAL/DAMAGE/ability/death/DP/DEPLOY chain, not one heal. Roadblock3 DEVICE_DAMAGE then DEVICE_DESTROYED and protected arrival distinguish clearance/passage. For4380-5700 require live BLOCK or operator DAMAGE/ability on each #21/#22, then continued holding/kills separately. Query all shell starts/births/hits around upper transitions and caster departure. Any earlier dependency death, leak, protected death or unmet handoff is refutation of full plan, not proof7 impossible. WIN only simulatorWIN, union<=7, zero leaks, both protected reached/alive, all enemies settled; unobserved or truncated dependencies UNKNOWN.",
+        "upstream_condition": "Fang[3,5] block2/economy, Friston[1,5] block3, Midnight[4,5]DOWN shared lower damage, Melantha[6,5] upper/roadblock4; Hibiscus1321[2,5]RIGHT retains lower heal geometry. Require no Fang/Friston death through2071 and Fang+6 at2070, legal Steward2071. Upper support changes to Spot1681, first heal mode2132; survival until then is a new prerequisite."
+      }
+    }
+  ],
+  "revised_stage_understanding": {
+    "coordinate_boundary": "All plan tiles[row,col]; event locked positions[col,row].",
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "description": "Steward on upper platform earlier, single upper medic retained; earlier artillery damage but western/eastern shell exposure competes with opening healing and roadblock3 remains a separate duty.",
+          "selected": false,
+          "structure_id": "EARLY_CASTER_PRESSURE"
+        },
+        {
+          "description": "Four opening blockers and Hibiscus retained; Spot replaces upper medic, absorbs reduced physical shells while healing both upper blockers, Steward clears3 and later relocates centrally. Exposes one explicit upper survival/SP and shell-downtime hypothesis.",
+          "selected": true,
+          "structure_id": "SPOT_TANK_HANDOFF"
+        },
+        {
+          "description": "Replace robot with Beagle/Cardigan and reduce medic count; durable direct central blocking and self/DEF skills, but +15 opening cost delays support or a fourth lane, requiring a different unverified opening economy.",
+          "selected": false,
+          "structure_id": "DEFENDER_CENTRAL_REBUILD"
+        }
+      ],
+      "selected_structure_id": "SPOT_TANK_HANDOFF"
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "description": "Keep the lower verified opening duties, replace fragile upper medic with diagonal Spot healing/tanking, assign missing roadblock3 to left-facing Steward and preserve him by a fixed retreat/redeployment; test live two-lane central contact before claiming global progress.",
+      "hypothesis_id": "COUPLED_SPOT_HANDOFF_001"
+    }
+  ],
+  "revised_tactical_requirements": {
+    "K": 7,
+    "global": "All enemies settled, both protected arrived alive, zero leaks.",
+    "mechanics_version": "m38b-2781-animation-speed-v1"
+  },
+  "revision_hypothesis": {
+    "changed_responsibilities": [
+      "Spot takes upper healing and shell tanking instead of Ansel; earliest skill gap is explicitly tested.",
+      "Steward faces LEFT to clear roadblock3 and withdraws/redeploys for western central output."
+    ],
+    "expected_first_observable_event": {
+      "earliest_frame": 2132,
+      "event_type": "HEAL",
+      "latest_frame": 2282,
+      "source_id": "char_284_spot",
+      "target_id": null
+    },
+    "hypothesis_id": "COUPLED_SPOT_HANDOFF_001",
+    "if_expected_event_absent": "Inspect deployment, skill, ordinary/ability damage and deaths; an early upper death is the upstream break, not refutation of a never-reached central window.",
+    "operational_plan_id": "R87_ASTRA_HIGH_COUPLED_CONTACT_001",
+    "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+    "referenced_experience_ids": [
+      "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1"
+    ],
+    "tactical_hypothesis": "Keep the lower verified opening duties, replace fragile upper medic with diagonal Spot healing/tanking, assign missing roadblock3 to left-facing Steward and preserve him by a fixed retreat/redeployment; test live two-lane central contact before claiming global progress."
+  }
+}

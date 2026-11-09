@@ -1,0 +1,155 @@
+{
+  "schema_version": "KIMIARK_COUPLED_CONTACT_ATTEMPT2_CONTINUATION_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_coupled_contact_v1",
+  "attempt": 2,
+  "authorization": {
+    "source": "USER_PROMPT_2026-11-09",
+    "authorized_real_cli_starts": 2,
+    "used_real_cli_starts": 2,
+    "attempt_1_status": "STARTED_COUNTED_FAILED",
+    "attempt_3_authorized": false
+  },
+  "execution": {
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "started_at_utc": "2026-11-09T07:00:10.247626Z",
+    "turn_completed": true,
+    "cli_process_exit_status": "UNKNOWN_HOST_INTERRUPTED",
+    "cli_process_result": "MISSING",
+    "cli_process_result_boundary": "The host recovery interrupted the outer runner before it waited for and wrote cli_process_result.json. The child Codex process later ended naturally; missing outer exit code is not interpreted as either success or failure.",
+    "codex_final_message": "session/codex_cli/attempt_02/codex_final_message.txt",
+    "codex_exec_jsonl": "session/codex_cli/attempt_02/codex_exec.jsonl",
+    "mcp_tool_calls": {
+      "total": 73,
+      "errors": 0,
+      "by_tool": {
+        "get_session_status": 2,
+        "check_plan": 2,
+        "run_simulation": 2,
+        "query_events": 67
+      }
+    },
+    "usage": {
+      "input_tokens": 1510645,
+      "cached_input_tokens": 1413376,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 19135,
+      "reasoning_output_tokens": 8449,
+      "cached_input_is_subset_of_input": true,
+      "internal_requests": "UNKNOWN_CLI_INTERNAL"
+    }
+  },
+  "roster": {
+    "configured_max_unique_operator_ids": 7,
+    "unique_operator_ids": 7,
+    "operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_120_hibisc",
+      "char_284_spot",
+      "char_210_stward"
+    ],
+    "operator_names": [
+      "芬",
+      "Friston-3",
+      "月见夜",
+      "玫兰莎",
+      "芙蓉",
+      "斑点",
+      "史都华德"
+    ]
+  },
+  "structure_comparison": {
+    "minimum_required": 3,
+    "structures": [
+      {
+        "structure_id": "EARLY_CASTER_PRESSURE",
+        "selected": false
+      },
+      {
+        "structure_id": "SPOT_TANK_HANDOFF",
+        "selected": true
+      },
+      {
+        "structure_id": "DEFENDER_CENTRAL_REBUILD",
+        "selected": false
+      }
+    ],
+    "source": "session/candidates/candidate-001/source/llm_structured_output.json"
+  },
+  "candidates": [
+    {
+      "candidate_id": "candidate-001",
+      "plan_id": "R87_ASTRA_HIGH_COUPLED_CONTACT_001",
+      "candidate_sha256": "c14a6f0402079aa56eb41ccf334e0780ab88c32617bf4fbc1d0edceeaf2dd0c6",
+      "check_id": "check-001",
+      "check_status": "PASS",
+      "simulation_status": "COMPLETED",
+      "simulator_win": false,
+      "enemies_killed": 17,
+      "enemies_leaked": 16,
+      "operator_deaths": 5,
+      "remaining_life": -14,
+      "first_objective_failure_reason": "ENEMY_LEAK",
+      "first_objective_failure_time": 159.7,
+      "key_events": {
+        "opening_support": "Supported through Fang +6 DP at frame 2070 and legal Steward deploy at 2071.",
+        "midnight_death_frame": 3640,
+        "fang_friston_hibiscus_death_frame": 4450,
+        "steward_death_frame": 6450,
+        "first_leak": "enemy_1107_uoffcr#20 at frame 4625",
+        "central_contact": "No BLOCK, DAMAGE, or ENEMY_ABILITY_HIT on enemy_1110_uamord#21 or enemy_1110_uamord#22.",
+        "enemy_34_contact": "No BLOCK, DAMAGE, or ENEMY_ABILITY_HIT.",
+        "roadblock_3_destroyed": false,
+        "roadblocks_destroyed": [
+          "trap_020_roadblock#4 at 1966",
+          "trap_020_roadblock#1 at 9686",
+          "trap_020_roadblock#2 at 12686"
+        ],
+        "protected_target_3": "Died at 3310.",
+        "protected_target_14": "Arrived safely at 13018."
+      }
+    },
+    {
+      "candidate_id": "candidate-002",
+      "plan_id": "R87_ASTRA_HIGH_COUPLED_CONTACT_002",
+      "candidate_sha256": "74561564cc87370374fbb96b7a636c5b10aedac16c2274ef214fd78b9ce04315",
+      "check_id": "check-002",
+      "check_status": "PASS",
+      "simulation_status": "COMPLETED",
+      "simulator_win": false,
+      "enemies_killed": 18,
+      "enemies_leaked": 15,
+      "operator_deaths": 5,
+      "remaining_life": -13,
+      "first_objective_failure_reason": "ENEMY_LEAK",
+      "first_objective_failure_time": 149.1666666667,
+      "key_events": {
+        "roadblock_3_destroyed": "trap_020_roadblock#3 at 2887 by Steward.",
+        "fang_hibiscus_death_frame": 3310,
+        "friston_death_frame": 3609,
+        "midnight_death_frame": 5154,
+        "steward_death_frame": 6450,
+        "first_leak": "enemy_1107_uoffcr#15 at frame 3996",
+        "central_contact": "Midnight damaged enemy_1110_uamord#21 three times and enemy_1110_uamord#22 ten times, including BLOCK on #22 at 4796; both still leaked.",
+        "enemy_34_contact": "No BLOCK, DAMAGE, or ENEMY_ABILITY_HIT.",
+        "all_four_roadblocks_destroyed": true,
+        "protected_target_3": "Died at 5110 after artillery damage.",
+        "protected_target_14": "Arrived safely at 13018."
+      }
+    }
+  ],
+  "decision": {
+    "best_verified_operator_count": 8,
+    "best_plan_id": "R8_7_GPT_M70_V1",
+    "seven_or_fewer_feasibility": "UNKNOWN",
+    "this_round_win": false,
+    "stopped_reason": "Both candidate slots and both simulations were consumed. No automatic attempt 3 or additional simulation is authorized."
+  },
+  "evidence_boundary": "All outcomes are limited to the current fixed simulator and mechanics m38b-2781-animation-speed-v1. They are not real-game, faithful, robust, probabilistic, or global-minimum claims."
+}

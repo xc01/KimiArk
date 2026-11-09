@@ -1,4 +1,4 @@
-# Current continuation: M70 eight-ID WIN; coupled-contact service blocked
+# Current continuation: M70 eight-ID WIN; coupled-contact two-round closed
 
 `R8_7_GPT_M70_V1` is the current best verified current-model fixed-simulator
 result: 8 IDs, 33 kills, 0 leaks, 0 operator deaths, both protected targets
@@ -18,20 +18,20 @@ old roles or frames as mandatory deadlines.
 
 M70 evidence: `docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/m70_closeout_v1.json`
 and `docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/diagnostic_events.json.gz`.
-The latest failure and budget are
-`docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/failure_report_v1.json`
+The latest failure and continuation budget are
+`docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/failure_report_v1.json`,
+`docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/attempt2_continuation_report_v1.json`,
 and
 `docs/review/fc77177/real_tool_closed_loop_astra_high_coupled_contact_v1/simulation_budget_v1.json`.
 The read-only source of the coupled-contact question is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_small_learning_v1/read_only_review_v1/read_only_review_v1.json`.
 
-No tactical experiment is queued. Execution service recovery is the next
-non-tactical step. The latest coupled-contact start passed zero-model
-preflight, then consumed its only CLI start with `workspace routing discovery
-failed`: CLI 1/1, check 0/10, candidate 0/2, simulation 0/2. It produced no
-tactical output and is not a LOSS. No routing-recovery evidence or new start
-authorization is currently archived. If a later authorization explicitly
-starts another CLI, continue from that ledger without resetting counts or
-transferring historical balances. Any future small experiment may use at most
-two simulations, validates the card first, and decides continuation from
-events; this does not create budget or authorize five automatic revisions.
+No tactical experiment is queued. The user-authorized attempt 2 passed the real
+model session and reached MCP tool execution, but both seven-ID candidates lost.
+The coupled-contact ledger is closed at CLI 2/2, check 2/10, candidate 2/2, and
+simulation 2/2. The outer runner's child exit code is UNKNOWN because host
+recovery interrupted the runner before it recorded the result; `turn.completed`
+and the final message are archived. Candidate 2 confirmed roadblock-3 clearance
+and live central contact, but still leaked 15 enemies and #34 had no contact.
+M70 remains best at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
+Attempt 3 and further simulations are not authorized.
