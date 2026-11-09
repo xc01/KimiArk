@@ -1,0 +1,184 @@
+{
+  "schema_version": "KIMIARK_COUPLED_CONTACT_ROUTING_RECOVERY_DIAGNOSIS_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_coupled_contact_v1",
+  "diagnosis_id": "routing-recovery-zero-model-v1",
+  "checked_at_utc": "2026-11-09T03:51:38Z",
+  "diagnosis_status": "EXTERNAL_OR_PROXY_SERVICE_CONDITION_SUSPECTED_NOT_PROVEN",
+  "best_evidence_layer": {
+    "failed_request_category": "CHATGPT_ACCOUNT_WORKSPACE_ROUTING_DISCOVERY",
+    "source_endpoint_for_version_0_166_0": "GET https://chatgpt.com/backend-api/wham/accounts/check",
+    "generic_visible_error": "workspace routing discovery failed",
+    "http_status": null,
+    "request_id": null,
+    "transport_error_details": null,
+    "evidence_boundary": "Codex 0.166.0 maps non-401 get_accounts_check transport/status/decode failures to the generic DiscoveryFailed error without exposing the underlying request details in codex_exec.jsonl."
+  },
+  "timeline": [
+    {
+      "at_utc": "2026-11-05T10:35:14Z",
+      "phase": "zero_model_preflight",
+      "result": "PASS; local login status was LOGGED_IN_USING_CHATGPT"
+    },
+    {
+      "at_utc": "2026-11-05T10:35:44.603075184Z",
+      "phase": "real_cli_start",
+      "result": "STARTED_COUNTED; thread.started observed"
+    },
+    {
+      "at_utc": "2026-11-05T10:35:45Z",
+      "phase": "external_proxy_health_observer",
+      "result": "mihomo auto_switch logged Google health-check failure and no passing candidate; timezone Asia/Shanghai means local 18:35:45"
+    },
+    {
+      "at_utc": "2026-11-05T10:35:49.375283Z",
+      "phase": "model_catalog_refresh",
+      "result": "Connection failed: error sending request"
+    },
+    {
+      "at_utc": "2026-11-05T10:35:49.667406Z",
+      "phase": "model_catalog_refresh",
+      "result": "Connection failed: error sending request"
+    },
+    {
+      "at_utc": "2026-11-05T10:35:53.809010Z",
+      "phase": "model_catalog_refresh",
+      "result": "Connection failed: error sending request"
+    },
+    {
+      "at_utc": "2026-11-05T10:36:12.630299984Z",
+      "phase": "cli_exit",
+      "result": "exit_code=1; turn_completed=false; no final message, check, candidate, or simulation"
+    }
+  ],
+  "failure_chain": {
+    "confirmed": [
+      "The real process used codex 0.166.0 with provider=openai, model=gpt-6-astra, effort=high, features.apps=false, and the required KimiArk MCP server.",
+      "codex_exec.jsonl reached turn.started only. WebSocket retries reported 2/5 through 5/5, then HTTPS fallback was announced, followed by another 1/5 through 5/5 round.",
+      "Both visible retry families ended in the same generic workspace routing discovery error; stderr separately showed three catalog-refresh connection failures.",
+      "The runner did not retry, resume, or start a second CLI."
+    ],
+    "source_inferred": [
+      "For codex rust-v0.166.0 commit 6ff1e1ca3b30fc8b914720681fcf5fe62e95f856, workspace routing discovery calls BackendClient::get_accounts_check; built-in ChatGPT configuration resolves to https://chatgpt.com/backend-api/wham/accounts/check.",
+      "The 15-second routing-discovery timeout would emit workspace routing discovery timed out, not the generic discovery failure. A 401 would emit DiscoveryUnauthorized. Thus the visible generic error excludes those two categories.",
+      "get_accounts_check's first five-second request failure is deliberately discarded before a system-proxy fallback request; if the fallback fails, the specific status/transport details are not propagated to the JSONL error."
+    ],
+    "unknown": [
+      "Whether the failed request reached TCP/TLS or received an HTTP response.",
+      "Whether the generic failure was transport connection failure, an unexpected non-401 status, or invalid JSON.",
+      "Whether the contemporaneous proxy health failure caused the routing failure.",
+      "The count and content of invisible internal model requests remains UNKNOWN_CLI_INTERNAL."
+    ]
+  },
+  "observed_vs_inferred": {
+    "OBSERVED": [
+      "Local login remained ChatGPT-authenticated during the no-model recheck on 2026-11-09.",
+      "At the current recheck, pgrep found no mihomo process, port 7890 did not accept a connection, and port 9090 API did not respond.",
+      "mihomo auto_switch.log recorded a Google health-check failure and no passing candidate at local 18:35:45, one second after CLI start.",
+      "git ls-remote origin master failed in this diagnosis session with SSH kex_exchange_identification connection closed; remote master was not refreshed."
+    ],
+    "STATIC_INFERRED": [
+      "The failed routing request is the account-routing discovery GET, not an MCP tool call or a tactical simulation.",
+      "The configured built-in openai provider is a first-party auth path that requires this routing lookup.",
+      "The first routing request has a five-second bound, is followed by one system-proxy fallback attempt, and its details are intentionally collapsed into the visible generic error."
+    ],
+    "MODEL_ONLY": [],
+    "UNKNOWN": [
+      "Actual failed-request endpoint reachability at the historical failure moment.",
+      "Actual account-routing backend response/status at the historical failure moment.",
+      "Whether current external routing has recovered, because the current no-model check could not reach the ChatGPT backend through the configured proxy."
+    ]
+  },
+  "historical_comparison": {
+    "successful_sessions": [
+      {
+        "experiment_id": "real_tool_closed_loop_astra_high_joint_feedback_v1",
+        "started_at_utc": "2026-11-05T07:30:08.058293456Z",
+        "ended_at_utc": "2026-11-05T07:58:26.583093938Z",
+        "result": "COMPLETED; turn_completed=true"
+      },
+      {
+        "experiment_id": "real_tool_closed_loop_astra_high_small_learning_v1",
+        "started_at_utc": "2026-11-05T08:42:33.728949152Z",
+        "ended_at_utc": "2026-11-05T09:08:43.218522870Z",
+        "result": "COMPLETED; turn_completed=true"
+      }
+    ],
+    "difference_check": "No relevant difference was found in archived command shape, CLI version, provider override, model, effort, features.apps, or ChatGPT login status. Session paths, prompt hashes, and MCP session config differed.",
+    "comparison_boundary": "This comparison supports excluding the tested launcher fields as a sole cause; it does not reconstruct the historical proxy state or prove a server-side condition."
+  },
+  "no_model_recheck": {
+    "codex_cli_version": "0.166.0",
+    "codex_login_status": "Logged in using ChatGPT",
+    "effective_provider": "openai",
+    "effective_model": "gpt-6-astra",
+    "effective_reasoning_effort": "high",
+    "features_apps": false,
+    "proxy_process": "NOT_RUNNING_BY_NAME_CHECK",
+    "proxy_data_port_7890": "CONNECTION_REFUSED",
+    "proxy_control_port_9090": "CONNECTION_REFUSED",
+    "chatgpt_routing_endpoint_through_proxy": "NOT_CHECKED_SUCCESSFULLY; proxy unavailable",
+    "preflight_coverage": "Local login/config and no-model MCP service status were covered before the failed start. Actual workspace-routing request, WebSocket/HTTPS negotiation, and account-routing backend response were not covered by that preflight."
+  },
+  "repair_decision": {
+    "local_defect_found": false,
+    "repair_applied": false,
+    "rationale": "No archived command/config/source evidence identified a local launcher defect. Restarting or editing the proxy would change service state without evidence that it is safe or required."
+  },
+  "recovery_conditions": [
+    "Restore the externally managed proxy so HTTP(S) port 7890 and control port 9090 respond; do not rotate account, region, model, or credentials for this experiment.",
+    "Through the restored proxy, verify the actual routing category without treating chatgpt.com front-page success, model catalog success, or the old preflight as proof. The definitive acceptance is still a newly authorized real CLI turn reaching turn.completed.",
+    "After external routing appears healthy, a future restart requires a new explicit user authorization. It must continue this experiment's ledger: CLI 1/1 used, check 0/10, candidate 0/2, simulation 0/2; the unused simulations do not authorize a new CLI.",
+    "A restart that again reaches only routing failure is not a tactical LOSS and does not count the remaining simulations."
+  ],
+  "evidence": {
+    "cli_process_result": {
+      "path": "session/codex_cli/attempt_01/cli_process_result.json",
+      "sha256": "7c72aa96a80acf8f1f15f022ac9dba5accdc58951b5f92f614f290588d693b25"
+    },
+    "cli_stdout_jsonl": {
+      "path": "session/codex_cli/attempt_01/codex_exec.jsonl",
+      "sha256": "030350b19c9d97be954c95e1987db9a5760c0785fa526a3e894fec02f6e276e6"
+    },
+    "cli_stderr": {
+      "path": "session/codex_cli/attempt_01/codex_stderr.txt",
+      "sha256": "cb6bcb272825087549a678564a97ac8588f17bdcc5d7e759098c3fff78439fa3"
+    },
+    "runner_state": {
+      "path": "session/codex_cli/attempt_01/runner_state.json",
+      "sha256": "4846f9542d62f2b30af2102723731cd8236d45dec74b488815812babe959924f"
+    },
+    "original_failure_report": {
+      "path": "failure_report_v1.json",
+      "sha256": "ae6d870ba4f9b0f267782b6deb38c5734c26025c8032d47c9c104b490f49f41c"
+    },
+    "artifact_manifest": {
+      "path": "artifact_manifest_v1.json",
+      "sha256": "a509a4e002f52940012ef2ea5906036e4bac30e8ba588bed30bbf831c4342e51"
+    },
+    "source_revision": {
+      "codex_tag": "rust-v0.166.0",
+      "codex_git_commit_sha": "6ff1e1ca3b30fc8b914720681fcf5fe62e95f856",
+      "paths": [
+        "/tmp/codex-src-0.166.0/codex-rs/app-server/src/request_processors/account_processor/workspace_routing.rs",
+        "/tmp/codex-src-0.166.0/codex-rs/backend-client/src/client.rs",
+        "/tmp/codex-src-0.166.0/codex-rs/core/src/responses_retry.rs",
+        "/tmp/codex-src-0.166.0/codex-rs/model-provider/src/provider.rs"
+      ]
+    },
+    "external_logs_boundary": "mihomo auto_switch.log and the local login status are observations only; they were not copied into this repository and contain no credential values."
+  },
+  "budget_after_diagnosis": {
+    "authorized_real_cli_starts": 1,
+    "used_real_cli_starts": 1,
+    "used_check_calls": 0,
+    "max_check_calls": 10,
+    "used_candidates": 0,
+    "max_candidates": 2,
+    "started_stage_simulations": 0,
+    "max_stage_simulations": 2,
+    "new_real_cli_starts": 0,
+    "new_real_simulations": 0,
+    "new_experiment_started": 0
+  },
+  "best_tactical_result_boundary": "M70 eight-ID WIN remains the best verified fixed-simulator result; this routing failure is not evidence about seven-ID feasibility."
+}
