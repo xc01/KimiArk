@@ -679,14 +679,21 @@ exhausted budget do not prove impossibility. Evidence and the closeout are under
 
 The Astra cold-start continuation ultimately used three real CLI starts, all 20
 check calls, five candidate slots, and five fixed simulations. Attempts 1–2
-aborted before a tactical result. Attempt 3's strongest candidate `C3` passed
-the gates and lost 24/9/3/life -7: one protected target reached, one died@3430,
-#22 first leaked@5196, artillery survived, and #21/#22/#28/#31/#33/#34 all
-leaked. The derived comparison was later corrected to distinguish ordinary
-damage, `ENEMY_ABILITY_HIT`, and `DEVICE_DAMAGE`, and to preserve the distinct
-shell-2 lock points (M70 `[5,6]`; C3 `[6,5]`). M70 V1 remains the best verified
-result at eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is
-under `docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/`.
+aborted before a tactical result. Attempt 3's strongest candidate was
+`candidate-003`, whose authoritative plan ID is
+`R87_ASTRA_HIGH_COLD_START_003`; this is distinct from joint-feedback
+`candidate-003` (plan
+`R87_ASTRA_HIGH_JOINT_FEEDBACK_003`, hash
+`fda379a242a04cab73358ab303bae57ab933fe303c6c882fbed39ec6f28fb533`) and its hash is
+`ed818646058ce01ff63f2ddce7336ca14cc4bc1f8cdbfeb0c8af3f888ed4da03`. It passed
+the gates and lost 24/9/4 operator deaths/life -8. Neither protected target
+reached: artillery killed #14@3943 and #3@5353. #22 first leaked@5196 and life
+first reached zero@5251; artillery survived. The derived comparison was later
+corrected to distinguish ordinary damage, `ENEMY_ABILITY_HIT`, and
+`DEVICE_DAMAGE`, and to preserve the distinct shell-2 lock points (M70 `[5,6]`;
+C3 `[6,5]`). M70 V1 remains the best verified result at eight IDs;
+seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_cold_start_v1/`.
 
 The joint-feedback Astra high experiment used one completed CLI start, 4/20
 checks, 4/5 candidates, and 4/5 simulations. The model autonomously revised in
