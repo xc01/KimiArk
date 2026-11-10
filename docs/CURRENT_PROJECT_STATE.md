@@ -818,3 +818,12 @@ still valid. The ledger remains CLI 0/1, check 0/10, candidate 0/2, and
 simulation 0/2; this is an execution/service fault, not a tactical LOSS.
 Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/`.
+
+After proxy recovery, the duty-conflict CLI ran two complete fixed simulations
+using the same seven IDs: C1 lost 13/20/8 deaths/life -19 and C2 lost
+12/21/8 deaths/life -20. The CLI then hit usage limit before the final model
+message; the simulations themselves were complete. This confirms neither
+restructure improved the 24/9 retry-2 evidence and does not prove seven-ID
+impossibility. M70 V1 remains best at eight IDs; seven-or-fewer feasibility
+remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/`.

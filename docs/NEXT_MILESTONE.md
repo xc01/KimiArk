@@ -95,3 +95,12 @@ also failed. ChatGPT authentication remained logged in. It stopped at CLI 0/1,
 check 0/10, candidate 0/2, and simulation 0/2; this is not a tactical LOSS.
 Evidence is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/service_fault_report_v1.json`.
+
+After proxy recovery, the duty-conflict CLI completed both simulations but hit
+usage limit before `turn.completed` and the final message. C1 and C2 used the
+same seven IDs and lost 13/20/life -19 and 12/21/life -20 respectively, with
+eight deaths each. These are much worse than retry-2's 24/9 results; retry-2
+C2 remains the strongest seven-ID parent evidence. The round closed at CLI
+1/1, check 4/10, candidate 2/2, and simulation 2/2. M70 remains best at eight
+IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/closeout_report_v1.json`.

@@ -1,0 +1,740 @@
+{
+  "candidate_id": null,
+  "check_id": "check-002",
+  "plan": {
+    "revised_operational_plans": [
+      {
+        "action_timeline": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1321,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1681,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2050,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              5,
+              7
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2222,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2432,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3723,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3851,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4233,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 4280,
+            "operator_id": "char_210_stward"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5224,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5652,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6034,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 6381,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6725,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7453,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7835,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 8100,
+            "operator_id": "char_210_stward"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8226,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 8501,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 10201,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 10602,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "battle_phases": [
+          {
+            "completion_condition": "Both eastern devices destroyed, artillery dead and shells settled, protected alive.",
+            "failure_effect_on_later_phases": "Earlier death or leak refutes whole plan and may truncate late hypotheses.",
+            "goal": "Fund opening and close east roadblocks/artillery with live medical coverage.",
+            "handoff_requirements": [
+              "Artillery ENEMY_DEATH by4280, Fang/Friston live during caster cooldown."
+            ],
+            "phase_id": "OPEN_EAST",
+            "responsibilities": [
+              "Fang0[3,5]UP automatic DP, Friston91[4,5]RIGHT; Midnight571[1,5]UP supports Fang and intercepts top; Melantha841[6,5]RIGHT intercepts bottom. Hibiscus1321[5,5]RIGHT heals Friston first; Ansel1681[5,6]DOWN supplies Fang coverage.",
+              "Midnight[1,5]UP destroys trap_020_roadblock#3; Melantha[6,5]RIGHT destroys #4 and keeps bottom hostile queue. No caster clearance duty competes with artillery.",
+              "Steward2071[5,7]DOWN under Ansel1681[5,6]DOWN and Hibiscus1321[5,5]RIGHT. Predict actual artillery DAMAGE2161..4280 at nominal48-frame opportunities,45hits/~13227damage and death before4280. Establish target by strike/damage, not preswing lock.",
+              "Hibiscus1321[5,5]RIGHT begins Friston/Melantha healing before shell pressure; skills2222/3723/5224/6725/8226. Ansel1681[5,6]DOWN heals Fang/Friston and mutual medical support; skills2432/4233/6034/7835 extend to Midnight. Both reach caster. No extraheal assumed."
+            ],
+            "start_condition": "Stage starts at10DP.",
+            "survival_dependencies": [
+              "Both medical sources cover required targets, dedicated ground holders live until queues settled."
+            ]
+          },
+          {
+            "completion_condition": "33hostilekills zero leaks bothprotectedreached noactiveenemies complete settlement.",
+            "failure_effect_on_later_phases": "Device destruction cannot recover already dead protected target.",
+            "goal": "Kill all central enemies and safely release both protected routes.",
+            "handoff_requirements": [
+              "Steward cooldown2100frames before6381/10201; Melantha before10602."
+            ],
+            "phase_id": "CENTRAL_WEST",
+            "responsibilities": [
+              "Fang holds row3 #21/#33; Friston row4 #22/#34. Midnight arts5073 supports row3; Steward6381[2,5]UP covers both blocked rows and stays until8100. Both medics sustain central; not one BLOCK as success.",
+              "Steward retreat8100 then10201[2,2]DOWN for#1; Melantha retreat8501 then10602[6,3]LEFT for#2. Require both protected targets alive and PROTECTED_TARGET_REACHED after clearance."
+            ],
+            "start_condition": "East prerequisites complete or failure recorded.",
+            "survival_dependencies": [
+              "Fang/Friston live until kills/handoff, medical sustain, eastern outer queues settled before west transfers."
+            ]
+          }
+        ],
+        "corridor_responsibilities": [
+          {
+            "executors": "Fang0[3,5]UP automatic DP, Friston91[4,5]RIGHT; Midnight571[1,5]UP supports Fang and intercepts top; Melantha841[6,5]RIGHT intercepts bottom. Hibiscus1321[5,5]RIGHT heals Friston first; Ansel1681[5,6]DOWN supplies Fang coverage.",
+            "fallback": "Fang/Midnight combined damage backs upper central; no early ground reserve for Friston. Loss before closure refutes coverage.",
+            "function": "Opening funding/blocking"
+          },
+          {
+            "executors": "Midnight[1,5]UP destroys trap_020_roadblock#3; Melantha[6,5]RIGHT destroys #4 and keeps bottom hostile queue. No caster clearance duty competes with artillery.",
+            "fallback": "Same live outer executor resumes device damage after enemies; no forced targeting. Holder loss before queue settlement is failure. Require protected enemy_3001_upeopl#3 and #14 alive, separately from devices.",
+            "function": "Roadblocks #3/#4 and protected eastern routes"
+          },
+          {
+            "executors": "Steward2071[5,7]DOWN under Ansel1681[5,6]DOWN and Hibiscus1321[5,5]RIGHT. Predict actual artillery DAMAGE2161..4280 at nominal48-frame opportunities,45hits/~13227damage and death before4280. Establish target by strike/damage, not preswing lock.",
+            "fallback": "No credited substitute anti-air during4280..6381. Fixed retreat4280 requires actual artillery death and residual-shell settlement; failure refutes handoff, earlier support death truncates output sufficiency.",
+            "function": "Artillery output and closure"
+          },
+          {
+            "executors": "Hibiscus1321[5,5]RIGHT begins Friston/Melantha healing before shell pressure; skills2222/3723/5224/6725/8226. Ansel1681[5,6]DOWN heals Fang/Friston and mutual medical support; skills2432/4233/6034/7835 extend to Midnight. Both reach caster. No extraheal assumed.",
+            "fallback": "Other live medic can cover caster while one busy; both must survive. Exclusive coverage is lost if responsible medic dies; no emergency eighthID, death refund or unplanned swap. Quantify contributions and released duties.",
+            "function": "Medical and support survival"
+          },
+          {
+            "executors": "Fang holds row3 #21/#33; Friston row4 #22/#34. Midnight arts5073 supports row3; Steward6381[2,5]UP covers both blocked rows and stays until8100. Both medics sustain central; not one BLOCK as success.",
+            "fallback": "Midnight adds row3 damage while Steward cooling2101frames; Friston must stay live for row4 handoff. No independent reserve ground ID. Require BLOCK followed by actual ENEMY_DEATH for21/22/34 before8100; excess pressure under live support refutes sufficiency.",
+            "function": "Central #21/#22/#34 live block and kill"
+          },
+          {
+            "executors": "Steward retreat8100 then10201[2,2]DOWN for#1; Melantha retreat8501 then10602[6,3]LEFT for#2. Require both protected targets alive and PROTECTED_TARGET_REACHED after clearance.",
+            "fallback": "Same-ID redeploy only after2100frame cooldown; if death occurred earlier use real cooldown and no refund. Each executor remains after placement; missing arrival despite clearance refutes route completion.",
+            "function": "Roadblocks #1/#2 and safe protected arrival"
+          }
+        ],
+        "deployment_positions_and_directions": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1321,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1681,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              5,
+              7
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 6381,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 10201,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 10602,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "formation_structure": {
+          "description": "Four initial ground lanes plus two mutually covering medics and eastern caster; seven-ID union."
+        },
+        "formation_transitions": [
+          {
+            "description": "Caster retreat only justified by observed artillery closure; fixed action cannot branch. Fang/Friston and Midnight retain central duties.",
+            "window": "4280..6381"
+          },
+          {
+            "description": "Western redeploys after central and outer hostile clearance and actual70s cooldown.",
+            "window": "8100..10602"
+          }
+        ],
+        "mandatory_tactical_invariants": [
+          {
+            "invariant": "Normal1-3star selected/deployed union<=7 including robot; complete settlement zero leaks both protected alive/reached no active enemies required for WIN."
+          }
+        ],
+        "operational_plan_id": "R92_ASTRA_HIGH_SEVEN_DUTY_CONFLICT_002",
+        "parent_hypothesis_id": "DUTY_CONFLICT_FRONTLOAD_HEALING_AND_SKILLS",
+        "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+        "pressure_window_responsibilities": [
+          {
+            "id": "P1",
+            "refutation": "DP/position rejection or opening leak; static PASS alone proves no battle duty.",
+            "success": "FirstsevenDEPLOY legal zeroopening leaks; H1321 healsFriston/Melantha beforeA1681, no earlyholderdeath."
+          },
+          {
+            "id": "P2",
+            "refutation": "Missing clearance under live executors or protected death. Clear device does not prove arrival.",
+            "success": "DEVICE_DESTROYED#4 by2100 and#3 by2600 with both protected alive; no prolonged #4 block of#14. Old1966/2404 are parent observations, new bounds are test predictions."
+          },
+          {
+            "id": "P3",
+            "refutation": "Survival with fewer opportunities/wrong target or live artillery at4280 refutes output/closure; early medical/caster death truncates sustained-output test while refuting survival.",
+            "success": "Steward artillery DAMAGE in2161..2500,2501..3300,3301..4280 at nominal48frame opportunities with artillery selection, ~45 total hits and ENEMY_DEATH by4280; born shells settle without loss."
+          },
+          {
+            "id": "P4",
+            "refutation": "Earlierholder/medicdeath refutes redistribution; surviving firstshells alone onlypartial. Complete event arithmetic required for exactHP.",
+            "success": "Bothmedics survive2143/2593, Hskill2222 andAskill2432 execute; bothhealSteward after2443 and supportlive through4280. Midnight extensionheal after2432."
+          },
+          {
+            "id": "P5",
+            "refutation": "Leak or lost block without live handoff refutes central coverage; earlier artillery/support collapse truncates independent late sufficiency.",
+            "success": "Live Fang/Friston block and hold21/22/34 until ENEMY_DEATH, Steward returns6381 and all hostiles dead before8100."
+          },
+          {
+            "id": "P6",
+            "refutation": "Any objective failure; protected death truncates later arrival mechanism.",
+            "success": "All4devices destroyed; both protected targets alive/reached;33hostilekills zero leaks no active enemies complete settlement."
+          }
+        ],
+        "selected_low_star_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_208_melan",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "skill_intents": [
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2050,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2222,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2432,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3723,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3851,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4233,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5224,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5652,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6034,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6725,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7453,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7835,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8226,
+            "operator_id": "char_120_hibisc"
+          }
+        ],
+        "tactical_parent_plan_id": "R92_ASTRA_HIGH_SEVEN_DUTY_CONFLICT_001",
+        "tactical_thesis": "Test concrete C1 four-operator splash failure by front-loading Hibiscus and medical skills: Hibiscus1321[5,5]RIGHT assumes early Friston/Melantha sustain; Ansel1681[5,6]DOWN follows. Same seven IDs and dedicated device/air roles; increased pre-shell healing and shifted skills must prove survival, artillery closure and central kill handoff separately.",
+        "validation_card": {
+          "MODEL_GAP": [
+            "Current-model-only fixed settlement; no real-game/faithful/robust/probabilistic/global-minimum claim.",
+            "UNKNOWN_CLI_INTERNAL for unobservable requests; cached input tokens subset not additive.",
+            "Seven-recursive ordinary attacks through3157, NO_CANDIDATE3205..3360, artillery struck3361; continuous48frame attacks4225..4705 target-switch; no combined lineage trajectory."
+          ],
+          "c1_observations": {
+            "chain": "Hibiscus shell890@1993, only AnselHEAL362@2009 before890@2143 kills her. Four victims2143 atlocked5,5. Melantha dies2293, Ansel/Steward2593. NineartilleryDAMAGE2161..2545 at48frames. Devices4/3destroy1966/2404. Complete13kills20leaks8death events; bothprotecteddead.",
+            "classification": "OBSERVED",
+            "hypothesis": "Earlier healing reduces pre-shell debt and changes subsequent HEAL allocation; Hskill2222 supports caster pressure. Counterfactual sufficiency UNKNOWN.",
+            "predictions": {
+              "P1": "proved",
+              "P2": "easternclearance proved; later safe arrival refuted",
+              "P3": "nine opening hits proved; sustained closure truncated-by-earlier-failure",
+              "P4": "refuted",
+              "P5": "truncated-by-earlier-failure; actual coverage failed",
+              "P6": "refuted; arrival test truncated by protecteddeath"
+            }
+          },
+          "compact_table": [
+            [
+              "Item",
+              "Commitment / evidence boundary"
+            ],
+            [
+              "Parent",
+              "New C1 candidate-001 d5a359767772f1112584cbab8a2c267a961c78df9f98df544536f7f25d168025; retry2 C1/C2 hashes retained."
+            ],
+            [
+              "Conflict",
+              "Observed splash damage shared by support/blockers; lateHibiscus spends heals on Melantha and dies after only362interveningheal."
+            ],
+            [
+              "Change",
+              "Hibiscus1900->1321; Ansel1321->1681; medical skills H2222/3723/5224/6725/8226 and A2432/4233/6034/7835. All positions and nonmedical commands unchanged from freshC1."
+            ],
+            [
+              "Duties",
+              "Fang/Friston opening withHearly; device3Midnight/4Melantha; artilleryStewardeast; mutualmedics; centralFang/Friston+MidnightthenSteward[2,5]UP; west1Steward/2Melantha. Explicit fallbacks in required_functions."
+            ],
+            [
+              "Cost/skill/redeploy",
+              "96firstdeploymentDP unchanged; H1321 replaces A1321 cost17, A1681 spends next17. H0/30SP ready2221,20sactive+30srecharge; A10/35SP ready2431,25sactive+35srecharge. Oneframe margins. Ordinary redeploy70s=2100frames,Friston200s neverredeployed."
+            ],
+            [
+              "Predictions",
+              "HEAL before1993,live beyond2143/2593; Hskill2222 andAskill2432 execute. Artillery2161..4280 nominal48frame hits and death,centralBLOCK+DAMAGE+DEATH21/22/34,deviceclearance plus two protectedarrivals."
+            ],
+            [
+              "Risks",
+              "Four-target splash persists; healingpriority could starve Fang/Midnight. Earlier medicine does not force artillery targets or supply missing central damage."
+            ],
+            [
+              "MODEL_GAP",
+              "Fixed model only; strike-time ordinary selection, separate cast/birthlock; continuouspositions UNKNOWN. No guaranteedAnselextraheal. NoSpot selected."
+            ]
+          ],
+          "comparison_parent": {
+            "action_sha256": "b8704da507a611fd6f0db16d6d91d5f13a40077c1141950cbe6f0a5aaca1adf1",
+            "candidate_id": "candidate-002",
+            "plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_002",
+            "plan_sha256": "15ab46944a547aa9bc28636cb4afb039f7c447da848742f4c951874d56561904"
+          },
+          "predictions": [
+            {
+              "id": "P1",
+              "refutation": "DP/position rejection or opening leak; static PASS alone proves no battle duty.",
+              "success": "FirstsevenDEPLOY legal zeroopening leaks; H1321 healsFriston/Melantha beforeA1681, no earlyholderdeath."
+            },
+            {
+              "id": "P2",
+              "refutation": "Missing clearance under live executors or protected death. Clear device does not prove arrival.",
+              "success": "DEVICE_DESTROYED#4 by2100 and#3 by2600 with both protected alive; no prolonged #4 block of#14. Old1966/2404 are parent observations, new bounds are test predictions."
+            },
+            {
+              "id": "P3",
+              "refutation": "Survival with fewer opportunities/wrong target or live artillery at4280 refutes output/closure; early medical/caster death truncates sustained-output test while refuting survival.",
+              "success": "Steward artillery DAMAGE in2161..2500,2501..3300,3301..4280 at nominal48frame opportunities with artillery selection, ~45 total hits and ENEMY_DEATH by4280; born shells settle without loss."
+            },
+            {
+              "id": "P4",
+              "refutation": "Earlierholder/medicdeath refutes redistribution; surviving firstshells alone onlypartial. Complete event arithmetic required for exactHP.",
+              "success": "Bothmedics survive2143/2593, Hskill2222 andAskill2432 execute; bothhealSteward after2443 and supportlive through4280. Midnight extensionheal after2432."
+            },
+            {
+              "id": "P5",
+              "refutation": "Leak or lost block without live handoff refutes central coverage; earlier artillery/support collapse truncates independent late sufficiency.",
+              "success": "Live Fang/Friston block and hold21/22/34 until ENEMY_DEATH, Steward returns6381 and all hostiles dead before8100."
+            },
+            {
+              "id": "P6",
+              "refutation": "Any objective failure; protected death truncates later arrival mechanism.",
+              "success": "All4devices destroyed; both protected targets alive/reached;33hostilekills zero leaks no active enemies complete settlement."
+            }
+          ],
+          "primary_parent": {
+            "candidate_id": "candidate-001",
+            "candidate_sha256": "d5a359767772f1112584cbab8a2c267a961c78df9f98df544536f7f25d168025",
+            "events_sha256": "c6ee67c2d9a72b7f0220bea1101ce3e9a52d7aa9811dd37cfbbfff947cc16b9c",
+            "lineage": "New complete C1 parent; verified retry2 C1/C2 plan/action hashes retained separately.",
+            "plan_id": "R92_ASTRA_HIGH_SEVEN_DUTY_CONFLICT_001"
+          },
+          "required_functions": [
+            {
+              "executors": "Fang0[3,5]UP automatic DP, Friston91[4,5]RIGHT; Midnight571[1,5]UP supports Fang and intercepts top; Melantha841[6,5]RIGHT intercepts bottom. Hibiscus1321[5,5]RIGHT heals Friston first; Ansel1681[5,6]DOWN supplies Fang coverage.",
+              "fallback": "Fang/Midnight combined damage backs upper central; no early ground reserve for Friston. Loss before closure refutes coverage.",
+              "function": "Opening funding/blocking"
+            },
+            {
+              "executors": "Midnight[1,5]UP destroys trap_020_roadblock#3; Melantha[6,5]RIGHT destroys #4 and keeps bottom hostile queue. No caster clearance duty competes with artillery.",
+              "fallback": "Same live outer executor resumes device damage after enemies; no forced targeting. Holder loss before queue settlement is failure. Require protected enemy_3001_upeopl#3 and #14 alive, separately from devices.",
+              "function": "Roadblocks #3/#4 and protected eastern routes"
+            },
+            {
+              "executors": "Steward2071[5,7]DOWN under Ansel1681[5,6]DOWN and Hibiscus1321[5,5]RIGHT. Predict actual artillery DAMAGE2161..4280 at nominal48-frame opportunities,45hits/~13227damage and death before4280. Establish target by strike/damage, not preswing lock.",
+              "fallback": "No credited substitute anti-air during4280..6381. Fixed retreat4280 requires actual artillery death and residual-shell settlement; failure refutes handoff, earlier support death truncates output sufficiency.",
+              "function": "Artillery output and closure"
+            },
+            {
+              "executors": "Hibiscus1321[5,5]RIGHT begins Friston/Melantha healing before shell pressure; skills2222/3723/5224/6725/8226. Ansel1681[5,6]DOWN heals Fang/Friston and mutual medical support; skills2432/4233/6034/7835 extend to Midnight. Both reach caster. No extraheal assumed.",
+              "fallback": "Other live medic can cover caster while one busy; both must survive. Exclusive coverage is lost if responsible medic dies; no emergency eighthID, death refund or unplanned swap. Quantify contributions and released duties.",
+              "function": "Medical and support survival"
+            },
+            {
+              "executors": "Fang holds row3 #21/#33; Friston row4 #22/#34. Midnight arts5073 supports row3; Steward6381[2,5]UP covers both blocked rows and stays until8100. Both medics sustain central; not one BLOCK as success.",
+              "fallback": "Midnight adds row3 damage while Steward cooling2101frames; Friston must stay live for row4 handoff. No independent reserve ground ID. Require BLOCK followed by actual ENEMY_DEATH for21/22/34 before8100; excess pressure under live support refutes sufficiency.",
+              "function": "Central #21/#22/#34 live block and kill"
+            },
+            {
+              "executors": "Steward retreat8100 then10201[2,2]DOWN for#1; Melantha retreat8501 then10602[6,3]LEFT for#2. Require both protected targets alive and PROTECTED_TARGET_REACHED after clearance.",
+              "fallback": "Same-ID redeploy only after2100frame cooldown; if death occurred earlier use real cooldown and no refund. Each executor remains after placement; missing arrival despite clearance refutes route completion.",
+              "function": "Roadblocks #1/#2 and safe protected arrival"
+            }
+          ],
+          "retry2_primary_parent": {
+            "action_sha256": "637375006fbb1b5e41eaf4e4751005af2a8bd8276ece36adb88c2e402c12270f",
+            "candidate_id": "candidate-001",
+            "plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_001",
+            "plan_sha256": "65750669e180e68597a7d9b5c3ecdbfdd035c44d3b9228120bd5e329ffc25697"
+          },
+          "sacrifice_evaluation": "No planned sacrifice. Any death has no refund; measure actual contribution/duty released. Only explicit same-ID late redeploy can restore caster/Melantha after real cooldown; no phantom post-death role.",
+          "verification": "All21manifest entries and decompressed hashes verified; Fang[3,5]->DEPLOY5,3 confirmed. Comparison absent bundled manifest; separately read retry2 original hash e9c0fe5694bacb1ed76d4e0dd12b8e523ab8a5c9567101bd141d52a5f1cd9034; its coordinate and whole-window-gap wording superseded by verified correction. No old trajectory copied as guaranteed."
+        }
+      }
+    ],
+    "revised_stage_understanding": {
+      "m58_open_roster_comparison": {
+        "candidates": [
+          {
+            "rationale": "Tests new fatal sharedsplash evidence through early debt clearance and skill phase.",
+            "selected": true,
+            "structure_id": "EARLY_HEALING_ORDER"
+          },
+          {
+            "rationale": "Avoids overlap but trades away top healing or central rangedoutput.",
+            "selected": false,
+            "structure_id": "DISPERSE_MEDICS_TURN_MIDNIGHT"
+          },
+          {
+            "rationale": "GroundSpot9tile healing cannotreach optimal easterncaster7,5; relocating caster needs output redesign.",
+            "selected": false,
+            "structure_id": "SPOT_MEDIC_FUSION"
+          }
+        ],
+        "selected_structure_id": "EARLY_HEALING_ORDER"
+      }
+    },
+    "revised_strategic_hypotheses": [
+      {
+        "description": "Test concrete C1 four-operator splash failure by front-loading Hibiscus and medical skills: Hibiscus1321[5,5]RIGHT assumes early Friston/Melantha sustain; Ansel1681[5,6]DOWN follows. Same seven IDs and dedicated device/air roles; increased pre-shell healing and shifted skills must prove survival, artillery closure and central kill handoff separately.",
+        "hypothesis_id": "DUTY_CONFLICT_FRONTLOAD_HEALING_AND_SKILLS"
+      }
+    ],
+    "revised_tactical_requirements": {
+      "required_functions": [
+        {
+          "executors": "Fang0[3,5]UP automatic DP, Friston91[4,5]RIGHT; Midnight571[1,5]UP supports Fang and intercepts top; Melantha841[6,5]RIGHT intercepts bottom. Hibiscus1321[5,5]RIGHT heals Friston first; Ansel1681[5,6]DOWN supplies Fang coverage.",
+          "fallback": "Fang/Midnight combined damage backs upper central; no early ground reserve for Friston. Loss before closure refutes coverage.",
+          "function": "Opening funding/blocking"
+        },
+        {
+          "executors": "Midnight[1,5]UP destroys trap_020_roadblock#3; Melantha[6,5]RIGHT destroys #4 and keeps bottom hostile queue. No caster clearance duty competes with artillery.",
+          "fallback": "Same live outer executor resumes device damage after enemies; no forced targeting. Holder loss before queue settlement is failure. Require protected enemy_3001_upeopl#3 and #14 alive, separately from devices.",
+          "function": "Roadblocks #3/#4 and protected eastern routes"
+        },
+        {
+          "executors": "Steward2071[5,7]DOWN under Ansel1681[5,6]DOWN and Hibiscus1321[5,5]RIGHT. Predict actual artillery DAMAGE2161..4280 at nominal48-frame opportunities,45hits/~13227damage and death before4280. Establish target by strike/damage, not preswing lock.",
+          "fallback": "No credited substitute anti-air during4280..6381. Fixed retreat4280 requires actual artillery death and residual-shell settlement; failure refutes handoff, earlier support death truncates output sufficiency.",
+          "function": "Artillery output and closure"
+        },
+        {
+          "executors": "Hibiscus1321[5,5]RIGHT begins Friston/Melantha healing before shell pressure; skills2222/3723/5224/6725/8226. Ansel1681[5,6]DOWN heals Fang/Friston and mutual medical support; skills2432/4233/6034/7835 extend to Midnight. Both reach caster. No extraheal assumed.",
+          "fallback": "Other live medic can cover caster while one busy; both must survive. Exclusive coverage is lost if responsible medic dies; no emergency eighthID, death refund or unplanned swap. Quantify contributions and released duties.",
+          "function": "Medical and support survival"
+        },
+        {
+          "executors": "Fang holds row3 #21/#33; Friston row4 #22/#34. Midnight arts5073 supports row3; Steward6381[2,5]UP covers both blocked rows and stays until8100. Both medics sustain central; not one BLOCK as success.",
+          "fallback": "Midnight adds row3 damage while Steward cooling2101frames; Friston must stay live for row4 handoff. No independent reserve ground ID. Require BLOCK followed by actual ENEMY_DEATH for21/22/34 before8100; excess pressure under live support refutes sufficiency.",
+          "function": "Central #21/#22/#34 live block and kill"
+        },
+        {
+          "executors": "Steward retreat8100 then10201[2,2]DOWN for#1; Melantha retreat8501 then10602[6,3]LEFT for#2. Require both protected targets alive and PROTECTED_TARGET_REACHED after clearance.",
+          "fallback": "Same-ID redeploy only after2100frame cooldown; if death occurred earlier use real cooldown and no refund. Each executor remains after placement; missing arrival despite clearance refutes route completion.",
+          "function": "Roadblocks #1/#2 and safe protected arrival"
+        }
+      ]
+    },
+    "revision_hypothesis": {
+      "changed_responsibilities": [
+        "Hibiscus assumes1321 Friston/Melantha sustain; Ansel follows1681. Earlier skills test observed firstshell debt and fourtarget splash, with separate artillery targeting/central kill predictions."
+      ],
+      "expected_first_observable_event": {
+        "earliest_frame": 1321,
+        "event_type": "HEAL",
+        "latest_frame": 1500,
+        "source_id": "char_120_hibisc",
+        "target_id": "char_4093_frston"
+      },
+      "hypothesis_id": "DUTY_CONFLICT_FRONTLOAD_HEALING_AND_SKILLS",
+      "if_expected_event_absent": "Inspect check and deployment rejection before tactical attribution; no hidden repair or replay.",
+      "operational_plan_id": "R92_ASTRA_HIGH_SEVEN_DUTY_CONFLICT_002",
+      "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+      "referenced_experience_ids": [
+        "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1"
+      ],
+      "tactical_hypothesis": "Test concrete C1 four-operator splash failure by front-loading Hibiscus and medical skills: Hibiscus1321[5,5]RIGHT assumes early Friston/Melantha sustain; Ansel1681[5,6]DOWN follows. Same seven IDs and dedicated device/air roles; increased pre-shell healing and shifted skills must prove survival, artillery closure and central kill handoff separately."
+    }
+  }
+}

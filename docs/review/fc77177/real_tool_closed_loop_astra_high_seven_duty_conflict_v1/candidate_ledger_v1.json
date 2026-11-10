@@ -1,10 +1,60 @@
 {
-  "attempts": [],
-  "checks": [],
+  "attempts": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "d5a359767772f1112584cbab8a2c267a961c78df9f98df544536f7f25d168025",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "f75cd9608b3397b8369cdb6cfad2baa6a1fed7fa741e3693ace9db7acc0dd761",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "d5a359767772f1112584cbab8a2c267a961c78df9f98df544536f7f25d168025",
+      "check_id": "check-001",
+      "kind": "PASS",
+      "status": "PASS"
+    },
+    {
+      "candidate_id": null,
+      "candidate_sha256": "dd9601db72662bf0a3881253c41143675451fe87d3808b4ff8fc1a4523f09228",
+      "check_id": "check-002",
+      "errors": [
+        "lineage: after the first run candidate, cold_start root is no longer a valid parent"
+      ],
+      "kind": "FAILED_CHECK",
+      "status": "FAIL"
+    },
+    {
+      "candidate_id": null,
+      "candidate_sha256": "61396900f35a0532674962dcfc5d7d0f9b0a504b99637b23c05625ef54000847",
+      "check_id": "check-003",
+      "errors": [
+        "lineage: referenced_experience_ids must include cold_start_task_root.root_experience_id"
+      ],
+      "kind": "FAILED_CHECK",
+      "status": "FAIL"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "f75cd9608b3397b8369cdb6cfad2baa6a1fed7fa741e3693ace9db7acc0dd761",
+      "check_id": "check-004",
+      "kind": "PASS",
+      "status": "PASS"
+    }
+  ],
   "max_candidates": 2,
   "max_check_calls": 10,
   "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
   "session_id": "real-tool-loop-astra-high-seven-duty-conflict-v1",
-  "used_candidates": 0,
-  "used_check_calls": 0
+  "used_candidates": 2,
+  "used_check_calls": 4
 }

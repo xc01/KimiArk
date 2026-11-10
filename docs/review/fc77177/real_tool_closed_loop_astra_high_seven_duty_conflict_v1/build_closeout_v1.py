@@ -45,13 +45,21 @@ def main() -> None:
                 (simulation / name).unlink()
 
     jsonl_path = ATTEMPT / "codex_exec.jsonl"
-    events = [json.loads(line) for line in jsonl_path.read_text().splitlines() if line.strip()]
-    turn = next(event for event in events if event.get("type") == "turn.completed")
-    tools = Counter()
+    jsonl_archive = ATTEMPT / "codex_exec.jsonl.gz"
+    events = [json.loads(line) for line in gzip.decompress(jsonl_archive.read_bytes()).decode().splitlines() if line.strip()]
+    turn = next((event for event in events if event.get("type") == "turn.completed"), None)
+    failure = next(event for event in events if event.get("type") == "turn.failed")
+    raw_tools = Counter()
+    completed_tools = Counter()
     for event in events:
         item = event.get("item") or {}
         if item.get("type") == "mcp_tool_call":
-            tools[item.get("tool")] += 1
+            raw_tools[item.get("tool")] += 1
+            if event.get("type") == "item.completed":
+                completed_tools[item.get("tool")] += 1
+    if not jsonl_archive.exists():
+        compressed.append({"path": jsonl_archive.relative_to(ROOT).as_posix(), **compress(jsonl_path, jsonl_archive)})
+        jsonl_path.unlink()
 
     result = load(ATTEMPT / "cli_process_result.json")
     candidates = []
@@ -87,24 +95,29 @@ def main() -> None:
             "reasoning_effort": "high",
             "features_apps": False,
             "real_cli_starts": "1/1",
-            "check_calls": "2/10",
+            "check_calls": "4/10",
             "candidates": "2/2",
             "simulations": "2/2",
             "automatic_retry": False,
             "automatic_resume": False,
             "internal_requests": "UNKNOWN_CLI_INTERNAL",
             "cached_input_is_subset_of_input": True,
-            "visible_usage": turn.get("usage"),
+            "visible_usage": turn.get("usage") if turn else None,
         },
         "process": {
             **result,
             "jsonl_event_counts": dict(sorted(Counter(event.get("type") for event in events).items())),
-            "mcp_tool_calls": {"total": sum(tools.values()), "by_tool": dict(sorted(tools.items()))},
+            "terminal_turn_failed": failure,
+            "mcp_tool_calls": {
+                "raw_started_plus_completed": {"total": sum(raw_tools.values()), "by_tool": dict(sorted(raw_tools.items()))},
+                "completed_unique_by_tool": {"total": sum(completed_tools.values()), "by_tool": dict(sorted(completed_tools.items()))},
+            },
         },
         "candidates": candidates,
         "validation_summary": {
-            "candidate_001": "Shared 2443-2593 splash was removed and Steward survived that original breakpoint, but isolated 2893/3043 shells killed him; artillery closure and later central closure were truncated by support failure.",
-            "candidate_002": "Support/healer group survived to settlement, but roadblock #4 release was late, protected #14 died@3966, artillery leaked@5759, and Fang/Friston died@4903/4920 before #21/#22/#34 duties closed.",
+            "candidate_001": "LOSS 13/20 with 8 deaths and life -19; first leak was officer#13@3425. The duty-conflict restructuring failed opening/route pressure and cannot validate the targeted support-conflict chain.",
+            "candidate_002": "LOSS 12/21 with 8 deaths and life -20; first leak was officer#11@3065. Earlier healer support did not recover opening/route closure and worsened the full result.",
+            "terminal_model_status": "After both complete simulations and event queries, the CLI hit usage limit before turn.completed/final message. The two tactical LOSS results remain complete; no post-simulation final synthesis was produced.",
         },
         "archive_compression": compressed,
     }
