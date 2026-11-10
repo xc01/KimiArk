@@ -819,6 +819,16 @@ simulation 0/2; this is an execution/service fault, not a tactical LOSS.
 Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/`.
 
+The first Sol retry consumed CLI 1/1 before any tactical request because its
+Codex MCP args omitted the service script path. The zero-model follow-up
+confirmed this configuration defect and fixed the launcher. The corrected Sol
+retry2 then completed one full simulation with seven IDs and lost 22/11 with
+six deaths and life -9. Eastern clearance and protected #14 arrival proved;
+support allocation failed at Steward's 3343 death. The model stopped at one
+simulation rather than force another repair. M70 V1 remains best at eight IDs;
+seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry2_v1/`.
+
 After proxy recovery, the duty-conflict CLI ran two complete fixed simulations
 using the same seven IDs: C1 lost 13/20/8 deaths/life -19 and C2 lost
 12/21/8 deaths/life -20. The CLI then hit usage limit before the final model

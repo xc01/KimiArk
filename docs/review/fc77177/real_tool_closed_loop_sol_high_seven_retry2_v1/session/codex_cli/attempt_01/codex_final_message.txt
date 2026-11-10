@@ -1,0 +1,36 @@
+**No seven-operator WIN. M70 remains the current eight-operator fixed-simulator WIN; seven-or-fewer feasibility remains UNKNOWN.**
+
+Candidate `R94_SOL_HIGH_SEVEN_RETRY2_001` completed once with legal selected/deployed union **7**: Fang, Friston-3, Midnight, Melantha, Ansel, Steward, and Spot.
+
+| Result | Observed |
+|---|---|
+| Simulator | Complete LOSS |
+| Kills / leaks / life | **22 / 11 / −9** |
+| Operator deaths | **6 events, 6 unique IDs** |
+| Remaining enemies / HP | **0 / 0** |
+| Protected #3 | Killed by artillery at **5353** |
+| Protected #14 | Safely reached at **11119** |
+| Artillery #0 | Leaked **5759** |
+| Central #21 / #22 / #34 | Leaked **5236 / 5196 / 6996** |
+
+The repair restored eastern clearance: Melantha destroyed roadblock #4 at **1966**, Midnight destroyed #3 at **2404**, and Spot legally took over the upper lane. Both western devices eventually fell—#2 at **10787**, #1 at **11017**—but western #1 released too late to save protected #3.
+
+The first failed dependency was support allocation. Steward received five Ansel heals through **3239**; Ansel then healed Friston at **3325**, and the next 910-point shell killed Steward at **3343**. Steward dealt **6,626.06** artillery damage across 23 hits. At his last attack, artillery was a legal candidate and was selected; subsequent missing output followed his death.
+
+Deaths were Steward **3343**, Ansel **3820**, Friston **4180**, Fang **4269**, Melantha **4903**, and Midnight **6219**. Later western redeployments of Steward and Melantha succeeded. Seven scheduled actions failed because their operators were absent.
+
+| Prediction | Assessment |
+|---|---|
+| Opening and eastern clearance | **Proved** |
+| Support survival | **Refuted** |
+| Artillery closure | **Truncated by earlier failure** |
+| Central kills/live handoff | **Truncated by earlier failure** |
+| Western device destruction; #14 arrival | **Proved** |
+| Both protected targets safely arrived | **Refuted** |
+| Reflected caster’s central targeting sufficiency | **Evidence-unknown** |
+
+I left the second candidate unused: the evidence did not establish a materially different repair beyond another healing-phase guess.
+
+The bundle’s folder labels were inconsistent. I used the actual R91 C2 found under `duty_conflict_parent_c2`, and verified the actual R92 contrast artifacts against their closeout hashes. Candidate lineage, hashes, dependencies, regression observations, risks, and `MODEL_GAP` are recorded in the frozen [plan and validation card](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry2_v1/session/candidates/candidate-001/simulation/plan_snapshot.json). The [final status](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry2_v1/session/candidates/candidate-001/simulation/final_status.json) records the complete LOSS.
+
+Final ledger: **CLI 1/1; checks 2/10; candidates 1/2; simulations 1/2**, with one complete simulation. Configured model **gpt-6.1-sol/high**, K=7, mechanics **`m38b-2781-animation-speed-v1`**, controlled runner. No input/output/cached-token usage record was visible before this final response; those counts remain **UNKNOWN**, as does **`UNKNOWN_CLI_INTERNAL`**. `cached_input` is an input subset and is not additive. Findings apply only to this fixed simulator.

@@ -1,0 +1,753 @@
+{
+  "explicit_assumptions": [
+    "Only fixed DEPLOY/RETREAT/ACTIVATE_SKILL; no conditional handoff or arbitrary rotation without cooldown.",
+    "Ordinary attacks select at strike; no reliable pre-swing lock, guaranteed dodge, or probabilistic Ansel/Spot talent.",
+    "Continuous positions and HP are UNKNOWN without records. Old frame windows remain frozen-plan observations.",
+    "Exact client timing/rounding and unsupported geometry not claimed; fixed simulator only.",
+    "UNKNOWN_CLI_INTERNAL; cached_input is a subset of input, never additive."
+  ],
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1321,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 2054,
+          "operator_id": "char_208_melan",
+          "rationale": "Requires device4 cleared and own hostile queue empty; fixed withdrawal after frozen M70 projectile birth is a test, not a guaranteed dodge."
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 2055,
+          "operator_id": "char_284_spot",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2506,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2600,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 4155,
+          "operator_id": "char_208_melan",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4401,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4457,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5073,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6202,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6350,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6408,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8003,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 8100,
+          "operator_id": "char_210_stward",
+          "rationale": "All assigned artillery and central kills must be complete; no state-triggered withdrawal."
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 8101,
+          "operator_id": "char_208_melan",
+          "rationale": "Requires row3 hostile closure, Fang/Midnight alive for residual handoff."
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8359,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9804,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 10201,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 10202,
+          "operator_id": "char_208_melan",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "battle_phases": [
+        {
+          "completion_condition": "Both eastern devices destroyed, live Spot handoff and caster/support surviving actual attacks.",
+          "failure_effect_on_later_phases": "Earlier death/leak truncates dependent survival/output predictions; inspect opening first.",
+          "goal": "Clear eastern restraints, maintain legal lane handoff and establish separated medical output.",
+          "handoff_requirements": [
+            "No hostile released without settlement; reflected caster deployed legally."
+          ],
+          "phase_id": "OPEN_AND_SEPARATE",
+          "responsibilities": [
+            "Fang0[3,5]UP and Friston91[4,5]RIGHT unchanged; Midnight571[1,5]UP unchanged; Melantha841[6,5]RIGHT replaces Spot901 for initial upper kills and device4. Ansel1321[5,6]DOWN replaces1381 first heal.",
+            "Midnight skill1772 clears3 after lower queue. Melantha clears4 before2054 withdrawal, Spot takes upper hostile interception. Dedicated device4 output frees Steward for artillery.",
+            "Steward2071[2,7]UP covers eastern column7 at both row2 and row5; remains until8100, then west10201. Ansel[5,6]DOWN covers lower caster without occupying adjacent splash radius.",
+            "Remove Hibiscus; Ansel1321[5,6]DOWN sustains caster and central, extends to Midnight2600/4401/6202/8003/9804. Spot2055[6,5] heals self/Ansel2506..3256,4457..5207,6408..7158,8359..9109. First Ansel buff2600..3350 specifically tests lower caster exposure instead of early2072 buff."
+          ],
+          "start_condition": "Stage begins.",
+          "survival_dependencies": [
+            "Midnight survives delayed extension; Melantha clears own queue before retreat; Ansel and Spot execute real healing."
+          ]
+        },
+        {
+          "completion_condition": "Artillery and21/22/34/33 dead, hostile queues clear before8100.",
+          "failure_effect_on_later_phases": "Missing output, holder death or protected death invalidates acceptance; late success cannot erase leak.",
+          "goal": "Kill artillery before protected harm and kill central armor with live blocks.",
+          "handoff_requirements": [
+            "Fang/Friston live block or released enemy killed; Melantha/caster western withdrawals after actual duty completion."
+          ],
+          "phase_id": "CLOSE_ARTILLERY_CENTRAL",
+          "responsibilities": [
+            "Steward2071[2,7]UP covers eastern column7 at both row2 and row5; remains until8100, then west10201. Ansel[5,6]DOWN covers lower caster without occupying adjacent splash radius.",
+            "Remove Hibiscus; Ansel1321[5,6]DOWN sustains caster and central, extends to Midnight2600/4401/6202/8003/9804. Spot2055[6,5] heals self/Ansel2506..3256,4457..5207,6408..7158,8359..9109. First Ansel buff2600..3350 specifically tests lower caster exposure instead of early2072 buff.",
+            "Fang/Friston hold rows3/4. Melantha4155[3,4]RIGHT adds physical kills behind Fang for21/33; Midnight5073 adds arts. Steward remains[2,7]UP to attack eligible blocked row3/4 targets near eastern block radius; eligibility is hypothesis, not continuous position knowledge."
+          ],
+          "start_condition": "Live operators available after opening.",
+          "survival_dependencies": [
+            "Ansel healing meets actual target contention; no credited dead executor."
+          ]
+        },
+        {
+          "completion_condition": "Both protected reached alive, all enemies settled, zero leaks, no active enemy, complete WIN.",
+          "failure_effect_on_later_phases": "Device destruction alone cannot substitute for safe arrival.",
+          "goal": "Release western devices and safely arrive both protected targets.",
+          "handoff_requirements": [
+            "Remaining lane operators settle any residual hostile."
+          ],
+          "phase_id": "WEST_SETTLEMENT",
+          "responsibilities": [
+            "Steward8100 retreat->10201[2,2]DOWN device1; Melantha8101 retreat->10202[6,3]LEFT device2. Spot/Midnight remain outer; Fang/Friston central. Require both protected targets alive/reached."
+          ],
+          "start_condition": "Fixed retreats8100/8101 occur after required kills.",
+          "survival_dependencies": [
+            "Two western executors available after legal cooldown and costs."
+          ]
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "executors": "Fang0[3,5]UP and Friston91[4,5]RIGHT unchanged; Midnight571[1,5]UP unchanged; Melantha841[6,5]RIGHT replaces Spot901 for initial upper kills and device4. Ansel1321[5,6]DOWN replaces1381 first heal.",
+          "fallback": "No instant ground spare; Melantha2054 withdrawal requires actual queue settlement and Spot2055 legal handoff. Any released hostile remains a required settlement.",
+          "responsibility": "Opening funding and four hostile lanes"
+        },
+        {
+          "executors": "Midnight skill1772 clears3 after lower queue. Melantha clears4 before2054 withdrawal, Spot takes upper hostile interception. Dedicated device4 output frees Steward for artillery.",
+          "fallback": "No forced target action. If Melantha has not cleared4, this fixed plan fails that handoff. Both protected IDs require actual arrival; #3 must remain safe at western1 until artillery death and late release.",
+          "responsibility": "Roadblocks3/4 and protected flow"
+        },
+        {
+          "executors": "Steward2071[2,7]UP covers eastern column7 at both row2 and row5; remains until8100, then west10201. Ansel[5,6]DOWN covers lower caster without occupying adjacent splash radius.",
+          "fallback": "One live caster only. Need actual DAMAGE sum and ENEMY_DEATH, not attack animation or deployment. Separate legal artillery target not selected, other target selected, NO_CANDIDATE, and ordinary cooldown. No phantom output during true range absence.",
+          "responsibility": "Artillery targeting and effective output"
+        },
+        {
+          "executors": "Remove Hibiscus; Ansel1321[5,6]DOWN sustains caster and central, extends to Midnight2600/4401/6202/8003/9804. Spot2055[6,5] heals self/Ansel2506..3256,4457..5207,6408..7158,8359..9109. First Ansel buff2600..3350 specifically tests lower caster exposure instead of early2072 buff.",
+          "fallback": "Spot heals do not reach lower caster or central holders; replaces upper/self/Ansel healing only. Ansel's actual targeting must cover remaining duties. No probabilistic double heal or Spot dodge. During Spot healing attacks stop but block remains. Missing healer has no replacement.",
+          "responsibility": "Medical and support survival"
+        },
+        {
+          "executors": "Fang/Friston hold rows3/4. Melantha4155[3,4]RIGHT adds physical kills behind Fang for21/33; Midnight5073 adds arts. Steward remains[2,7]UP to attack eligible blocked row3/4 targets near eastern block radius; eligibility is hypothesis, not continuous position knowledge.",
+          "fallback": "If Steward cannot target blocked central enemies, no automatic relocation. Holder death requires observed released-enemy settlement; not credited as a successful sacrifice. Kills required before8100, not just blocks. Melantha6350 skill targets later armor pressure.",
+          "responsibility": "Central block/kill21/22/34 and33"
+        },
+        {
+          "executors": "Steward8100 retreat->10201[2,2]DOWN device1; Melantha8101 retreat->10202[6,3]LEFT device2. Spot/Midnight remain outer; Fang/Friston central. Require both protected targets alive/reached.",
+          "fallback": "Western1 release timing depends on actual artillery closure keeping protected3 safe while waiting. Device destruction alone is not safe arrival. 2100-frame redeploy cooldown and real increasing costs checked; no death refund.",
+          "responsibility": "Western1/2 and safe arrival"
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "direction": "UP",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "frame": 1321,
+          "operator_id": "char_212_ansel",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "frame": 2055,
+          "operator_id": "char_284_spot",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "direction": "UP",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            2,
+            7
+          ]
+        },
+        {
+          "direction": "RIGHT",
+          "frame": 4155,
+          "operator_id": "char_208_melan",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            3,
+            4
+          ]
+        },
+        {
+          "direction": "DOWN",
+          "frame": 10201,
+          "operator_id": "char_210_stward",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "direction": "LEFT",
+          "frame": 10202,
+          "operator_id": "char_208_melan",
+          "role": "See validation_card.required_functions",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "description": "Replace Hibiscus ID with Melantha. Restore early upper damage841 and live withdrawal2054; Spot upper deploy2055 instead901; Ansel1321 instead1381. Steward2071[2,7]UP instead2131[5,5]RIGHT, stays through8100. Remove western medic and replace upper medical work with Spot2506/4457/6408/8359; delay Ansel first skill to2600, then4401/6202/8003/9804. Melantha redeploy4155[3,4]RIGHT for central output, skill6350. Transfer caster8100 and Melantha8101 to western1/2 at10201/10202."
+      },
+      "formation_transitions": [
+        {
+          "description": "Live Melantha-to-Spot upper handoff2054/2055; no invisible queue clearance.",
+          "window": [
+            1966,
+            2055
+          ]
+        },
+        {
+          "description": "Melantha returns4155 behind Fang; reflected caster persists; actual central legality and kills required.",
+          "window": [
+            4155,
+            8100
+          ]
+        },
+        {
+          "description": "Western redeploy after cooldown; early artillery closure must keep protected3 safe.",
+          "window": [
+            8100,
+            20000
+          ]
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "invariant": "Legal ordinary1-3-star selected/deployed union <=7; complete simulator WIN requires zero leaks, both protected alive and safely arrived, no active enemy and complete settlement. Deaths permitted only if lost duties and released hostiles actually settled; no death refund."
+        }
+      ],
+      "operational_plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+      "parent_hypothesis_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION",
+      "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+      "pressure_window_responsibilities": [
+        {
+          "roles": "All deployments legal; no operator death or hostile leak before2400; device4 destroyed before2054 withdrawal; Spot2055 blocks upper with no released hostile leak; Midnight still clears3 by3000.",
+          "window": [
+            0,
+            3000
+          ]
+        },
+        {
+          "roles": "No operator death before4400; extended Ansel actually heals Midnight2600..3350 and lower Steward through lower shell exposure; Spot actually heals Ansel/self during2506..3256.",
+          "window": [
+            2055,
+            4400
+          ]
+        },
+        {
+          "roles": "Actual sustained artillery damage after3043, ENEMY_DEATH by5000 before any protected killing hit. Query target selection when attacks absent.",
+          "window": [
+            2071,
+            5000
+          ]
+        },
+        {
+          "roles": "Live blocks21/22/34, Melantha actual21/33 damage and persistent Steward actual22/34 damage;21/22/34 killed with no leak by8100.",
+          "window": [
+            4300,
+            8100
+          ]
+        },
+        {
+          "roles": "Devices1/2 destroyed after10201/10202; both protected IDs alive and reached, all33 hostile kills settled, zero leaks, no active enemy, complete settlement.",
+          "window": [
+            0,
+            20000
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_210_stward",
+        "char_284_spot"
+      ],
+      "skill_intents": [
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2506,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2600,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4401,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4457,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5073,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6202,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6350,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 6408,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8003,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8359,
+          "operator_id": "char_284_spot"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9804,
+          "operator_id": "char_212_ansel"
+        }
+      ],
+      "tactical_parent_plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_002",
+      "tactical_thesis": "Replace Hibiscus ID with Melantha. Restore early upper damage841 and live withdrawal2054; Spot upper deploy2055 instead901; Ansel1321 instead1381. Steward2071[2,7]UP instead2131[5,5]RIGHT, stays through8100. Remove western medic and replace upper medical work with Spot2506/4457/6408/8359; delay Ansel first skill to2600, then4401/6202/8003/9804. Melantha redeploy4155[3,4]RIGHT for central output, skill6350. Transfer caster8100 and Melantha8101 to western1/2 at10201/10202.",
+      "validation_card": {
+        "MODEL_GAP": [
+          "Only fixed DEPLOY/RETREAT/ACTIVATE_SKILL; no conditional handoff or arbitrary rotation without cooldown.",
+          "Ordinary attacks select at strike; no reliable pre-swing lock, guaranteed dodge, or probabilistic Ansel/Spot talent.",
+          "Continuous positions and HP are UNKNOWN without records. Old frame windows remain frozen-plan observations.",
+          "Exact client timing/rounding and unsupported geometry not claimed; fixed simulator only.",
+          "UNKNOWN_CLI_INTERNAL; cached_input is a subset of input, never additive."
+        ],
+        "administrative_lineage": "Fresh-session schema root is KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1; tactical parent remains exact R91C2 with recorded hashes. No budget inherited.",
+        "dependency_effects": [
+          "Spot901 opening tank replaced by Melantha841 damage/one block/2745HP; Melantha must clear queue and4 before2054, Spot2055 restores three-block upper hold.",
+          "Hibiscus1960 west and all her healing/skills removed. Ansel alone covers lower caster and central; Spot specifically supplies upper/self/Ansel healing, cannot directly replace central/caster healing.",
+          "Early Ansel extension2132 removed; lower Midnight must survive until2600 actual extended heal. First buff now covers lower caster2893/3043-type exposure, with changed lock times unassumed.",
+          "Steward shared device4 duty removed to Melantha; reflected range restores column7 two-row coverage but may lack central target eligibility. No all-plan verified window is spliced from M70 or C1.",
+          "Melantha living retreat refunds only observed legal amount; same-ID redeploy4155 after2101 frames. No planned operator death, no death refund. Central added physical damage removes reliance on delayed Midnight arts alone.",
+          "Western2 executor changes Midnight to Melantha, keeping Midnight lower. Western1 remains late caster; artillery must actually die before protected3 harm, not rely on 5353 being fixed."
+        ],
+        "exact_change": "Replace Hibiscus ID with Melantha. Restore early upper damage841 and live withdrawal2054; Spot upper deploy2055 instead901; Ansel1321 instead1381. Steward2071[2,7]UP instead2131[5,5]RIGHT, stays through8100. Remove western medic and replace upper medical work with Spot2506/4457/6408/8359; delay Ansel first skill to2600, then4401/6202/8003/9804. Melantha redeploy4155[3,4]RIGHT for central output, skill6350. Transfer caster8100 and Melantha8101 to western1/2 at10201/10202.",
+        "parent": {
+          "action_sha256": "b8704da507a611fd6f0db16d6d91d5f13a40077c1141950cbe6f0a5aaca1adf1",
+          "actual_bundle_folder": "duty_conflict_parent_c2",
+          "bundle_index_mismatch": "retry2_parent_candidate-002 actually contains R89. Use exact R91 plan/actions/events in duty_conflict_parent_c2; actual R92 contrasts recovered from repository and matched closeout hashes.",
+          "events_gz_sha256": "7be57a062deec3577fdebd8887587112231afdc82044f2fcdad341ffa4c82506",
+          "plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_002",
+          "plan_sha256": "15ab46944a547aa9bc28636cb4afb039f7c447da848742f4c951874d56561904"
+        },
+        "predictions": [
+          {
+            "id": "P1_OPEN",
+            "refutation_window": [
+              0,
+              3000
+            ],
+            "success": "All deployments legal; no operator death or hostile leak before2400; device4 destroyed before2054 withdrawal; Spot2055 blocks upper with no released hostile leak; Midnight still clears3 by3000."
+          },
+          {
+            "id": "P2_SUPPORT",
+            "refutation_window": [
+              2055,
+              4400
+            ],
+            "success": "No operator death before4400; extended Ansel actually heals Midnight2600..3350 and lower Steward through lower shell exposure; Spot actually heals Ansel/self during2506..3256."
+          },
+          {
+            "id": "P3_ARTILLERY",
+            "refutation_window": [
+              2071,
+              5000
+            ],
+            "success": "Actual sustained artillery damage after3043, ENEMY_DEATH by5000 before any protected killing hit. Query target selection when attacks absent."
+          },
+          {
+            "id": "P4_CENTRAL",
+            "refutation_window": [
+              4300,
+              8100
+            ],
+            "success": "Live blocks21/22/34, Melantha actual21/33 damage and persistent Steward actual22/34 damage;21/22/34 killed with no leak by8100."
+          },
+          {
+            "id": "P5_PROTECTION",
+            "refutation_window": [
+              0,
+              20000
+            ],
+            "success": "Devices1/2 destroyed after10201/10202; both protected IDs alive and reached, all33 hostile kills settled, zero leaks, no active enemy, complete settlement."
+          }
+        ],
+        "regression_observations": [
+          {
+            "events_gz_sha256": "60127cc5d655bf7f94788ee9027f16ebb6b29115b2e566e548ab52e39b3f011e",
+            "observation": "Hibiscus[5,5]RIGHT1900 shares locked5,5 splash2143 with Friston/Melantha/Ansel, dies2143; later Ansel/caster die2593, first officer13 leak3425. Device4 clearance alone did not preserve opening.",
+            "plan_sha256": "41aad56ba48684c0137972bcc16d71bd98fb7f7c2a9a0b24f11d75754a7caf36",
+            "source": "R92 duty-conflict C1"
+          },
+          {
+            "events_gz_sha256": "f81fd7e36d8334fd933f6c78942b9d4091896ebc8c48926322857a1a71ef13b4",
+            "observation": "Earlier Hibiscus1321[5,5] and Ansel1681 still share splash1961/2111; both medics and Friston die2111, caster2561; officer11 leaks3065. Earlier heal is not evidence of survival.",
+            "plan_sha256": "94fd1e94e1d9e6844b72203074c98f09d984b36541527fe61dd8780f7b2833fe",
+            "source": "R92 duty-conflict C2"
+          }
+        ],
+        "required_functions": [
+          {
+            "executors": "Fang0[3,5]UP and Friston91[4,5]RIGHT unchanged; Midnight571[1,5]UP unchanged; Melantha841[6,5]RIGHT replaces Spot901 for initial upper kills and device4. Ansel1321[5,6]DOWN replaces1381 first heal.",
+            "fallback": "No instant ground spare; Melantha2054 withdrawal requires actual queue settlement and Spot2055 legal handoff. Any released hostile remains a required settlement.",
+            "function": "Opening funding and four hostile lanes"
+          },
+          {
+            "executors": "Midnight skill1772 clears3 after lower queue. Melantha clears4 before2054 withdrawal, Spot takes upper hostile interception. Dedicated device4 output frees Steward for artillery.",
+            "fallback": "No forced target action. If Melantha has not cleared4, this fixed plan fails that handoff. Both protected IDs require actual arrival; #3 must remain safe at western1 until artillery death and late release.",
+            "function": "Roadblocks3/4 and protected flow"
+          },
+          {
+            "executors": "Steward2071[2,7]UP covers eastern column7 at both row2 and row5; remains until8100, then west10201. Ansel[5,6]DOWN covers lower caster without occupying adjacent splash radius.",
+            "fallback": "One live caster only. Need actual DAMAGE sum and ENEMY_DEATH, not attack animation or deployment. Separate legal artillery target not selected, other target selected, NO_CANDIDATE, and ordinary cooldown. No phantom output during true range absence.",
+            "function": "Artillery targeting and effective output"
+          },
+          {
+            "executors": "Remove Hibiscus; Ansel1321[5,6]DOWN sustains caster and central, extends to Midnight2600/4401/6202/8003/9804. Spot2055[6,5] heals self/Ansel2506..3256,4457..5207,6408..7158,8359..9109. First Ansel buff2600..3350 specifically tests lower caster exposure instead of early2072 buff.",
+            "fallback": "Spot heals do not reach lower caster or central holders; replaces upper/self/Ansel healing only. Ansel's actual targeting must cover remaining duties. No probabilistic double heal or Spot dodge. During Spot healing attacks stop but block remains. Missing healer has no replacement.",
+            "function": "Medical and support survival"
+          },
+          {
+            "executors": "Fang/Friston hold rows3/4. Melantha4155[3,4]RIGHT adds physical kills behind Fang for21/33; Midnight5073 adds arts. Steward remains[2,7]UP to attack eligible blocked row3/4 targets near eastern block radius; eligibility is hypothesis, not continuous position knowledge.",
+            "fallback": "If Steward cannot target blocked central enemies, no automatic relocation. Holder death requires observed released-enemy settlement; not credited as a successful sacrifice. Kills required before8100, not just blocks. Melantha6350 skill targets later armor pressure.",
+            "function": "Central block/kill21/22/34 and33"
+          },
+          {
+            "executors": "Steward8100 retreat->10201[2,2]DOWN device1; Melantha8101 retreat->10202[6,3]LEFT device2. Spot/Midnight remain outer; Fang/Friston central. Require both protected targets alive/reached.",
+            "fallback": "Western1 release timing depends on actual artillery closure keeping protected3 safe while waiting. Device destruction alone is not safe arrival. 2100-frame redeploy cooldown and real increasing costs checked; no death refund.",
+            "function": "Western1/2 and safe arrival"
+          }
+        ],
+        "risks": [
+          "Single medic targeting contention may still kill isolated caster; no guaranteed healing allocation.",
+          "Delayed first Ansel skill may regress Midnight sustain.",
+          "Caster reflected position may miss blocked central candidates; continuous positions UNKNOWN absent records.",
+          "Spot2055 changes artillery acquisition and projectile recipients; no guaranteed bait dodge.",
+          "Late western release fails if artillery or any officer reaches protected targets first."
+        ],
+        "structure_comparison": [
+          {
+            "reason": "Primary survives support but competes for device4 and lacks column7 row2 output; merely staying is not repair.",
+            "selected": false,
+            "structure_id": "PERSISTENT_SHARED_CASTER"
+          },
+          {
+            "reason": "Restores4, but removes Spot healing and prior caster/support deaths show output survival unsolved.",
+            "selected": false,
+            "structure_id": "RESTORE_UPPER_DAMAGE_TWO_MEDICS"
+          },
+          {
+            "reason": "Replace western medic with early device/late central executor, separate caster from Ansel splash, and phase Spot/Ansel healing.",
+            "selected": true,
+            "structure_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION"
+          }
+        ],
+        "targeted_break": "R91C2 preserves medical/caster survival but device4 destroys5923 after protected14 death3966; artillery only8319.94 damage leaks5759; armor21/22 blocked then holders die and all21/22/34 leak."
+      }
+    }
+  ],
+  "revised_stage_understanding": {
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "reason": "Primary survives support but competes for device4 and lacks column7 row2 output; merely staying is not repair.",
+          "selected": false,
+          "structure_id": "PERSISTENT_SHARED_CASTER"
+        },
+        {
+          "reason": "Restores4, but removes Spot healing and prior caster/support deaths show output survival unsolved.",
+          "selected": false,
+          "structure_id": "RESTORE_UPPER_DAMAGE_TWO_MEDICS"
+        },
+        {
+          "reason": "Replace western medic with early device/late central executor, separate caster from Ansel splash, and phase Spot/Ansel healing.",
+          "selected": true,
+          "structure_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION"
+        }
+      ],
+      "selected_structure_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION"
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "description": "Replace Hibiscus ID with Melantha. Restore early upper damage841 and live withdrawal2054; Spot upper deploy2055 instead901; Ansel1321 instead1381. Steward2071[2,7]UP instead2131[5,5]RIGHT, stays through8100. Remove western medic and replace upper medical work with Spot2506/4457/6408/8359; delay Ansel first skill to2600, then4401/6202/8003/9804. Melantha redeploy4155[3,4]RIGHT for central output, skill6350. Transfer caster8100 and Melantha8101 to western1/2 at10201/10202.",
+      "hypothesis_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION"
+    }
+  ],
+  "revised_tactical_requirements": {
+    "required_functions": [
+      {
+        "executors": "Fang0[3,5]UP and Friston91[4,5]RIGHT unchanged; Midnight571[1,5]UP unchanged; Melantha841[6,5]RIGHT replaces Spot901 for initial upper kills and device4. Ansel1321[5,6]DOWN replaces1381 first heal.",
+        "fallback": "No instant ground spare; Melantha2054 withdrawal requires actual queue settlement and Spot2055 legal handoff. Any released hostile remains a required settlement.",
+        "function": "Opening funding and four hostile lanes"
+      },
+      {
+        "executors": "Midnight skill1772 clears3 after lower queue. Melantha clears4 before2054 withdrawal, Spot takes upper hostile interception. Dedicated device4 output frees Steward for artillery.",
+        "fallback": "No forced target action. If Melantha has not cleared4, this fixed plan fails that handoff. Both protected IDs require actual arrival; #3 must remain safe at western1 until artillery death and late release.",
+        "function": "Roadblocks3/4 and protected flow"
+      },
+      {
+        "executors": "Steward2071[2,7]UP covers eastern column7 at both row2 and row5; remains until8100, then west10201. Ansel[5,6]DOWN covers lower caster without occupying adjacent splash radius.",
+        "fallback": "One live caster only. Need actual DAMAGE sum and ENEMY_DEATH, not attack animation or deployment. Separate legal artillery target not selected, other target selected, NO_CANDIDATE, and ordinary cooldown. No phantom output during true range absence.",
+        "function": "Artillery targeting and effective output"
+      },
+      {
+        "executors": "Remove Hibiscus; Ansel1321[5,6]DOWN sustains caster and central, extends to Midnight2600/4401/6202/8003/9804. Spot2055[6,5] heals self/Ansel2506..3256,4457..5207,6408..7158,8359..9109. First Ansel buff2600..3350 specifically tests lower caster exposure instead of early2072 buff.",
+        "fallback": "Spot heals do not reach lower caster or central holders; replaces upper/self/Ansel healing only. Ansel's actual targeting must cover remaining duties. No probabilistic double heal or Spot dodge. During Spot healing attacks stop but block remains. Missing healer has no replacement.",
+        "function": "Medical and support survival"
+      },
+      {
+        "executors": "Fang/Friston hold rows3/4. Melantha4155[3,4]RIGHT adds physical kills behind Fang for21/33; Midnight5073 adds arts. Steward remains[2,7]UP to attack eligible blocked row3/4 targets near eastern block radius; eligibility is hypothesis, not continuous position knowledge.",
+        "fallback": "If Steward cannot target blocked central enemies, no automatic relocation. Holder death requires observed released-enemy settlement; not credited as a successful sacrifice. Kills required before8100, not just blocks. Melantha6350 skill targets later armor pressure.",
+        "function": "Central block/kill21/22/34 and33"
+      },
+      {
+        "executors": "Steward8100 retreat->10201[2,2]DOWN device1; Melantha8101 retreat->10202[6,3]LEFT device2. Spot/Midnight remain outer; Fang/Friston central. Require both protected targets alive/reached.",
+        "fallback": "Western1 release timing depends on actual artillery closure keeping protected3 safe while waiting. Device destruction alone is not safe arrival. 2100-frame redeploy cooldown and real increasing costs checked; no death refund.",
+        "function": "Western1/2 and safe arrival"
+      }
+    ]
+  },
+  "revision_hypothesis": {
+    "changed_responsibilities": [
+      "Spot901 opening tank replaced by Melantha841 damage/one block/2745HP; Melantha must clear queue and4 before2054, Spot2055 restores three-block upper hold.",
+      "Hibiscus1960 west and all her healing/skills removed. Ansel alone covers lower caster and central; Spot specifically supplies upper/self/Ansel healing, cannot directly replace central/caster healing.",
+      "Early Ansel extension2132 removed; lower Midnight must survive until2600 actual extended heal. First buff now covers lower caster2893/3043-type exposure, with changed lock times unassumed.",
+      "Steward shared device4 duty removed to Melantha; reflected range restores column7 two-row coverage but may lack central target eligibility. No all-plan verified window is spliced from M70 or C1.",
+      "Melantha living retreat refunds only observed legal amount; same-ID redeploy4155 after2101 frames. No planned operator death, no death refund. Central added physical damage removes reliance on delayed Midnight arts alone.",
+      "Western2 executor changes Midnight to Melantha, keeping Midnight lower. Western1 remains late caster; artillery must actually die before protected3 harm, not rely on 5353 being fixed."
+    ],
+    "expected_first_observable_event": {
+      "earliest_frame": 841,
+      "event_type": "DEVICE_DESTROYED",
+      "latest_frame": 2054,
+      "source_id": "char_208_melan",
+      "target_id": "trap_020_roadblock#4"
+    },
+    "hypothesis_id": "SEPARATED_CASTER_SINGLE_MEDIC_SPOT_ROTATION",
+    "if_expected_event_absent": "Query earlier deploy/block/target/damage and death events; no simulation retry or hidden plan repair. Classify dependent predictions truncated if an earlier prerequisite fails.",
+    "operational_plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+    "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+    "referenced_experience_ids": [
+      "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1"
+    ],
+    "tactical_hypothesis": "Replace Hibiscus ID with Melantha. Restore early upper damage841 and live withdrawal2054; Spot upper deploy2055 instead901; Ansel1321 instead1381. Steward2071[2,7]UP instead2131[5,5]RIGHT, stays through8100. Remove western medic and replace upper medical work with Spot2506/4457/6408/8359; delay Ansel first skill to2600, then4401/6202/8003/9804. Melantha redeploy4155[3,4]RIGHT for central output, skill6350. Transfer caster8100 and Melantha8101 to western1/2 at10201/10202."
+  }
+}

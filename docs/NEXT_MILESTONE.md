@@ -104,3 +104,20 @@ C2 remains the strongest seven-ID parent evidence. The round closed at CLI
 1/1, check 4/10, candidate 2/2, and simulation 2/2. M70 remains best at eight
 IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/closeout_report_v1.json`.
+
+The first Sol retry spent its one CLI before any tactical request because Codex
+`mcp_servers.kimiark.args` omitted the service script path; the JSON config was
+executed as Python. The ledger was CLI 1/1, check 0/10, candidate 0/2, and
+simulation 0/2. The confirmed repair and preflight blind spot are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry_v1/zero_model_handshake_root_cause_v1.json`.
+
+The corrected Sol retry2 completed one full seven-ID simulation with union 7:
+芬, Friston-3, 月见夜, 玫兰莎, 安赛尔, 史都华德, 斑点. It was a complete LOSS at
+22 kills, 11 leaks, 6 deaths, and life -9. Eastern clearance and protected #14
+arrival were proved; support allocation failed when Steward died@3343 after
+23 artillery hits for 6,626.06 damage. The model left the second candidate
+unused because no materially different repair was supported. The ledger is CLI
+1/1, checks 2/10, candidates 1/2, and simulations 1/2. M70 remains best at
+eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence and the next
+unauthorized suggestion are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry2_v1/`.
