@@ -1,0 +1,688 @@
+{
+  "candidate_id": "candidate-001",
+  "check_id": "check-001",
+  "plan": {
+    "revised_operational_plans": [
+      {
+        "action_timeline": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1321,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1960,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              3
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              7
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2850,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2861,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3500,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4362,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4651,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5301,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5863,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6452,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7364,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 8100,
+            "operator_id": "char_210_stward"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 8101,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8253,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8865,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 10054,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 10201,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 10202,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 10366,
+            "operator_id": "char_120_hibisc"
+          }
+        ],
+        "battle_phases": [
+          {
+            "completion_condition": "Both eastern roadblocks destroyed, opening enemies killed",
+            "failure_effect_on_later_phases": "Any opening leak invalidates full WIN.",
+            "goal": "Four lanes funded and eastern devices cleared",
+            "handoff_requirements": [
+              "No active opening hostile released by rotation"
+            ],
+            "phase_id": "OPEN",
+            "responsibilities": [
+              "Fang0[3,5]UP; Friston91[4,5]RIGHT. Midnight571[1,5]UP supplies row4/row3 ranged output and lower block. No central Melantha replacement.",
+              "Melantha841[6,5]RIGHT remains until8101; device4 and all upper officers. Midnight1772 skill clears3. Both civilians must remain alive through late release."
+            ],
+            "start_condition": "Frame0 opening begins",
+            "survival_dependencies": [
+              "Legal DP for Hibiscus1960 and Steward2071; Melantha still upper"
+            ]
+          },
+          {
+            "completion_condition": "Artillery dead by4550 with support surviving",
+            "failure_effect_on_later_phases": "Late artillery cannot be credited as central or protected closure.",
+            "goal": "Offload competition and actually kill artillery",
+            "handoff_requirements": [
+              "No pending projectile kills support or protected target"
+            ],
+            "phase_id": "EAST_SUPPORT",
+            "responsibilities": [
+              "Steward2071[2,7]UP targets enemy_1112_emppnt#0 along eastern col7 rows2..5; Ansel normal range reaches caster. Require actual DAMAGE followed ENEMY_DEATH by4550.",
+              "Hibiscus1960[5,3]RIGHT covers Friston[4,5], Melantha[6,5], Ansel[5,6], self. Ansel[5,6]DOWN covers Fang/Friston/Steward and self, extends to Midnight during2850..3600,4651..5401,6452..7202,8253..9003,10054..10804."
+            ],
+            "start_condition": "Both medics and Steward deployed",
+            "survival_dependencies": [
+              "Actual Hibiscus offload; Ansel2850..3600 buff; no shared splash assumption"
+            ]
+          },
+          {
+            "completion_condition": "All hostile IDs dead by8100",
+            "failure_effect_on_later_phases": "Holder death requires actual released-enemy settlement, never assumed sacrifice value.",
+            "goal": "Settle armor and late outer lanes without leak",
+            "handoff_requirements": [
+              "Western transfer must not release an unsettled hostile"
+            ],
+            "phase_id": "CENTRAL",
+            "responsibilities": [
+              "Fang plus Midnight first skill1772..2972 and second5073..6273, Steward only when an actual target is in eastern caster range. No assumed central caster damage.",
+              "Melantha upper skills3500/5301; two medics keep all holders alive"
+            ],
+            "start_condition": "Armor approaches4300 and artillery closure required",
+            "survival_dependencies": [
+              "Midnight alive until5073 skill; Fang and Friston survive"
+            ]
+          },
+          {
+            "completion_condition": "Zero leaks,33 kills,both protected alive reached,zero active enemy,complete simulator WIN",
+            "failure_effect_on_later_phases": "Roadblock destruction alone does not prove safe arrival.",
+            "goal": "Both protected targets safely arrive and complete WIN",
+            "handoff_requirements": [
+              "Read complete final settlement and action errors"
+            ],
+            "phase_id": "WEST",
+            "responsibilities": [
+              "Steward8100 retreat then10201[2,2]DOWN device1; Melantha8101 retreat then10202[6,3]LEFT device2."
+            ],
+            "start_condition": "Retreats8100/8101 and legal redeploy10201/10202",
+            "survival_dependencies": [
+              "Live western executors and DP, no death refund"
+            ]
+          }
+        ],
+        "corridor_responsibilities": [
+          {
+            "dependency": "Ansel1321 and Hibiscus1960 must sustain holders through armor21/22/34.",
+            "executors": "Fang0[3,5]UP; Friston91[4,5]RIGHT. Midnight571[1,5]UP supplies row4/row3 ranged output and lower block. No central Melantha replacement.",
+            "responsibility": "Opening and central blocks"
+          },
+          {
+            "dependency": "Hibiscus[5,3]RIGHT reaches upper Melantha; single-block throughput is unverified. Skills3500/5301 raise upper output.",
+            "executors": "Melantha841[6,5]RIGHT remains until8101; device4 and all upper officers. Midnight1772 skill clears3. Both civilians must remain alive through late release.",
+            "responsibility": "Upper and protection"
+          },
+          {
+            "dependency": "Ansel2850..3600 buff and Hibiscus central offload; no credit for attacks on other enemies. Fixed route evidence establishes geometry, new exact target timing UNKNOWN.",
+            "executors": "Steward2071[2,7]UP targets enemy_1112_emppnt#0 along eastern col7 rows2..5; Ansel normal range reaches caster. Require actual DAMAGE followed ENEMY_DEATH by4550.",
+            "responsibility": "Artillery closure"
+          },
+          {
+            "dependency": "Hibiscus cannot reach Steward or Fang; overlap offloads Friston/Ansel. Hibiscus skills2861..3461,4362..4962,5863..6463,7364..7964,8865..9465,10366..10966. No probabilistic double-heal.",
+            "executors": "Hibiscus1960[5,3]RIGHT covers Friston[4,5], Melantha[6,5], Ansel[5,6], self. Ansel[5,6]DOWN covers Fang/Friston/Steward and self, extends to Midnight during2850..3600,4651..5401,6452..7202,8253..9003,10054..10804.",
+            "responsibility": "Support competition"
+          },
+          {
+            "dependency": "After artillery death, two medics must hold central21/22 until Midnight arts kills; inspect340 arts per84 frames against actual healing.",
+            "executors": "Fang plus Midnight first skill1772..2972 and second5073..6273, Steward only when an actual target is in eastern caster range. No assumed central caster damage.",
+            "responsibility": "Central output"
+          },
+          {
+            "dependency": "2101-frame cooldown, real costs and live retreats; no death refund. All released hostiles still require kills; both protected arrivals required.",
+            "executors": "Steward8100 retreat then10201[2,2]DOWN device1; Melantha8101 retreat then10202[6,3]LEFT device2.",
+            "responsibility": "Western settlement"
+          }
+        ],
+        "deployment_positions_and_directions": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1321,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1960,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              3
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              7
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 10201,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 10202,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "formation_structure": {
+          "description": "Replace Spot with separated Hibiscus overlap; keep Melantha upper and offload central/support healing from Ansel. Preserve R94 opening, not R91 windows. Sustain reflected eastern Steward until actual artillery kill; then heal central armor through Midnight second arts skill and settle both western devices."
+        },
+        "formation_transitions": [
+          {
+            "description": "Add separated Hibiscus then eastern Steward, no upper withdrawal or Spot handoff.",
+            "window": [
+              1960,
+              2071
+            ]
+          },
+          {
+            "description": "Live eastern caster and upper Melantha transfer west after2101 frames, with other holders remaining.",
+            "window": [
+              8100,
+              10202
+            ]
+          }
+        ],
+        "mandatory_tactical_invariants": [
+          {
+            "invariant": "Selected/deployed union seven; no death refund or instant redeploy; all released enemies settled; full WIN only with both protected safe arrivals and no active enemy."
+          }
+        ],
+        "operational_plan_id": "R95_SOL_HIGH_SEVEN_RETRY3_001",
+        "parent_hypothesis_id": "TWO_MEDIC_OVERLAP_PERSISTENT_UPPER",
+        "parent_plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+        "pressure_window_responsibilities": [
+          {
+            "expected": "All opening deployments legal; device4 destroyed by2054, device3 by3000; no operator death or hostile leak.",
+            "id": "OPEN",
+            "window": [
+              0,
+              2404
+            ]
+          },
+          {
+            "expected": "Hibiscus heals Melantha by2143, then actually heals Friston/Ansel during2800..3600. Steward alive after3343 and receives Ansel healing.",
+            "id": "OFFLOAD",
+            "window": [
+              1960,
+              3600
+            ]
+          },
+          {
+            "expected": "Steward actually damages enemy_1112_emppnt#0 after3343; enemy_1112_emppnt#0 ENEMY_DEATH by4550 before harm to either protected target.",
+            "id": "ARTILLERY",
+            "window": [
+              2281,
+              4550
+            ]
+          },
+          {
+            "expected": "Holders survive to5073 and Midnight arts actually kills21/22/34; no hostile leak, output alive and actual damage measured separately.",
+            "id": "CENTRAL",
+            "window": [
+              4300,
+              8100
+            ]
+          },
+          {
+            "expected": "All33 hostile enemies killed; zero leaks; both protected IDs alive safely reached; zero active enemies; complete WIN.",
+            "id": "COMPLETE",
+            "window": [
+              0,
+              20000
+            ]
+          }
+        ],
+        "selected_low_star_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_208_melan",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "skill_intents": [
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2850,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2861,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3500,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4362,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4651,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5301,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5863,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6452,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7364,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8253,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8865,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 10054,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 10366,
+            "operator_id": "char_120_hibisc"
+          }
+        ],
+        "tactical_parent_plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+        "tactical_thesis": "Replace Spot with separated Hibiscus overlap; keep Melantha upper and offload central/support healing from Ansel. Preserve R94 opening, not R91 windows. Sustain reflected eastern Steward until actual artillery kill; then heal central armor through Midnight second arts skill and settle both western devices.",
+        "validation_card": {
+          "MODEL_GAP": [
+            "New healing allocation and equal-ratio tie breaks UNKNOWN until events.",
+            "New shell target and lock timings UNKNOWN; no guaranteed bait dodge or preswing lock.",
+            "Ansel probabilistic extra heal and Spot dodge unsupported; no such assumptions.",
+            "Continuous new HP/positions UNKNOWN without events; fixed simulator only.",
+            "UNKNOWN_CLI_INTERNAL; cached_input is a subset of input."
+          ],
+          "causal_uncertainty": "R94 full event accounting yields Steward696.8HP after3239, no heal before3343 shell910. This proves local lethality but not sufficient repair. Structural overlap may still allocate poorly; removing Spot loses upper self/Ansel healing and Melantha central output.",
+          "cost_skill_redeployment_accounting": "Opening effective costs10,3,16,15,17,17,18 funded by naturalDP+Fang automatic6. No2054 retreat refund used. Hibiscus first skill>=1960+900;600active+900recharge spaced1501. Ansel initial10/cost35 ready2071;750active+1050recharge spaced1801. Melantha ready2041, skills3500/5301 spaced1801. Midnight ready1771,1200active+2100recharge;5073 second. Western retreats8100/8101, deploy10201/10202; no planned deaths or refunds from death. If death occurs replacement must be legal and all released hostiles settled; no hidden repair.",
+          "exact_change": "Replace Spot with separated Hibiscus overlap; keep Melantha upper and offload central/support healing from Ansel. Preserve R94 opening, not R91 windows. Sustain reflected eastern Steward until actual artillery kill; then heal central armor through Midnight second arts skill and settle both western devices.",
+          "parent": {
+            "action_sha256": "39a8131fd71e3a00365940d974a7e8ffb5a7e3cb06e8aacaa49ad0363264de62",
+            "plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+            "plan_sha256": "efd06045343ebc14399fbb4ef1be1f78fd5d9e8620aa68a2a900eb3709a0ef35"
+          },
+          "predictions": [
+            {
+              "expected": "All opening deployments legal; device4 destroyed by2054, device3 by3000; no operator death or hostile leak.",
+              "id": "OPEN",
+              "window": [
+                0,
+                2404
+              ]
+            },
+            {
+              "expected": "Hibiscus heals Melantha by2143, then actually heals Friston/Ansel during2800..3600. Steward alive after3343 and receives Ansel healing.",
+              "id": "OFFLOAD",
+              "window": [
+                1960,
+                3600
+              ]
+            },
+            {
+              "expected": "Steward actually damages enemy_1112_emppnt#0 after3343; enemy_1112_emppnt#0 ENEMY_DEATH by4550 before harm to either protected target.",
+              "id": "ARTILLERY",
+              "window": [
+                2281,
+                4550
+              ]
+            },
+            {
+              "expected": "Holders survive to5073 and Midnight arts actually kills21/22/34; no hostile leak, output alive and actual damage measured separately.",
+              "id": "CENTRAL",
+              "window": [
+                4300,
+                8100
+              ]
+            },
+            {
+              "expected": "All33 hostile enemies killed; zero leaks; both protected IDs alive safely reached; zero active enemies; complete WIN.",
+              "id": "COMPLETE",
+              "window": [
+                0,
+                20000
+              ]
+            }
+          ],
+          "regression_observations": [
+            "R94 device4 destroyed1966,device3 destroyed2404 and protected14 reached11119 only in that parent.",
+            "R94 support cascade Steward3343 Ansel3820 Friston4180 Fang4269; do not merge R91 survival.",
+            "R91 central4753/4903 splash compounded armor damage; killing artillery may remove that burden, but central arts/output remains a fresh test."
+          ],
+          "required_functions": [
+            {
+              "dependency": "Ansel1321 and Hibiscus1960 must sustain holders through armor21/22/34.",
+              "executors": "Fang0[3,5]UP; Friston91[4,5]RIGHT. Midnight571[1,5]UP supplies row4/row3 ranged output and lower block. No central Melantha replacement.",
+              "responsibility": "Opening and central blocks"
+            },
+            {
+              "dependency": "Hibiscus[5,3]RIGHT reaches upper Melantha; single-block throughput is unverified. Skills3500/5301 raise upper output.",
+              "executors": "Melantha841[6,5]RIGHT remains until8101; device4 and all upper officers. Midnight1772 skill clears3. Both civilians must remain alive through late release.",
+              "responsibility": "Upper and protection"
+            },
+            {
+              "dependency": "Ansel2850..3600 buff and Hibiscus central offload; no credit for attacks on other enemies. Fixed route evidence establishes geometry, new exact target timing UNKNOWN.",
+              "executors": "Steward2071[2,7]UP targets enemy_1112_emppnt#0 along eastern col7 rows2..5; Ansel normal range reaches caster. Require actual DAMAGE followed ENEMY_DEATH by4550.",
+              "responsibility": "Artillery closure"
+            },
+            {
+              "dependency": "Hibiscus cannot reach Steward or Fang; overlap offloads Friston/Ansel. Hibiscus skills2861..3461,4362..4962,5863..6463,7364..7964,8865..9465,10366..10966. No probabilistic double-heal.",
+              "executors": "Hibiscus1960[5,3]RIGHT covers Friston[4,5], Melantha[6,5], Ansel[5,6], self. Ansel[5,6]DOWN covers Fang/Friston/Steward and self, extends to Midnight during2850..3600,4651..5401,6452..7202,8253..9003,10054..10804.",
+              "responsibility": "Support competition"
+            },
+            {
+              "dependency": "After artillery death, two medics must hold central21/22 until Midnight arts kills; inspect340 arts per84 frames against actual healing.",
+              "executors": "Fang plus Midnight first skill1772..2972 and second5073..6273, Steward only when an actual target is in eastern caster range. No assumed central caster damage.",
+              "responsibility": "Central output"
+            },
+            {
+              "dependency": "2101-frame cooldown, real costs and live retreats; no death refund. All released hostiles still require kills; both protected arrivals required.",
+              "executors": "Steward8100 retreat then10201[2,2]DOWN device1; Melantha8101 retreat then10202[6,3]LEFT device2.",
+              "responsibility": "Western settlement"
+            }
+          ]
+        }
+      }
+    ],
+    "revised_stage_understanding": {
+      "m58_open_roster_comparison": {
+        "candidates": [
+          {
+            "reason": "Moving the lone medic to lower high ground loses upper/Midnight coverage; central competition remains.",
+            "selected": false,
+            "structure_id": "MEDIC_GEOMETRY_ONLY"
+          },
+          {
+            "reason": "Remove upper Spot rotation, retain high upper output, add separated medic covering three competing duties while preserving lower caster geometry.",
+            "selected": true,
+            "structure_id": "TWO_MEDIC_OVERLAP_PERSISTENT_UPPER"
+          },
+          {
+            "reason": "Replacing cheap Friston with Cardigan/Beagle raises opening DP demand by15 and jeopardizes simultaneous four-lane opening; unchanged single-medic cannon demand also remains.",
+            "selected": false,
+            "structure_id": "STRONGER_CENTRAL_BLOCKER"
+          }
+        ],
+        "selected_structure_id": "TWO_MEDIC_OVERLAP_PERSISTENT_UPPER"
+      },
+      "parent_selection": "R94 selected for controlled test of structural support redistribution around its early eastern clearance. R91 remains comparison evidence only; no successful windows spliced."
+    },
+    "revised_strategic_hypotheses": [
+      {
+        "hypothesis_id": "TWO_MEDIC_OVERLAP_PERSISTENT_UPPER",
+        "tactical_hypothesis": "Replace Spot with separated Hibiscus overlap; keep Melantha upper and offload central/support healing from Ansel. Preserve R94 opening, not R91 windows. Sustain reflected eastern Steward until actual artillery kill; then heal central armor through Midnight second arts skill and settle both western devices."
+      }
+    ],
+    "revised_tactical_requirements": {
+      "support": "Actual healing allocation plus actual artillery damage and death required, never survival alone.",
+      "win": "simulator WIN, union<=7, zero leaks, both protected alive/reached, no active enemies, complete settlement"
+    },
+    "revision_hypothesis": {
+      "changed_responsibilities": [
+        "Hibiscus replaces Spot ID and assumes upper Melantha, Friston and Ansel healing from separated western tile.",
+        "Melantha retains upper output, loses central rotation; Ansel first skill2850 instead2600 protects later lower-caster shells.",
+        "Midnight and two-medical central endurance replace withdrawn Melantha central output; artillery must die before central shell failure."
+      ],
+      "expected_first_observable_event": {
+        "earliest_frame": 1960,
+        "event_type": "HEAL",
+        "latest_frame": 2143,
+        "source_id": "char_120_hibisc",
+        "target_id": "char_208_melan"
+      },
+      "hypothesis_id": "TWO_MEDIC_OVERLAP_PERSISTENT_UPPER",
+      "if_expected_event_absent": "Query first failure, healing selection/range and projectile damage in1960..2143; do not attribute later artillery failure solely to one missed heal.",
+      "operational_plan_id": "R95_SOL_HIGH_SEVEN_RETRY3_001",
+      "parent_plan_id": "R94_SOL_HIGH_SEVEN_RETRY2_001",
+      "referenced_experience_ids": [
+        "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1"
+      ],
+      "tactical_hypothesis": "Replace Spot with separated Hibiscus overlap; keep Melantha upper and offload central/support healing from Ansel. Preserve R94 opening, not R91 windows. Sustain reflected eastern Steward until actual artillery kill; then heal central armor through Midnight second arts skill and settle both western devices."
+    }
+  }
+}

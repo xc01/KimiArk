@@ -1,0 +1,23 @@
+No seven-operator WIN. M70 remains the current eight-operator fixed-simulator WIN; seven-or-fewer feasibility remains **UNKNOWN**.
+
+| Frozen plan | Result | Kills / leaks / life | Death events / unique IDs | Remaining enemies |
+|---|---|---:|---:|---:|
+| R95 C1 | LOSS | 24 / 9 / −7 | 3 / 3 | 0 |
+| R95 C2 | LOSS | 19 / 14 / −13 | 4 / 4 | 0 |
+
+Both passed checks with a legal seven-ID union and completed exactly once.
+
+The two-medic structure preserved support survival but failed caster survival. In both runs, Steward dealt **4,658.17 artillery damage across 16 hits**, then died at frame 3043: 696.8 HP before a 910-damage shell. Artillery remained alive and leaked at 5759. C2 cleared Midnight’s injury earlier, but failed to change the critical healing cadence and killed Melantha at 2293.
+
+- **C1 deaths:** Steward 3043, Friston 4768, Fang 4903. Protected #3 died at 5353; #14 safely arrived at 11119. One action error: Steward’s retreat at 8100.
+- **C2 deaths:** Melantha 2293, Steward 3043, Friston 4768, Fang 4903. Protected #3 died at 5353; #14 died at 6314. Two action errors: Melantha’s skills at 3500 and 5301.
+- **Unclosed enemies:** Both leaked artillery, armor #21/#22/#33/#34, and rushers #27/#28/#29/#31. C2 additionally leaked upper officers #16/#18/#24/#26/#32. Complete settlement occurred through kills, leaks, and protected deaths—not WIN.
+
+Frozen candidate hashes:
+
+- C1: `8993f2e65a5d599fd14eecec717b4683cc59dbb30b477ccf919a9a82316f8671`
+- C2: `c723be18823216a99fa640976f514ae185b06ba291cdabaec3f5de5e01422d59`
+
+Configured identity: `gpt-6.1-sol/high`; mechanics `m38b-2781-animation-speed-v1`. Final budgets: **CLI starts 1/1, checks 2/10, candidates 2/2, simulations 2/2 completed**. No aggregate token usage was visible before closeout; **UNKNOWN_CLI_INTERNAL**. `cached_input` is an input subset, never additive.
+
+Fixed-simulator findings only; these losses establish neither impossibility nor a global minimum.

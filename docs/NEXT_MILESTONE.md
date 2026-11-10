@@ -1,4 +1,4 @@
-# Current continuation: M70 eight-ID WIN; latest seven-recursive round closed
+# Current continuation: M70 eight-ID WIN; latest Sol seven-retry3 round closed
 
 `R8_7_GPT_M70_V1` is the current best verified current-model fixed-simulator
 result: 8 IDs, 33 kills, 0 leaks, 0 operator deaths, both protected targets
@@ -121,3 +121,14 @@ unused because no materially different repair was supported. The ledger is CLI
 eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence and the next
 unauthorized suggestion are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry2_v1/`.
+
+The fresh Sol seven-retry3 experiment completed both simulations at CLI 1/1,
+checks 2/10, candidates 2/2, and simulations 2/2. R95 C1 lost 24/9/life -7
+with 3 deaths; R95 C2 lost 19/14/life -13 with 4 deaths; both settled with
+zero remaining enemies. Two-medic support redistribution kept support alive but
+did not save Steward: each run recorded 16 artillery hits for 4,658.17 during
+2281-3001, then Steward died at 3043, and artillery leaked at 5759. This does
+not prove seven-ID impossibility. M70 R8_7_GPT_M70_V1 remains the frozen
+eight-ID WIN; seven-or-fewer feasibility remains UNKNOWN. Closeout, verified
+manifest, and the next unauthorized suggestion are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_retry3_v1/`.
