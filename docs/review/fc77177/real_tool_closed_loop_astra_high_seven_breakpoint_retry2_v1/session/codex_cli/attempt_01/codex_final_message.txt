@@ -1,0 +1,41 @@
+The independent retry-2 experiment completed. **Neither candidate won; seven-or-fewer feasibility remains UNKNOWN. M70 remains the best verified result.**
+
+Configured identity was gpt-6-astra/high with `features.apps=false`. Accounting: **1 CLI start, 2/10 checks, 2/2 candidates, 2/2 completed simulations**. No CLI restart or simulation retry occurred.
+
+All 17 original manifest entries and restored event hashes matched. Fang’s action `[3,5]` → deployment `"5,3"` verified the coordinate convention.
+
+| Result | C1: reflected caster | C2: Spot/shared support |
+|---|---:|---:|
+| Selected/deployed union | 7 | 7 |
+| Check | PASS | PASS |
+| Hostile kills / leaks | 24 / 9 | 24 / 9 |
+| Operator deaths | 3 | 2 |
+| Protected reached / died | 1 / 1 | 0 / 2 |
+| Remaining life | −7 | −8 |
+| Active enemies at settlement | 0 | 0 |
+| Fixed-simulator result | LOSS | LOSS |
+
+The complete frozen plans, including validation cards, functions, executors and fallback limitations, are preserved in [C1 OperationalPlan](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/session/candidates/candidate-001/source/llm_structured_output.json) and [C2 OperationalPlan](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/session/candidates/candidate-002/source/llm_structured_output.json).
+
+**C1 validation card and findings.** The tactical parent was focused C2, plan hash `b8ef87b31f6ea7d71920aa903eddbcb618fc4210eec974dd99f5d25be1362663`. The question was how artillery output could survive 2443–2593 and produce later kills. I compared the focused geometry repair against structural Spot substitution and ranged-output replacement, then selected one change: Steward’s first deployment moved from `[5,7] DOWN` to `[2,7] UP`, retaining its 18-DP cost.
+
+- **Proved:** the original shared splash was removed. Shells at 2443 and 2593 hit Ansel alone; Steward continued artillery damage through 3001.
+- **Refuted:** sustained caster support. Isolated shells dealt 910 at 2893 and 3043, with one observed 362 heal at 2959. Steward died at 3043.
+- **Truncated by earlier failure:** artillery closure with sustained output and later caster kills with intact blockers. Friston died at 4768 and Fang at 4852.
+- All four roadblocks were destroyed, but protected #3 died at 5353; only #14 reached safety. Device clearance did not prove route success.
+
+**C2 selected structure and findings.** C1 supplied concrete new evidence for replacing Melantha with Spot and placing Steward at `[5,5] RIGHT`, within both medics’ and Spot’s healing ranges. Steward inherited roadblock #4 and persistent central output; Midnight inherited western roadblock #2.
+
+- **Proved:** legal opening deployments and actual shared healing. Ansel, Hibiscus and Spot each healed Steward. Steward and all three healing operators survived settlement.
+- **Refuted:** timely eastern-route protection. Roadblock #4 restrained protected #14 at 3251. Officers and artillery damaged it before its death at 3966; the roadblock was only destroyed at 5923.
+- **Refuted:** artillery closure despite surviving output capability. Steward landed 28 artillery hits, but artillery leaked at 5759. At sampled selections 2851 and 4147, artillery was absent from candidate lists while officers were selected. These were not whole-window attack stops.
+- **Refuted:** sustained central coverage. #21 and #22 were blocked, but artillery splash at 4753/4903 combined with ordinary enemy arts damage; Fang died at 4903 and Friston at 4920. #21/#22 leaked. Later #34 coverage was **truncated by those earlier holder deaths**.
+- **Truncated by earlier failure:** western transfers and arrivals. Both protected targets died, and settlement finished at frame 6997 before those scheduled transfers.
+
+**Evidence limits and corrections:** continuous HP and positions remain evidence-unknown. No guaranteed extra Ansel heal, Spot dodge, pre-swing lock or whiff was assumed. `DAMAGE`, `ENEMY_ABILITY_HIT` and `DEVICE_DAMAGE` were evaluated separately. The C2 card’s redeployment-cost estimates of 27/24/22 DP were unsupported; observed C1 redeployments charged Steward 18 and Melantha 15. C2’s western redeployments never executed. Its summary’s first-failure label also misses an earlier protected death, so the event chronology governs.
+
+One local JavaScript preparation error occurred before any MCP call; it consumed no candidate or simulation. Model-internal requests remain `UNKNOWN_CLI_INTERNAL`.
+
+Suggested next-step prompt:
+
+> Start a newly authorized bounded experiment without transferring this budget. Retain retry-2’s demonstrated support survival as evidence, then compare repairs that jointly restore timely roadblock #4 release, artillery closure, and live #21/#22/#34 blocking. Explain how each executor avoids the observed targeting/range conflicts and 4753–4920 damage chain. Recompute costs from executable evidence, freeze checked actions, and test complete settlement. Seven-ID feasibility remains UNKNOWN.

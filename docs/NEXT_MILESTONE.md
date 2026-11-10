@@ -77,3 +77,13 @@ simulation. This is an execution/authentication fault, not a tactical LOSS.
 Do not retry, resume, rotate account/region, or change model without a new
 authorization and a supported authentication check. Evidence is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1/failure_report_v1.json`.
+
+After supported ChatGPT re-login, retry-2 used one completed CLI, 2/10 checks,
+2/2 candidates, and 2/2 complete simulations. C1 removed the original
+2443-2593 shared splash but Steward died@3043 under later isolated shells; it
+lost 24/9 with life -7. C2 kept the healer/support group alive but roadblock #4
+release was late, protected #14 died@3966, artillery leaked@5759, and
+Fang/Friston died@4903/4920 before central closure; it lost 24/9 with life -8.
+No seven-ID WIN was found. M70 remains best at eight IDs; seven-or-fewer
+feasibility remains UNKNOWN. Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/closeout_report_v1.json`.

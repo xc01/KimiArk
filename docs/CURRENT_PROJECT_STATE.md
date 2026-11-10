@@ -801,3 +801,12 @@ is `CLI 1/1`, `check 0/10`, `candidate 0/2`, and `simulation 0/2`; this is not
 a tactical LOSS. No retry/resume or model/account/region change is authorized.
 Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1/`.
+
+After ChatGPT re-login, the fresh seven-breakpoint retry-2 completed its one
+authorized CLI and both full simulations. C1 and C2 both settled at 24 kills,
+9 leaks, zero remaining enemies, and no seven-ID WIN. C1 proved the original
+2593 shared-splash breakpoint was avoided but exposed a later isolated-shell
+failure at 3043; C2 proved support survival but failed timely roadblock #4
+release, artillery closure, and live central coverage. M70 V1 remains best at
+eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/`.
