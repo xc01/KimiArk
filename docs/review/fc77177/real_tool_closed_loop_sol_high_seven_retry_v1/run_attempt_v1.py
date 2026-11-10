@@ -135,7 +135,7 @@ def main() -> None:
             "-c", 'model_provider="openai"',
             "-c", "features.apps=false",
             "-c", f'mcp_servers.kimiark.command="{ROOT / ".venv/bin/python"}"',
-            "-c", f'mcp_servers.kimiark.args=["{CONFIG_PATH}"]',
+            "-c", f'mcp_servers.kimiark.args=["{ROOT / "scripts/kimiark_tactical_stdio_service_v1.py"}","{CONFIG_PATH}"]',
             "-c", "mcp_servers.kimiark.required=true",
             "-c", 'mcp_servers.kimiark.default_tools_approval_mode="approve"',
             "-c", 'mcp_servers.kimiark.enabled_tools=["get_session_status","check_plan","run_simulation","query_events"]',

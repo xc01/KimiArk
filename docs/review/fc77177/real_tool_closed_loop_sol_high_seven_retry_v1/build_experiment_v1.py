@@ -150,7 +150,7 @@ def main() -> None:
     extra = [
         "features.apps=false",
         f'mcp_servers.kimiark.command="{ROOT / ".venv/bin/python"}"',
-        f'mcp_servers.kimiark.args=["{config_path}"]',
+        f'mcp_servers.kimiark.args=["{ROOT / "scripts/kimiark_tactical_stdio_service_v1.py"}","{config_path}"]',
         "mcp_servers.kimiark.required=true",
         'mcp_servers.kimiark.default_tools_approval_mode="approve"',
         'mcp_servers.kimiark.enabled_tools=["get_session_status","check_plan","run_simulation","query_events"]',
