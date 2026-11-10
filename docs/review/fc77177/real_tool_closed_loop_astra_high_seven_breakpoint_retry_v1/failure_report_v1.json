@@ -1,0 +1,88 @@
+{
+  "archive": {
+    "jsonl_gz_restored_sha256": "f701b63bf1fef1e99c698659851bb4e1e5965592ae1f58d3e627ad1144d42dd2",
+    "jsonl_gz_sha256": "88c7707119f05ab2c970a5a9224a4e01bd27a00f9d2575b3465127bbb5419916",
+    "old_evidence_preserved": true,
+    "prompt_sha256": "2634dca32cbf1ccadc2d214891869ceb6bd788a7206dcb8e8c007007088e68fa"
+  },
+  "authorization_and_usage": {
+    "attempt_3_authorized": false,
+    "automatic_resume": false,
+    "automatic_retry": false,
+    "cached_input_is_subset_of_input": true,
+    "candidates": "0/2",
+    "check_calls": "0/10",
+    "completed_model_turns": 0,
+    "features_apps": false,
+    "internal_requests": "UNKNOWN_CLI_INTERNAL",
+    "model": "gpt-6-astra",
+    "provider": "openai",
+    "real_cli_starts": "1/1",
+    "reasoning_effort": "high",
+    "simulations": "0/2",
+    "visible_usage": null
+  },
+  "best_verified_result": {
+    "operator_count": 8,
+    "plan_id": "R8_7_GPT_M70_V1",
+    "simulator_win": true
+  },
+  "decision": {
+    "best_verified_operator_count": 8,
+    "new_tactical_result": false,
+    "seven_or_fewer_feasibility": "UNKNOWN"
+  },
+  "experiment_id": "real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1",
+  "failure": {
+    "classification": "AUTHENTICATION_ROUTE_401_BEFORE_ANY_MCP_TOOL_CALL",
+    "client_visible_layer": "usage_limit",
+    "error_message": "Reconnecting... 2/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a581be34da88f36b-LAX)",
+    "exit_code": 1,
+    "turn_completed": false,
+    "turn_failed": {
+      "error": {
+        "message": "unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a581bed10f3727d8-LAX, request id: req_9835446741804727995418704e71f34b"
+      },
+      "type": "turn.failed"
+    }
+  },
+  "jsonl_event_counts": {
+    "error": 10,
+    "item.completed": 3,
+    "thread.started": 1,
+    "turn.failed": 1,
+    "turn.started": 1
+  },
+  "preflight": {
+    "codex_doctor_overall_status": "warning",
+    "coverage_boundary": "Preflight did not and cannot prove a real model turn. The authorized CLI was that verification and hit usage limit before any MCP tool call.",
+    "input_bundle_manifest_all_hashes_match": true,
+    "mcp_no_model_status_passed": true,
+    "proxy_prestart_path": "session/codex_cli/attempt_01/proxy_prestart.json"
+  },
+  "process": {
+    "automatic_retry": false,
+    "ended_at_utc": "2026-11-10T02:49:41.945714Z",
+    "exit_code": 1,
+    "final_message_bytes": 0,
+    "mcp_tool_calls": {
+      "by_tool": {},
+      "total": 0
+    },
+    "schema_version": "KIMIARK_SEVEN_BREAKPOINT_RETRY_PROCESS_RESULT_V1",
+    "started_at_utc": "2026-11-10T02:49:05.236598Z",
+    "status": "FAILED",
+    "stderr_bytes": 917,
+    "stdout_bytes": 3513,
+    "timed_out": false,
+    "turn_completed": false
+  },
+  "schema_version": "KIMIARK_SEVEN_BREAKPOINT_RETRY_FAILURE_REPORT_V1",
+  "tactical_boundary": {
+    "loss_claimed": false,
+    "model_changed": false,
+    "quota_used_as_tactical_evidence": false,
+    "simulator_or_mechanics_changed": false,
+    "tactical_assumption_changed": false
+  }
+}

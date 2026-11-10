@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "1794278937s since unix epoch",
+  "overallStatus": "warning",
+  "codexVersion": "0.167.0",
+  "checks": {
+    "config.load": {
+      "id": "config.load",
+      "category": "config",
+      "status": "warning",
+      "summary": "config loaded",
+      "details": {
+        "CODEX_HOME": "/home/bigdata/.codex",
+        "active thread overrides": "not inspected",
+        "config.toml": "/home/bigdata/.codex/config.toml",
+        "config.toml parse": "ok",
+        "configuration load ms": "502",
+        "configuration scope": "invocation config, including cloud-managed policy",
+        "configured TUI mode": "fullscreen",
+        "cwd": "/home/bigdata/Desktop/arknights-auto-planner",
+        "enabled feature flags": "daemon_auto_start, shell_tool, view_image, sleep_tool, unified_exec, unified_exec_tty, shell_snapshot, content_item_kinds, code_mode_host, code_mode_interrupt, instant_interrupt, terminal_resize_reflow, sqlite, write_stdin_approval, hooks, api_key_model_discovery, cli_daybreak, api_key_cyber_access_programs, enable_request_compression, unbounded_connection_retries, worktrees, system_proxy_fallback, multi_agent, mcp_oauth_refresh_coordination, tool_search_always_defer_mcp_tools, deferred_tool_world_state, incremental_tools, prediction_preserve_parent_tools, tool_suggest, plugins, in_app_browser, browser_annotation_api, in_app_chat, in_app_dictation, in_app_voice, in_app_local_automation, in_app_updates, browser_use, browser_use_full_cdp_access, browser_use_external, computer_use, remote_plugin, plugin_discovery_prefetch, plugin_sharing, image_generation, resize_all_images, item_ids, skill_mcp_dependency_install, skill_search, mentions_v2, steer, guardian_approval, guardian_reuse_parent_compaction, goals, reasoning_effort_override, collaboration_modes, tool_call_mcp_elicitation, auth_elicitation, bedrock_setup_wizard, fast_mode, ultrafast_mode, realtime_conversation, tui_app_server, compaction_image_budget, workspace_dependencies",
+        "feature flag overrides": "apps=false",
+        "feature flags enabled": "65",
+        "log dir": "/home/bigdata/.codex/log",
+        "mcp servers": "1",
+        "model": "gpt-6.1-sol",
+        "model provider": "openai",
+        "sqlite home": "/home/bigdata/.codex",
+        "startup warning": "Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.\n  user (/home/bigdata/.codex/config.toml): `model_supports_reasoning_summaries` is ignored.",
+        "startup warning MCP": "0",
+        "startup warning deprecated": "1",
+        "startup warning hooks": "0",
+        "startup warning plugins": "0",
+        "startup warning skills": "0",
+        "startup warnings": "1"
+      },
+      "remediation": null,
+      "durationMs": 502
+    },
+    "network.env": {
+      "id": "network.env",
+      "category": "network",
+      "status": "ok",
+      "summary": "network-related environment looks readable",
+      "details": {
+        "managed proxy": "not configured",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+        "respect system proxy": "disabled"
+      },
+      "remediation": null,
+      "durationMs": 2
+    },
+    "network.provider_reachability": {
+      "id": "network.provider_reachability",
+      "category": "reachability",
+      "status": "ok",
+      "summary": "active provider endpoints are reachable over HTTP",
+      "details": {
+        "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> reachable (HTTP 405)",
+        "reachability mode": "ChatGPT auth"
+      },
+      "remediation": null,
+      "durationMs": 1450
+    },
+    "network.websocket_reachability": {
+      "id": "network.websocket_reachability",
+      "category": "websocket",
+      "status": "warning",
+      "summary": "Responses WebSocket failed; HTTPS fallback may still work",
+      "details": {
+        "DNS": "1 IPv4, 1 IPv6, first IPv4",
+        "auth mode": "none",
+        "connect timeout": "15000 ms",
+        "endpoint": "wss://api.openai.com/v1/<redacted>",
+        "handshake transport error": "http 401 Unauthorized: [redacted]",
+        "model provider": "openai",
+        "provider name": "OpenAI",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy",
+        "supports websockets": "true",
+        "wire API": "responses"
+      },
+      "remediation": "Check proxy, VPN, firewall, DNS, custom CA, and WebSocket policy support.",
+      "durationMs": 1191
+    }
+  }
+}

@@ -793,3 +793,11 @@ or simulation. It is not a tactical LOSS. Its simulation budget was not
 consumed and is not transferable to a new start without explicit authorization.
 Evidence and the no-retry boundary are under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_v1/`.
+
+After the user confirmed quota recovery, a fresh independent seven-breakpoint
+retry consumed its authorized CLI and failed before any MCP call with repeated
+401 authentication errors routed to `api.openai.com/v1/responses`. The ledger
+is `CLI 1/1`, `check 0/10`, `candidate 0/2`, and `simulation 0/2`; this is not
+a tactical LOSS. No retry/resume or model/account/region change is authorized.
+Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1/`.

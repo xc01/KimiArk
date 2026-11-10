@@ -1,0 +1,71 @@
+{
+  "schema_version": "KIMIARK_SEVEN_BREAKPOINT_RETRY_ZERO_MODEL_PREFLIGHT_V1",
+  "checked_at_utc": "2026-11-10T02:48:58.508570Z",
+  "generation_request_used": false,
+  "repository": {
+    "local_head": "5b62a2c46e7bf272594c6418d77a8d6aee072d40",
+    "unrelated_dirty_files_preserved": true
+  },
+  "input_bundle": {
+    "manifest_entries": 17,
+    "manifest_all_hashes_match": true,
+    "manifest_sha256": "ac9288b009df4ae8b603b50bd50c4b2153477344bc8edc25d302a6d0a2b8f133",
+    "gap_lineage_correction_sha256": "30d6541b11609dcb1e65918f3b42b61dd1722f741cd8a5b1962c650843f1d1f4",
+    "m70_events_gz_sha256": "d8ea88ad9499dbc86e2fce51f649f0df23f12f3ebf95dd7e33086b8b40b0b83d",
+    "seven_recursive_events_gz_sha256": "39831f91dc0f97f1b7035c81fec2a180d5305f4fd4c2714c90eed72c4ab7b6e2",
+    "focused_parent_c2_events_gz_sha256": "3097b74996228e6f6d4a81e50948e7549dac17a32d443d27055839a4142c3e28"
+  },
+  "task_configuration": {
+    "attempt": 1,
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "max_unique_deployed_operators": 7,
+    "max_candidates": 2,
+    "max_check_calls": 10,
+    "max_real_cli_starts": 1,
+    "used_real_cli_starts_before_start": 0,
+    "prompt_sha256": "2634dca32cbf1ccadc2d214891869ceb6bd788a7206dcb8e8c007007088e68fa",
+    "runner_sha256": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "authorization_sha256_before_start": "48a14193945cb2df99181ae799043206b010f1171a869d8353f87a12f0606a1f",
+    "session_config_sha256": "4e261c014e4657a22c6efb188f26aecdc6c278e8c33bcb2b352b0cd8e74a6228"
+  },
+  "codex_doctor": {
+    "command": "codex doctor --json --network-only -c model_provider=\"openai\" -c features.apps=false -c mcp_servers.kimiark.command=\"/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python\" -c mcp_servers.kimiark.args=[\"/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py\",\"/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1/session_config_v1.json\"] -c mcp_servers.kimiark.required=true -c mcp_servers.kimiark.default_tools_approval_mode=\"approve\" -c mcp_servers.kimiark.enabled_tools=[\"get_session_status\",\"check_plan\",\"run_simulation\",\"query_events\"]",
+    "generation_request_used": false,
+    "overall_status": "warning",
+    "codex_version": "0.167.0",
+    "checks": {
+      "config.load": {
+        "status": "warning",
+        "summary": "config loaded"
+      },
+      "network.env": {
+        "status": "ok",
+        "summary": "network-related environment looks readable"
+      },
+      "network.provider_reachability": {
+        "status": "ok",
+        "summary": "active provider endpoints are reachable over HTTP"
+      },
+      "network.websocket_reachability": {
+        "status": "warning",
+        "summary": "Responses WebSocket failed; HTTPS fallback may still work"
+      }
+    },
+    "stderr": ""
+  },
+  "mcp_no_model_status": {
+    "exit_code": 0,
+    "generation_request_used": false,
+    "session_model": "gpt-6-astra",
+    "session_reasoning_effort": "high",
+    "remaining_checks": 10,
+    "remaining_candidates": 2,
+    "remaining_simulations": 2,
+    "transcript_sha256": "d27aadfbed480b72f390560c6034aaf47b961ab5949422be6e89fbc8e349d0c6"
+  },
+  "coverage_boundary": "These checks do not prove a real model session, MCP tool execution, usage, or turn.completed. Attempt 1 is the authorized real-session verification."
+}

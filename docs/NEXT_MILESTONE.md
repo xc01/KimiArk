@@ -68,3 +68,12 @@ Its independent tactical entry remains focused C2's Steward/support exposure at
 2443-2593; the seven-recursive 2917-3361 and 4225-4705 windows must not be
 merged into that lineage. M70 remains best at eight IDs; seven-or-fewer
 feasibility remains UNKNOWN.
+
+After explicit quota recovery, the independent seven-breakpoint retry also used
+its one authorized CLI and failed at `STARTED_COUNTED_FAILED` with 401
+`Missing bearer or basic authentication in header` against
+`api.openai.com/v1/responses`. It had no MCP call, check, candidate, or
+simulation. This is an execution/authentication fault, not a tactical LOSS.
+Do not retry, resume, rotate account/region, or change model without a new
+authorization and a supported authentication check. Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry_v1/failure_report_v1.json`.
