@@ -1,0 +1,566 @@
+{
+  "action_timeline": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 91,
+      "operator_id": "char_4093_frston",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 571,
+      "operator_id": "char_283_midn",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 901,
+      "operator_id": "char_284_spot",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 1381,
+      "operator_id": "char_212_ansel",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1772,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1960,
+      "operator_id": "char_120_hibisc",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2131,
+      "operator_id": "char_210_stward",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2132,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2300,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2861,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3933,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4251,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4362,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5073,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5960,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6160,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6202,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7661,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7761,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 8100,
+      "operator_id": "char_210_stward"
+    },
+    {
+      "action_type": "RETREAT",
+      "frame": 8501,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 10201,
+      "operator_id": "char_210_stward",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 10602,
+      "operator_id": "char_283_midn",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "battle_phases": [
+    {
+      "completion_condition": "Artillery dead and shells settled, eastern devices destroyed with protected targets alive.",
+      "failure_effect_on_later_phases": "Earlier collapse truncates later mechanisms; whole-plan acceptance still fails.",
+      "goal": "Fund blockers, clear eastern devices, preserve artillery output through focused breakpoint and close artillery.",
+      "handoff_requirements": [
+        "Caster persists centrally; artillery and eastern devices close before protected harm."
+      ],
+      "phase_id": "OPEN_ARTILLERY",
+      "responsibilities": [
+        "Fang0[3,5]UP fundsDP and blocks row3; Friston91[4,5]RIGHT row4; Midnight571[1,5]UP lower outer; Spot901[6,5]RIGHT upper outer. Extra2DP shifts later first deployments60frames.",
+        "Midnight destroys trap_020_roadblock#3 after hostile queue. Steward2131[5,5]RIGHT covers trap_020_roadblock#4[6,6] and must emit DEVICE_DAMAGE/DESTROYED; Spot holds upper queue.",
+        "Steward[5,5]RIGHT attacks eligible artillery in rows4..6; Ansel[5,6]DOWN and Hibiscus[5,3]RIGHT both cover him. Spot[6,5] heals caster,Ansel,self during2300..3050,4251..5001,6202..6952; retains block but stops attacking."
+      ],
+      "start_condition": "Stage starts at10DP.",
+      "survival_dependencies": [
+        "Medical and output capabilities persist while duty pending, or measured fallback assumes duty."
+      ]
+    },
+    {
+      "completion_condition": "Full settlement,33 hostile kills,zero leaks,both protected reached,no active enemies.",
+      "failure_effect_on_later_phases": "No successful later duty inferred from legal commands alone.",
+      "goal": "Kill21/22/34 and all officers; open west routes and settle both protected targets.",
+      "handoff_requirements": [
+        "Western redeploy follows2100frames cooldown and hostile clearance."
+      ],
+      "phase_id": "CENTRAL_AND_EXIT",
+      "responsibilities": [
+        "Fang holds21 withMidnight ranged arts5073; Friston holds22/34 with persistentSteward row4 output. Two medics sustain both centralholders; caster no longer absent4280..6381.",
+        "Steward retreats8100, redeploys10201[2,2]DOWN fordevice1. Midnight retreats8501, redeploys10602[6,3]LEFT fordevice2 after lowerqueue closure. Spot remainsupper. Bothprotected3/14 require actual safearrival."
+      ],
+      "start_condition": "Opening/artillery roles have completed or their failures are recorded.",
+      "survival_dependencies": [
+        "Real live block slots and damage until all relevant enemies settle."
+      ]
+    }
+  ],
+  "corridor_responsibilities": [
+    {
+      "executors": "Fang0[3,5]UP fundsDP and blocks row3; Friston91[4,5]RIGHT row4; Midnight571[1,5]UP lower outer; Spot901[6,5]RIGHT upper outer. Extra2DP shifts later first deployments60frames.",
+      "fallback": "Midnight ranged output backs Fang; Spot3block replacesMelantha1. No immediate central spare; any released enemy must be accounted.",
+      "function": "Opening"
+    },
+    {
+      "executors": "Midnight destroys trap_020_roadblock#3 after hostile queue. Steward2131[5,5]RIGHT covers trap_020_roadblock#4[6,6] and must emit DEVICE_DAMAGE/DESTROYED; Spot holds upper queue.",
+      "fallback": "Caster remains until8100 allowing later device attacks after enemy targeting. Spot has zero forward range and is not a device4 fallback. Missing caster leaves this duty uncovered and fails acceptance.",
+      "function": "Eastern devices and protected3/14"
+    },
+    {
+      "executors": "Steward[5,5]RIGHT attacks eligible artillery in rows4..6; Ansel[5,6]DOWN and Hibiscus[5,3]RIGHT both cover him. Spot[6,5] heals caster,Ansel,self during2300..3050,4251..5001,6202..6952; retains block but stops attacking.",
+      "fallback": "Both medics continue duringSpot downtime; Hibiscus also heals upperSpot andFriston, Ansel healsFang/Friston andMidnight on extension. No guaranteed extra heal or dodge. Shared splash may overwhelm all live streams; observe recipients and real healing. Artillery must die before protected harm and8100withdrawal; no phantom later air output.",
+      "function": "Artillery and medical survival"
+    },
+    {
+      "executors": "Fang holds21 withMidnight ranged arts5073; Friston holds22/34 with persistentSteward row4 output. Two medics sustain both centralholders; caster no longer absent4280..6381.",
+      "fallback": "ConcurrentMidnight row3 andSteward row4 output do not substitute for missing blocks. Spot remainsupper protecting14; no teleport or conditional reserve. Missingblock is a failure.",
+      "function": "Central21/22/34"
+    },
+    {
+      "executors": "Steward retreats8100, redeploys10201[2,2]DOWN fordevice1. Midnight retreats8501, redeploys10602[6,3]LEFT fordevice2 after lowerqueue closure. Spot remainsupper. Bothprotected3/14 require actual safearrival.",
+      "fallback": "Westernexecutors stay untildevices destroyed; sameID2100framecooldown. Earlierdeath still needsrealcooldown and no refund. Anyhostile queue still pending atfixedwithdrawal invalidateshandoff; deviceclearance alone is notarrival.",
+      "function": "Western1/2 and safe arrivals"
+    }
+  ],
+  "deployment_positions_and_directions": [
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 0,
+      "operator_id": "char_123_fang",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        3,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 91,
+      "operator_id": "char_4093_frston",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        4,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "UP",
+      "frame": 571,
+      "operator_id": "char_283_midn",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        1,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 901,
+      "operator_id": "char_284_spot",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        6,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 1381,
+      "operator_id": "char_212_ansel",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        5,
+        6
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 1960,
+      "operator_id": "char_120_hibisc",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        5,
+        3
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "RIGHT",
+      "frame": 2131,
+      "operator_id": "char_210_stward",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        5,
+        5
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "DOWN",
+      "frame": 10201,
+      "operator_id": "char_210_stward",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        2,
+        2
+      ]
+    },
+    {
+      "action_type": "DEPLOY",
+      "direction": "LEFT",
+      "frame": 10602,
+      "operator_id": "char_283_midn",
+      "role": "See validation_card.required_functions",
+      "tile": [
+        6,
+        3
+      ]
+    }
+  ],
+  "formation_structure": {
+    "description": "Spot upper block/heal, caster in overlapping medicalranges, Midnightlatewestern2."
+  },
+  "formation_transitions": [
+    {
+      "description": "Spot stops attacks to heal; retainsblocks. Medics carrydowntime.",
+      "window": "2300..3050;4251..5001;6202..6952"
+    },
+    {
+      "description": "Fixedwesterntransfers require priorhostileclosure.",
+      "window": "8100 onward"
+    }
+  ],
+  "mandatory_tactical_invariants": [
+    {
+      "invariant": "Legal normal1-3star union selected/deployed<=7 including robots; complete fixed settlement, zero leaks, both protected alive/reached, no active enemies. Death permitted only with evaluated duty consequences."
+    }
+  ],
+  "operational_plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_002",
+  "parent_hypothesis_id": "RETRY2_SHARED_SUPPORT_SPOT_002",
+  "parent_plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_001",
+  "pressure_window_responsibilities": [
+    {
+      "id": "Q1",
+      "refutation": "Casterlacksdevice4damageorSpotqueueoverflowswithprerequisiteslive; earlierfailuretruncates.",
+      "success": "Openingdeployslegal; SpotactualouterBLOCK/kills; devices3and4destroyedwithprotectedalive."
+    },
+    {
+      "id": "Q2",
+      "refutation": "Sharedsplashcollapseslivesupport; separatelyqueryrange/other-target/cadence if outputinsufficient. Earlierfailuretruncateslaterclosure.",
+      "success": "ActualSpotHEAL2300..3050 plusmedicheals preserve casteroutputafter3043; artilleryENEMY_DEATHbeforeprotectedharmand8100."
+    },
+    {
+      "id": "Q3",
+      "refutation": "Missingblock/killwithintactsupportrefutes; earliercollapsetruncateslaterkillmechanism.",
+      "success": "LiveBLOCK21/22/34, actualMidnight/StewardDAMAGE, allthreedeadwithoutleaksbeforetransfers."
+    },
+    {
+      "id": "Q4",
+      "refutation": "AnyfailureinvalidatesWIN; earlierprotecteddeathtruncateswesternrelease.",
+      "success": "Devices1/2destroyed,bothprotectedalive/reached,33hostileskilled,0leaks,noactiveenemies,completesettlement."
+    }
+  ],
+  "selected_low_star_operator_ids": [
+    "char_123_fang",
+    "char_4093_frston",
+    "char_283_midn",
+    "char_284_spot",
+    "char_212_ansel",
+    "char_120_hibisc",
+    "char_210_stward"
+  ],
+  "skill_intents": [
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 1772,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2132,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2300,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 2861,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 3933,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4251,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 4362,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5073,
+      "operator_id": "char_283_midn"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 5960,
+      "operator_id": "char_212_ansel"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6160,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 6202,
+      "operator_id": "char_284_spot"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7661,
+      "operator_id": "char_120_hibisc"
+    },
+    {
+      "action_type": "ACTIVATE_SKILL",
+      "frame": 7761,
+      "operator_id": "char_212_ansel"
+    }
+  ],
+  "tactical_parent_plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_001",
+  "tactical_thesis": "Replace Melantha with Spot901[6,5]RIGHT; shift Ansel/Hibiscus/Steward firstdeploy+60frames; Steward2131[5,5]RIGHT stays until8100 with artillery,device4,row4central duties; Spot healing2300/4251/6202; Midnight takes late westerndevice2.",
+  "validation_card": {
+    "MODEL_GAP": [
+      "Fixed actions only; no reliable pre-swing lock or guaranteed whiff.",
+      "Ansel extra heal and Spot dodge unsupported. Spot approximation only as specified if selected later.",
+      "Reflected range is a geometry hypothesis; continuous positions and HP between trace samples UNKNOWN.",
+      "Service schema cold_start root is administrative lineage only; tactical parent is focused C2, not either failed CLI predecessor.",
+      "UNKNOWN_CLI_INTERNAL for unobservable requests; cached input tokens are a subset of input tokens."
+    ],
+    "c1_hypothesis_evaluation": [
+      {
+        "classification": "proved",
+        "evidence": "LegalSteward2071runtime7,2; shells2443/2593 hitAnselalone; artilleryDAMAGE2617..3001.",
+        "id": "C1 originalbreak"
+      },
+      {
+        "classification": "refuted",
+        "evidence": "StewardENEMY_ABILITY_HIT910@2893/3043,HEAL362@2959,OPERATOR_DEATH3043; exactintersampleHPunknown.",
+        "id": "C1 sustainedsupport"
+      },
+      {
+        "classification": "truncated-by-earlier-failure",
+        "evidence": "Death3043 removesplannedoutputbefore4280; artilleryleaks5759.",
+        "id": "C1 artilleryclosure"
+      },
+      {
+        "classification": "proved",
+        "evidence": "DEVICE_DESTROYED4@1966,3@2404,1@11017,2@11187.",
+        "id": "C1 eastern/westerndevices"
+      },
+      {
+        "classification": "refuted",
+        "evidence": "BLOCK21@4646; Fristondeath4768,Fang4852; noobservedBLOCK22/34;allthreeleak.",
+        "id": "C1 livecentralcoverage"
+      },
+      {
+        "classification": "truncated-by-earlier-failure",
+        "evidence": "Groundholdersdeadbefore6381redeploy; sufficiencywithintactholdersuntested.",
+        "id": "C1 latecasterkills"
+      },
+      {
+        "classification": "truncated-by-earlier-failure",
+        "evidence": "Protected3killed5353beforeroadblock1clears; protected14reached11519independentlyproved.",
+        "id": "C1 protected3westernrelease"
+      },
+      {
+        "classification": "evidence-unknown",
+        "evidence": "Eventsprovideonlysamples.",
+        "id": "C1 continuousHP/position"
+      }
+    ],
+    "exact_tactical_change": "Replace Melantha with Spot901[6,5]RIGHT; shift Ansel/Hibiscus/Steward firstdeploy+60frames; Steward2131[5,5]RIGHT stays until8100 with artillery,device4,row4central duties; Spot healing2300/4251/6202; Midnight takes late westerndevice2.",
+    "original_tactical_parent": "R89_ASTRA_HIGH_SEVEN_FOCUSED_002",
+    "parent_candidate_sha256": "d630b89d193348bf95707184322db4f48b0c6547e3f4da716fc80d80a0a28c7f",
+    "parent_events_sha256": "608a756f0d9e5df3875fe069f6b2f4958a040989629e01280d8b44c340f3d2a7",
+    "predictions": [
+      {
+        "id": "Q1",
+        "refutation": "Casterlacksdevice4damageorSpotqueueoverflowswithprerequisiteslive; earlierfailuretruncates.",
+        "success": "Openingdeployslegal; SpotactualouterBLOCK/kills; devices3and4destroyedwithprotectedalive."
+      },
+      {
+        "id": "Q2",
+        "refutation": "Sharedsplashcollapseslivesupport; separatelyqueryrange/other-target/cadence if outputinsufficient. Earlierfailuretruncateslaterclosure.",
+        "success": "ActualSpotHEAL2300..3050 plusmedicheals preserve casteroutputafter3043; artilleryENEMY_DEATHbeforeprotectedharmand8100."
+      },
+      {
+        "id": "Q3",
+        "refutation": "Missingblock/killwithintactsupportrefutes; earliercollapsetruncateslaterkillmechanism.",
+        "success": "LiveBLOCK21/22/34, actualMidnight/StewardDAMAGE, allthreedeadwithoutleaksbeforetransfers."
+      },
+      {
+        "id": "Q4",
+        "refutation": "AnyfailureinvalidatesWIN; earlierprotecteddeathtruncateswesternrelease.",
+        "success": "Devices1/2destroyed,bothprotectedalive/reached,33hostileskilled,0leaks,noactiveenemies,completesettlement."
+      }
+    ],
+    "question": "Can shared medical coverage and Spot healing preserve artillery output after C1 isolated-caster death3043 and create later actual kills?",
+    "replacement_cost": "SevenIDs. Spot17 replacesMelantha15: +2DP. Spotinitial25/40 requires450frames;25secskill+40secrecovery gives1950framescycle, attacksstopduringheal. Removeintermediatecasterredeploy27DP andgap; Midnightlate24DP replacesMelantha22DP. No planned death/refund; missingblockhasnoinstantreserve.",
+    "required_functions": [
+      {
+        "executors": "Fang0[3,5]UP fundsDP and blocks row3; Friston91[4,5]RIGHT row4; Midnight571[1,5]UP lower outer; Spot901[6,5]RIGHT upper outer. Extra2DP shifts later first deployments60frames.",
+        "fallback": "Midnight ranged output backs Fang; Spot3block replacesMelantha1. No immediate central spare; any released enemy must be accounted.",
+        "function": "Opening"
+      },
+      {
+        "executors": "Midnight destroys trap_020_roadblock#3 after hostile queue. Steward2131[5,5]RIGHT covers trap_020_roadblock#4[6,6] and must emit DEVICE_DAMAGE/DESTROYED; Spot holds upper queue.",
+        "fallback": "Caster remains until8100 allowing later device attacks after enemy targeting. Spot has zero forward range and is not a device4 fallback. Missing caster leaves this duty uncovered and fails acceptance.",
+        "function": "Eastern devices and protected3/14"
+      },
+      {
+        "executors": "Steward[5,5]RIGHT attacks eligible artillery in rows4..6; Ansel[5,6]DOWN and Hibiscus[5,3]RIGHT both cover him. Spot[6,5] heals caster,Ansel,self during2300..3050,4251..5001,6202..6952; retains block but stops attacking.",
+        "fallback": "Both medics continue duringSpot downtime; Hibiscus also heals upperSpot andFriston, Ansel healsFang/Friston andMidnight on extension. No guaranteed extra heal or dodge. Shared splash may overwhelm all live streams; observe recipients and real healing. Artillery must die before protected harm and8100withdrawal; no phantom later air output.",
+        "function": "Artillery and medical survival"
+      },
+      {
+        "executors": "Fang holds21 withMidnight ranged arts5073; Friston holds22/34 with persistentSteward row4 output. Two medics sustain both centralholders; caster no longer absent4280..6381.",
+        "fallback": "ConcurrentMidnight row3 andSteward row4 output do not substitute for missing blocks. Spot remainsupper protecting14; no teleport or conditional reserve. Missingblock is a failure.",
+        "function": "Central21/22/34"
+      },
+      {
+        "executors": "Steward retreats8100, redeploys10201[2,2]DOWN fordevice1. Midnight retreats8501, redeploys10602[6,3]LEFT fordevice2 after lowerqueue closure. Spot remainsupper. Bothprotected3/14 require actual safearrival.",
+        "fallback": "Westernexecutors stay untildevices destroyed; sameID2100framecooldown. Earlierdeath still needsrealcooldown and no refund. Anyhostile queue still pending atfixedwithdrawal invalidateshandoff; deviceclearance alone is notarrival.",
+        "function": "Western1/2 and safe arrivals"
+      }
+    ],
+    "tactical_parent_plan_id": "R91_ASTRA_HIGH_SEVEN_BREAKPOINT_RETRY2_001",
+    "targeted_break": "C1 removed original2443..2593 sharedsplash but casterdied3043aftertwoisolated910shellsandone362heal.",
+    "untested": [
+      "Spot replacingFriston opening; othercaster/healerarrangements; counterfactualhealamounts; realgameandglobalminimum."
+    ]
+  }
+}

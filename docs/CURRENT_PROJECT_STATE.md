@@ -810,3 +810,11 @@ failure at 3043; C2 proved support survival but failed timely roadblock #4
 release, artillery closure, and live central coverage. M70 V1 remains best at
 eight IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/`.
+
+The next seven-duty-conflict experiment built its parent fact pack but did not
+reach a real CLI. Zero-model doctor found a TLS/certificate failure on the
+ChatGPT HTTPS endpoint and a failed WebSocket handshake while ChatGPT login was
+still valid. The ledger remains CLI 0/1, check 0/10, candidate 0/2, and
+simulation 0/2; this is an execution/service fault, not a tactical LOSS.
+Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/`.

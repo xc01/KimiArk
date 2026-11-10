@@ -87,3 +87,11 @@ Fang/Friston died@4903/4920 before central closure; it lost 24/9 with life -8.
 No seven-ID WIN was found. M70 remains best at eight IDs; seven-or-fewer
 feasibility remains UNKNOWN. Evidence is
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_retry2_v1/closeout_report_v1.json`.
+
+The successor seven-duty-conflict experiment completed zero-model bundle/fact
+preparation, but `codex doctor` failed before any CLI start: the ChatGPT HTTPS
+endpoint had a TLS handshake/certificate failure and the WebSocket handshake
+also failed. ChatGPT authentication remained logged in. It stopped at CLI 0/1,
+check 0/10, candidate 0/2, and simulation 0/2; this is not a tactical LOSS.
+Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_duty_conflict_v1/service_fault_report_v1.json`.
