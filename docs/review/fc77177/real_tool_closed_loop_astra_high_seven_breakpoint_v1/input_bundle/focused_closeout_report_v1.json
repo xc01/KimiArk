@@ -1,0 +1,1800 @@
+{
+  "schema_version": "KIMIARK_SEVEN_FOCUSED_CLOSEOUT_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_astra_high_seven_focused_v1",
+  "best_verified_result": {
+    "operator_count": 8,
+    "plan_id": "R8_7_GPT_M70_V1",
+    "simulator_win": true
+  },
+  "decision": {
+    "new_win": false,
+    "best_verified_operator_count": 8,
+    "seven_or_fewer_feasibility": "UNKNOWN"
+  },
+  "authorization_and_usage": {
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "real_cli_starts": "1/1",
+    "check_calls": "2/10",
+    "candidates": "2/2",
+    "simulations": "2/2",
+    "remaining_checks": 8,
+    "remaining_candidates": 0,
+    "remaining_simulations": 0,
+    "automatic_retry": false,
+    "cached_input_is_subset_of_input": true,
+    "internal_requests": "UNKNOWN_CLI_INTERNAL"
+  },
+  "process": {
+    "schema_version": "KIMIARK_SEVEN_FOCUSED_PROCESS_RESULT_V1",
+    "automatic_retry": false,
+    "ended_at_utc": "2026-11-09T09:18:36.777322Z",
+    "exit_code": 0,
+    "final_message_bytes": 3076,
+    "started_at_utc": "2026-11-09T09:04:20.584621Z",
+    "status": "COMPLETED",
+    "stderr_bytes": 0,
+    "stdout_bytes": 1023562,
+    "timed_out": false,
+    "turn_completed": true,
+    "usage": {
+      "input_tokens": 1656202,
+      "cached_input_tokens": 1540224,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 20492,
+      "reasoning_output_tokens": 5370
+    },
+    "mcp_tool_calls": {
+      "total": 48,
+      "by_tool": {
+        "check_plan": 2,
+        "get_session_status": 2,
+        "query_events": 42,
+        "run_simulation": 2
+      }
+    }
+  },
+  "coordinate_correction": {
+    "prior_comparison_note": "The sent comparison said plan tiles were [x,y] and DEPLOY event tiles were [row,col].",
+    "corrected_for_this_run": "plan/action tiles are [row,col]; DEPLOY event detail tile strings are [x,y] after json_tile_to_runtime conversion. The sent comparison copy remains unchanged and is identified by hash."
+  },
+  "gap_analysis": {
+    "steward_2917_3361": "OBSERVED: ordinary attacks continue through 3157; NO_CANDIDATE 3205-3360. Artillery is absent from intervening candidate lists. Continuous positions are UNKNOWN.",
+    "steward_4225_4705": "OBSERVED: attacks continue every 48 frames, switching to #21. Artillery absent from candidate lists. Continuous positions are UNKNOWN.",
+    "conclusion": "Absence from eligibility/targeting, not retreat or slower cadence, best explains the gaps; exact range-crossing frames remain UNKNOWN."
+  },
+  "candidates": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "cf86842fc685ffccb1fb5ef1ca56ecd91766d3ed688126485daf76cb4aa6c23e",
+      "plan_id": "R89_ASTRA_HIGH_SEVEN_FOCUSED_001",
+      "parent_plan_id": "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_V1",
+      "parent_hypothesis_id": "SEVEN_FOCUSED_ROADBLOCK_AND_RANGE_001",
+      "roster_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward"
+      ],
+      "roster_names": [
+        "芬",
+        "Friston-3",
+        "月见夜",
+        "玫兰莎",
+        "安赛尔",
+        "芙蓉",
+        "史都华德"
+      ],
+      "validation_card": {
+        "MODEL_GAP": [
+          "No reliable pre-swing target lock or arbitrary induced whiff is expressible; fixed DEPLOY/RETREAT/ACTIVATE_SKILL only.",
+          "Spot dodge and probabilistic Ansel extra healing unavailable.",
+          "Exact HP between trace samples UNKNOWN; prior Hibiscus received558.9 self3013 AND362 Ansel3015 between890 hits3011/3161; no guaranteed missing-heal amount inferred.",
+          "UNKNOWN_CLI_INTERNAL for unobservable model-internal requests."
+        ],
+        "comparison_sha256": "e9c0fe5694bacb1ed76d4e0dd12b8e523ab8a5c9567101bd141d52a5f1cd9034",
+        "exact_tactical_change": "Replace Spot with Melantha, keep her upper through officers; Hibiscus[5,5]UP heals upper holder and Ansel; Ansel[5,6]DOWN heals central, Steward, Hibiscus and extends to Midnight during skills. Steward[5,7]DOWN covers artillery endpoint; central return[2,5]UP. Costs upper block3/selfheal and duelist central tour, so early armor output falls to Fang/Midnight.",
+        "hash_verification": "Original plan, action, event archive and final status of both sources verified against comparison; comparison verified against bundle manifest. All match.",
+        "output_gap_analysis": {
+          "coordinate_correction": "Verified compiler/runner: action and plan tile arrays are [row,col]; DEPLOY tile strings and ENEMY_ABILITY_START target_position are runtime [x,y]. Comparison coordinate_note is incorrect. Geometry below uses row,col.",
+          "gap_2917_3361": "Steward deployed2101, no retreat/death during gap. Artillery DAMAGE2917 then3361. Officer12 DAMAGE2965/3013; officer13 DAMAGE3061/3109/3157. Selection at3205..3360 is NO_CANDIDATE (156 frames). 48-frame cadence explains spacing among attacks, not the long absence of artillery.",
+          "gap_4225_4705": "Artillery DAMAGE4225 then4705. Officer19 hits4273/4321; officer20 hits4369/4417/4465; armor21 hits4513/4561/4609/4657. All 48 frames apart. Artillery absent from intervening candidate_ids, not selected away while eligible in those samples. Steward remains deployed.",
+          "geometry": "Recursive[5,6]DOWN covers row5,4,3 cols5..7 plus row2col6; M70[5,7]DOWN covers row5,4,3 cols6..8 plus row2col7. Artillery route visits row2col7 twice. Current selector filters range, air capability, neutrality and hidden route; artillery is hostile FLY, Steward can hit air, source route has no hidden checkpoints. Missing eligibility is consistent with range at lower endpoint; no continuous position record establishes exact exit/re-entry instants. Those instants and between-sample positional causality UNKNOWN.",
+          "mechanism": "Steward high-defense priority applies after eligibility; emitted generic rule label omits this detail. No blocked/caster deployment interruption observed; no observed stun explanation. M70 maintains artillery damage through first gap and kills4273. No universal deadline inferred."
+        },
+        "parent_evidence": {
+          "m70": {
+            "action_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/action_snapshot.json",
+            "action_sha256": "c6248dd2da3eda2668c286190001600906cdc5c3b6322883ed1fb6b63d07560a",
+            "events_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/diagnostic_events.json.gz",
+            "events_sha256": "d8ea88ad9499dbc86e2fce51f649f0df23f12f3ebf95dd7e33086b8b40b0b83d",
+            "final_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/final_status.json",
+            "final_sha256": "5c7e58fd5b66e428cb7fbfaa5cc7c8a1619c093a0715e5fada30a98bcd57d738",
+            "plan_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/plan_snapshot.json",
+            "plan_sha256": "fe265c2837d962184647bded4ce0725f4fdd3f8bef013d05cf5ade5ef89ddf9d"
+          },
+          "seven": {
+            "action_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/action_snapshot.json",
+            "action_sha256": "2dce0547f257bf2978d9c6c36ca6fc47b982243f313d63a93501f220b01a2c99",
+            "events_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/diagnostic_events.json.gz",
+            "events_sha256": "39831f91dc0f97f1b7035c81fec2a180d5305f4fd4c2714c90eed72c4ab7b6e2",
+            "final_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/final_status.json",
+            "final_sha256": "a1c2d8b07ce241cb0f2effa20f96dc6a133035808c2fbac1eb618aabf682ace9",
+            "plan_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/plan_snapshot.json",
+            "plan_sha256": "6e55bcfa35817c10dae6fb1bd45f2e8a21146d14942a5795eefde9c533c0392b"
+          }
+        },
+        "predictions": [
+          {
+            "id": "P1",
+            "refutation": "No roadblock4 damage/destruction while live and assigned, or protected14 restrained by uncleared4. Earlier loss truncates later functional claim.",
+            "success": "Melantha DEVICE_DAMAGE and DEVICE_DESTROYED trap_020_roadblock#4 before protected14 restraint; roadblock3 also destroyed by Midnight.",
+            "window": [
+              841,
+              3200
+            ]
+          },
+          {
+            "id": "P2",
+            "refutation": "Artillery absent/undamaged or alive at withdrawal, or early medical collapse. Do not assume identical hit counts/timing to M70.",
+            "success": "Steward selects and damages artillery through lower endpoint interval; artillery ENEMY_DEATH before withdrawal and residual shells resolve without destroying required live capabilities.",
+            "window": [
+              2071,
+              4280
+            ]
+          },
+          {
+            "id": "P3",
+            "refutation": "Lost live holder/support leaves a queue uncovered; no scheduled substitute is silently credited.",
+            "success": "Upper Melantha block/output sustained by Hibiscus; central Ansel heals and extended Midnight healing observed. Any sacrifice is evaluated by output/block time and available replacement.",
+            "window": [
+              1681,
+              8501
+            ]
+          },
+          {
+            "id": "P4",
+            "refutation": "Any target leaks, or unblock without kill/recapture; if earlier collapse prevents this test classify truncated-by-earlier-failure.",
+            "success": "Actual BLOCK and ENEMY_DEATH of21/22/34 with no leaks; Fang/Midnight output before Steward return keeps queue within capacity.",
+            "window": [
+              4380,
+              8100
+            ]
+          },
+          {
+            "id": "P5",
+            "refutation": "Protected death or incomplete settlement; roadblock clearance alone does not prove safe arrival.",
+            "success": "Both enemy_3001_upeopl#3/#14 alive and PROTECTED_TARGET_REACHED; all four devices destroyed, enemies settled and no active enemies, zero leaks.",
+            "window": [
+              0,
+              20000
+            ]
+          }
+        ],
+        "replacement_cost": "Seven-ID union: remove Spot (17 DP, block3, local heal; unsupported dodge never counted), retain Melantha (15 DP, block1, faster output). Forgo7-DP living refund2054 and her central redeployment. No eighth reserve. Steward2071 requires saved opening DP plus Fang2070 income; check_plan verifies. Moving Hibiscus removes her central coverage; Ansel now owns it. Sacrifice allowed but no planned replacement for an early dead robot/medic.",
+        "required_functions": [
+          {
+            "executors": "Fang0[3,5]UP automatic DP; Friston91[4,5]RIGHT. Midnight571[1,5]UP and Melantha841[6,5]RIGHT intercept outer routes.",
+            "function": "Opening funding and central block"
+          },
+          {
+            "executors": "Midnight roadblock3 after own queue; Melantha roadblock4 after own queue. Device destruction is separate from protected3/14 safe arrival.",
+            "function": "Eastern roadblock release"
+          },
+          {
+            "executors": "Steward2071[5,7]DOWN until4280; Ansel1321[5,6]DOWN skills2072/3873; Hibiscus1681[5,5]UP skills2582/4083. Melantha skills2050/3851, continuing upper block/damage. Locks/splash recipients are measured, not assumed.",
+            "function": "Artillery and support"
+          },
+          {
+            "executors": "Fang holds21, Friston22/34; Fang normal attacks and Midnight reachable attacks/skill5073 clear early queues; Steward6381[2,5]UP adds arts to both rows. Single Ansel central healing is a pressure risk. No guaranteed survival or block slots.",
+            "function": "Central21/22/34"
+          },
+          {
+            "executors": "Midnight lower; Melantha upper through8501. Steward retreats8100 returns10201[2,2]DOWN for roadblock1. Melantha returns10602[6,3]LEFT for roadblock2. Require both protected3/14 alive and reached after hostile closure.",
+            "function": "Late officers and protected routes"
+          }
+        ],
+        "structure_comparison": [
+          {
+            "description": "Keep recursive seven IDs; restore Ansel[5,6]DOWN and Steward[5,7]DOWN to recover artillery eligibility and cross-healing. This leaves Spot unable to attack adjacent roadblock4; a new early device executor is still needed. Extending deployment alone cannot cure range gaps.",
+            "selected": false,
+            "structure_id": "FOCUSED_MEDICAL_AND_RANGE_REPAIR"
+          },
+          {
+            "description": "Replace Spot with Melantha, keep her upper through officers; Hibiscus[5,5]UP heals upper holder and Ansel; Ansel[5,6]DOWN heals central, Steward, Hibiscus and extends to Midnight during skills. Steward[5,7]DOWN covers artillery endpoint; central return[2,5]UP. Costs upper block3/selfheal and duelist central tour, so early armor output falls to Fang/Midnight.",
+            "selected": true,
+            "structure_id": "PERMANENT_UPPER_MELANTHA"
+          },
+          {
+            "description": "Replace robot with Beagle and remove Hibiscus; retain upper duelist/Spot transfer. Gains central defense but opening +15 DP delays four-lane establishment and one medic must cover all artillery recipients. No free opening or extra-heal talent credited.",
+            "selected": false,
+            "structure_id": "CENTRAL_DEFENDER_AND_ONE_MEDIC"
+          }
+        ],
+        "targeted_break": "Chain1: replace Spot's absent roadblock4 output with actual Melantha adjacent attacks before protected14 restraint; chain2 geometry and artillery output are explicit coupled hypotheses."
+      },
+      "targeted_break": null,
+      "structure_comparison": null,
+      "result": {
+        "deployment_errors": [
+          "char_120_hibisc@86.06666666666666: operator is not deployed",
+          "char_208_melan@128.36666666666667: operator is not deployed",
+          "char_212_ansel@129.1: operator is not deployed",
+          "char_120_hibisc@136.1: operator is not deployed",
+          "char_210_stward@142.66666666666666: operator is not deployed",
+          "char_283_midn@169.1: operator is not deployed",
+          "char_208_melan@188.4: operator is not deployed",
+          "char_212_ansel@196.66666666666666: operator is not deployed",
+          "char_120_hibisc@203.33333333333334: operator is not deployed"
+        ],
+        "enemies_killed": 12,
+        "enemies_leaked": 21,
+        "enemies_remaining": 0,
+        "final_dp": 99.0,
+        "first_objective_failure_reason": "ENEMY_LEAK",
+        "first_objective_failure_time": 136.2,
+        "operator_deaths": 8,
+        "remaining_enemy_hp": 0,
+        "remaining_enemy_route_progress": 0,
+        "remaining_life": -20,
+        "run_metadata": null,
+        "score": -2080.0,
+        "time_survived": 233.2333333333,
+        "win": false
+      },
+      "events": {
+        "event_count": 30729,
+        "operator_death_events": [
+          {
+            "frame": 2111,
+            "source_id": "char_212_ansel",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 2111,
+            "source_id": "char_120_hibisc",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 2561,
+            "source_id": "char_210_stward",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 2799,
+            "source_id": "char_4093_frston",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 3520,
+            "source_id": "char_123_fang",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 3699,
+            "source_id": "char_208_melan",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 4586,
+            "source_id": "char_283_midn",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 6549,
+            "source_id": "char_210_stward",
+            "target_id": null,
+            "details": {}
+          }
+        ],
+        "unique_dead_operator_ids": [
+          "char_120_hibisc",
+          "char_123_fang",
+          "char_208_melan",
+          "char_210_stward",
+          "char_212_ansel",
+          "char_283_midn",
+          "char_4093_frston"
+        ],
+        "leak_events": [
+          {
+            "frame": 3141,
+            "source_id": "enemy_1107_uoffcr#11",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 3425,
+            "source_id": "enemy_1107_uoffcr#13",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 4086,
+            "source_id": "enemy_1107_uoffcr#16",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 4370,
+            "source_id": "enemy_1107_uoffcr#18",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 4475,
+            "source_id": "enemy_1107_uoffcr#19",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 4625,
+            "source_id": "enemy_1107_uoffcr#20",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5046,
+            "source_id": "enemy_1110_uamord#21",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5196,
+            "source_id": "enemy_1110_uamord#22",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5555,
+            "source_id": "enemy_1107_uoffcr#23",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5720,
+            "source_id": "enemy_1107_uoffcr#24",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5759,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5932,
+            "source_id": "enemy_1108_uterer#27",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5975,
+            "source_id": "enemy_1107_uoffcr#25",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6080,
+            "source_id": "enemy_1107_uoffcr#26",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6082,
+            "source_id": "enemy_1108_uterer#28",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6142,
+            "source_id": "enemy_1108_uterer#29",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6292,
+            "source_id": "enemy_1108_uterer#31",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6425,
+            "source_id": "enemy_1107_uoffcr#30",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6590,
+            "source_id": "enemy_1107_uoffcr#32",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6846,
+            "source_id": "enemy_1110_uamord#33",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6996,
+            "source_id": "enemy_1110_uamord#34",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          }
+        ],
+        "enemy_death_events": [
+          {
+            "frame": 710,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1108_uterer#1",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 883,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1108_uterer#2",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1234,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1108_uterer#4",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1246,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1108_uterer#5",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1437,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#6",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1786,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#9",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1819,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#8",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1853,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#7",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 2717,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#10",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3113,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#12",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3818,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#15",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 4208,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#17",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 5341,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": "enemy_3001_upeopl#3",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          },
+          {
+            "frame": 6314,
+            "source_id": "enemy_1107_uoffcr#32",
+            "target_id": "enemy_3001_upeopl#14",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          }
+        ],
+        "roadblock_destroyed_events": [
+          {
+            "frame": 1966,
+            "source_id": "char_208_melan",
+            "target_id": "trap_020_roadblock#4",
+            "details": {}
+          },
+          {
+            "frame": 2404,
+            "source_id": "char_283_midn",
+            "target_id": "trap_020_roadblock#3",
+            "details": {}
+          }
+        ],
+        "protected_reached_events": [],
+        "protected_death_events": [
+          {
+            "frame": 5341,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": "enemy_3001_upeopl#3",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          },
+          {
+            "frame": 6314,
+            "source_id": "enemy_1107_uoffcr#32",
+            "target_id": "enemy_3001_upeopl#14",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          }
+        ],
+        "artillery_ability_hits": [
+          {
+            "frame": 1961,
+            "target_id": "char_4093_frston",
+            "details": {
+              "amount": 765.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 1961,
+            "target_id": "char_208_melan",
+            "details": {
+              "amount": 845.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 1961,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 1961,
+            "target_id": "char_120_hibisc",
+            "details": {
+              "amount": 890.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2111,
+            "target_id": "char_4093_frston",
+            "details": {
+              "amount": 765.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2111,
+            "target_id": "char_208_melan",
+            "details": {
+              "amount": 845.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2111,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2111,
+            "target_id": "char_120_hibisc",
+            "details": {
+              "amount": 890.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2261,
+            "target_id": "char_208_melan",
+            "details": {
+              "amount": 845.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                6
+              ]
+            }
+          },
+          {
+            "frame": 2411,
+            "target_id": "char_210_stward",
+            "details": {
+              "amount": 910.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2561,
+            "target_id": "char_210_stward",
+            "details": {
+              "amount": 910.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2860,
+            "target_id": "char_123_fang",
+            "details": {
+              "amount": 740.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                4
+              ]
+            }
+          },
+          {
+            "frame": 3520,
+            "target_id": "char_123_fang",
+            "details": {
+              "amount": 740.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          }
+        ],
+        "artillery_damage": [
+          {
+            "frame": 2161,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2209,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2257,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2305,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2353,
+            "amount": 473.28999999999996
+          },
+          {
+            "frame": 2401,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2449,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2497,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2545,
+            "amount": 249.10000000000002
+          }
+        ],
+        "central": {
+          "enemy_1110_uamord#21": {
+            "block_frames": [],
+            "unblock_frames": [],
+            "damage_total": 0,
+            "leak_frames": [
+              5046
+            ],
+            "death_frames": []
+          },
+          "enemy_1110_uamord#22": {
+            "block_frames": [],
+            "unblock_frames": [],
+            "damage_total": 0,
+            "leak_frames": [
+              5196
+            ],
+            "death_frames": []
+          },
+          "enemy_1110_uamord#34": {
+            "block_frames": [],
+            "unblock_frames": [],
+            "damage_total": 0,
+            "leak_frames": [
+              6996
+            ],
+            "death_frames": []
+          }
+        }
+      },
+      "hashes": {
+        "source_structured_output_sha256": "52874507ad8a97c1b36f1335cedb208549ed8eddad3f58a40912fd7ca7ae5568",
+        "frozen_plan_sha256": "022a76a86df5d23b68d27bc594fc2929951fca1e6bf1acdda2acc303199202cd",
+        "frozen_action_sha256": "f6b63a9e455c54fa14ca9dcc3a2d15e059ad0e4dd0574f54b3ba9aeb0c5c5eba",
+        "raw_events_sha256": "70e58854bad0a5d0d1853bcbe397c98704ddb3cff614f40db8d4fbcb11830051",
+        "events_gz_sha256": "4132508117d7d3684ba072d8a815d629c86ae1fc6d67c6d5834288156b327ef1",
+        "events_gz_restored_sha256": "70e58854bad0a5d0d1853bcbe397c98704ddb3cff614f40db8d4fbcb11830051",
+        "raw_summary_sha256": "029d7de384979d5cba5ca0764003d0b6cb8df3953c2d56b8d996f4f8fde7ecc6",
+        "summary_gz_sha256": "742e6535239ab68859f5dd690442346f9f2e2756f6eae6ef90791fb3f85186a4",
+        "summary_gz_restored_sha256": "029d7de384979d5cba5ca0764003d0b6cb8df3953c2d56b8d996f4f8fde7ecc6",
+        "final_status_sha256": "195898c2ab453803e20e50a2ec9c65b4588c454675fa9dd09b63132f96ff70d7"
+      }
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "9fbf265ad1fa8eba365fb31bdf0c3fc832930615086abf4fec54253fd80fbaca",
+      "plan_id": "R89_ASTRA_HIGH_SEVEN_FOCUSED_002",
+      "parent_plan_id": "R89_ASTRA_HIGH_SEVEN_FOCUSED_001",
+      "parent_hypothesis_id": "SEVEN_FOCUSED_DISPERSED_MEDICAL_002",
+      "roster_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward"
+      ],
+      "roster_names": [
+        "芬",
+        "Friston-3",
+        "月见夜",
+        "玫兰莎",
+        "安赛尔",
+        "芙蓉",
+        "史都华德"
+      ],
+      "validation_card": {
+        "MODEL_GAP": [
+          "No reliable pre-swing target lock or arbitrary induced whiff is expressible; fixed DEPLOY/RETREAT/ACTIVATE_SKILL only.",
+          "Spot dodge and probabilistic Ansel extra healing unavailable.",
+          "Exact HP between trace samples UNKNOWN; prior Hibiscus received558.9 self3013 AND362 Ansel3015 between890 hits3011/3161; no guaranteed missing-heal amount inferred.",
+          "UNKNOWN_CLI_INTERNAL for unobservable model-internal requests.",
+          "1900 is a candidate-specific test placement based on initial no-west-medic geometry, not a universal deadline or guaranteed pre-swing induction. Actual acquisition is queried."
+        ],
+        "c1_prediction_assessment": [
+          {
+            "classification": "proved",
+            "evidence": "Melantha DEVICE_DAMAGE841..1966; roadblock4 destroyed1966. Midnight destroys roadblock3 at2404; protected14 is not restrained by4, reaches western roadblock2 at3620.",
+            "id": "P1"
+          },
+          {
+            "classification": "refuted",
+            "evidence": "Lock[5,5]1861/2011 produces four recipients1961/2111; Ansel and Hibiscus die2111. Ansel HEAL self362@2009, Friston506.8@2095; Hibiscus HEAL self372.6@2025. No exact preimpact HP claim.",
+            "id": "P2 medical precondition"
+          },
+          {
+            "classification": "truncated-by-earlier-failure",
+            "evidence": "Steward dies2561 after medics2111, before2917..3361 and4225..4705. Nine artillery hits2161..2545 do not test later coverage. Artillery ultimately leaks5759.",
+            "id": "P2 gap coverage and artillery closure"
+          },
+          {
+            "classification": "refuted",
+            "evidence": "Hibiscus healed Melantha1681/1767/1853/1939, but medics died2111 with no live replacement; Melantha dies3699. Her benefit was early roadblock4 clearance and early blocks, not maintained upper coverage.",
+            "id": "P3 permanent upper and medical coverage"
+          },
+          {
+            "classification": "truncated-by-earlier-failure",
+            "evidence": "Friston2799/Fang3520 die before armor arrival;21/22/34 never BLOCK, leak5046/5196/6996. This does not refute sufficiency with intended medical capability alive.",
+            "id": "P4 early/late central output sufficiency"
+          },
+          {
+            "classification": "truncated-by-earlier-failure",
+            "evidence": "Both protected targets die5341/6314 before western transfers; zero arrivals. Whole-plan safety acceptance fails, but late transfer hypothesis not tested.",
+            "id": "P5 western transfer safety"
+          },
+          {
+            "classification": "evidence-unknown",
+            "evidence": "Trace events do not provide continuous HP history; no guaranteed missing-heal amount inferred.",
+            "id": "exact HP and counterfactual necessary healing"
+          }
+        ],
+        "comparison_sha256": "e9c0fe5694bacb1ed76d4e0dd12b8e523ab8a5c9567101bd141d52a5f1cd9034",
+        "exact_tactical_change": "Hibiscus DEPLOY moves from1681[5,5]UP to1900[5,3]RIGHT. First two manual skills shift2582->2801 and4083->4302 to respect readiness. All other C1 actions unchanged. No bait whiff asserted: Melantha remains exposed and Hibiscus must still deliver upper healing.",
+        "hash_verification": "Original plan, action, event archive and final status of both sources verified against comparison; comparison verified against bundle manifest. All match.",
+        "output_gap_analysis": {
+          "coordinate_correction": "Verified compiler/runner: action and plan tile arrays are [row,col]; DEPLOY tile strings and ENEMY_ABILITY_START target_position are runtime [x,y]. Comparison coordinate_note is incorrect. Geometry below uses row,col.",
+          "gap_2917_3361": "Steward deployed2101, no retreat/death during gap. Artillery DAMAGE2917 then3361. Officer12 DAMAGE2965/3013; officer13 DAMAGE3061/3109/3157. Selection at3205..3360 is NO_CANDIDATE (156 frames). 48-frame cadence explains spacing among attacks, not the long absence of artillery.",
+          "gap_4225_4705": "Artillery DAMAGE4225 then4705. Officer19 hits4273/4321; officer20 hits4369/4417/4465; armor21 hits4513/4561/4609/4657. All 48 frames apart. Artillery absent from intervening candidate_ids, not selected away while eligible in those samples. Steward remains deployed.",
+          "geometry": "Recursive[5,6]DOWN covers row5,4,3 cols5..7 plus row2col6; M70[5,7]DOWN covers row5,4,3 cols6..8 plus row2col7. Artillery route visits row2col7 twice. Current selector filters range, air capability, neutrality and hidden route; artillery is hostile FLY, Steward can hit air, source route has no hidden checkpoints. Missing eligibility is consistent with range at lower endpoint; no continuous position record establishes exact exit/re-entry instants. Those instants and between-sample positional causality UNKNOWN.",
+          "mechanism": "Steward high-defense priority applies after eligibility; emitted generic rule label omits this detail. No blocked/caster deployment interruption observed; no observed stun explanation. M70 maintains artillery damage through first gap and kills4273. No universal deadline inferred."
+        },
+        "parent_candidate": {
+          "action_snapshot_sha256": "f6b63a9e455c54fa14ca9dcc3a2d15e059ad0e4dd0574f54b3ba9aeb0c5c5eba",
+          "candidate_sha256": "cf86842fc685ffccb1fb5ef1ca56ecd91766d3ed688126485daf76cb4aa6c23e",
+          "events_sha256": "70e58854bad0a5d0d1853bcbe397c98704ddb3cff614f40db8d4fbcb11830051",
+          "plan_id": "R89_ASTRA_HIGH_SEVEN_FOCUSED_001",
+          "plan_snapshot_sha256": "022a76a86df5d23b68d27bc594fc2929951fca1e6bf1acdda2acc303199202cd",
+          "summary_sha256": "029d7de384979d5cba5ca0764003d0b6cb8df3953c2d56b8d996f4f8fde7ecc6"
+        },
+        "parent_evidence": {
+          "m70": {
+            "action_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/action_snapshot.json",
+            "action_sha256": "c6248dd2da3eda2668c286190001600906cdc5c3b6322883ed1fb6b63d07560a",
+            "events_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/diagnostic_events.json.gz",
+            "events_sha256": "d8ea88ad9499dbc86e2fce51f649f0df23f12f3ebf95dd7e33086b8b40b0b83d",
+            "final_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/final_status.json",
+            "final_sha256": "5c7e58fd5b66e428cb7fbfaa5cc7c8a1619c093a0715e5fada30a98bcd57d738",
+            "plan_path": "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic/plan_snapshot.json",
+            "plan_sha256": "fe265c2837d962184647bded4ce0725f4fdd3f8bef013d05cf5ade5ef89ddf9d"
+          },
+          "seven": {
+            "action_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/action_snapshot.json",
+            "action_sha256": "2dce0547f257bf2978d9c6c36ca6fc47b982243f313d63a93501f220b01a2c99",
+            "events_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/diagnostic_events.json.gz",
+            "events_sha256": "39831f91dc0f97f1b7035c81fec2a180d5305f4fd4c2714c90eed72c4ab7b6e2",
+            "final_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/final_status.json",
+            "final_sha256": "a1c2d8b07ce241cb0f2effa20f96dc6a133035808c2fbac1eb618aabf682ace9",
+            "plan_path": "docs/review/fc77177/real_tool_closed_loop_astra_high_seven_recursive_v1/session/candidates/candidate-001/simulation/plan_snapshot.json",
+            "plan_sha256": "6e55bcfa35817c10dae6fb1bd45f2e8a21146d14942a5795eefde9c533c0392b"
+          }
+        },
+        "predictions": [
+          {
+            "id": "Q1",
+            "refutation": "First lock repeats failed center or same shell hits both medical streams, or upper healing absent while prerequisites alive. Earlier unrelated failure truncates.",
+            "success": "First artillery acquisition is not at runtime[5,5]; no shell hits both medics together; legal west Hibiscus DEPLOY1900 and upper Melantha HEAL by2150.",
+            "window": [
+              1800,
+              2400
+            ]
+          },
+          {
+            "id": "Q2",
+            "refutation": "New shell targeting causes uncovered fatal damage or artillery remains alive at withdrawal. Gap hypothesis truncated if caster dies earlier.",
+            "success": "Medical capabilities and eastern caster persist long enough to close artillery; actual selections/hits through2917..3361 and later window if artillery still alive, then artillery death before fixed withdrawal.",
+            "window": [
+              1900,
+              4280
+            ]
+          },
+          {
+            "id": "Q3",
+            "refutation": "Missing device damage/destruction or death at eastern restraint; distinguish device3 from protected3.",
+            "success": "Roadblock4 and3 destroyed before relevant eastern restraint; protected14 reaches western2 alive rather than being held at4.",
+            "window": [
+              841,
+              3700
+            ]
+          },
+          {
+            "id": "Q4",
+            "refutation": "Failure with assigned live capabilities refutes; earlier medical/holder failure truncates conditional output test.",
+            "success": "Live Fang/Friston BLOCK21/22/34 and Midnight/caster output kills all three without leaks.",
+            "window": [
+              4380,
+              8100
+            ]
+          },
+          {
+            "id": "Q5",
+            "refutation": "Deaths or incomplete settlement fail acceptance; if protected or needed redeployer dies earlier, late transfer hypothesis not tested.",
+            "success": "Western transfers clear devices1/2; both protected3/14 alive/reached, all enemies settled and no active enemies/leaks.",
+            "window": [
+              8100,
+              20000
+            ]
+          }
+        ],
+        "replacement_cost": "Same seven-ID union and17-DP Hibiscus cost. Her1900 deployment delays upper recovery219 frames relative C1 and removes[5,5] early target, with western distance/separate exposure. She heals Friston but does not reach Fang or Steward from the west; Ansel remains their executor. No new reserve ID, death prohibition, speculative dodge or extra heal.",
+        "required_functions": [
+          {
+            "executors": "Fang0[3,5]UP automatic DP; Friston91[4,5]RIGHT. Midnight571[1,5]UP and Melantha841[6,5]RIGHT intercept outer routes.",
+            "function": "Opening funding and central block"
+          },
+          {
+            "executors": "Midnight roadblock3 after own queue; Melantha roadblock4 after own queue. Device destruction is separate from protected3/14 safe arrival.",
+            "function": "Eastern roadblock release"
+          },
+          {
+            "executors": "Steward2071[5,7]DOWN until4280 supplies artillery damage. Ansel1321[5,6]DOWN covers central, caster and Midnight on extension. Hibiscus1900[5,3]RIGHT covers Melantha[6,5], Friston[4,5], Ansel[5,6] and herself; skills2801/4302. Melantha continues upper blocks and output, skills2050/3851. Measure all shell recipients.",
+            "function": "Artillery and support"
+          },
+          {
+            "executors": "Fang holds21, Friston22/34. Midnight and Fang early output; Steward6381[2,5]UP later arts. West Hibiscus adds Friston healing, Ansel covers Fang and Friston plus extended Midnight. No new central timing claim is inferred from C1 because earlier collapse prevented the test.",
+            "function": "Central21/22/34"
+          },
+          {
+            "executors": "Midnight lower; Melantha upper through8501. Steward retreats8100 returns10201[2,2]DOWN for roadblock1. Melantha returns10602[6,3]LEFT for roadblock2. Require both protected3/14 alive and reached after hostile closure.",
+            "function": "Late officers and protected routes"
+          }
+        ],
+        "structure_comparison": [
+          {
+            "description": "Earlier medical skills alone cannot be assumed ready and still leave four competing splash recipients; C1 supplied no guarantee a cumulative-heal increase would prevent deaths.",
+            "selected": false,
+            "structure_id": "SAME_CLUSTER_SKILL_TIMING"
+          },
+          {
+            "description": "Hibiscus DEPLOY moves from1681[5,5]UP to1900[5,3]RIGHT. First two manual skills shift2582->2801 and4083->4302 to respect readiness. All other C1 actions unchanged. No bait whiff asserted: Melantha remains exposed and Hibiscus must still deliver upper healing.",
+            "selected": true,
+            "structure_id": "WEST_MEDIC_STAGED_DEPLOYMENT"
+          },
+          {
+            "description": "Withdraw a medic after projectile birth to remove a recipient; costs current healing and70-second redeployment, with no replacement medic. This would expose caster/holders through their current pressure windows.",
+            "selected": false,
+            "structure_id": "SACRIFICIAL_WITHDRAWAL_ROTATION"
+          }
+        ],
+        "targeted_break": "C1 early support collapse at2111, a new observed dependency: both medical streams occupied the same first shell splash and could not recover all four recipients."
+      },
+      "targeted_break": null,
+      "structure_comparison": null,
+      "result": {
+        "deployment_errors": [
+          "char_210_stward@142.66666666666666: operator is not deployed"
+        ],
+        "enemies_killed": 24,
+        "enemies_leaked": 9,
+        "enemies_remaining": 0,
+        "final_dp": 99.0,
+        "first_objective_failure_reason": "PROTECTED_TARGET_DEATH",
+        "first_objective_failure_time": 178.4333333333,
+        "operator_deaths": 3,
+        "remaining_enemy_hp": 0,
+        "remaining_enemy_route_progress": 0,
+        "remaining_life": -7,
+        "run_metadata": null,
+        "score": -695.0,
+        "time_survived": 384.0,
+        "win": false
+      },
+      "events": {
+        "event_count": 50902,
+        "operator_death_events": [
+          {
+            "frame": 2593,
+            "source_id": "char_210_stward",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 4768,
+            "source_id": "char_4093_frston",
+            "target_id": null,
+            "details": {}
+          },
+          {
+            "frame": 4852,
+            "source_id": "char_123_fang",
+            "target_id": null,
+            "details": {}
+          }
+        ],
+        "unique_dead_operator_ids": [
+          "char_123_fang",
+          "char_210_stward",
+          "char_4093_frston"
+        ],
+        "leak_events": [
+          {
+            "frame": 5196,
+            "source_id": "enemy_1110_uamord#22",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5251,
+            "source_id": "enemy_1110_uamord#21",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5759,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 5932,
+            "source_id": "enemy_1108_uterer#27",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6082,
+            "source_id": "enemy_1108_uterer#28",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6142,
+            "source_id": "enemy_1108_uterer#29",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6292,
+            "source_id": "enemy_1108_uterer#31",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6846,
+            "source_id": "enemy_1110_uamord#33",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          },
+          {
+            "frame": 6996,
+            "source_id": "enemy_1110_uamord#34",
+            "target_id": null,
+            "details": {
+              "amount": 1
+            }
+          }
+        ],
+        "enemy_death_events": [
+          {
+            "frame": 710,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1108_uterer#1",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 883,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1108_uterer#2",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1234,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1108_uterer#4",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1246,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1108_uterer#5",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1437,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#6",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1786,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#9",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1819,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#8",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 1853,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#7",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 2717,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#10",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 2881,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#11",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3113,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#12",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3311,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#13",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3818,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#15",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 3842,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#16",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 4052,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#18",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 4208,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#17",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 4403,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#19",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 4601,
+            "source_id": "char_123_fang",
+            "target_id": "enemy_1107_uoffcr#20",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 5351,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#23",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 5353,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": "enemy_3001_upeopl#3",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          },
+          {
+            "frame": 5492,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#24",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 5762,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#26",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 5801,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#25",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 6290,
+            "source_id": "char_283_midn",
+            "target_id": "enemy_1107_uoffcr#30",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          },
+          {
+            "frame": 6302,
+            "source_id": "char_208_melan",
+            "target_id": "enemy_1107_uoffcr#32",
+            "details": {
+              "kill_counted": true,
+              "life_delta": 0
+            }
+          }
+        ],
+        "roadblock_destroyed_events": [
+          {
+            "frame": 1966,
+            "source_id": "char_208_melan",
+            "target_id": "trap_020_roadblock#4",
+            "details": {}
+          },
+          {
+            "frame": 2404,
+            "source_id": "char_283_midn",
+            "target_id": "trap_020_roadblock#3",
+            "details": {}
+          },
+          {
+            "frame": 11017,
+            "source_id": "char_210_stward",
+            "target_id": "trap_020_roadblock#1",
+            "details": {}
+          },
+          {
+            "frame": 11187,
+            "source_id": "char_208_melan",
+            "target_id": "trap_020_roadblock#2",
+            "details": {}
+          }
+        ],
+        "protected_reached_events": [
+          {
+            "frame": 11519,
+            "source_id": "enemy_3001_upeopl#14",
+            "target_id": null,
+            "details": {
+              "amount": 0
+            }
+          }
+        ],
+        "protected_death_events": [
+          {
+            "frame": 5353,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": "enemy_3001_upeopl#3",
+            "details": {
+              "kill_counted": false,
+              "life_delta": -1
+            }
+          }
+        ],
+        "artillery_ability_hits": [
+          {
+            "frame": 1993,
+            "target_id": "char_208_melan",
+            "details": {
+              "amount": 845.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                6
+              ]
+            }
+          },
+          {
+            "frame": 2143,
+            "target_id": "char_120_hibisc",
+            "details": {
+              "amount": 890.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                3,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2293,
+            "target_id": "char_208_melan",
+            "details": {
+              "amount": 845.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                6
+              ]
+            }
+          },
+          {
+            "frame": 2443,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2443,
+            "target_id": "char_210_stward",
+            "details": {
+              "amount": 910.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2593,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2593,
+            "target_id": "char_210_stward",
+            "details": {
+              "amount": 910.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2743,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 2893,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 3520,
+            "target_id": "char_123_fang",
+            "details": {
+              "amount": 740.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          },
+          {
+            "frame": 3520,
+            "target_id": "char_4093_frston",
+            "details": {
+              "amount": 765.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          },
+          {
+            "frame": 3670,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 3820,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 3970,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 4120,
+            "target_id": "char_212_ansel",
+            "details": {
+              "amount": 891.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                6,
+                5
+              ]
+            }
+          },
+          {
+            "frame": 4300,
+            "target_id": "char_123_fang",
+            "details": {
+              "amount": 740.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          },
+          {
+            "frame": 4300,
+            "target_id": "char_4093_frston",
+            "details": {
+              "amount": 765.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          },
+          {
+            "frame": 4753,
+            "target_id": "char_123_fang",
+            "details": {
+              "amount": 740.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          },
+          {
+            "frame": 4753,
+            "target_id": "char_4093_frston",
+            "details": {
+              "amount": 765.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                5,
+                3
+              ]
+            }
+          }
+        ],
+        "artillery_damage": [
+          {
+            "frame": 2161,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2209,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2257,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2305,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2353,
+            "amount": 473.28999999999996
+          },
+          {
+            "frame": 2401,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2449,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2497,
+            "amount": 249.10000000000002
+          },
+          {
+            "frame": 2545,
+            "amount": 249.10000000000002
+          }
+        ],
+        "central": {
+          "enemy_1110_uamord#21": {
+            "block_frames": [
+              4646
+            ],
+            "unblock_frames": [
+              4852
+            ],
+            "damage_total": 287.7,
+            "leak_frames": [
+              5251
+            ],
+            "death_frames": []
+          },
+          "enemy_1110_uamord#22": {
+            "block_frames": [],
+            "unblock_frames": [],
+            "damage_total": 9.9,
+            "leak_frames": [
+              5196
+            ],
+            "death_frames": []
+          },
+          "enemy_1110_uamord#34": {
+            "block_frames": [],
+            "unblock_frames": [],
+            "damage_total": 1021.19,
+            "leak_frames": [
+              6996
+            ],
+            "death_frames": []
+          }
+        }
+      },
+      "hashes": {
+        "source_structured_output_sha256": "8b878a8d5b9cdb7112f5f07fd786be70818191d4c256c386579fec7c437e0b1f",
+        "frozen_plan_sha256": "b8ef87b31f6ea7d71920aa903eddbcb618fc4210eec974dd99f5d25be1362663",
+        "frozen_action_sha256": "f3bb39aed7a9ad95dcbd448d4917b7e89d2bd733db478717a86406b0d364265d",
+        "raw_events_sha256": "c6c8009b9778441ad51a913b45778510a4e8cd423b40e0772665e7602227902c",
+        "events_gz_sha256": "3097b74996228e6f6d4a81e50948e7549dac17a32d443d27055839a4142c3e28",
+        "events_gz_restored_sha256": "c6c8009b9778441ad51a913b45778510a4e8cd423b40e0772665e7602227902c",
+        "raw_summary_sha256": "9254acfa9b14ba10fb874fc2885e97bb950d96224ee011afd345299abdfe6454",
+        "summary_gz_sha256": "d92b9a2078663da8e0b8a55851c30408ba37df0c64cf26047a27df227e7ff43b",
+        "summary_gz_restored_sha256": "9254acfa9b14ba10fb874fc2885e97bb950d96224ee011afd345299abdfe6454",
+        "final_status_sha256": "b78ab6f77e0fddf09135561616b4b2ac2cddacbdcd597a3c87fb0e5be6c10c2c"
+      }
+    }
+  ],
+  "validation": {
+    "candidate_001": "Opening roadblock predictions were proved, but the first shell killed both medics@2111; Steward died@2561. Later artillery-gap, central and western-transfer hypotheses were TRUNCATED_BY_EARLIER_FAILURE.",
+    "candidate_002": "Staged western Hibiscus avoided the first shared-splash medic loss, but Steward died@2593 after 910@2443, Ansel 506.8@2443, and 910@2593. Roadblock #4/#14 eastern passage succeeded; protected #3 died@5353. Central #21/#22/#34 closure was TRUNCATED_BY_EARLIER_FAILURE for post-artillery-closure assumptions."
+  },
+  "archive_notes": {
+    "raw_event_and_summary_files": "Excluded from git manifest; deterministic gzip restores match recorded raw SHA-256."
+  }
+}

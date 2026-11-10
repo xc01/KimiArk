@@ -783,3 +783,13 @@ UNKNOWN. C2's earliest surviving issue is Steward's 910@2443, Ansel 506.8@2443,
 910@2593 sequence ending in Steward death@2593. M70 V1 remains best at eight
 IDs; seven-or-fewer feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_focused_v1/`.
+
+The successor seven-breakpoint experiment corrected the output-gap lineage and
+coordinate convention in its input bundle: plan/action tiles are `[row,col]`,
+while DEPLOY event tiles are runtime `[x,y]`/`[col,row]`. Its zero-model
+preflight passed, but the single authorized Astra high CLI was counted `1/1`
+and failed with ChatGPT usage-limit before any MCP tool call, check, candidate,
+or simulation. It is not a tactical LOSS. Its simulation budget was not
+consumed and is not transferable to a new start without explicit authorization.
+Evidence and the no-retry boundary are under
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_v1/`.

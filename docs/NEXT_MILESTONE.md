@@ -56,3 +56,15 @@ station time. C2's surviving question is Steward's 2443-2593 exposure and
 healing allocation. Evidence and the next unauthorized prompt are under
 `docs/review/fc77177/real_tool_closed_loop_astra_high_seven_focused_v1/`. M70
 remains best at eight IDs; seven-or-fewer feasibility remains UNKNOWN.
+
+The next seven-breakpoint round was authorized for one fresh Astra high CLI,
+10 checks, 2 candidates, and 2 simulations. Its zero-model preflight passed,
+but the one real CLI was counted as `1/1` and failed with ChatGPT usage-limit
+before any MCP call, check, candidate, or simulation. This is not a tactical
+LOSS and does not consume the simulation budget. No retry, resume, attempt 3,
+or new start is authorized. Evidence is
+`docs/review/fc77177/real_tool_closed_loop_astra_high_seven_breakpoint_v1/failure_report_v1.json`.
+Its independent tactical entry remains focused C2's Steward/support exposure at
+2443-2593; the seven-recursive 2917-3361 and 4225-4705 windows must not be
+merged into that lineage. M70 remains best at eight IDs; seven-or-fewer
+feasibility remains UNKNOWN.
