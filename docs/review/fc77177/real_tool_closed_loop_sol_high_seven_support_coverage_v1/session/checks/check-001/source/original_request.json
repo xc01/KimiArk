@@ -1,0 +1,550 @@
+{
+  "candidate_id": null,
+  "check_id": "check-001",
+  "plan": {
+    "action_timeline": [
+      {
+        "action_type": "DEPLOY",
+        "direction": "UP",
+        "frame": 0,
+        "operator_id": "char_123_fang",
+        "tile": [
+          3,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 91,
+        "operator_id": "char_4093_frston",
+        "tile": [
+          4,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "UP",
+        "frame": 571,
+        "operator_id": "char_283_midn",
+        "tile": [
+          1,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 841,
+        "operator_id": "char_208_melan",
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 1321,
+        "operator_id": "char_120_hibisc",
+        "tile": [
+          5,
+          3
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 1681,
+        "operator_id": "char_212_ansel",
+        "tile": [
+          2,
+          5
+        ]
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 1772,
+        "operator_id": "char_283_midn"
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "DOWN",
+        "frame": 2071,
+        "operator_id": "char_210_stward",
+        "tile": [
+          5,
+          6
+        ]
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 2222,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 2850,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 3500,
+        "operator_id": "char_208_melan"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 3723,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 4651,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5073,
+        "operator_id": "char_283_midn"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5224,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5301,
+        "operator_id": "char_208_melan"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 6452,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 6725,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "RETREAT",
+        "frame": 8100,
+        "operator_id": "char_210_stward"
+      },
+      {
+        "action_type": "RETREAT",
+        "frame": 8101,
+        "operator_id": "char_208_melan"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 8226,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 8253,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 9727,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 10054,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "DOWN",
+        "frame": 10201,
+        "operator_id": "char_210_stward",
+        "tile": [
+          2,
+          2
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "LEFT",
+        "frame": 10202,
+        "operator_id": "char_208_melan",
+        "tile": [
+          6,
+          3
+        ]
+      }
+    ],
+    "battle_phases": [
+      {
+        "completion_condition": "Eastern devices destroyed and opening hostiles killed",
+        "failure_effect_on_later_phases": "Any early leak invalidates full WIN.",
+        "goal": "Preserve all four lanes and eastern devices",
+        "handoff_requirements": [
+          "All deployments legal; no leak or unsettled released enemy"
+        ],
+        "phase_id": "OPEN",
+        "responsibilities": [
+          "Fang0[3,5]UP and Friston91[4,5]RIGHT hold central; Midnight571[1,5]UP clears lower and device3 with skill1772,5073.",
+          "Melantha841[6,5]RIGHT persists upper until8101; skills3500,5301; Hibiscus1321[5,3]RIGHT covers upper Melantha, Friston and runtime(6,5) Steward.",
+          "Ansel1681[2,5]RIGHT covers runtime(5,1) Midnight and (5,3) Fang in base range. Hibiscus covers caster from1321, with boosts2222..2822,3723..4323,5224..5824,6725..7325,8226..8826,9727..10327."
+        ],
+        "start_condition": "Frame zero",
+        "survival_dependencies": [
+          "Hibiscus1321 sustains Friston and Melantha; Fang survives to Ansel1681"
+        ]
+      },
+      {
+        "completion_condition": "Artillery and armor21/22/33/34 dead, all hostile queues empty before8100",
+        "failure_effect_on_later_phases": "Any missing settlement or protected death invalidates WIN.",
+        "goal": "Actually heal live caster, kill artillery and central armor",
+        "handoff_requirements": [
+          "All hostile deaths observed; artillery removal alone insufficient"
+        ],
+        "phase_id": "EAST_CENTRAL",
+        "responsibilities": [
+          "Fang0[3,5]UP and Friston91[4,5]RIGHT hold central; Midnight571[1,5]UP clears lower and device3 with skill1772,5073.",
+          "Melantha841[6,5]RIGHT persists upper until8101; skills3500,5301; Hibiscus1321[5,3]RIGHT covers upper Melantha, Friston and runtime(6,5) Steward.",
+          "Ansel1681[2,5]RIGHT covers runtime(5,1) Midnight and (5,3) Fang in base range. Hibiscus covers caster from1321, with boosts2222..2822,3723..4323,5224..5824,6725..7325,8226..8826,9727..10327.",
+          "Steward2071[5,6]DOWN covers runtime columns5..7 rows2..5; require actual artillery DAMAGE and death, then actual central damage. Caster and Hibiscus distance3, Ansel and caster sqrt10; support/target allocations unproved."
+        ],
+        "start_condition": "Caster2071 deployed",
+        "survival_dependencies": [
+          "Actual Hibiscus healing reaches Steward during shell cadence; supports remain alive",
+          "Fang/Friston blocks persist; no credited output from dead or out-of-range operators"
+        ]
+      },
+      {
+        "completion_condition": "Simulator WIN, zero leaks, both protected alive/reached, no active enemy and complete settlement",
+        "failure_effect_on_later_phases": "Device destruction without safe arrival is insufficient.",
+        "goal": "Release both protected targets and complete settlement",
+        "handoff_requirements": [
+          "Inspect complete outcome and action errors"
+        ],
+        "phase_id": "WEST",
+        "responsibilities": [
+          "Steward8100 retreat and10201[2,2]DOWN; Melantha8101 retreat and10202[6,3]LEFT. Require all hostiles settled, zero leaks, both protected alive/reached, complete WIN."
+        ],
+        "start_condition": "Fixed retreats8100/8101",
+        "survival_dependencies": [
+          "Legal 2101-frame redeploy gaps, real cost and live executors"
+        ]
+      }
+    ],
+    "corridor_responsibilities": [
+      {
+        "executors": "Fang0[3,5]UP and Friston91[4,5]RIGHT hold central; Midnight571[1,5]UP clears lower and device3 with skill1772,5073.",
+        "responsibility": "Opening"
+      },
+      {
+        "executors": "Melantha841[6,5]RIGHT persists upper until8101; skills3500,5301; Hibiscus1321[5,3]RIGHT covers upper Melantha, Friston and runtime(6,5) Steward.",
+        "responsibility": "Upper and protection"
+      },
+      {
+        "executors": "Ansel1681[2,5]RIGHT covers runtime(5,1) Midnight and (5,3) Fang in base range. Hibiscus covers caster from1321, with boosts2222..2822,3723..4323,5224..5824,6725..7325,8226..8826,9727..10327.",
+        "responsibility": "Support beneficiaries"
+      },
+      {
+        "executors": "Steward2071[5,6]DOWN covers runtime columns5..7 rows2..5; require actual artillery DAMAGE and death, then actual central damage. Caster and Hibiscus distance3, Ansel and caster sqrt10; support/target allocations unproved.",
+        "responsibility": "Artillery and central"
+      },
+      {
+        "executors": "Steward8100 retreat and10201[2,2]DOWN; Melantha8101 retreat and10202[6,3]LEFT. Require all hostiles settled, zero leaks, both protected alive/reached, complete WIN.",
+        "responsibility": "Western settlement"
+      }
+    ],
+    "deployment_positions_and_directions": [
+      {
+        "action_type": "DEPLOY",
+        "direction": "UP",
+        "frame": 0,
+        "operator_id": "char_123_fang",
+        "tile": [
+          3,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 91,
+        "operator_id": "char_4093_frston",
+        "tile": [
+          4,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "UP",
+        "frame": 571,
+        "operator_id": "char_283_midn",
+        "tile": [
+          1,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 841,
+        "operator_id": "char_208_melan",
+        "tile": [
+          6,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 1321,
+        "operator_id": "char_120_hibisc",
+        "tile": [
+          5,
+          3
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "RIGHT",
+        "frame": 1681,
+        "operator_id": "char_212_ansel",
+        "tile": [
+          2,
+          5
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "DOWN",
+        "frame": 2071,
+        "operator_id": "char_210_stward",
+        "tile": [
+          5,
+          6
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "DOWN",
+        "frame": 10201,
+        "operator_id": "char_210_stward",
+        "tile": [
+          2,
+          2
+        ]
+      },
+      {
+        "action_type": "DEPLOY",
+        "direction": "LEFT",
+        "frame": 10202,
+        "operator_id": "char_208_melan",
+        "tile": [
+          6,
+          3
+        ]
+      }
+    ],
+    "formation_structure": {
+      "description": "Move caster output to runtime(6,5)DOWN with actual separated Hibiscus coverage; move Ansel to runtime(5,2)RIGHT for Fang/Midnight base support. Preserve R95 opening operators and upper executor; change medical order and skill cadence to establish the actual beneficiary before shell exposure."
+    },
+    "formation_transitions": [
+      {
+        "description": "Melantha841[6,5]RIGHT persists upper until8101; skills3500,5301; Hibiscus1321[5,3]RIGHT covers upper Melantha, Friston and runtime(6,5) Steward. Ansel1681[2,5]RIGHT covers runtime(5,1) Midnight and (5,3) Fang in base range. Hibiscus covers caster from1321, with boosts2222..2822,3723..4323,5224..5824,6725..7325,8226..8826,9727..10327. Steward2071[5,6]DOWN covers runtime columns5..7 rows2..5; require actual artillery DAMAGE and death, then actual central damage. Caster and Hibiscus distance3, Ansel and caster sqrt10; support/target allocations unproved.",
+        "window": [
+          1321,
+          2071
+        ]
+      },
+      {
+        "description": "Steward8100 retreat and10201[2,2]DOWN; Melantha8101 retreat and10202[6,3]LEFT. Require all hostiles settled, zero leaks, both protected alive/reached, complete WIN.",
+        "window": [
+          8100,
+          10202
+        ]
+      }
+    ],
+    "mandatory_tactical_invariants": [
+      {
+        "invariant": "Selected/deployed union seven; no death refund or instant redeploy; all released enemies settled; full WIN only with both protected safe arrivals and no active enemy."
+      }
+    ],
+    "operational_plan_id": "R96_SOL_HIGH_SEVEN_SUPPORT_COVERAGE_001",
+    "parent_hypothesis_id": "SEPARATED_BENEFICIARY_GEOMETRY",
+    "parent_plan_id": "R95_SOL_HIGH_SEVEN_RETRY3_001",
+    "pressure_window_responsibilities": [
+      {
+        "expected": "Hibiscus deployed1321; Ansel1681; no opening regression; caster at runtime6,5.",
+        "window": [
+          1321,
+          2400
+        ]
+      },
+      {
+        "expected": "Hibiscus HEAL to Steward, shell locks differ, caster actually damages artillery after3001.",
+        "window": [
+          2200,
+          3200
+        ]
+      },
+      {
+        "expected": "Artillery death by4500, all armor settled with live blocks and effective caster output.",
+        "window": [
+          3200,
+          8100
+        ]
+      },
+      {
+        "expected": "Full WIN acceptance requires all hostiles killed, zero leaks, both protected alive safely reached, zero active enemy, complete settlement.",
+        "window": [
+          0,
+          20000
+        ]
+      }
+    ],
+    "selected_low_star_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "skill_intents": [
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 1772,
+        "operator_id": "char_283_midn"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 2222,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 2850,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 3500,
+        "operator_id": "char_208_melan"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 3723,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 4651,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5073,
+        "operator_id": "char_283_midn"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5224,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 5301,
+        "operator_id": "char_208_melan"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 6452,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 6725,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 8226,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 8253,
+        "operator_id": "char_212_ansel"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 9727,
+        "operator_id": "char_120_hibisc"
+      },
+      {
+        "action_type": "ACTIVATE_SKILL",
+        "frame": 10054,
+        "operator_id": "char_212_ansel"
+      }
+    ],
+    "tactical_parent_plan_id": "R95_SOL_HIGH_SEVEN_RETRY3_001",
+    "tactical_thesis": "Move caster output to runtime(6,5)DOWN with actual separated Hibiscus coverage; move Ansel to runtime(5,2)RIGHT for Fang/Midnight base support. Preserve R95 opening operators and upper executor; change medical order and skill cadence to establish the actual beneficiary before shell exposure.",
+    "validation_card": {
+      "MODEL_GAP": [
+        "Target allocation, exact HP and new shell times UNKNOWN until events",
+        "No probabilistic Ansel extra heal; fixed simulator scope only",
+        "UNKNOWN_CLI_INTERNAL; cached_input subset of input"
+      ],
+      "causal_uncertainty": "Changed actual caster beneficiary and eastern range, not sufficient-heal arithmetic. Healing allocation, shells, arbitrary HP unknown.",
+      "cost_skill_redeployment_accounting": "Costs10,3,16,15,17,17,18. Same-ID union7. Hibiscus901 charging frames then1501 spacing; Ansel2850 first after1681+750; other skills unchanged. No new retreat/replacement, no planned sacrifice or death refund. Western redeploy2101 gap.",
+      "exact_change": "Move caster output to runtime(6,5)DOWN with actual separated Hibiscus coverage; move Ansel to runtime(5,2)RIGHT for Fang/Midnight base support. Preserve R95 opening operators and upper executor; change medical order and skill cadence to establish the actual beneficiary before shell exposure.",
+      "parent": {
+        "action_sha256": "1e48691413403bb703aad9fe3159a839e23a56e1f8ce28b112cfc2fe39ffeee8",
+        "plan_id": "R95_SOL_HIGH_SEVEN_RETRY3_001",
+        "plan_sha256": "61354112963ed25e1efb725456a68aa5faaebb3c677039b9e7b3582be2453237"
+      },
+      "predictions": [
+        {
+          "expected": "Hibiscus deployed1321; Ansel1681; no opening regression; caster at runtime6,5.",
+          "window": [
+            1321,
+            2400
+          ]
+        },
+        {
+          "expected": "Hibiscus HEAL to Steward, shell locks differ, caster actually damages artillery after3001.",
+          "window": [
+            2200,
+            3200
+          ]
+        },
+        {
+          "expected": "Artillery death by4500, all armor settled with live blocks and effective caster output.",
+          "window": [
+            3200,
+            8100
+          ]
+        },
+        {
+          "expected": "Full WIN acceptance requires all hostiles killed, zero leaks, both protected alive safely reached, zero active enemy, complete settlement.",
+          "window": [
+            0,
+            20000
+          ]
+        }
+      ],
+      "required_functions": [
+        "Fang0[3,5]UP and Friston91[4,5]RIGHT hold central; Midnight571[1,5]UP clears lower and device3 with skill1772,5073.",
+        "Melantha841[6,5]RIGHT persists upper until8101; skills3500,5301; Hibiscus1321[5,3]RIGHT covers upper Melantha, Friston and runtime(6,5) Steward.",
+        "Ansel1681[2,5]RIGHT covers runtime(5,1) Midnight and (5,3) Fang in base range. Hibiscus covers caster from1321, with boosts2222..2822,3723..4323,5224..5824,6725..7325,8226..8826,9727..10327.",
+        "Steward2071[5,6]DOWN covers runtime columns5..7 rows2..5; require actual artillery DAMAGE and death, then actual central damage. Caster and Hibiscus distance3, Ansel and caster sqrt10; support/target allocations unproved.",
+        "Steward8100 retreat and10201[2,2]DOWN; Melantha8101 retreat and10202[6,3]LEFT. Require all hostiles settled, zero leaks, both protected alive/reached, complete WIN."
+      ]
+    }
+  }
+}
