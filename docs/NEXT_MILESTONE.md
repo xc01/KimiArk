@@ -188,3 +188,11 @@ seven-ID impossibility. M70 R8_7_GPT_M70_V1 remains the frozen eight-ID WIN;
 seven-or-fewer feasibility remains UNKNOWN. Closeout, verified manifest, usage
 summary, and the next unauthorized prompt are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_closure_v1/`.
+
+The zero-model Codex experience/branch selector is now available as a dry-run archive helper. It imported
+M70 and the eleven verified R94–R99 candidates with identity/hash checks, preserved WIN and partial-advance
+branches separately from model predictions, and emitted a bounded advisory context package. This is not RL,
+model training, tactical execution, or a new authorization. Next work remains an explicitly authorized
+seven-ID fixed-simulator experiment; use the selector only to prepare comparable parents/evidence, then let
+Codex choose roles, structure, and actions freely. Current best remains M70's eight-ID WIN, while
+seven-or-fewer feasibility remains UNKNOWN. See `docs/CODEX_EXPERIENCE_SELECTOR_V1.md`.
