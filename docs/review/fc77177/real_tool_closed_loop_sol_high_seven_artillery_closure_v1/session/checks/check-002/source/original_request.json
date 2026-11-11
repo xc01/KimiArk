@@ -1,0 +1,635 @@
+{
+  "candidate_id": null,
+  "check_id": "check-002",
+  "plan": {
+    "revised_operational_plans": [
+      {
+        "action_timeline": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 901,
+            "operator_id": "char_284_spot",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1352,
+            "operator_id": "char_284_spot"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1381,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 1741,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 2101,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              7
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2132,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2642,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3303,
+            "operator_id": "char_284_spot"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3933,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 4143,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 4510,
+            "operator_id": "char_210_stward"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5254,
+            "operator_id": "char_284_spot"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5900,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 6100,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 6611,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              6
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7205,
+            "operator_id": "char_284_spot"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7601,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7701,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 9000,
+            "operator_id": "char_210_stward"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 9001,
+            "operator_id": "char_284_spot"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 11101,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 11102,
+            "operator_id": "char_284_spot",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "battle_phases": [
+          {
+            "completion_condition": "All seven legal deployments with four routes blocked.",
+            "failure_effect_on_later_phases": "A lost blocker or failed deployment breaks route safety.",
+            "goal": "Establish all four interceptions and medical streams.",
+            "handoff_requirements": [
+              "Steward first deployment must be affordable at2101."
+            ],
+            "phase_id": "OPEN",
+            "responsibilities": [
+              "Fang upper central; Friston lower central; Midnight upper outer; Spot lower outer.",
+              "Midnight and Spot damage eastern restraints when no enemy target."
+            ],
+            "start_condition": "Stage start10DP.",
+            "survival_dependencies": [
+              "Spot must survive opening and hold three while healing.",
+              "Physicians must recover eligible threatened allies."
+            ]
+          },
+          {
+            "completion_condition": "Observed artillery death and surviving output retreat4510.",
+            "failure_effect_on_later_phases": "Artillery survival invalidates predicted closure and central return.",
+            "goal": "Sustain actual output until artillery death.",
+            "handoff_requirements": [
+              "Living Steward withdrawal starts70sec cooldown."
+            ],
+            "phase_id": "ARTILLERY",
+            "responsibilities": [
+              "Steward attacks artillery from runtime7,2 UP.",
+              "Hibiscus and Ansel heal minimum-ratio eligible allies; no manual target override."
+            ],
+            "start_condition": "Upper Steward deployed2101.",
+            "survival_dependencies": [
+              "No medic shares output-centered splash; other shell targets still require healing.",
+              "Spot healing interrupts attacks and must not overflow."
+            ]
+          },
+          {
+            "completion_condition": "All hostiles dead before9000 withdrawals.",
+            "failure_effect_on_later_phases": "A leak or death can invalidate both protected escorts.",
+            "goal": "Settle both armor queues including21,22,34.",
+            "handoff_requirements": [
+              "Steward and Spot living retreats9000/9001 start cooldowns."
+            ],
+            "phase_id": "CENTRAL",
+            "responsibilities": [
+              "Steward6611 runtime6,2 UP covers both central holders.",
+              "Fang and Friston maintain actual interception; Midnight assists only when its own queue permits."
+            ],
+            "start_condition": "Persistent holders contain enemies while Steward redeploys.",
+            "survival_dependencies": [
+              "No queue overflow before artillery-to-central transfer.",
+              "Actual heals must preserve both central holders."
+            ]
+          },
+          {
+            "completion_condition": "Both protected targets reached alive;zero leaks;exhausted spawns;no active enemy;simulator WIN.",
+            "failure_effect_on_later_phases": "Trapped or dead civilians fail acceptance.",
+            "goal": "Release both protected targets and complete settlement.",
+            "handoff_requirements": [
+              "Device destruction followed by distinct arrival events."
+            ],
+            "phase_id": "EXIT",
+            "responsibilities": [
+              "Steward11101 clears western upper restraint.",
+              "Spot11102 clears western lower restraint."
+            ],
+            "start_condition": "Central and outer hostiles settled.",
+            "survival_dependencies": [
+              "Both operators available after2101frame gaps.",
+              "Released civilians encounter no officer."
+            ]
+          }
+        ],
+        "corridor_responsibilities": [
+          {
+            "responsibility": "Steward kills artillery, both physicians deliver actual recovery.",
+            "routes": [
+              "route-1"
+            ]
+          },
+          {
+            "responsibility": "Midnight/Spot eastern releases; Steward/Spot western releases; both protected arrivals required.",
+            "routes": [
+              "route-2",
+              "route-15"
+            ]
+          },
+          {
+            "responsibility": "Fang holds upper central; returning Steward damages armor.",
+            "routes": [
+              "route-3",
+              "route-4",
+              "route-12",
+              "route-13",
+              "route-20",
+              "route-21",
+              "route-30",
+              "route-31"
+            ]
+          },
+          {
+            "responsibility": "Friston holds lower central; returning Steward damages22 and34.",
+            "routes": [
+              "route-5",
+              "route-6",
+              "route-11",
+              "route-14",
+              "route-18",
+              "route-19",
+              "route-28",
+              "route-29"
+            ]
+          },
+          {
+            "responsibility": "Midnight upper outer with Hibiscus recovery.",
+            "routes": [
+              "route-7",
+              "route-8",
+              "route-17",
+              "route-22",
+              "route-23",
+              "route-24"
+            ]
+          },
+          {
+            "responsibility": "Spot lower outer; local healing pauses damage.",
+            "routes": [
+              "route-9",
+              "route-10",
+              "route-16",
+              "route-25",
+              "route-26",
+              "route-27"
+            ]
+          }
+        ],
+        "deployment_positions_and_directions": [
+          {
+            "direction": "UP",
+            "operator_id": "char_123_fang",
+            "role": "Opening and persistent assigned corridor",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "direction": "RIGHT",
+            "operator_id": "char_4093_frston",
+            "role": "Opening and persistent assigned corridor",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "direction": "UP",
+            "operator_id": "char_283_midn",
+            "role": "Opening and persistent assigned corridor",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "direction": "RIGHT",
+            "operator_id": "char_284_spot",
+            "role": "Lower outer then western lower roadblock",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "direction": "DOWN",
+            "operator_id": "char_212_ansel",
+            "role": "Opening and persistent assigned corridor",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "direction": "UP",
+            "operator_id": "char_120_hibisc",
+            "role": "Opening and persistent assigned corridor",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "direction": "UP",
+            "operator_id": "char_210_stward",
+            "role": "Artillery then both central queues then western upper roadblock",
+            "tile": [
+              2,
+              7
+            ]
+          },
+          {
+            "direction": "UP",
+            "operator_id": "char_210_stward",
+            "role": "Artillery then both central queues then western upper roadblock",
+            "tile": [
+              2,
+              6
+            ]
+          },
+          {
+            "direction": "DOWN",
+            "operator_id": "char_210_stward",
+            "role": "Artillery then both central queues then western upper roadblock",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "direction": "LEFT",
+            "operator_id": "char_284_spot",
+            "role": "Lower outer then western lower roadblock",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "formation_structure": {
+          "classification": "CURRENT_MODEL_CHECKABLE",
+          "distinct_operator_ids": 7,
+          "economy": {
+            "first_deployment_gross_dp": 98,
+            "initial_dp": 10,
+            "natural_dp_per_second": 1,
+            "redeployment_gaps_frames": [
+              2101,
+              2101
+            ],
+            "scheduled_living_refunds_dp": 17
+          },
+          "medical_geometry": "Hibiscus runtime5,2 UP covers Ansel6,5; Ansel6,5 DOWN covers output7,2. Neither physician within1.2 of output. Actual healing selection and survival require events.",
+          "opening": "Fang and Friston central; Midnight upper outer; Spot lower outer."
+        },
+        "formation_transitions": [
+          {
+            "frame": 4510,
+            "responsibility": "Predicted artillery closure; fixed living retreat."
+          },
+          {
+            "frame": 6611,
+            "responsibility": "Full cooldown then central return."
+          },
+          {
+            "frame": 11101,
+            "responsibility": "Full cooldown then western device clearance."
+          }
+        ],
+        "mandatory_tactical_invariants": [
+          {
+            "id": "UNION",
+            "requirement": "Selected/deployed union exactly7 IDs including robot."
+          },
+          {
+            "id": "HEAL",
+            "requirement": "Coverage is not selection; heal is not sufficiency; exact HP UNKNOWN without records."
+          },
+          {
+            "id": "FIXED",
+            "requirement": "No conditional action rescheduling; no old frame is a deadline."
+          },
+          {
+            "id": "ACCEPT",
+            "requirement": "Require simulator WIN zero leaks both protected alive reached and complete no-active-enemy settlement."
+          }
+        ],
+        "operational_plan_id": "R99_SOL_HIGH_SEVEN_ARTILLERY_CLOSURE_001",
+        "parent_hypothesis_id": "SUPPORT_CHAIN_ROTATION",
+        "parent_plan_id": "R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001",
+        "pressure_window_responsibilities": [
+          {
+            "responsibility": "Four holders and actual medical selection must prevent any leak.",
+            "window": "Opening through settlement"
+          }
+        ],
+        "selected_low_star_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_284_spot",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "skill_intents": [
+          {
+            "frame": 1352,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_284_spot"
+          },
+          {
+            "frame": 1772,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_283_midn"
+          },
+          {
+            "frame": 2132,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "frame": 2642,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "frame": 3303,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_284_spot"
+          },
+          {
+            "frame": 3933,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "frame": 4143,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "frame": 5073,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_283_midn"
+          },
+          {
+            "frame": 5254,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_284_spot"
+          },
+          {
+            "frame": 5900,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "frame": 6100,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "frame": 7205,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_284_spot"
+          },
+          {
+            "frame": 7601,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "frame": 7701,
+            "intent": "Use supported manual skill after SP recovery; Spot stops damage while healing.",
+            "operator_id": "char_212_ansel"
+          }
+        ],
+        "tactical_parent_plan_id": "R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001",
+        "tactical_thesis": "Single-parent R98 C1 repair: rotate Hibiscus UP to deliver actual support to Ansel; living Ansel must sustain isolated Steward through artillery death, then original central and roadblock duties.",
+        "validation_card": {
+          "MODEL_GAP": "Exact HP, complete eligible order, continuous unrecorded positions UNKNOWN; fixed simulator only.",
+          "causal_change": "Hibiscus RIGHT to UP at plan2,5; covers Ansel6,5 and central holders; loses direct Steward/Midnight coverage.",
+          "duties": "Fang/Friston opening central; Midnight/Spot outer and eastern roadblocks; Steward artillery then central then western upper; Spot western lower; both protected targets require all closures.",
+          "expected": "Actual Hibiscus to Ansel heals; Ansel survives shells and heals Steward until artillery death; no guaranteed target selection.",
+          "parent_action_sha256": "8f6d6147085a28cb274b545cbc618a39de682cd48bf6adc87c8829047799a4e2",
+          "parent_plan_id": "R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001",
+          "parent_plan_sha256": "fdb01a69b1d9fea8ea5291aedb32db50b364bf93b7bd477216ffb8eda9a02ee8",
+          "refutation_events": [
+            "No support delivery",
+            "Ansel or Steward dies before artillery death",
+            "upper route fails",
+            "protected target dies",
+            "central leak"
+          ],
+          "replacement_cost": "None; same seven IDs; no planned sacrifice or added deployments."
+        }
+      }
+    ],
+    "revised_stage_understanding": {
+      "m58_open_roster_comparison": {
+        "candidates": [
+          {
+            "selected": true,
+            "structure": "Same seven duties; Hibiscus UP supports Ansel, Ansel covers Steward. Loses upper outer direct healing.",
+            "structure_id": "SUPPORT_CHAIN_ROTATION"
+          },
+          {
+            "selected": false,
+            "structure": "Same parent duties but Steward first deployed lower right to attack artillery on its earlier approach; shifts exposure and output start, requires new central transfer timing.",
+            "structure_id": "EARLY_LOWER_OUTPUT"
+          },
+          {
+            "selected": false,
+            "structure": "Replace Hibiscus with Orchid for concurrent arts and slow; costs one medical stream, Ansel self-survival unsupported and slow changes route occupancy.",
+            "structure_id": "ORCHID_REPLACEMENT"
+          }
+        ],
+        "selected_structure_id": "SUPPORT_CHAIN_ROTATION"
+      }
+    },
+    "revised_strategic_hypotheses": [
+      {
+        "hypothesis_id": "SUPPORT_CHAIN_ROTATION",
+        "thesis": "Single-parent R98 C1 repair: rotate Hibiscus UP to deliver actual support to Ansel; living Ansel must sustain isolated Steward through artillery death, then original central and roadblock duties."
+      }
+    ],
+    "revised_tactical_requirements": {
+      "acceptance": "Simulator WIN, union <=7, zero leaks, both protected alive reached, all settled no active enemy.",
+      "scope": "Fixed simulator only."
+    },
+    "revision_hypothesis": {
+      "changed_responsibilities": [
+        "Hibiscus rotates UP to support Ansel instead of directly healing Steward and Midnight."
+      ],
+      "expected_first_observable_event": {
+        "earliest_frame": 2000,
+        "event_type": "HEAL",
+        "latest_frame": 2800,
+        "source_id": "char_120_hibisc",
+        "target_id": "char_212_ansel"
+      },
+      "hypothesis_id": "SUPPORT_CHAIN_ROTATION",
+      "if_expected_event_absent": "Support delivery hypothesis is refuted; coverage alone cannot establish repair.",
+      "operational_plan_id": "R99_SOL_HIGH_SEVEN_ARTILLERY_CLOSURE_001",
+      "parent_plan_id": "R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001",
+      "referenced_experience_ids": [
+        "KIMIARK_JOINT_FEEDBACK_ASTRA_HIGH_MAIN_08_07_ROOT_V1"
+      ],
+      "tactical_hypothesis": "Single-parent R98 C1 repair: rotate Hibiscus UP to deliver actual support to Ansel; living Ansel must sustain isolated Steward through artillery death, then original central and roadblock duties."
+    }
+  }
+}

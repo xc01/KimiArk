@@ -1,0 +1,59 @@
+{
+  "attempts": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "36dad6880ee0bb9d20d4892f74e24ca376a3064c002a5dc59f01d7edbf84ad75",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "5e44d4c49d833bcdf8c23f9babe832f7a8881ab897f3ef5578ea15142191bc67",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": null,
+      "candidate_sha256": "77bf65e8c8d9854e189e778dbe94f8ac4a1576759cd1ecf820311ff221cb85c2",
+      "check_id": "check-001",
+      "errors": [
+        "schema: <root>: 'revised_operational_plans' is a required property",
+        "schema: <root>: 'revised_stage_understanding' is a required property",
+        "schema: <root>: 'revised_tactical_requirements' is a required property",
+        "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+        "schema: <root>: 'revision_hypothesis' is a required property",
+        "semantic: exactly one revised_operational_plans item is required, got non-list",
+        "lineage: parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id",
+        "operational_plan_id must identify SOL_HIGH_SEVEN_ARTILLERY_CLOSURE",
+        "M58 comparison object is required at revised_stage_understanding.m58_open_roster_comparison",
+        "static: IndexError: list index out of range"
+      ],
+      "kind": "FAILED_CHECK",
+      "status": "FAIL"
+    },
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "36dad6880ee0bb9d20d4892f74e24ca376a3064c002a5dc59f01d7edbf84ad75",
+      "check_id": "check-002",
+      "kind": "PASS",
+      "status": "PASS"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "5e44d4c49d833bcdf8c23f9babe832f7a8881ab897f3ef5578ea15142191bc67",
+      "check_id": "check-003",
+      "kind": "PASS",
+      "status": "PASS"
+    }
+  ],
+  "max_candidates": 2,
+  "max_check_calls": 10,
+  "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+  "session_id": "real-tool-loop-sol-high-seven-artillery-closure-v1",
+  "used_candidates": 2,
+  "used_check_calls": 3
+}

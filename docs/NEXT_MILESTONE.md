@@ -1,4 +1,4 @@
-# Current continuation: M70 eight-ID WIN; latest Sol heal-delivery round closed
+# Current continuation: M70 eight-ID WIN; latest Sol artillery-closure round closed
 
 `R8_7_GPT_M70_V1` is the current best verified current-model fixed-simulator
 result: 8 IDs, 33 kills, 0 leaks, 0 operator deaths, both protected targets
@@ -176,3 +176,15 @@ impossibility. M70 R8_7_GPT_M70_V1 remains the frozen eight-ID WIN;
 seven-or-fewer feasibility remains UNKNOWN. Closeout, verified manifest, usage
 summary, and the next unauthorized prompt are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_heal_delivery_v1/`.
+
+The independent R99 artillery-closure experiment closed at CLI 1/1, checks
+3/10, candidates 2/2, and simulations 2/2. C1 lost 16/17/life -16 with 5
+deaths; C2 regressed to 15/18/life -17 with 5 deaths. C1 preserved
+Hibiscus→Ansel support and sustained 26 Steward artillery hits/7,597.55 damage
+before Steward died@3493; C2 advanced first output to 2161 but fell to 6
+hits/1,718.79 and Steward died@2411. Artillery and central #21/#22/#33/#34
+leaked in both, and neither protected target reached. This does not prove
+seven-ID impossibility. M70 R8_7_GPT_M70_V1 remains the frozen eight-ID WIN;
+seven-or-fewer feasibility remains UNKNOWN. Closeout, verified manifest, usage
+summary, and the next unauthorized prompt are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_closure_v1/`.

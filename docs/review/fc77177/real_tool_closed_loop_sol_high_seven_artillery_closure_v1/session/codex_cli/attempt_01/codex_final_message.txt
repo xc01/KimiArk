@@ -1,0 +1,42 @@
+Both candidates lost. **Seven-or-fewer feasibility remains UNKNOWN; M70 remains the eight-operator fixed-simulator WIN.**
+
+The sole parent was `R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001`:
+
+- Plan SHA256: `fdb01a69b1d9fea8ea5291aedb32db50b364bf93b7bd477216ffb8eda9a02ee8`
+- Action SHA256: `8f6d6147085a28cb274b545cbc618a39de682cd48bf6adc87c8829047799a4e2`
+
+All ten parents’ plan, action, compressed-event, and restored-event hashes verified. No successful windows were spliced.
+
+| Result | C1: support rotation | C2: earlier lower output |
+|---|---:|---:|
+| Simulator WIN | No | No |
+| Legal selected/deployed union | 7 | 7 |
+| Kills / leaks / life | 16 / 17 / −16 | 15 / 18 / −17 |
+| Death events / unique dead IDs | 5 / 5 | 5 / 5 |
+| Artillery hits / damage | 26 / 7,597.55 | 6 / 1,718.79 |
+| Steward death frame | 3493 | 2411 |
+| First leak frame | 4176 | 3920 |
+| Protected alive / reached | 0 / 0 | 0 / 0 |
+| Active enemies at completion | 0 | 0 |
+
+C1 delivered Hibiscus→Ansel healing from 2143 and preserved Ansel. Ansel delivered four Steward heals, but output survival still failed. C2 advanced the first artillery hit from 2281 to 2161; two 910-damage shells and only one recorded Ansel→Steward heal preceded Steward’s death. **Actual support and earlier output were observed; artillery closure was not.** Eligibility, selection, healing, survival, and killing remain distinct findings.
+
+In both runs, artillery leaked at 5759. Central armor IDs `#21`, `#22`, `#33`, and `#34` all leaked. Protected targets were roadblock-restrained before dying: C1 `#14@3943`, `#3@5260`; C2 `#14@3966`, `#3@5191`. Only roadblock `#3` was destroyed, at 2404. Central interception occurred, but central settlement failed.
+
+Operator death events:
+
+- C1: Steward 3493; Midnight 3789; Fang 4584; Hibiscus 4752; Friston 4960.
+- C2: Steward 2411; Fang, Midnight, Hibiscus 3130; Friston 4719.
+
+C1 had four invalid actions: Steward retreat 4510, Midnight skill 5073, Hibiscus skills 6100/7601. C2 had five: Steward retreat 4510, Hibiscus skill 4533, Midnight skill 5073, Hibiscus skills 6100/7601. Each targeted an undeployed operator.
+
+Frozen candidate hashes:
+
+- C1: `36dad6880ee0bb9d20d4892f74e24ca376a3064c002a5dc59f01d7edbf84ad75`
+- C2: `5e44d4c49d833bcdf8c23f9babe832f7a8881ab897f3ef5578ea15142191bc67`
+
+Configured identity: `gpt-6.1-sol/high`; `features.apps=false`; K=7; mechanics `m38b-2781-animation-speed-v1`. CLI maximum/start count: **1/1**. Checks: **3/10**, including one format rejection; candidates: **2/2**; simulations: **2/2 COMPLETED**, zero prior simulations. No resume, transfer, or reset occurred.
+
+Visible token usage is unavailable before CLI completion; input, cached input, output, and reasoning counts are **UNKNOWN_CLI_INTERNAL**. `cached_input` is an input subset.
+
+Fixed-simulator findings only; neither repair establishes closure, impossibility, or a global minimum.
