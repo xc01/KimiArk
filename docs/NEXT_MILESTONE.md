@@ -143,3 +143,14 @@ R8_7_GPT_M70_V1 remains the frozen eight-ID WIN; seven-or-fewer feasibility
 remains UNKNOWN. Closeout, verified manifest, and the next unauthorized
 suggestion are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_coverage_v1/`.
+
+The follow-up zero-model M70/R94/R95/R96 artillery-support audit used no model
+CLI, simulation, or STARTED. It verified original plan/action/event hashes and
+gzip restores. M70's observed artillery success included both Ansel and Hbiscus
+covering Steward's runtime `(7,5)`, 45 hits/13,227.21 damage, and artillery
+death@4273. R95's timing changes did not transmit because Hbiscus did not cover
+Steward's runtime `(7,2)`; R96 C2's coverage did produce one real Steward heal,
+but Ansel died@2261 and Steward died@2561. Dual support remains a hypothesis,
+not a proven requirement. The report, machine index, 34-ID fact-pack draft, and
+unauthorized next prompt are under
+`docs/review/fc77177/zero_model_m70_artillery_support_audit_v1/`.

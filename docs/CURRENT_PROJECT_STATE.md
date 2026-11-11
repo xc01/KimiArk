@@ -859,3 +859,12 @@ R8_7_GPT_M70_V1 remains the frozen eight-ID WIN; seven-or-fewer feasibility
 remains UNKNOWN. Closeout, verified manifest, and the next unauthorized
 suggestion are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_coverage_v1/`.
+
+The zero-model M70 artillery/support audit at
+`docs/review/fc77177/zero_model_m70_artillery_support_audit_v1/` verified
+M70/R94/R95/R96 identity hashes and gzip restores without a model call,
+simulation, or STARTED. It separates the observed M70 success chain from the
+unproven necessity of dual support. R95 timing did not affect the relevant
+support geometry; R96 C2 achieved one actual Steward heal but still lost Ansel
+and Steward. The next two falsifiable questions and a 34-ID fact-pack draft are
+archived there; no new experiment is authorized by that audit.
