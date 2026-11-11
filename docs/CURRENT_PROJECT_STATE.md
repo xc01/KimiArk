@@ -868,3 +868,12 @@ unproven necessity of dual support. R95 timing did not affect the relevant
 support geometry; R96 C2 achieved one actual Steward heal but still lost Ansel
 and Steward. The next two falsifiable questions and a 34-ID fact-pack draft are
 archived there; no new experiment is authorized by that audit.
+
+The independent R97 support-geometry experiment closed at CLI 1/1, checks
+3/10, candidates 2/2, and simulations 2/2. C1 lost 13/20/life -19 with 7
+deaths; C2 lost 24/9/life -8 with 3 deaths. C2 proved splash separation
+preserved both medics, but did not produce Hibiscus→Steward healing, artillery
+death, central closure, or protected safety. The concrete next question is
+support→output heal delivery plus actual artillery death while retaining all
+route duties. Evidence and an unauthorized next prompt are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/`.

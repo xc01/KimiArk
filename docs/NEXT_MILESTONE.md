@@ -154,3 +154,14 @@ but Ansel died@2261 and Steward died@2561. Dual support remains a hypothesis,
 not a proven requirement. The report, machine index, 34-ID fact-pack draft, and
 unauthorized next prompt are under
 `docs/review/fc77177/zero_model_m70_artillery_support_audit_v1/`.
+
+The authorized R97 support-geometry experiment completed one Sol/high CLI,
+3/10 checks, 2/2 candidates, and 2/2 complete simulations with
+`turn.completed`/exit 0. C1 lost 13/20/life -19 with 7 deaths; C2 improved to
+24/9/life -8 with 3 deaths. C2 proved the outer splash separation kept both
+medics alive, but refuted that coverage alone delivered Hibiscus healing to
+Steward, artillery closure, central closure, or protected safety. Steward took
+one Ansel heal, hit artillery 9 times/2,466.09, and died@2473; #14 died@3966
+and #3@5353. No new WIN was found; M70 remains best and seven-or-fewer
+feasibility remains UNKNOWN. Closeout and the next unauthorized prompt are
+under `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/`.

@@ -1,0 +1,40 @@
+No seven-operator WIN was found. **Seven-or-fewer feasibility remains UNKNOWN; M70 remains the verified eight-operator fixed-simulator WIN.**
+
+Both candidates used the same verified parent, `R95_SOL_HIGH_SEVEN_RETRY3_001`. All six parents’ four manifest hashes matched before evidence use.
+
+| Complete result | C1 | C2 |
+|---|---:|---:|
+| Simulator | LOSS | LOSS |
+| Selected/DEPLOY union | 7 | 7 |
+| Kills / leaks / life | 13 / 20 / −19 | 24 / 9 / −8 |
+| Death events / unique dead IDs | 7 / 7 | 3 / 3 |
+| Protected deaths / safe arrivals | 2 / 0 | 2 / 0 |
+| Remaining enemies | 0 | 0 |
+| Action errors | 9 | 1 |
+| Settlement frame | 6997 | 6997 |
+
+C1’s actual dual coverage failed to deliver Hibiscus healing to Steward. Shared splash killed Hibiscus at 2143; Ansel and Steward died at 2593. The first leak was officer `#13` at 3425; life reached zero at 4370. All seven selected IDs died once.
+
+C2 repaired the observed outer splash geometry: Melantha’s shells spared both medics, and both medics survived. **Hibiscus still never healed Steward.** Steward received one Ansel heal, attacked artillery nine times for **2,466.09**, and died at 2473. C2’s three dead IDs were Steward, Fang, and Friston.
+
+The earliest C2 acceptance failure was protected `#14` dying at **3966**, after officer and artillery damage while restrained at roadblock #4. Protected `#3` died at 5353. First leak was armor `#21` at 5235; life reached zero when `#22` leaked at 5319.
+
+Artillery **was attacked, survived, and leaked at 5759 in both runs**. Armor `#21/#22/#33/#34` all leaked in both. C2 Steward legally redeployed at 6611, hit `#34` twice, then recorded `NO_CANDIDATE` selections from 6707. Being alive and attacking another enemy did not establish artillery closure.
+
+Prediction classifications:
+
+- **Proved:** C2’s local splash separation and medic survival.
+- **Refuted:** Hibiscus-to-Steward healing, artillery closure, central closure, protected safety, and full WIN.
+- **Truncated by earlier failure/settlement:** planned late device trips and western arrivals.
+- **Evidence-unknown:** arbitrary-frame HP and whether either geometry could succeed under different actions.
+
+Frozen candidate hashes:
+
+- C1: `7bb0adb6836ba149c3b62f2966781cf6c110a4ce45b209530ea919a774db576d`
+- C2: `dd370d1c4fe378014a2374807464c9deaf7cc0b02de7465e64d561bb8bffa709`
+
+Full results: [C1 summary](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/session/candidates/candidate-001/simulation/diagnostic_summary.json), [C2 summary](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/session/candidates/candidate-002/simulation/diagnostic_summary.json).
+
+Configured identity remained `gpt-6.1-sol/high`, apps=false, K=7, mechanics `m38b-2781-animation-speed-v1`; supplied CLI policy permits one process start. No additional CLI or agent was started. Final budgets: **3/10 checks, 2/2 candidates, 2/2 complete simulations**. Token usage was not exposed; `cached_input` is an input subset. **UNKNOWN_CLI_INTERNAL**.
+
+These conclusions apply only to the fixed simulator.

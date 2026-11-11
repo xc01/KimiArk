@@ -1,0 +1,342 @@
+{
+  "schema_version": "KIMIARK_SOL_HIGH_SEVEN_SUPPORT_GEOMETRY_ZERO_MODEL_MCP_PREFLIGHT_V1",
+  "boundary": "Exact command/args parsed from Codex overrides; no check/candidate/simulation budget is consumed.",
+  "codex_effective_mcp_command": "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+  "codex_effective_mcp_args": [
+    "/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/session_config_v1.json"
+  ],
+  "working_directory": "/home/bigdata/Desktop/arknights-auto-planner",
+  "environment_variable_names_not_values": [
+    "ALL_PROXY",
+    "HTTPS_PROXY",
+    "HTTP_PROXY",
+    "NO_PROXY",
+    "all_proxy",
+    "http_proxy",
+    "https_proxy",
+    "no_proxy"
+  ],
+  "exit_code": 0,
+  "elapsed_ms": 1286.969,
+  "generation_request_used": false,
+  "requests": [
+    {
+      "jsonrpc": "2.0",
+      "method": "initialize",
+      "id": 1,
+      "params": {
+        "capabilities": {},
+        "clientInfo": {
+          "name": "kimiark-zero-model-support-geometry-preflight",
+          "version": "1"
+        },
+        "protocolVersion": "2024-11-05"
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    },
+    {
+      "jsonrpc": "2.0",
+      "method": "tools/list",
+      "id": 2
+    },
+    {
+      "jsonrpc": "2.0",
+      "method": "tools/call",
+      "id": 3,
+      "params": {
+        "name": "get_session_status",
+        "arguments": {}
+      }
+    }
+  ],
+  "responses": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2024-11-05",
+        "serverInfo": {
+          "name": "kimiark-closed-loop-tools",
+          "version": "1.0.0"
+        },
+        "capabilities": {
+          "tools": {
+            "listChanged": false
+          }
+        }
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "get_session_status",
+            "description": "Read a service-owned session, quotas, and the distinction between action names and event names.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "check_plan",
+            "description": "No-battle contract, roster, execution-fact, and static check. Valid action_type is ACTIVATE_SKILL; valid observed event_type is SKILL_ACTIVATE. A check consumes the configured check-call budget; only PASS creates and consumes a real candidate slot.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "plan"
+              ],
+              "properties": {
+                "plan": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "run_simulation",
+            "description": "Run one authorized complete fixed-plan simulation through the existing gate. STARTED failures count and are never retried.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "candidate_id",
+                "candidate_sha256"
+              ],
+              "properties": {
+                "candidate_id": {
+                  "type": "string"
+                },
+                "candidate_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "query_events",
+            "description": "Read-only deterministic query of one event type at a time. Operator HP damage may be DAMAGE or ENEMY_ABILITY_HIT; DEVICE_DAMAGE is for roadblocks/devices. No model or causal inference.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "candidate_id",
+                "candidate_sha256",
+                "event_type"
+              ],
+              "properties": {
+                "candidate_id": {
+                  "type": "string"
+                },
+                "candidate_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "event_type": {
+                  "type": "string",
+                  "enum": [
+                    "ACTIVATE_SKILL",
+                    "ATTACK_RECOVERY_END",
+                    "ATTACK_START",
+                    "ATTACK_STRIKE",
+                    "ATTACK_WINDUP",
+                    "BLOCK",
+                    "DAMAGE",
+                    "DEPLOY",
+                    "DEVICE_DAMAGE",
+                    "DEVICE_DESTROYED",
+                    "DEVICE_TARGET_SELECTION",
+                    "DP_CHANGE",
+                    "ENEMY_ABILITY_CANCELLED",
+                    "ENEMY_ABILITY_HIT",
+                    "ENEMY_ABILITY_START",
+                    "ENEMY_BLOCKED",
+                    "ENEMY_DEATH",
+                    "ENEMY_LEAK",
+                    "ENEMY_STATUS_HIT",
+                    "HEAL",
+                    "OBJECTIVE_FAILURE",
+                    "OPERATOR_DEATH",
+                    "PROJECTILE_BORN",
+                    "PROJECTILE_HIT",
+                    "PROTECTED_TARGET_REACHED",
+                    "RETREAT",
+                    "SKILL_ACTIVATE",
+                    "SKILL_END",
+                    "SKILL_READY",
+                    "SPAWN",
+                    "TARGET_SELECTION",
+                    "UNBLOCK"
+                  ]
+                },
+                "source_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "target_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "earliest_frame": {
+                  "type": "integer"
+                },
+                "latest_frame": {
+                  "type": "integer"
+                },
+                "details_equal": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {}
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 200
+                },
+                "offset": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "aggregate": {
+                  "type": "object",
+                  "required": [
+                    "field"
+                  ],
+                  "properties": {
+                    "field": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"allow_fake_execution\": false, \"budget\": {\"max_stage_simulations\": 2, \"prior_stage_simulations\": 0, \"remaining_stage_simulations\": 2, \"schema_version\": \"KIMIARK_STAGE_SIMULATION_BUDGET_V1\", \"stage_id\": \"main_08-07\", \"started_stage_simulations\": 0}, \"candidate_ledger\": {\"attempts\": [], \"max_candidates\": 2, \"remaining_candidates\": 2, \"schema_version\": \"KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2\", \"used_candidates\": 0}, \"check_call_ledger\": {\"max_check_calls\": 10, \"remaining_check_calls\": 10, \"used_check_calls\": 0}, \"controlled_code_sha256\": {\"scripts/compile_r8_1_lowstar_c2_plan_v1.py\": \"ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe\", \"scripts/kimiark_mcp_server.py\": \"54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7\", \"scripts/kimiark_tactical_stdio_service_v1.py\": \"f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b\", \"scripts/run_gpt_tactical_stage_diagnostic_v1.py\": \"2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a\", \"scripts/run_gpt_tactical_stage_session_v1.py\": \"3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192\", \"scripts/tactical_evaluation_gate_v1.py\": \"da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b\"}, \"execution_backend\": \"CONTROLLED_RUNNER\", \"features_apps\": false, \"interface_vocab\": {\"action_type_names\": [\"ACTIVATE_SKILL\", \"DEPLOY\", \"RETREAT\"], \"boundary\": \"DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.\", \"event_type_names\": [\"ATTACK_RECOVERY_END\", \"ATTACK_START\", \"ATTACK_STRIKE\", \"ATTACK_WINDUP\", \"BLOCK\", \"DAMAGE\", \"DEPLOY\", \"DEVICE_DAMAGE\", \"DEVICE_DESTROYED\", \"DEVICE_TARGET_SELECTION\", \"DP_CHANGE\", \"ENEMY_ABILITY_CANCELLED\", \"ENEMY_ABILITY_HIT\", \"ENEMY_ABILITY_START\", \"ENEMY_DEATH\", \"ENEMY_LEAK\", \"ENEMY_STATUS_HIT\", \"HEAL\", \"OBJECTIVE_FAILURE\", \"OPERATOR_DEATH\", \"PROJECTILE_BORN\", \"PROJECTILE_HIT\", \"PROTECTED_TARGET_REACHED\", \"RETREAT\", \"SKILL_ACTIVATE\", \"SKILL_END\", \"SKILL_READY\", \"SPAWN\", \"TARGET_SELECTION\", \"UNBLOCK\"], \"query_event_type_aliases\": {\"ACTIVATE_SKILL\": \"SKILL_ACTIVATE\", \"ENEMY_BLOCKED\": \"BLOCK\"}}, \"max_unique_deployed_operators\": 7, \"mechanics_version\": \"m38b-2781-animation-speed-v1\", \"model\": \"gpt-6.1-sol\", \"model_identity_proof_boundary\": \"Service records configured identity only; it cannot prove remote model identity.\", \"reasoning_effort\": \"high\", \"schema_version\": \"KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1\", \"session_id\": \"real-tool-loop-sol-high-seven-support-geometry-v1\", \"stage_id\": \"main_08-07\"}"
+          }
+        ],
+        "structuredContent": {
+          "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+          "session_id": "real-tool-loop-sol-high-seven-support-geometry-v1",
+          "stage_id": "main_08-07",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high",
+          "features_apps": false,
+          "mechanics_version": "m38b-2781-animation-speed-v1",
+          "execution_backend": "CONTROLLED_RUNNER",
+          "allow_fake_execution": false,
+          "max_unique_deployed_operators": 7,
+          "budget": {
+            "max_stage_simulations": 2,
+            "prior_stage_simulations": 0,
+            "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+            "stage_id": "main_08-07",
+            "started_stage_simulations": 0,
+            "remaining_stage_simulations": 2
+          },
+          "candidate_ledger": {
+            "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+            "max_candidates": 2,
+            "used_candidates": 0,
+            "remaining_candidates": 2,
+            "attempts": []
+          },
+          "controlled_code_sha256": {
+            "scripts/kimiark_tactical_stdio_service_v1.py": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+            "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+            "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+            "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+            "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b",
+            "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe"
+          },
+          "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+          "interface_vocab": {
+            "action_type_names": [
+              "ACTIVATE_SKILL",
+              "DEPLOY",
+              "RETREAT"
+            ],
+            "event_type_names": [
+              "ATTACK_RECOVERY_END",
+              "ATTACK_START",
+              "ATTACK_STRIKE",
+              "ATTACK_WINDUP",
+              "BLOCK",
+              "DAMAGE",
+              "DEPLOY",
+              "DEVICE_DAMAGE",
+              "DEVICE_DESTROYED",
+              "DEVICE_TARGET_SELECTION",
+              "DP_CHANGE",
+              "ENEMY_ABILITY_CANCELLED",
+              "ENEMY_ABILITY_HIT",
+              "ENEMY_ABILITY_START",
+              "ENEMY_DEATH",
+              "ENEMY_LEAK",
+              "ENEMY_STATUS_HIT",
+              "HEAL",
+              "OBJECTIVE_FAILURE",
+              "OPERATOR_DEATH",
+              "PROJECTILE_BORN",
+              "PROJECTILE_HIT",
+              "PROTECTED_TARGET_REACHED",
+              "RETREAT",
+              "SKILL_ACTIVATE",
+              "SKILL_END",
+              "SKILL_READY",
+              "SPAWN",
+              "TARGET_SELECTION",
+              "UNBLOCK"
+            ],
+            "query_event_type_aliases": {
+              "ACTIVATE_SKILL": "SKILL_ACTIVATE",
+              "ENEMY_BLOCKED": "BLOCK"
+            },
+            "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE."
+          },
+          "check_call_ledger": {
+            "max_check_calls": 10,
+            "used_check_calls": 0,
+            "remaining_check_calls": 10
+          }
+        },
+        "isError": false
+      }
+    }
+  ],
+  "stderr": ""
+}
