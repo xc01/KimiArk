@@ -135,3 +135,79 @@ def test_prediction_is_not_marked_as_observation() -> None:
     record["model_predictions"] = [{"field": "causal_change", "prediction": "will heal Steward", "status": "MODEL_PREDICTION"}]
     assert record["model_predictions"][0]["status"] == "MODEL_PREDICTION"
     assert record["event_observation_summary"]["observed_key_events"] == {}
+
+
+def test_validation_card_decision_supplies_parent_and_is_kept_separate(tmp_path: Path) -> None:
+    closeout_path, sim = _fake_candidate(tmp_path)
+    closeout = json.loads(closeout_path.read_text(encoding="utf-8"))
+    closeout["candidate"]["validation_card"]["experience_selector_decision_record"] = {
+        "adopted_observations": [{"record_id": "PARENT:diagnostic", "observation": "observed"}],
+        "selected_parent": {"record_id": "PARENT:diagnostic", "plan_id": "PARENT_PLAN"},
+    }
+    closeout_path.write_text(json.dumps(closeout), encoding="utf-8")
+    record, issues = selector.build_record(
+        experiment_id="TEST", candidate_id="candidate-001", closeout_path=closeout_path,
+        closeout=closeout, candidate=closeout["candidate"],
+        plan_path=sim / "plan_snapshot.json", action_path=sim / "action_snapshot.json",
+        events_path=sim / "diagnostic_events.json.gz",
+    )
+    assert not issues["errors"]
+    assert record["parent_plan_id"] == "PARENT_PLAN"
+    assert record["experience_selector_decision_record"]["selected_parent"]["plan_id"] == "PARENT_PLAN"
+    assert record["model_predictions"][0]["status"] == "MODEL_PREDICTION"
+
+
+def test_context_comparison_keeps_pre_run_and_post_run_isolation() -> None:
+    pre = {"parent_candidates": [{"record_id": "M70"}], "failed_evidence": [{"record_id": "R95"}]}
+    post = {"parent_candidates": [{"record_id": "M70"}, {"record_id": "R100C1"}],
+            "failed_evidence": [{"record_id": "R95"}, {"record_id": "R100C1"}]}
+    comparison = selector.compare_contexts(pre, post)
+    assert comparison["post_context_only_record_ids"] == ["R100C1"]
+    assert comparison["pre_context_only_record_ids"] == []
+    assert comparison["role_set_changed_by_context"] is False
+
+
+def test_parent_action_diff_is_advisory_and_rejects_roster_duplicates() -> None:
+    parent = {
+        "operational_plan_id": "PARENT", "selected_low_star_operator_ids": ["a", "old"],
+        "action_timeline": [
+            {"action_type": "DEPLOY", "operator_id": "a", "frame": 1, "tile": [1, 2], "direction": "UP"},
+            {"action_type": "DEPLOY", "operator_id": "old", "frame": 2, "tile": [3, 4], "direction": "DOWN"},
+        ],
+    }
+    candidate = {
+        "operational_plan_id": "CANDIDATE", "selected_low_star_operator_ids": ["a", "new"],
+        "action_timeline": [
+            {"action_type": "DEPLOY", "operator_id": "a", "frame": 1, "tile": [1, 2], "direction": "UP"},
+            {"action_type": "DEPLOY", "operator_id": "new", "frame": 2, "tile": [3, 4], "direction": "DOWN"},
+        ],
+    }
+    diff = selector.build_parent_action_diff(parent, candidate)
+    assert diff["removed_operator_ids"] == ["old"]
+    assert diff["added_operator_ids"] == ["new"]
+    assert diff["same_roster"] is False
+    assert diff["legal_role_set_modified_by_selector"] is False
+    assert diff["deployment_changes"][0]["duty_failure_conclusion"] == "UNKNOWN_WITHOUT_RUNTIME_EVENTS"
+
+
+def test_usage_audit_separates_observations_predictions_and_nonapplicable() -> None:
+    pre = {"parent_candidates": [{"record_id": "PARENT"}], "failed_evidence": []}
+    post = {"parent_candidates": [{"record_id": "PARENT"}, {"record_id": "NEW"}], "failed_evidence": []}
+    record = _record("PARENT", tags=["SUPPORT_DELIVERY"], win=False)
+    record["event_observation_summary"]["summary_result"] = {"win": False, "enemies_killed": 24, "enemies_leaked": 9, "remaining_life": -7}
+    candidate = {
+        "candidate_id": "candidate-001",
+        "validation_card": {"experience_selector_decision_record": {
+            "adopted_observations": [{"record_id": "PARENT", "observation": "observed support"}],
+            "non_applicable_experiences": [{"record_id": "NEW", "experience": "new", "why": "out of scope"}],
+        }},
+    }
+    audit = selector.build_experience_usage_audit(pre, post, [record], [candidate])
+    rows = audit["adopted_observations"]
+    assert rows[0]["pre_context_status"] == "SUGGESTED_PARENT"
+    assert rows[0]["record_plan_sha256"] == "p"
+    assert rows[0]["record_action_sha256"] == "a"
+    assert rows[0]["evidence_status"] == "OBSERVED_ARCHIVE_SUMMARY"
+    assert rows[0]["causal_success_claim"] == "NOT_PERMITTED"
+    assert rows[1]["evidence_status"] == "VISIBLY_CLASSIFIED_NOT_APPLICABLE"
+    assert rows[1]["post_context_status"] == "SUGGESTED_PARENT"

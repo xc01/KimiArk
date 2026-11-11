@@ -10,6 +10,11 @@ python scripts/codex_experience_selector_v1.py select \
   --tags ARTILLERY_KILL SUPPORT_DELIVERY PROTECTED_ROUTE CENTRAL_INTERCEPT \
   --output output/codex_experience_selector_v1/context.json
 python scripts/codex_experience_selector_v1.py rebuild-check --target /tmp/rebuilt.jsonl
+python scripts/codex_experience_selector_v1.py audit \
+  --pre-context path/pre_context.json --post-context path/post_context.json \
+  --store output/codex_experience_selector_v1/experience_records.jsonl \
+  --closeout path/closeout_report_v1.json --parent-plan path/parent_plan_snapshot.json \
+  --output path/selector_feedback_audit_v1.json
 ```
 
 The store records identities, hashes, paths, observed summaries, model predictions, unknowns, and evidence
@@ -23,3 +28,9 @@ and never reports it as a seven-ID candidate. Deployment unions count same-ID re
 robots. Model validation-card predictions stay separate from observed events. Identity/hash problems are
 reference-only. The selector is advisory, may be overridden, and must not be treated as reward learning,
 RL, model training, or a global tactical rule.
+
+The `audit` command adds a derived feedback report. It compares pre-run and post-run context membership,
+emits advisory parent-action diffs, and records visible adopted/non-applicable experience observations beside
+candidate results. The audit never changes the legal role set, adds hard tactical gates, or converts a global
+LOSS into a negative label for every local decision. It keeps exact HP, continuous positions, and hidden
+reasoning UNKNOWN where evidence is absent.

@@ -133,6 +133,27 @@ def _extract_predictions(validation_card: Any) -> list[dict[str, Any]]:
     return predictions
 
 
+def _experience_decision(candidate: dict[str, Any]) -> dict[str, Any]:
+    validation_card = candidate.get("validation_card")
+    if not isinstance(validation_card, dict):
+        return {}
+    decision = validation_card.get("experience_selector_decision_record")
+    return decision if isinstance(decision, dict) else {}
+
+
+def _selected_parent(candidate: dict[str, Any]) -> dict[str, Any]:
+    selected = _experience_decision(candidate).get("selected_parent")
+    return selected if isinstance(selected, dict) else {}
+
+
+def _record_identity(record: dict[str, Any] | None) -> dict[str, str]:
+    hashes = (record or {}).get("evidence_hashes", {}).get("actual", {})
+    return {
+        "record_plan_sha256": hashes.get("plan_sha256", "UNKNOWN"),
+        "record_action_sha256": hashes.get("action_sha256", "UNKNOWN"),
+    }
+
+
 def _summary_from_candidate(candidate: dict[str, Any]) -> dict[str, Any]:
     summary = candidate.get("summary_result")
     if isinstance(summary, dict):
@@ -191,7 +212,10 @@ def build_record(
         "operator_union_count": len(selected | deployed),
         "same_id_redeploy_counted_once": True,
         "robots_count_toward_union": True,
-        "parent_plan_id": plan.get("tactical_parent_plan_id", plan.get("parent_plan_id", "UNKNOWN")),
+        "parent_plan_id": plan.get(
+            "tactical_parent_plan_id",
+            plan.get("parent_plan_id", _selected_parent(candidate).get("plan_id", "UNKNOWN")),
+        ),
         "normalized_action_sha256": identity["actual"].get("action_sha256", "UNKNOWN"),
         "event_observation_summary": {
             "summary_result": summary,
@@ -203,7 +227,8 @@ def build_record(
             "event_count": int(events_meta["event_count"]) if events_meta else "UNKNOWN",
         },
         "model_predictions": _extract_predictions(candidate.get("validation_card")),
-        "validation_card_path": str(closeout_path.parent / "session/candidates" / candidate_id / "simulation/plan_snapshot.json"),
+        "experience_selector_decision_record": _experience_decision(candidate),
+        "validation_card_path": str(closeout_path),
         "validation_card_status": "MODEL_PREDICTION_NOT_OBSERVED_FACT",
         "responsible_paths": {
             "closeout": str(closeout_path),
@@ -618,6 +643,153 @@ def build_context(
     return payload, omitted
 
 
+def context_record_ids(context: dict[str, Any]) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for item in context.get("parent_candidates", []):
+        result[item["record_id"]] = "SUGGESTED_PARENT"
+    for item in context.get("failed_evidence", []):
+        result[item["record_id"]] = "FAILED_EVIDENCE"
+    for item in context.get("non_selected_records", []):
+        result.setdefault(item["record_id"], "NOT_SELECTED")
+    return result
+
+
+def _deployment_rows(plan: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    rows: dict[str, list[dict[str, Any]]] = {}
+    for action in plan.get("action_timeline", []):
+        if action.get("action_type") == "DEPLOY" and action.get("operator_id"):
+            rows.setdefault(action["operator_id"], []).append({
+                "frame": action.get("frame"),
+                "tile": action.get("tile"),
+                "direction": action.get("direction"),
+            })
+    return rows
+
+
+def _action_identity(plan: dict[str, Any]) -> list[tuple[Any, ...]]:
+    return [
+        (action.get("frame"), action.get("action_type"), action.get("operator_id"),
+         json.dumps(action.get("tile"), sort_keys=True), action.get("direction"))
+        for action in plan.get("action_timeline", [])
+    ]
+
+
+def build_parent_action_diff(parent_plan: dict[str, Any], candidate_plan: dict[str, Any]) -> dict[str, Any]:
+    parent_id = parent_plan.get("operational_plan_id", "UNKNOWN")
+    candidate_id = candidate_plan.get("operational_plan_id", "UNKNOWN")
+    parent_deployments = _deployment_rows(parent_plan)
+    candidate_deployments = _deployment_rows(candidate_plan)
+    parent_union = set(parent_plan.get("selected_low_star_operator_ids", [])) | set(parent_deployments)
+    candidate_union = set(candidate_plan.get("selected_low_star_operator_ids", [])) | set(candidate_deployments)
+    changes = []
+    for operator_id in sorted(parent_union | candidate_union):
+        before = parent_deployments.get(operator_id, [])
+        after = candidate_deployments.get(operator_id, [])
+        if before == after:
+            status = "UNCHANGED"
+        elif before and not after:
+            status = "REMOVED"
+        elif after and not before:
+            status = "ADDED"
+        else:
+            status = "CHANGED"
+        if status != "UNCHANGED":
+            changes.append({
+                "operator_id": operator_id,
+                "status": status,
+                "parent_deployments": before,
+                "candidate_deployments": after,
+                "duty_review": "VERIFY_PREVIOUS_AND_NEW_DUTY_WITH_EVENTS_OR_STATIC_FACTS",
+                "duty_failure_conclusion": "UNKNOWN_WITHOUT_RUNTIME_EVENTS",
+            })
+    parent_actions = _action_identity(parent_plan)
+    candidate_actions = _action_identity(candidate_plan)
+    return {
+        "schema_version": "KIMIARK_SELECTOR_PARENT_ACTION_DIFF_V1",
+        "parent_plan_id": parent_id,
+        "candidate_plan_id": candidate_id,
+        "parent_operator_union": sorted(parent_union),
+        "candidate_operator_union": sorted(candidate_union),
+        "removed_operator_ids": sorted(parent_union - candidate_union),
+        "added_operator_ids": sorted(candidate_union - parent_union),
+        "legal_role_set_modified_by_selector": False,
+        "deployment_changes": changes,
+        "same_roster": parent_union == candidate_union,
+        "same_normalized_action_timeline": parent_actions == candidate_actions,
+        "changed_action_count": sum(1 for before, after in zip(parent_actions, candidate_actions) if before != after) + abs(len(parent_actions) - len(candidate_actions)),
+        "risk_boundary": "Advisory information only; no role restriction, hard tactical gate, or causal failure conclusion.",
+    }
+
+
+def build_experience_usage_audit(
+    pre_context: dict[str, Any],
+    post_context: dict[str, Any],
+    records: list[dict[str, Any]],
+    candidates: list[dict[str, Any]],
+) -> dict[str, Any]:
+    record_by_id = {record["record_id"]: record for record in records}
+    pre_ids = context_record_ids(pre_context)
+    post_ids = context_record_ids(post_context)
+    post_only = sorted(set(post_ids) - set(pre_ids))
+    usage_rows = []
+    for candidate in candidates:
+        decision = candidate.get("experience_selector_decision_record", {})
+        decision = _experience_decision(candidate) if not decision else decision
+        for observation in decision.get("adopted_observations", []):
+            record_id = observation.get("record_id")
+            record = record_by_id.get(record_id)
+            summary = (record or {}).get("event_observation_summary", {}).get("summary_result", {})
+            usage_rows.append({
+                "candidate_id": candidate.get("candidate_id"),
+                "record_id": record_id,
+                "pre_context_status": pre_ids.get(record_id, "ABSENT"),
+                "post_context_status": post_ids.get(record_id, "ABSENT"),
+                "post_run_only": record_id in post_only,
+                "archive_status": (record or {}).get("archive_status", "UNKNOWN"),
+                "responsibility_tags": (record or {}).get("responsibility_tags", []),
+                **_record_identity(record),
+                "observation": observation.get("observation", "UNKNOWN"),
+                "candidate_result": {
+                    "win": summary.get("win", summary.get("simulator_win", "UNKNOWN")),
+                    "enemies_killed": summary.get("enemies_killed", "UNKNOWN"),
+                    "enemies_leaked": summary.get("enemies_leaked", "UNKNOWN"),
+                    "remaining_life": summary.get("remaining_life", "UNKNOWN"),
+                },
+                "store_presence": "PRESENT" if record is not None else "MISSING",
+                "evidence_status": "OBSERVED_ARCHIVE_SUMMARY",
+                "causal_success_claim": "NOT_PERMITTED",
+            })
+        for non_applicable in decision.get("non_applicable_experiences", []):
+            usage_rows.append({
+                "candidate_id": candidate.get("candidate_id"),
+                "record_id": non_applicable.get("record_id", "UNKNOWN_NO_RECORD_ID"),
+                "pre_context_status": pre_ids.get(non_applicable.get("record_id"), "UNKNOWN"),
+                "post_context_status": post_ids.get(non_applicable.get("record_id"), "UNKNOWN"),
+                "post_run_only": non_applicable.get("record_id") in post_only,
+                "archive_status": (record_by_id.get(non_applicable.get("record_id")) or {}).get("archive_status", "UNKNOWN"),
+                "responsibility_tags": (record_by_id.get(non_applicable.get("record_id")) or {}).get("responsibility_tags", []),
+                **_record_identity(record_by_id.get(non_applicable.get("record_id"))),
+                "observation": non_applicable.get("experience", "UNKNOWN"),
+                "non_applicable_reason": non_applicable.get("why", "UNKNOWN"),
+                "store_presence": "PRESENT" if non_applicable.get("record_id") in record_by_id else "MISSING_OR_UNSPECIFIED",
+                "evidence_status": "VISIBLY_CLASSIFIED_NOT_APPLICABLE",
+                "causal_success_claim": "NOT_PERMITTED",
+            })
+    return {
+        "schema_version": "KIMIARK_EXPERIENCE_USAGE_AUDIT_V1",
+        "pre_context_record_ids": pre_ids,
+        "post_context_record_ids": post_ids,
+        "post_context_only_record_ids": post_only,
+        "adopted_observations": usage_rows,
+        "boundary": {
+            "hidden_reasoning": "UNKNOWN",
+            "absence_of_citation": "NOT_PROOF_OF_NON_USE_BECAUSE_RAW_ARCHIVE_WAS_READABLE",
+            "unknown_result_fields": "UNKNOWN_NOT_ZERO",
+            "loss_classification": "A_GLOBAL_LOSS_IS_NOT_A_UNIFORM_REFUTATION_OF_EVERY_LOCAL_OBSERVATION",
+        },
+    }
+
+
 def rebuild_store(source_store: Path, target_store: Path) -> dict[str, Any]:
     records, issues = import_default_sources()
     write_store(target_store, records)
@@ -625,6 +797,20 @@ def rebuild_store(source_store: Path, target_store: Path) -> dict[str, Any]:
     rebuilt_ids = {record["record_id"] for record in records}
     missing = sorted({record.get("record_id", "UNKNOWN") for record in existing} - rebuilt_ids)
     return {"records": len(records), "issues": issues, "missing_from_rebuild": missing}
+
+
+def compare_contexts(pre_context: dict[str, Any], post_context: dict[str, Any]) -> dict[str, Any]:
+    pre_ids = context_record_ids(pre_context)
+    post_ids = context_record_ids(post_context)
+    return {
+        "schema_version": "KIMIARK_CONTEXT_COMPARISON_V1",
+        "pre_context_record_ids": pre_ids,
+        "post_context_record_ids": post_ids,
+        "post_context_only_record_ids": sorted(set(post_ids) - set(pre_ids)),
+        "pre_context_only_record_ids": sorted(set(pre_ids) - set(post_ids)),
+        "role_set_changed_by_context": False,
+        "boundary": "Comparison is retrieval evidence, not tactical authorization or causal improvement proof.",
+    }
 
 
 def main() -> int:
@@ -644,6 +830,13 @@ def main() -> int:
     rebuild_cmd = commands.add_parser("rebuild-check")
     rebuild_cmd.add_argument("--source", type=Path, default=DEFAULT_STORE)
     rebuild_cmd.add_argument("--target", type=Path, required=True)
+    audit_cmd = commands.add_parser("audit")
+    audit_cmd.add_argument("--pre-context", type=Path, required=True)
+    audit_cmd.add_argument("--post-context", type=Path, required=True)
+    audit_cmd.add_argument("--store", type=Path, default=DEFAULT_STORE)
+    audit_cmd.add_argument("--closeout", type=Path, required=True)
+    audit_cmd.add_argument("--parent-plan", type=Path, required=True)
+    audit_cmd.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "import":
         records, issues = import_default_sources()
@@ -661,6 +854,36 @@ def main() -> int:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
         print(json.dumps({"output": str(args.output), "omitted": omitted}, ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "audit":
+        pre_context = load_json(args.pre_context)
+        post_context = load_json(args.post_context)
+        closeout = load_json(args.closeout)
+        parent_plan = load_json(args.parent_plan)
+        comparisons = []
+        for candidate in _candidate_list(closeout):
+            candidate_id = candidate.get("candidate_id", "UNKNOWN")
+            plan_path = args.closeout.parent / "session/candidates" / candidate_id / "simulation/plan_snapshot.json"
+            comparisons.append(build_parent_action_diff(parent_plan, load_json(plan_path)))
+        payload = {
+            "schema_version": "KIMIARK_SELECTOR_FEEDBACK_AUDIT_V1",
+            "context_comparison": compare_contexts(pre_context, post_context),
+            "parent_action_diffs": comparisons,
+            "experience_usage_audit": build_experience_usage_audit(
+                pre_context, post_context, load_store(args.store), _candidate_list(closeout)
+            ),
+            "boundaries": {
+                "selector_is_advisory": True,
+                "real_model_calls_in_this_audit": 0,
+                "real_simulations_in_this_audit": 0,
+                "hidden_reasoning": "UNKNOWN",
+                "absence_of_citation": "NOT_PROOF_OF_NON_USE_BECAUSE_RAW_ARCHIVE_WAS_READABLE",
+                "loss_classification": "A_GLOBAL_LOSS_IS_NOT_A_UNIFORM_REFUTATION_OF_EVERY_LOCAL_OBSERVATION",
+            },
+        }
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(json.dumps({"output": str(args.output), "records": len(load_store(args.store))}, sort_keys=True))
         return 0
     print(json.dumps(rebuild_store(args.source, args.target), ensure_ascii=False, sort_keys=True))
     return 0

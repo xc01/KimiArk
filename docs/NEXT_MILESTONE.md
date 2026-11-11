@@ -206,3 +206,14 @@ leaked@5759, #22 leaked@5196, and #3 died@5353. The integration layer traced par
 one run does not prove improved WIN rate. Both R100 candidates were post-run imported, the store rebuilt at
 14 records, and the next unauthorized prompt is under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/next_prompt_suggestion_v1.md`.
+
+The follow-up zero-model R100 usage audit did not start a model, run a simulation,
+or add STARTED. It fixed R100's lost `parent_plan_id` by reading the decision
+card's `selected_parent`, preserved the decision separately from observed facts,
+and rebuilt the store at 14 records. Both R100 cards visibly adopted the M70 and
+R98 C1 context observations. C1's missing early `#4` interception leaked@1132;
+C2 restored Melantha's block@921/kill@1111 and #14's arrival, but still lost
+protected #3@5353, artillery@5759, and central #21/#22/#34. The post-run context
+did not surface R100 C2's restored route branch; this is a retrieval/presentation
+gap, not proof that the selector caused either result. See
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/selector_usage_audit_v1.md`.
