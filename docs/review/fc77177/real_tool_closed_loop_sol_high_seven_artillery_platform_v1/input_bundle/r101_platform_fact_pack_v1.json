@@ -1,0 +1,112 @@
+{
+  "M70": {
+    "artillery_damage": {
+      "first_frame": 2161,
+      "hit_count": 45,
+      "last_frame": 4273,
+      "total_amount": 13227.21
+    },
+    "comparison_boundary": "Same tile/direction and two additional observed hits are evidence, not proof that a delayed retreat preserves all other R102 duties.",
+    "extra_hits_vs_R101_C2": [
+      {
+        "amount": 249.1,
+        "frame": 4225
+      },
+      {
+        "amount": 473.29,
+        "frame": 4273
+      }
+    ],
+    "plan_id": "R8_7_GPT_M70_V1",
+    "stop_mechanism": "Artillery ENEMY_DEATH at 4273, followed by planned active retreat at 4280.",
+    "support_shells": [
+      {
+        "frame": 3943,
+        "targets": [
+          "char_212_ansel",
+          "char_210_stward"
+        ]
+      },
+      {
+        "frame": 4093,
+        "targets": [
+          "char_212_ansel",
+          "char_210_stward"
+        ]
+      },
+      {
+        "frame": 4243,
+        "target": "char_120_hibisc"
+      }
+    ]
+  },
+  "R101_C2": {
+    "action_sha256": "8531f227c73e977de10da0127b615e3335b1a238a625c263d90241aa123a924c",
+    "around_stop": {
+      "next_artillery_shell_locked": {
+        "hit_frame": 4361,
+        "locked_position_runtime_x_y": [
+          6,
+          2
+        ],
+        "start_frame": 4261,
+        "target_id": "char_120_hibisc"
+      },
+      "no_steward_death": "No OPERATOR_DEATH at 4200; legal active retreat with DP refund.",
+      "target_selection_4129": "artillery selected over officer #20",
+      "target_selection_4177": "artillery selected over officer #20"
+    },
+    "artillery_damage": {
+      "first_frame": 2161,
+      "hit_count": 43,
+      "last_frame": 4177,
+      "total_amount": 12504.82
+    },
+    "independent_failures": {
+      "armor_21_leaked": 5101,
+      "armor_22_leaked": 5196,
+      "armor_33_leaked": 6846,
+      "armor_34_leaked": 6996,
+      "causal_boundary": "Protected #3 death precedes output stop; #21/#22 leak while Steward is absent after active retreat; #33/#34 later and attribution requires model/event analysis, not arithmetic.",
+      "protected_3_died": 3311
+    },
+    "plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+    "result": "20 kills, 13 leaks, 4 deaths, life -11, no WIN",
+    "steward_platform": {
+      "direction": "DOWN",
+      "plan_tile_row_col": [
+        5,
+        7
+      ],
+      "runtime_tile_x_y": [
+        7,
+        5
+      ]
+    },
+    "stop_mechanism": {
+      "dp_refund": 9,
+      "frame": 4200,
+      "redeploy_direction": "UP",
+      "redeploy_frame": 6301,
+      "redeploy_plan_tile_row_col": [
+        2,
+        5
+      ],
+      "type": "PLANNED_ACTIVE_RETREAT",
+      "visible_intent": "Central intercept validation card requires Steward at [2,5]UP after fixed4200 to help armor #21/#22/#33/#34."
+    }
+  },
+  "R98_C1": {
+    "artillery_damage": {
+      "first_frame": 2281,
+      "hit_count": 43,
+      "last_frame": 4297,
+      "total_amount": 12504.82
+    },
+    "plan_id": "R98_SOL_HIGH_SEVEN_HEAL_DELIVERY_001",
+    "stop_mechanism": "OPERATOR_DEATH at 4330 from a 910 artillery shell; planned 4510 retreat was legal:false after death. Different limitation from R101 C2's active retreat."
+  },
+  "boundary": "Historical event facts and static action facts only. No interpolation of HP or continuous position; no universal deadline and no imported successful window.",
+  "schema_version": "KIMIARK_ARTILLERY_PLATFORM_FACT_PACK_V1",
+  "source_closeout": "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_feedback_v1/closeout_report_v1.json"
+}

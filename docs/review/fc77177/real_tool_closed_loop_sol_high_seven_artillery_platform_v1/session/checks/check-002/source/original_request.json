@@ -1,0 +1,643 @@
+{
+  "candidate_id": null,
+  "check_id": "check-002",
+  "plan": {
+    "revised_operational_plans": [
+      {
+        "action_timeline": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1321,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 1772,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1960,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              5
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2042,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              5,
+              7
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 2072,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3440,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3843,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 3873,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 4280,
+            "operator_id": "char_210_stward",
+            "rationale": "Artillery must already be dead and its residual projectiles resolved."
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5073,
+            "operator_id": "char_283_midn"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5644,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5900,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 5900,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 6381,
+            "operator_id": "char_210_stward",
+            "rationale": "Cover both central holders; high-defense target competition is an explicit risk.",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7401,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7445,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 7701,
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "action_type": "ACTIVATE_SKILL",
+            "frame": 8902,
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 9000,
+            "operator_id": "char_210_stward",
+            "rationale": "Central hostile clearance must be complete."
+          },
+          {
+            "action_type": "RETREAT",
+            "frame": 9001,
+            "operator_id": "char_208_melan"
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 11101,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 11102,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "battle_phases": [
+          {
+            "completion_condition": "Successful deployments,no leaks,eastern3/4 destroyed",
+            "failure_effect_on_later_phases": "Any leak/death invalidates complete-WIN thesis.",
+            "goal": "Four interceptions and eastern roadblock clearance",
+            "handoff_requirements": [
+              "Melantha alive and lower queue contained"
+            ],
+            "phase_id": "opening",
+            "responsibilities": [
+              "C1 four holders and Ansel1321 preserved; Hibiscus1960[5,5]RIGHT must deliver heals toMelantha before second lower shell; Steward2071[5,7]DOWN. No leaks.",
+              "Midnight clears eastern3 while holding upper outer; Melantha clears roadblock4 while holding lower outer, remaining there until9001. After hostile closure Melantha11102[6,3]LEFT clears western2; Steward11101[2,2]DOWN clears western1. Civilians3/14 must survive all shells/officers and reach; delay is not safety."
+            ],
+            "start_condition": "Frame0 fixed schedule",
+            "survival_dependencies": [
+              "Ansel1321[5,6]DOWN covers both central holders,caster,Hibiscus; activeextension reachesMidnight. Hibiscus1960[5,5]RIGHT coversMelantha,Friston,Ansel,easternSteward but notFang orupperMidnight. Firstboost3440-4040 specifically funds shared lateartillery barrage; second5900-6500 funds lower mixedqueue. Ansel2072/3873/5900/7701 boosts unchanged. CenteredHibiscus splash can hitFriston,Melantha,Ansel; castercentered splash hitsAnsel but notHibiscus atdistance2. Survival andhealing must be observed."
+            ]
+          },
+          {
+            "completion_condition": "33 kills,zero leaks,life3,both reached,zero active enemies",
+            "failure_effect_on_later_phases": "Missing artillery death or central capacity refutes; no automatic repair.",
+            "goal": "Artillery and all central armor killed, protected arrival",
+            "handoff_requirements": [
+              "Caster living retreat4280 and2101-frame return; all fixed actions must remain legal"
+            ],
+            "phase_id": "closure",
+            "responsibilities": [
+              "Steward2071[5,7]DOWN remains until fixed4280, testing actual additional artillery damage beyond4200 and ENEMY_DEATH before retreat. Healers must deliver actual heals. Born projectiles persist.",
+              "Fang holds21/33 andupperrunners with Ansel healing. Friston holds22/34 andlowerrunners with bothmedics. Midnight5073 arts helps onlywhen ownqueuepermits; Steward6381[2,5]UP coversbothholders andreceives Ansel medicine only. Must kill21/22/33/34 by9000 withactualBLOCKs andnoslotoverflow. LostcentralMelantha remains cost; no unassignedreplacement."
+            ],
+            "start_condition": "Steward2071 deployment",
+            "survival_dependencies": [
+              "Ansel1321[5,6]DOWN covers both central holders,caster,Hibiscus; activeextension reachesMidnight. Hibiscus1960[5,5]RIGHT coversMelantha,Friston,Ansel,easternSteward but notFang orupperMidnight. Firstboost3440-4040 specifically funds shared lateartillery barrage; second5900-6500 funds lower mixedqueue. Ansel2072/3873/5900/7701 boosts unchanged. CenteredHibiscus splash can hitFriston,Melantha,Ansel; castercentered splash hitsAnsel but notHibiscus atdistance2. Survival andhealing must be observed."
+            ]
+          }
+        ],
+        "corridor_responsibilities": [
+          {
+            "responsibility": "C1 four holders and Ansel1321 preserved; Hibiscus1960[5,5]RIGHT must deliver heals toMelantha before second lower shell; Steward2071[5,7]DOWN. No leaks.",
+            "role": "opening"
+          },
+          {
+            "responsibility": "Midnight clears eastern3 while holding upper outer; Melantha clears roadblock4 while holding lower outer, remaining there until9001. After hostile closure Melantha11102[6,3]LEFT clears western2; Steward11101[2,2]DOWN clears western1. Civilians3/14 must survive all shells/officers and reach; delay is not safety.",
+            "role": "roadblocks_and_protected_routes"
+          },
+          {
+            "responsibility": "Steward2071[5,7]DOWN remains until fixed4280, testing actual additional artillery damage beyond4200 and ENEMY_DEATH before retreat. Healers must deliver actual heals. Born projectiles persist.",
+            "role": "artillery_closure"
+          },
+          {
+            "responsibility": "Ansel1321[5,6]DOWN covers both central holders,caster,Hibiscus; activeextension reachesMidnight. Hibiscus1960[5,5]RIGHT coversMelantha,Friston,Ansel,easternSteward but notFang orupperMidnight. Firstboost3440-4040 specifically funds shared lateartillery barrage; second5900-6500 funds lower mixedqueue. Ansel2072/3873/5900/7701 boosts unchanged. CenteredHibiscus splash can hitFriston,Melantha,Ansel; castercentered splash hitsAnsel but notHibiscus atdistance2. Survival andhealing must be observed.",
+            "role": "healer_survival"
+          },
+          {
+            "responsibility": "Fang holds21/33 andupperrunners with Ansel healing. Friston holds22/34 andlowerrunners with bothmedics. Midnight5073 arts helps onlywhen ownqueuepermits; Steward6381[2,5]UP coversbothholders andreceives Ansel medicine only. Must kill21/22/33/34 by9000 withactualBLOCKs andnoslotoverflow. LostcentralMelantha remains cost; no unassignedreplacement.",
+            "role": "central_intercept"
+          }
+        ],
+        "deployment_positions_and_directions": [
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 0,
+            "operator_id": "char_123_fang",
+            "tile": [
+              3,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 91,
+            "operator_id": "char_4093_frston",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 571,
+            "operator_id": "char_283_midn",
+            "tile": [
+              1,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 841,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 1321,
+            "operator_id": "char_212_ansel",
+            "tile": [
+              5,
+              6
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "RIGHT",
+            "frame": 1960,
+            "operator_id": "char_120_hibisc",
+            "tile": [
+              5,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 2071,
+            "operator_id": "char_210_stward",
+            "tile": [
+              5,
+              7
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "UP",
+            "frame": 6381,
+            "operator_id": "char_210_stward",
+            "rationale": "Cover both central holders; high-defense target competition is an explicit risk.",
+            "tile": [
+              2,
+              5
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "DOWN",
+            "frame": 11101,
+            "operator_id": "char_210_stward",
+            "tile": [
+              2,
+              2
+            ]
+          },
+          {
+            "action_type": "DEPLOY",
+            "direction": "LEFT",
+            "frame": 11102,
+            "operator_id": "char_208_melan",
+            "tile": [
+              6,
+              3
+            ]
+          }
+        ],
+        "formation_structure": {
+          "comparison": [
+            {
+              "reason": "No heals toMelantha anddeath2143 observed.",
+              "selected": false,
+              "structure": "Retain C1 unsupported lower healing"
+            },
+            {
+              "reason": "Removes his upper extension andcentral medicine.",
+              "selected": false,
+              "structure": "Rotate Ansel toward lower route"
+            },
+            {
+              "reason": "Covers lowerMelantha while retaining Anselcentral/upper responsibilities and funds observed fatalbarrage.",
+              "selected": true,
+              "structure": "Hibiscus5,5RIGHT with firstboostreserved3440"
+            }
+          ],
+          "distinct_operator_ids": 7,
+          "economy": "Same seven IDs and96 gross initialDP asC1, no newcost/refund. Hibiscusdelayed1960 after westernearlyexposure; deployment1960 beforecaster2071 stillaffordable. No2054refund; caster2071 balance1.0333. HibiscfirstSPready2860 butreserved3440; inactive1860frames before5900second; later1501gaps. Livingrefundsonly,full2101frameredeploy.",
+          "maximum_simultaneous_operators": 7,
+          "primary_parent": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001"
+        },
+        "formation_transitions": [
+          {
+            "frame": 1960,
+            "transition": "Hibiscus deliveredlowerhealing replaces zerohealC1geometry."
+          },
+          {
+            "frame": 3440,
+            "transition": "Hibiscusboost spansobservedC1lateeasternbarrage."
+          },
+          {
+            "frame": 4280,
+            "transition": "Fixedretreatafterrequiredartillerydeath; unchangedfalsifiable."
+          },
+          {
+            "frame": 5900,
+            "transition": "Bothboosts overlaplatepressure5900-6500."
+          },
+          {
+            "frame": 6381,
+            "transition": "BothlanecasterreturnswithAnselmedicine; centralcapacitystillrequiresactualkills."
+          },
+          {
+            "frame": 9000,
+            "transition": "Fixedwithdrawalandofficerclosurebeforewesternclearance."
+          }
+        ],
+        "mandatory_tactical_invariants": [
+          {
+            "id": "LEGAL",
+            "requirement": "Ordinary34-ID catalog; selected/deployed union7 including robot; fixed actions only."
+          },
+          {
+            "id": "SETTLEMENT",
+            "requirement": "WIN,33 hostile kills,zero leaks,life3,both protected alive and reached,no active enemies,complete settlement."
+          },
+          {
+            "id": "UNKNOWN",
+            "requirement": "Unrecorded HP, full eligible candidate order and continuous positions UNKNOWN. Old frames are observations, no new deadlines."
+          }
+        ],
+        "operational_plan_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_002",
+        "parent_hypothesis_id": "R102_H2_C1_DELIVERED_SUPPORT_AND_BARRAGE",
+        "pressure_window_responsibilities": [
+          {
+            "duties": "C1 four holders and Ansel1321 preserved; Hibiscus1960[5,5]RIGHT must deliver heals toMelantha before second lower shell; Steward2071[5,7]DOWN. No leaks.",
+            "window_frames": [
+              0,
+              2130
+            ]
+          },
+          {
+            "duties": "Steward2071[5,7]DOWN remains until fixed4280, testing actual additional artillery damage beyond4200 and ENEMY_DEATH before retreat. Healers must deliver actual heals. Born projectiles persist. Ansel1321[5,6]DOWN covers both central holders,caster,Hibiscus; activeextension reachesMidnight. Hibiscus1960[5,5]RIGHT coversMelantha,Friston,Ansel,easternSteward but notFang orupperMidnight. Firstboost3440-4040 specifically funds shared lateartillery barrage; second5900-6500 funds lower mixedqueue. Ansel2072/3873/5900/7701 boosts unchanged. CenteredHibiscus splash can hitFriston,Melantha,Ansel; castercentered splash hitsAnsel but notHibiscus atdistance2. Survival andhealing must be observed.",
+            "window_frames": [
+              2131,
+              4280
+            ]
+          },
+          {
+            "duties": "Fang holds21/33 andupperrunners with Ansel healing. Friston holds22/34 andlowerrunners with bothmedics. Midnight5073 arts helps onlywhen ownqueuepermits; Steward6381[2,5]UP coversbothholders andreceives Ansel medicine only. Must kill21/22/33/34 by9000 withactualBLOCKs andnoslotoverflow. LostcentralMelantha remains cost; no unassignedreplacement.",
+            "window_frames": [
+              4281,
+              9001
+            ]
+          },
+          {
+            "duties": "Midnight clears eastern3 while holding upper outer; Melantha clears roadblock4 while holding lower outer, remaining there until9001. After hostile closure Melantha11102[6,3]LEFT clears western2; Steward11101[2,2]DOWN clears western1. Civilians3/14 must survive all shells/officers and reach; delay is not safety.",
+            "window_frames": [
+              9002,
+              18000
+            ]
+          }
+        ],
+        "selected_low_star_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_208_melan",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "skill_intents": [
+          {
+            "frames": [],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_123_fang"
+          },
+          {
+            "frames": [],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_4093_frston"
+          },
+          {
+            "frames": [
+              1772,
+              5073
+            ],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_283_midn"
+          },
+          {
+            "frames": [
+              2042,
+              3843,
+              5644,
+              7445
+            ],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_208_melan"
+          },
+          {
+            "frames": [
+              2072,
+              3873,
+              5900,
+              7701
+            ],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_212_ansel"
+          },
+          {
+            "frames": [
+              3440,
+              5900,
+              7401,
+              8902
+            ],
+            "intent": "Firstboost3440fundsbarrage,second5900fundslowerpressure;timeSPpausedwhileactive.",
+            "operator_id": "char_120_hibisc"
+          },
+          {
+            "frames": [],
+            "intent": "Fixedskillsasscheduled;automatic skills automatic.",
+            "operator_id": "char_210_stward"
+          }
+        ],
+        "tactical_thesis": "Material repair of frozen C1 raw feedback, same M70 lineage: Hibiscus moves from[2,6]UP to[5,5]RIGHT at1960, directly covering previously unhealed lowerMelantha as well as Ansel,caster,Friston. First boost3440 covers the C1 shared3643/3793/3943 barrage rather than spending it on earlier western exposure; second5900 overlaps Ansel lateboost. Persistent Melantha and fixed4280 artilleryretreat remain. Central Fang medicine is now Ansel responsibility; caster6381[2,5]UP has Ansel coverage but no Hibiscus coverage. Both physicians and actual central kills required, no hidden repair.",
+        "validation_card": {
+          "cost_and_replacement": "Same seven IDs and96 gross initialDP asC1, no newcost/refund. Hibiscusdelayed1960 after westernearlyexposure; deployment1960 beforecaster2071 stillaffordable. No2054refund; caster2071 balance1.0333. HibiscfirstSPready2860 butreserved3440; inactive1860frames before5900second; later1501gaps. Livingrefundsonly,full2101frameredeploy.",
+          "duty_plan": {
+            "artillery_closure": "Steward2071[5,7]DOWN remains until fixed4280, testing actual additional artillery damage beyond4200 and ENEMY_DEATH before retreat. Healers must deliver actual heals. Born projectiles persist.",
+            "central_intercept": "Fang holds21/33 andupperrunners with Ansel healing. Friston holds22/34 andlowerrunners with bothmedics. Midnight5073 arts helps onlywhen ownqueuepermits; Steward6381[2,5]UP coversbothholders andreceives Ansel medicine only. Must kill21/22/33/34 by9000 withactualBLOCKs andnoslotoverflow. LostcentralMelantha remains cost; no unassignedreplacement.",
+            "healer_survival": "Ansel1321[5,6]DOWN covers both central holders,caster,Hibiscus; activeextension reachesMidnight. Hibiscus1960[5,5]RIGHT coversMelantha,Friston,Ansel,easternSteward but notFang orupperMidnight. Firstboost3440-4040 specifically funds shared lateartillery barrage; second5900-6500 funds lower mixedqueue. Ansel2072/3873/5900/7701 boosts unchanged. CenteredHibiscus splash can hitFriston,Melantha,Ansel; castercentered splash hitsAnsel but notHibiscus atdistance2. Survival andhealing must be observed.",
+            "opening": "C1 four holders and Ansel1321 preserved; Hibiscus1960[5,5]RIGHT must deliver heals toMelantha before second lower shell; Steward2071[5,7]DOWN. No leaks.",
+            "roadblocks_and_protected_routes": "Midnight clears eastern3 while holding upper outer; Melantha clears roadblock4 while holding lower outer, remaining there until9001. After hostile closure Melantha11102[6,3]LEFT clears western2; Steward11101[2,2]DOWN clears western1. Civilians3/14 must survive all shells/officers and reach; delay is not safety."
+          },
+          "expected_observable_events": [
+            "Persistent Melantha survives extra shell and kills lower officers",
+            "Steward DAMAGE after4200,artillery ENEMY_DEATH before4280",
+            "Actual armor21/22/33/34 BLOCK then ENEMY_DEATH",
+            "Both protected targets alive and reached"
+          ],
+          "experience_selector_decision_record": {
+            "adopted_observations": [
+              {
+                "observation": "ZeroMelanthaHEALs,845shells1993/2143,death2143.",
+                "record_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001:candidate-001"
+              },
+              {
+                "observation": "Anselandcastersharedshells3643/3793/3943anddied3943;Hibiscusordinary372.6healsinsamewindow.",
+                "record_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001:candidate-001"
+              },
+              {
+                "observation": "Artilleryrequired45hitsto4273;C1only38through3937.",
+                "record_id": "R8_7_GPT_M70_V1:diagnostic"
+              }
+            ],
+            "expected_events": [
+              "HEALHibiscus->Melantha1960-2143",
+              "Bothphysicianssurvive3943;casterDAMAGEafter4200andartilleryENEMY_DEATHbefore4280",
+              "ActualcentralarmorBLOCKandkill;bothprotectedreached"
+            ],
+            "falsifiable_question": "Does Hibiscus actually healpersistentMelantha, and does reserved3440boostkeepoutputalive throughartillerydeathbefore4280 while holdersandprotectedroutesclose?",
+            "non_applicable_experiences": [
+              "Alive/eligible is not selected/healed; exactHP andfulleligibleorderUNKNOWN.",
+              "R101's43hitplannedretreat isnotC1's38hitdeath.",
+              "R95/R97 geometry comparisons do not establish C2; no successful windows imported."
+            ],
+            "override_reason_if_any": "C2requiredfeedbackrepair; noselectorrestart.",
+            "refuting_events": [
+              "No deliveredlowerheal,earlyholderdeathfromnewsplash,anydeathbreakingduty,artilleryaliveatretreat,centraloverflow,routefailure"
+            ],
+            "selected_parent": {
+              "candidate_sha256": "e7438870b11e7e4e19afde6012c20cdada58b9fcea70d616e588e4354794c0fe",
+              "record_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001:candidate-001",
+              "why_primary": "Repair this same CLI's C1 feedback; M70 remains sole archived ancestor, no selector restart."
+            },
+            "similar_prior_failure_change": "Hibiscus nowcoversMelanthaandcaster simultaneously; Anselkeepsupperextension; delayedfirstboostmateriallychangesC1fatalbarrage. EarlierR97hadcaster5,6andnonclearingMelantha6,4,notthisgeometry."
+          },
+          "main_parent": {
+            "candidate_sha256": "e7438870b11e7e4e19afde6012c20cdada58b9fcea70d616e588e4354794c0fe",
+            "plan_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001",
+            "record_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001:candidate-001"
+          },
+          "refutation_conditions": [
+            "Earliest operator death, any leak,protected death,artillery alive atretreat,central overflow"
+          ],
+          "targeted_change": "Material repair of frozen C1 raw feedback, same M70 lineage: Hibiscus moves from[2,6]UP to[5,5]RIGHT at1960, directly covering previously unhealed lowerMelantha as well as Ansel,caster,Friston. First boost3440 covers the C1 shared3643/3793/3943 barrage rather than spending it on earlier western exposure; second5900 overlaps Ansel lateboost. Persistent Melantha and fixed4280 artilleryretreat remain. Central Fang medicine is now Ansel responsibility; caster6381[2,5]UP has Ansel coverage but no Hibiscus coverage. Both physicians and actual central kills required, no hidden repair.",
+          "unknown_or_model_gap": [
+            "Exact unrecorded HP,eligible-candidate order and continuous position UNKNOWN",
+            "Fixed simulator only; configured identity service recorded; UNKNOWN_CLI_INTERNAL; cached_input subset of input"
+          ]
+        }
+      }
+    ],
+    "revised_stage_understanding": {
+      "m58_open_roster_comparison": {
+        "candidates": [
+          {
+            "reason": "No heals toMelantha anddeath2143 observed.",
+            "selected": false,
+            "structure": "Retain C1 unsupported lower healing",
+            "structure_id": "S1"
+          },
+          {
+            "reason": "Removes his upper extension andcentral medicine.",
+            "selected": false,
+            "structure": "Rotate Ansel toward lower route",
+            "structure_id": "S2"
+          },
+          {
+            "reason": "Covers lowerMelantha while retaining Anselcentral/upper responsibilities and funds observed fatalbarrage.",
+            "selected": true,
+            "structure": "Hibiscus5,5RIGHT with firstboostreserved3440",
+            "structure_id": "S3"
+          }
+        ],
+        "selected_structure_id": "S3"
+      }
+    },
+    "revised_strategic_hypotheses": [
+      {
+        "hypothesis_id": "R102_H2_C1_DELIVERED_SUPPORT_AND_BARRAGE",
+        "tactical_hypothesis": "Material repair of frozen C1 raw feedback, same M70 lineage: Hibiscus moves from[2,6]UP to[5,5]RIGHT at1960, directly covering previously unhealed lowerMelantha as well as Ansel,caster,Friston. First boost3440 covers the C1 shared3643/3793/3943 barrage rather than spending it on earlier western exposure; second5900 overlaps Ansel lateboost. Persistent Melantha and fixed4280 artilleryretreat remain. Central Fang medicine is now Ansel responsibility; caster6381[2,5]UP has Ansel coverage but no Hibiscus coverage. Both physicians and actual central kills required, no hidden repair."
+      }
+    ],
+    "revised_tactical_requirements": {
+      "catalog": "Full verified34-ID catalog imported by productionplanner",
+      "goal": "Legal ordinary1-3starK<=7 completefixedsimulatorWIN"
+    },
+    "revision_hypothesis": {
+      "changed_responsibilities": [
+        "Hibiscus covers lowerMelantha andeasternoutputfrom5,5RIGHT;firstboostreserved3440",
+        "Ansel remains soleFang andupperextensionmedic; actualcentralcapacityrequired"
+      ],
+      "expected_first_observable_event": {
+        "earliest_frame": 1960,
+        "event_type": "HEAL",
+        "latest_frame": 2143,
+        "source_id": "char_120_hibisc",
+        "target_id": "char_208_melan"
+      },
+      "hypothesis_id": "R102_H2_C1_DELIVERED_SUPPORT_AND_BARRAGE",
+      "if_expected_event_absent": "Direct lower delivery repair is refuted; inspect injury, eligibility and actual heal recipient without assuming survival.",
+      "operational_plan_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_002",
+      "parent_plan_id": "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001",
+      "referenced_experience_ids": [
+        "R102_SOL_HIGH_SEVEN_ARTILLERY_PLATFORM_001:candidate-001"
+      ],
+      "tactical_hypothesis": "Material repair of frozen C1 raw feedback, same M70 lineage: Hibiscus moves from[2,6]UP to[5,5]RIGHT at1960, directly covering previously unhealed lowerMelantha as well as Ansel,caster,Friston. First boost3440 covers the C1 shared3643/3793/3943 barrage rather than spending it on earlier western exposure; second5900 overlaps Ansel lateboost. Persistent Melantha and fixed4280 artilleryretreat remain. Central Fang medicine is now Ansel responsibility; caster6381[2,5]UP has Ansel coverage but no Hibiscus coverage. Both physicians and actual central kills required, no hidden repair."
+    }
+  }
+}
