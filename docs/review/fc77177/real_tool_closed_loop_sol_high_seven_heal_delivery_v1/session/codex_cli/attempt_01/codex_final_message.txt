@@ -1,0 +1,30 @@
+Both candidates completed as fixed-simulator **LOSS**. Seven-or-fewer feasibility remains **UNKNOWN**; M70 remains the eight-operator fixed-simulator WIN.
+
+| Result | C1 | C2 |
+|---|---:|---:|
+| Legal selected/deployed union | 7 | 7 |
+| Kills / leaks / remaining life | 16 / 17 / −16 | 23 / 10 / −9 |
+| Death events / unique dead IDs | 6 / 6 | 4 / 4 |
+| Protected arrivals / deaths | 0 / 2 | 0 / 2 |
+| Action errors | 8 | 4 |
+| Final active enemies | 0 | 0 |
+| Steward artillery hits / damage | 43 / 12,504.82 | 26 / 7,597.55 |
+
+Both runs completed settlement at 310.9666666667 seconds. Artillery survived and leaked at frame 5759. Armor #21, #22, #33, and #34 also leaked in both runs. Neither protected target reached safety.
+
+C1’s earliest operator death was Ansel at 2743. Repeated 891-damage shells exceeded his delivered self-healing; no Hibiscus→Ansel heal was observed. Steward remained alive and attacked artillery, but died at 4330 before closure.
+
+C2 changed the heal pool and **delivered** Hibiscus→Ansel healing, beginning at 2143. Ansel survived. The subsequent shared shells hit Hibiscus for 890 and Steward for 910 at 2893, 3043, and 3193. Hibiscus healed Steward for 372 at 3191, then died at 3193. Ansel continued healing Steward, who died at 3493. Thus alive, injured, geometrically eligible, selected/healed, and attacking artillery were observed at different points; none established sufficient sustain through artillery death. Exact HP ratios and complete eligible-candidate ordering remain **UNKNOWN_LOG_LIMIT**.
+
+C1’s unique dead IDs were Ansel, Hibiscus, Midnight, Fang, Friston, and Steward. C2’s were Hibiscus, Steward, Fang, and Friston. Action errors were respectively seven/three skill actions on absent operators plus one invalid Steward retreat; no deployment action failed.
+
+The exact frozen candidate hashes are:
+
+- C1: `64bb21782c25e671d2e0098276198e2a45c6956d43e465180c76cce17682f2ad`
+- C2: `c24eb2fa5b2b3fc392cbbbfff566bdee5528c16b9054dabc64f824a55dcd9661`
+
+All eight supplied parents’ four hashes matched the identity manifest. Both candidates used M70 alone as parent.
+
+Configured identity: `gpt-6.1-sol/high`; apps=false; K=7; mechanics `m38b-2781-animation-speed-v1`. One CLI start is recorded, with automatic resume/retry disabled. Final ledger: **4/10 checks, 2/2 candidates, 2/2 complete simulations**; no simulations remain. No token-usage record was visible at inspection. Remote identity and unexposed CLI usage are **UNKNOWN_CLI_INTERNAL**; `cached_input`, if subsequently reported, is a subset of input.
+
+These results establish two unsuccessful seven-ID plans within the fixed simulator, without establishing seven-ID impossibility or a global minimum.

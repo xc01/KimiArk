@@ -1,4 +1,4 @@
-# Current continuation: M70 eight-ID WIN; latest Sol support-coverage round closed
+# Current continuation: M70 eight-ID WIN; latest Sol heal-delivery round closed
 
 `R8_7_GPT_M70_V1` is the current best verified current-model fixed-simulator
 result: 8 IDs, 33 kills, 0 leaks, 0 operator deaths, both protected targets
@@ -165,3 +165,14 @@ one Ansel heal, hit artillery 9 times/2,466.09, and died@2473; #14 died@3966
 and #3@5353. No new WIN was found; M70 remains best and seven-or-fewer
 feasibility remains UNKNOWN. Closeout and the next unauthorized prompt are
 under `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_support_geometry_v1/`.
+
+The independent R98 heal-delivery experiment closed at CLI 1/1, checks 4/10,
+candidates 2/2, and simulations 2/2. C1 lost 16/17/life -16 with 6 deaths; C2
+improved to 23/10/life -9 with 4 deaths. C2 proved that changing the heal pool
+delivered Hibiscus→Ansel support from 2143, but shared shells killed Hibiscus
+at 3193 and Steward still died at 3493; artillery and #21 leaked, neither
+protected target reached, and artillery survived. This does not prove seven-ID
+impossibility. M70 R8_7_GPT_M70_V1 remains the frozen eight-ID WIN;
+seven-or-fewer feasibility remains UNKNOWN. Closeout, verified manifest, usage
+summary, and the next unauthorized prompt are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_heal_delivery_v1/`.
