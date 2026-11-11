@@ -1,0 +1,680 @@
+{
+  "revised_operational_plans": [
+    {
+      "action_timeline": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1321,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 1681,
+          "operator_id": "char_120_hibisc",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1772,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2042,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2072,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 2582,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3843,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 3873,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4083,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 4200,
+          "operator_id": "char_210_stward"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5400,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5584,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5644,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 5674,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 6301,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7085,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7445,
+          "operator_id": "char_208_melan"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 7475,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 8586,
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 9000,
+          "operator_id": "char_210_stward"
+        },
+        {
+          "action_type": "RETREAT",
+          "frame": 9001,
+          "operator_id": "char_283_midn"
+        },
+        {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 9276,
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 11101,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 11102,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "battle_phases": [
+        {
+          "completion_condition": "All deployments successful and runners killed",
+          "failure_effect_on_later_phases": "Lost holder invalidates closure",
+          "goal": "Establish seven legal operators",
+          "handoff_requirements": [
+            "No opening leaks"
+          ],
+          "phase_id": "opening",
+          "responsibilities": [
+            "Fang0[3,5]UP, Friston91[4,5]RIGHT, Midnight571[6,5]DOWN, Melantha841[1,5]RIGHT, Ansel1321[5,6]DOWN, Hibiscus1681[2,6]UP, Steward2071[5,7]DOWN."
+          ],
+          "start_condition": "Frame0",
+          "survival_dependencies": [
+            "All opening holders alive"
+          ]
+        },
+        {
+          "completion_condition": "33 kills zero leaks both protected reached no active enemies",
+          "failure_effect_on_later_phases": "Any death/leak or missing assigned kill refutes",
+          "goal": "All hostiles killed and both protected reached",
+          "handoff_requirements": [
+            "Full2101frame redeploy gaps"
+          ],
+          "phase_id": "closure",
+          "responsibilities": [
+            "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing.",
+            "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000.",
+            "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach."
+          ],
+          "start_condition": "Steward2071",
+          "survival_dependencies": [
+            "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct."
+          ]
+        }
+      ],
+      "corridor_responsibilities": [
+        {
+          "responsibility": "Fang0[3,5]UP, Friston91[4,5]RIGHT, Midnight571[6,5]DOWN, Melantha841[1,5]RIGHT, Ansel1321[5,6]DOWN, Hibiscus1681[2,6]UP, Steward2071[5,7]DOWN.",
+          "role": "opening"
+        },
+        {
+          "responsibility": "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach.",
+          "role": "roadblocks_and_protected_routes"
+        },
+        {
+          "responsibility": "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing.",
+          "role": "artillery_closure"
+        },
+        {
+          "responsibility": "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct.",
+          "role": "healer_survival"
+        },
+        {
+          "responsibility": "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000.",
+          "role": "central_intercept"
+        }
+      ],
+      "deployment_positions_and_directions": [
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 0,
+          "operator_id": "char_123_fang",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 91,
+          "operator_id": "char_4093_frston",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 571,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 841,
+          "operator_id": "char_208_melan",
+          "tile": [
+            1,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 1321,
+          "operator_id": "char_212_ansel",
+          "tile": [
+            5,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 1681,
+          "operator_id": "char_120_hibisc",
+          "tile": [
+            2,
+            6
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 2071,
+          "operator_id": "char_210_stward",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 6301,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "DOWN",
+          "frame": 11101,
+          "operator_id": "char_210_stward",
+          "tile": [
+            2,
+            2
+          ]
+        },
+        {
+          "action_type": "DEPLOY",
+          "direction": "LEFT",
+          "frame": 11102,
+          "operator_id": "char_283_midn",
+          "tile": [
+            6,
+            3
+          ]
+        }
+      ],
+      "formation_structure": {
+        "comparisons": [
+          {
+            "reason": "Four delivered heals did not prevent death.",
+            "selected": false,
+            "structure": "Keep exposed upper caster with more activations"
+          },
+          {
+            "reason": "No supported survival replacement.",
+            "selected": false,
+            "structure": "Drop physician for attacker"
+          },
+          {
+            "reason": "Test different shell exposure and healing allocation.",
+            "selected": true,
+            "structure": "Change caster and physician geometry"
+          }
+        ],
+        "distinct_operator_ids": 7,
+        "economy": "96 gross initial DP; initial10 plus naturalDP and living Fang income. Caster4200->6301 and9000->11101 gaps2101, Midnight9001->11102 gap2101. Robot counts.",
+        "maximum_simultaneous_operators": 7,
+        "primary_parent": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002"
+      },
+      "formation_transitions": [
+        {
+          "frame": 1681,
+          "transition": "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct."
+        },
+        {
+          "frame": 2071,
+          "transition": "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing."
+        },
+        {
+          "frame": 6301,
+          "transition": "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000."
+        },
+        {
+          "frame": 11101,
+          "transition": "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach."
+        }
+      ],
+      "mandatory_tactical_invariants": [
+        {
+          "id": "LEGAL",
+          "requirement": "Ordinary catalog debug configurations only; union seven IDs; no forbidden device tiles."
+        },
+        {
+          "id": "FIXED",
+          "requirement": "All actions fixed; no hidden repair or conditional rescheduling."
+        },
+        {
+          "id": "PROTECTED",
+          "requirement": "Both protected targets alive and reached, all four devices settled; civilian roadblock delay is not safe passage."
+        },
+        {
+          "id": "CENTRAL",
+          "requirement": "Actual block/kill21/22/33/34, zero leaks. No unassigned replacement."
+        },
+        {
+          "id": "WIN",
+          "requirement": "Simulator WIN, life3, zero leaks,33 hostile kills,no active enemy, complete settlement."
+        },
+        {
+          "id": "UNCERTAINTY",
+          "requirement": "Old frames are observations, not new deadlines. HP, full eligible order and continuous positions remain UNKNOWN when unrecorded."
+        }
+      ],
+      "operational_plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_001",
+      "parent_hypothesis_id": "R101_H1_ARTILLERY_GEOMETRY",
+      "pressure_window_responsibilities": [
+        {
+          "duties": "Fang0[3,5]UP, Friston91[4,5]RIGHT, Midnight571[6,5]DOWN, Melantha841[1,5]RIGHT, Ansel1321[5,6]DOWN, Hibiscus1681[2,6]UP, Steward2071[5,7]DOWN.",
+          "window_frames": [
+            0,
+            2070
+          ]
+        },
+        {
+          "duties": "Artillery lethal closure, eastern clearance and central survival during caster cooldown.",
+          "window_frames": [
+            2071,
+            6300
+          ]
+        },
+        {
+          "duties": "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000.",
+          "window_frames": [
+            6301,
+            9001
+          ]
+        },
+        {
+          "duties": "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach.",
+          "window_frames": [
+            9002,
+            15000
+          ]
+        }
+      ],
+      "selected_low_star_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward"
+      ],
+      "skill_intents": [
+        {
+          "frames": [],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_123_fang"
+        },
+        {
+          "frames": [],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_4093_frston"
+        },
+        {
+          "frames": [
+            1772,
+            5400
+          ],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_283_midn"
+        },
+        {
+          "frames": [
+            2042,
+            3843,
+            5644,
+            7445
+          ],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_208_melan"
+        },
+        {
+          "frames": [
+            2072,
+            3873,
+            5674,
+            7475,
+            9276
+          ],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_212_ansel"
+        },
+        {
+          "frames": [
+            2582,
+            4083,
+            5584,
+            7085,
+            8586
+          ],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_120_hibisc"
+        },
+        {
+          "frames": [],
+          "intent": "Listed fixed skills only; automatic skills remain automatic. Actual effects require events.",
+          "operator_id": "char_210_stward"
+        }
+      ],
+      "tactical_thesis": "Edit R100 C2: move Steward to[5,7]DOWN and Hibiscus to[2,6]UP at1681. Change shell exposure and delivered support; fixed caster retreat4200 and central return6301[2,5]UP. Both eastern duties retained. Actual artillery death, central survival and complete zero-leak settlement must be observed. No copied successful windows.",
+      "validation_card": {
+        "cost_and_replacement": "96 gross initial DP; initial10 plus naturalDP and living Fang income. Caster4200->6301 and9000->11101 gaps2101, Midnight9001->11102 gap2101. Robot counts.",
+        "duty_plan": {
+          "artillery_closure": "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing.",
+          "central_intercept": "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000.",
+          "healer_survival": "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct.",
+          "opening": "Fang0[3,5]UP, Friston91[4,5]RIGHT, Midnight571[6,5]DOWN, Melantha841[1,5]RIGHT, Ansel1321[5,6]DOWN, Hibiscus1681[2,6]UP, Steward2071[5,7]DOWN.",
+          "roadblocks_and_protected_routes": "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach."
+        },
+        "expected_observable_events": [
+          "Runner4 blocked/killed",
+          "Eastern3/4 destroyed",
+          "Physicians and output alive with delivered heals",
+          "Artillery killed before4200",
+          "Central21/22 held until6301 then21/22/33/34 killed",
+          "Western1/2 destroyed both protected alive/reached complete WIN"
+        ],
+        "experience_selector_decision_record": {
+          "adopted_observations": [
+            {
+              "observation": "Runner4 leaked1132 without block; explicit upper interception required.",
+              "record_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_001:candidate-001"
+            },
+            {
+              "observation": "Melantha blocked/killed4; eastern3/4 destroyed and protected14 reached; these are conditional frozen-plan observations.",
+              "record_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002"
+            },
+            {
+              "observation": "Four362 heals did not prevent third910 shell death3193 after13hits3686.68; artillery leaked5759.",
+              "record_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002"
+            }
+          ],
+          "expected_events": [
+            "Delivered HEAL with physicians/output alive",
+            "Artillery ENEMY_DEATH before4200",
+            "BLOCK21/22 and kills21/22/33/34"
+          ],
+          "falsifiable_question": "Does revised geometry sustain lethal artillery output and central holders through caster return?",
+          "non_applicable_experiences": [
+            {
+              "experience": "M70 eight-ID WIN windows",
+              "why": "Extra Spot and relocated central Melantha absent; cannot inherit success."
+            },
+            {
+              "experience": "R94-R99 partial branches",
+              "why": "Different geometry does not establish this plan; no actions imported."
+            }
+          ],
+          "override_reason_if_any": "Choose verified R100 C2 over suggested M70/R100 C1 to test its documented shell-delivery chain using one parent.",
+          "refuting_events": [
+            "Output/physician death",
+            "Artillery survives/leaks",
+            "Central holder dies or armor leaks"
+          ],
+          "selected_parent": {
+            "action_sha256": "8531f227c73e977de10da0127b615e3335b1a238a625c263d90241aa123a924c",
+            "evidence_reference": "M70 complete eight-ID WIN is a reference only; no successful action window imported.",
+            "plan_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002",
+            "plan_sha256": "c8fc69ca3aca6e8cae5a6addf0a799ca309bce0bb6b543c9ef0f5913da285d75",
+            "record_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002",
+            "role": "PRIMARY_EDIT_PARENT",
+            "why_primary": "Verified seven-ID assignment records early interception and both eastern devices; directly edit its failed support/artillery chain."
+          },
+          "similar_prior_failure_change": {
+            "condition": "Repeated shells killed healed output, then central holders died.",
+            "material_change": "Move output[2,6]UP to[5,7]DOWN and Hibiscus west to[2,6]UP earlier; change medical windows; return caster center after full cooldown."
+          }
+        },
+        "main_parent": {
+          "action_sha256": "8531f227c73e977de10da0127b615e3335b1a238a625c263d90241aa123a924c",
+          "plan_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002",
+          "plan_sha256": "c8fc69ca3aca6e8cae5a6addf0a799ca309bce0bb6b543c9ef0f5913da285d75",
+          "record_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002"
+        },
+        "refutation_conditions": [
+          "Any leak or protected death",
+          "Physician/output death",
+          "Artillery alive at4200",
+          "Central overflow or holder death"
+        ],
+        "targeted_change": "Edit R100 C2: move Steward to[5,7]DOWN and Hibiscus to[2,6]UP at1681. Change shell exposure and delivered support; fixed caster retreat4200 and central return6301[2,5]UP. Both eastern duties retained. Actual artillery death, central survival and complete zero-leak settlement must be observed. No copied successful windows.",
+        "unknown_or_model_gap": [
+          "Unrecorded exact HP, full eligible order and continuous positions UNKNOWN",
+          "Old frames are frozen-plan observations only",
+          "First armor pair must survive until6301; major unproved dependency"
+        ]
+      }
+    }
+  ],
+  "revised_stage_understanding": {
+    "m58_open_roster_comparison": {
+      "candidates": [
+        {
+          "reason": "Four delivered heals did not prevent death.",
+          "selected": false,
+          "structure": "Keep exposed upper caster with more activations",
+          "structure_id": "alternative_0"
+        },
+        {
+          "reason": "No supported survival replacement.",
+          "selected": false,
+          "structure": "Drop physician for attacker",
+          "structure_id": "alternative_1"
+        },
+        {
+          "reason": "Test different shell exposure and healing allocation.",
+          "selected": true,
+          "structure": "Change caster and physician geometry",
+          "structure_id": "geometry_change"
+        }
+      ],
+      "selected_structure_id": "geometry_change"
+    }
+  },
+  "revised_strategic_hypotheses": [
+    {
+      "hypothesis_id": "R101_H1_ARTILLERY_GEOMETRY",
+      "tactical_hypothesis": "Edit R100 C2: move Steward to[5,7]DOWN and Hibiscus to[2,6]UP at1681. Change shell exposure and delivered support; fixed caster retreat4200 and central return6301[2,5]UP. Both eastern duties retained. Actual artillery death, central survival and complete zero-leak settlement must be observed. No copied successful windows."
+    }
+  ],
+  "revised_tactical_requirements": {
+    "duty_plan": {
+      "artillery_closure": "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing.",
+      "central_intercept": "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000.",
+      "healer_survival": "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct.",
+      "opening": "Fang0[3,5]UP, Friston91[4,5]RIGHT, Midnight571[6,5]DOWN, Melantha841[1,5]RIGHT, Ansel1321[5,6]DOWN, Hibiscus1681[2,6]UP, Steward2071[5,7]DOWN.",
+      "roadblocks_and_protected_routes": "Melantha upper runner4/eastern3; Midnight lower/eastern4 then western2 at11102[6,3]LEFT; Steward western1 at11101[2,2]DOWN. Both protected3/14 must remain alive and reach."
+    }
+  },
+  "revision_hypothesis": {
+    "changed_responsibilities": [
+      "Steward[5,7]DOWN must kill artillery during actual range exposure before retreat4200; actual ENEMY_DEATH required, no adaptive timing.",
+      "Hibiscus[2,6]UP covers output and Ansel; Ansel[5,6]DOWN covers central, output and lower Midnight, extended skill reaches upper Melantha. Both physicians must survive; alive, injured, eligible, selected and healed are distinct.",
+      "Fang blocks21/33; Friston blocks22/34. Both must hold first pair until Steward6301[2,5]UP returns to kill central armor. No replacement scheduled: holder death/overflow refutes. All four killed before9000."
+    ],
+    "expected_first_observable_event": {
+      "earliest_frame": 1681,
+      "event_type": "DEPLOY",
+      "latest_frame": 1681,
+      "source_id": "char_120_hibisc",
+      "target_id": null
+    },
+    "hypothesis_id": "R101_H1_ARTILLERY_GEOMETRY",
+    "if_expected_event_absent": "Earlier eastern physician deployment failed; dependent survival hypothesis is refuted.",
+    "operational_plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_001",
+    "parent_plan_id": "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002",
+    "referenced_experience_ids": [
+      "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_001:candidate-001",
+      "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002",
+      "R100_SOL_HIGH_SEVEN_SELECTOR_INTEGRATION_002:candidate-002"
+    ],
+    "tactical_hypothesis": "Edit R100 C2: move Steward to[5,7]DOWN and Hibiscus to[2,6]UP at1681. Change shell exposure and delivered support; fixed caster retreat4200 and central return6301[2,5]UP. Both eastern duties retained. Actual artillery death, central survival and complete zero-leak settlement must be observed. No copied successful windows."
+  }
+}

@@ -217,3 +217,16 @@ protected #3@5353, artillery@5759, and central #21/#22/#34. The post-run context
 did not surface R100 C2's restored route branch; this is a retrieval/presentation
 gap, not proof that the selector caused either result. See
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/selector_usage_audit_v1.md`.
+
+The second selector-feedback run closed at CLI 1/1, checks 3/10, candidates 2/2,
+and simulations 2/2. The frozen 14-record context exposed the R100 #4, route,
+and heal-delivery facts; C1 visibly overrode M70/R100-C1 suggestions and selected
+R100 C2, then lost 14/19/life -18 with Ansel@2293 and Steward@2443. C2 continued
+exact C1 lineage with raw feedback and improved to 20/13/life -11, #14 arrival,
+and Steward's 43 artillery hits/12,504.82 damage, but Friston died@2111,
+artillery leaked@5759, protected #3 died@3311, and central #21/#22/#33/#34
+leaked. There is no seven-ID WIN; M70 remains best and seven-or-fewer feasibility
+is UNKNOWN. Post-run import grew the store to 16 records, but neither R101 branch
+became a suggested parent under the same retrieval tags. Closeout and an
+unauthorized next prompt are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_feedback_v1/`.

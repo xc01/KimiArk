@@ -1,0 +1,59 @@
+{
+  "attempts": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "0b47f3cb14f82327f09899d6e7bc76c67d153a292bd6b72c07ffb2f38d4629f3",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "0b0ec4e8041188b3df7faa6371abaa3e6acb17c7643d5a939f1fc4e627c01684",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": null,
+      "candidate_sha256": "f880c22d12822246550b0f88a7b07dcb2af6794a062b6e5d3d8946437cddba3f",
+      "check_id": "check-001",
+      "errors": [
+        "schema: <root>: 'revised_operational_plans' is a required property",
+        "schema: <root>: 'revised_stage_understanding' is a required property",
+        "schema: <root>: 'revised_tactical_requirements' is a required property",
+        "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+        "schema: <root>: 'revision_hypothesis' is a required property",
+        "semantic: exactly one revised_operational_plans item is required, got non-list",
+        "lineage: parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id",
+        "operational_plan_id must identify SOL_HIGH_SEVEN_SELECTOR_FEEDBACK",
+        "M58 comparison object is required at revised_stage_understanding.m58_open_roster_comparison",
+        "static: IndexError: list index out of range"
+      ],
+      "kind": "FAILED_CHECK",
+      "status": "FAIL"
+    },
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "0b47f3cb14f82327f09899d6e7bc76c67d153a292bd6b72c07ffb2f38d4629f3",
+      "check_id": "check-002",
+      "kind": "PASS",
+      "status": "PASS"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "candidate_sha256": "0b0ec4e8041188b3df7faa6371abaa3e6acb17c7643d5a939f1fc4e627c01684",
+      "check_id": "check-003",
+      "kind": "PASS",
+      "status": "PASS"
+    }
+  ],
+  "max_candidates": 2,
+  "max_check_calls": 10,
+  "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+  "session_id": "real-tool-loop-sol-high-seven-selector-feedback-v1",
+  "used_candidates": 2,
+  "used_check_calls": 3
+}
