@@ -1,0 +1,61 @@
+{
+  "automatic_retry": false,
+  "candidates_used": 0,
+  "check_calls": 0,
+  "coverage_boundary": "Preflight failed before MCP no-model status and before Codex CLI process start; no generation, check, candidate, or simulation was consumed.",
+  "doctor": {
+    "checks": {
+      "config.load": {
+        "status": "warning",
+        "summary": "config loaded"
+      },
+      "network.env": {
+        "status": "ok",
+        "summary": "network-related environment looks readable"
+      },
+      "network.provider_reachability": {
+        "status": "fail",
+        "summary": "one or more required provider endpoints are unreachable over HTTP"
+      },
+      "network.websocket_reachability": {
+        "status": "warning",
+        "summary": "Responses WebSocket timed out; HTTPS fallback may still work"
+      }
+    },
+    "codex_version": "0.167.0",
+    "overall_status": "fail"
+  },
+  "doctor_stderr_bytes": 0,
+  "doctor_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "doctor_stdout_sha256": "e053cfb6a01c08d9eeb2a4a788c42078f0f2f9bd274f144eaae7deed91473619",
+  "generation_request_used": false,
+  "model_calls": 0,
+  "provider_reachability": {
+    "category": "reachability",
+    "details": {
+      "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> request timed out (required)",
+      "reachability mode": "ChatGPT auth"
+    },
+    "durationMs": 8004,
+    "id": "network.provider_reachability",
+    "remediation": "Check proxy, VPN, firewall, DNS, and custom CA configuration.",
+    "status": "fail",
+    "summary": "one or more required provider endpoints are unreachable over HTTP"
+  },
+  "proxy_environment_names_not_values": [
+    "ALL_PROXY",
+    "HTTPS_PROXY",
+    "HTTP_PROXY",
+    "NO_PROXY",
+    "all_proxy",
+    "http_proxy",
+    "https_proxy",
+    "no_proxy"
+  ],
+  "real_cli_started_count": 0,
+  "reason": "CODEX_DOCTOR_PROVIDER_ENDPOINT_TIMEOUT",
+  "repository_head": "7a9dbac482a8b8f95d5ada043801ea66daca6ea7",
+  "schema_version": "KIMIARK_SELECTOR_INTEGRATION_ZERO_MODEL_PREFLIGHT_FAULT_V1",
+  "simulations_started": 0,
+  "status": "STOPPED_BEFORE_REAL_CLI"
+}

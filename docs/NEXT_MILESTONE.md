@@ -196,3 +196,13 @@ model training, tactical execution, or a new authorization. Next work remains an
 seven-ID fixed-simulator experiment; use the selector only to prepare comparable parents/evidence, then let
 Codex choose roles, structure, and actions freely. Current best remains M70's eight-ID WIN, while
 seven-or-fewer feasibility remains UNKNOWN. See `docs/CODEX_EXPERIENCE_SELECTOR_V1.md`.
+
+The first real selector-integration run completed at CLI 1/1, checks 3/10, candidates 2/2, and simulations
+2/2. It froze a 12-record M70/R94-R99 experience store, context, and hashes; both candidates chose M70 and
+recorded which context observations they adopted. C1 lost 14/19/life -18 after runner #4 leaked@1132 and
+both protected routes failed. C2 improved to 24/9/life -7, proved runner #4 blocking, #3/#4 clearance, and
+protected #14 arrival, but Steward died@3193 after three 910 shells and four observed 362 heals; artillery
+leaked@5759, #22 leaked@5196, and #3 died@5353. The integration layer traced parent/evidence selection, but
+one run does not prove improved WIN rate. Both R100 candidates were post-run imported, the store rebuilt at
+14 records, and the next unauthorized prompt is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/next_prompt_suggestion_v1.md`.

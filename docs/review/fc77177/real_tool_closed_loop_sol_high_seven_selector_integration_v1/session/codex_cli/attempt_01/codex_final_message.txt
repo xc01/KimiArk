@@ -1,0 +1,33 @@
+No seven-operator WIN occurred. Both authorized simulations completed; seven-or-fewer feasibility remains **UNKNOWN**. M70 remains the eight-operator fixed-simulator WIN reference. This integration establishes no improvement over past results.
+
+All twelve parent identities and hashes were verified. Both candidates used M70 as their sole archive parent, with visible selector decision records and no spliced successful windows.
+
+| Result | [C1 summary](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/session/candidates/candidate-001/simulation/diagnostic_summary.json) | [C2 summary](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_selector_integration_v1/session/candidates/candidate-002/simulation/diagnostic_summary.json) |
+|---|---:|---:|
+| Simulator | LOSS | LOSS |
+| Legal selected/deployed union | 7 | 7 |
+| Kills / leaks / life | 14 / 19 / −18 | 24 / 9 / −7 |
+| Death events / unique dead IDs | 6 / 6 | 3 / 3 |
+| Protected reached / dead | 0 / 2 | 1 / 1 |
+| Active enemies at complete settlement | 0 | 0 |
+| Action errors | 7 | 1 |
+| Settlement time | 250.3667 s | 414.9667 s |
+
+Frozen candidate hashes:
+
+- C1: `734f189dbd2c3e31daa1e7d123f2e43596294fb158cb9677fd1fc3e5c08f1867`
+- C2: `b4a0038aadebd61851d2f786e966abc2996dc4528ec7f036ac5ad476368e90a2`
+
+C1’s earliest failure was runner #4 leaking at frame 1132 without being blocked. Deaths followed: Hibiscus 1661, Midnight 2143, Friston 2293, Ansel 3611, Fang and Steward 4300. Both protected targets died; no roadblock was destroyed.
+
+C2 blocked runner #4 at 921 and killed it at 1111. It destroyed roadblocks #3/#4 at 1966/2443 and #1/#2 at 11917/12116. Protected #14 reached alive at 12448; artillery killed protected #3 at 5353. Roadblock clearance therefore did not establish both safe routes.
+
+C2’s earliest failure was Steward’s death at 3193. He received three 910-damage shells and four observed 362-HP heals. Those heals establish actual selection and delivery, but insufficient survival. Both physicians survived. Full eligible-candidate ordering remains UNKNOWN.
+
+Artillery was attacked but never killed: C1 recorded 18 hits totaling 5,156.37 damage; C2 recorded 13 totaling 3,686.68. It leaked at 5759 in both runs. All central #21/#22/#33/#34 enemies leaked. In C2, #21 was blocked at 4646, then released after Fang died at 4852; Friston died at 4768 before #22’s block. No block was observed for #22/#33/#34.
+
+C1’s seven errors were skill actions on dead operators. C2’s sole error was Steward’s frame-9000 retreat while undeployed; his later same-ID deployment succeeded and adds no new roster ID.
+
+Configured session: **gpt-6.1-sol/high**, `features.apps=false`, K=7, mechanics `m38b-2781-animation-speed-v1`. Final budgets: **1/1 CLI starts, 3/10 checks, 2/2 candidates, 2/2 complete simulations**. One check failed schema validation before creating a candidate.
+
+Visible token counts had not been emitted at audit time: **UNKNOWN_CLI_INTERNAL**. `cached_input` is a subset of input, not additional usage. These conclusions apply only to the fixed simulator.
