@@ -1,0 +1,31 @@
+{
+  "schema_version": "KIMIARK_R103_POST_RUN_SELECTOR_BRANCH_REPORT_V1",
+  "boundary": "Post-run archive import only. No reward update, model training, tactical authorization, or new simulation.",
+  "import": {
+    "pre_store_sha256": "d2e6a87f252265ced48380d8f8bc754a688bef95e6377620a9a3d6c1b8f43e85",
+    "post_store_sha256": "03fa0940e6c10f90a6b2953c1557294838d491d955f52790376c5c392bb9d004",
+    "pre_record_count": 18,
+    "post_record_count": 19,
+    "new_record_id": "R103_SOL_HIGH_SEVEN_C2_RETREAT_WINDOW_001:candidate-001",
+    "import_report": "experience_records.import_report_v1.json",
+    "import_issues": [],
+    "invalid_records": []
+  },
+  "retention": {
+    "record_status": "ELIGIBLE",
+    "tags": ["ARTILLERY_OUTPUT", "CANDIDATE_ARCHIVE", "DEPLOYMENT_EVIDENCE", "ROADBLOCK_CLEARANCE", "SUPPORT_DELIVERY"],
+    "branch_changes": [],
+    "retained_record_count": 19,
+    "reason": "The verified one-variable record remains in the store. Existing complementary branch occupants were not replaced; R103 does not claim WIN or artillery kill.",
+    "known_tag_limitation": "The current selector does not assign PROTECTED_ROUTE from a PROTECTED_TARGET_REACHED event whose protected target is recorded as source_id; this is a pre-existing observation-mapping limitation and was not changed in this bounded run."
+  },
+  "single_variable_evidence": {
+    "parent_plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+    "candidate_plan_id": "R103_SOL_HIGH_SEVEN_C2_RETREAT_WINDOW_001",
+    "changed_action_count": 1,
+    "changed_action": "Steward RETREAT 4200 -> 4201",
+    "targeted_result": "No extra artillery hit; 43 hits / 12504.82; artillery leaked 5759.",
+    "untested_window": "4225/4273 cannot be reached under the unchanged 6301 redeploy because 4280 fails cooldown."
+  },
+  "generalization_boundary": "This record is a controlled R101 C2 retreat-window probe only. It does not prove role necessity, global retreat rules, seven-ID impossibility, or that a different restructuring cannot preserve the later window."
+}

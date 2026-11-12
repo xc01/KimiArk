@@ -1,0 +1,36 @@
+The broader artillery-window question remains **unresolved**. Production checks rejected 4280: cooldown is **70 seconds × 30 = 2100 frames**, making redeploy available at 6380, after the unchanged 6301 action. This contradicts the fact pack’s 4350 calculation.
+
+The legal fallback **4201** passed and ran exactly once.
+
+- Verified all parent plan/action/compressed/restored-event hashes.
+- Normalized action diff: only Steward RETREAT **4200 → 4201**.
+- Roster union: **7 IDs**, including Friston.
+- All **19,405 pre-4200 events matched exactly**. Across the full log, only retreat/refund timing and refund balance differed; no new failure appeared.
+
+Steward still selected artillery at 4177 and dealt 249.1 damage. Total artillery output remained **43 hits / 12,504.82 damage**, with no additional hits. Artillery survived and leaked at **5759**.
+
+The shell started at 4111 and was born at 4121, locked to runtime `[7,5]`. No impact damage was recorded around 4211 with Steward absent. Survival had he stayed remains **UNKNOWN**. The next shell hit Hibiscus at 4361 for 890.
+
+| Complete settlement | Result |
+|---|---|
+| Outcome | Diagnostic loss; 20 kills, 13 leaks, life −11 |
+| Remaining enemies | 0; settlement ended at frame 12449 |
+| Protected #3 | Killed by artillery at 3311 |
+| Protected #14 | Reached at 12448 |
+| Roadblocks | #4 destroyed 2443; #3 11917; #2 12116; #1 remained undamaged |
+| Central #21 | Blocked 4646; leaked 5101 |
+| Central #22/#33/#34 | No recorded blocks; leaked 5196/6846/6996 |
+| Operator deaths | **4 events / 4 unique IDs:** Friston 2111, Hibiscus 4511, Fang 4702, Steward 6569 |
+| Action errors | Hibiscus skills 5644/7145/8646; Steward retreat 9000 |
+| First failures | First death 2111; first leak 3065; objective failure 3425—all inherited |
+
+At 4201, the retreat refunded 9 DP, yielding 91.0333. Fang reached cap 99 at 4320; Steward’s unchanged **6301 deployment succeeded**, costing 18 and leaving 81. No replacement was added.
+
+Frozen candidate: `candidate-001`  
+SHA-256: `921fa462cd69d0cc0a6d254ed991e37ea8db2a1141be0a54eadae26bd67a6593`
+
+The [validation card and plan](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_c2_retreat_window_v1/session/candidates/candidate-001/simulation/plan_snapshot.json) record parent hashes, calculations, risks, and refutation conditions.
+
+Configured session verified: gpt-6.1-sol/high, apps=false, K=7, mechanics `m38b-2781-animation-speed-v1`, one CLI start. Used **3/5 checks, 1/1 candidate, 1/1 complete simulation**. CLI usage: `UNKNOWN_CLI_INTERNAL`.
+
+This establishes no benefit from the legal one-frame extension; it does not resolve the unavailable 4280 probe. Findings apply only to this fixed simulator.

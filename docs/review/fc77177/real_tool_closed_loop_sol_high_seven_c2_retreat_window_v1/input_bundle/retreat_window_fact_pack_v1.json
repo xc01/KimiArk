@@ -1,0 +1,81 @@
+{
+  "M70_reference_only": {
+    "action_sha256": "c6248dd2da3eda2668c286190001600906cdc5c3b6322883ed1fb6b63d07560a",
+    "artillery_damage": {
+      "frames": [
+        4225,
+        4273
+      ],
+      "kill_frame": 4273
+    },
+    "claim_boundary": "Reference window only; does not prove delayed R101 C2 reproduces it or preserves other duties.",
+    "plan_sha256": "fe265c2837d962184647bded4ce0725f4fdd3f8bef013d05cf5ade5ef89ddf9d"
+  },
+  "boundary": "Verified fixed-simulator observations and static action facts only. HP and continuous positions are UNKNOWN.",
+  "control_parent": {
+    "action_sha256": "d5a07b4dca4f05cee428875165d3c59ee0c388e9b950623cd62fc8c60d83fc8f",
+    "events_gz_sha256": "d971d1fe5a69c2ea5a4ae3c98f44ab023b3e48ee1e3eb3f1dc6168808930a065",
+    "events_restored_sha256": "25f3a184f572bee142c9d5d1a6ee0807db0e2e28df26d5dee26fcea7691f9ed7",
+    "plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+    "plan_sha256": "044eb9eb90254934cc4767dbd1070ee91ccbdf349380ec258bbdd488098b146b",
+    "record_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002:candidate-002",
+    "result": "20 kills / 13 leaks / life -11; 4 death events / 4 unique IDs; not a global best claim."
+  },
+  "different_control": {
+    "R102_C1": "38 hits end at 3937; Steward dies at 3943.",
+    "R102_C2": "9 hits end at 2545; Steward dies at 2593.",
+    "R98_C1": "43 hits end at 4297; Steward dies at 4330 from a 910 shell. Plan/action/events hashes are in experience_records_snapshot_v1.jsonl."
+  },
+  "in_flight_shell_risk": {
+    "after_retreat_observation": "No matching ENEMY_ABILITY_HIT is recorded while Steward is absent; next recorded shell starts #19583@4261 locked [6,2] and hits Hibiscus #19876@4361.",
+    "exact_hp_if_present_at_4211": "UNKNOWN",
+    "if_steward_stays": "A projectile consistent with delay 3.0 seconds would reach frame 4211; this is mechanism evidence, not proof of survival.",
+    "start": {
+      "event_index": 19046,
+      "frame": 4111,
+      "target_position_runtime_x_y": [
+        7,
+        5
+      ]
+    }
+  },
+  "observed_stop": {
+    "last_artillery_damage": {
+      "amount": 249.1,
+      "event_index": 19344,
+      "frame": 4177
+    },
+    "not_death_transfer_or_no_candidate": true,
+    "retreat": {
+      "dp_change_index": 19405,
+      "frame": 4200,
+      "refund": 9,
+      "retreat_index": 19406
+    },
+    "target_selection_still_artillery": {
+      "event_index": 19340,
+      "frame": 4177,
+      "target_id": "enemy_1112_emppnt#0"
+    }
+  },
+  "schema_version": "KIMIARK_C2_RETREAT_WINDOW_FACT_PACK_V1",
+  "single_change_policy": {
+    "allowed_change": "Change only the frame of the Steward RETREAT scheduled at 4200.",
+    "fallback_rule": "If 4280 is illegal under production checks, Sol may select one evidence-based later legal frame; if none exists, stop without simulation.",
+    "fixed_parent": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+    "forbidden": "No other deployment, retreat, tile, direction, skill, operator, cost declaration, or tactical revision.",
+    "preferred_probe": 4280
+  },
+  "static_feasibility": {
+    "cooldown_if_retreat_4280": {
+      "available_at": 4350,
+      "feasible": true,
+      "scheduled_redeploy": 6301
+    },
+    "dp_path_from_4200_observation": "Before retreat DP=82; +9 refund makes 91. Fang's 4320 skill fills to cap 99; scheduled 6301 Steward deploy costs 18 and leaves 81. Delaying retreat preserves enough DP.",
+    "not_survival_claim": "Static feasibility does not assert survival at 4211 or any later frame.",
+    "preferred_probe_frame": 4280,
+    "steward_cost": 18,
+    "steward_redeploy_time_frames": 70
+  }
+}

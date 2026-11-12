@@ -1,0 +1,136 @@
+{
+  "schema_version": "KIMIARK_C2_RETREAT_WINDOW_ZERO_MODEL_PREFLIGHT_V1",
+  "checked_at_utc": "2026-11-12T10:09:22.843865Z",
+  "generation_request_used": false,
+  "repository_head": "84754db917cd12f5492acb56db287894fa81f2e5",
+  "git_local_vs_origin_master_left_right": "0\t6",
+  "published_boundary": "Local HEAD and origin/master count are runtime state only; no push is performed or claimed.",
+  "input_bundle": {
+    "manifest_entries": 9,
+    "manifest_all_hashes_match": true,
+    "manifest_sha256": "269ede3a1ef5a82136ec488acb1e2e181c884150fd182fa173fee67d22970330",
+    "cold_start_task_root_removed": true,
+    "parent_candidates": [
+      {
+        "action_sha256": "d5a07b4dca4f05cee428875165d3c59ee0c388e9b950623cd62fc8c60d83fc8f",
+        "archive_status": "VERIFIED",
+        "candidate_id": "candidate-002",
+        "declared_plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+        "events_gz_sha256": "d971d1fe5a69c2ea5a4ae3c98f44ab023b3e48ee1e3eb3f1dc6168808930a065",
+        "events_restored_sha256": "25f3a184f572bee142c9d5d1a6ee0807db0e2e28df26d5dee26fcea7691f9ed7",
+        "final_status_plan_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+        "operator_union_count": 7,
+        "parent_eligibility": "FIXED_CONTROLLED_PARENT",
+        "plan_sha256": "044eb9eb90254934cc4767dbd1070ee91ccbdf349380ec258bbdd488098b146b",
+        "record_id": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002:candidate-002"
+      }
+    ]
+  },
+  "evidence_snapshot": {
+    "experience_records_sha256": "d2e6a87f252265ced48380d8f8bc754a688bef95e6377620a9a3d6c1b8f43e85",
+    "parent_policy": "Parent is fixed to R101 C2 for this single-variable attribution test; no selector override.",
+    "single_variable_policy": {
+      "candidate_limit": 1,
+      "preferred_probe": 4280,
+      "required_action_diff": "Exactly one changed action: Steward RETREAT frame 4200 -> one legal later frame.",
+      "required_parent": "R101_SOL_HIGH_SEVEN_SELECTOR_FEEDBACK_002",
+      "required_validation_card_fields": [
+        "control_parent",
+        "unique_change",
+        "chosen_frame_justification",
+        "cooldown_and_dp_calculation",
+        "expected_observable_events",
+        "refuting_events",
+        "known_risks"
+      ],
+      "simulation_limit": 1
+    }
+  },
+  "task_configuration": {
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "features_apps": false,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "max_unique_deployed_operators": 7,
+    "max_candidates": 1,
+    "max_check_calls": 5,
+    "max_real_cli_starts": 1,
+    "used_real_cli_starts_before_start": 0,
+    "prompt_sha256": "ff43cbb15773a798344104b0848f28c5e9339e2e5f1bf5e564bbf1d27d8e7211",
+    "runner_sha256": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "authorization_sha256_before_start": "1574f4b6838c0c1ccaac85bef0e9d97f5c118467d42743420a32d92c2c32c913",
+    "session_config_sha256": "4c452e39999c6c750f6810f25087a5f6e2b7a9b59b94076ec7e58cf37bf8c020"
+  },
+  "codex_effective_mcp": {
+    "command": "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+    "args": [
+      "/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py",
+      "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_c2_retreat_window_v1/session_config_v1.json"
+    ],
+    "service_script_path_present": true,
+    "session_config_path_present": true
+  },
+  "codex_doctor": {
+    "generation_request_used": false,
+    "overall_status": "warning",
+    "codex_version": "0.167.0",
+    "checks": {
+      "config.load": {
+        "status": "warning",
+        "summary": "config loaded"
+      },
+      "network.env": {
+        "status": "ok",
+        "summary": "network-related environment looks readable"
+      },
+      "network.provider_reachability": {
+        "status": "ok",
+        "summary": "active provider endpoints are reachable over HTTP"
+      },
+      "network.websocket_reachability": {
+        "status": "ok",
+        "summary": "Responses WebSocket handshake succeeded"
+      }
+    },
+    "stderr": ""
+  },
+  "mcp_no_model_status": {
+    "argv": [
+      "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+      "/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py",
+      "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_c2_retreat_window_v1/session_config_v1.json"
+    ],
+    "cwd": "/home/bigdata/Desktop/arknights-auto-planner",
+    "environment_variable_names_not_values": [
+      "ALL_PROXY",
+      "HTTPS_PROXY",
+      "HTTP_PROXY",
+      "NO_PROXY",
+      "all_proxy",
+      "http_proxy",
+      "https_proxy",
+      "no_proxy"
+    ],
+    "exit_code": 0,
+    "elapsed_ms": 315.529,
+    "generation_request_used": false,
+    "session_id": "real-tool-loop-sol-high-seven-c2-retreat-window-v1",
+    "session_model": "gpt-6.1-sol",
+    "session_reasoning_effort": "high",
+    "remaining_checks": 5,
+    "remaining_candidates": 1,
+    "remaining_simulations": 1,
+    "transcript_sha256": "f5b2261683b0ee3d26091a24cf44657f09c304f2311268659677a85a878ae109"
+  },
+  "proxy_prestart": {
+    "schema_version": "KIMIARK_C2_RETREAT_WINDOW_PROXY_PRESTART_V1",
+    "generation_request_used": false,
+    "proxy": "http://127.0.0.1:7890",
+    "connect_target": "chatgpt.com:443",
+    "status": 200,
+    "elapsed_ms": 22.938,
+    "counts_as_cli_start": false
+  },
+  "coverage_boundary": "These checks do not prove a real model session, workspace routing, MCP tool execution, usage, or turn.completed. The authorized CLI is the real-session verification."
+}
