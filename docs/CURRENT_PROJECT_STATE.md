@@ -951,3 +951,20 @@ format failure before tactical test, not a tactical LOSS. M70 remains the
 eight-ID fixed-simulator WIN; seven-or-fewer feasibility remains UNKNOWN.
 Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_protected14_late_release_v1/`.
+
+The independent no-model protocol recovery used the original R107 model output,
+restored only its two self-referential plan-ID fields to the authorized value,
+and passed production check. It closed at real CLI 0/0, model generation 0/0,
+checks 1/5, candidate 1/1, and simulation 1/1. The recovered candidate was a
+LOSS at 20 kills/13 leaks/life −11 with five operator deaths. Early #11/#13
+closure held, but Steward died@3970, artillery survived and leaked@5759, and
+the planned 4280 retreat was illegal. Protected #14 reached@12448 without a
+recorded hostile damage/death, while protected #3 independently died@5384.
+Central #21/#22/#33/#34 also leaked. This event-specific LOSS does not disprove
+seven-ID feasibility or R106's local route+artillery branch. The experience
+store is now 24 records and rebuild-identical. Evidence, including the recovery
+mapping and manifest, is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_protected14_late_release_recovery_v1/`.
+Session boundary for future prompts: within one active CLI, spending remaining
+checks to correct a contract/static failure is normal in-budget tool use; after
+CLI exit, a new CLI requires explicit new authorization and is not resume/retry.
