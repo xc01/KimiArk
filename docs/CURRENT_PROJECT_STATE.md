@@ -906,9 +906,11 @@ fixed parent and changed only Steward's retreat 4200→4280 plus the same-ID
 redeploy 6301→6381. It used no real CLI or model generation, passed checks 2/5,
 and completed one candidate/simulation. The delayed window added artillery hits
 at 4225 and 4273, reached 45 hits/13,227.21 damage, killed the artillery at
-4273, and retreated Steward legally after healing at 4213/4277. The 6381
-redeploy was legal and cost 18, but the complete run remained LOSS at
-21 kills/12 leaks/life −10 because protected #3, central armor, and Fang's later
-route duty were not closed. M70 remains the eight-ID fixed-simulator WIN;
-seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+4273, and retreated Steward legally after healing at 4213/4277. R104 is a
+reusable seven-ID artillery-closed branch, not a complete WIN: the 6381 redeploy
+was legal and cost 18, but the complete run remained LOSS at
+21 kills/12 leaks/life −10 because the earliest routes, protected #3, and central
+armor were not closed. M70 remains the eight-ID fixed-simulator WIN;
+seven-or-fewer feasibility remains UNKNOWN. Evidence and the post-run causal
+audit are under
 `docs/review/fc77177/real_tool_closed_loop_deterministic_seven_c2_coupled_retreat_v1/`.
