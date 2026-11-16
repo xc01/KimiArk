@@ -940,3 +940,14 @@ damage. Protected #14 died@3911, central #21/#22/#33/#34 leaked, and the run
 remained LOSS; this does not erase the local branch evidence or prove seven-ID
 feasibility. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_heal_competition_v1/`.
+
+The R107 protected-#14 late-release experiment stopped before any candidate.
+Its fixed R106 parent and 23-record selector context passed zero-model
+preflight, but the one authorized CLI submitted check-001 with the wrong plan
+ID `R107_SOL_HIGH_SEVEN_LOWER_RELEASE_001`, so the gate failed before candidate
+creation. The CLI ended awaiting approval; no automatic resume/retry was made.
+Ledger is CLI 1/1, checks 1/5, candidates 0/1, and simulations 0/1. This is a
+format failure before tactical test, not a tactical LOSS. M70 remains the
+eight-ID fixed-simulator WIN; seven-or-fewer feasibility remains UNKNOWN.
+Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_protected14_late_release_v1/`.

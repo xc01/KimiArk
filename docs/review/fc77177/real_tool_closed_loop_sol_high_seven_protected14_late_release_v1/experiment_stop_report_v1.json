@@ -1,0 +1,64 @@
+{
+  "schema_version": "KIMIARK_R107_PREMATURE_STOP_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_sol_high_seven_protected14_late_release_v1",
+  "stop_status": "STOPPED_BEFORE_CANDIDATE",
+  "stop_boundary": "The authorized CLI completed and asked for another turn to correct an ID-only check failure. Per the no automatic retry/resume boundary, execution stopped; no second CLI was started.",
+  "budget": {
+    "authorized_real_cli_starts": 1,
+    "used_real_cli_starts": 1,
+    "authorized_check_calls": 5,
+    "used_check_calls": 1,
+    "authorized_candidates": 1,
+    "used_candidates": 0,
+    "authorized_complete_simulations": 1,
+    "used_complete_simulations": 0
+  },
+  "integration": {
+    "zero_model_preflight": "PASS",
+    "fixed_parent_verified": true,
+    "fixed_parent_record_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001:candidate-001",
+    "fixed_parent_plan_sha256": "e170c2d1b44b7272bab200247e7a54eae16a9d7ac7ebf61ad2df3ae44a045c2d",
+    "fixed_parent_action_sha256": "77cc7aceb3a593c6467a116fd0f69070b4ffcaff5c6168234d70881a75f64e3b",
+    "fixed_parent_events_gz_sha256": "7ed0ee9b080441c6d90ff4d5a9106b40ff014a0b99f0f4fb18096d84c61164d5",
+    "fixed_parent_events_restored_sha256": "ccd3fa8935097735d26a0e7fe49a10963bb2ae61b500d5a571a0a3eab9db4266",
+    "experience_store_records": 23,
+    "selector_context_sha256": "7ba129158901d6a3f606b99b44f65a00e9f06b705c949399c0e8b9efdcdfc985",
+    "selector_context_bytes": 11331,
+    "selector_context_omitted": ["failed_evidence:R104_DETERMINISTIC_SEVEN_C2_COUPLED_RETREAT_001:candidate-001"]
+  },
+  "failure": {
+    "check_id": "check-001",
+    "check_status": "FAIL",
+    "candidate_id": null,
+    "candidate_sha256": "21f4064fec36a90bc6b5c5ac3c650c0f828c2da7cef5eccff4b42a651eed960b",
+    "submitted_operational_plan_id": "R107_SOL_HIGH_SEVEN_LOWER_RELEASE_001",
+    "required_id_prefix": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_",
+    "gate_errors": ["operational_plan_id must identify SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE"],
+    "classification": "CHECK_FORMAT_FAILURE_BEFORE_CANDIDATE",
+    "tactical_hypothesis_status": "UNTESTED_AND_EVIDENCE_INSUFFICIENT"
+  },
+  "mcp_completed_calls": {
+    "get_session_status": 2,
+    "check_plan": 1,
+    "run_simulation": 0,
+    "query_events": 0,
+    "total_completed": 3,
+    "counting_boundary": "Completed MCP tool calls only; started/in_progress notifications are not summed."
+  },
+  "usage": {
+    "input_tokens": 1336727,
+    "cached_input_tokens": 1211520,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 12558,
+    "reasoning_output_tokens": 4568,
+    "boundary": "cached_input_tokens are an input subset; internal requests are UNKNOWN_CLI_INTERNAL."
+  },
+  "outcome_boundary": {
+    "simulator_win": false,
+    "new_fixed_simulator_win": false,
+    "best_verified_operator_count": 8,
+    "seven_or_fewer_feasibility": "UNKNOWN",
+    "m70_status": "M70 R8_7_GPT_M70_V1 remains the frozen eight-operator complete fixed-simulator WIN.",
+    "r106_status": "R106 remains a verified seven-ID route+artillery branch, not a complete WIN."
+  }
+}

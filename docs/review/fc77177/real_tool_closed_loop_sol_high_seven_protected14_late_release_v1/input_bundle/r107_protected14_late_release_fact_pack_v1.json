@@ -1,0 +1,205 @@
+{
+  "boundary": "Observed fixed-simulator events only. No continuous positions, exact HP, complete heal candidate ordering, or causal necessity is asserted. Old frames are not universal deadlines.",
+  "central_r106_observations": {
+    "enemy_1110_uamord#21": {
+      "block": {
+        "frame": 4646,
+        "operator": "char_123_fang"
+      },
+      "death": null,
+      "leak": 6697,
+      "unblock": 6298
+    },
+    "enemy_1110_uamord#22": {
+      "block": {
+        "frame": 4796,
+        "operator": "char_4093_frston"
+      },
+      "death": null,
+      "leak": 6661,
+      "unblock": 6262
+    },
+    "enemy_1110_uamord#33": {
+      "block": null,
+      "death": null,
+      "leak": 6846
+    },
+    "enemy_1110_uamord#34": {
+      "block": null,
+      "death": null,
+      "leak": 6996
+    },
+    "independent_validation": true
+  },
+  "main_question": "Repair protected #14's observed exposure/roadblock-release chain without losing #11/#13 closure or artillery closure; central #33/#34 remains independently validated.",
+  "nearby_operators_through_4280": {
+    "boundary": "BLOCK/UNBLOCK and DEATH events are observed; planned intent and continuous positions between events are UNKNOWN.",
+    "char_120_hibisc": {
+      "deploy": 1740,
+      "skills": [
+        2642,
+        4143
+      ]
+    },
+    "char_210_stward": {
+      "artillery_death": 4273,
+      "deploy": 2131,
+      "retreat": 4280
+    },
+    "char_212_ansel": {
+      "deploy": 1396,
+      "skills": [
+        2147,
+        3948
+      ]
+    },
+    "char_283_midn": {
+      "death": 5379,
+      "deploy": 571,
+      "kills": {
+        "#15_unblock": 3818,
+        "#17_unblock": 4208,
+        "#8_unblock": 1819
+      }
+    },
+    "char_284_spot": {
+      "blocks": {
+        "officer_16": 3743,
+        "officer_18": 4028
+      },
+      "death": "UNKNOWN_NOT_IN_WINDOW",
+      "deploy": 901,
+      "skills": [
+        1352,
+        3303
+      ]
+    }
+  },
+  "primary_parent_r106": {
+    "action_sha256": "77cc7aceb3a593c6467a116fd0f69070b4ffcaff5c6168234d70881a75f64e3b",
+    "archive_status": "VERIFIED",
+    "declared_plan_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "events_gz_sha256": "7ed0ee9b080441c6d90ff4d5a9106b40ff014a0b99f0f4fb18096d84c61164d5",
+    "events_restored_sha256": "ccd3fa8935097735d26a0e7fe49a10963bb2ae61b500d5a571a0a3eab9db4266",
+    "final_status_plan_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "operator_union": [
+      "char_120_hibisc",
+      "char_123_fang",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_283_midn",
+      "char_284_spot",
+      "char_4093_frston"
+    ],
+    "operator_union_count": 7,
+    "plan_sha256": "e170c2d1b44b7272bab200247e7a54eae16a9d7ac7ebf61ad2df3ae44a045c2d",
+    "record_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001:candidate-001",
+    "result": {
+      "kills": 22,
+      "leaks": 11,
+      "remaining_life": -9,
+      "win": false
+    },
+    "validated_local_success": {
+      "artillery": {
+        "damage": 13227.21,
+        "death": 4273,
+        "first_hit": 2161,
+        "hit_count": 45,
+        "last_hit": 4273,
+        "leak": null
+      },
+      "route_11": {
+        "block": 2738,
+        "death": 2881,
+        "killer": "char_123_fang"
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311,
+        "killer": "char_283_midn"
+      },
+      "steward_survival": {
+        "eighth_910_hit": 3911,
+        "retreat_alive": 4280
+      }
+    }
+  },
+  "protected_target_r106_chains": {
+    "enemy_3001_upeopl#14": {
+      "artillery_hits": [
+        {
+          "amount": 950,
+          "frame": 3611,
+          "source": "enemy_1112_emppnt#0"
+        },
+        {
+          "amount": 950,
+          "frame": 3761,
+          "source": "enemy_1112_emppnt#0"
+        },
+        {
+          "amount": 950,
+          "frame": 3911,
+          "source": "enemy_1112_emppnt#0"
+        }
+      ],
+      "death": {
+        "frame": 3911,
+        "life_delta": -1,
+        "source": "enemy_1112_emppnt#0"
+      },
+      "failure_chain": "Roadblock retained, five officer hits and three 950 artillery-shell hits are all observed; exact remaining HP sequence and officer target-selection reasoning are UNKNOWN.",
+      "officer_hits": [
+        {
+          "amount": 280,
+          "frame": 3546,
+          "source": "enemy_1107_uoffcr#16"
+        },
+        {
+          "amount": 280,
+          "frame": 3606,
+          "source": "enemy_1107_uoffcr#16"
+        },
+        {
+          "amount": 280,
+          "frame": 3666,
+          "source": "enemy_1107_uoffcr#16"
+        },
+        {
+          "amount": 280,
+          "frame": 3846,
+          "source": "enemy_1107_uoffcr#18"
+        },
+        {
+          "amount": 280,
+          "frame": 3906,
+          "source": "enemy_1107_uoffcr#18"
+        }
+      ],
+      "reach": null,
+      "roadblock": {
+        "block": 3251,
+        "device_destroyed": null,
+        "unblock": null
+      },
+      "route": "route-15",
+      "spawn": 3030
+    },
+    "enemy_3001_upeopl#3": {
+      "damage_received": "Twelve officer hits at 1296/1356/1416 before early roadblock release, then 5460-5834, 5714-5834, and 6164-6284; no artillery-shell damage recorded.",
+      "death": null,
+      "early_failure": "NO_EARLY_FAILURE_IN_R106",
+      "reach": 15549,
+      "roadblocks": {
+        "roadblock_1_block": 2773,
+        "roadblock_1_unblock": 15217,
+        "roadblock_3_block": 761,
+        "roadblock_3_unblock": 2404
+      },
+      "route": "route-2",
+      "spawn": 540
+    }
+  },
+  "schema_version": "KIMIARK_R107_PROTECTED14_LATE_RELEASE_FACT_PACK_V1"
+}
