@@ -924,3 +924,7 @@ together@2111 and #11/#13 still leaked. R104 remains the seven-ID
 artillery-closed branch, M70 remains the eight-ID WIN, and seven-or-fewer
 feasibility remains UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_early_protected_v1/`.
+The follow-up zero-model divergence audit confirmed that C1's route repair
+diverted physician heals to Friston, while R104 preserved Steward's artillery
+support window and killed artillery@4273; it also corrected the closeout's
+false missing decision-record classification.

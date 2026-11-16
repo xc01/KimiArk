@@ -22,10 +22,12 @@ a complete WIN; M70 remains the eight-ID WIN.
 
 The frozen input bundle, R104 parent identity, 20-record selector store, prompt,
 and final model prompt were archived. Both plans declared the correct R104
-parent and referenced experience IDs. However, neither supplied the requested
-`experience_selector_decision_record` or full validation-card object. Therefore
-experience use can be traced only to visible plan references and actions, not to
-the requested structured decision record. The CLI completed with visible usage:
+parent and referenced experience IDs. A later zero-model audit found that each
+model output supplied a full validation card and an
+`experience_selector_decision_record` nested inside that card; the original
+closeout extractor checked only `revision_hypothesis`, so its first “missing”
+classification was a false placement miss. Presence still does not prove correct
+tactical use. The CLI completed with visible usage:
 input 2,259,921; cached input 2,128,256; output 28,306; reasoning output 12,914.
 
 Budget: real CLI 1/1, completed checks 4/10 (two failed, two passed), candidates

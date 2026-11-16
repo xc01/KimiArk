@@ -133,6 +133,14 @@ def candidate_summary(candidate_id: str) -> dict:
     summary = load_json_archive(sim / "diagnostic_summary.json")["result"]
     plan = load_json(sim / "plan_snapshot.json")
     output = load_json(candidate_root / "source/llm_structured_output.json")
+    model_plan = next(
+        (
+            item for item in output.get("revised_operational_plans", [])
+            if item.get("operational_plan_id") == record["plan_id"]
+        ),
+        {},
+    )
+    model_validation_card = model_plan.get("validation_card")
     deaths = [event for event in events if event["event_type"] == "OPERATOR_DEATH"]
     protected_death_events = [event for event in events if event["event_type"] == "ENEMY_DEATH" and str(event.get("target_id", "")).startswith("enemy_3001_upeopl#")]
     reached = [event for event in events if event["event_type"] == "PROTECTED_TARGET_REACHED"]
@@ -155,8 +163,11 @@ def candidate_summary(candidate_id: str) -> dict:
         "model_generation": True,
         "parent_plan_id": output["revision_hypothesis"]["parent_plan_id"],
         "referenced_experience_ids": output["revision_hypothesis"]["referenced_experience_ids"],
-        "decision_record_present": isinstance(output["revision_hypothesis"].get("experience_selector_decision_record"), dict),
-        "validation_card_present": isinstance(output["revision_hypothesis"].get("validation_card"), dict),
+        "decision_record_present": (
+            isinstance(model_validation_card, dict)
+            and isinstance(model_validation_card.get("experience_selector_decision_record"), dict)
+        ),
+        "validation_card_present": isinstance(model_validation_card, dict),
         "selected_low_star_operator_ids": plan["selected_low_star_operator_ids"],
         "operator_union_count": record["unique_deployed_operator_count"],
         "result": {
@@ -248,7 +259,7 @@ def main() -> None:
             "visible_experience_references_present": all(candidate["referenced_experience_ids"] for candidate in candidates),
             "requested_experience_selector_decision_record_present": all(candidate["decision_record_present"] for candidate in candidates),
             "requested_validation_card_present": all(candidate["validation_card_present"] for candidate in candidates),
-            "gap": "Both plans declared the verified R104 parent and referenced experience IDs, but neither supplied the requested experience_selector_decision_record or validation_card object. Their tactical_hypothesis/changed_responsibilities are visible, yet expected/refuting event coverage was incomplete.",
+            "gap": "Both plans declared the verified R104 parent, referenced experience IDs, supplied a validation_card, and supplied experience_selector_decision_record nested inside that validation_card. The original extractor only checked revision_hypothesis, causing a false missing-record classification. Presence does not by itself prove correct tactical use.",
         },
         "candidates": candidates,
         "closure": {

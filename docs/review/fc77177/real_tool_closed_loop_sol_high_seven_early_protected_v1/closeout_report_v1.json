@@ -79,7 +79,7 @@
       "candidate_id": "candidate-001",
       "candidate_sha256": "a3aeeea44ab0b4d3ba8544b08eb040d544c59fb654f891a9616566fd071ca910",
       "configured_model": "gpt-6.1-sol",
-      "decision_record_present": false,
+      "decision_record_present": true,
       "events_gz_sha256": "8d41df1f984342181719b842c9b5469682733080c4006e5f413ec499ba55e6f5",
       "events_restored_sha256": "0dbf92c86e530a9b6183394b1fa3ad2ae568aeaaa3a9e707bfecb9814c5d10cb",
       "model_generation": true,
@@ -1176,7 +1176,7 @@
         "simulator_win": false,
         "win": false
       },
-      "validation_card_present": false
+      "validation_card_present": true
     },
     {
       "action_diff_from_r104": {
@@ -1613,7 +1613,7 @@
       "candidate_id": "candidate-002",
       "candidate_sha256": "159819ced47e97453b5948e02f512b3365ebe0f1dabe06aa8462ef64961ca241",
       "configured_model": "gpt-6.1-sol",
-      "decision_record_present": false,
+      "decision_record_present": true,
       "events_gz_sha256": "64f30530971a1819fdc7a8ad837e2afae078faf085b9455d52984997d8d40068",
       "events_restored_sha256": "1a0d155203c0c8ff87d6f243fecf8bb765eaf454b163a390a0c03779bb9e5ae6",
       "model_generation": true,
@@ -2123,7 +2123,7 @@
         "simulator_win": false,
         "win": false
       },
-      "validation_card_present": false
+      "validation_card_present": true
     }
   ],
   "closure": {
@@ -2144,10 +2144,10 @@
   },
   "experiment_id": "real_tool_closed_loop_sol_high_seven_early_protected_v1",
   "integration_assessment": {
-    "gap": "Both plans declared the verified R104 parent and referenced experience IDs, but neither supplied the requested experience_selector_decision_record or validation_card object. Their tactical_hypothesis/changed_responsibilities are visible, yet expected/refuting event coverage was incomplete.",
+    "gap": "Both plans declared the verified R104 parent, referenced experience IDs, supplied a validation_card, and supplied experience_selector_decision_record nested inside that validation_card. The original extractor only checked revision_hypothesis, causing a false missing-record classification. Presence does not by itself prove correct tactical use.",
     "input_bundle_frozen": true,
-    "requested_experience_selector_decision_record_present": false,
-    "requested_validation_card_present": false,
+    "requested_experience_selector_decision_record_present": true,
+    "requested_validation_card_present": true,
     "selected_parent_correct": true,
     "visible_experience_references_present": true
   },
