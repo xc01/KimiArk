@@ -1,0 +1,46 @@
+**Complete fixed-simulator LOSS: 22 kills, 11 leaks, life −9.** The legal seven-ID candidate retained C1’s #11/#13 closure and achieved artillery closure, but failed protected #14 and central settlement. Seven-or-fewer WIN feasibility remains **UNKNOWN**; M70 remains the eight-operator fixed-simulator WIN.
+
+The verified primary parent was `R105_SOL_HIGH_SEVEN_EARLY_PROTECTED_001:candidate-001`, plan SHA-256 `3b8c452a9f0aaf9667f3420ecdf912290ce5c69b984895b46447410563ee5e52`. All supplied parent hashes matched. R104 served only as an independent reference.
+
+Frozen `candidate-001` SHA-256:
+`97e1e5c1dd61e2420a3c3b6c9923c5f3989ef267dacb637fe676f27617b4e693`
+
+Only physician timing changed: Ansel deployment +15 frames, Hibiscus deployment −1 frame, and Ansel skills +15 frames. All seven IDs, tiles, directions, route holders, and late actions were retained.
+
+| Observed chain | Result |
+|---|---|
+| #11 | Friston BLOCK 2738 → Fang kill 2881 |
+| #13 | Friston BLOCK 3098 → Midnight kill 3311 |
+| Hibiscus | Self-heal 372.6 at 3460; survived the 3461 shell |
+| Steward | Survived the same eighth 910-damage hit at 3911; retreated alive at 4280 |
+| Artillery | 45 Steward hits, 13227.21 damage; killed 4273; no leak |
+
+Actual healing through frame 3911:
+
+| Recipient | Parent events / amount | Candidate events / amount |
+|---|---:|---:|
+| Friston | 17 / 3920 | 16 / 3920 |
+| Ansel | 6 / 1782 | 6 / 1782 |
+| Hibiscus | 5 / 2152.6 | 9 / 3560 |
+| Steward | 15 / 5998 | 16 / 6370 |
+
+Friston’s total healing stayed unchanged. His Hibiscus healing fell from 467.6 to 372.6, while Ansel supplied the corresponding 95. The coupled phase change therefore produced observable allocation and survival improvements; it does **not** establish that one heal alone suffices or isolate either timing change’s contribution.
+
+Shell exposure persisted: Friston/Spot/Ansel each took both early shells; Hibiscus took the same four 890 hits. Steward ultimately took ten 910 hits and received 9100 healing before retreat.
+
+The earliest decisive failure was **protected #14’s death at 3911**, after five officer hits and three artillery shells. Protected #3 survived twelve officer hits, received no recorded artillery damage, and reached at 15549. All roadblocks were destroyed: #3 at 2404, #4 at 11917, #2 at 12116, #1 at 15217.
+
+| Central enemy | Block / release | Settlement |
+|---|---|---|
+| #21 | Fang 4646 / 6298 | Leaked 6697 |
+| #22 | Friston 4796 / 6262 | Leaked 6661 |
+| #33 | No recorded block | Leaked 6846 |
+| #34 | No recorded block | Leaked 6996 |
+
+There were **3 operator-death events involving 3 unique IDs**: Midnight 5379, Friston 6262, Fang 6298. Enemy-death events numbered 23 across 23 IDs: 22 hostile kills plus protected #14. Runtime action errors were Midnight’s skill at 5400 and retreat at 9001 because he was absent; all deployments were legal.
+
+Settlement completed: all 35 spawned entities settled, **zero active enemies**, ending at 518.3333333333 seconds. This global LOSS does not refute the observed local route/support/artillery improvement.
+
+Configured identity: `gpt-6.1-sol/high`, apps=false, mechanics `m38b-2781-animation-speed-v1`. Budgets used: **CLI starts 1/1; checks 1/5; candidates 1/1; simulations 1/1**. Visible token counters were unavailable; internal requests remain `UNKNOWN_CLI_INTERNAL`. `cached_input` is an input subset.
+
+[Final result](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_heal_competition_v1/session/candidates/candidate-001/simulation/final_status.json)

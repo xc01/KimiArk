@@ -928,3 +928,15 @@ The follow-up zero-model divergence audit confirmed that C1's route repair
 diverted physician heals to Friston, while R104 preserved Steward's artillery
 support window and killed artillery@4273; it also corrected the closeout's
 false missing decision-record classification.
+
+The independent R106 heal-competition experiment used R105 C1 as its sole
+verified parent and changed only Ansel deploy 1381→1396, Hibiscus deploy
+1741→1740, and five Ansel skill frames each +15. It closed at CLI 1/1, checks
+1/5, candidates 1/1, and simulations 1/1. The complete fixed-simulator LOSS
+was 22 kills/11 leaks/life −9 with zero active enemies. It preserved
+#11/#13 closure, shifted heal allocations, let Hibiscus and Steward survive
+their prior shell windows, and killed artillery@4273 with 45 hits/13,227.21
+damage. Protected #14 died@3911, central #21/#22/#33/#34 leaked, and the run
+remained LOSS; this does not erase the local branch evidence or prove seven-ID
+feasibility. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_heal_competition_v1/`.
