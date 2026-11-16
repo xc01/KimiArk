@@ -900,3 +900,15 @@ seven-ID impossibility. M70 R8_7_GPT_M70_V1 remains the frozen eight-ID WIN;
 seven-or-fewer feasibility remains UNKNOWN. Closeout, verified manifest, usage
 summary, and the next unauthorized prompt are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_closure_v1/`.
+
+The zero-model deterministic coupled-retreat control R104 used R101 C2 as its
+fixed parent and changed only Steward's retreat 4200→4280 plus the same-ID
+redeploy 6301→6381. It used no real CLI or model generation, passed checks 2/5,
+and completed one candidate/simulation. The delayed window added artillery hits
+at 4225 and 4273, reached 45 hits/13,227.21 damage, killed the artillery at
+4273, and retreated Steward legally after healing at 4213/4277. The 6381
+redeploy was legal and cost 18, but the complete run remained LOSS at
+21 kills/12 leaks/life −10 because protected #3, central armor, and Fang's later
+route duty were not closed. M70 remains the eight-ID fixed-simulator WIN;
+seven-or-fewer feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_deterministic_seven_c2_coupled_retreat_v1/`.
