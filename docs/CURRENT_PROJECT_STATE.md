@@ -914,3 +914,13 @@ armor were not closed. M70 remains the eight-ID fixed-simulator WIN;
 seven-or-fewer feasibility remains UNKNOWN. Evidence and the post-run causal
 audit are under
 `docs/review/fc77177/real_tool_closed_loop_deterministic_seven_c2_coupled_retreat_v1/`.
+
+The independent R105 early-route/protected experiment closed at CLI 1/1, checks
+4/10, candidates 2/2, and simulations 2/2. C1 repaired the targeted routes by
+blocking/killing #11 and #13 but lost 20/13/life −12 after Steward died@3911;
+artillery still leaked, both protected targets died, and central armor remained
+unclosed. C2 regressed to 12/21/life −20 after Friston/Hibiscus/Ansel died
+together@2111 and #11/#13 still leaked. R104 remains the seven-ID
+artillery-closed branch, M70 remains the eight-ID WIN, and seven-or-fewer
+feasibility remains UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_early_protected_v1/`.

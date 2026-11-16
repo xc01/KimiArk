@@ -23,7 +23,7 @@
 | Boundary | Frame | Fact |
 | --- | ---: | --- |
 | First operator death | 2111 | Friston died; this precedes every leak but causality is not proved from events alone. |
-| First leak | 3065 | Officer `enemy_1107_uoffcr#11` leaked with no recorded BLOCK or DAMAGE received. |
+| First leak | 3065 | Officer `enemy_1107_uoffcr#11` leaked without BLOCK; it received ranged DAMAGE from Fang/Midnight but was not killed. |
 | First protected-target failure | 3311 | Protected `enemy_3001_upeopl#3` died. Roadblock `#3` was not destroyed; this is distinct from roadblock `#3`. |
 | Life reached zero | 3425 | Officer `enemy_1107_uoffcr#13` leaked, leaving remaining life `0`. |
 | Artillery closed | 4273 | Steward killed `enemy_1112_emppnt#0`. |
@@ -33,8 +33,8 @@
 
 | Enemy | Route | Spawn | BLOCK / receive damage | Operator-facing damage | Final leak |
 | --- | --- | ---: | --- | --- | ---: |
-| `enemy_1107_uoffcr#11` | 11 | 2520 | None / none | None recorded | 3065 |
-| `enemy_1107_uoffcr#13` | 14 | 2880 | None / none | None recorded | 3425 |
+| `enemy_1107_uoffcr#11` | 11 | 2520 | None / Fang@2721, Fang@2753, Midnight@2756 | None recorded | 3065 |
+| `enemy_1107_uoffcr#13` | 14 | 2880 | None / Midnight@3116 | None recorded | 3425 |
 | `enemy_1107_uoffcr#20` | 18 | 4080 | None / none | None recorded | 4625 |
 | `enemy_1110_uamord#22` | 19 | 4530 | None / none | 4667→Fang `340` arts | 5196 |
 | `enemy_1110_uamord#21` | 21 | 4380 | Fang BLOCK 4646 / Fang+Midnight DAMAGE from 4614 | 4450→Hibiscus, then 4618/4702/4786/4870/4954→Fang | 5353 |
@@ -67,4 +67,4 @@ The 20-record store contains `R104_DETERMINISTIC_SEVEN_C2_COUPLED_RETREAT_001:ca
 
 ## One supported next question
 
-The first still-unclosed necessary duty is the early route leak, not central repair: `#11` leaked at 3065 and `#13` leaked at 3425 with no recorded interception or damage. This is independent of the 4200–4280 artillery closure. A future, unauthorized test should ask whether a seven-ID plan can retain R104's artillery-closure window while covering these earliest routes, with observable success as BLOCK/DAMAGE/DEATH for `#11` before 3065 and `#13` before 3425, and no regression of the 4225/4273 artillery events. Because an early route change can alter later arrivals, one complete fixed simulation is the minimum budget; a second candidate should be justified only by the first run's new event chain. No tactical action, role, or prompt is authorized here.
+The first still-unclosed necessary duty is the early route leak, not central repair: `#11` and `#13` received ranged damage but were neither blocked nor killed before leaking at 3065 and 3425. This is independent of the 4200–4280 artillery closure. A future, unauthorized test should ask whether a seven-ID plan can retain R104's artillery-closure window while covering these earliest routes, with observable success as BLOCK/DAMAGE/DEATH for `#11` before 3065 and `#13` before 3425, and no regression of the 4225/4273 artillery events. Because an early route change can alter later arrivals, one complete fixed simulation is the minimum budget; a second candidate should be justified only by the first run's new event chain. No tactical action, role, or prompt is authorized here.

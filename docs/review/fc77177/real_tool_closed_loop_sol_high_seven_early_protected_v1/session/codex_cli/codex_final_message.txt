@@ -1,0 +1,32 @@
+No seven-operator WIN was found. Both legal, frozen candidates completed once and lost; neither preserved R104’s artillery closure.
+
+| Result | C1 | C2 |
+|---|---:|---:|
+| Selected/deployed ID union | 7 | 7 |
+| Hostile kills / leaks | 20 / 13 | 12 / 21 |
+| Remaining life | −12 | −20 |
+| Death events / unique dead operator IDs | 5 / 5 | 8 / 7 |
+| Active enemies at settlement | 0 | 0 |
+| Protected #3 death | 5341 | 5341 |
+| Protected #14 death | 3911 | 6314 |
+| Protected arrivals | 0 | 0 |
+| Runtime action errors | 7 | 11 |
+
+C1 blocked #11/#13 at 2738/3098 and killed them at 2881/3311, with no leaks on those routes. Midnight destroyed roadblock #3 at 2404. The earliest death was Hibiscus at 3461; Steward died at 3911 after dealing 10,786.03 artillery damage. Artillery leaked at 5759.
+
+C2 destroyed roadblocks #4/#3 at 1966/2404, but shells centered on Hibiscus’s new tile killed Friston, Hibiscus, and Ansel together at 2111. Each received only one heal between the two shells. #11/#13 were damaged but never blocked or killed, then leaked at 3065/3425. Steward died at 2561 and again after redeployment at 6549, explaining eight death events across seven IDs.
+
+Central #21/#22/#33/#34 were never blocked or killed in either candidate. They leaked at 5046/5196/6846/6996 in both runs. Both simulations reached complete terminal settlement with zero active enemies, through kills, leaks, and protected deaths—not WIN.
+
+All runtime action errors were “operator is not deployed”:
+
+- **C1:** Hibiscus skills 4143/5644/7145/8646; Midnight skill 5400 and retreat 9001; Steward retreat 4280.
+- **C2:** Hibiscus skills 2222/3723/5224/6725; Ansel skills 2462/4263/6064; Melantha skills 3843/5644; Midnight skill 5073; Steward retreat 4280.
+
+Final evidence: [C1 status](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_early_protected_v1/session/candidates/candidate-001/simulation/final_status.json), [C2 status](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_early_protected_v1/session/candidates/candidate-002/simulation/final_status.json).
+
+Configured identity remained `gpt-6.1-sol/high`, apps false, mechanics `m38b-2781-animation-speed-v1`. Budget consumed: **4/10 checks, 2/2 candidates, 2/2 complete simulations**, with zero prior simulations. No additional CLI was started; the configured maximum was one. The authorization file still showed `used_real_cli_starts=0` despite this active session.
+
+Visible token usage was unavailable; internal request count is `UNKNOWN_CLI_INTERNAL`. `cached_input`, if reported later, is an input subset.
+
+M70 remains the eight-operator fixed-simulator WIN. Seven-or-fewer feasibility remains **UNKNOWN**. Testing has stopped.
