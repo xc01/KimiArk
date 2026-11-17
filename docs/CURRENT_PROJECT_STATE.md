@@ -1008,3 +1008,18 @@ simulation or tactical event evidence was produced; the ledger is checks 1/5,
 candidates 0/1, and simulations 0/1. A static-legal coupled skill schedule must
 be resolved before another simulation budget is spent. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_deterministic_seven_melanha_timing_v1/`.
+
+The autonomous R109 seven-ID batch then used one fresh gpt-6.1-sol/high CLI and
+closed at checks 5/30, candidates 5/5, and complete simulations 5/5. C1 shifted
+Melanha's deployment and full skill phase +360 and lost 19/14; C2 moved Steward
+earlier and Hibiscus later, lost 14/19; C3 turned Ansel DOWN, lost 19/14; C4
+advanced Hibiscus deploy/skills by 59, lost 14/19; and C5 replaced Hibiscus
+with Spot, the best branch, lost 20/13. #11/#13 closed in every run, while #14
+reached only in C1 and C5. Artillery never closed, protected #3 died in every
+run, and central #21/#22/#33/#34 remained unclosed; runs also recorded illegal
+actions after operator deaths. This is fixed-simulator evidence only and does
+not prove seven-ID impossibility or feasibility. M70 remains the eight-ID
+complete fixed-simulator WIN, and seven-or-fewer feasibility remains UNKNOWN.
+The closeout, compressed restored-hash-verified event archives, manifest, and
+final model message are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_autonomous_batch_v1/`.
