@@ -207,6 +207,17 @@ Before check, write a visible validation card and experience_selector_decision_r
         "prior_stage_simulations": 0,
         "started_stage_simulations": 0,
     })
+    write_json(EXPERIMENT / "candidate_ledger_v1.json", {
+        "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+        "session_id": SESSION_ID,
+        "stage_id": "main_08-07",
+        "max_check_calls": 5,
+        "max_candidates": 1,
+        "used_check_calls": 0,
+        "used_candidates": 0,
+        "checks": [],
+        "attempts": [],
+    })
 
     manifest = {"schema_version": "KIMIARK_R108_INPUT_BUNDLE_MANIFEST_V1", "files": []}
     for path in sorted(path for path in BUNDLE.rglob("*") if path.is_file() and path.name != "bundle_manifest_v1.json"):

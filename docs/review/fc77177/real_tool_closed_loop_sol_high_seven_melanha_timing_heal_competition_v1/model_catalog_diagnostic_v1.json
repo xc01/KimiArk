@@ -1,0 +1,60 @@
+{
+  "schema_version": "KIMIARK_R108_MODEL_CATALOG_NO_GENERATION_DIAGNOSTIC_V1",
+  "scope": "Read-only model-catalog refresh for the provider used by the failed R108 launch; no prompt, turn, generation, quota check, retry, or account change.",
+  "completed_at": "2026-11-17T11:27:28.439832+08:00",
+  "command": [
+    "codex",
+    "debug",
+    "models",
+    "-c",
+    "model_provider=\"openai\"",
+    "-c",
+    "features.apps=false"
+  ],
+  "codex_version": "codex-cli 0.167.0",
+  "proxy_names_present": [
+    "HTTP_PROXY",
+    "http_proxy",
+    "HTTPS_PROXY",
+    "https_proxy",
+    "ALL_PROXY",
+    "all_proxy",
+    "NO_PROXY",
+    "no_proxy"
+  ],
+  "proxy_value_summary": {
+    "http": "http://127.0.0.1:7890",
+    "https": "http://127.0.0.1:7890",
+    "all": "socks5://127.0.0.1:7890",
+    "no_proxy": "localhost,127.0.0.1,::1"
+  },
+  "credential_variables": {
+    "OPENAI_API_KEY": "SET",
+    "ARK_API_KEY": "SET",
+    "ARK_API_KEY_agent": "SET"
+  },
+  "result": {
+    "exit_code": 0,
+    "elapsed_ms": 4112,
+    "stdout_bytes": 645261,
+    "stderr_bytes": 0,
+    "catalog_refresh": "SUCCEEDED",
+    "model_count": 10,
+    "target_model": {
+      "slug": "gpt-6.1-sol",
+      "display_name": "GPT-6.1-Sol",
+      "visibility": "list",
+      "supported_in_api": true,
+      "supported_reasoning_levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ]
+    }
+  },
+  "boundary": "A successful catalog refresh does not prove a generation request, quota, session turn, or tactical CLI can succeed. Full catalog output was parsed locally and not archived.",
+  "generation_request_used": false
+}

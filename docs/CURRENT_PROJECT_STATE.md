@@ -986,5 +986,11 @@ initialization: the one CLI start consumed the budget, but produced no model
 generation, check, candidate, or simulation. Its exact two-frame hypothesis was
 Melanha deploy 901→1261 and skill 2102→2462. No retry or resume was made. The
 tactical question remains untested, and seven-or-fewer feasibility remains
-UNKNOWN. Evidence and the stop report are under
+UNKNOWN. A zero-model follow-up diagnosed the local MCP shutdown as the missing
+required `candidate_ledger_v1.json`, repaired future builder generation, and
+verified the same-argument handshake and read-only session status without
+consuming check/candidate/simulation budget. A current no-generation model-catalog
+refresh succeeded, but does not prove generation or quota; the historical refresh
+timeouts remain causally UNKNOWN. The failed attempt remains CLI 1/1. Evidence
+and diagnosis are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_melanha_timing_heal_competition_v1/`.

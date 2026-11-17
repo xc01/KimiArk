@@ -1,0 +1,167 @@
+{
+  "schema_version": "KIMIARK_R108_STARTUP_FAILURE_ZERO_MODEL_DIAGNOSIS_V1",
+  "experiment_id": "real_tool_closed_loop_sol_high_seven_melanha_timing_heal_competition_v1",
+  "verified_head": {
+    "commit": "7f7b899ed354c6119f5f3dfdc79dbeaf905902a5",
+    "state": "LOCAL_ONLY_NOT_PUBLISHED"
+  },
+  "diagnosis": {
+    "confirmed_local_failure_layer": "SESSION_BUILDER_MISSING_REQUIRED_CANDIDATE_LEDGER",
+    "root_cause": "The R108 session configuration required candidate_ledger_v1.json, but the original builder wrote the simulation budget and manifest without creating that required ledger file. The service therefore exited during load_session_config before returning an initialize response.",
+    "local_causality": "CONFIRMED_BY_SAME_ARGUMENT_REPRODUCTION_AND_REPAIR",
+    "model_catalog_timeout_causality": "UNKNOWN",
+    "quota_exhaustion_classification": "NOT_SUPPORTED_BY_AVAILABLE_EVIDENCE",
+    "remote_generation_or_quota_availability": "UNKNOWN"
+  },
+  "original_failure_timeline": [
+    {
+      "at": "2026-11-17T03:10:46.145424Z",
+      "process": "host_codex_runner",
+      "event": "R108 real CLI attempt recorded as STARTED",
+      "source": "session/codex_cli/cli_process_attempt.json"
+    },
+    {
+      "at": "2026-11-17T03:10:51.742508Z",
+      "process": "codex_models_manager",
+      "event": "failed to refresh available models: request timed out",
+      "source": "session/codex_cli/codex_stderr.txt:1"
+    },
+    {
+      "at": "2026-11-17T03:10:51.842466Z",
+      "process": "codex_models_manager",
+      "event": "second failed model-catalog refresh timed out",
+      "source": "session/codex_cli/codex_stderr.txt:2"
+    },
+    {
+      "at": "2026-11-17T03:10:52.182075Z",
+      "process": "codex_core_session",
+      "event": "required kimiark MCP handshake failed because the child closed before an initialize response",
+      "source": "session/codex_cli/codex_stderr.txt:3"
+    },
+    {
+      "at": "UNKNOWN",
+      "process": "host_codex_runner_and_mcp_child",
+      "event": "R108 host process ended with exit 1 and 0 stdout bytes; exact child spawn/exit timestamps were not recorded",
+      "source": "session/codex_cli/cli_process_result.json"
+    }
+  ],
+  "evidence": {
+    "session_config": {
+      "path": "session_config_v1.json",
+      "sha256": "11df90c2a213d4c01839ded78e742617d0e419d2b7cc84465afb0968f6bdf1e1",
+      "configured_candidate_ledger_path": "candidate_ledger_v1.json"
+    },
+    "service_requirement": "scripts/kimiark_tactical_stdio_service_v1.py:236-256 requires every configured non-directory path, including candidate_ledger_path, to exist as a file.",
+    "original_stop_report": {
+      "path": "experiment_stop_report_v1.json",
+      "sha256": "565eee3e625397ae24cc5cedf80f05c7365865ac6f15bf56ed9ea734c79638b3",
+      "preserved_without_rewrite": true
+    },
+    "original_cli_stderr": {
+      "path": "session/codex_cli/codex_stderr.txt",
+      "sha256": "f95f803efc60ac66d98b186590248c712c1f2bf4338256bdf653dda159e46aa0",
+      "bytes": 775
+    },
+    "original_cli_process": {
+      "path": "session/codex_cli/cli_process_attempt.json",
+      "sha256": "31e63ae8c51c59c1f62fa8a513311496a195c7a1c2adf5afc42a7c3f9b994fc0",
+      "exit_code": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 775,
+      "model_generation_calls_observed": 0
+    }
+  },
+  "same_argument_no_model_reproduction": {
+    "before_repair": {
+      "path": "no_model_mcp_handshake_diagnostic_v1.json",
+      "sha256": "a44603b401ea27056794f256e334e00f551a4927281f4d750725e9e07407ba32",
+      "exit_code": 1,
+      "elapsed_seconds": 0.287494,
+      "stdout_bytes": 0,
+      "close_mode": "EXITED_WITH_STDERR_BEFORE_INITIALIZATION_RESPONSE",
+      "error": "session config candidate_ledger_path does not exist",
+      "check_or_run_used": false
+    },
+    "after_repair": {
+      "path": "no_model_mcp_handshake_after_ledger_fix_v1.json",
+      "sha256": "3f5ab72b806beea82a40e7ad2bc8727e3e3f57e57bde7e55a203081f97f59c94",
+      "exit_code": 0,
+      "elapsed_seconds": 0.29584,
+      "initialize_ok": true,
+      "tools_listed": 4,
+      "tools_count_note": "Derived tools_count was corrected from an incorrect parsing artifact to 4; the archived raw stdout already listed four tools.",
+      "read_only_status_budget": {
+        "used_check_calls": 0,
+        "remaining_check_calls": 5,
+        "used_candidates": 0,
+        "remaining_candidates": 1,
+        "started_stage_simulations": 0,
+        "remaining_stage_simulations": 1
+      },
+      "check_or_run_used": false
+    }
+  },
+  "local_repair": {
+    "scope": "Minimal and reversible builder/input-bundle repair only.",
+    "builder": {
+      "path": "build_experiment_v1.py",
+      "sha256": "1cb22a18691c00f945d2a0e98cba4cc0d9ce43fbd454d910400ae5a08e92d9b2",
+      "change": "Future builds now create the empty candidate ledger required by session_config_v1.json."
+    },
+    "candidate_ledger": {
+      "path": "candidate_ledger_v1.json",
+      "sha256": "58a1141e7b42862bd62b286108e8f1128cb57f816c441a1eb0212ec70faf8ede",
+      "used_check_calls": 0,
+      "used_candidates": 0
+    },
+    "tactical_files_modified": false,
+    "service_mechanics_modified": false,
+    "authorization_counts_rewritten": false
+  },
+  "model_catalog_diagnostic": {
+    "path": "model_catalog_diagnostic_v1.json",
+    "sha256": "ab3bda524fa7c97ced6c443b17fff40899bb48fb10ed8562205815c5fb489b1f",
+    "type": "READ_ONLY_NO_GENERATION",
+    "result": "Current catalog refresh succeeded in 4112 ms and listed gpt-6.1-sol/high as available in the catalog.",
+    "boundary": "This does not prove generation, quota, CLI turn creation, or stable future network availability."
+  },
+  "unknown_or_not_tested": [
+    "Whether the two model-catalog refresh timeouts caused the MCP child shutdown; the local ledger defect independently explains the shutdown.",
+    "Exact Codex internal request count and usage for the failed CLI.",
+    "Generation-path behavior and quota availability.",
+    "Whether proxy behavior was the cause of the historical refresh timeouts.",
+    "Continuous HP/position and any future tactical outcome for the frozen Melanha timing hypothesis."
+  ],
+  "frozen_tactical_state": {
+    "parent": "R107 recovery candidate retained as the intended tactical parent.",
+    "hypothesis": "Melanha deploy 901->1261 and skill 2102->2462 only; user-reported hypothesis, not validated by simulation.",
+    "candidate_or_simulation_result": "NONE_UNTESTED",
+    "experience_classification": "NO_TACTICAL_LOSS_OR_REWARD_FROM_SERVICE_FAILURE"
+  },
+  "long_term_branch_status": {
+    "m70": "Eight-ID complete fixed-simulator WIN remains best.",
+    "r106": "Seven-ID early route+artillery local-success branch remains retained.",
+    "r107_recovery": "Seven-ID #14-safety and early-closure observation remains retained with Steward/artillery/#3/central failures.",
+    "seven_or_fewer_complete_win": "UNKNOWN"
+  },
+  "restart_readiness": {
+    "local_mcp_handshake": "READY",
+    "remaining_original_r108_budget": {
+      "real_cli_starts": "Old attempt remains CLI 1/1 and is not reusable.",
+      "model_generation": "Authorized generation remains unobserved and must not be migrated without a new explicit authorization.",
+      "check_calls": 5,
+      "candidates": 1,
+      "complete_simulations": 1
+    },
+    "next_real_cli_condition": "Only a fresh, explicitly authorized attempt with a new runner/attempt path, preserved old failure evidence and non-overlapping counts may retry. Do not resume the old CLI or rerun the original builder in place, because the current builder would overwrite live authorization counters.",
+    "not_done_in_this_task": "No new tactical CLI, generation, check, candidate, simulation, STARTED, retry, resume, account change, or region change."
+  },
+  "budget": {
+    "real_tactical_cli": 0,
+    "model_generation_calls": 0,
+    "check_calls": 0,
+    "candidates": 0,
+    "complete_simulations": 0,
+    "new_started_events": 0
+  }
+}
