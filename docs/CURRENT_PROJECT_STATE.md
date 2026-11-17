@@ -1038,3 +1038,17 @@ only; it neither proves a named triple nor seven-ID impossibility. M70 remains
 the eight-ID complete fixed-simulator WIN, and seven-or-fewer feasibility remains
 UNKNOWN. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_triple_duty_batch_v1/`.
+
+The R111 artillery-gap batch used R110 C2 as its default parent but was stopped
+by an explicit external quota/usage limit after one candidate. It closed at CLI
+1/1, checks 2/10, candidates 1/2, and simulations 1/2; no retry/resume or model
+change was made. C001 changed only Hibiscus skill 3140→2773. It preserved
+#11/#13, roadblock4@2026, and protected #14 reach@12448, but Hibiscus died
+earlier@3161; Steward still died@3970, output remained 2161→3937 with 38 hits
+and 11,035.13 damage, artillery leaked@5759, #3 died@5384, and central
+#21/#22/#33/#34 leaked. The early-Hibiscus-boost repair hypothesis is refuted by
+events; treatment competition remains only a partial hypothesis. This is not a
+tactical conclusion about C002 or seven-ID feasibility. M70 remains the eight-ID
+complete fixed-simulator WIN, and seven-or-fewer feasibility remains UNKNOWN.
+The partial closeout, failure evidence, restored-hash archives, and manifest are
+under `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_gap_v1/`.

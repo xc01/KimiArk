@@ -1,0 +1,46 @@
+{
+  "attempts": [
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "0e3a37aebd2e43987a0d333840abacc095dc5ee9f13b7f0d7f953ec6b0b148cc",
+      "check_status": "PASS",
+      "simulation_started_counted": true,
+      "simulation_status": "COMPLETED"
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": null,
+      "candidate_sha256": "0aa8363b86cf201d210aee4edc43029657bc3e7880f56f54eb7ecf6f30b4ca85",
+      "check_id": "check-001",
+      "errors": [
+        "schema: <root>: 'revised_operational_plans' is a required property",
+        "schema: <root>: 'revised_stage_understanding' is a required property",
+        "schema: <root>: 'revised_tactical_requirements' is a required property",
+        "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+        "schema: <root>: 'revision_hypothesis' is a required property",
+        "semantic: exactly one revised_operational_plans item is required, got non-list",
+        "lineage: parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id",
+        "operational_plan_id must identify SOL_HIGH_SEVEN_ARTILLERY_GAP",
+        "M58 comparison object is required at revised_stage_understanding.m58_open_roster_comparison",
+        "static: IndexError: list index out of range"
+      ],
+      "kind": "FAILED_CHECK",
+      "status": "FAIL"
+    },
+    {
+      "candidate_id": "candidate-001",
+      "candidate_sha256": "0e3a37aebd2e43987a0d333840abacc095dc5ee9f13b7f0d7f953ec6b0b148cc",
+      "check_id": "check-002",
+      "kind": "PASS",
+      "status": "PASS"
+    }
+  ],
+  "max_candidates": 2,
+  "max_check_calls": 10,
+  "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+  "session_id": "real-tool-loop-sol-high-seven-artillery-gap-v1",
+  "stage_id": "main_08-07",
+  "used_candidates": 1,
+  "used_check_calls": 2
+}

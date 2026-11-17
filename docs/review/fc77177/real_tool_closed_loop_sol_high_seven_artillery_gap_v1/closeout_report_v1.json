@@ -1,0 +1,550 @@
+{
+  "budget_and_counters": {
+    "cached_is_input_subset": true,
+    "candidate_ledger": {
+      "attempts": [
+        {
+          "candidate_id": "candidate-001",
+          "candidate_sha256": "0e3a37aebd2e43987a0d333840abacc095dc5ee9f13b7f0d7f953ec6b0b148cc",
+          "check_status": "PASS",
+          "simulation_started_counted": true,
+          "simulation_status": "COMPLETED"
+        }
+      ],
+      "checks": [
+        {
+          "candidate_id": null,
+          "candidate_sha256": "0aa8363b86cf201d210aee4edc43029657bc3e7880f56f54eb7ecf6f30b4ca85",
+          "check_id": "check-001",
+          "errors": [
+            "schema: <root>: 'revised_operational_plans' is a required property",
+            "schema: <root>: 'revised_stage_understanding' is a required property",
+            "schema: <root>: 'revised_tactical_requirements' is a required property",
+            "schema: <root>: 'revised_strategic_hypotheses' is a required property",
+            "schema: <root>: 'revision_hypothesis' is a required property",
+            "semantic: exactly one revised_operational_plans item is required, got non-list",
+            "lineage: parent_hypothesis_id must reference a revised_strategic_hypotheses hypothesis_id",
+            "operational_plan_id must identify SOL_HIGH_SEVEN_ARTILLERY_GAP",
+            "M58 comparison object is required at revised_stage_understanding.m58_open_roster_comparison",
+            "static: IndexError: list index out of range"
+          ],
+          "kind": "FAILED_CHECK",
+          "status": "FAIL"
+        },
+        {
+          "candidate_id": "candidate-001",
+          "candidate_sha256": "0e3a37aebd2e43987a0d333840abacc095dc5ee9f13b7f0d7f953ec6b0b148cc",
+          "check_id": "check-002",
+          "kind": "PASS",
+          "status": "PASS"
+        }
+      ],
+      "max_candidates": 2,
+      "max_check_calls": 10,
+      "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+      "session_id": "real-tool-loop-sol-high-seven-artillery-gap-v1",
+      "stage_id": "main_08-07",
+      "used_candidates": 1,
+      "used_check_calls": 2
+    },
+    "production_tool_calls": {
+      "check_plan": 2,
+      "get_session_status": 11,
+      "query_events": 16,
+      "run_simulation": 1
+    },
+    "real_cli_starts": {
+      "authorized_real_cli_starts": 1,
+      "automatic_resume": false,
+      "automatic_retry": false,
+      "model_change_or_tier_change_forbidden": true,
+      "used_real_cli_starts": 1
+    },
+    "simulation_budget": {
+      "max_stage_simulations": 2,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 1
+    }
+  },
+  "candidate_001": {
+    "action_sha256": "c98650d859b39e090cdb4b49ef7e2614fcd806d4fcd08797c6ebd92809d889a4",
+    "candidate_id": "candidate-001",
+    "candidate_sha256": "0e3a37aebd2e43987a0d333840abacc095dc5ee9f13b7f0d7f953ec6b0b148cc",
+    "key_duty_observations": {
+      "central_leaks": {
+        "enemy_1110_uamord#21": [
+          5046
+        ],
+        "enemy_1110_uamord#22": [
+          5359
+        ],
+        "enemy_1110_uamord#33": [
+          6846
+        ],
+        "enemy_1110_uamord#34": [
+          6996
+        ]
+      },
+      "hibiscus_skill_test": {
+        "activated_frames": [
+          2773,
+          4641,
+          6142,
+          7643,
+          9144
+        ],
+        "death_frames": [
+          3161
+        ],
+        "early_heals": [
+          {
+            "details": {
+              "amount": 558.9000000000001
+            },
+            "event_type": "HEAL",
+            "frame": 2944,
+            "source_id": "char_120_hibisc",
+            "target_id": "char_210_stward",
+            "time": 98.1333333333
+          },
+          {
+            "details": {
+              "amount": 558.9000000000001
+            },
+            "event_type": "HEAL",
+            "frame": 3030,
+            "source_id": "char_120_hibisc",
+            "target_id": "char_120_hibisc",
+            "time": 101.0
+          },
+          {
+            "details": {
+              "amount": 420.0
+            },
+            "event_type": "HEAL",
+            "frame": 3116,
+            "source_id": "char_120_hibisc",
+            "target_id": "char_123_fang",
+            "time": 103.8666666667
+          }
+        ]
+      },
+      "protected_14_death_frames": [],
+      "protected_3_death_frames": [
+        5384
+      ],
+      "roadblock4_destroyed": [
+        2026
+      ],
+      "route_11_deaths": [
+        2881
+      ],
+      "route_13_deaths": [
+        3311
+      ],
+      "steward_artillery": {
+        "artillery_death_frames": [],
+        "artillery_leak_frames": [
+          5759
+        ],
+        "damage_total": 11035.130000000006,
+        "death_frames": [
+          3970
+        ],
+        "death_shell": [
+          {
+            "details": {
+              "amount": 910.0,
+              "kind": "PHYSICAL",
+              "locked_position": [
+                7,
+                5
+              ]
+            },
+            "event_type": "ENEMY_ABILITY_HIT",
+            "frame": 3970,
+            "source_id": "enemy_1112_emppnt#0",
+            "target_id": "char_210_stward",
+            "time": 132.3333333333
+          }
+        ],
+        "first_hit": 2161,
+        "hit_count": 38,
+        "last_hit": 3937
+      }
+    },
+    "large_json_archives": {
+      "diagnostic_events.json": {
+        "bytes": 312866,
+        "path": "session/candidates/candidate-001/simulation/diagnostic_events.json.gz",
+        "restored_sha256": "c06c57f232934084324000c6a565b3baf1f67b9c7f8c70a064375d5475eb0f23",
+        "sha256": "ca8b7b4417665f15ac0323e73c710106956c0c015a14887857f6ba6aea5b551b"
+      },
+      "diagnostic_summary.json": {
+        "bytes": 279265,
+        "path": "session/candidates/candidate-001/simulation/diagnostic_summary.json.gz",
+        "restored_sha256": "4180803b1709ea1f6dc865c911477ba0282e3912e7982a27138b766d3662fa03",
+        "sha256": "097de5ad0cf700db100c86d0478b48b1478ca3660425fd1775d51e78a8102406"
+      }
+    },
+    "observed_result": {
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "deployment_errors": [
+        "char_210_stward@142.66666666666666: operator is not deployed",
+        "char_120_hibisc@154.7: operator is not deployed",
+        "char_283_midn@180.0: operator is not deployed",
+        "char_120_hibisc@204.73333333333332: operator is not deployed",
+        "char_120_hibisc@254.76666666666668: operator is not deployed",
+        "char_283_midn@300.03333333333336: operator is not deployed",
+        "char_120_hibisc@304.8: operator is not deployed"
+      ],
+      "enemies_killed": 20,
+      "enemies_leaked": 13,
+      "enemies_remaining": 0,
+      "first_leak": {
+        "details": {
+          "amount": 1
+        },
+        "event_type": "ENEMY_LEAK",
+        "frame": 4507,
+        "source_id": "enemy_1107_uoffcr#19",
+        "target_id": null,
+        "time": 150.2333333333
+      },
+      "first_objective_failure": {
+        "details": {
+          "reason": "ENEMY_LEAK",
+          "remaining_life": 0,
+          "time": 178.6333333333
+        },
+        "event_type": "OBJECTIVE_FAILURE",
+        "frame": 5359,
+        "source_id": null,
+        "target_id": null,
+        "time": 178.6333333333
+      },
+      "operationally_verified": false,
+      "operator_deaths": [
+        {
+          "details": {},
+          "event_type": "OPERATOR_DEATH",
+          "frame": 3161,
+          "source_id": "char_120_hibisc",
+          "target_id": null,
+          "time": 105.3666666667
+        },
+        {
+          "details": {},
+          "event_type": "OPERATOR_DEATH",
+          "frame": 3970,
+          "source_id": "char_210_stward",
+          "target_id": null,
+          "time": 132.3333333333
+        },
+        {
+          "details": {},
+          "event_type": "OPERATOR_DEATH",
+          "frame": 4180,
+          "source_id": "char_123_fang",
+          "target_id": null,
+          "time": 139.3333333333
+        },
+        {
+          "details": {},
+          "event_type": "OPERATOR_DEATH",
+          "frame": 4753,
+          "source_id": "char_283_midn",
+          "target_id": null,
+          "time": 158.4333333333
+        },
+        {
+          "details": {},
+          "event_type": "OPERATOR_DEATH",
+          "frame": 4960,
+          "source_id": "char_4093_frston",
+          "target_id": null,
+          "time": 165.3333333333
+        }
+      ],
+      "protected_target_deaths": [
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 5384,
+          "source_id": "enemy_1107_uoffcr#23",
+          "target_id": "enemy_3001_upeopl#3",
+          "time": 179.4666666667
+        }
+      ],
+      "protected_target_reached_events": [
+        {
+          "details": {
+            "amount": 0
+          },
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "frame": 12448,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null,
+          "time": 414.9333333333
+        }
+      ],
+      "real_game_win_claim": false
+    },
+    "plan_id": "R111_SOL_HIGH_SEVEN_ARTILLERY_GAP_001",
+    "plan_sha256": "52c0591dff167272179d306a08f6c078b63279fdbdb43d526d58130b54b938da",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "validation_card": {
+      "cost_and_replacement": "Same seven legal ordinary catalog IDs; no replacement, tile, deployment, DP or redeploy change. Hibiscus ready2640;2773 legal. Later4641 activation exceeds1500-frame recovery.",
+      "duty_plan": {
+        "artillery_closure": "Advance only first Hibiscus skill to2773: boost2944-3288 then expire3373 before3374 to test self-heal survival3461 and subsequent Steward delivery before lethal3911 shell.",
+        "central_intercept": "Fang/Friston and Steward6381 retain central duties; #21/#22/#33/#34 remain independent parent failures requiring observation.",
+        "opening": "Fang0 row3, Friston91 row4, Midnight571 unchanged: Friston blocks #11/#13 and group kills them.",
+        "roadblocks_and_protected_routes": "Melantha901[6,5]RIGHT skill2102 retains roadblock4 destruction2026 and #14 route. Midnight retains eastern3 and later western2; Steward retains late eastern4 and western1 trips. Require #3/#14 reach."
+      },
+      "exact_event_to_change": "Hibiscus death3461 -> survival and subsequent Steward HEAL before3911; Steward death3911 -> survival.",
+      "expected_observable_events": [
+        "First changed SKILL_ACTIVATE Hibiscus2773; first relevant HEAL to Steward2944 may increase372.6->548.",
+        "Hibiscus HEAL3030 boosted,3374/3460 unboosted; survives3461, delivers later HEAL to Steward before3911.",
+        "Steward survives3911; DAMAGE continues to actual artillery death; no artillery leak.",
+        "Preserve #11/#13 deaths, roadblock4 destruction, #14 reach; independently inspect #3 and central21/22/33/34; require complete WIN."
+      ],
+      "experience_selector_decision_record": {
+        "adopted_observations": [
+          "C2 37hits10786.03 frame2161-3889 shell death3911; C1 38hits11035.13 frame2161-3937 shell death3970.",
+          "C2 self-heal3288 survival3311, Fang heal3460 death3461; C1 Fang heal3288 death3311; later shell phases differ.",
+          "R106 45hits13227.21 frame2161-4273 actual artillery kill; normal3374/3460 self-heals and Steward heal3804."
+        ],
+        "concrete_diff": "3140->2773 only",
+        "expected_events": [
+          "First changed SKILL_ACTIVATE Hibiscus2773; first relevant HEAL to Steward2944 may increase372.6->548.",
+          "Hibiscus HEAL3030 boosted,3374/3460 unboosted; survives3461, delivers later HEAL to Steward before3911.",
+          "Steward survives3911; DAMAGE continues to actual artillery death; no artillery leak.",
+          "Preserve #11/#13 deaths, roadblock4 destruction, #14 reach; independently inspect #3 and central21/22/33/34; require complete WIN."
+        ],
+        "falsifiable_question": "Advance only first Hibiscus skill to2773: boost2944-3288 then expire3373 before3374 to test self-heal survival3461 and subsequent Steward delivery before lethal3911 shell.",
+        "identity_verification": "All six manifest hashes independently match for C2,C1,R106; catalog hash matches968a8f1e1b180ef33b34451d7236c93d2e9957efc5d9ca692a8793c00af42307.",
+        "non_applicable_experiences": [
+          "M70 eight-ID WIN reference only; no imported success window or eighth ID."
+        ],
+        "override_reason_if_any": "User-selected R110 C2 supersedes older selector parent recommendations.",
+        "risks": [
+          "Boosted earlier heal can redirect later automatic healing; protected shell exposure may regress; central duties unresolved."
+        ],
+        "selected_parent": {
+          "action_sha256": "b38faafdc1d6324267a3cfc8b0db3909a3381f9afaef0bd9b673171e59471b61",
+          "events_restored_sha256": "076085b3fbdb979be96c1b66a17bfe1bb5b4a34637d3aec2fbc6421d732dff51",
+          "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+          "plan_sha256": "96a03133ecc04e317ef279ba1295272c3927215440285d320d803f0df77ed043",
+          "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002:candidate-002"
+        }
+      },
+      "main_parent": {
+        "action_sha256": "b38faafdc1d6324267a3cfc8b0db3909a3381f9afaef0bd9b673171e59471b61",
+        "events_restored_sha256": "076085b3fbdb979be96c1b66a17bfe1bb5b4a34637d3aec2fbc6421d732dff51",
+        "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+        "plan_sha256": "96a03133ecc04e317ef279ba1295272c3927215440285d320d803f0df77ed043",
+        "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002:candidate-002"
+      },
+      "mechanism_hypothesis": "Advance only first Hibiscus skill to2773: boost2944-3288 then expire3373 before3374 to test self-heal survival3461 and subsequent Steward delivery before lethal3911 shell.",
+      "refutation_conditions": [
+        "Hibiscus still dies3461 or no delivered Steward support and no artillery continuation.",
+        "Any regressed route/protected duty; global LOSS alone does not refute changed local events."
+      ],
+      "targeted_change": "Only Hibiscus first ACTIVATE_SKILL3140->2773; later skills4641+ unchanged.",
+      "unknown_or_model_gap": [
+        "Automatic target allocation; treatment competition is a hypothesis, not established necessity. Exact HP/full candidate order unknown.5759 is old leak observation, not deadline."
+      ]
+    }
+  },
+  "conclusions": {
+    "boundary": "Fixed-simulator evidence only; no real-game, faithful, robust, probability, seven-ID-impossibility, or global-minimum claim.",
+    "candidate_002": "NOT_RUN_DUE_TO_EXTERNAL_QUOTA_USAGE_LIMIT; remaining check/candidate/simulation budget was not consumed.",
+    "complete_simulator_win": false,
+    "hypothesis_classification": {
+      "early_hibiscus_boost_repair": "REFUTED_BY_EVENTS: Hibiscus delivered boosted heals to Steward@2944 and self@3030 but died@3161; Steward still died@3970 and artillery leaked@5759.",
+      "treatment_competition_as_general_cause": "PARTIAL_HYPOTHESIS_ONLY: timing changes altered heal targets and deaths, but exact HP/full candidate ordering remains UNKNOWN."
+    },
+    "preserved_duties": {
+      "protected_14_reach": true,
+      "roadblock4": true,
+      "routes_11_13": true
+    },
+    "proven_named_triple": false,
+    "regressed_or_failed_duties": {
+      "artillery_closure": true,
+      "central_21_22_33_34": true,
+      "protected_3": true
+    }
+  },
+  "experiment_id": "real_tool_closed_loop_sol_high_seven_artillery_gap_v1",
+  "model": {
+    "configured_model": "gpt-6.1-sol",
+    "features_apps": false,
+    "identity_proof_boundary": "Configured identity only; no cryptographic remote-model identity was proven.",
+    "provider": "openai",
+    "reasoning_effort": "high"
+  },
+  "parent_identity": {
+    "default_primary_parent": {
+      "action_sha256": "b38faafdc1d6324267a3cfc8b0db3909a3381f9afaef0bd9b673171e59471b61",
+      "events_gz_sha256": "ac0a813ffb1a63403f8e386b36d9120201defabd8d2cc5cbaef93a92e203c81c",
+      "events_restored_sha256": "076085b3fbdb979be96c1b66a17bfe1bb5b4a34637d3aec2fbc6421d732dff51",
+      "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+      "plan_sha256": "96a03133ecc04e317ef279ba1295272c3927215440285d320d803f0df77ed043",
+      "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002:candidate-002",
+      "relative_archive": "default_parent_R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+      "role": "DEFAULT_PRIMARY",
+      "selected_operator_ids": [
+        "char_123_fang",
+        "char_4093_frston",
+        "char_283_midn",
+        "char_208_melan",
+        "char_212_ansel",
+        "char_120_hibisc",
+        "char_210_stward"
+      ],
+      "summary_gz_sha256": "164d8d5e95d09cf490d687995ade65dc9c1fcb599555721e43b579ed9207e39f",
+      "summary_restored_sha256": "e6a0e548b7c96f4cda9b17e971acd6f870b3eaa302549f1b0817b0389d26082a"
+    },
+    "identity_boundary": "Hashes verify archived identity, not remote-model identity or causal sufficiency.",
+    "reference_parents": [
+      {
+        "action_sha256": "7700b32efdac499bdd9b01d53d5b5e7553e34eed67f81e733222f6643f0425a0",
+        "events_gz_sha256": "75fb19b9415f72a4942eb2fe85a262a4d52d2a818237882511dc1e5cc550581d",
+        "events_restored_sha256": "f5d6d07631fcfa01b2699e9e2b078afdb5e3b6ccae77b5f06317c65b07ce29c5",
+        "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001",
+        "plan_sha256": "1bd1ceae5eafc2397c5229880efb556aa35af4eb7801f29f1b8643da43f6247b",
+        "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001:candidate-001",
+        "relative_archive": "reference_R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001",
+        "role": "REFERENCE",
+        "selected_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_208_melan",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "summary_gz_sha256": "c6cf55d017c39d0b899123869ed2f35a163e8c126c984a8cb3e991eb54d8027f",
+        "summary_restored_sha256": "7a0a6b61a27de9d3f9e78b8acec07bcedc4c6da618dbe5e53bb76bdafb1af943"
+      },
+      {
+        "action_sha256": "77cc7aceb3a593c6467a116fd0f69070b4ffcaff5c6168234d70881a75f64e3b",
+        "events_gz_sha256": "7ed0ee9b080441c6d90ff4d5a9106b40ff014a0b99f0f4fb18096d84c61164d5",
+        "events_restored_sha256": "ccd3fa8935097735d26a0e7fe49a10963bb2ae61b500d5a571a0a3eab9db4266",
+        "plan_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+        "plan_sha256": "e170c2d1b44b7272bab200247e7a54eae16a9d7ac7ebf61ad2df3ae44a045c2d",
+        "record_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001:candidate-001",
+        "relative_archive": "reference_R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+        "role": "REFERENCE",
+        "selected_operator_ids": [
+          "char_123_fang",
+          "char_4093_frston",
+          "char_283_midn",
+          "char_284_spot",
+          "char_212_ansel",
+          "char_120_hibisc",
+          "char_210_stward"
+        ],
+        "summary_gz_sha256": "06b026d4403a5c3df82d4a4b7cf2354b1003d58c0fbfd83d4bde9d05544802c7",
+        "summary_restored_sha256": "a296d51498e7f3a1cf9fe1f834183aac524afe1116021233bec58da30e62a124"
+      }
+    ],
+    "schema_version": "KIMIARK_R111_ARTILLERY_GAP_PARENT_IDENTITY_V1",
+    "selection_policy": "R110 C2 is the default primary parent because it preserves #11/#13 and #14; R110 C1 and R106 are event references for the artillery gap."
+  },
+  "pre_cli_status": {
+    "allow_fake_execution": false,
+    "execution_backend": "CONTROLLED_RUNNER",
+    "max_unique_deployed_operators": 7,
+    "mechanics_version": "m38b-2781-animation-speed-v1",
+    "session_id": "real-tool-loop-sol-high-seven-artillery-gap-v1"
+  },
+  "process_and_failure": {
+    "attempt": {
+      "automatic_resume": false,
+      "automatic_retry": false,
+      "codex_home": null,
+      "command": [
+        "codex",
+        "exec",
+        "--json",
+        "--sandbox",
+        "read-only",
+        "--cd",
+        "/home/bigdata/Desktop/arknights-auto-planner",
+        "-c",
+        "model_provider=\"openai\"",
+        "-c",
+        "mcp_servers.kimiark.command=\"/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python\"",
+        "-c",
+        "mcp_servers.kimiark.args=[\"/home/bigdata/Desktop/arknights-auto-planner/scripts/kimiark_tactical_stdio_service_v1.py\",\"/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_gap_v1/session_config_v1.json\"]",
+        "-c",
+        "mcp_servers.kimiark.enabled=true",
+        "-c",
+        "mcp_servers.kimiark.required=true",
+        "-c",
+        "mcp_servers.kimiark.default_tools_approval_mode=\"approve\"",
+        "-c",
+        "mcp_servers.kimiark.enabled_tools=[\"get_session_status\",\"check_plan\",\"run_simulation\",\"query_events\"]",
+        "-m",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-o",
+        "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_gap_v1/session/codex_cli/codex_final_message.txt",
+        "-"
+      ],
+      "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+      "mcp_server": "kimiark",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "481df315b3febb5acff39d350909a57fb658c40d473b5adb6179df65df8563e3",
+      "reasoning_effort": "high",
+      "schema_version": "KIMIARK_REAL_TOOL_CLOSED_LOOP_CLI_ATTEMPT_V1",
+      "started_at": "2026-11-17T08:31:34.162071Z",
+      "status": "STARTED",
+      "timeout_seconds": 3600
+    },
+    "automatic_model_or_region_change": false,
+    "automatic_retry_or_resume": false,
+    "classification": "EXTERNAL_QUOTA_USAGE_LIMIT",
+    "final_message_file_exists": false,
+    "internal_model_request_count": "UNKNOWN_CLI_INTERNAL",
+    "process_result": {
+      "exit_code": 1,
+      "schema_version": "KIMIARK_REAL_TOOL_CLOSED_LOOP_CLI_RESULT_V1",
+      "status": "FAILED",
+      "stderr_bytes": 2618,
+      "stdout_bytes": 816987,
+      "timed_out": false
+    },
+    "terminal_errors": [
+      "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 6:56 PM.",
+      "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 6:56 PM."
+    ],
+    "usage_boundary": "No turn.completed usage record; model usage is not available from this failed turn.",
+    "usage_record": null,
+    "visible_agent_messages_before_failure": [
+      "I’ll verify the parent hashes and compare the original events before choosing the smallest supported artillery change. I’ll keep predictions separate from observations and track the production counters throughout the batch.",
+      "All six archived hashes match for each of the three parents. The recorded damage ends with Steward’s death in both R110 versions, so survival is the first breakpoint to investigate. I’m checking the shell and heal sequences to identify a concrete exposure or delivery change; treatment competition remains a hypothesis.",
+      "The original events show:\n\n| Parent | Steward artillery damage | Hits / total | Direct stop |\n|---|---|---|---|\n| R110 C2 | 2161–3889 | 37 / 10,786.03 | 910-damage shell kills Steward at 3911 |\n| R110 C1 | 2161–3937 | 38 / 11,035.13 | 910-damage shell kills Steward at 3970 |\n| R106 | 2161–4273 | 45 / 13,227.21 | Artillery dies at 4273 |\n\nC2’s later Hibiscus skill changes her 3288 heal from Fang to herself and extends her survival from 3311 to 3461. At 3460 she heals Fang, then dies to the next shell. C1 and C2 also have different subsequent shell timing, so the extra survival did not improve Steward’s output. R106 records Hibiscus surviving 3461 and healing Steward at 3804.\n\nCandidate 1 will change only Hibiscus’s first skill activation, 3140→2773. The predicted mechanism is to boost the 2944–3288 deliveries, then let the skill end before 3374, matching R106’s unboosted late self-heal pattern. The test requires actual survival and later Steward healing. Friston/Fang/Midnight retain #11/#13; Melantha retains early roadblock4/#14 duties.",
+      "Candidate 1 changed the predicted deliveries but failed the survival test: Hibiscus healed Steward for 558.9 at 2944 and herself for 558.9 at 3030, then healed Fang at 3116. She died to the 3161 shell, earlier than C2. Steward gained one hit but still died at 3970; artillery leaked.\n\n#11/#13 kills, roadblock4 destruction, and #14 reach were preserved. #3 died at 5384, and all four named central enemies leaked. I’m checking whether a separate Ansel support-window change can address Steward’s lethal shell without repeating the failed Hibiscus pattern."
+    ]
+  },
+  "schema_version": "KIMIARK_SOL_HIGH_SEVEN_ARTILLERY_GAP_PARTIAL_CLOSEOUT_V1",
+  "unauthorized_next_question": "After quota is restored under a new authorization, test a mechanism that keeps Steward alive through its recorded 3911/3970 shell windows without relying on early Hibiscus support; preserve C2's #11/#13/#14 chain and specify who delivers the needed late heal or accepts/reduces shell exposure."
+}
