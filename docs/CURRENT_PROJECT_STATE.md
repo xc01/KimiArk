@@ -998,9 +998,13 @@ and diagnosis are under
 The deterministic R108 Melanha-timing variant fixed the verified R107 recovery
 parent and changed only Melanha deploy 901→1261 and first skill 2102→2462.
 Its deep action diff matched exactly two frames, but production check rejected
-it before candidate creation because Melanha's unchanged next skill@3903 was
-SP_NOT_READY and action index 8 was out of order. No simulation or tactical
-event evidence was produced; the ledger is checks 1/5, candidates 0/1, and
-simulations 0/1. The static-legal skill schedule must be resolved before
-another simulation budget is spent. Evidence is under
+it before candidate creation. Stable sorting resolves the frame-order contract
+without changing any action, but Melanha's unchanged next skill@3903 remains
+refused by the skill-cooldown branch; its actual post-activation SP@3903 is
+28.0667, while the static display's 88.0667 is cumulative since deploy. The
+static next-ready boundary@4262 is one frame later than the exact runtime
+estimate@4261, and this mismatch was documented without relaxing the gate. No
+simulation or tactical event evidence was produced; the ledger is checks 1/5,
+candidates 0/1, and simulations 0/1. A static-legal coupled skill schedule must
+be resolved before another simulation budget is spent. Evidence is under
 `docs/review/fc77177/real_tool_closed_loop_deterministic_seven_melanha_timing_v1/`.
