@@ -994,3 +994,13 @@ refresh succeeded, but does not prove generation or quota; the historical refres
 timeouts remain causally UNKNOWN. The failed attempt remains CLI 1/1. Evidence
 and diagnosis are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_melanha_timing_heal_competition_v1/`.
+
+The deterministic R108 Melanha-timing variant fixed the verified R107 recovery
+parent and changed only Melanha deploy 901→1261 and first skill 2102→2462.
+Its deep action diff matched exactly two frames, but production check rejected
+it before candidate creation because Melanha's unchanged next skill@3903 was
+SP_NOT_READY and action index 8 was out of order. No simulation or tactical
+event evidence was produced; the ledger is checks 1/5, candidates 0/1, and
+simulations 0/1. The static-legal skill schedule must be resolved before
+another simulation budget is spent. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_deterministic_seven_melanha_timing_v1/`.

@@ -1,0 +1,108 @@
+{
+  "schema_version": "KIMIARK_R108_DETERMINISTIC_MELANHA_TIMING_STOP_REPORT_V1",
+  "experiment_id": "real_tool_closed_loop_deterministic_seven_melanha_timing_v1",
+  "status": "STOPPED_AT_PRODUCTION_STATIC_GATE_BEFORE_CANDIDATE_OR_SIMULATION",
+  "conclusion_category": "STATIC_PRECHECK_BLOCKED_EVIDENCE_INSUFFICIENT",
+  "parent_identity": {
+    "record_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001:candidate-001",
+    "plan_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001",
+    "plan_sha256": "a66ebae929cf36d5653a138d05191daea4acd1c94ebef54b8bca965e46a9d8ea",
+    "action_sha256": "d21a4bf139e96199faf9b80eebfaab04e1fdb5845e1e8df57336e2f674ca0f9e",
+    "events_gz_sha256": "3ef5e9aba8bd510dbb90d1c484b1f7d823b17e15c37235a99b18e10772caaca5",
+    "events_restored_sha256": "3404a7062adc5d4dc135bb5716418bc23ab5d90b28908302f09766c1eba485f4",
+    "operator_union_count": 7,
+    "identity_source": "R108 parent identity manifest and verified recovery artifacts"
+  },
+  "planned_candidate": {
+    "plan_id": "R108_DETERMINISTIC_SEVEN_MELANHA_TIMING_001",
+    "candidate_sha256_at_check": "d41244c9333c399ca9da9e05dff28ca8ba223cbe1ce25816031ef0c2f33f62fa",
+    "candidate_plan_sha256": "6d9fa40c8e46b047503833bbad10adf561b058be309186d5d4f045308e328611",
+    "candidate_action_canonical_sha256": "faac420fbe441121180d710bd94b40ceb6debc1007f09dbffd6f4b40730ad54a",
+    "generation": "SCRIPT_FROM_FROZEN_PARENT_ACTIONS",
+    "model_generation": false,
+    "candidate_created": false,
+    "action_diff": [
+      {"action_index": 3, "action_type": "DEPLOY", "operator_id": "char_208_melan", "field": "frame", "old": 901, "new": 1261, "direction": "RIGHT", "tile": [6, 5]},
+      {"action_index": 7, "action_type": "ACTIVATE_SKILL", "operator_id": "char_208_melan", "field": "frame", "old": 2102, "new": 2462}
+    ],
+    "changed_action_count": 2,
+    "deep_action_diff_verified": true,
+    "other_plan_fields_excluding_identity_and_validation_card_equal": true
+  },
+  "pre_run_no_model_handshake": {
+    "status": "PASS",
+    "command": ".venv/bin/python run_mcp_v1.py get_session_status --arguments-json {} --output session/mcp/pre_run_status.json",
+    "output_path": "session/mcp/pre_run_status.json",
+    "output_sha256": "cb03bb4e34e653e86a82d301245c549fb324d44e2db5f6d22eb50d5a89780188",
+    "remaining_before_check": {"check_calls": 5, "candidates": 1, "complete_simulations": 1}
+  },
+  "production_check": {
+    "check_id": "check-001",
+    "status": "FAIL",
+    "check_call_counted": true,
+    "candidate_counted": false,
+    "simulation_started": false,
+    "response_path": "session/mcp/check_plan.json",
+    "response_sha256": "b130599dd905c91a9a8f73bbc20005cb2c481d9022b02c0fa18ae451beef126b",
+    "check_record_path": "session/checks/check-001/check_record.json",
+    "check_record_sha256": "a785d40d20601c18d413f4e2162e49622d687ce9269801b24a8a9b7b9b1f1e11",
+    "static_results_path": "session/checks/check-001/source/static_compile_results.json",
+    "static_results_sha256": "a02854361798012dc8e7786f7994dc6e5bd3f1431216881bcfb30404fbc710c6",
+    "execution_input_gate": "PASS",
+    "schema_errors": [],
+    "lineage_errors": [],
+    "semantic_errors": [
+      "action[8] frame is out of order",
+      "action[9] frame is out of order"
+    ],
+    "static_conflicts": [
+      {"operator_id": "char_208_melan", "frame": 3903, "status": "CONFLICT", "reason": "SP_NOT_READY", "available_sp_model": 88.06666666666666, "required_sp": 40.0, "generation": 1},
+      {"action_index": 8, "conflict": "ACTION_FRAME_OUT_OF_ORDER"}
+    ]
+  },
+  "decision": {
+    "reason": "The user-authorized exact two-frame pair makes Melanha's next unchanged skill at 3903 statically illegal and creates a timeline-order conflict at index 8. No third tactical action was changed to force the candidate through the gate.",
+    "tactical_hypothesis_observed": false,
+    "tactical_hypothesis_category": "NOT_OBSERVED_STATIC_PRECHECK_BLOCKED",
+    "automatic_third_action_change": false,
+    "automatic_candidate_fallback": false,
+    "automatic_simulation_fallback": false
+  },
+  "budget": {
+    "real_tactical_cli_starts": {"authorized": 0, "used": 0},
+    "model_generation_calls": {"authorized": 0, "used": 0},
+    "check_calls": {"authorized": 5, "used": 1, "remaining": 4},
+    "candidates": {"authorized": 1, "used": 0, "remaining": 1},
+    "complete_simulations": {"authorized": 1, "used": 0, "remaining": 1},
+    "new_started_events": 0
+  },
+  "scope": {
+    "event_evidence": "NONE_NO_SIMULATION",
+    "roadblock4_or_protected_14_claim": "UNKNOWN",
+    "heal_competition_claim": "UNKNOWN",
+    "steward_artillery_claim": "UNKNOWN",
+    "protected_3_claim": "UNKNOWN",
+    "central_claim": "UNKNOWN",
+    "seven_or_fewer_feasibility": "UNKNOWN",
+    "m70_status": "M70 remains the eight-ID complete fixed-simulator WIN and was not rerun."
+  },
+  "input_evidence": {
+    "candidate_plan_path": "input_bundle/candidate_plan.json",
+    "candidate_plan_sha256": "6d9fa40c8e46b047503833bbad10adf561b058be309186d5d4f045308e328611",
+    "evidence_context_path": "input_bundle/llm_evidence_context.json",
+    "evidence_context_sha256": "945b9dccc5ac3ebe081f8cbf1458cd43cf9c60d03e859a24ec3277e5826eaf6b",
+    "revision_schema_path": "input_bundle/revision_output_schema.json",
+    "revision_schema_sha256": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "transformation_record_path": "input_bundle/transformation_record_v1.json",
+    "transformation_record_sha256": "9a06612797da9f8a771c6e0056549b12e41b5f0bbafb8fc92a917b374b9234c5",
+    "manifest_path": "input_bundle/experiment_manifest_v1.json",
+    "manifest_sha256": "ee50d83d551b1669af0d19dd448ba27fe972f1be027019d82f937a66acf21d06",
+    "context_parent_identity_correction": "The new evidence context explicitly fixes R107 recovery as the sole parent; it does not reuse R108's stale embedded R105 parent-identity metadata."
+  },
+  "next_unauthorized_question": "Find the static-legal earliest Melanha deployment that can satisfy the lower-lane/roadblock4 premise while keeping the unchanged later skill schedule legal; this must be resolved as an input-contract question before another simulation budget is used.",
+  "usage_boundary": {
+    "model_usage": "NOT_APPLICABLE_NO_MODEL_GENERATION",
+    "internal_model_request_count": "NOT_APPLICABLE",
+    "failed_service_attempt_history": "The original R108 stop report remains CLI 1/1 with UNKNOWN_CLI_INTERNAL internal request history and is unchanged."
+  }
+}
