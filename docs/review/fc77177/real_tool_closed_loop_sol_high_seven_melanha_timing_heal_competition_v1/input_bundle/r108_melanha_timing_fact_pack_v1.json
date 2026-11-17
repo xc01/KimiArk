@@ -1,0 +1,82 @@
+{
+  "boundary": "Observed fixed-simulator events only. No continuous positions, exact HP, complete heal candidate ordering, or causal necessity is asserted. Old frames are not universal deadlines.",
+  "open_unknowns": [
+    "Whether delayed Melanha still kills #5/#9 and clears roadblock4 before #14 arrives.",
+    "Whether reduced Melanha heal competition changes Steward's 3970 death.",
+    "Exact HP and continuous positions remain UNKNOWN."
+  ],
+  "parent_r107_recovery": {
+    "action_sha256": "d21a4bf139e96199faf9b80eebfaab04e1fdb5845e1e8df57336e2f674ca0f9e",
+    "archive_status": "VERIFIED",
+    "declared_plan_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001",
+    "events_gz_sha256": "3ef5e9aba8bd510dbb90d1c484b1f7d823b17e15c37235a99b18e10772caaca5",
+    "events_restored_sha256": "3404a7062adc5d4dc135bb5716418bc23ab5d90b28908302f09766c1eba485f4",
+    "failed_local_surface": {
+      "artillery_death": null,
+      "artillery_hits": {
+        "count": 38,
+        "damage": 11035.13,
+        "first": 2161,
+        "last": 3937
+      },
+      "artillery_leak": 5759,
+      "central_leaks": {
+        "enemy_1110_uamord#21": 5046,
+        "enemy_1110_uamord#22": 5359,
+        "enemy_1110_uamord#33": 6846,
+        "enemy_1110_uamord#34": 6996
+      },
+      "planned_retreat_4280": "ILLEGAL_BECAUSE_STEWARD_WAS_DEAD",
+      "protected_3": {
+        "death": 5384,
+        "officer23_hits": [
+          5264,
+          5324,
+          5384
+        ]
+      },
+      "steward_death": 3970
+    },
+    "final_status_plan_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001",
+    "operator_union": [
+      "char_120_hibisc",
+      "char_123_fang",
+      "char_208_melan",
+      "char_210_stward",
+      "char_212_ansel",
+      "char_283_midn",
+      "char_4093_frston"
+    ],
+    "operator_union_count": 7,
+    "plan_sha256": "a66ebae929cf36d5653a138d05191daea4acd1c94ebef54b8bca965e46a9d8ea",
+    "record_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001:candidate-001",
+    "result": {
+      "kills": 20,
+      "leaks": 13,
+      "remaining_life": -11,
+      "win": false
+    },
+    "validated_local_success": {
+      "protected_14": {
+        "damage": null,
+        "death": null,
+        "reach": 12448,
+        "roadblock4_block": null
+      },
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    }
+  },
+  "schema_version": "KIMIARK_R108_MELANHA_TIMING_FACT_PACK_V1",
+  "single_candidate_change": {
+    "all_other_actions": "MUST remain unchanged.",
+    "change": "Melanha DEPLOY 901 -> 1261; Melanha ACTIVATE_SKILL 2102 -> 2462.",
+    "purpose": "Delay lower-lane deployment to reduce Melanha's early damage/heal competition while still attempting roadblock4 clearance before #14's 3030 spawn/3251 restraint window."
+  }
+}

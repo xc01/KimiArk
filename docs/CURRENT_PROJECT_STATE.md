@@ -980,3 +980,11 @@ specific executable mechanism supported a bounded run. Evidence is under
 `docs/review/fc77177/r106_r107_complementary_branch_comparison_v1.md`. The next
 unauthorized question is whether a Melanha timing shift can clear roadblock4,
 preserve #5/#9/#16/#18 duties, and reduce heal competition without an eighth ID.
+
+The authorized R108 Melanha-timing test then stopped on MCP session
+initialization: the one CLI start consumed the budget, but produced no model
+generation, check, candidate, or simulation. Its exact two-frame hypothesis was
+Melanha deploy 901→1261 and skill 2102→2462. No retry or resume was made. The
+tactical question remains untested, and seven-or-fewer feasibility remains
+UNKNOWN. Evidence and the stop report are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_melanha_timing_heal_competition_v1/`.
