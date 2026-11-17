@@ -381,6 +381,8 @@ def import_default_sources(root: Path = Path(".")) -> tuple[list[dict[str, Any]]
         "real_tool_closed_loop_sol_high_seven_early_protected_v1",
         "real_tool_closed_loop_sol_high_seven_heal_competition_v1",
         "real_tool_closed_loop_sol_high_seven_protected14_late_release_recovery_v1",
+        "real_tool_closed_loop_sol_high_seven_artillery_gap_v1",
+        "real_tool_closed_loop_sol_high_seven_artillery_window_mechanism_v1",
     ]
     for experiment_dir in experiment_dirs:
         exp_path = base / experiment_dir

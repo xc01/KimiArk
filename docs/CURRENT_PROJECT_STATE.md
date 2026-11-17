@@ -1052,3 +1052,17 @@ tactical conclusion about C002 or seven-ID feasibility. M70 remains the eight-ID
 complete fixed-simulator WIN, and seven-or-fewer feasibility remains UNKNOWN.
 The partial closeout, failure evidence, restored-hash archives, and manifest are
 under `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_gap_v1/`.
+
+The R112 artillery-window mechanism batch used R110 C2 as its primary parent and
+closed normally at CLI 1/1, checks 3/10, candidates 2/2, and complete simulations
+2/2. C001's early Hibiscus isolation removed essential support and was refuted
+(12 kills/21 leaks). C002 restored early geometry and added Fang retreat@3400/
+redeploy@5501; Hibiscus heal@3460 changed from Fang to self-heal, Steward received
+late heals and delivered 45 hits/13,227.21 damage, killing artillery@4273 with no
+artillery leak. C002 also retained #11/#13, roadblock4, #14 reach, and #3 reach.
+But #19 leaked@4475, central #21/#22/#33/#34 leaked, and the complete result
+remained 22 kills/11 leaks/life -8. This is a seven-ID joint early/route/protected/
+artillery branch, not a complete WIN. M70 remains the eight-ID complete
+fixed-simulator WIN, and seven-or-fewer feasibility remains UNKNOWN. Evidence,
+closeout, and restored-hash manifest are under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_artillery_window_mechanism_v1/`.

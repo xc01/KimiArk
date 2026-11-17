@@ -1,0 +1,308 @@
+{
+  "boundary": "Observed fixed-simulator events only. No continuous positions, exact HP, complete heal candidate ordering, or causal necessity is asserted unless directly recorded. Old frames are not universal deadlines.",
+  "mandatory_final_verification": "Even if the named triple succeeds, complete WIN requires zero leaks, both protected targets safe/reached, all enemies settled, no active enemies, and simulator WIN.",
+  "open_unknowns": [
+    "Exact HP, continuous positions, complete heal candidate ordering, and causal necessity remain UNKNOWN unless recorded by events."
+  ],
+  "question": "Preserve R110 C2's #11/#13 kills and protected #14 reach while actually killing artillery with no artillery leak.",
+  "r106_reference": {
+    "action_sha256": "77cc7aceb3a593c6467a116fd0f69070b4ffcaff5c6168234d70881a75f64e3b",
+    "artillery_success": {
+      "artillery_leak": null,
+      "last_artillery_damage_and_kill": 4273,
+      "steward_damage_total": 13227.21,
+      "steward_death": null,
+      "steward_first_artillery_damage": 2161,
+      "steward_hit_count": 45
+    },
+    "events_gz_sha256": "7ed0ee9b080441c6d90ff4d5a9106b40ff014a0b99f0f4fb18096d84c61164d5",
+    "events_restored_sha256": "ccd3fa8935097735d26a0e7fe49a10963bb2ae61b500d5a571a0a3eab9db4266",
+    "plan_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "plan_sha256": "e170c2d1b44b7272bab200247e7a54eae16a9d7ac7ebf61ad2df3ae44a045c2d",
+    "r106_failures": {
+      "central_leaks": {
+        "enemy_1110_uamord#21": 6697,
+        "enemy_1110_uamord#22": 6661,
+        "enemy_1110_uamord#33": 6846,
+        "enemy_1110_uamord#34": 6996
+      },
+      "protected_14_death": 3911,
+      "protected_3_reach": 15549
+    },
+    "record_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001:candidate-001",
+    "relative_archive": "reference_R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "result": {
+      "kills": 22,
+      "leaks": 11,
+      "remaining_life": -9,
+      "win": false
+    },
+    "retained_successes": {
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    },
+    "role": "REFERENCE",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_284_spot",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "summary_gz_sha256": "06b026d4403a5c3df82d4a4b7cf2354b1003d58c0fbfd83d4bde9d05544802c7",
+    "summary_restored_sha256": "a296d51498e7f3a1cf9fe1f834183aac524afe1116021233bec58da30e62a124"
+  },
+  "r110_c1_reference": {
+    "action_sha256": "7700b32efdac499bdd9b01d53d5b5e7553e34eed67f81e733222f6643f0425a0",
+    "artillery_gap": {
+      "artillery_leak": 5759,
+      "steward_damage_total": 11035.13,
+      "steward_death": 3970,
+      "steward_first_artillery_damage": 2161,
+      "steward_hit_count": 38,
+      "steward_last_artillery_damage": 3937
+    },
+    "events_gz_sha256": "75fb19b9415f72a4942eb2fe85a262a4d52d2a818237882511dc1e5cc550581d",
+    "events_restored_sha256": "f5d6d07631fcfa01b2699e9e2b078afdb5e3b6ccae77b5f06317c65b07ce29c5",
+    "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001",
+    "plan_sha256": "1bd1ceae5eafc2397c5229880efb556aa35af4eb7801f29f1b8643da43f6247b",
+    "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001:candidate-001",
+    "relative_archive": "reference_R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_001",
+    "result": {
+      "kills": 20,
+      "leaks": 13,
+      "remaining_life": -10,
+      "win": false
+    },
+    "retained_successes": {
+      "protected_14_reach": 12448,
+      "roadblock4_destroy": 2026,
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    },
+    "role": "REFERENCE",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "summary_gz_sha256": "c6cf55d017c39d0b899123869ed2f35a163e8c126c984a8cb3e991eb54d8027f",
+    "summary_restored_sha256": "7a0a6b61a27de9d3f9e78b8acec07bcedc4c6da618dbe5e53bb76bdafb1af943"
+  },
+  "r110_c2_default_parent": {
+    "action_sha256": "b38faafdc1d6324267a3cfc8b0db3909a3381f9afaef0bd9b673171e59471b61",
+    "artillery_gap": {
+      "artillery_death": null,
+      "artillery_leak": 5759,
+      "no_retreat_or_target_switch_before_death": true,
+      "steward_damage_total": 10786.03,
+      "steward_death": 3911,
+      "steward_death_shell": {
+        "amount": 910,
+        "frame": 3911,
+        "locked_position": [
+          7,
+          5
+        ]
+      },
+      "steward_first_artillery_damage": 2161,
+      "steward_hit_count": 37,
+      "steward_last_artillery_damage": 3889
+    },
+    "events_gz_sha256": "ac0a813ffb1a63403f8e386b36d9120201defabd8d2cc5cbaef93a92e203c81c",
+    "events_restored_sha256": "076085b3fbdb979be96c1b66a17bfe1bb5b4a34637d3aec2fbc6421d732dff51",
+    "observed_heal_and_exposure_chain": {
+      "c1_heal_at_3288": {
+        "amount": 420.0,
+        "hibiscus_death": 3311,
+        "target": "char_123_fang"
+      },
+      "c1_vs_c2_other_effect": {
+        "c1_enemy_19_leak": 4507,
+        "c2_enemy_19_death": 4403
+      },
+      "c2_heal_at_3288": {
+        "amount": 475.9,
+        "hibiscus_survived_3311": true,
+        "target": "char_120_hibisc"
+      },
+      "c2_heal_at_3460": {
+        "amount": 420.0,
+        "hibiscus_death": 3461,
+        "target": "char_123_fang"
+      },
+      "hibiscus_deaths_in_r110": {
+        "c1": 3311,
+        "c2": 3461
+      },
+      "hibiscus_shell_frames": [
+        3011,
+        3161,
+        3311,
+        3461
+      ],
+      "late_steward_heals_before_death": {
+        "r106": [
+          {
+            "frame": 3611,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3697,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3783,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3804,
+            "source": "char_120_hibisc"
+          },
+          {
+            "frame": 3869,
+            "source": "char_212_ansel"
+          }
+        ],
+        "r110_c1": [
+          {
+            "frame": 3692,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3778,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3864,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3950,
+            "note": "after Steward@3970 death? frame ordering must be interpreted against recorded death@3970",
+            "source": "char_212_ansel"
+          }
+        ],
+        "r110_c2": [
+          {
+            "frame": 3611,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3697,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3783,
+            "source": "char_212_ansel"
+          },
+          {
+            "frame": 3869,
+            "source": "char_212_ansel"
+          }
+        ]
+      }
+    },
+    "plan_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+    "plan_sha256": "96a03133ecc04e317ef279ba1295272c3927215440285d320d803f0df77ed043",
+    "record_id": "R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002:candidate-002",
+    "relative_archive": "default_parent_R110_SOL_HIGH_SEVEN_TRIPLE_DUTY_BATCH_002",
+    "result": {
+      "kills": 21,
+      "leaks": 12,
+      "remaining_life": -10,
+      "win": false
+    },
+    "retained_successes": {
+      "protected_14_reach": 12448,
+      "roadblock4_destroy": 2026,
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    },
+    "role": "DEFAULT_PRIMARY",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "summary_gz_sha256": "164d8d5e95d09cf490d687995ade65dc9c1fcb599555721e43b579ed9207e39f",
+    "summary_restored_sha256": "e6a0e548b7c96f4cda9b17e971acd6f870b3eaa302549f1b0817b0389d26082a"
+  },
+  "r111_c001_reference": {
+    "action_sha256": "c98650d859b39e090cdb4b49ef7e2614fcd806d4fcd08797c6ebd92809d889a4",
+    "artillery_gap": {
+      "artillery_leak": 5759,
+      "hibiscus_death": 3161,
+      "steward_damage_total": 11035.13,
+      "steward_death": 3970,
+      "steward_first_artillery_damage": 2161,
+      "steward_hit_count": 38,
+      "steward_last_artillery_damage": 3937
+    },
+    "events_gz_sha256": "ca8b7b4417665f15ac0323e73c710106956c0c015a14887857f6ba6aea5b551b",
+    "events_restored_sha256": "c06c57f232934084324000c6a565b3baf1f67b9c7f8c70a064375d5475eb0f23",
+    "plan_id": "R111_SOL_HIGH_SEVEN_ARTILLERY_GAP_001",
+    "plan_sha256": "52c0591dff167272179d306a08f6c078b63279fdbdb43d526d58130b54b938da",
+    "record_id": "R111_SOL_HIGH_SEVEN_ARTILLERY_GAP_001:candidate-001",
+    "relative_archive": "reference_R111_SOL_HIGH_SEVEN_ARTILLERY_GAP_001",
+    "result": {
+      "kills": 20,
+      "leaks": 13,
+      "remaining_life": -11,
+      "win": false
+    },
+    "retained_successes": {
+      "protected_14_reach": 12448,
+      "roadblock4_destroy": 2026,
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    },
+    "role": "REFERENCE",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ],
+    "summary_gz_sha256": "097de5ad0cf700db100c86d0478b48b1478ca3660425fd1775d51e78a8102406",
+    "summary_restored_sha256": "4180803b1709ea1f6dc865c911477ba0282e3912e7982a27138b766d3662fa03"
+  },
+  "schema_version": "KIMIARK_R112_ARTILLERY_WINDOW_FACT_PACK_V1"
+}
