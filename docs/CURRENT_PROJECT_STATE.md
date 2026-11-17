@@ -1023,3 +1023,18 @@ complete fixed-simulator WIN, and seven-or-fewer feasibility remains UNKNOWN.
 The closeout, compressed restored-hash-verified event archives, manifest, and
 final model message are under
 `docs/review/fc77177/real_tool_closed_loop_sol_high_seven_autonomous_batch_v1/`.
+
+The R110 triple-duty batch used R106 as its default primary parent and closed at
+one CLI, checks 4/20, candidates 3/3, and complete simulations 3/3. C001
+replaced lower Spot with Melanha and delayed Hibiscus's first skill to 3100; it
+closed #11/#13 and reached #14 but lost 20/13 with artillery@5759. C002 advanced
+Hibiscus skills +40, kept #11/#13/#14, killed #19, and improved to 21/12, but
+artillery still leaked@5759. C003 moved Ansel to `[5,6] DOWN` and regressed to
+19/14 with Melanha@2143/Steward@2593 deaths, only 9 artillery hits, #14@6314,
+and both protected targets dead. Across all runs roadblock4 was destroyed@2026,
+#11/#13 were blocked/killed@2738/2881 and3098/3311, artillery leaked@5759, and
+central #21/#22/#33/#34 remained unclosed. This is fixed-simulator evidence
+only; it neither proves a named triple nor seven-ID impossibility. M70 remains
+the eight-ID complete fixed-simulator WIN, and seven-or-fewer feasibility remains
+UNKNOWN. Evidence is under
+`docs/review/fc77177/real_tool_closed_loop_sol_high_seven_triple_duty_batch_v1/`.

@@ -1,0 +1,148 @@
+{
+  "boundary": "Observed fixed-simulator events only. No continuous positions, exact HP, complete heal ordering, or causal necessity is asserted. Old frames are not universal deadlines.",
+  "mandatory_final_verification": "Even if the named triple succeeds, complete WIN requires zero leaks, both protected targets safe/reached, all enemies settled, no active enemies, and simulator WIN.",
+  "open_unknowns": [
+    "Exact HP, continuous positions, complete heal candidate ordering, and causal necessity remain UNKNOWN unless recorded by events."
+  ],
+  "question": "Can one legal K<=7 plan preserve #11/#13 interception kills, protected #14 reach, and a real artillery kill with no artillery leak?",
+  "r106_default_parent": {
+    "action_sha256": "77cc7aceb3a593c6467a116fd0f69070b4ffcaff5c6168234d70881a75f64e3b",
+    "events_gz_sha256": "7ed0ee9b080441c6d90ff4d5a9106b40ff014a0b99f0f4fb18096d84c61164d5",
+    "events_restored_sha256": "ccd3fa8935097735d26a0e7fe49a10963bb2ae61b500d5a571a0a3eab9db4266",
+    "observed_failures": {
+      "central_leaks": {
+        "enemy_1110_uamord#21": 6697,
+        "enemy_1110_uamord#22": 6661,
+        "enemy_1110_uamord#33": 6846,
+        "enemy_1110_uamord#34": 6996
+      },
+      "protected_14_death": 3911,
+      "protected_3_reach": 15549
+    },
+    "observed_local_success": {
+      "artillery_damage": 13227.21,
+      "artillery_death": 4273,
+      "artillery_hits": 45,
+      "retreat_4280": "OBSERVED_LEGAL",
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      },
+      "steward_survived_3911": true
+    },
+    "plan_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "plan_sha256": "e170c2d1b44b7272bab200247e7a54eae16a9d7ac7ebf61ad2df3ae44a045c2d",
+    "record_id": "R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001:candidate-001",
+    "relative_archive": "parent_R106_SOL_HIGH_SEVEN_HEAL_COMPETITION_001",
+    "result": {
+      "kills": 22,
+      "leaks": 11,
+      "remaining_life": -9,
+      "win": false
+    },
+    "role": "DEFAULT_PRIMARY",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_284_spot",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ]
+  },
+  "r107_recovery_reference": {
+    "action_sha256": "d21a4bf139e96199faf9b80eebfaab04e1fdb5845e1e8df57336e2f674ca0f9e",
+    "events_gz_sha256": "3ef5e9aba8bd510dbb90d1c484b1f7d823b17e15c37235a99b18e10772caaca5",
+    "events_restored_sha256": "3404a7062adc5d4dc135bb5716418bc23ab5d90b28908302f09766c1eba485f4",
+    "observed_failures": {
+      "artillery_leak": 5759,
+      "protected_3_death": 5384,
+      "steward_death": 3970
+    },
+    "observed_local_success": {
+      "protected_14_reach": 12448,
+      "route_11": {
+        "block": 2738,
+        "death": 2881
+      },
+      "route_13": {
+        "block": 3098,
+        "death": 3311
+      }
+    },
+    "plan_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001",
+    "plan_sha256": "a66ebae929cf36d5653a138d05191daea4acd1c94ebef54b8bca965e46a9d8ea",
+    "record_id": "R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001:candidate-001",
+    "relative_archive": "reference_R107_SOL_HIGH_SEVEN_PROTECTED14_LATE_RELEASE_001",
+    "result": {
+      "kills": 20,
+      "leaks": 13,
+      "remaining_life": -11,
+      "win": false
+    },
+    "role": "REFERENCE",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_120_hibisc",
+      "char_210_stward"
+    ]
+  },
+  "r109_c5_reference": {
+    "action_sha256": "eeb6f3ed3ebb3b1e1631194b169dab2f43f998a8acea40f17be03993afc4a6c1",
+    "events_gz_sha256": "0dcfdcbd6cc56a86fc2efc0c70b4aba4dfc00b5b5a9e412db7f7781ac323f4de",
+    "events_restored_sha256": "0316af783f5f66c8e33e810f36da34a6fb5dfbc44356df544855d3c02035ae17",
+    "observed_failures": {
+      "artillery_death": null,
+      "artillery_leak": 5759,
+      "artillery_steward_damage": 4658.17,
+      "artillery_steward_hits": 16,
+      "central_leaks": {
+        "enemy_1110_uamord#21": 5150,
+        "enemy_1110_uamord#22": 5336,
+        "enemy_1110_uamord#33": 6846,
+        "enemy_1110_uamord#34": 6996
+      },
+      "fang_death": 4751,
+      "friston_death": 1479,
+      "midnight_death": 4903,
+      "protected_3_death": 5353,
+      "spot_death": 5003,
+      "steward_death": 2923
+    },
+    "observed_local_success": {
+      "protected_14_reach": 12448,
+      "route_11_died": true,
+      "route_13_died": true
+    },
+    "plan_id": "R109_SOL_HIGH_SEVEN_AUTONOMOUS_BATCH_005",
+    "plan_sha256": "8fb92ec5e4cf398387f14b04b8cc2c0ae214403684bd2337291690c900e29be6",
+    "record_id": "R109_SOL_HIGH_SEVEN_AUTONOMOUS_BATCH_005:candidate-005",
+    "relative_archive": "reference_R109_SOL_HIGH_SEVEN_AUTONOMOUS_BATCH_005",
+    "result": {
+      "kills": 20,
+      "leaks": 13,
+      "remaining_life": -10,
+      "win": false
+    },
+    "role": "REFERENCE",
+    "selected_operator_ids": [
+      "char_123_fang",
+      "char_4093_frston",
+      "char_283_midn",
+      "char_208_melan",
+      "char_212_ansel",
+      "char_284_spot",
+      "char_210_stward"
+    ]
+  },
+  "schema_version": "KIMIARK_R110_TRIPLE_DUTY_FACT_PACK_V1"
+}
