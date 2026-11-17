@@ -968,3 +968,15 @@ mapping and manifest, is under
 Session boundary for future prompts: within one active CLI, spending remaining
 checks to correct a contract/static failure is normal in-budget tool use; after
 CLI exit, a new CLI requires explicit new authorization and is not resume/retry.
+
+The zero-model complementary comparison of R106 and R107 recovery stopped before
+the conditional CLI. It confirmed that R107's #14 safety came from Melanha
+destroying roadblock4@2026, while R106's #14 death followed roadblock4 restraint
+and three 910 shells. The same substitution also changed lower blocking and heal
+allocation; R107's Steward died@3970 while R106 survived to 4280. Because both
+Spot and Melanha in the lower lane would make the deployed union eight IDs, and
+retreating or delaying Melanha leaves #16/#18 or #5/#9 closure UNKNOWN, no
+specific executable mechanism supported a bounded run. Evidence is under
+`docs/review/fc77177/r106_r107_complementary_branch_comparison_v1.md`. The next
+unauthorized question is whether a Melanha timing shift can clear roadblock4,
+preserve #5/#9/#16/#18 duties, and reduce heal competition without an eighth ID.
