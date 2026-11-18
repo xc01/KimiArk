@@ -1,0 +1,23 @@
+{
+  "schema_version": "KIMIARK_R113_SEARCH_BATCH_V1",
+  "variants": [
+    {
+      "id": "063_NBLADE_AFTER_ARTILLERY_DP",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0},
+        {"type": "remove_action", "action_type": "RETREAT", "operator_id": "char_123_fang", "frame": 3400},
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 5501},
+        {"type": "add_deploy", "operator_id": "char_502_nblade", "frame": 1200, "tile": [1, 3], "direction": "RIGHT"},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 901, "fields": {"frame": 1000}},
+        {"type": "set_action", "action_type": "ACTIVATE_SKILL", "operator_id": "char_208_melan", "frame": 2102, "fields": {"frame": 2402}},
+        {"type": "remove_action", "action_type": "ACTIVATE_SKILL", "operator_id": "char_208_melan", "frame": 3903},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_212_ansel", "frame": 1396, "fields": {"frame": 1500}},
+        {"type": "set_action", "action_type": "ACTIVATE_SKILL", "operator_id": "char_212_ansel", "frame": 2147, "fields": {"frame": 2250}},
+        {"type": "remove_action", "action_type": "ACTIVATE_SKILL", "operator_id": "char_212_ansel", "frame": 3948},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_120_hibisc", "frame": 1740, "fields": {"frame": 2100}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_210_stward", "frame": 2131, "fields": {"frame": 2600}}
+      ],
+      "validation_target": "Planner-safe post-artillery Nblade with DP-linked support schedule."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "variants": [
+    {
+      "id": "093_NBLADE_REPLACE_FRISTON",
+      "validation_target": "Replace Friston with early Nblade on [4,5], withdraw Nblade before Melanha's 4155 redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "add_deploy", "frame": 91, "operator_id": "char_502_nblade", "tile": [4,5], "direction": "RIGHT"},
+        {"type": "add_retreat", "frame": 4100, "operator_id": "char_502_nblade"}
+      ]
+    },
+    {
+      "id": "094_NOIRC751_REPLACE_FRISTON",
+      "validation_target": "Replace Friston with Noirc at [4,5] as soon as DP allows, then withdraw before Melanha's redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "add_deploy", "frame": 751, "operator_id": "char_500_noirc", "tile": [4,5], "direction": "UP"},
+        {"type": "add_retreat", "frame": 4100, "operator_id": "char_500_noirc"}
+      ]
+    },
+    {
+      "id": "095_NOIRC841_REPLACE_FRISTON",
+      "validation_target": "Test Noirc on [4,5] at the original Melanha deployment frame before withdrawing at 4100.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "add_deploy", "frame": 841, "operator_id": "char_500_noirc", "tile": [4,5], "direction": "UP"},
+        {"type": "add_retreat", "frame": 4100, "operator_id": "char_500_noirc"}
+      ]
+    },
+    {
+      "id": "096_NOIRC1000_REPLACE_FRISTON",
+      "validation_target": "Test a safer-cost Noirc deployment at [4,5] and withdraw before Melanha's redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "add_deploy", "frame": 1000, "operator_id": "char_500_noirc", "tile": [4,5], "direction": "UP"},
+        {"type": "add_retreat", "frame": 4100, "operator_id": "char_500_noirc"}
+      ]
+    }
+  ]
+}

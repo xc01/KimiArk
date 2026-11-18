@@ -1,0 +1,45 @@
+{
+  "variants": [
+    {
+      "id": "097_FANG45_RETREAT2000_MELANHA45",
+      "validation_target": "Use Fang early on [4,5], withdraw at 2000, then let Melanha occupy [4,5] at 4155.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0, "fields": {"tile": [4,5]}},
+        {"type": "add_retreat", "frame": 2000, "operator_id": "char_123_fang"},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "098_FANG45_RETREAT3000_MELANHA45",
+      "validation_target": "Use Fang early on [4,5], withdraw at 3000, then let Melanha occupy [4,5] at 4155.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0, "fields": {"tile": [4,5]}},
+        {"type": "add_retreat", "frame": 3000, "operator_id": "char_123_fang"},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "099_FANG45_RETREAT4000_MELANHA45",
+      "validation_target": "Use Fang early on [4,5], withdraw at 4000, then let Melanha occupy [4,5] at 4155.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0, "fields": {"tile": [4,5]}},
+        {"type": "add_retreat", "frame": 4000, "operator_id": "char_123_fang"},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "100_FANG45_RETREAT3000_REDEPLOY35",
+      "validation_target": "Use Fang early on [4,5], withdraw at 3000, let Melanha occupy [4,5], then redeploy Fang at [3,5].",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0, "fields": {"tile": [4,5]}},
+        {"type": "add_retreat", "frame": 3000, "operator_id": "char_123_fang"},
+        {"type": "add_deploy", "frame": 5000, "operator_id": "char_123_fang", "tile": [3,5], "direction": "UP"},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    }
+  ]
+}

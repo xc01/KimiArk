@@ -1,0 +1,104 @@
+{
+  "candidate_id": "candidate-006",
+  "candidate_sha256": "6c02c6eeb714224805803d208c4fee602f16a925e8ef6ebbda0601e12f47b872",
+  "check": {
+    "candidate_counted": true,
+    "candidate_id": "candidate-006",
+    "candidate_record_path": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-006/candidate_record.json",
+    "candidate_sha256": "6c02c6eeb714224805803d208c4fee602f16a925e8ef6ebbda0601e12f47b872",
+    "check_call_counted": true,
+    "check_id": "check-037",
+    "errors": [],
+    "execution_input_gate": {
+      "checked_operator_ids": [
+        "char_123_fang",
+        "char_208_melan",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_284_spot",
+        "char_4093_frston"
+      ],
+      "errors": [],
+      "roster_errors": [],
+      "schema_version": "KIMIARK_CLOSED_LOOP_EXECUTION_INPUT_GATE_V1",
+      "status": "PASS"
+    },
+    "layers": {
+      "event_query_errors": [],
+      "lineage_errors": [],
+      "schema_errors": [],
+      "semantic_errors": []
+    },
+    "simulation_started": false,
+    "status": "PASS"
+  },
+  "complete_win": false,
+  "plan_id": "R113_SEVEN_PARAM_SEARCH_R112C2_034_SPOT_13_3030",
+  "simulation": {
+    "budget": {
+      "max_stage_simulations": 100,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 6
+    },
+    "event_log_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-006/simulation/diagnostic_events.json",
+    "exit_code": 0,
+    "manifest_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-006/simulation/manifest.json",
+    "result": {
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "deployment_errors": [
+        "char_212_ansel@71.56666666666666: operator is not deployed",
+        "char_123_fang@113.33333333333333: operator is not deployed",
+        "char_208_melan@130.1: operator is not deployed",
+        "char_212_ansel@131.6: operator is not deployed",
+        "char_210_stward@142.66666666666666: operator is not deployed",
+        "char_283_midn@180.0: operator is not deployed",
+        "char_208_melan@190.13333333333333: operator is not deployed",
+        "char_212_ansel@191.63333333333333: operator is not deployed"
+      ],
+      "enemies_killed": 11,
+      "enemies_leaked": 22,
+      "final_dp": 99.0,
+      "operator_deaths": 9,
+      "protected_target_deaths": [
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 5293,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "time": 176.4333333333
+        },
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 6314,
+          "source_id": "enemy_1107_uoffcr#32",
+          "target_id": "enemy_3001_upeopl#14",
+          "time": 210.4666666667
+        }
+      ],
+      "protected_target_reached_events": [],
+      "remaining_life": -21,
+      "win": false
+    },
+    "result_sha256": {
+      "diagnostic_events.json": "ab2c6bd74d57370a1de61702c57404a3fed197f31efeaa4a577138465f35e95f",
+      "diagnostic_summary.json": "ce390f80b088885ad7c16f4583d2b3f58992e0d70d3c8a6039f1a8ce6fd7a857",
+      "manifest.json": "e8997eb3b9e258d9dfb872716c7170e362af3c9b06863101f439ee0bdcfda04c"
+    },
+    "simulation_started_counted": true,
+    "status": "COMPLETED",
+    "status_boundary": "Static compliance and observed events are not proof of a tactical hypothesis.",
+    "summary_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-006/simulation/diagnostic_summary.json"
+  },
+  "variant_id": "034_SPOT_13_3030"
+}

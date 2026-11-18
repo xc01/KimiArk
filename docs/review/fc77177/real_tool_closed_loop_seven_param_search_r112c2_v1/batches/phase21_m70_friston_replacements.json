@@ -1,0 +1,36 @@
+{
+  "variants": [
+    {
+      "id": "084_M70_NO_FRISTON_MELANHA45",
+      "validation_target": "After removing Friston, move Melanha's 4155 deployment from [3,4] to [4,5] to test central containment.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "085_M70_NO_FRISTON_MELANHA46",
+      "validation_target": "After removing Friston, move Melanha's 4155 deployment to [4,6] to test lower-central containment.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,6]}}
+      ]
+    },
+    {
+      "id": "086_M70_NO_FRISTON_FANG45",
+      "validation_target": "After removing Friston, move Fang's initial deployment to [4,5] and test whether Midnight/Melanha can hold upper coverage.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_123_fang", "frame": 0, "fields": {"tile": [4,5], "direction": "UP"}}
+      ]
+    },
+    {
+      "id": "087_M70_NO_FRISTON_FANG35_MELANHA45",
+      "validation_target": "Keep Fang at [3,5], remove Friston, and use Melanha at [4,5] while testing route-20 loss.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    }
+  ]
+}

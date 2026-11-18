@@ -1,0 +1,51 @@
+{
+  "variants": [
+    {
+      "id": "088_084_MELANHA741",
+      "validation_target": "Close the 832 early leak by moving Melanha's first deployment 100 frames earlier while retaining the 084 Melanha [4,5] redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 841, "fields": {"frame": 741}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "089_084_MELANHA651",
+      "validation_target": "Move Melanha's first deployment before the route-9 early window and retain the 084 redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 841, "fields": {"frame": 651}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "090_084_MELANHA600",
+      "validation_target": "Test a more aggressive early Melanha deployment while preserving the 084 redeploy.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 841, "fields": {"frame": 600}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "091_084_MELANHA741_RETREAT2154",
+      "validation_target": "Combine the earlier Melanha deployment with a 100-frame later retreat to test early coverage without losing artillery timing.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 841, "fields": {"frame": 741}},
+        {"type": "set_action", "action_type": "RETREAT", "operator_id": "char_208_melan", "frame": 2054, "fields": {"frame": 2154}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    },
+    {
+      "id": "092_084_MELANHA651_RETREAT2254",
+      "validation_target": "Test early Melanha coverage with a further delayed retreat while preserving the Steward window.",
+      "changes": [
+        {"type": "remove_action", "action_type": "DEPLOY", "operator_id": "char_4093_frston", "frame": 91},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 841, "fields": {"frame": 651}},
+        {"type": "set_action", "action_type": "RETREAT", "operator_id": "char_208_melan", "frame": 2054, "fields": {"frame": 2254}},
+        {"type": "set_action", "action_type": "DEPLOY", "operator_id": "char_208_melan", "frame": 4155, "fields": {"tile": [4,5]}}
+      ]
+    }
+  ]
+}

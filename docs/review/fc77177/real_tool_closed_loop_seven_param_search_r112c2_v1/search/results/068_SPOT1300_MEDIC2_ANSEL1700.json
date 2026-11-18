@@ -1,0 +1,101 @@
+{
+  "candidate_id": "candidate-013",
+  "candidate_sha256": "55b9b893b5115442afa0035840a28223e3965df5ef99ee9a8d14bf741b3ec819",
+  "check": {
+    "candidate_counted": true,
+    "candidate_id": "candidate-013",
+    "candidate_record_path": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-013/candidate_record.json",
+    "candidate_sha256": "55b9b893b5115442afa0035840a28223e3965df5ef99ee9a8d14bf741b3ec819",
+    "check_call_counted": true,
+    "check_id": "check-071",
+    "errors": [],
+    "execution_input_gate": {
+      "checked_operator_ids": [
+        "char_208_melan",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_284_spot",
+        "char_285_medic2",
+        "char_4093_frston"
+      ],
+      "errors": [],
+      "roster_errors": [],
+      "schema_version": "KIMIARK_CLOSED_LOOP_EXECUTION_INPUT_GATE_V1",
+      "status": "PASS"
+    },
+    "layers": {
+      "event_query_errors": [],
+      "lineage_errors": [],
+      "schema_errors": [],
+      "semantic_errors": []
+    },
+    "simulation_started": false,
+    "status": "PASS"
+  },
+  "complete_win": false,
+  "plan_id": "R113_SEVEN_PARAM_SEARCH_R112C2_068_SPOT1300_MEDIC2_ANSEL1700",
+  "simulation": {
+    "budget": {
+      "max_stage_simulations": 100,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 13
+    },
+    "event_log_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-013/simulation/diagnostic_events.json",
+    "exit_code": 0,
+    "manifest_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-013/simulation/manifest.json",
+    "result": {
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "deployment_errors": [
+        "char_208_melan@80.06666666666666: operator is not deployed",
+        "char_210_stward@142.66666666666666: operator is not deployed",
+        "char_283_midn@180.0: operator is not deployed",
+        "char_208_melan@190.13333333333333: operator is not deployed",
+        "char_212_ansel@191.63333333333333: operator is not deployed"
+      ],
+      "enemies_killed": 7,
+      "enemies_leaked": 26,
+      "final_dp": 99.0,
+      "operator_deaths": 8,
+      "protected_target_deaths": [
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 5293,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "time": 176.4333333333
+        },
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 6314,
+          "source_id": "enemy_1107_uoffcr#32",
+          "target_id": "enemy_3001_upeopl#14",
+          "time": 210.4666666667
+        }
+      ],
+      "protected_target_reached_events": [],
+      "remaining_life": -25,
+      "win": false
+    },
+    "result_sha256": {
+      "diagnostic_events.json": "a5876ca8bebf2faa8be07a7a647865719066469f83f9b0ff8186f511968af7fe",
+      "diagnostic_summary.json": "daf88612cf7717ded424674f506ec93b19fabd606d69fa2562d8d617ba9ea44f",
+      "manifest.json": "e3c4015e5eb531a075f9c8b03ff9236df4b21bb41be592cc3beba6934ff04a6a"
+    },
+    "simulation_started_counted": true,
+    "status": "COMPLETED",
+    "status_boundary": "Static compliance and observed events are not proof of a tactical hypothesis.",
+    "summary_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-013/simulation/diagnostic_summary.json"
+  },
+  "variant_id": "068_SPOT1300_MEDIC2_ANSEL1700"
+}

@@ -1,0 +1,102 @@
+{
+  "candidate_id": "candidate-020",
+  "candidate_sha256": "41ffe5f2898ffd3c3ca8c77a67b7dd160dd72104f5367b54f5ce5716efe655db",
+  "check": {
+    "candidate_counted": true,
+    "candidate_id": "candidate-020",
+    "candidate_record_path": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-020/candidate_record.json",
+    "candidate_sha256": "41ffe5f2898ffd3c3ca8c77a67b7dd160dd72104f5367b54f5ce5716efe655db",
+    "check_call_counted": true,
+    "check_id": "check-081",
+    "errors": [],
+    "execution_input_gate": {
+      "checked_operator_ids": [
+        "char_123_fang",
+        "char_208_melan",
+        "char_210_stward",
+        "char_212_ansel",
+        "char_283_midn",
+        "char_284_spot",
+        "char_4093_frston"
+      ],
+      "errors": [],
+      "roster_errors": [],
+      "schema_version": "KIMIARK_CLOSED_LOOP_EXECUTION_INPUT_GATE_V1",
+      "status": "PASS"
+    },
+    "layers": {
+      "event_query_errors": [],
+      "lineage_errors": [],
+      "schema_errors": [],
+      "semantic_errors": []
+    },
+    "simulation_started": false,
+    "status": "PASS"
+  },
+  "complete_win": false,
+  "plan_id": "R113_SEVEN_PARAM_SEARCH_R112C2_078_M70_REMOVE_HIBISCUS",
+  "simulation": {
+    "budget": {
+      "max_stage_simulations": 100,
+      "prior_stage_simulations": 0,
+      "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+      "stage_id": "main_08-07",
+      "started_stage_simulations": 20
+    },
+    "event_log_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-020/simulation/diagnostic_events.json",
+    "exit_code": 0,
+    "manifest_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-020/simulation/manifest.json",
+    "result": {
+      "classification": "MECHANICS_CORRECTED_DIAGNOSTIC_LOSS",
+      "deployment_errors": [
+        "char_212_ansel@129.1: operator is not deployed",
+        "char_210_stward@142.66666666666666: operator is not deployed",
+        "char_212_ansel@196.66666666666666: operator is not deployed",
+        "char_208_melan@211.66666666666666: operator is not deployed",
+        "char_212_ansel@256.7: operator is not deployed",
+        "char_208_melan@270.03333333333336: operator is not deployed"
+      ],
+      "enemies_killed": 21,
+      "enemies_leaked": 12,
+      "final_dp": 96.63333333333159,
+      "operator_deaths": 6,
+      "protected_target_deaths": [
+        {
+          "details": {
+            "kill_counted": false,
+            "life_delta": -1
+          },
+          "event_type": "ENEMY_DEATH",
+          "frame": 5353,
+          "source_id": "enemy_1112_emppnt#0",
+          "target_id": "enemy_3001_upeopl#3",
+          "time": 178.4333333333
+        }
+      ],
+      "protected_target_reached_events": [
+        {
+          "details": {
+            "amount": 0
+          },
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "frame": 11119,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null,
+          "time": 370.6333333333
+        }
+      ],
+      "remaining_life": -10,
+      "win": false
+    },
+    "result_sha256": {
+      "diagnostic_events.json": "fa0bdddaa2778666dfc7eeca833bfc2d6de223e8988f5a090cd2be5773bf133d",
+      "diagnostic_summary.json": "5748eddeb92e1a798ec3cecbcdad1bb6804b0226737a15978e9801ac11cf2f4e",
+      "manifest.json": "658184de7863e151fae778568b398cdd6aeb506b0cccfd678323071cccf280a8"
+    },
+    "simulation_started_counted": true,
+    "status": "COMPLETED",
+    "status_boundary": "Static compliance and observed events are not proof of a tactical hypothesis.",
+    "summary_reference": "docs/review/fc77177/real_tool_closed_loop_seven_param_search_r112c2_v1/session/candidates/candidate-020/simulation/diagnostic_summary.json"
+  },
+  "variant_id": "078_M70_REMOVE_HIBISCUS"
+}
