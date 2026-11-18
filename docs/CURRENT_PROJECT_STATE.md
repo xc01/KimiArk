@@ -1,5 +1,16 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-18 R115 action-group search is closed: V2 counting isolation passed;
+133 production checks (97 PASS/36 static rejects), 97 frozen candidates and
+99 complete fixed simulations, including two independent final reruns. No
+tactical CLI/model call was used. Candidate-089 closes #2/#7/#11/#13/#19/#29,
+artillery@4273 and both protected arrivals, but leaks #1/#6/#10/#12: complete
+LOSS 29/4, life -1, zero remaining. Both reruns reproduce its exact event hash.
+It complements the original 29/4 baseline leaking #2/#7/#11/#13; neither
+dominates. M70 eight-ID complete fixed-simulator WIN remains frozen;
+seven-or-fewer complete WIN UNKNOWN. Old ledgers stay intact; unused balance
+is not reused. See `review/fc77177/seven_group_search_v1/closeout_v1.md`.
+
 CONFIRMED_FROM_CODE_AND_EVIDENCE: the runtime now requires positive remaining
 life for WIN, rejects ordinary operator attack/block selection of neutral Ursus
 Civilians, records safe arrival and civilian death scoring, implements the
