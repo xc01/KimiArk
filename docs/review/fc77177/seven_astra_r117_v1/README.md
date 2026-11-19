@@ -1,0 +1,9 @@
+R117 is BLOCKED after its one actual tactical CLI process exited at local configuration loading. Read closeout_v1.md and startup_blocker_v1.json first. Do not rerun run_cli.py, preflight.py or prepare.py as a retry: R117 CLI allowance is exhausted. All original authorization, command, parser error and STARTED evidence remain intact.
+
+Model availability was confirmed by the installed CLI's authenticated no-generation model directory command. gpt-6.2-astra supports low. The raw catalog hash and selected model metadata are saved without archiving credentials or provider instructions. Production check/candidate/simulation counters were zero before and after the sole process attempt.
+
+prepare.py copies three actual parent payloads and hashes complete source events without inventing actions. batch_service.py is a local thin mechanical wrapper around the unchanged production service. Its inspect/read tools, model-authored decision records, exact action changes/parameter grids and independent production reruns were intended to let one Astra session own tactics; the session never reached those tools. Only the no-model handshake and isolated counting fixture used the service. No tactical hypothesis was supplied by the host or executed.
+
+The failed original preflight.py added two unsupported reserved-provider retry overrides, causing local Codex parser failure. Proposed correction is separate, explicitly NOT_EXECUTED. No parser fix may be used to silently reset CLI count or reopen this attempt. No tactical result or reward import is appropriate.
+
+User authorization and supplemental tactical freedom are in user_authorization.json and tactical_prompt.txt. Parent source artifact hashes and sealed old-ledger hashes are in parent_registry_v1.json and sealed_ledger_hashes.json. New final counters are in final_budget_v1.json. Locks and Python caches are preserved on disk and excluded from the commit. No push.

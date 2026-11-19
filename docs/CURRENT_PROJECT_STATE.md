@@ -1,5 +1,16 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R117 blocked before model generation: the one authorized
+GPT-6.2 Astra/low CLI process exited1 during local config loading. Host-added
+model_providers.openai retry overrides conflict with the installed Codex
+reserved built-in provider rule. Live model directory and zero-model MCP/fake
+preflight passed, but did not validate this Codex parser condition. CLI1/1,
+observed model generation0, production check/candidate/simulation0, rounds0.
+No restart/model substitution. Original error and unexecuted minimal correction
+are archived under review/fc77177/seven_astra_r117_v1/closeout_v1.md.
+R115/R116 sealed ledger hashes unchanged; no tactical result or quota inference.
+M70 eight-ID fixed-simulator WIN stays best; seven-or-fewer complete WIN UNKNOWN.
+
 2026-11-19 R116 is closed after five tactical hypotheses: 71 production
 checks (58 PASS/13 static rejects), 58 frozen candidates, 60 complete fixed
 simulations including two independent final reruns; model0/tactical CLI0.

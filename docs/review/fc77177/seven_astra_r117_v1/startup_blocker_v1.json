@@ -1,0 +1,47 @@
+{
+  "actual_cli_starts": 1,
+  "actual_full_simulations": 0,
+  "actual_requested_model": "gpt-6.2-astra",
+  "authorization_consumed": "One actual tactical CLI process attempt counted; no rollback",
+  "automatic_restart": false,
+  "batch": "R117",
+  "cause_layer": "LOCAL_CLI_CONFIG_LOADING_BEFORE_MCP_OR_MODEL",
+  "child_tactical_decisions": 0,
+  "correction_proposed": "Remove only the two reserved built-in provider overrides. Original authorized model/low unchanged. Frozen original input untouched; correction retained separately and not executed.",
+  "exit_code": 1,
+  "frozen_candidates": 0,
+  "frozen_inputs_manifest_sha256": "b793508d996b34321b8bb9ffaec5a6f4d89f400785c0d3a07798edb6490ee077",
+  "internal_cli_requests": "UNKNOWN_CLI_INTERNAL",
+  "introduced_by": "Execution host preflight.py added retry overrides under reserved built-in model_providers.openai",
+  "invalid_overrides": [
+    "model_providers.openai.request_max_retries=0",
+    "model_providers.openai.stream_max_retries=0"
+  ],
+  "model_directory_verified": true,
+  "model_generation_starts_observed": 0,
+  "new_child_thread_started_observed": false,
+  "next_action_NOT_EXECUTED": "A separately authorized new single CLI attempt with minimal supported configuration after zero-generation parser-compatibility verification; no tactical model switch. Original R117 failed attempt must remain.",
+  "not_quota_evidence": true,
+  "original_command_sha256": "35a97add1752939ea9fdc6f88e123e87d498e37dd88e162fea67cd20794f4e75",
+  "production_checks": 0,
+  "pure_static_toml_expansion": {
+    "request_max_retries": 0,
+    "stream_max_retries": 0
+  },
+  "r115_r116_hashes_unchanged": {
+    "docs/review/fc77177/seven_group_search_r116_v1/candidate_ledger_v1.json": "8342cb4ded655b0bbad4fe3c57e057d9e49440faca6ec92cc1f1a092d208375f",
+    "docs/review/fc77177/seven_group_search_r116_v1/search_state.json": "ec535a6733180dc00bdc796c5796112222dcc9e1b52b8d668ea768c400179edf",
+    "docs/review/fc77177/seven_group_search_r116_v1/simulation_budget_v1.json": "3a91877148a2ef60c3a325ba683b89531642d13859cc52da38cdd7bf0412d882",
+    "docs/review/fc77177/seven_group_search_v1/candidate_ledger_v1.json": "d60878cc1f924de422a69a240e07f05894c573777e3feb05d00e92ca53c21262",
+    "docs/review/fc77177/seven_group_search_v1/search_state.json": "0b0c56501cf574ef7d3956a03fc5ea5346b86dd8195d88a4f2cc3c827ecc931c",
+    "docs/review/fc77177/seven_group_search_v1/simulation_budget_v1.json": "3fe04f2b1a14e68a2e5b7dd61b9777c6a96d18128621de798367ebc9b2115adb"
+  },
+  "reasoning": "low",
+  "reported_error": "Error loading config.toml: model_providers contains reserved built-in provider IDs: `openai`. Built-in providers cannot be overridden. Rename your custom provider (for example, `openai-custom`).\nin `model_providers`\n\n",
+  "rounds_completed": 0,
+  "scope_of_fault": "Host local configuration; do not attribute to Astra tactical quality or import as tactical LOSS",
+  "status": "BLOCKED_UNIQUE_CLI_EXITED",
+  "stderr_sha256": "4cf1ac52b2ecccadc6d5d889db31c8a4437cfb3fe107f20ef93f17fe86cb27f0",
+  "usage": "NOT_APPLICABLE_PREMODEL_CONFIGURATION_EXIT",
+  "zero_model_preflight_scope": "MCP initialize/tools/list/status and fake counting passed before retry overrides were introduced; command construction validator checked allowlist equality, not new Codex semantic rejection of built-in provider overrides."
+}
