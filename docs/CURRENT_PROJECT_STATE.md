@@ -1,15 +1,17 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
-2026-11-19 R117 blocked before model generation: the one authorized
-GPT-6.2 Astra/low CLI process exited1 during local config loading. Host-added
-model_providers.openai retry overrides conflict with the installed Codex
-reserved built-in provider rule. Live model directory and zero-model MCP/fake
-preflight passed, but did not validate this Codex parser condition. CLI1/1,
-observed model generation0, production check/candidate/simulation0, rounds0.
-No restart/model substitution. Original error and unexecuted minimal correction
-are archived under review/fc77177/seven_astra_r117_v1/closeout_v1.md.
-R115/R116 sealed ledger hashes unchanged; no tactical result or quota inference.
-M70 eight-ID fixed-simulator WIN stays best; seven-or-fewer complete WIN UNKNOWN.
+2026-11-19 R117 completed five Astra-directed rounds after the user explicitly
+authorized a corrected process attempt. Historical config-loading CLI failure1
+remains; one new gpt-6.2-astra/low CLI completed (total processes2, actual tactical
+sessions1). No seven-ID full WIN. Battle counts45check/32PASS/33full simulations
+include one actual independent rerun. Candidate021 is28kills/5leaks,life-3,
+artillery killed, only protected3 arrived: it recovers#6 but adds#5/#9 relative
+to B. Candidate022 recovers#1/#6 but adds#5/#9/#29. A/B29/4 peers remain best.
+C lacks observed Melantha armor damage before Midnight5379 death; that death
+releases#23, later Fang/Friston deaths release separate armor/runner queues.
+R115/R116 ledgers unchanged. Final report and raw child decisions are under
+review/fc77177/seven_astra_r117_v1/recovery_attempt_02/closeout_v2.md.
+M70 eight-ID fixed-simulator WIN stays best; seven-or-fewer full WIN UNKNOWN.
 
 2026-11-19 R116 is closed after five tactical hypotheses: 71 production
 checks (58 PASS/13 static rejects), 58 frozen candidates, 60 complete fixed

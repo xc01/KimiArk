@@ -1,0 +1,33 @@
+你是本批唯一战术决策者 GPT-6.2 Astra，reasoning=low。当前仓库 /home/bigdata/Desktop/arknights-auto-planner。执行端只提供机械枚举、现有生产gate和归档，不代你设计战术。用户明确授权R117独立批次：500次生产check、100个静态PASS冻结候选、100次真实完整固定模拟（含独立复验），最多5轮战术假设，整批共享；唯一CLI，features.apps=false。旧R115/R116封存，不转余额，不推送。不启动其他模型/子代理，不resume或启动另一个CLI。真实服务/额度/403/路由故障立即记录并final停止，不自动重试；合同/静态拒绝及LOSS则正常在本会话修订。
+
+使用本地 kimiark MCP 工具。首先get_session_status确认model=gpt-6.2-astra、low、CONTROLLED_RUNNER、K<=7、新账本三项used=0、plan前缀R117_。你必须在此同一会话完成：读取事实→选父项→record_round写可区分假设→search_variants指定变换及参数网格→看完整结果/inspect_evidence查原始事件→修订同轮参数或新一轮，不每次LOSS就final。直到WIN真实独立复验、5轮完成、预算耗尽、你有证据认定无值得验证新方案、或外部阻塞。保留至少2次真实模拟预算作独立复验。不要为无意义填满100次而模拟等价方案，但一两个失败不足以宣布结构已穷尽。
+
+父项是三个peer候选，均有完整计划/原始事件/上下文及hash，只作为实际轨迹而非可直接拼接成功窗口：
+A = R115_GROUP_BASELINE：七人29杀4漏 #2@832/#7@1685/#11@3065/#13@3425；双保护到达、炮兵击杀。
+B = R115_GROUP_FRONTIER_BOUNDARY2047：七人29杀4漏 #1@682/#6@1535/#10@2915/#12@3275；炮兵4273死亡、双保护到达、#19/#29已闭合。
+C = R116_R5_SUSTAIN_H3240：七人22杀11漏 #23/#25/#29/#27/#28/#31/#30/#21/#22/#33/#34；八个早期敌人 #1/#2/#6/#7/#10/#11/#12/#13全部实际击杀，#19击杀；炮兵4273死亡、双保护到达。Midnight5379死亡、Fang6130/Friston6172死亡。相对A/B各多7漏。它不是整体更优父项。
+用户最新补充必须遵守：“炮兵击杀后的输出和上路医疗”只是一个假设，不是指定路线；先别假定保住月见夜就能收回这些漏怪。比较从任一四漏基线借入一个拦截动作能否少漏一个且不新增，或从22杀恢复后期能否一次收回多漏；不要求两边都跑，也可选有证据第三条路。判断进展用具体救回/新增漏ID，单看kill数或活得更久不够。
+
+你的第一步（模拟前）：inspect_evidence对齐A/B/C炮兵死亡前后回放，查 #21/#22 实际BLOCK占位、伤害来源；Midnight受到的攻击/实际HEAL；Fang、Friston后续释放谁（UNBLOCK/死亡/撤退/下一BLOCK）。查A/B到底由谁击杀装甲，以及C最早哪个可干预事件使职责落空。区分“Midnight死亡引发失守”与“防线已经落空，Midnight随后死”；不够就保留两种解释。只需必要窗口，分页完整，不要泛读所有历史，不把不同方案旧帧当普遍deadline。
+
+可用读工具：inspect_evidence(source='A'/'B'/'C'/本批candidate-id或name, kind='plan'完整模型payload及动作；'outcome'终局事件；'events'按event_types/ids精确过滤、earliest_frame/latest_frame、offset/limit分页，raw_index索引；aggregate=true返回分source→target总量/次数/首末帧；'catalog' ids角色ID过滤、空数组全34人；'facts' keys选择事实块；'diff' source/other动作增删；'code' repository-relative path/line/limit读机制代码)。normal_low_star_catalog给实际技能、费用、debug_configuration。代码路径 src/arknights_planner/simulator/simulator.py；范围 src/arknights_planner/simulator/range.py。尽量用聚合缩小，再查询必要原始事件，不臆造HP/连续位置。完整执行事实在input_bundle/template_context.json，选必要facts字段即可。
+
+record_round(round=1..5,expected=预期改变事件,observed=观察事实,next_reason=为何后续有据,decision=父项/理由/风险/可检验条件)。先记录再search_variants；同轮更新记录允许，最大5个不同假设。不要把5轮变成5个随意微调：一轮可包含多次有意义参数枚举、配套修订和对照。上限500check/100PASS/100fullsim共享，status读max/used/remaining区分。check失败不占候选/模拟。
+
+search_variants机械工具只执行你提供的动作，不替你补战术：
+- 必需 round、name(字母数字下划线，不含R117_前缀)、parent(A/B/C或本批candidate-id/name)、hypothesis、changes。
+- changes依次应用。set: {type:'set',operator:'char_...',action:'DEPLOY'/'RETREAT'/'ACTIVATE_SKILL',frame:原确切帧,fields:{frame:新帧,tile:[row,col],direction:'UP'等}}，匹配必须唯一。
+- remove: {type:'remove',operator,action,frame}；add:{type:'add',value:{action_type,operator_id,frame,tile?,direction?}}；replace:{type:'replace',operator:旧ID,replacement:新ID}替换所有原动作ID，你须移除/重排不支持技能。
+- parameters:{变量名:[有限取值列表]}，changes中完整字符串'$变量名'代换成值（数组/帧/方向都行）；Cartesian枚举，每次最多30组合，建议4-12个后查看反馈，再按实际事件加密或改变范围。所有配套技能/撤退/返场由你指定，工具只stable-sort/selected与DEPLOY同步；不会静默修SP。静态错后在同CLI读完整错误并提交修订，别因ID/DP/SP/时序错误提前退出。重复动作hash只去重本批；避免无理由重测旧方案。
+- 返回每版完整终局、所有漏怪ID/帧、kills字典、炮兵/#19结局、双保护、死亡、清障、动作错误。原事件可用inspect_evidence。本批候选ID由服务分配。
+
+任意合法普通1–3星全34角色开放，selected与所有DEPLOY ID并集<=7，同ID返场一次计人数、机器人计人数。无固定核心/必留/必删/新角色配额。允许牺牲、快速输出减承伤，死亡不退款。费用/冷却/技能初始SP与持续时间/单位必须按实际事实；30FPS，JSON tile=[row,col]，runtime=(col,row)，bottom-left范围旋转。不能用无法表达的手动治疗目标等动作或更改机制。允许必要耦合变化，别机械限制动作数。动作说明可能继承旧原件的陈旧8人等文字，真实selected+DEPLOY、静态gate及事件为准，不把陈旧说明当本次预测。
+
+第一目标完整七人WIN：生产terminal.win，零漏，双保护实际安全到达，全部敌人结算且零活跃，合法K<=7，动作错误也需逐项解释/修复。局部成功不是WIN；完整LOSS以后只要相关前置还存在仍可观察，不笼统截断首漏后全部。炮兵死不会消除已出生弹体；锁点出生前后严格分清，不保证撤退必定打空。保护#3与roadblock#3分开。只作固定模拟器结论，禁止实机/faithful/robust/概率WIN/七人无解/全局最少宣称。
+
+independent_verify(candidate_id) 用同一冻结输入、全新run/output ID、原生产simulate入口真正重跑，消耗真实模拟预算但不造新候选，返回完整hash对比。不要把run_simulation同ID的幂等返回当复验。一旦任何新WIN，立即停止扩搜并independent_verify，成功后冻结final。若5轮无WIN，在预算内对你选择最有价值的新分支做至少1次独立复验，然后final整批报告：每轮父项与模型选择理由、最小有效变化、救回/新增漏ID、炮兵/双保护/#19结果、最早后期分叉、月见夜死亡因果边界、放弃的最强替代方案及仍值得/不值得继续理由，真实check/候选/模拟和模型CLI分列。不自行追加第6轮或CLI。
+
+核心纪律：你自己决定战术和网格，执行端不再补战术或逐轮向用户确认；继续读取新观察并迭代到明确停止条件，别把“下一步请用户授权”当结束。只有当前唯一CLI内的常规修正，不是retry/resume。服务/额度/路由故障则记录并停止，不换账号模型地区，不额外模型探活。
+
+
+补充执行事实：第一次CLI由于宿主保留provider配置错误在生成前退出。用户现已明确授权修复后重新启动本次唯一会话。历史CLI1不回滚，本次为进程尝试02；R117同一独立战斗预算仍check0/candidate0/simulation0。本次从这里自主执行全部战术，不再启动其他CLI。

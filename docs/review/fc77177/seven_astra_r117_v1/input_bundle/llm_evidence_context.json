@@ -4072,16 +4072,16 @@
     "path": "docs/review/fc77177/seven_astra_r117_v1/parent_registry_v1.json",
     "selection_policy": "A/B four-leak and C joint early22/11 are peer evidence choices; Astra chooses actual parent."
   },
-  "previous_plan_id": "R115_GROUP_BASELINE",
+  "previous_plan_id": "R115_GROUP_FRONTIER_BOUNDARY2047",
   "previous_plan_to_revise": {
     "action_timeline": [
       {
         "action_type": "DEPLOY",
-        "direction": "UP",
+        "direction": "RIGHT",
         "frame": 0,
         "operator_id": "char_123_fang",
         "tile": [
-          3,
+          4,
           5
         ]
       },
@@ -4132,7 +4132,7 @@
       },
       {
         "action_type": "RETREAT",
-        "frame": 2054,
+        "frame": 2047,
         "operator_id": "char_208_melan",
         "rationale": "Living withdrawal after assigned projectile birth; empty held queue required."
       },
@@ -4183,11 +4183,11 @@
       },
       {
         "action_type": "DEPLOY",
-        "direction": "DOWN",
-        "frame": 4155,
+        "direction": "UP",
+        "frame": 4148,
         "operator_id": "char_208_melan",
         "tile": [
-          4,
+          3,
           5
         ]
       },
@@ -4457,11 +4457,11 @@
     "deployment_positions_and_directions": [
       {
         "action_type": "DEPLOY",
-        "direction": "UP",
+        "direction": "RIGHT",
         "frame": 0,
         "operator_id": "char_123_fang",
         "tile": [
-          3,
+          4,
           5
         ]
       },
@@ -4527,11 +4527,11 @@
       },
       {
         "action_type": "DEPLOY",
-        "direction": "DOWN",
-        "frame": 4155,
+        "direction": "UP",
+        "frame": 4148,
         "operator_id": "char_208_melan",
         "tile": [
-          4,
+          3,
           5
         ]
       },
@@ -4774,8 +4774,8 @@
         "requirement": "Require remaining_life>0, zero leaks, exhausted spawns, no active enemies, zero protected-target deaths and safe arrival of both expected protected targets. Operator deaths are recorded separately."
       }
     ],
-    "operational_plan_id": "R115_GROUP_BASELINE",
-    "parent_hypothesis_id": "R115_GROUP_BASELINE",
+    "operational_plan_id": "R115_GROUP_FRONTIER_BOUNDARY2047",
+    "parent_hypothesis_id": "R115_GROUP_FRONTIER_BOUNDARY2047",
     "parent_plan_id": "R114_SEVEN_PARAM_SEARCH_084_MELREDEPLOY_45_DOWN",
     "pressure_window_responsibilities": [
       {
@@ -4889,9 +4889,46 @@
     ],
     "tactical_thesis": "Preserve the supported four-lane opening, then separate final armor duties by geometry. Melantha retains upper-central clearance and reserves her attack skill for armor33. Returning Steward faces RIGHT from [5,5], covering the lower holder and its approach while excluding the upper holder. Delay the third medical activations so both boosts overlap the former fatal lower queue. This is an unsimulated, CURRENT_MODEL_CHECKABLE candidate; healing allocation, lower armor clearance and actual interception remain falsifiable.",
     "validation_card": {
-      "changes": [],
+      "changes": [
+        {
+          "action": "DEPLOY",
+          "fields": {
+            "direction": "RIGHT",
+            "tile": [
+              4,
+              5
+            ]
+          },
+          "frame": 0,
+          "operator": "char_123_fang",
+          "type": "set"
+        },
+        {
+          "action": "RETREAT",
+          "fields": {
+            "frame": 2047
+          },
+          "frame": 2054,
+          "operator": "char_208_melan",
+          "type": "set"
+        },
+        {
+          "action": "DEPLOY",
+          "fields": {
+            "direction": "UP",
+            "frame": 4148,
+            "tile": [
+              3,
+              5
+            ]
+          },
+          "frame": 4155,
+          "operator": "char_208_melan",
+          "type": "set"
+        }
+      ],
       "generator": "deterministic_group_search",
-      "hypothesis": "Reproduce the independently verified 29/4 actions before group search.",
+      "hypothesis": "Refine only observed #19 transition between legal return@4146 and missed block@4155. Track first block and kill, both protected arrivals, cannon, #29, and all leak IDs; minimal frame delta is descriptive, not a generic safe deadline.",
       "parent_id": "R114_SEVEN_PARAM_SEARCH_084_MELREDEPLOY_45_DOWN",
       "regressions_to_observe": [
         "all leak IDs",

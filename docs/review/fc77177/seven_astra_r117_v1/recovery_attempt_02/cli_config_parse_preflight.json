@@ -1,0 +1,31 @@
+{
+  "command": [
+    "codex",
+    "-c",
+    "model_provider=\"openai\"",
+    "-c",
+    "features.apps=false",
+    "-c",
+    "mcp_servers.kimiark.command=\"/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python\"",
+    "-c",
+    "mcp_servers.kimiark.args=[\"/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r117_v1/batch_service.py\",\"/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r117_v1/recovery_attempt_02/session_config_v2.json\"]",
+    "-c",
+    "mcp_servers.kimiark.required=true",
+    "-c",
+    "mcp_servers.kimiark.default_tools_approval_mode=\"approve\"",
+    "-c",
+    "mcp_servers.kimiark.enabled_tools=[\"get_session_status\",\"check_plan\",\"run_simulation\",\"query_events\",\"inspect_evidence\",\"record_round\",\"search_variants\",\"independent_verify\"]",
+    "-c",
+    "mcp_servers.kimiark.tool_timeout_sec=1800",
+    "-m",
+    "gpt-6.2-astra",
+    "-c",
+    "model_reasoning_effort=\"low\"",
+    "debug",
+    "models"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "stdout_sha256": "62b6f557b7d01093323249b38f3237482c704345961596c5c57795d89e30c381",
+  "zero_generation": true
+}

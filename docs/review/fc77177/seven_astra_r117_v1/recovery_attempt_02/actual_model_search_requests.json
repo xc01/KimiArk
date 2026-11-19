@@ -1,0 +1,467 @@
+[
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "UP",
+          "tile": "$tile"
+        },
+        "frame": 2341,
+        "operator": "char_284_spot",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "RIGHT",
+          "tile": [
+            6,
+            5
+          ]
+        },
+        "frame": 4148,
+        "operator": "char_208_melan",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Transfer two ground duties",
+    "name": "SpotBridge",
+    "parameters": {
+      "tile": [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 1
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir"
+        },
+        "frame": 1740,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "DOWN",
+          "tile": "$tile"
+        },
+        "frame": 1396,
+        "operator": "char_212_ansel",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Change Hibiscus arc with or without B Ansel coverage",
+    "name": "MedicArc",
+    "parameters": {
+      "dir": [
+        "LEFT",
+        "DOWN",
+        "UP"
+      ],
+      "tile": [
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    },
+    "parent": "C",
+    "round": 2
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir"
+        },
+        "frame": 1740,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Preserve Ansel original upper barrage heal while turning Hibiscus",
+    "name": "HibOnly",
+    "parameters": {
+      "dir": [
+        "LEFT",
+        "DOWN",
+        "RIGHT"
+      ]
+    },
+    "parent": "C",
+    "round": 2
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "tile": "$tile"
+        },
+        "frame": 2131,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "RETREAT",
+        "frame": 4280,
+        "operator": "char_210_stward",
+        "type": "remove"
+      },
+      {
+        "action": "DEPLOY",
+        "frame": 6381,
+        "operator": "char_210_stward",
+        "type": "remove"
+      }
+    ],
+    "hypothesis": "Sustain arts on central armor without redeployment gap",
+    "name": "StayCaster",
+    "parameters": {
+      "dir": [
+        "DOWN",
+        "LEFT"
+      ],
+      "tile": [
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    "parent": "C",
+    "round": 3
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "UP",
+          "frame": "$time",
+          "tile": [
+            3,
+            5
+          ]
+        },
+        "frame": 841,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": "$spot"
+        },
+        "frame": 2341,
+        "operator": "char_284_spot",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Intercept empty lane during Melantha first life; optional earlier Spot covers upper",
+    "name": "EarlyMel",
+    "parameters": {
+      "spot": [
+        1322,
+        2073,
+        2341
+      ],
+      "time": [
+        391,
+        571,
+        841
+      ]
+    },
+    "parent": "B",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "UP",
+          "frame": 451,
+          "tile": "$tile"
+        },
+        "frame": 841,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 751
+        },
+        "frame": 571,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1952
+        },
+        "frame": 1772,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Pay Melantha 15 before first contact then Midnight after Fang grant; shift first skill for SP",
+    "name": "FrontPay",
+    "parameters": {
+      "tile": [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "UP",
+          "frame": 451,
+          "tile": "$tile"
+        },
+        "frame": 841,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 751
+        },
+        "frame": 571,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1952
+        },
+        "frame": 1772,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 5253
+        },
+        "frame": 5073,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Same opening with linked second Midnight skill",
+    "name": "FrontPaySP",
+    "parameters": {
+      "tile": [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 2582,
+        "operator": "char_120_hibisc",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 4083,
+        "operator": "char_120_hibisc",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 6100,
+        "operator": "char_120_hibisc",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 7601,
+        "operator": "char_120_hibisc",
+        "type": "remove"
+      },
+      {
+        "operator": "char_120_hibisc",
+        "replacement": "char_124_kroos",
+        "type": "replace"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "tile": "$tile"
+        },
+        "frame": 1681,
+        "operator": "char_124_kroos",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "Kroos shoots across bypass lane with original outer pair",
+    "name": "Marksman",
+    "parameters": {
+      "dir": [
+        "UP",
+        "LEFT"
+      ],
+      "tile": [
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 5
+  },
+  {
+    "changes": [
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 2072,
+        "operator": "char_212_ansel",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 3873,
+        "operator": "char_212_ansel",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 5900,
+        "operator": "char_212_ansel",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 7701,
+        "operator": "char_212_ansel",
+        "type": "remove"
+      },
+      {
+        "operator": "char_212_ansel",
+        "replacement": "char_124_kroos",
+        "type": "replace"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "tile": "$tile"
+        },
+        "frame": 1321,
+        "operator": "char_124_kroos",
+        "type": "set"
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "RETREAT",
+          "frame": 6379,
+          "operator_id": "char_124_kroos"
+        }
+      }
+    ],
+    "hypothesis": "Retain Hibiscus barrage coverage; exchange Ansel for Kroos and release occupied return tile",
+    "name": "MarksCover",
+    "parameters": {
+      "dir": [
+        "DOWN",
+        "LEFT"
+      ],
+      "tile": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 5
+  }
+]
