@@ -1,0 +1,56 @@
+{
+  "budget_before": 12,
+  "candidate_id": "candidate-002",
+  "command": [
+    "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+    "/home/bigdata/Desktop/arknights-auto-planner/scripts/run_gpt_tactical_stage_session_v1.py",
+    "simulate",
+    "--stage-id",
+    "main_08-07",
+    "--facts-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r119_v1/reverification/independent-1/source",
+    "--output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r119_v1/reverification/independent-1/source",
+    "--diagnostic-output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r119_v1/reverification/independent-1/simulation",
+    "--plan-id",
+    "R119_VanFirst_0",
+    "--plan-label",
+    "R119",
+    "--plan-id-prefix",
+    "R119_",
+    "--max-unique-deployed-operators",
+    "7",
+    "--authorization-config",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r119_v1/model_authorization_v1.json",
+    "--simulation-budget-path",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_astra_r119_v1/simulation_budget_v1.json"
+  ],
+  "frozen_inputs_sha256": {
+    "execution_input_gate.json": "91c3833daa1330b1ec156c443a8ed1e8ac50ad8fa3ac150e42728fcd6fe2e4be",
+    "llm_evidence_context.json": "bef5f76ab18d1f7488e346f7abf4bcfa12b03ea78a041efd09644ae7349bf94a",
+    "llm_plan_validation.json": "45fab74821ff14f1741f1739079babb5f07eca50d69d5c1164a61b77f7e63efa",
+    "llm_structured_output.json": "c1d4a1bb8a9cec4b51e824a189955af7a62d7b46370204e723660dc3282339c7",
+    "revision_output_schema.json": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "static_compile_results.json": "bfff1a28775fa576c2561ed87b0809c242eb1dd2a264b87885bd05bb4f4c2898"
+  },
+  "gate": {
+    "budget_sha256": "28c102dcda83eec96dbd841fbb682e78a5d0d5eeba2267b123b50c318eb71371",
+    "diagnostic_output_dir": "docs/review/fc77177/seven_astra_r119_v1/reverification/independent-1/simulation",
+    "expected_plan_id": "R119_VanFirst_0",
+    "expected_protected_target_count": 2,
+    "immutable_rule": "existing diagnostic manifests may not be overwritten",
+    "inputs": {
+      "evidence_context_sha256": "bef5f76ab18d1f7488e346f7abf4bcfa12b03ea78a041efd09644ae7349bf94a",
+      "plan_validation_sha256": "45fab74821ff14f1741f1739079babb5f07eca50d69d5c1164a61b77f7e63efa",
+      "static_compile_results_sha256": "bfff1a28775fa576c2561ed87b0809c242eb1dd2a264b87885bd05bb4f4c2898",
+      "structured_output_sha256": "c1d4a1bb8a9cec4b51e824a189955af7a62d7b46370204e723660dc3282339c7"
+    },
+    "remaining_stage_simulations": 88,
+    "schema_version": "KIMIARK_FROZEN_PLAN_EVALUATION_GATE_V1",
+    "source_dir": "docs/review/fc77177/seven_astra_r119_v1/reverification/independent-1/source",
+    "stage_id": "main_08-07",
+    "status": "AUTHORIZED"
+  },
+  "source": "Astra explicitly requested independent rerun"
+}

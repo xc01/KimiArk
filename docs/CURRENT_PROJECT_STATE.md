@@ -1,5 +1,21 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R119 closed after five actual gpt-6.2-astra/low-directed rounds
+in one CLI (apps=false): 16 production checks, 12 PASS frozen candidates,
+13 complete fixed simulations including one real independent rerun. No
+seven-ID full WIN or strict reduction of either four-leak baseline. New
+Fang-free candidate002 (Vanilla opener with coupled skill/deploy ordering)
+independently reproduces LOSS29/4, leaks#1/#6/#10/#12, artillery4273,
+both protected arrivals and #19/central kills, no deaths/errors/active enemies.
+Candidate003 is the complementary Fang-free29/4 branch, not independently
+rerun. Candidate007 Kroos replaces Hibiscus and actually kills#10/#12, but
+Ansel/Steward die2593 and terminal regresses18/15; protect14 arrives,3 dies5353.
+Four direction variants did not restore artillery with one medic. No claim
+Fang is necessary; no strict global progress. R115-R118 sealed hashes match,
+unused R119 balance sealed, no push. See review/fc77177/seven_astra_r119_v1/
+RESULT_TO_COPY.txt and closeout_v1.md. M70 eight-ID fixed-simulator complete
+WIN stays best; seven-or-fewer complete WIN UNKNOWN.
+
 2026-11-19 R118 closed after five actual gpt-6.2-astra/low-directed rounds
 using one sustained CLI (apps=false): 24 production checks, 18 PASS frozen
 candidates and 19 complete fixed simulations including one independent rerun.
