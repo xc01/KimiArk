@@ -1,5 +1,19 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R118 closed after five actual gpt-6.2-astra/low-directed rounds
+using one sustained CLI (apps=false): 24 production checks, 18 PASS frozen
+candidates and 19 complete fixed simulations including one independent rerun.
+No seven-ID full WIN and no strict reduction of either four-leak baseline.
+Candidate016 only turns Fang at frame0 [4,5] RIGHT to DOWN; it adds two hits
+each to #1/#6/#10/#12 (450/350/350/350 damage) but all four still leak.
+It preserves artillery4273, roadblock4 clearance1966, both protected arrivals,
+#19 and the late central kills: LOSS29/4, life-1, zero remaining/deaths/errors.
+Independent plan/action/full-event hashes match; original model decisions and
+18 mechanical payload reconstructions verified. R115/R116/R117 sealed ledgers
+unchanged; remaining R118 budget sealed, no transfer or push. See
+review/fc77177/seven_astra_r118_v1/closeout_v1.md. M70 eight-ID fixed-simulator
+complete WIN stays best; seven-or-fewer complete WIN UNKNOWN.
+
 2026-11-19 R117 completed five Astra-directed rounds after the user explicitly
 authorized a corrected process attempt. Historical config-loading CLI failure1
 remains; one new gpt-6.2-astra/low CLI completed (total processes2, actual tactical

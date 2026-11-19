@@ -1,0 +1,328 @@
+{
+  "batch": "R118",
+  "best_complete": "M70 eight-ID fixed simulator WIN stays frozen; seven-or-fewer complete WIN UNKNOWN",
+  "best_new_no_regression": {
+    "action_hash": "4d78228e9d150da2f3f96b06ab925179cbef6b7e4b912d15ecf3f9c9235c57f8",
+    "candidate_id": "candidate-016",
+    "candidate_sha256": "96e820e3c1c351b2eb5b7b40ecc5fa37b4ad2751a097f656a9b29ec9facc52d2",
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "DOWN",
+          "tile": [
+            4,
+            5
+          ]
+        },
+        "frame": 0,
+        "operator": "char_123_fang",
+        "type": "set"
+      }
+    ],
+    "events_hash": "e6d547b3b252369e3c7eac4d7f2193ac601d57c02f147dcf217a95c825fbe881",
+    "hypothesis": "保留芬阻挡原四行并向第三行补击，在不同列检验能否延长对原漏敌的输出窗口",
+    "leak_delta_to_parents": {
+      "A": {
+        "added": [
+          "enemy_1107_uoffcr#10",
+          "enemy_1107_uoffcr#12",
+          "enemy_1107_uoffcr#6",
+          "enemy_1108_uterer#1"
+        ],
+        "eliminated": [
+          "enemy_1107_uoffcr#11",
+          "enemy_1107_uoffcr#13",
+          "enemy_1107_uoffcr#7",
+          "enemy_1108_uterer#2"
+        ],
+        "strict_subset": false
+      },
+      "B": {
+        "added": [],
+        "eliminated": [],
+        "strict_subset": false
+      },
+      "C": {
+        "added": [
+          "enemy_1107_uoffcr#10",
+          "enemy_1107_uoffcr#12",
+          "enemy_1107_uoffcr#6",
+          "enemy_1108_uterer#1"
+        ],
+        "eliminated": [
+          "enemy_1107_uoffcr#23",
+          "enemy_1107_uoffcr#25",
+          "enemy_1107_uoffcr#30",
+          "enemy_1108_uterer#27",
+          "enemy_1108_uterer#28",
+          "enemy_1108_uterer#29",
+          "enemy_1108_uterer#31",
+          "enemy_1110_uamord#21",
+          "enemy_1110_uamord#22",
+          "enemy_1110_uamord#33",
+          "enemy_1110_uamord#34"
+        ],
+        "strict_subset": false
+      },
+      "D": {
+        "added": [
+          "enemy_1107_uoffcr#6"
+        ],
+        "eliminated": [
+          "enemy_1107_uoffcr#9",
+          "enemy_1108_uterer#5"
+        ],
+        "strict_subset": false
+      }
+    },
+    "name": "FangAssist_0",
+    "observed": {
+      "artillery_kill": 4273,
+      "complete_win": false,
+      "device_destroyed": [
+        {
+          "details": {},
+          "event_type": "DEVICE_DESTROYED",
+          "frame": 1966,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#4",
+          "time": 65.5333333333
+        },
+        {
+          "details": {},
+          "event_type": "DEVICE_DESTROYED",
+          "frame": 2326,
+          "source_id": "char_283_midn",
+          "target_id": "trap_020_roadblock#3",
+          "time": 77.5333333333
+        },
+        {
+          "details": {},
+          "event_type": "DEVICE_DESTROYED",
+          "frame": 10787,
+          "source_id": "char_208_melan",
+          "target_id": "trap_020_roadblock#2",
+          "time": 359.5666666667
+        },
+        {
+          "details": {},
+          "event_type": "DEVICE_DESTROYED",
+          "frame": 11017,
+          "source_id": "char_210_stward",
+          "target_id": "trap_020_roadblock#1",
+          "time": 367.2333333333
+        }
+      ],
+      "enemy19_kill": 4281,
+      "event_log": "docs/review/fc77177/seven_astra_r118_v1/session/candidates/candidate-016/simulation/diagnostic_events.json",
+      "kills": {
+        "enemy_1107_uoffcr#11": 2867,
+        "enemy_1107_uoffcr#13": 3266,
+        "enemy_1107_uoffcr#15": 3818,
+        "enemy_1107_uoffcr#16": 4795,
+        "enemy_1107_uoffcr#17": 4208,
+        "enemy_1107_uoffcr#18": 5515,
+        "enemy_1107_uoffcr#19": 4281,
+        "enemy_1107_uoffcr#20": 4373,
+        "enemy_1107_uoffcr#23": 5433,
+        "enemy_1107_uoffcr#24": 6235,
+        "enemy_1107_uoffcr#25": 5901,
+        "enemy_1107_uoffcr#26": 7053,
+        "enemy_1107_uoffcr#30": 6408,
+        "enemy_1107_uoffcr#32": 7358,
+        "enemy_1107_uoffcr#7": 1651,
+        "enemy_1107_uoffcr#8": 1819,
+        "enemy_1107_uoffcr#9": 1786,
+        "enemy_1108_uterer#2": 796,
+        "enemy_1108_uterer#27": 5839,
+        "enemy_1108_uterer#28": 5992,
+        "enemy_1108_uterer#29": 6064,
+        "enemy_1108_uterer#31": 6199,
+        "enemy_1108_uterer#4": 1195,
+        "enemy_1108_uterer#5": 1246,
+        "enemy_1110_uamord#21": 5160,
+        "enemy_1110_uamord#22": 5628,
+        "enemy_1110_uamord#33": 6684,
+        "enemy_1110_uamord#34": 6861,
+        "enemy_1112_emppnt#0": 4273
+      },
+      "leaks": [
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 682,
+          "source_id": "enemy_1108_uterer#1",
+          "target_id": null,
+          "time": 22.7333333333
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 1535,
+          "source_id": "enemy_1107_uoffcr#6",
+          "target_id": null,
+          "time": 51.1666666667
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 2915,
+          "source_id": "enemy_1107_uoffcr#10",
+          "target_id": null,
+          "time": 97.1666666667
+        },
+        {
+          "details": {
+            "amount": 1
+          },
+          "event_type": "ENEMY_LEAK",
+          "frame": 3275,
+          "source_id": "enemy_1107_uoffcr#12",
+          "target_id": null,
+          "time": 109.1666666667
+        }
+      ],
+      "operator_deaths": [],
+      "protected_arrivals": [
+        {
+          "details": {
+            "amount": 0
+          },
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "frame": 11119,
+          "source_id": "enemy_3001_upeopl#14",
+          "target_id": null,
+          "time": 370.6333333333
+        },
+        {
+          "details": {
+            "amount": 0
+          },
+          "event_type": "PROTECTED_TARGET_REACHED",
+          "frame": 11349,
+          "source_id": "enemy_3001_upeopl#3",
+          "target_id": null,
+          "time": 378.3
+        }
+      ],
+      "result": {
+        "deployment_errors": [],
+        "enemies_killed": 29,
+        "enemies_leaked": 4,
+        "enemies_remaining": 0,
+        "final_dp": 99.0,
+        "first_objective_failure_reason": "ENEMY_LEAK",
+        "first_objective_failure_time": 97.1666666667,
+        "operator_deaths": 0,
+        "remaining_enemy_hp": 0,
+        "remaining_enemy_route_progress": 0,
+        "remaining_life": -1,
+        "run_metadata": null,
+        "score": -115.0,
+        "time_survived": 378.3333333333,
+        "win": false
+      }
+    },
+    "parameters": {
+      "t": [
+        4,
+        5
+      ]
+    },
+    "parent": "B",
+    "plan_id": "R118_FangAssist_0",
+    "round": 5
+  },
+  "counts": {
+    "CLI_usage": [
+      {
+        "event_type": "turn.completed",
+        "item_type": null,
+        "json_pointer": "/events/85",
+        "line": 86,
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 757120,
+          "input_tokens": 795088,
+          "output_tokens": 6084,
+          "reasoning_output_tokens": 1374
+        }
+      }
+    ],
+    "actual_full_simulations": 19,
+    "candidate_first_runs": 18,
+    "features_apps": false,
+    "frozen_PASS_candidates": 18,
+    "independent_reruns": 1,
+    "internal_model_requests": "UNKNOWN_CLI_INTERNAL",
+    "model": "gpt-6.2-astra",
+    "production_check": 24,
+    "real_tactical_CLI_processes": 1,
+    "real_tactical_model_sessions": 1,
+    "reasoning_effort": "low",
+    "rounds": 5,
+    "static_reject": 6
+  },
+  "host_tactical_design": false,
+  "independent_verification": [
+    {
+      "budget_after": 19,
+      "budget_before": 18,
+      "candidate_id": "candidate-016",
+      "hash_equal": {
+        "action_snapshot.json": true,
+        "diagnostic_events.json": true,
+        "plan_snapshot.json": true
+      },
+      "path": "docs/review/fc77177/seven_astra_r118_v1/reverification/independent-1/simulation",
+      "result": {
+        "deployment_errors": [],
+        "enemies_killed": 29,
+        "enemies_leaked": 4,
+        "enemies_remaining": 0,
+        "final_dp": 99.0,
+        "first_objective_failure_reason": "ENEMY_LEAK",
+        "first_objective_failure_time": 97.1666666667,
+        "operator_deaths": 0,
+        "remaining_enemy_hp": 0,
+        "remaining_enemy_route_progress": 0,
+        "remaining_life": -1,
+        "run_metadata": null,
+        "score": -115.0,
+        "time_survived": 378.3333333333,
+        "win": false
+      },
+      "run_id": "independent-1"
+    }
+  ],
+  "push": false,
+  "raw_tactical_final": "session/codex_cli/codex_final_message.txt",
+  "round_counts": {
+    "1": {
+      "PASS": 1
+    },
+    "2": {
+      "FAIL": 4,
+      "PASS": 6
+    },
+    "3": {
+      "FAIL": 2,
+      "PASS": 5
+    },
+    "4": {
+      "PASS": 3
+    },
+    "5": {
+      "PASS": 3
+    }
+  },
+  "status": "COMPLETED_FIVE_ASTRA_ROUNDS_NO_WIN",
+  "strict_subset_with_artillery_and_two_arrivals_found": false
+}

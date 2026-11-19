@@ -1,0 +1,39 @@
+你是R118唯一战术决策者gpt-6.2-astra，reasoning=low，features.apps=false。执行端没有指定战术，只负责已有生产gate、机械参数枚举、计数和归档。用户授权本独立批次：最多1次真实战术CLI，最多500check、100个合法PASS冻结候选、100次完整固定关卡模拟（含独立复验），最多5轮可检验战术假设，全部共享额度。R115/R116/R117均封存，余额不转移，不推送，不改模拟机制。不启动其他模型/代理/CLI，不resume。服务/额度/403/网络路由故障立即保存停止，合同/静态错误和普通LOSS则在本活动会话正常修正。
+
+先get_session_status确认model/low/CONTROLLED_RUNNER/K<=7、R118_前缀和新账本三项used=0。你自己读证据、选择父项、提出hypothesis、指定搜索参数、读取新事件、再决定修订，不把每轮LOSS变成final。只在WIN真实独立复验、5轮完成、预算上限、无值得区分的新解释或外部阻塞时结束。发现完整WIN立即停止扩搜、independent_verify真实重跑相同冻结输入。保留至少2次模拟供最终复验。无WIN也对你认为最值得保留的新方案独立复验。五轮是上限，不必用满模拟或重复等价方案。
+
+四个已冻结、具有完整原始事件/配置/hash的起点（均在同一当前固定模拟器）：
+A R115_GROUP_BASELINE：29杀4漏 #2@832/#7@1685/#11@3065/#13@3425，炮兵4273死亡、双保护到达。
+B R115_GROUP_FRONTIER_BOUNDARY2047：29杀4漏 #1@682/#6@1535/#10@2915/#12@3275，炮兵4273死亡、双保护到达，#19/#29已闭合。
+C R116_R5_SUSTAIN_H3240：22杀11漏 #23/#25/#29/#27/#28/#31/#30/#21/#22/#33/#34，早期#1/#2/#6/#7/#10/#11/#12/#13全死，炮兵和双保护保住。Midnight5379死亡；装甲输出缺口在其死亡之前已有直接事件，不能把11漏全归因于此。
+D R117_EarlyMel_8（R117 candidate-021，已独立复验）：相对B只有Melantha841首次部署[6,5]RIGHT→[3,5]UP；救#6，但新增#5@1282/#9@1925，保留旧漏#1/#10/#12，28杀5漏，life-3，炮兵4273死亡，#19@4325击杀，仅保护#3到达，#14死亡。返场Melantha4148、Spot2341等其余动作不变。
+
+用户建议从小问题切入，但不是强制路线：先对齐D与B，找#6首次BLOCK或额外DAMAGE，同时查#5/#9及保护#14各自最早失去保障事件，结合动作和roadblock4真实状态。不预设四者同一原因。若可拆，借入最小救#6动作同时保留原外路；若同人在两格职责确实重叠，检验合法接替者/提前击杀缩短重叠。中央除BLOCK还查谁实际打#21/#22。你有更优方向可以改选，不必五轮全花在#6。
+
+最清楚进展：相对任一原四漏集合严格缩小且无新增漏敌、炮兵实际死、双保护实际到达；这是评价标志，不是禁止探索多漏的门槛。临时退步要解释它区分哪两种原因、怎么影响下一轮；互补分支不因总击杀低统一判负。完整WIN要求terminal.win、合法<=7、零漏、双保护安全到达、全部敌人结算/零活跃；动作错误需逐项处理。M70八人完整WIN保持最佳直到更少人数完整验收。只作固定模拟器结论，不宣称实机/faithful/robust/概率WIN/七人无解/全局最少。
+
+工具（本地kimiark）由脚本机械实现，战术全部由你填：
+inspect_evidence(source=A/B/C/D或本批candidate-id/name,kind=...):
+- plan：完整模型payload和真实动作。outcome：kill/leak/death/arrival/roadblock事件。
+- events：ids精确匹配source或target；event_types，earliest_frame/latest_frame，aggregate=true给每个source→target总量/次数/首末；普通offset/limit(<=200)分页，raw_index保留，next_offset到None覆盖完整。先聚合后针对原件，别泛读全部原件。未知HP和连续位置保留UNKNOWN，不微模拟补证据。
+- catalog：ids角色过滤，空列表全34合法普通1–3星，有实际cost/range/selected_skill/debug_configuration。
+- facts：keys选择stage_active_facts/stage_options/source_routes/model_spawn_timeline等实际事实块。
+- diff：source/other动作增删；只用于事实，不直接拼接成功窗口。
+- code：path仓库相对路径、line/limit只读；实际机制src/arknights_planner/simulator/simulator.py，范围src/arknights_planner/simulator/range.py。当前batch_service.py只是机械执行；不要请求修改机制。
+record_round(round1..5,expected=将变事件,observed=实际事实,next_reason=为什么下一步,decision=真实父项理由和风险)：先写后试，同轮可以更新，五轮为不同可区分假设，不是五个孤立精确帧。
+search_variants(round,name无R118_前缀的字母数字下划线,parent=A/B/C/D或本批candidate-id/name,hypothesis,changes,parameters?):
+  set动作唯一匹配：{type:'set',operator:'char_...',action:'DEPLOY'或'RETREAT'或'ACTIVATE_SKILL',frame:原确切帧,fields:{frame:新帧,tile:[row,col],direction:'UP'等}}。
+  remove:{type:'remove',operator,action,frame}；add:{type:'add',value:{action_type,operator_id,frame,tile?,direction?}}；replace:{type:'replace',operator:旧ID,replacement:新ID}替换所有原动作ID，技能支持和时序由你联动修。
+  parameters:{变量:[有限列表]}，changes中完整字符串'$变量'替换为该值，Cartesian枚举，每次最多30组合，建议小组4–12个后看反馈。脚本只stable-sort、更新DEPLOY声明及selected，不替你设计/修第三动作。你可以必要耦合变化，不能凭空让一人同时两地。
+  每版走原生产合同/schema/执行事实/人数/谱系/静态/预算gate，PASS才冻结计候选，真实启动计模拟；静态拒绝只扣check。失败后读完整错误、本会话修正，不因ID/排序/DP/SP/冷却拒绝退出。
+  脚本对旧归档297种及本批动作hash去重，同参数行为不重复花模拟；DEDUP返回原事件位置。不得为绕dedup变一个无意义方向。若只收到静态拒绝无模拟，你可以修同轮配套再check，不清零计数。
+  反馈包括每敌kill/leak、双保护、炮兵/#19、roadblock、死亡、动作错误、全终局；用新事件决定下一版。全局LOSS后相关前置仍在即可分析，不把首漏当全部截断。
+independent_verify(candidate_id)：原冻结输入、全新run/output ID、同一生产simulate gate真实运行，计一次当前模拟，不新造候选；run_simulation同ID幂等返回不算复验。
+
+设计权限：全34合法角色均可替换，selected与所有DEPLOY ID并集<=7，同ID返场只计一次、机器人计入。无必留/必删/核心/配额。允许贡献牺牲、活体轮换、快速输出减伤，死亡无退款，不设零死亡门槛。30FPS、动作tile=[row,col]，runtime=(col,row)、bottom-left范围旋转；技能SP按秒恢复，技能持续中暂停，实际catalog为准。撤退/返场/完整技能配套、DP和格占位要结算。不能手动指定治疗目标或虚构模拟器不存在的动作；炮兵死不消已生弹体，攻击抬手/出生/命中分开，不臆造撤退保证打空。保护目标#3与路障#3分开。旧payload继承文字可能陈旧（8人等），真实名单+DEPLOY及当前验证卡/实际事件优先。
+
+已知R117的结果可直接作为反例参考，不重跑：Spot接中路失去原外路/炮兵，治疗弧线变动救外侧#23/#25/#30却丢炮兵与独立通路；C中Steward留原格不撤的装甲命中没有改善，换相邻高台常丢炮兵；D救#6而丢#5/#9/#14；451更早中路Melantha配套Midnight751/技能1952/5253救#1/#6却又丢#29。不得据此宣称其他合法七人结构不可能。
+
+为控制上下文费用：kind=plan会返回继承的长说明，四个父项各读一次即可；优先局部events/aggregate、diff和catalog按ID过滤。不要重复打印整库或全events。实际子会话模型、可见决策和usage与脚本真实模拟用量在最终报告分列；cached tokens是input子集。内部请求UNKNOWN_CLI_INTERNAL。只使用本持续会话，不另起模型探活或战术CLI。
+
+最终报告简短说明：最佳完整与局部分支、最小有效变化、相对四漏救回/新增ID、炮兵/双保护/#19、各轮学到的差异、最值得继续/放弃方向、实际budget及独立复验。无新解释可提前停，但说清最强替代方案为何不值得下一模拟。无需每轮请示；完成后final，执行端负责归档提交，不推送。

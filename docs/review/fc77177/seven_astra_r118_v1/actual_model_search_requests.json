@@ -1,0 +1,475 @@
+[
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "tile": [
+            3,
+            5
+          ]
+        },
+        "frame": 0,
+        "operator": "char_123_fang",
+        "type": "set"
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "RETREAT",
+          "frame": 1500,
+          "operator_id": "char_123_fang"
+        }
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "DEPLOY",
+          "direction": "RIGHT",
+          "frame": 3601,
+          "operator_id": "char_123_fang",
+          "tile": [
+            6,
+            5
+          ]
+        }
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "RETREAT",
+          "frame": 2030,
+          "operator_id": "char_208_melan"
+        }
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "DEPLOY",
+          "direction": "UP",
+          "frame": 4131,
+          "operator_id": "char_208_melan",
+          "tile": [
+            3,
+            5
+          ]
+        }
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 2102,
+        "operator": "char_208_melan",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 3903,
+        "operator": "char_208_melan",
+        "type": "remove"
+      }
+    ],
+    "hypothesis": "外侧拆障后撤回玫兰莎，芬先退后接外，中央返场输出",
+    "name": "CrossRelief",
+    "parent": "C",
+    "round": 1
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "RIGHT",
+          "tile": "$t"
+        },
+        "frame": 571,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "月见夜守两上路出口",
+    "name": "UpperExit",
+    "parameters": {
+      "t": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 2
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$d",
+          "tile": "$t"
+        },
+        "frame": 571,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "从最近合法格向上路汇合方向覆盖两路并测量路障三拆除代价",
+    "name": "UpperOverlap",
+    "parameters": {
+      "d": [
+        "UP",
+        "DOWN"
+      ],
+      "t": [
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 2
+  },
+  {
+    "changes": [
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 3330,
+        "operator": "char_284_spot",
+        "type": "remove"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "frame": 6500,
+        "operator": "char_284_spot",
+        "type": "remove"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$d",
+          "tile": "$t"
+        },
+        "frame": 2341,
+        "operator": "char_284_spot",
+        "type": "set"
+      },
+      {
+        "operator": "char_284_spot",
+        "replacement": "char_124_kroos",
+        "type": "replace"
+      }
+    ],
+    "hypothesis": "克洛丝在双路交界补足中路伤害并在外侧替代斑点的击杀职责",
+    "name": "Crossfire",
+    "parameters": {
+      "d": [
+        "UP",
+        "DOWN"
+      ],
+      "t": [
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 3
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$d",
+          "tile": [
+            5,
+            5
+          ]
+        },
+        "frame": 2341,
+        "operator": "char_124_kroos",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "UP",
+          "tile": [
+            2,
+            5
+          ]
+        },
+        "frame": 6381,
+        "operator": "char_210_stward",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "下侧高台射手补足外路并将史都华德后期返场转到空出的上侧高台",
+    "name": "LowerCrossfire",
+    "parameters": {
+      "d": [
+        "DOWN",
+        "UP",
+        "RIGHT"
+      ]
+    },
+    "parent": "candidate-008",
+    "round": 3
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$d",
+          "frame": 301
+        },
+        "frame": 91,
+        "operator": "char_4093_frston",
+        "type": "set"
+      },
+      {
+        "operator": "char_4093_frston",
+        "replacement": "char_192_falco",
+        "type": "replace"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 781
+        },
+        "frame": 571,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1111
+        },
+        "frame": 901,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1606
+        },
+        "frame": 1396,
+        "operator": "char_212_ansel",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1950
+        },
+        "frame": 1740,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 2341
+        },
+        "frame": 2131,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1982
+        },
+        "frame": 1772,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 5283
+        },
+        "frame": 5073,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 2312
+        },
+        "frame": 2102,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 4113
+        },
+        "frame": 3903,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 5914
+        },
+        "frame": 5704,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 7715
+        },
+        "frame": 7505,
+        "operator": "char_208_melan",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 2357
+        },
+        "frame": 2147,
+        "operator": "char_212_ansel",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 4158
+        },
+        "frame": 3948,
+        "operator": "char_212_ansel",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 5959
+        },
+        "frame": 5749,
+        "operator": "char_212_ansel",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 7760
+        },
+        "frame": 7550,
+        "operator": "char_212_ansel",
+        "type": "set"
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 1652,
+          "operator_id": "char_192_falco"
+        }
+      },
+      {
+        "type": "add",
+        "value": {
+          "action_type": "ACTIVATE_SKILL",
+          "frame": 4760,
+          "operator_id": "char_192_falco"
+        }
+      }
+    ],
+    "hypothesis": "翎羽接机器人位置并在装甲窗口启动技能以提高四行输出",
+    "name": "PlumeLine",
+    "parameters": {
+      "d": [
+        "RIGHT",
+        "DOWN"
+      ]
+    },
+    "parent": "C",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 2600
+        },
+        "frame": 2341,
+        "operator": "char_210_stward",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "延后术师至费用回足以分离部署费用与早期站场崩溃的影响",
+    "name": "PlumeCaster",
+    "parent": "candidate-013",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "DOWN",
+          "tile": "$t"
+        },
+        "frame": 0,
+        "operator": "char_123_fang",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "保留芬阻挡原四行并向第三行补击，在不同列检验能否延长对原漏敌的输出窗口",
+    "name": "FangAssist",
+    "parameters": {
+      "t": [
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    },
+    "parent": "B",
+    "round": 5
+  }
+]

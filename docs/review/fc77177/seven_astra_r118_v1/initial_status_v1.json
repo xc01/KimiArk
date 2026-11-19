@@ -1,0 +1,220 @@
+{
+  "allow_fake_execution": false,
+  "batch_stopped": false,
+  "budget": {
+    "max_stage_simulations": 100,
+    "prior_stage_simulations": 0,
+    "remaining_stage_simulations": 100,
+    "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+    "stage_id": "main_08-07",
+    "started_stage_simulations": 0
+  },
+  "candidate_ledger": {
+    "attempts": [],
+    "max_candidates": 100,
+    "remaining_candidates": 100,
+    "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+    "used_candidates": 0
+  },
+  "check_call_ledger": {
+    "max_check_calls": 500,
+    "remaining_check_calls": 500,
+    "used_check_calls": 0
+  },
+  "controlled_code_sha256": {
+    "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe",
+    "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+    "scripts/kimiark_tactical_stdio_service_v1.py": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+    "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+    "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b"
+  },
+  "execution_backend": "CONTROLLED_RUNNER",
+  "features_apps": false,
+  "independent_runs": [],
+  "interface_vocab": {
+    "action_type_names": [
+      "ACTIVATE_SKILL",
+      "DEPLOY",
+      "RETREAT"
+    ],
+    "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.",
+    "event_type_names": [
+      "ATTACK_RECOVERY_END",
+      "ATTACK_START",
+      "ATTACK_STRIKE",
+      "ATTACK_WINDUP",
+      "BLOCK",
+      "DAMAGE",
+      "DEPLOY",
+      "DEVICE_DAMAGE",
+      "DEVICE_DESTROYED",
+      "DEVICE_TARGET_SELECTION",
+      "DP_CHANGE",
+      "ENEMY_ABILITY_CANCELLED",
+      "ENEMY_ABILITY_HIT",
+      "ENEMY_ABILITY_START",
+      "ENEMY_DEATH",
+      "ENEMY_LEAK",
+      "ENEMY_STATUS_HIT",
+      "HEAL",
+      "OBJECTIVE_FAILURE",
+      "OPERATOR_DEATH",
+      "PROJECTILE_BORN",
+      "PROJECTILE_HIT",
+      "PROTECTED_TARGET_REACHED",
+      "RETREAT",
+      "SKILL_ACTIVATE",
+      "SKILL_END",
+      "SKILL_READY",
+      "SPAWN",
+      "TARGET_SELECTION",
+      "UNBLOCK"
+    ],
+    "query_event_type_aliases": {
+      "ACTIVATE_SKILL": "SKILL_ACTIVATE",
+      "ENEMY_BLOCKED": "BLOCK"
+    }
+  },
+  "max_unique_deployed_operators": 7,
+  "mechanics_version": "m38b-2781-animation-speed-v1",
+  "model": "gpt-6.2-astra",
+  "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+  "new_plan_prefix": "R118_",
+  "parent_choices": {
+    "A": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001/simulation/action_snapshot.json",
+          "sha256": "f9ecfd10dc9a1b8ebc5a29f2be44156b203cf83d600249384778e5b3501424b0",
+          "uncompressed_sha256": "f9ecfd10dc9a1b8ebc5a29f2be44156b203cf83d600249384778e5b3501424b0"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001/simulation/diagnostic_events.json.gz",
+          "sha256": "4684537d2b22416c3d9c42d98bfed391fbae4ed47c80a04b6bbc56e5a4a03a8c",
+          "uncompressed_sha256": "0e37aaa1b59b2367a30ed9c520dc3673bf5ea0f4c58e589e9e44b81ccb6b70f6"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001/simulation/diagnostic_summary.json.gz",
+          "sha256": "05a75101a5585b352e2e17d9710a994d4f3bc73706bc6f51e26aea81d011cbf9",
+          "uncompressed_sha256": "1f2c9ab5faf9520c81cb58705225092f803a9fbd9072644944cda93dcd1d12a8"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001/simulation/plan_snapshot.json",
+          "sha256": "a5cc01c04e017a55aeab56e934525c09f5f5cee069f4a00403329407218ad022",
+          "uncompressed_sha256": "a5cc01c04e017a55aeab56e934525c09f5f5cee069f4a00403329407218ad022"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001/simulation/simulation_parameters.json",
+          "sha256": "fce95351d8352b0cc73d12e0ac476dee813468f6adc921f1f1b2fdf60e0c23ec",
+          "uncompressed_sha256": "fce95351d8352b0cc73d12e0ac476dee813468f6adc921f1f1b2fdf60e0c23ec"
+        }
+      },
+      "candidate_root": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-001",
+      "payload_copy_sha256": "d085e71bdaaf0aa4762352b94811bb7373f7434552c6f597bc85c34f1361d3b0",
+      "plan_id": "R115_GROUP_BASELINE"
+    },
+    "B": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089/simulation/action_snapshot.json",
+          "sha256": "b690d90b84b27a4aee9b9d3404bed8da61c9afae5f5212453cb5f4bf3b078e41",
+          "uncompressed_sha256": "b690d90b84b27a4aee9b9d3404bed8da61c9afae5f5212453cb5f4bf3b078e41"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089/simulation/diagnostic_events.json.gz",
+          "sha256": "94e97e76df52dd94dc6f640ab7dd5c1c385b3ca42c8d909f70c403ad41e6ab67",
+          "uncompressed_sha256": "31596ed7e1a2e575d291d979f7e1dffd103dd159d78069e11077b9d60c1209da"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089/simulation/diagnostic_summary.json.gz",
+          "sha256": "ea11859eeff7d0b38eea8836dd543910747db98f5970f0094ee1b2562fa520f4",
+          "uncompressed_sha256": "ff2907cd4b9e98f7702ee6d6d31e9b386644a501bbe5bd473557daaf1d1c5321"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089/simulation/plan_snapshot.json",
+          "sha256": "83c45c2dcd92c56f414e52fd57f1bc3f134f0b9f4c7ce3ca4019b24e9156cda0",
+          "uncompressed_sha256": "83c45c2dcd92c56f414e52fd57f1bc3f134f0b9f4c7ce3ca4019b24e9156cda0"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089/simulation/simulation_parameters.json",
+          "sha256": "e169d5f95ec54199245b0a590048b4b439b73140826186b8d4e5d0c6c7af9eac",
+          "uncompressed_sha256": "e169d5f95ec54199245b0a590048b4b439b73140826186b8d4e5d0c6c7af9eac"
+        }
+      },
+      "candidate_root": "docs/review/fc77177/seven_group_search_v1/session/candidates/candidate-089",
+      "payload_copy_sha256": "ef8872a71185aedeeb5cca0d7fd48fffdcbe41ab3ec6a15cd4a4e22d98a4ba94",
+      "plan_id": "R115_GROUP_FRONTIER_BOUNDARY2047"
+    },
+    "C": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030/simulation/action_snapshot.json",
+          "sha256": "84db57677ff236a2368c9f293368da1a1ea4c09e47e9b95fc41cec7f784facf9",
+          "uncompressed_sha256": "84db57677ff236a2368c9f293368da1a1ea4c09e47e9b95fc41cec7f784facf9"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030/simulation/diagnostic_events.json.gz",
+          "sha256": "a9e2f81724f1276510db6a2655a962d14cc06f06d58840741a4747a499ed9d63",
+          "uncompressed_sha256": "ea63fca91f66243970b5e07501f4f5a14317cefaa11e3e8d893315cf1afafe00"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030/simulation/diagnostic_summary.json.gz",
+          "sha256": "be38c70a03ba1ad1a2f3e780ef3045711d7592c884a190908eef7fcdc9d90a48",
+          "uncompressed_sha256": "791ba138e0686f3985201d8fb6ee79827a44d432c8d9d8600dba450336b08a60"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030/simulation/plan_snapshot.json",
+          "sha256": "88d87161fa0a33b89ccd1ede5205a94370f9f6d8832100d19e7b22797088f355",
+          "uncompressed_sha256": "88d87161fa0a33b89ccd1ede5205a94370f9f6d8832100d19e7b22797088f355"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030/simulation/simulation_parameters.json",
+          "sha256": "d9f8cd378bbda75a55b813f8d8efc8aea0a0106a26462e773f9dfe620fb9f140",
+          "uncompressed_sha256": "d9f8cd378bbda75a55b813f8d8efc8aea0a0106a26462e773f9dfe620fb9f140"
+        }
+      },
+      "candidate_root": "docs/review/fc77177/seven_group_search_r116_v1/session/candidates/candidate-030",
+      "payload_copy_sha256": "90214baaa1fda64aab95866fc2c1b4817fbe1c501568f4ab5d49ce21feb98aa1",
+      "plan_id": "R116_R5_SUSTAIN_H3240"
+    },
+    "D": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021/simulation/action_snapshot.json",
+          "sha256": "4bc08e9dd4bdfe0933d1d5085ba5a38868e663e6f2b77b3f58417fb38c83dbad",
+          "uncompressed_sha256": "4bc08e9dd4bdfe0933d1d5085ba5a38868e663e6f2b77b3f58417fb38c83dbad"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021/simulation/diagnostic_events.json.gz",
+          "sha256": "d59197d03848392cfdf3de5f2cf45aaa1f89c0007c9219403242754477c6853f",
+          "uncompressed_sha256": "b318e2c0ef6b41f0d15b3588a629e42a363724f8bb3614b66220af2eb359263c"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021/simulation/diagnostic_summary.json.gz",
+          "sha256": "b314390ebffa5ebd83617859c5227428ee9a952876bfba5170b43197101c6004",
+          "uncompressed_sha256": "c598acff22fa24f08906283a6fa01ec9bfd3881b7c050aeb42404586342a7d1d"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021/simulation/plan_snapshot.json",
+          "sha256": "4e8055f4210da459ac2bdda438023de5165130cb7cabea536f980f4047d248d5",
+          "uncompressed_sha256": "4e8055f4210da459ac2bdda438023de5165130cb7cabea536f980f4047d248d5"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021/simulation/simulation_parameters.json",
+          "sha256": "b5b5a9414d5ebce31e9471c86c7587131478046c2751ea9ee57522040a9425af",
+          "uncompressed_sha256": "b5b5a9414d5ebce31e9471c86c7587131478046c2751ea9ee57522040a9425af"
+        }
+      },
+      "candidate_root": "docs/review/fc77177/seven_astra_r117_v1/session/candidates/candidate-021",
+      "payload_copy_sha256": "86dbfc0fa80459d622c308dd112801c9e34d80d28c3d3eba7bbfc4b9f1a31631",
+      "plan_id": "R117_EarlyMel_8"
+    }
+  },
+  "reasoning_effort": "low",
+  "reserved_for_independent_verification": 2,
+  "rounds_recorded": [],
+  "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+  "session_id": "r118-astra-low-five-rounds",
+  "stage_id": "main_08-07"
+}
