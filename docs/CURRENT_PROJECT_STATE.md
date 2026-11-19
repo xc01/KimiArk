@@ -1,5 +1,17 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R116 is closed after five tactical hypotheses: 71 production
+checks (58 PASS/13 static rejects), 58 frozen candidates, 60 complete fixed
+simulations including two independent final reruns; model0/tactical CLI0.
+No seven-ID complete WIN. The two R115 29/4 peer branches remain best.
+R116 candidate-030 kills #1/#2/#6/#7/#10/#11/#12/#13 and #19 together,
+artillery@4273 and both protected arrivals, but ends LOSS22/11, life -8,
+zero remaining. Unhealed Midnight dies5379; armor21/22 hold Fang/Friston
+until deaths6130/6172 and later lanes regress. Both independent event hashes
+match. R115 ledgers/closed state equal ae0a032. No balance transfer or push;
+M70 eight-ID complete fixed-simulator WIN stays frozen; seven-or-fewer UNKNOWN.
+See review/fc77177/seven_group_search_r116_v1/closeout_v1.md.
+
 2026-11-18 R115 action-group search is closed: V2 counting isolation passed;
 133 production checks (97 PASS/36 static rejects), 97 frozen candidates and
 99 complete fixed simulations, including two independent final reruns. No

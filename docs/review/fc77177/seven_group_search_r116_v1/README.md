@@ -1,0 +1,11 @@
+R116 is a new independently budgeted deterministic experiment, now closed at five tactical hypotheses. Start with closeout_v1.md. Parents are the two independently archived R115 four-leak plans; their event/config hashes and committed bytes are verified in parent_event_hashes_v1.json. R115 counters and closed state are immutable.
+
+All tactical changes are recorded in search_state.json and reconstructed by driver.build(). driver.variant() performs semantic action dedup, named-parent context selection, stable chronological ordering, selected/DEPLOY union <=7, and existing production check/run calls. It does not execute Simulator directly. Static rejects use only check; the isolated fake preflight independently exercises actual V2 counting. Two final slots were reserved. No model or tactical CLI was needed.
+
+round1.py through round5.py define initial groups. Evidence-driven within-round parameter submissions are also fully specified by exact changes, hypotheses and parents in search_state.json, including submissions made with inline Python. Rebuilding every frozen payload was checked; these records are the complete reproducible sweep, not just the initial phase scripts. Each round has a three-field prediction/observation/next-reason record.
+
+reverify_frozen.py uses the existing checked-plan production simulate gate and the same R116 budget, with new run IDs and exact frozen inputs. Original execution-input gate bytes are recovered only when hash-matched to its check response. It refuses reused run IDs. Both independent runs reproduced all raw event bytes.
+
+query_evidence.py makes read-only production queries with full filtered pagination. finalize.py only parses/reconstructs/verifies existing records and closes the batch; it never starts battles. Archive reader/digest support losslessly archived .json.gz. archive_batch.py compresses only newly produced large JSON, verifies restoration and writes a manifest. Model metadata does not prove an actual model call: actual model0/CLI0, usage not applicable.
+
+The optional latest user authorization was at most one 6.2 Astra/low CLI; no such process was started. This batch remains a script-driven search. Never reuse closed balances or rerun battle scripts after closure. Locks/caches are preserved on disk and excluded from commit. No push.

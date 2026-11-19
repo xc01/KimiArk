@@ -1,0 +1,72 @@
+{
+  "candidate_id": "candidate-030",
+  "candidate_sha256": "d46f7f5b6f1138c6ce2595de49c7927fbfb63711929c001b9de5c295dc92d2ea",
+  "command": [
+    "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+    "/home/bigdata/Desktop/arknights-auto-planner/scripts/run_gpt_tactical_stage_session_v1.py",
+    "simulate",
+    "--stage-id",
+    "main_08-07",
+    "--facts-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_group_search_r116_v1/reverification/sustained_independent_b/source",
+    "--output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_group_search_r116_v1/reverification/sustained_independent_b/source",
+    "--diagnostic-output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_group_search_r116_v1/reverification/sustained_independent_b/simulation",
+    "--plan-id",
+    "R116_R5_SUSTAIN_H3240",
+    "--plan-label",
+    "R116",
+    "--plan-id-prefix",
+    "R116_",
+    "--max-unique-deployed-operators",
+    "7",
+    "--authorization-config",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_group_search_r116_v1/model_authorization_v1.json",
+    "--simulation-budget-path",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/seven_group_search_r116_v1/simulation_budget_v1.json"
+  ],
+  "controlled_code_sha256": {
+    "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "ba5614e5dcabb1c51ecf011707ce9b781478c84766e0f60c023477f51664d3fe",
+    "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+    "scripts/kimiark_tactical_stdio_service_v1.py": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+    "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+    "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b"
+  },
+  "frozen_inputs_sha256": {
+    "execution_input_gate.json": "d1298ea8b6821cc8d5dbd8790d0a0583341e7de52cf2028a41431fd522ffa4dc",
+    "llm_evidence_context.json": "e7deea8a7794733f84468e77d71ff28404430bb6b4c9d1e3cdaf5dc36bcbad0f",
+    "llm_plan_validation.json": "e6102cf77edf410eba9f78169395a51245867d050d289e90d962c164ea98b096",
+    "llm_structured_output.json": "90214baaa1fda64aab95866fc2c1b4817fbe1c501568f4ab5d49ce21feb98aa1",
+    "revision_output_schema.json": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "static_compile_results.json": "a8395c8402cd2e7d9226117325059551b33c1ab3d1dc6c461ec26b1bdafeed39"
+  },
+  "gate": {
+    "budget_sha256": "3616a09661e9e6ecc521e14e91a3da09a87da78ccd934150a3c5e0c8a8682c0b",
+    "diagnostic_output_dir": "docs/review/fc77177/seven_group_search_r116_v1/reverification/sustained_independent_b/simulation",
+    "expected_plan_id": "R116_R5_SUSTAIN_H3240",
+    "expected_protected_target_count": 2,
+    "immutable_rule": "existing diagnostic manifests may not be overwritten",
+    "inputs": {
+      "evidence_context_sha256": "e7deea8a7794733f84468e77d71ff28404430bb6b4c9d1e3cdaf5dc36bcbad0f",
+      "plan_validation_sha256": "e6102cf77edf410eba9f78169395a51245867d050d289e90d962c164ea98b096",
+      "static_compile_results_sha256": "a8395c8402cd2e7d9226117325059551b33c1ab3d1dc6c461ec26b1bdafeed39",
+      "structured_output_sha256": "90214baaa1fda64aab95866fc2c1b4817fbe1c501568f4ab5d49ce21feb98aa1"
+    },
+    "remaining_stage_simulations": 41,
+    "schema_version": "KIMIARK_FROZEN_PLAN_EVALUATION_GATE_V1",
+    "source_dir": "docs/review/fc77177/seven_group_search_r116_v1/reverification/sustained_independent_b/source",
+    "stage_id": "main_08-07",
+    "status": "AUTHORIZED"
+  },
+  "generation": "Independent execution of previously checked/frozen deterministic variant; no idempotent run call",
+  "model_calls": 0,
+  "new_candidate": false,
+  "recovered_inputs": {
+    "execution_input_gate.json": "Original production check response in search_state.json; post-run generated gate differs"
+  },
+  "run_id": "sustained_independent_b",
+  "simulation_budget_before": 59,
+  "tactical_cli": 0
+}
