@@ -54,6 +54,8 @@ class Operator:
     star_rarity: ValueWithSource[int | None] = field(default_factory=unknown)
     damage_type: str = "PHYSICAL"
     deployment_cost_delta: float = 0.0
+    kill_dp_reward: float = 0.0
+    retreat_refunds_initial_cost: bool = False
     attack_speed: float = 100.0
     maintenance_cost: float = 0.0
     maintenance_interval: float = 0.0

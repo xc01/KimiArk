@@ -1,0 +1,43 @@
+【本轮修复后重实验，覆盖下方旧轴摘要】
+用户要求补齐翎羽经济并重新实验，固定五人/五轮/一次真实Astra low会话/不推送继续。本轮当前机制为m39-charger-kill-and-retreat-dp-v1：翎羽自己完成敌方非中立、计击杀单位的最后一击时+1DP；主动撤退返初始实际支付部署费，本场10DP；死亡0退款。实际收入受DP上限约束，DP_CHANGE记录actual amount和requested_amount。不得虚构队友击杀也给翎羽回费。
+先在第1轮使用parent=D、changes=[]运行旧candidate040完整冻结动作的精确战术基线（仅ID/验证卡更新），并用E跑旧011对照（如有不同实际依赖），对齐战斗事件及DP_CHANGE是否改变。两场计本批，不改旧账本。D/E的原事件仍是m38b历史，不能称为当前机制结果。先用inspect_evidence(actions)看精简轴，避免全payload。
+D=R121 candidate040:原11/22、双保护到达，#34死、炮兵漏；E=R121 candidate011:原10/23、一保护到达、14卡路障存活。旧R121五轮最后发生缺RETREAT的生产入口错误，修正版ReturnLive原参数已机械补跑，040三hash独立复验；本轮已在薄封装check前调用相同实际入口的动作guard，普通缺撤退不再误扣战斗。
+你主持新五轮，第一轮可包括基线复跑与依据DP观察的后续多个枚举，不是白花一轮。别只跑两基线就结束。特别看回费使哪些部署可以提前、撤返费用变轻是否支持更早支援/清障或新顺序；也可以提出不同开局。不要预设+几费就救炮兵或早怪。每轮批量比较动作/时间/格位/方向，普通静态失败本CLI修正。
+静态DP账本现在识别翎羽全额初始费退款；杀敌回费依赖实际击杀，未预先凭空记入静态余额。不要把未确认击杀算作必得费；若静态保守拒绝依赖击杀的轴，明确报完整错误，优先不需要凭空假设的可执行顺序/撤返。实际事件回费仍真实发生，能影响运行中余额。当前skill/伤害/范围/炮兵机制没有为WIN改动。
+历史M70等保留原version结果，未按新版本复验，不声称当前机制已验证最佳。不用旧动作key抑制机制修复后的必要对照；本批相同固定动作仍hash去重。所有新候选按m39新配置/能力目录/check冻结。五轮结束为最佳当前方案独立复验，结果/事件/DP回费分开。
+工具新增参考D/E已就位，T仍空容器。你可选择任一真实父项或T全actions，不固定旧帧。最终交付说明模型可见决策与实测，回费是否真正带来新杀敌/安全到达，不靠费用数直接宣称WIN。
+
+你是R122唯一实际战术决策者 gpt-6.2-astra / low，features.apps=false。用户明确授权一个新的固定五人实验，目标main_08-07（R8-7）当前固定模拟器完整WIN。固定且仅这五人：克洛丝char_124_kroos、月见夜char_283_midn、史都华德char_210_stward、芙蓉char_120_hibisc、翎羽char_192_falco。selected与所有DEPLOY ID并集必须恰为这五人；不能借入芬、香草、机器人、玫兰莎、安赛尔或斑点，不换人。不要求零干员死亡，允许贡献牺牲、撤退/返场、活体轮换，死亡无退款。
+
+执行端只提供事实、机械枚举、原生产gate/模拟器、账本和归档，绝不替你提出战术。你必须独立选开局、写全部动作、指定参数范围、调用工具、读事件，连续主持最多五轮。没有WIN就完成五个有区别的“提出打法→批量验证→事件复盘→修订”循环，不因一次LOSS/静态错误/一个时间点无效就退出。五轮不是五次模拟，一轮可多次工具调用、联动枚举、先粗后细。用户不做中转，不逐轮请示。每轮先record_round写假设，批量跑后更新record_round三件事：预期哪个事件会变、实际变了什么、为什么支持下一轮。
+
+最新用户参考思路：翎羽开局、克洛丝跨路、月见夜兼顾清障/中路、芙蓉支持史都华德打炮兵。这不是指定轴，你可完全不同开局。不能把七人八人旧角色的成功片段直接拼接成五人验证。部署顺序/时刻/格子/朝向/技能/撤退/返场均可搜；有依赖动作一起改变，不只同格换名。把外路早怪、#11/#13、中路#21/#22/#33/#34、路障清除、炮兵实际击杀和两保护分别实际验收。增加伤害/一次BLOCK/延后漏出不是闭合；按实际漏ID集合和每只原始事件判断。第一失守之外仍存在前置的其他职责可以分析。
+
+先get_session_status核对新账本0、K=5、固定名单、model/low/CONTROLLED_RUNNER/R122_前缀。执行端采用近期独立批次的保守运行上限500check/100PASS候选/100真实完整模拟（含最终复验），这不是本次用户逐字指定的新数字，不与旧预算相加、不重开旧账本。预留至少2模拟给独立复验；你可以不花满，但非WIN情况下应完成五个假设循环。唯一CLI已启动，不再开模型、代理、exec/resume或其他账号。外部额度/403/网络/权限/服务故障立即记录停止，不自动重试；合同/ID/排序/DP/SP/冷却/普通LOSS在同一会话修正继续。CLI退出就不能重启，别在中途final。
+
+原件参考别名：
+T = R122_PROTOCOL_TEMPLATE：只有空action_timeline和这五人selected的协议容器，未运行、不是已验证五人父项。你可用parent=T和完整actions数组从零设计。引用父项只表示协议谱系，不把T叫战术成功。
+A = R119 candidate002（七人香草29杀/4漏，漏#1/#6/#10/#12，炮兵4273死亡、双保护到达），仅历史参照，名单超5，若用必须删除所有非固定角色并由你写接替。
+B = R119 candidate007：七人有芬、单医克洛丝，18杀/15漏；克洛丝[2,6]朝左1501部署，对#10实际8条伤害2100、#12七条2025，击杀2687/3017；安赛尔/史都华德2593死，炮兵漏，保护14到达/3死亡。五人缺芬/安赛尔/玫兰莎/斑点，不能默认仍复现。
+C = R120翎羽替香草七人：14杀/19漏。翎羽31[4,5]DOWN、月见夜571[1,5]UP，玫兰莎因缺产费931、安赛尔1441、芙蓉1951、史都华德2281、斑点2791。翎羽621首次BLOCK#2、#2/#7/#11/#13均击杀，但路障4未清，安赛尔/史都华德2743同死、炮兵未死、双保护死亡。只作反例。不要照抄不存在的队友或旧deadline。
+M70八人完整固定模拟器WIN仍冻结，不重跑、不据失败宣称五人或七人无解。成功要actual terminal.win、零漏、两保护实际到达、零活跃敌人、全敌结算；用相同冻结输入+新运行ID独立复跑，验证成功即提前结束。没有WIN也对最值得保留的五人方案independent_verify，交付“可复现”不能用缓存替代。
+
+工具kimiark：
+inspect_evidence(kind=priority)读取固定名单/边界。
+kind=actions,source=T/A/B/C/本批candidate-id给紧凑真实动作、selected、验证卡；kind=plan是继承的长payload，除必要不重复读。kind=facts,keys=['stage_active_facts','stage_options','source_routes','model_spawn_timeline','enemy_facts','base_rule_card']按需读取地图/路障/费用/路线/生成。kind=catalog,ids按ID过滤，得到实际debug配置、范围/费用/技能/支持边界；空是全34，不等于本轮可换名单。
+kind=events,source=旧参考或本批候选，ids精确匹配source/target，event_types、earliest_frame/latest_frame、offset/limit<=200，raw_index引用，next_offset到None才读完；aggregate=true按source→target汇总总量/首末/次数。先局部聚合后关键事件，不泛读全部。kind=outcome给kill/leak/death/arrival/device；kind=diff比较真实动作；kind=code,path仓库相对路径,line/limit读原规则，机制代码src/arknights_planner/simulator/simulator.py及range.py，只读不改。T没有事件，不能查询T当作已运行。
+record_round(round=1..5,expected=战斗事件,observed=事实,next_reason=下轮依据,decision=你的选择和风险)，同轮可多次更新，不把调帧当新轮。
+search_variants(round,name,parent,hypothesis,actions?,changes?,parameters?):
+- actions可选，传你从零写的完整行动数组；若省略继承父项动作。actions完整替换然后应用changes，脚本只机械展开、稳定按frame排序、更新DEPLOY声明及固定selected，不设计打法。
+- 动作对象{action_type:'DEPLOY'|'ACTIVATE_SKILL'|'RETREAT',operator_id,frame:int,tile:[row,col]仅DEPLOY,direction:'UP'等仅DEPLOY}。
+- changes可选：{type:'set',operator:'char_...',action:'DEPLOY'等,frame:原精确帧,fields:{frame:新帧,tile:[r,c],direction:'...'}}；remove同精确键；add:{type:'add',value:完整动作}；replace旧operator/replacement本轮只能固定五人内，避免重复ID。不能同一人同时两格。
+- parameters:{name:[有限值]}，actions/changes内完整字符串'$name'替换；Cartesian最多30组合/调用，建议4–12粗组后看反馈，再在实际结果变化段细化。联动数组可作为参数值（如同一个参数对应整套actions），避免无用全组合。
+- parent=T或真实本批候选；新ID自动R122_+name_索引，确保name不同防冲突。相同行为有hash去重，DEDUP不花check/模拟，不能改无意义动作绕过。旧参考也去重。
+- 原schema/语义/固定人数/谱系/执行输入/静态/预算gate通过才冻结计候选；静态拒绝只计check。DP/SP错误读完整errors修正常规动作，不中途final。模拟必须原冻结动作。每次实际启动计模拟，工具STARTED/COMPLETED不是两次。
+- 返回完整终局、漏ID、所有击杀、双保护、炮兵/#19、死亡/动作错误/路障。按新事件再决策，不靠总分单独淘汰互补分支。
+independent_verify(candidate_id)：原PASS冻结输入，新runID/输出目录，原生产gate真实复跑并计模拟，不造新候选。找到WIN立刻调用，成功停止扩搜；未WIN最终也挑最佳可解释方案独立复验。
+
+注意实际规则：30FPS；动作tile=[row,col]，runtime=(col,row)，地图bottom-left，不反转。普通物理max(0.05ATK,ATK-DEF)、法伤ATK*(100-RES)/100下限，实际能力/debug事实为准。翎羽挡1，无可依赖产费技能；不要虚构未支持击杀回费。自然DP1/s、初始10，现有部署成本与天赋适配以实际事实为准。芙蓉技能初始0需30秒、持续20秒，持续时不回SP；翎羽需45秒、持续25秒；月见夜初始SP30需70、持续40秒，未受额外SP则部署后40秒首技能、后续持续40+回70=110秒；史都华德/克洛丝自动技能由实际攻击/目录支撑，不乱添手动激活。撤退返场通常70秒，全部按实际角色/单位，静态仅合法不保生存。
+两保护是中立，不用普通干员攻击/阻挡；路障阻保护独立。清障可改变暴露，不保证安全。炮兵锁点/出生/命中/源死亡与已生弹体分开；攻击诱导前提保留，不重开实机取证，不捏造撤退必打空。精确HP/连续位置/完整排序缺记录UNKNOWN，不微模拟补数据。
+
+最终交付文件由宿主保存，你在本CLI最后给简短完整结项：最佳五人候选/可复现轴、终局与具体漏ID/双保护/炮兵/中央，各轮哪些事件改变判断，真实check/候选/模拟数/复验，仍未解决缺口。五轮未WIN不声称无解/实机/概率WIN/global minimum。五轮可以有几十次模拟；不要为了省事每轮仅一版同窗微调。不要问用户下一轮做什么。

@@ -221,6 +221,7 @@ class Simulator:
         stats = operator.phases[0].stats_max
         skill = operator.synthetic_skill
         state.dp -= cost
+        state.initial_deployment_costs.setdefault(action.operator_id, cost)
         self._emit(
             state, EventType.DEPLOY, source=action.operator_id, legal=True, tile=tile_text,
             cost=cost, dp_after=state.dp,
@@ -249,6 +250,9 @@ class Simulator:
             can_attack_air=operator.position.value == "RANGED",
             attack_all_blocked=operator.attack_all_blocked,
             deployment_cost=cost,
+            initial_deployment_cost=state.initial_deployment_costs[action.operator_id],
+            kill_dp_reward=operator.kill_dp_reward,
+            retreat_refunds_initial_cost=operator.retreat_refunds_initial_cost,
             talent_atk_ratio=operator.talent_atk_ratio,
             talent_max_hp_ratio=operator.talent_max_hp_ratio,
             anti_air_priority=operator.anti_air_priority,
@@ -291,15 +295,17 @@ class Simulator:
             enemy = state.active_enemies.get(enemy_id)
             if enemy:
                 self._unblock(state, enemy)
-        refund = 0.0 if death else max(0.0, floor(operator.deployment_cost * 0.5))
+        refund = 0.0 if death else (
+            operator.initial_deployment_cost if operator.retreat_refunds_initial_cost
+            else max(0.0, floor(operator.deployment_cost * 0.5)))
         del state.deployed_operators[operator_id]
         if refund:
             before = state.dp
             state.dp += refund
             if state.max_dp is not None:
                 state.dp = min(state.dp, state.max_dp)
-            self._emit(state, EventType.DP_CHANGE, source=operator_id, amount=refund,
-                       before=before, after=state.dp, reason="retreat_refund")
+            self._emit(state, EventType.DP_CHANGE, source=operator_id, amount=state.dp-before,
+                       requested_amount=refund, before=before, after=state.dp, reason="retreat_refund")
         state.redeploy_available_at[operator_id] = state.time + max(0.0, operator.redeploy_time + operator.redeploy_time_delta)
         if death:
             state.operator_deaths += 1
@@ -540,6 +546,16 @@ class Simulator:
             del state.active_enemies[target.instance_id]
             if target.counts_as_kill:
                 state.enemies_killed += 1
+                killer = state.deployed_operators.get(source_id)
+                if killer is not None and killer.kill_dp_reward > 0 and not target.is_neutral:
+                    before = state.dp
+                    state.dp += killer.kill_dp_reward
+                    if state.max_dp is not None:
+                        state.dp = min(state.dp, state.max_dp)
+                    self._emit(state, EventType.DP_CHANGE, source=source_id,
+                               target=target.instance_id, amount=state.dp-before,
+                               requested_amount=killer.kill_dp_reward, before=before,
+                               after=state.dp, reason="charger_kill_reward")
             if target.death_life_point_reduce:
                 state.remaining_life -= target.death_life_point_reduce
                 self._record_objective_failure(state, "PROTECTED_TARGET_DEATH")

@@ -11,6 +11,7 @@ from arknights_planner.adapters.normal_low_star import (
     debug_configuration,
     deployment_heal_all_value,
     deployment_sp_bonus,
+    charger_economy,
     is_normal_mode_low_star,
     qualify_normal_mode_low_star,
 )
@@ -19,6 +20,7 @@ from arknights_planner.adapters.low_rarity_skill import (
     RealSkillSupport,
 )
 from arknights_planner.gamedata.repository import GameDataRepository
+from arknights_planner.mechanics import ACTIVE_MECHANICS_VERSION
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -199,6 +201,7 @@ def build_mechanism_support(repository: GameDataRepository, catalog: dict[str, A
             "talent": talent,
             "deployment_sp_bonus": deployment_sp_bonus(repository, operator_id),
             "deployment_heal_all_value": deployment_heal_all_value(repository, operator_id),
+            "economy_trait": charger_economy(repository, operator_id),
             "overall": (
                 "PLANNER_SAFE_WITH_KNOWN_LIMITS" if all_supported
                 else "PARTIALLY_PLANNER_SAFE_WITH_KNOWN_LIMITS" if partially_supported
@@ -207,7 +210,7 @@ def build_mechanism_support(repository: GameDataRepository, catalog: dict[str, A
         })
     return {
         "schema_version": "normal-low-star-mechanism-support-v2",
-        "mechanics_version": "m18.9-stage-device-runtime-v1",
+        "mechanics_version": ACTIVE_MECHANICS_VERSION,
         "counts": {
             "operators": len(operators),
             "planner_safe_with_known_limits": sum(item["overall"] == "PLANNER_SAFE_WITH_KNOWN_LIMITS" for item in operators),

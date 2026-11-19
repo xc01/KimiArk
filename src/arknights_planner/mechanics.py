@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m38b-2781-animation-speed-v1"
+ACTIVE_MECHANICS_VERSION = "m39-charger-kill-and-retreat-dp-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m39-charger-kill-and-retreat-dp-v1": {
+        "status": "ACTIVE",
+        "summary": "Source-explicit charger final-blow DP and initial-cost living retreat refund; death refunds zero and static checks do not assume unobserved kills.",
+    },
     "m36-2781-artillery-clock-v1": {
         "status": "SUPERSEDED",
         "summary": "Uses 2.7.81 candidate-model evidence to keep the delayed locked-area artillery clock tied to attack-time changes rather than resetting while no target exists. Build-2771 identity is not claimed.",
@@ -18,7 +22,7 @@ MECHANICS_VERSION_HISTORY = {
         "summary": "Separates artillery cast wind-up, projectile creation, fixed-point lock, and the projectile's 3-second delay using 2.7.81 candidate-model evidence. Its 0.077778-second wind-up used duration divided by attack time and is superseded by the animation-speed formula.",
     },
     "m38b-2781-animation-speed-v1": {
-        "status": "ACTIVE",
+        "status": "SUPERSEDED",
         "summary": "Separates artillery cast wind-up, projectile creation, fixed-point lock, and the projectile's 3-second delay using 2.7.81 candidate-model evidence. Build-2771 identity is not claimed.",
     },
     "m23-behavioral-mechanics-v1": {

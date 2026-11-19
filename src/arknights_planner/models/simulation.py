@@ -137,6 +137,9 @@ class RuntimeOperator:
     can_attack_air: bool = True
     attack_all_blocked: bool = False
     deployment_cost: float = 0.0
+    initial_deployment_cost: float = 0.0
+    kill_dp_reward: float = 0.0
+    retreat_refunds_initial_cost: bool = False
     talent_atk_ratio: float = 0.0
     talent_max_hp_ratio: float = 0.0
     talent_defense_ratio: float = 0.0
@@ -173,6 +176,7 @@ class SimulationState:
     active_devices: dict[str, RuntimeDevice] = field(default_factory=dict)
     deployed_operators: dict[str, RuntimeOperator] = field(default_factory=dict)
     redeploy_available_at: dict[str, float] = field(default_factory=dict)
+    initial_deployment_costs: dict[str, float] = field(default_factory=dict)
     events: list[SimulationEvent] = field(default_factory=list)
     enemies_killed: int = 0
     enemies_leaked: int = 0

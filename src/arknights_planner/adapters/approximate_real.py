@@ -28,6 +28,7 @@ from .low_rarity_skill import LowRarityBlackboardEffectInterpreter, RealSkillSup
 from arknights_planner.adapters.normal_low_star import (
     deployment_heal_all_value,
     deployment_sp_bonus,
+    charger_economy,
 )
 from arknights_planner.benchmark.census import low_rarity_census, RuntimeSupportStatus
 
@@ -557,6 +558,8 @@ class ApproximateRealSimulationAdapter:
             ),
             can_attack_air=adapted.operator.position.value == "RANGED",
             deployment_cost_delta=deployment_cost_delta,
+            kill_dp_reward=charger_economy(self.repository, adapted.operator.operator_id)["kill_dp_reward"],
+            retreat_refunds_initial_cost=charger_economy(self.repository, adapted.operator.operator_id)["retreat_refunds_initial_cost"],
             attack_all_blocked="同时攻击阻挡的所有敌人" in source_description,
             anti_air_priority="优先攻击空中单位" in (source.get("description") or ""),
             prioritize_high_defense=prioritize_high_defense,

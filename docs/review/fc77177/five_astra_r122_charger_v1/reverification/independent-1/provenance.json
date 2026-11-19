@@ -1,0 +1,56 @@
+{
+  "budget_before": 32,
+  "candidate_id": "candidate-023",
+  "command": [
+    "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+    "/home/bigdata/Desktop/arknights-auto-planner/scripts/run_gpt_tactical_stage_session_v1.py",
+    "simulate",
+    "--stage-id",
+    "main_08-07",
+    "--facts-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r122_charger_v1/reverification/independent-1/source",
+    "--output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r122_charger_v1/reverification/independent-1/source",
+    "--diagnostic-output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r122_charger_v1/reverification/independent-1/simulation",
+    "--plan-id",
+    "R122_Center_0",
+    "--plan-label",
+    "R122",
+    "--plan-id-prefix",
+    "R122_",
+    "--max-unique-deployed-operators",
+    "5",
+    "--authorization-config",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r122_charger_v1/model_authorization_v1.json",
+    "--simulation-budget-path",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r122_charger_v1/simulation_budget_v1.json"
+  ],
+  "frozen_inputs_sha256": {
+    "execution_input_gate.json": "8b2123c491a853dc639f81c88d200d985bb3ac32a5301ea5861410394c014dcd",
+    "llm_evidence_context.json": "8dde547c3b6447ed2f0c599294278fe7235aa058fa8eb5f293246662f63da437",
+    "llm_plan_validation.json": "7295a12ed1e257c26f93aabeaace4c0f44f05a1d79b242241e9340bc56566821",
+    "llm_structured_output.json": "c2f10017ea742249cca0745f73dc45b417afc166fdd295e59fabe1e420543360",
+    "revision_output_schema.json": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "static_compile_results.json": "4d7cd638438547ca6d63b06ce0ad3515eb4c54d4ba31096a70314be76534725a"
+  },
+  "gate": {
+    "budget_sha256": "41227f49f6c6ce6dc5217d244da153216837faca0607de0acec77da6c5728a95",
+    "diagnostic_output_dir": "docs/review/fc77177/five_astra_r122_charger_v1/reverification/independent-1/simulation",
+    "expected_plan_id": "R122_Center_0",
+    "expected_protected_target_count": 2,
+    "immutable_rule": "existing diagnostic manifests may not be overwritten",
+    "inputs": {
+      "evidence_context_sha256": "8dde547c3b6447ed2f0c599294278fe7235aa058fa8eb5f293246662f63da437",
+      "plan_validation_sha256": "7295a12ed1e257c26f93aabeaace4c0f44f05a1d79b242241e9340bc56566821",
+      "static_compile_results_sha256": "4d7cd638438547ca6d63b06ce0ad3515eb4c54d4ba31096a70314be76534725a",
+      "structured_output_sha256": "c2f10017ea742249cca0745f73dc45b417afc166fdd295e59fabe1e420543360"
+    },
+    "remaining_stage_simulations": 68,
+    "schema_version": "KIMIARK_FROZEN_PLAN_EVALUATION_GATE_V1",
+    "source_dir": "docs/review/fc77177/five_astra_r122_charger_v1/reverification/independent-1/source",
+    "stage_id": "main_08-07",
+    "status": "AUTHORIZED"
+  },
+  "source": "Astra explicitly requested independent rerun"
+}

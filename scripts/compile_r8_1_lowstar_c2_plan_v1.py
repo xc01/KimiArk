@@ -422,7 +422,7 @@ def compile_plan(input_dir: Path = OUT) -> dict[str, Any]:
             },
             "retreat_semantics": {
                 "processed_actions": len([row for row in actions if row.get("action_type") == "RETREAT"]),
-                "redeploy_cooldown_model": "redeploy_time * 30 frames; refund UNKNOWN and not counted",
+                "redeploy_cooldown_model": "redeploy_time * 30 frames; living retreat refund uses source-backed economy trait or ordinary half-cost rule in DP ledger",
             },
             "conditional_redeploys": conditional_redeploys,
         },
@@ -581,7 +581,8 @@ def build_dp_ledger(
                 if operator_id not in active_operators:
                     continue
                 cost = actual_cost(catalog[operator_id], supports[operator_id])
-                refund = floor(cost * 0.5)
+                economy = supports[operator_id].get("economy_trait") or {}
+                refund = cost if economy.get("retreat_refunds_initial_cost") is True else floor(cost * 0.5)
                 before = dp
                 dp = min(max_dp, dp + refund)
                 active_operators.remove(operator_id)
@@ -643,9 +644,10 @@ def build_dp_ledger(
             "evidence_status": "CONFIRMED_FROM_CURRENT_PUBLIC_RUNTIME_PATTERN_AND_FIXED_GAME_DATA",
             "events": auto_events,
         },
-        "retreat_refund": {"value": "HALF_DEPLOYMENT_COST_FLOOR",
+        "retreat_refund": {"value": "CHARGER_INITIAL_COST_ELSE_HALF_DEPLOYMENT_COST_FLOOR",
                            "condition": "manual retreat of a surviving deployed operator",
                            "status": "CONFIRMED_FROM_CODE_RUNTIME_MATCH"},
+        "charger_kill_income": "RUNTIME_ONLY_CONDITIONAL_ON_ACTUAL_KILL; not pre-credited by static natural-DP ledger",
         "merchant_upkeep": "NOT_APPLICABLE_UNLESS_MERCHANT_DEPLOYED",
         "skill_readiness": readiness,
         "entries": rows,

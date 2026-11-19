@@ -1,0 +1,420 @@
+[
+  {
+    "changes": [],
+    "hypothesis": "冻结D轴",
+    "name": "BaseD",
+    "parameters": {},
+    "parent": "D",
+    "round": 1
+  },
+  {
+    "changes": [],
+    "hypothesis": "冻结E轴",
+    "name": "BaseE",
+    "parameters": {},
+    "parent": "E",
+    "round": 1
+  },
+  {
+    "changes": [],
+    "hypothesis": "复跑冻结的撤退返场轴以分离击杀回费与战斗结算",
+    "name": "ExactD",
+    "parameters": {},
+    "parent": "D",
+    "round": 1
+  },
+  {
+    "changes": [],
+    "hypothesis": "复跑冻结的原地防守轴以比较无撤退时的击杀回费",
+    "name": "ExactE",
+    "parameters": {},
+    "parent": "E",
+    "round": 1
+  },
+  {
+    "changes": [
+      {
+        "action": "RETREAT",
+        "fields": {
+          "frame": "$r"
+        },
+        "frame": 3800,
+        "operator": "char_192_falco",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": "$m"
+        },
+        "frame": 1951,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "提前撤离翎羽并用退款使月见夜提前到外路，观察早怪与保护通行",
+    "name": "Cash",
+    "parameters": {
+      "m": [
+        1651,
+        1771,
+        1861
+      ],
+      "r": [
+        1512,
+        1610
+      ]
+    },
+    "parent": "D",
+    "round": 1
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "frame": 331,
+          "tile": [
+            2,
+            6
+          ]
+        },
+        "frame": 1411,
+        "operator": "char_124_kroos",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 841,
+          "tile": "$tile"
+        },
+        "frame": 541,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1381
+        },
+        "frame": 1081,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1742
+        },
+        "frame": 1470,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "先部署克洛丝占跨路射位，延后医疗并观察双路击杀与术师存活",
+    "name": "Cross",
+    "parameters": {
+      "dir": [
+        "LEFT",
+        "UP"
+      ],
+      "tile": [
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    "parent": "D",
+    "round": 2
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "frame": 571,
+          "tile": "$tile"
+        },
+        "frame": 1951,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "LEFT",
+          "frame": 901,
+          "tile": [
+            2,
+            3
+          ]
+        },
+        "frame": 1411,
+        "operator": "char_124_kroos",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1411
+        },
+        "frame": 541,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 2312
+        },
+        "frame": 1470,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 1951
+        },
+        "frame": 1081,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1772
+        },
+        "frame": 3152,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "月见夜提前守下路清障，由射手照顾左侧交汇处，检验两保护和外路",
+    "name": "Lower",
+    "parameters": {
+      "dir": [
+        "RIGHT",
+        "UP"
+      ],
+      "tile": [
+        [
+          1,
+          5
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    "parent": "D",
+    "round": 3
+  },
+  {
+    "changes": [
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "frame": 541,
+          "tile": "$tile"
+        },
+        "frame": 1081,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "DOWN",
+          "frame": 1081,
+          "tile": [
+            5,
+            3
+          ]
+        },
+        "frame": 541,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 1982
+        },
+        "frame": 1470,
+        "operator": "char_120_hibisc",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "将术师和医疗同移至炮兵左侧停留区，测试炮兵实际击杀及清障代价",
+    "name": "AirLeft",
+    "parameters": {
+      "dir": [
+        "LEFT",
+        "DOWN",
+        "UP"
+      ],
+      "tile": [
+        [
+          2,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    "parent": "D",
+    "round": 4
+  },
+  {
+    "changes": [
+      {
+        "action": "RETREAT",
+        "fields": {
+          "frame": 2160
+        },
+        "frame": 2600,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "direction": "$dir",
+          "frame": 4270,
+          "tile": [
+            2,
+            3
+          ]
+        },
+        "frame": 5250,
+        "operator": "char_210_stward",
+        "type": "set"
+      },
+      {
+        "action": "RETREAT",
+        "fields": {
+          "frame": 3350
+        },
+        "frame": 3800,
+        "operator": "char_192_falco",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 5460,
+          "tile": "$tile"
+        },
+        "frame": 6350,
+        "operator": "char_192_falco",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 6811
+        },
+        "frame": 7710,
+        "operator": "char_192_falco",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "术师打破右侧路障后立即撤回，提前返场打中央重甲，翎羽在击杀十三后尽早换路",
+    "name": "Center",
+    "parameters": {
+      "dir": [
+        "UP",
+        "RIGHT"
+      ],
+      "tile": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    "parent": "D",
+    "round": 5
+  },
+  {
+    "changes": [
+      {
+        "action": "RETREAT",
+        "fields": {
+          "frame": "$r"
+        },
+        "frame": 6100,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "DEPLOY",
+        "fields": {
+          "frame": 6950,
+          "tile": "$tile"
+        },
+        "frame": 8210,
+        "operator": "char_283_midn",
+        "type": "set"
+      },
+      {
+        "action": "ACTIVATE_SKILL",
+        "fields": {
+          "frame": 8151
+        },
+        "frame": 9420,
+        "operator": "char_283_midn",
+        "type": "set"
+      }
+    ],
+    "hypothesis": "月见夜从外路提前撤退返到第三行，配合翎羽各打一条中央路线验收三十三及三十四",
+    "name": "Pair",
+    "parameters": {
+      "r": [
+        4200,
+        4750
+      ],
+      "tile": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    "parent": "candidate-023",
+    "round": 5
+  }
+]

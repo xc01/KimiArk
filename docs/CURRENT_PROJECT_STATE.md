@@ -1,5 +1,22 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R122 charger correction: active mechanics m39-charger-kill-and-
+retreat-dp-v1 implements source-explicit Plume final-blow+1DP and living
+retreat refund of initial paid cost; death0, DP cap respected, static does
+not assume future kills. 41 related tests PASS. Old m38b artifacts remain
+historical, including M70 eight-ID WIN (not revalidated under m39 here).
+One new Astra/low CLI completed fixed-five five rounds, 39check/32PASS/
+33complete simulations including one real independent rerun. Exact old
+R121040/011 axes retain combat outcomes after DP-only correction. New best
+023 independently reproduces12kills/21leaks, dual arrivals2838/6412, zero
+remaining/errors, one death; saves#28 versus current same-axis baseline,
+retains#34, but cannon and armor21/22/33 still leak. Timing also changed,
+so extra kill is not attributed solely to refund. Baseline002 has exact D
+actions but E outer protocol parent; raw model mismatch explicitly retained.
+Old ledgers unchanged/no push; see review/fc77177/five_astra_r122_charger_v1/
+closeout_v1.md and BEST_AXIS_TO_COPY.tsv. No current five-person WIN or
+impossibility claim; no automatic further experiment.
+
 2026-11-19 R121 fixed-five Astra/low batch closed (Kroos/Midnight/Steward/
 Hibiscus/Plume): one real CLI, five hypotheses, 51check/47PASS, 49 counted
 reservations =48 complete battles (46 first runs+2 independent reruns) and

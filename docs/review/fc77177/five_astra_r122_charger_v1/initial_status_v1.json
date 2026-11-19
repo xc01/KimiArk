@@ -1,0 +1,266 @@
+{
+  "allow_fake_execution": false,
+  "batch_stopped": false,
+  "budget": {
+    "max_stage_simulations": 100,
+    "prior_stage_simulations": 0,
+    "remaining_stage_simulations": 100,
+    "schema_version": "KIMIARK_STAGE_SIMULATION_BUDGET_V1",
+    "stage_id": "main_08-07",
+    "started_stage_simulations": 0
+  },
+  "candidate_ledger": {
+    "attempts": [],
+    "max_candidates": 100,
+    "remaining_candidates": 100,
+    "schema_version": "KIMIARK_CLOSED_LOOP_CANDIDATE_LEDGER_V2",
+    "used_candidates": 0
+  },
+  "check_call_ledger": {
+    "max_check_calls": 500,
+    "remaining_check_calls": 500,
+    "used_check_calls": 0
+  },
+  "controlled_code_sha256": {
+    "scripts/compile_r8_1_lowstar_c2_plan_v1.py": "9a9179cbc4dcff5ef76d8609708271ad63269f4098b9e610f4f07c4446f2bfe8",
+    "scripts/kimiark_mcp_server.py": "54cdcd21134e893f9f1ac403187338d4dad4ec218e2667c955dfb700161b98f7",
+    "scripts/kimiark_tactical_stdio_service_v1.py": "f33843c3eb2ea55ffc464ea4ad4d88fc9e830ab14e70a938da5cb32e2d9ed13b",
+    "scripts/run_gpt_tactical_stage_diagnostic_v1.py": "2021042e4a4f0f7b6a2c1ee29b7d60d14c38e2ebb32a2e08b081708f1779dc0a",
+    "scripts/run_gpt_tactical_stage_session_v1.py": "3d461af8f5468cc9972375d09f96e278c975e15ca38388dc9735188f33f74192",
+    "scripts/tactical_evaluation_gate_v1.py": "da5b20ba4162a93b7316236b7c97251c75944987c85dd4e32c00cd7fb2f2cc8b"
+  },
+  "execution_backend": "CONTROLLED_RUNNER",
+  "features_apps": false,
+  "fixed_roster": [
+    "char_120_hibisc",
+    "char_124_kroos",
+    "char_192_falco",
+    "char_210_stward",
+    "char_283_midn"
+  ],
+  "independent_runs": [],
+  "interface_vocab": {
+    "action_type_names": [
+      "ACTIVATE_SKILL",
+      "DEPLOY",
+      "RETREAT"
+    ],
+    "boundary": "DEPLOY/RETREAT/ACTIVATE_SKILL are plan actions; simulator log event_type is DEPLOY/RETREAT/SKILL_ACTIVATE.",
+    "event_type_names": [
+      "ATTACK_RECOVERY_END",
+      "ATTACK_START",
+      "ATTACK_STRIKE",
+      "ATTACK_WINDUP",
+      "BLOCK",
+      "DAMAGE",
+      "DEPLOY",
+      "DEVICE_DAMAGE",
+      "DEVICE_DESTROYED",
+      "DEVICE_TARGET_SELECTION",
+      "DP_CHANGE",
+      "ENEMY_ABILITY_CANCELLED",
+      "ENEMY_ABILITY_HIT",
+      "ENEMY_ABILITY_START",
+      "ENEMY_DEATH",
+      "ENEMY_LEAK",
+      "ENEMY_STATUS_HIT",
+      "HEAL",
+      "OBJECTIVE_FAILURE",
+      "OPERATOR_DEATH",
+      "PROJECTILE_BORN",
+      "PROJECTILE_HIT",
+      "PROTECTED_TARGET_REACHED",
+      "RETREAT",
+      "SKILL_ACTIVATE",
+      "SKILL_END",
+      "SKILL_READY",
+      "SPAWN",
+      "TARGET_SELECTION",
+      "UNBLOCK"
+    ],
+    "query_event_type_aliases": {
+      "ACTIVATE_SKILL": "SKILL_ACTIVATE",
+      "ENEMY_BLOCKED": "BLOCK"
+    }
+  },
+  "max_unique_deployed_operators": 5,
+  "mechanics_version": "m39-charger-kill-and-retreat-dp-v1",
+  "model": "gpt-6.2-astra",
+  "model_identity_proof_boundary": "Service records configured identity only; it cannot prove remote model identity.",
+  "new_plan_prefix": "R122_",
+  "parent_choices": {
+    "A": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-002/simulation/action_snapshot.json",
+          "sha256": "228e6973d96acf7f9e7b743b620eed638cf3b3324ea2ea46599e30ce4cf71b6f",
+          "uncompressed_sha256": "228e6973d96acf7f9e7b743b620eed638cf3b3324ea2ea46599e30ce4cf71b6f"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-002/simulation/diagnostic_events.json.gz",
+          "sha256": "983edbdf35fee9e1e7199a664beca17725cfaf981ddbe03bfb4085954521824b",
+          "uncompressed_sha256": "f25cddcec94fca5fcf4a004850cbe7a5db3fd527863700e1a7a9493e2e963902"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-002/simulation/diagnostic_summary.json.gz",
+          "sha256": "7b19cb40cd02fa51de8ffe8365aedd90a2ac3114e246dbe99776ddfb97a684a9",
+          "uncompressed_sha256": "e35ba15c50345a9aa2491e0f247db0a05cdd4e5fcf6f8d8cfc59b990b3ffb552"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-002/simulation/plan_snapshot.json",
+          "sha256": "5f6bea7af81e94f37094aa9d3e75332cd82e796902bd8ce2660e5e05af6bbdf7",
+          "uncompressed_sha256": "5f6bea7af81e94f37094aa9d3e75332cd82e796902bd8ce2660e5e05af6bbdf7"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-002/simulation/simulation_parameters.json",
+          "sha256": "613328d4d20cb336bd2ea1719abee10e367f5ac03a9a764a8457de5acaed174c",
+          "uncompressed_sha256": "613328d4d20cb336bd2ea1719abee10e367f5ac03a9a764a8457de5acaed174c"
+        }
+      },
+      "payload_copy_sha256": "c1d4a1bb8a9cec4b51e824a189955af7a62d7b46370204e723660dc3282339c7",
+      "plan_id": "R119_VanFirst_0",
+      "reference_only_roster_may_exceed_five": true
+    },
+    "B": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-007/simulation/action_snapshot.json",
+          "sha256": "e59218461a508f0e989b904ea97c984cc3f4d6ff098cea282ffb1e7485a52c7b",
+          "uncompressed_sha256": "e59218461a508f0e989b904ea97c984cc3f4d6ff098cea282ffb1e7485a52c7b"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-007/simulation/diagnostic_events.json.gz",
+          "sha256": "520e2dfe7a7326ffe403dc77360cd4543263d85bbca363d14de9027dd4da7ef6",
+          "uncompressed_sha256": "6d4c29d6c14a38e37640c96ae7d567237a09de257981af2969f44f40d279db75"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-007/simulation/diagnostic_summary.json.gz",
+          "sha256": "df08b2afe0de6e2c90fed545c992c25173dde899402d3e4e24d36b91e4485e77",
+          "uncompressed_sha256": "e8aabe662af4d75e69ff94c9b10d63de0ec2d821f2be9a71d571605a995ddc5c"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-007/simulation/plan_snapshot.json",
+          "sha256": "376acc2e34e9bc845dd1a9bf91d21f2a7dfc7ce2c7cfb296b425cd04504e7682",
+          "uncompressed_sha256": "376acc2e34e9bc845dd1a9bf91d21f2a7dfc7ce2c7cfb296b425cd04504e7682"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_astra_r119_v1/session/candidates/candidate-007/simulation/simulation_parameters.json",
+          "sha256": "bd0d91c3122de75f0a66b3b5fa47db8d3ae3cc1038a9a5eb0c5262fe642516b8",
+          "uncompressed_sha256": "bd0d91c3122de75f0a66b3b5fa47db8d3ae3cc1038a9a5eb0c5262fe642516b8"
+        }
+      },
+      "payload_copy_sha256": "d391c212f6816e08b6a30976b321633c24232ab180cb49b1474dc0fa036b87d5",
+      "plan_id": "R119_SniperRelay_0",
+      "reference_only_roster_may_exceed_five": true
+    },
+    "C": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/seven_vanguard_r120_v1/session/candidates/candidate-001/simulation/action_snapshot.json",
+          "sha256": "9283fb32dcdd8b7b8d0593897ec921a1b9e520fc0dc138159313fa600246e04e",
+          "uncompressed_sha256": "9283fb32dcdd8b7b8d0593897ec921a1b9e520fc0dc138159313fa600246e04e"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/seven_vanguard_r120_v1/session/candidates/candidate-001/simulation/diagnostic_events.json.gz",
+          "sha256": "a1c71e37175cd4787bae7bb98c1edd5668dcf32af926d2d0ed3f35489548ea60",
+          "uncompressed_sha256": "ca47e99ad831bdeaae52b9ad560153f5c83f68c1f76f2b5a754a40eefa91d3d3"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/seven_vanguard_r120_v1/session/candidates/candidate-001/simulation/diagnostic_summary.json.gz",
+          "sha256": "644cf94addccae206a61320c7f9567e29f44fd1a3dd8919609146aea29ae9149",
+          "uncompressed_sha256": "ffb7bddd4ade74503101535c2ce3f79930900cdd8853af356020728e12a16fae"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/seven_vanguard_r120_v1/session/candidates/candidate-001/simulation/plan_snapshot.json",
+          "sha256": "4cc48c2563c201990d0051fd277bf68b26fbfb4a1e17dd05757d9e2299474079",
+          "uncompressed_sha256": "4cc48c2563c201990d0051fd277bf68b26fbfb4a1e17dd05757d9e2299474079"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/seven_vanguard_r120_v1/session/candidates/candidate-001/simulation/simulation_parameters.json",
+          "sha256": "022f451f985745a9bb1a8bad894291974c97f25a2ca397b50f802ecc50e719b4",
+          "uncompressed_sha256": "022f451f985745a9bb1a8bad894291974c97f25a2ca397b50f802ecc50e719b4"
+        }
+      },
+      "payload_copy_sha256": "bdd43d743abeb40e553944716a43d7c310a03d0bddc28d908d53fa1c03ce61eb",
+      "plan_id": "R120_Plume",
+      "reference_only_roster_may_exceed_five": true
+    },
+    "D": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-040/simulation/action_snapshot.json",
+          "sha256": "97bd01784ab8ff0fa82c7aa094dcc2f694a4995d9f1d84a5894913b377324225",
+          "uncompressed_sha256": "97bd01784ab8ff0fa82c7aa094dcc2f694a4995d9f1d84a5894913b377324225"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-040/simulation/diagnostic_events.json.gz",
+          "sha256": "d6c26b401f2a34c2f28cd30e96ccc8dec31d1d2ede2821c09adc445f6454d583",
+          "uncompressed_sha256": "67b1bccd497d7082d55fccc20fe45e8fff99ac9aff877c4a86278413753334d6"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-040/simulation/diagnostic_summary.json.gz",
+          "sha256": "518e9a279aa31bf42c069067d900a7cae450ea66435d5119a9ccf01f3de53d3f",
+          "uncompressed_sha256": "9c07b1fa62a308fd26233f6beb2d7f94ea82cf3ff2e02092af12660f552a8f29"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-040/simulation/plan_snapshot.json",
+          "sha256": "1d409c5d6c6a7de9d45d58399a020cb04e7f395a6ddf519c122222a57847c851",
+          "uncompressed_sha256": "1d409c5d6c6a7de9d45d58399a020cb04e7f395a6ddf519c122222a57847c851"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-040/simulation/simulation_parameters.json",
+          "sha256": "b7287ac06aaa477ddc619ff2519c2fbe9d0b9f1159707cd6c49877dc7bc28163",
+          "uncompressed_sha256": "b7287ac06aaa477ddc619ff2519c2fbe9d0b9f1159707cd6c49877dc7bc28163"
+        }
+      },
+      "payload_copy_sha256": "a0bca4389fb3277d4762d5fbe98c66aef5de89ada27b216bcc840331c7cdfda8",
+      "plan_id": "R121_ReturnLive_0",
+      "reference_only_roster_may_exceed_five": true
+    },
+    "E": {
+      "artifacts": {
+        "action_snapshot.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-011/simulation/action_snapshot.json",
+          "sha256": "55c4109c8a5ff13bb178f7f6fa5308be56e10a64f29b83e1f64513d95d30831d",
+          "uncompressed_sha256": "55c4109c8a5ff13bb178f7f6fa5308be56e10a64f29b83e1f64513d95d30831d"
+        },
+        "diagnostic_events.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-011/simulation/diagnostic_events.json.gz",
+          "sha256": "ad870c0c3e0b7fd9aecd8ab0904d9df70d6dff89b3206da0ecac8d1fa99b121f",
+          "uncompressed_sha256": "f5226ae779eadb316719c19f00a15bfc1c5b566ffe7b17b1def041c7fd6cbdcc"
+        },
+        "diagnostic_summary.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-011/simulation/diagnostic_summary.json.gz",
+          "sha256": "457f5529674e2d5c85a4dce6cfa5c3c81e3e7ce8dc5a7826c66f063540dd1bcb",
+          "uncompressed_sha256": "80f9af82706c2c7330edb938d2c96853ce44028671f251bdcfb2ac99ad440910"
+        },
+        "plan_snapshot.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-011/simulation/plan_snapshot.json",
+          "sha256": "8917ebaea6ddc95f0473983281ed3908ed1cfc16538e257773ffcf683f2c7686",
+          "uncompressed_sha256": "8917ebaea6ddc95f0473983281ed3908ed1cfc16538e257773ffcf683f2c7686"
+        },
+        "simulation_parameters.json": {
+          "path": "docs/review/fc77177/five_astra_r121_v1/session/candidates/candidate-011/simulation/simulation_parameters.json",
+          "sha256": "1f13abfdf9439281a2971980476b9110a0ace0c49410bb71cca79282a48e293a",
+          "uncompressed_sha256": "1f13abfdf9439281a2971980476b9110a0ace0c49410bb71cca79282a48e293a"
+        }
+      },
+      "payload_copy_sha256": "c1c027f569525ac1c66eeca0ba2fe7e03345dbdc32350eb166dabd8ac91a7476",
+      "plan_id": "R121_RightHold_0",
+      "reference_only_roster_may_exceed_five": true
+    },
+    "T": {
+      "artifacts": {},
+      "no_events": true,
+      "not_a_tactical_parent": "Empty protocol scaffolding, no simulated evidence",
+      "payload_copy_sha256": "4d5afb2fd96aec84dc3d7fdc3f29a7e2581a73cf27b5f77623d73057c76a3854",
+      "plan_id": "R122_PROTOCOL_TEMPLATE"
+    }
+  },
+  "reasoning_effort": "low",
+  "reserved_for_independent_verification": 2,
+  "rounds_recorded": [],
+  "schema_version": "KIMIARK_CLOSED_LOOP_SESSION_STATUS_V1",
+  "session_id": "r122-five-fixed-astra-low",
+  "stage_id": "main_08-07"
+}

@@ -101,6 +101,22 @@ def _blackboard(candidate: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def charger_economy(repository: GameDataRepository, operator_id: str) -> dict[str, Any]:
+    """Only source-explicit charger traits; never infer generic cost as DP."""
+    raw = _raw_character(repository, operator_id)
+    description = str(raw.get("description") or "")
+    supported = (raw.get("subProfessionId") == "charger"
+                 and "击杀敌人后获得1点部署费用" in description
+                 and "撤退时返还初始部署费用" in description)
+    return {"runtime_supported": supported,
+            "kill_dp_reward": 1.0 if supported else 0.0,
+            "retreat_refunds_initial_cost": supported,
+            "status": "SOURCE_BACKED_CHARGER_ECONOMY" if supported else "NOT_APPLICABLE_OR_UNSUPPORTED_PATTERN",
+            "source_file": "zh_CN/gamedata/excel/character_table.json",
+            "source_path": f"$.{operator_id}.description",
+            "source_description": description if supported else None}
+
+
 def deployment_sp_bonus(repository: GameDataRepository, operator_id: str) -> float:
     total = 0.0
     for candidate in active_talent_candidates(repository, operator_id):

@@ -197,6 +197,7 @@ def compact_operator_catalog() -> list[dict[str, Any]]:
                     "talent": support_row.get("talent"),
                     "deployment_sp_bonus": support_row.get("deployment_sp_bonus"),
                     "deployment_heal_all_value": support_row.get("deployment_heal_all_value"),
+                    "economy_trait": support_row.get("economy_trait"),
                 },
             }
         )
