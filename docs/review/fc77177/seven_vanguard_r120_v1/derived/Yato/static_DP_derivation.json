@@ -1,0 +1,562 @@
+{
+  "ledger": {
+    "automatic_skill_income_model": {
+      "conditions": [
+        "operator survives",
+        "operator remains deployed",
+        "normal time-SP recovery",
+        "same retreat-frame trigger is not counted"
+      ],
+      "events": [],
+      "evidence_status": "CONFIRMED_FROM_CURRENT_PUBLIC_RUNTIME_PATTERN_AND_FIXED_GAME_DATA",
+      "trigger_rule": "Initial trigger after (sp_cost - min(initial_sp + deployment_sp_bonus, sp_cost)) seconds; recurrence after sp_cost seconds for duration=0 AUTO TIME skills."
+    },
+    "conditional_dp_reservations": [],
+    "conflicts": [],
+    "deployment_limit": 8,
+    "entries": [
+      {
+        "balance_after": 10.0,
+        "balance_before": 0.0,
+        "delta": 10.0,
+        "event": "STAGE_INITIAL_DP",
+        "frame": 0,
+        "source": "stage_options.initial_cost; natural DP model +1/s"
+      },
+      {
+        "balance_after": 11.033333333333333,
+        "balance_before": 10.0,
+        "delta": 1.0333333333333332,
+        "event": "NATURAL_DP",
+        "frame": 31,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 4.033333333333333,
+        "balance_before": 11.033333333333333,
+        "cost": 7.0,
+        "event": "DEPLOY_COST",
+        "frame": 31,
+        "generation": 1,
+        "operator_id": "char_502_nblade",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 22.03333333333333,
+        "balance_before": 4.033333333333333,
+        "delta": 18.0,
+        "event": "NATURAL_DP",
+        "frame": 571,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 6.033333333333331,
+        "balance_before": 22.03333333333333,
+        "cost": 16.0,
+        "event": "DEPLOY_COST",
+        "frame": 571,
+        "generation": 1,
+        "operator_id": "char_283_midn",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 15.033333333333331,
+        "balance_before": 6.033333333333331,
+        "delta": 9.0,
+        "event": "NATURAL_DP",
+        "frame": 841,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 0.03333333333333144,
+        "balance_before": 15.033333333333331,
+        "cost": 15.0,
+        "event": "DEPLOY_COST",
+        "frame": 841,
+        "generation": 1,
+        "operator_id": "char_208_melan",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 17.03333333333333,
+        "balance_before": 0.03333333333333144,
+        "delta": 17.0,
+        "event": "NATURAL_DP",
+        "frame": 1351,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 0.03333333333333144,
+        "balance_before": 17.03333333333333,
+        "cost": 17.0,
+        "event": "DEPLOY_COST",
+        "frame": 1351,
+        "generation": 1,
+        "operator_id": "char_212_ansel",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 14.066666666666665,
+        "balance_before": 0.03333333333333144,
+        "delta": 14.033333333333333,
+        "event": "NATURAL_DP",
+        "frame": 1772,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 17.03333333333333,
+        "balance_before": 14.066666666666665,
+        "delta": 2.966666666666667,
+        "event": "NATURAL_DP",
+        "frame": 1861,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 0.03333333333333144,
+        "balance_before": 17.03333333333333,
+        "cost": 17.0,
+        "event": "DEPLOY_COST",
+        "frame": 1861,
+        "generation": 1,
+        "operator_id": "char_120_hibisc",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 6.233333333333332,
+        "balance_before": 0.03333333333333144,
+        "delta": 6.2,
+        "event": "NATURAL_DP",
+        "frame": 2047,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 13.23333333333333,
+        "balance_before": 6.233333333333332,
+        "delta": 7,
+        "event": "RETREAT_REFUND",
+        "frame": 2047,
+        "operator_id": "char_208_melan",
+        "status": "CONDITIONAL_ON_OPERATOR_SURVIVAL"
+      },
+      {
+        "balance_after": 15.066666666666665,
+        "balance_before": 13.23333333333333,
+        "delta": 1.833333333333334,
+        "event": "NATURAL_DP",
+        "frame": 2102,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 18.03333333333333,
+        "balance_before": 15.066666666666665,
+        "delta": 2.966666666666667,
+        "event": "NATURAL_DP",
+        "frame": 2191,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 0.03333333333333144,
+        "balance_before": 18.03333333333333,
+        "cost": 18.0,
+        "event": "DEPLOY_COST",
+        "frame": 2191,
+        "generation": 1,
+        "operator_id": "char_210_stward",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 17.03333333333333,
+        "balance_before": 0.03333333333333144,
+        "delta": 17.0,
+        "event": "NATURAL_DP",
+        "frame": 2701,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 0.03333333333333144,
+        "balance_before": 17.03333333333333,
+        "cost": 17.0,
+        "event": "DEPLOY_COST",
+        "frame": 2701,
+        "generation": 1,
+        "operator_id": "char_284_spot",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 2.0666666666666647,
+        "balance_before": 0.03333333333333144,
+        "delta": 2.033333333333333,
+        "event": "NATURAL_DP",
+        "frame": 2762,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 29.0,
+        "balance_before": 2.0666666666666647,
+        "delta": 26.933333333333337,
+        "event": "NATURAL_DP",
+        "frame": 3570,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 40.1,
+        "balance_before": 29.0,
+        "delta": 11.100000000000001,
+        "event": "NATURAL_DP",
+        "frame": 3903,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 48.266666666666666,
+        "balance_before": 40.1,
+        "delta": 8.166666666666664,
+        "event": "NATURAL_DP",
+        "frame": 4148,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 33.266666666666666,
+        "balance_before": 48.266666666666666,
+        "cost": 15.0,
+        "event": "DEPLOY_COST",
+        "frame": 4148,
+        "generation": 2,
+        "operator_id": "char_208_melan",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 37.1,
+        "balance_before": 33.266666666666666,
+        "delta": 3.8333333333333357,
+        "event": "NATURAL_DP",
+        "frame": 4263,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 37.66666666666667,
+        "balance_before": 37.1,
+        "delta": 0.56666666666667,
+        "event": "NATURAL_DP",
+        "frame": 4280,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 46.66666666666667,
+        "balance_before": 37.66666666666667,
+        "delta": 9,
+        "event": "RETREAT_REFUND",
+        "frame": 4280,
+        "operator_id": "char_210_stward",
+        "status": "CONDITIONAL_ON_OPERATOR_SURVIVAL"
+      },
+      {
+        "balance_after": 73.10000000000001,
+        "balance_before": 46.66666666666667,
+        "delta": 26.433333333333337,
+        "event": "NATURAL_DP",
+        "frame": 5073,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 73.10000000000001,
+        "delta": 25.89999999999999,
+        "event": "NATURAL_DP",
+        "frame": 5930,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 6157,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 6350,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 6381,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 81.0,
+        "balance_before": 99.0,
+        "cost": 18.0,
+        "event": "DEPLOY_COST",
+        "frame": 6381,
+        "generation": 2,
+        "operator_id": "char_210_stward",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 92.96666666666667,
+        "balance_before": 81.0,
+        "delta": 11.966666666666669,
+        "event": "NATURAL_DP",
+        "frame": 6740,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 92.96666666666667,
+        "delta": 6.033333333333331,
+        "event": "NATURAL_DP",
+        "frame": 7658,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 7731,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 8100,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 9,
+        "event": "RETREAT_REFUND",
+        "frame": 8100,
+        "operator_id": "char_210_stward",
+        "status": "CONDITIONAL_ON_OPERATOR_SURVIVAL"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 8101,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 7,
+        "event": "RETREAT_REFUND",
+        "frame": 8101,
+        "operator_id": "char_208_melan",
+        "status": "CONDITIONAL_ON_OPERATOR_SURVIVAL"
+      },
+      {
+        "balance_after": 99.0,
+        "balance_before": 99.0,
+        "delta": 0.0,
+        "event": "NATURAL_DP",
+        "frame": 10201,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 81.0,
+        "balance_before": 99.0,
+        "cost": 18.0,
+        "event": "DEPLOY_COST",
+        "frame": 10201,
+        "generation": 3,
+        "operator_id": "char_210_stward",
+        "status": "PAID"
+      },
+      {
+        "balance_after": 81.03333333333333,
+        "balance_before": 81.0,
+        "delta": 0.03333333333333144,
+        "event": "NATURAL_DP",
+        "frame": 10202,
+        "source": "stage costIncreaseTime=1 second; 30 FPS action clock"
+      },
+      {
+        "balance_after": 66.03333333333333,
+        "balance_before": 81.03333333333333,
+        "cost": 15.0,
+        "event": "DEPLOY_COST",
+        "frame": 10202,
+        "generation": 3,
+        "operator_id": "char_208_melan",
+        "status": "PAID"
+      }
+    ],
+    "final_balance": 66.03333333333333,
+    "final_balance_status": "KNOWN_WITH_STATIC_MODEL_ASSUMPTIONS",
+    "initial_dp": 10.0,
+    "max_dp": 99.0,
+    "merchant_upkeep": "NOT_APPLICABLE_UNLESS_MERCHANT_DEPLOYED",
+    "natural_dp_per_second": 1.0,
+    "retreat_refund": {
+      "condition": "manual retreat of a surviving deployed operator",
+      "status": "CONFIRMED_FROM_CODE_RUNTIME_MATCH",
+      "value": "HALF_DEPLOYMENT_COST_FLOOR"
+    },
+    "schema_version": "R8_1_LOWSTAR_C2_STATIC_DP_LEDGER_V2",
+    "skill_readiness": {
+      "char_120_hibisc@2762": {
+        "active_until_frame": 3362,
+        "available_sp_model": 30.033333333333335,
+        "generation": 1,
+        "next_model_ready_frame": 4262,
+        "required_sp": 30.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_120_hibisc@4263": {
+        "active_until_frame": 4863,
+        "available_sp_model": 80.06666666666666,
+        "generation": 1,
+        "next_model_ready_frame": 5763,
+        "required_sp": 30.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_120_hibisc@6157": {
+        "active_until_frame": 6757,
+        "available_sp_model": 143.2,
+        "generation": 1,
+        "next_model_ready_frame": 7657,
+        "required_sp": 30.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_120_hibisc@7658": {
+        "active_until_frame": 8258,
+        "available_sp_model": 193.23333333333332,
+        "generation": 1,
+        "next_model_ready_frame": 9158,
+        "required_sp": 30.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_208_melan@6350": {
+        "active_until_frame": 6950,
+        "available_sp_model": 73.4,
+        "generation": 2,
+        "next_model_ready_frame": 8150,
+        "required_sp": 40.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_212_ansel@2102": {
+        "active_until_frame": 2852,
+        "available_sp_model": 35.03333333333333,
+        "generation": 1,
+        "next_model_ready_frame": 3902,
+        "required_sp": 35.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_212_ansel@3903": {
+        "active_until_frame": 4653,
+        "available_sp_model": 95.06666666666666,
+        "generation": 1,
+        "next_model_ready_frame": 5703,
+        "required_sp": 35.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_212_ansel@5930": {
+        "active_until_frame": 6680,
+        "available_sp_model": 162.63333333333333,
+        "generation": 1,
+        "next_model_ready_frame": 7730,
+        "required_sp": 35.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_212_ansel@7731": {
+        "active_until_frame": 8481,
+        "available_sp_model": 222.66666666666666,
+        "generation": 1,
+        "next_model_ready_frame": 9531,
+        "required_sp": 35.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_283_midn@1772": {
+        "active_until_frame": 2972,
+        "available_sp_model": 70.03333333333333,
+        "generation": 1,
+        "next_model_ready_frame": 5072,
+        "required_sp": 70.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_283_midn@5073": {
+        "active_until_frame": 6273,
+        "available_sp_model": 180.06666666666666,
+        "generation": 1,
+        "next_model_ready_frame": 8373,
+        "required_sp": 70.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_284_spot@3570": {
+        "active_until_frame": 4320,
+        "available_sp_model": 53.96666666666667,
+        "generation": 1,
+        "next_model_ready_frame": 5520,
+        "required_sp": 40.0,
+        "status": "PASS_WITH_CONDITIONS"
+      },
+      "char_284_spot@6740": {
+        "active_until_frame": 7490,
+        "available_sp_model": 159.63333333333333,
+        "generation": 1,
+        "next_model_ready_frame": 8690,
+        "required_sp": 40.0,
+        "status": "PASS_WITH_CONDITIONS"
+      }
+    }
+  },
+  "repairs": [
+    {
+      "coupling": "All manual skills of same deployment generation shifted equally; other roles unchanged",
+      "deployment_delay_frames": 30,
+      "issue": {
+        "balance_before": 16.03333333333333,
+        "conflict": "INSUFFICIENT_DP",
+        "cost": 17.0,
+        "frame": 1321,
+        "operator_id": "char_212_ansel"
+      }
+    },
+    {
+      "coupling": "All manual skills of same deployment generation shifted equally; other roles unchanged",
+      "deployment_delay_frames": 57,
+      "issue": {
+        "balance_before": 15.133333333333331,
+        "conflict": "INSUFFICIENT_DP",
+        "cost": 17.0,
+        "frame": 1804,
+        "operator_id": "char_120_hibisc"
+      }
+    },
+    {
+      "coupling": "All manual skills of same deployment generation shifted equally; other roles unchanged",
+      "deployment_delay_frames": 120,
+      "issue": {
+        "balance_before": 14.033333333333331,
+        "conflict": "INSUFFICIENT_DP",
+        "cost": 18.0,
+        "frame": 2071,
+        "operator_id": "char_210_stward"
+      }
+    },
+    {
+      "coupling": "All manual skills of same deployment generation shifted equally; other roles unchanged",
+      "deployment_delay_frames": 240,
+      "issue": {
+        "balance_before": 9.033333333333331,
+        "conflict": "INSUFFICIENT_DP",
+        "cost": 17.0,
+        "frame": 2461,
+        "operator_id": "char_284_spot"
+      }
+    }
+  ]
+}

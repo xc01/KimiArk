@@ -1,5 +1,17 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R120 two deterministic alternative-vanguard probes completed:
+model/CLI0, production check2/PASS2/full simulations2, independent new ledger.
+Both start from R119 candidate002 with natural-DP and dependent skill timing
+repairs, no mechanism changes. Plume14/19 loses both protected; Ansel/Steward
+die2743. Yato20/13 keeps protected14 but loses3; Steward survives to scheduled
+retreat4280, dealing12753.92 in44 hits to artillery (246.08HP left by events).
+Both still leak original#1/#6/#10/#12, retain early#2/#7/#11/#13 kills and #19,
+but artillery and central enemies regress. No new best or independent rerun;
+R119 Vanilla29/4 and old peer branches retained. Old ledgers unchanged,
+no transfer/push. See review/fc77177/seven_vanguard_r120_v1/RESULT_TO_COPY.txt.
+M70 eight-ID fixed-simulator complete WIN stays best; seven-or-fewer UNKNOWN.
+
 2026-11-19 R119 closed after five actual gpt-6.2-astra/low-directed rounds
 in one CLI (apps=false): 16 production checks, 12 PASS frozen candidates,
 13 complete fixed simulations including one real independent rerun. No
