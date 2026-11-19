@@ -1,0 +1,496 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "counterexample_avoidance_explanations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "deterministic_verifier_questions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "explicit_assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "lessons_from_infeasibility": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "rejected_tactical_assumptions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "retained_tactical_knowledge": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "revised_operational_plans": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "action_timeline": {
+            "items": {
+              "additionalProperties": true,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "action_type": {
+                        "const": "DEPLOY"
+                      }
+                    },
+                    "required": [
+                      "action_type"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "tile",
+                      "direction"
+                    ]
+                  }
+                }
+              ],
+              "properties": {
+                "action_type": {
+                  "type": "string"
+                },
+                "direction": {
+                  "type": "string"
+                },
+                "frame": {
+                  "type": "integer"
+                },
+                "operator_id": {
+                  "type": "string"
+                },
+                "rationale": {
+                  "type": "string"
+                },
+                "tile": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "action_type",
+                "frame",
+                "operator_id"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "allowed_substitutions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "battle_phases": {
+            "items": {
+              "additionalProperties": true,
+              "properties": {
+                "completion_condition": {
+                  "minLength": 5,
+                  "type": "string"
+                },
+                "failure_effect_on_later_phases": {
+                  "minLength": 5,
+                  "type": "string"
+                },
+                "goal": {
+                  "minLength": 5,
+                  "type": "string"
+                },
+                "handoff_requirements": {
+                  "items": {
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "phase_id": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "responsibilities": {
+                  "items": {
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "type": "array"
+                },
+                "start_condition": {
+                  "minLength": 5,
+                  "type": "string"
+                },
+                "survival_dependencies": {
+                  "items": {
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "phase_id",
+                "goal",
+                "start_condition",
+                "completion_condition",
+                "responsibilities",
+                "survival_dependencies",
+                "handoff_requirements",
+                "failure_effect_on_later_phases"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "changed_conflicting_assumptions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "conditional_responsibilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "corridor_responsibilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "deployment_positions_and_directions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "explicit_deadline_basis": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "forbidden_substitutions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "formation_structure": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "formation_transitions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "mandatory_tactical_invariants": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "opening_responsibilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "operational_plan_id": {
+            "type": "string"
+          },
+          "optional_responsibilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "parent_hypothesis_id": {
+            "type": "string"
+          },
+          "pressure_window_responsibilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "reserve_strategy": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "selected_low_star_operator_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "skill_intents": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "tactical_thesis": {
+            "type": "string"
+          },
+          "temporary_roles": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "unknown_dependencies": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "verification_questions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "operational_plan_id",
+          "parent_hypothesis_id",
+          "tactical_thesis",
+          "selected_low_star_operator_ids",
+          "deployment_positions_and_directions",
+          "formation_structure",
+          "formation_transitions",
+          "corridor_responsibilities",
+          "pressure_window_responsibilities",
+          "skill_intents",
+          "mandatory_tactical_invariants",
+          "action_timeline",
+          "battle_phases"
+        ],
+        "type": "object"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    },
+    "revised_stage_understanding": {
+      "additionalProperties": true,
+      "properties": {
+        "m58_open_roster_comparison": {
+          "additionalProperties": true,
+          "properties": {
+            "candidates": {
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "selected": {
+                    "type": "boolean"
+                  },
+                  "structure_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "structure_id",
+                  "selected"
+                ],
+                "type": "object"
+              },
+              "minItems": 3,
+              "type": "array"
+            },
+            "selected_structure_id": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "candidates",
+            "selected_structure_id"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "m58_open_roster_comparison"
+      ],
+      "type": "object"
+    },
+    "revised_strategic_hypotheses": {
+      "additionalItems": true,
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "hypothesis_id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "hypothesis_id"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "revised_tactical_requirements": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "revision_hypothesis": {
+      "additionalProperties": false,
+      "properties": {
+        "changed_responsibilities": {
+          "items": {
+            "minLength": 10,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "expected_first_observable_event": {
+          "additionalProperties": false,
+          "properties": {
+            "earliest_frame": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "event_type": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "latest_frame": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "source_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "target_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "event_type",
+            "source_id",
+            "target_id",
+            "earliest_frame",
+            "latest_frame"
+          ],
+          "type": "object"
+        },
+        "hypothesis_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "if_expected_event_absent": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "operational_plan_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "parent_plan_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "referenced_experience_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "tactical_hypothesis": {
+          "minLength": 20,
+          "type": "string"
+        }
+      },
+      "required": [
+        "hypothesis_id",
+        "parent_plan_id",
+        "operational_plan_id",
+        "referenced_experience_ids",
+        "tactical_hypothesis",
+        "changed_responsibilities",
+        "expected_first_observable_event",
+        "if_expected_event_absent"
+      ],
+      "type": "object"
+    },
+    "uncertainties": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "revised_operational_plans",
+    "revised_stage_understanding",
+    "revised_tactical_requirements",
+    "revised_strategic_hypotheses",
+    "revision_hypothesis"
+  ],
+  "type": "object"
+}

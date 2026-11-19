@@ -1,5 +1,21 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-19 R121 fixed-five Astra/low batch closed (Kroos/Midnight/Steward/
+Hibiscus/Plume): one real CLI, five hypotheses, 51check/47PASS, 49 counted
+reservations =48 complete battles (46 first runs+2 independent reruns) and
+one local pre-battle guard failure039 retained without refund/tactical LOSS.
+Best040 from Astra original ReturnLive grid is independently reproduced
+11kills/22leaks, both protected arrived2838/6442, zero remaining/errors,
+one operator death; cannon leaked5759, armor34 killed8989, armor21/22/33 leak.
+It strictly improves independently rerun011 by killing34 and freeing second
+protected target. Host mechanically completed eight original model-requested
+variants after a false wrapper stop/CLI exit; no new CLI/model or tactical
+values, and raw Astra final011 remains unchanged. Thus no model post-grid
+feedback is fabricated. Full source/accounting distinction preserved under
+review/fc77177/five_astra_r121_v1/closeout_v1.md and BEST_AXIS_TO_COPY.tsv.
+Old ledgers unchanged, no push. M70 eight-ID fixed-simulator full WIN remains
+best; seven-or-fewer complete WIN UNKNOWN. No five-person impossibility claim.
+
 2026-11-19 R120 two deterministic alternative-vanguard probes completed:
 model/CLI0, production check2/PASS2/full simulations2, independent new ledger.
 Both start from R119 candidate002 with natural-DP and dependent skill timing

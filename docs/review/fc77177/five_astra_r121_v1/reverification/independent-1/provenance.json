@@ -1,0 +1,56 @@
+{
+  "budget_before": 39,
+  "candidate_id": "candidate-011",
+  "command": [
+    "/home/bigdata/Desktop/arknights-auto-planner/.venv/bin/python",
+    "/home/bigdata/Desktop/arknights-auto-planner/scripts/run_gpt_tactical_stage_session_v1.py",
+    "simulate",
+    "--stage-id",
+    "main_08-07",
+    "--facts-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r121_v1/reverification/independent-1/source",
+    "--output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r121_v1/reverification/independent-1/source",
+    "--diagnostic-output-dir",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r121_v1/reverification/independent-1/simulation",
+    "--plan-id",
+    "R121_RightHold_0",
+    "--plan-label",
+    "R121",
+    "--plan-id-prefix",
+    "R121_",
+    "--max-unique-deployed-operators",
+    "5",
+    "--authorization-config",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r121_v1/model_authorization_v1.json",
+    "--simulation-budget-path",
+    "/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r121_v1/simulation_budget_v1.json"
+  ],
+  "frozen_inputs_sha256": {
+    "execution_input_gate.json": "8b2123c491a853dc639f81c88d200d985bb3ac32a5301ea5861410394c014dcd",
+    "llm_evidence_context.json": "fa3f06829ef2e7acb736ba452be352dbc001aeccda72619295ae572e6798a74e",
+    "llm_plan_validation.json": "b85e5dbcd0b6c78cfe515828824cb72ce4ece3c7f5dfba0841921f68e35401c8",
+    "llm_structured_output.json": "c1c027f569525ac1c66eeca0ba2fe7e03345dbdc32350eb166dabd8ac91a7476",
+    "revision_output_schema.json": "f70866d1eb2506f8383924384ba0089d2867ca793ae5182c75807b8e63be0480",
+    "static_compile_results.json": "ddef0d8435310acadf3872c1e346b885abf138e17e8f4b0d8580418853a3baa4"
+  },
+  "gate": {
+    "budget_sha256": "a612cc6bc3d4a381c435eeba28c3ed6d5c71a6437251fb36bf221caba12ed961",
+    "diagnostic_output_dir": "docs/review/fc77177/five_astra_r121_v1/reverification/independent-1/simulation",
+    "expected_plan_id": "R121_RightHold_0",
+    "expected_protected_target_count": 2,
+    "immutable_rule": "existing diagnostic manifests may not be overwritten",
+    "inputs": {
+      "evidence_context_sha256": "fa3f06829ef2e7acb736ba452be352dbc001aeccda72619295ae572e6798a74e",
+      "plan_validation_sha256": "b85e5dbcd0b6c78cfe515828824cb72ce4ece3c7f5dfba0841921f68e35401c8",
+      "static_compile_results_sha256": "ddef0d8435310acadf3872c1e346b885abf138e17e8f4b0d8580418853a3baa4",
+      "structured_output_sha256": "c1c027f569525ac1c66eeca0ba2fe7e03345dbdc32350eb166dabd8ac91a7476"
+    },
+    "remaining_stage_simulations": 61,
+    "schema_version": "KIMIARK_FROZEN_PLAN_EVALUATION_GATE_V1",
+    "source_dir": "docs/review/fc77177/five_astra_r121_v1/reverification/independent-1/source",
+    "stage_id": "main_08-07",
+    "status": "AUTHORIZED"
+  },
+  "source": "Astra explicitly requested independent rerun"
+}
