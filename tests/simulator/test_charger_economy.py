@@ -50,6 +50,9 @@ def test_cap_and_nonkill_neutral_no_income():
     assert state.dp==50
 
 def test_living_retreat_initial_cost_across_redeploy_and_no_death_refund():
+    # R125 simulator fix (KB-PRTS-002): redeploy penalty multiplies base cost.
+    # Prior assertion `deployment_cost==9` asserted the pre-penalty semantics and is
+    # consciously replaced: after 1 retreat stack, base 9 costs floor(9*1.5)=13.
     sim,state,stage,op=setup_state();state.dp=0
     sim._remove_operator(state,'guard',death=False)
     assert state.dp==5
@@ -57,9 +60,9 @@ def test_living_retreat_initial_cost_across_redeploy_and_no_death_refund():
     stats=replace(op.phases[0].stats_max,cost=known(9,'test','cost'))
     newop=replace(op,phases=(replace(op.phases[0],stats_max=stats),))
     sim._deploy(state,stage,{'guard':newop},Strategy(('guard',),()),Action(ActionType.DEPLOY,10,'guard',(3,1),'RIGHT'))
-    assert state.deployed_operators['guard'].deployment_cost==9
+    assert state.deployed_operators['guard'].deployment_cost==13
     sim._remove_operator(state,'guard',death=False)
-    assert state.dp==16 #20-9+initial5, not current9
+    assert state.dp==12 #20-13+initial5 would be 12? no: 20-13=7, +initial5=12
     state.time=20;sim._deploy(state,stage,{'guard':op},Strategy(('guard',),()),Action(ActionType.DEPLOY,20,'guard',(3,1),'RIGHT'))
     before=state.dp;sim._remove_operator(state,'guard',death=True)
     assert state.dp==before

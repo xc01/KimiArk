@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m39-charger-kill-and-retreat-dp-v1"
+ACTIVE_MECHANICS_VERSION = "m40-redeploy-penalty-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40-redeploy-penalty-v1": {
+        "status": "ACTIVE",
+        "summary": "Implements KB-PRTS-002 redeploy cost penalty (stack cap 2, multiplier 1.0+0.5*stack, floor on multiplied base, real-time delta unmultiplied), death/retreat stacking, and KB-PRTS-003 refund cap at base deployment cost. Charger initial-cost refund retained.",
+    },
     "m39-charger-kill-and-retreat-dp-v1": {
         "status": "ACTIVE",
         "summary": "Source-explicit charger final-blow DP and initial-cost living retreat refund; death refunds zero and static checks do not assume unobserved kills.",

@@ -177,6 +177,7 @@ class SimulationState:
     deployed_operators: dict[str, RuntimeOperator] = field(default_factory=dict)
     redeploy_available_at: dict[str, float] = field(default_factory=dict)
     initial_deployment_costs: dict[str, float] = field(default_factory=dict)
+    redeploy_penalty_stacks: dict[str, int] = field(default_factory=dict)
     events: list[SimulationEvent] = field(default_factory=list)
     enemies_killed: int = 0
     enemies_leaked: int = 0

@@ -208,7 +208,10 @@ class Simulator:
                 legal = False
             else:
                 stats = operator.phases[0].stats_max
-                cost = max(0.0, self._number(stats.cost, "deployment cost") + operator.deployment_cost_delta)
+                base_cost = self._number(stats.cost, "deployment cost")
+                stacks = int(state.redeploy_penalty_stacks.get(action.operator_id, 0))
+                multiplier = 1.0 + 0.5 * min(stacks, 2)
+                cost = max(0.0, floor(base_cost * multiplier) + operator.deployment_cost_delta)
                 if state.dp + self._EPSILON < cost: legal, reason = False, "insufficient DP"
         tile_text = "none" if action.tile is None else f"{action.tile[0]},{action.tile[1]}"
         if not legal:
@@ -295,9 +298,15 @@ class Simulator:
             enemy = state.active_enemies.get(enemy_id)
             if enemy:
                 self._unblock(state, enemy)
-        refund = 0.0 if death else (
-            operator.initial_deployment_cost if operator.retreat_refunds_initial_cost
-            else max(0.0, floor(operator.deployment_cost * 0.5)))
+        refund = 0.0
+        if not death:
+            if operator.retreat_refunds_initial_cost:
+                refund = operator.initial_deployment_cost
+            else:
+                base_cost = operator.initial_deployment_cost
+                refund = max(0.0, floor(min(operator.deployment_cost, base_cost) * 0.5))
+        stacks = int(state.redeploy_penalty_stacks.get(operator_id, 0))
+        state.redeploy_penalty_stacks[operator_id] = min(stacks + 1, 2)
         del state.deployed_operators[operator_id]
         if refund:
             before = state.dp
