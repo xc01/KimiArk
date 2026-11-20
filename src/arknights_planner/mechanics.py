@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40e-inertia-bookkeeping-v1"
+ACTIVE_MECHANICS_VERSION = "m40f-displacement-hooks-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40f-displacement-hooks-v1": {
+        "status": "ACTIVE",
+        "summary": "Adds KB-BILI-003 displacement force/unbalance fields with impulse displacement and friction decay, plus fear/lure target fields. No R8-7 adapter supplies force/fear/lure sources; 2D pull integration and route-target override remain MODEL_GAP.",
+    },
     "m40e-inertia-bookkeeping-v1": {
         "status": "ACTIVE",
         "summary": "Adds KB-BILI-004 inertia velocity/steering bookkeeping along route direction (ground 8/10, fly 20/100 clamped). Full 2D avoidance integration remains MODEL_GAP pending navigator.",

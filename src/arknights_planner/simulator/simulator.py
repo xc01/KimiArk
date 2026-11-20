@@ -116,6 +116,32 @@ class Simulator:
         entity = self._enemy_position(stage, enemy)
         return hypot(position[0] - entity[0], position[1] - entity[1]) <= radius + self._EPSILON
 
+    def _apply_enemy_force(self, state: SimulationState, enemy: RuntimeEnemy, *, level: int, direction: tuple[float, float], mode: str, protect_time: float = 0.0) -> None:
+        # KB-BILI-003: effective level = source level - target weight, clamp [-3, 3].
+        effective = max(-3, min(3, level))
+        if effective == 0.0 and mode == "push":
+            return
+        force_table = {1: 1.0, 2: 1.8, 3: 2.6, -1: -0.6, -2: -0.9, -3: -1.2}
+        magnitude = force_table.get(effective, 0.0) * 0.02 * 0.5 * self._stage_move_multiplier_for(enemy)
+        dx, dy = direction
+        norm = hypot(dx, dy) or 1.0
+        if mode == "pull":
+            # Continuous force; distance-rate integration deferred to 2D layer (MODEL_GAP).
+            enemy.displacement_velocity = (dx / norm * magnitude, dy / norm * magnitude)
+            enemy.unbalance_until = max(enemy.unbalance_until, state.time + protect_time)
+            self._emit(state, EventType.ENEMY_STATUS_HIT, source=None, target=enemy.instance_id,
+                       status="PULL_MODEL_GAP_2D", force_level=effective)
+            return
+        # Push impulse: convert to along-route displacement at this tick (1-frame impulse).
+        impulse_distance = magnitude  # seconds-equivalent × move multiplier already applied
+        enemy.distance = max(0.0, enemy.distance + impulse_distance)
+        enemy.unbalance_until = max(enemy.unbalance_until, state.time + protect_time)
+        self._emit(state, EventType.ENEMY_STATUS_HIT, source=None, target=enemy.instance_id,
+                   status="PUSH_IMPULSE", force_level=effective, displacement=impulse_distance)
+
+    def _stage_move_multiplier_for(self, enemy: RuntimeEnemy) -> float:
+        return 0.5  # KB-BILI-004 moveMultiplier
+
     @staticmethod
     def _route_direction_at(stage: Stage, route, distance: float) -> tuple[float, float]:
         total = route.length
@@ -982,6 +1008,15 @@ class Simulator:
 
     def _advance_enemies(self, state: SimulationState, stage: Stage, dt: float) -> None:
         for enemy in list(state.active_enemies.values()):
+            if enemy.displacement_velocity != (0.0, 0.0):
+                # KB-BILI-003 friction: 4.905 decel per second; exit unbalance when speed<=0.1 after protect time.
+                mag = hypot(enemy.displacement_velocity[0], enemy.displacement_velocity[1])
+                decel = min(4.905 * dt, mag)
+                if mag > 0.0:
+                    scale = (mag - decel) / mag
+                    enemy.displacement_velocity = (enemy.displacement_velocity[0] * scale, enemy.displacement_velocity[1] * scale)
+                if mag <= 0.1 + self._EPSILON and state.time + self._EPSILON >= enemy.unbalance_until:
+                    enemy.displacement_velocity = (0.0, 0.0)
             if enemy.blocked_by:
                 continue
             if enemy.attack_stand_until > state.time + self._EPSILON:

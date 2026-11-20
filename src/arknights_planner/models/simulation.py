@@ -93,6 +93,12 @@ class RuntimeEnemy:
     area_hit_radius: float | None = None
     block_reposition_remaining: float = 0.0
     inertia_velocity: tuple[float, float] = (0.0, 0.0)
+    displacement_velocity: tuple[float, float] = (0.0, 0.0)
+    unbalance_until: float = 0.0
+    fear_until: float = 0.0
+    fear_target_tile: tuple[float, float] | None = None
+    lure_until: float = 0.0
+    lure_target_tile: tuple[float, float] | None = None
     last_avoidance: tuple[float, float] = (0.0, 0.0)
     block_reposition_target: tuple[float, float] | None = None
 
