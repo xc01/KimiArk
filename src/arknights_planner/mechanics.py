@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40b-hit-geometry-v1"
+ACTIVE_MECHANICS_VERSION = "m40c-block-scan-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40c-block-scan-v1": {
+        "status": "ACTIVE",
+        "summary": "Adds KB-BILI-002 3-logical-frame block scan at real frame rate (dt<=0.05) and 0.2s block reposition target fields. Legacy dt=0.1 synthetic configs keep per-tick scans.",
+    },
     "m40b-hit-geometry-v1": {
         "status": "ACTIVE",
         "summary": "Adds KB-BILI-004 cursor/feet accessors, KB-BILI-002 enemy hit radius 0.1, banker's rounding tile membership, and covered-tile union collision for operator enemy acquisition.",

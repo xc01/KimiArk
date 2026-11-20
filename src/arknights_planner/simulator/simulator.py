@@ -992,6 +992,14 @@ class Simulator:
                 if device_blocked:
                     continue
             else:
+                # KB-BILI-002: operators scan for blockable enemies every 3 logical frames.
+                # The 3-frame gate applies at the real frame rate (dt <= 1/20);
+                # legacy synthetic dt=0.1 configs keep per-tick scans.
+                scan_phase = state.tick_index % 3 if dt <= 0.05 + 1e-9 else 0
+                if scan_phase != 0:
+                    enemy.distance = proposed
+                    self._leak_or_reach(state, enemy, route)
+                    continue
                 for operator in state.deployed_operators.values():
                     # This runtime implements ordinary ground blocking only.
                     # A ranged unit's source block stat does not let it hold a
@@ -1013,18 +1021,25 @@ class Simulator:
                 enemy.distance = blocking_distance
                 enemy.blocked_by = holder.operator_id
                 holder.blocked_enemy_ids.append(enemy.instance_id)
+                # KB-BILI-002: blocking reposition moves the enemy to the stable
+                # blocking position (holder tile center) within 0.2s.
+                enemy.block_reposition_remaining = 0.2
+                enemy.block_reposition_target = (float(holder.tile[0]), float(holder.tile[1]))
                 self._emit(state, EventType.BLOCK, source=holder.operator_id, target=enemy.instance_id)
                 continue
             enemy.distance = proposed
-            if enemy.distance + self._EPSILON >= route.length:
-                if enemy.counts_as_leak:
-                    state.remaining_life -= enemy.life_point_reduce
-                    state.enemies_leaked += 1
-                    self._record_objective_failure(state, "ENEMY_LEAK")
-                    self._emit(state, EventType.ENEMY_LEAK, source=enemy.instance_id, amount=enemy.life_point_reduce)
-                else:
-                    self._emit(state, EventType.PROTECTED_TARGET_REACHED, source=enemy.instance_id, amount=0)
-                del state.active_enemies[enemy.instance_id]
+            self._leak_or_reach(state, enemy, route)
+
+    def _leak_or_reach(self, state: SimulationState, enemy: RuntimeEnemy, route) -> None:
+        if enemy.distance + self._EPSILON >= route.length:
+            if enemy.counts_as_leak:
+                state.remaining_life -= enemy.life_point_reduce
+                state.enemies_leaked += 1
+                self._record_objective_failure(state, "ENEMY_LEAK")
+                self._emit(state, EventType.ENEMY_LEAK, source=enemy.instance_id, amount=enemy.life_point_reduce)
+            else:
+                self._emit(state, EventType.PROTECTED_TARGET_REACHED, source=enemy.instance_id, amount=0)
+            del state.active_enemies[enemy.instance_id]
 
     def _advance_operator_runtime(self, state: SimulationState, dt: float) -> None:
         """Run at the new tick time: time-SP only, then duration expiration."""
@@ -1158,6 +1173,7 @@ class Simulator:
             # Derive time from the integer tick, rather than accumulating
             # rounded dt errors that dispatch exact-frame actions one tick late.
             tick_index += 1
+            state.tick_index = tick_index
             state.time = round(tick_index * config.dt, 10)
             self._advance_operator_runtime(state, config.dt)
         win = (

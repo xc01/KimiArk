@@ -91,6 +91,8 @@ class RuntimeEnemy:
     area_hit_time: float | None = None
     area_hit_position: tuple[float, float] | None = None
     area_hit_radius: float | None = None
+    block_reposition_remaining: float = 0.0
+    block_reposition_target: tuple[float, float] | None = None
 
 
 @dataclass
@@ -178,6 +180,7 @@ class SimulationState:
     redeploy_available_at: dict[str, float] = field(default_factory=dict)
     initial_deployment_costs: dict[str, float] = field(default_factory=dict)
     redeploy_penalty_stacks: dict[str, int] = field(default_factory=dict)
+    tick_index: int = 0
     events: list[SimulationEvent] = field(default_factory=list)
     enemies_killed: int = 0
     enemies_leaked: int = 0
