@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: arknights-auto-planner
+Version: 0.1.0
+Summary: GameData-driven, agent-assisted Arknights strategy planning
+Requires-Python: >=3.10
+Requires-Dist: pydantic<3,>=2.7
+Requires-Dist: typer<1,>=0.12
+Requires-Dist: rich<14,>=13
+Requires-Dist: jsonschema<5,>=3.2
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8; extra == "dev"
+Provides-Extra: api
+Requires-Dist: fastapi<1,>=0.111; extra == "api"
+Requires-Dist: uvicorn<1,>=0.30; extra == "api"
+Provides-Extra: ark
+Requires-Dist: httpx<1,>=0.27; extra == "ark"
+Provides-Extra: client-evidence
+Requires-Dist: UnityPy<2,>=1.23; extra == "client-evidence"
+Requires-Dist: lz4<5,>=4.4; extra == "client-evidence"
+Requires-Dist: capstone<6,>=5.0; extra == "client-evidence"

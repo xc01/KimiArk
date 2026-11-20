@@ -141,7 +141,8 @@ def test_synthetic_range_transform_and_target_acquisition():
     attacks = events(result, EventType.ATTACK_START)
     assert attacks
     assert attacks[0].target_id == "slug#0"
-    assert attacks[0].time >= 1.5  # The enemy enters the explicitly synthetic UP range after moving.
+    # R125 hit-geometry (entity + 0.1 radius vs tile polygon union) may acquire slightly earlier than tile rounding.
+    assert attacks[0].time >= 1.3
 
 
 def test_attack_events_preserve_logical_order_with_instant_projectile():

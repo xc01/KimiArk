@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40-redeploy-penalty-v1"
+ACTIVE_MECHANICS_VERSION = "m40b-hit-geometry-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40b-hit-geometry-v1": {
+        "status": "ACTIVE",
+        "summary": "Adds KB-BILI-004 cursor/feet accessors, KB-BILI-002 enemy hit radius 0.1, banker's rounding tile membership, and covered-tile union collision for operator enemy acquisition.",
+    },
     "m40-redeploy-penalty-v1": {
         "status": "ACTIVE",
         "summary": "Implements KB-PRTS-002 redeploy cost penalty (stack cap 2, multiplier 1.0+0.5*stack, floor on multiplied base, real-time delta unmultiplied), death/retreat stacking, and KB-PRTS-003 refund cap at base deployment cost. Charger initial-cost refund retained.",

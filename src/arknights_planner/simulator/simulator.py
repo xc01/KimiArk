@@ -96,7 +96,50 @@ class Simulator:
 
     @staticmethod
     def _grid_position(position: tuple[float, float]) -> tuple[int, int]:
-        return floor(position[0] + 0.5), floor(position[1] + 0.5)
+        # KB-BILI-004: tile membership uses banker's rounding (四舍六入五成双).
+        def half_even(value: float) -> int:
+            f = floor(value)
+            diff = value - f
+            if diff < 0.5:
+                return f
+            if diff > 0.5:
+                return f + 1
+            return f if f % 2 == 0 else f + 1
+        return half_even(position[0] + 0.5), half_even(position[1] + 0.5)
+
+    ENEMY_HIT_RADIUS = 0.1  # KB-BILI-002: enemy hit detection radius
+
+    def _enemy_hit_radius(self) -> float:
+        return self.ENEMY_HIT_RADIUS
+
+    def _position_hits_enemy(self, stage: Stage, position: tuple[float, float], enemy: RuntimeEnemy, radius: float) -> bool:
+        entity = self._enemy_position(stage, enemy)
+        return hypot(position[0] - entity[0], position[1] - entity[1]) <= radius + self._EPSILON
+
+    def _enemy_in_covered_tiles(self, stage: Stage, enemy: RuntimeEnemy, covered: set[tuple[int, int]]) -> bool:
+        # KB-PRTS-004/KB-BILI-002: hit detection uses the enemy entity coordinate and
+        # its 0.1 hit radius against the tile polygon union, not a rounded single tile.
+        entity = self._enemy_position(stage, enemy)
+        radius = self._enemy_hit_radius()
+        for tile in covered:
+            # Tile centered at integer coords (x, y) spans [x-0.5, x+0.5] on both axes.
+            nearest_x = min(max(entity[0], tile[0] - 0.5), tile[0] + 0.5)
+            nearest_y = min(max(entity[1], tile[1] - 0.5), tile[1] + 0.5)
+            if hypot(entity[0] - nearest_x, entity[1] - nearest_y) <= radius + self._EPSILON:
+                return True
+        return False
+
+    def _enemy_feet_position(self, stage: Stage, enemy: RuntimeEnemy) -> tuple[float, float]:
+        # KB-BILI-004: feet coordinate = entity coordinate shifted down 0.2.
+        entity = self._enemy_position(stage, enemy)
+        return entity[0], entity[1] - 0.2
+
+    def _enemy_cursor_position(self, stage: Stage, enemy: RuntimeEnemy) -> tuple[float, float]:
+        # KB-BILI-004: cursor coordinate = entity + fixed spawn offset (offset is zero
+        # until adapters supply per-route spawn cursor offsets).
+        offset = getattr(enemy, 'cursor_offset', (0.0, 0.0))
+        entity = self._enemy_position(stage, enemy)
+        return entity[0] + offset[0], entity[1] + offset[1]
 
     @staticmethod
     def _skill(operator: RuntimeOperator) -> SyntheticSkill | None:
@@ -498,7 +541,7 @@ class Simulator:
                 if not enemy.is_neutral
                 and (enemy.movement_mode != "FLY" or operator.can_attack_air)
                 and not next(route for route in stage.routes if route.route_id == enemy.route_id).hidden_at(enemy.distance)
-                and self._grid_position(self._enemy_position(stage, enemy)) in covered
+                and self._enemy_in_covered_tiles(stage, enemy, covered)
             ]
             rule = "OPPOSING_FACTION_ONLY_HATRED_DES_remaining_path_distance_then_creation_order"
         def remaining_path(enemy: RuntimeEnemy) -> float:
