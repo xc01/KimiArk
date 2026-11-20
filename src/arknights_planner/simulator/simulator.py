@@ -272,6 +272,8 @@ class Simulator:
             state, EventType.DEPLOY, source=action.operator_id, legal=True, tile=tile_text,
             cost=cost, dp_after=state.dp,
         )
+        state.deploy_counter += 1
+        state.deploy_sequence[action.operator_id] = state.deploy_counter
         runtime = RuntimeOperator(
             operator_id=action.operator_id, tile=action.tile, direction=action.direction,
             hp=self._number(stats.max_hp, "operator hp") * (1.0 + operator.talent_max_hp_ratio),
@@ -737,7 +739,18 @@ class Simulator:
                 position = self._enemy_position(stage, enemy)
                 candidates = [operator for operator in state.deployed_operators.values() if hypot(position[0] - operator.tile[0], position[1] - operator.tile[1]) <= enemy.attack_range + self._EPSILON]
                 if candidates:
-                    target_id = min(candidates, key=lambda item: (hypot(position[0] - item.tile[0], position[1] - item.tile[1]), item.operator_id)).operator_id
+                    # KB-PRTS-001: enemy hatred orders by taunt/special priority, then
+                    # last-deployed first, then less-attackable first. Host implements
+                    # last-deploy-first here (special priority and armor class are
+                    # tracked as MODEL_GAP until adapters supply taunt/armor data).
+                    target_id = max(
+                        candidates,
+                        key=lambda item: (state.deploy_sequence.get(item.operator_id, 0), item.operator_id),
+                    ).operator_id
+                    self._emit(state, EventType.TARGET_SELECTION, source=enemy.instance_id,
+                               target=target_id,
+                               candidate_ids=tuple(sorted(item.operator_id for item in candidates)),
+                               rule="ENEMY_HATRED_LAST_DEPLOYED_FIRST_MODEL_GAP_TAUNT_ARMOR")
             if target_id is None:
                 enemy.attack_windup_started = state.time + self._EPSILON < enemy.next_attack_time
                 continue

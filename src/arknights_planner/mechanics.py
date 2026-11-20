@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40c-block-scan-v1"
+ACTIVE_MECHANICS_VERSION = "m40d-last-deploy-hatred-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40d-last-deploy-hatred-v1": {
+        "status": "ACTIVE",
+        "summary": "Enemy ranged target candidates order by last-deployed first per KB-PRTS-001; taunt/special priority and armor-class preference remain MODEL_GAP until adapter data exists.",
+    },
     "m40c-block-scan-v1": {
         "status": "ACTIVE",
         "summary": "Adds KB-BILI-002 3-logical-frame block scan at real frame rate (dt<=0.05) and 0.2s block reposition target fields. Legacy dt=0.1 synthetic configs keep per-tick scans.",
