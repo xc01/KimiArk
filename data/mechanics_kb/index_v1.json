@@ -1,0 +1,221 @@
+{
+  "version": "v1",
+  "built_at": "2026-11-20",
+  "total_entries": 20,
+  "sources": {
+    "prts": [
+      "作战机制",
+      "游戏数据基础",
+      "索敌的概念",
+      "攻击范围",
+      "部署费用",
+      "生命值",
+      "仇恨",
+      "伤害分类",
+      "待部署区"
+    ],
+    "bilibili": [
+      {
+        "id": "401846481769616233",
+        "title": "迫害也需要指导理论：推拉机制及物理引擎详解"
+      },
+      {
+        "id": "443955595276338332",
+        "title": "对方舟帧数问题的最终解答"
+      },
+      {
+        "id": "828807037498425360",
+        "title": "对方舟阻挡机制的完整解释"
+      },
+      {
+        "id": "900558138389823489",
+        "title": "【明日方舟】路径/移动系统全解析"
+      },
+      {
+        "id": "1075224691553075205",
+        "title": "酒神机制详解"
+      },
+      {
+        "id": "952569870448328712",
+        "title": "恐惧机制详解"
+      }
+    ],
+    "simulator_audit": [
+      "R123 candidate-063 events",
+      "R124 zero-model analysis v3-v9",
+      "2026-11-20 code audit"
+    ]
+  },
+  "topics": {
+    "targeting": [
+      "KB-PRTS-001-targeting-priority",
+      "KB-AUDIT-001-operator-targeting-rule"
+    ],
+    "cost": [
+      "KB-PRTS-002-deployment-cost-formula",
+      "KB-PRTS-003-retreat-refund",
+      "KB-R124-003-plume-retreat-dp"
+    ],
+    "range": [
+      "KB-PRTS-004-attack-range-collision"
+    ],
+    "attack_timing": [
+      "KB-PRTS-005-attack-speed-formula"
+    ],
+    "ui": [
+      "KB-PRTS-006-deploy-order"
+    ],
+    "frame": [
+      "KB-BILI-001-frame-update"
+    ],
+    "blocking": [
+      "KB-BILI-002-block-radius"
+    ],
+    "displacement": [
+      "KB-BILI-003-push-pull"
+    ],
+    "movement": [
+      "KB-BILI-004-pathfinding"
+    ],
+    "abnormal": [
+      "KB-BILI-005-fear",
+      "KB-BILI-006-lure"
+    ],
+    "enemy_ability": [
+      "KB-R124-001-artillery-fixed-interval",
+      "KB-R124-002-artillery-target-choice",
+      "KB-R124-006-first-cannon-doesnt-hit-plume-if-shes-retreated"
+    ],
+    "healing": [
+      "KB-R124-004-hibiscus-not-sacred"
+    ],
+    "operator_placement": [
+      "KB-R124-005-midnight-3-5-right"
+    ],
+    "strategy": [
+      "KB-R124-007-early-kill-saves-heal"
+    ]
+  },
+  "entries": [
+    {
+      "id": "KB-PRTS-001-targeting-priority",
+      "title": "索敌优先级顺序（敌我不同）",
+      "topic": "targeting",
+      "source": "prts://作战机制#索敌的概念"
+    },
+    {
+      "id": "KB-PRTS-002-deployment-cost-formula",
+      "title": "待部署区部署费用公式",
+      "topic": "cost",
+      "source": "prts://部署费用"
+    },
+    {
+      "id": "KB-PRTS-003-retreat-refund",
+      "title": "撤退返费公式",
+      "topic": "cost",
+      "source": "prts://部署费用#撤退返费"
+    },
+    {
+      "id": "KB-PRTS-004-attack-range-collision",
+      "title": "攻击范围是多边形碰撞体",
+      "topic": "range",
+      "source": "prts://攻击范围"
+    },
+    {
+      "id": "KB-PRTS-005-attack-speed-formula",
+      "title": "攻速公式",
+      "topic": "attack_timing",
+      "source": "prts://游戏数据基础#攻速公式"
+    },
+    {
+      "id": "KB-PRTS-006-deploy-order",
+      "title": "待部署区排序规则",
+      "topic": "ui",
+      "source": "prts://待部署区"
+    },
+    {
+      "id": "KB-BILI-001-frame-update",
+      "title": "30帧 FixedUpdate 与浮点精度",
+      "topic": "frame",
+      "source": "bilibili.com/opus/443955595276338332"
+    },
+    {
+      "id": "KB-BILI-002-block-radius",
+      "title": "阻挡半径与判定",
+      "topic": "blocking",
+      "source": "bilibili.com/opus/828807037498425360"
+    },
+    {
+      "id": "KB-BILI-003-push-pull",
+      "title": "推拉机制",
+      "topic": "displacement",
+      "source": "bilibili.com/opus/401846481769616233"
+    },
+    {
+      "id": "KB-BILI-004-pathfinding",
+      "title": "路径/移动系统",
+      "topic": "movement",
+      "source": "bilibili.com/opus/900558138389823489"
+    },
+    {
+      "id": "KB-BILI-005-fear",
+      "title": "恐惧机制",
+      "topic": "abnormal",
+      "source": "bilibili.com/opus/952569870448328712"
+    },
+    {
+      "id": "KB-BILI-006-lure",
+      "title": "引诱机制",
+      "topic": "abnormal",
+      "source": "bilibili.com/opus/1075224691553075205"
+    },
+    {
+      "id": "KB-R124-001-artillery-fixed-interval",
+      "title": "#0 炮击：固定间隔循环",
+      "topic": "enemy_ability",
+      "source": "simulator+R124 candidate-063 evidence"
+    },
+    {
+      "id": "KB-R124-002-artillery-target-choice",
+      "title": "炮击目标选择：锁定时场上有谁",
+      "topic": "enemy_ability",
+      "source": "simulator code review + R124 prompt v9 answer"
+    },
+    {
+      "id": "KB-R124-003-plume-retreat-dp",
+      "title": "Plume 提前撤退的 DP 回收",
+      "topic": "cost",
+      "source": "R123 candidate-063 events + prts://部署费用#再部署惩罚"
+    },
+    {
+      "id": "KB-R124-004-hibiscus-not-sacred",
+      "title": "芙蓉治疗不是必须：Plume 允许残血",
+      "topic": "healing",
+      "source": "user feedback R124 v3"
+    },
+    {
+      "id": "KB-R124-005-midnight-3-5-right",
+      "title": "月见夜(3,5)朝右可接首炮并杀 #21",
+      "topic": "operator_placement",
+      "source": "R124 prompt v6 + user feedback"
+    },
+    {
+      "id": "KB-R124-006-first-cannon-doesnt-hit-plume-if-shes-retreated",
+      "title": "首炮目标随场上部署变化",
+      "topic": "enemy_ability",
+      "source": "simulator code + R124 prompt v9 answer"
+    },
+    {
+      "id": "KB-R124-007-early-kill-saves-heal",
+      "title": "快速击杀优于持续治疗",
+      "topic": "strategy",
+      "source": "user feedback R124 v3-v7"
+    },
+    {
+      "id": "KB-AUDIT-001-operator-targeting-rule",
+      "title": "模拟器干员索敌实现对照",
+      "topic": "targeting",
+      "source": "simulator code audit 2026-11-20"
+    }
+  ]
+}

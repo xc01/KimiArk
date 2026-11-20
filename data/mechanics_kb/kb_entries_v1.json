@@ -1,0 +1,353 @@
+[
+  {
+    "id": "KB-PRTS-001-targeting-priority",
+    "topic": "targeting",
+    "title": "索敌优先级顺序（敌我不同）",
+    "summary": "敌方仇恨：阻挡→特殊优先级→仇恨值（更容易被攻击→第二优先级→最后部署→不容易被攻击）→最早出现。我方索敌：阻挡（近战限定）→特殊优先级→第二优先级→仇恨值（更容易被攻击→剩余路径最短→不容易被攻击）→最早出现。",
+    "details": [
+      "近战干员会优先攻击自己正阻挡的敌人（即使那敌人在攻击范围外）",
+      "远程干员通常不优先攻击被自己阻挡的敌人",
+      "狙击-速射手优先攻击空中单位",
+      "干员前摇锁定后，当次攻击目标不会因为目标可选性/位置而改变"
+    ],
+    "source": "prts://作战机制#索敌的概念",
+    "source_url": "https://prts.wiki/w/%E7%B4%A2%E6%95%8C%E7%9A%84%E6%A6%82%E5%BF%B5",
+    "verbatim_limit": "summary+details paraphrased, source fetched 2026-11-20",
+    "sim_check_points": [
+      "simulator.enemy_targeting: verify last_deployed vs hostile target order",
+      "simulator.operator_targeting: melee-blocked-first vs ranged-skip-blocked",
+      "anti_air_priority: sniper branch air-first"
+    ]
+  },
+  {
+    "id": "KB-PRTS-002-deployment-cost-formula",
+    "topic": "cost",
+    "title": "待部署区部署费用公式",
+    "summary": "部署费用（属性）= (初始部署费用 + 基础费用增减) × 费用倍率 + 实时费用增减。费用倍率默认 1.0，由再部署惩罚提供（每次退场累积一层，每层 +0.5 倍率，上限两层：2次→1.5倍→向下取整，3次→2.0倍）。",
+    "details": [
+      "初始部署费用含精英化加成、潜能费用减少、模组基础费用减少",
+      "地图符文'部署费用翻倍'等直接作用于初始部署费用",
+      "基础部署费用 = 初始部署费用 + 基础费用增减，不含实时增减",
+      "基础部署费用作为撤退返费的上限值"
+    ],
+    "source": "prts://部署费用",
+    "source_url": "https://prts.wiki/w/%E9%83%A8%E7%BD%B2%E8%B4%B9%E7%94%A8",
+    "sim_check_points": [
+      "simulator._deploy: currently uses stats.cost + deployment_cost_delta, no redeploy penalty multiplier",
+      "MISSING: redeploy penalty accumulation (1.5x/2.0x after retreat/death)"
+    ]
+  },
+  {
+    "id": "KB-PRTS-003-retreat-refund",
+    "topic": "cost",
+    "title": "撤退返费公式",
+    "summary": "返费量 = ⌊min(部署费用（属性）× 返还倍率, 返还上限)⌋。返还上限通常=基础部署费用。普通干员返还倍率 50%，冲锋手 100%，召唤物/装置 0%。手动部署+手动撤退才可返费。",
+    "details": [
+      "返费率 50% 例：部署费用15、基础费用10，返费 = ⌊min(15×0.5, 10)⌋ = 7",
+      "冲锋手 CHG-X 模组：返还上限改为与部署费用（属性）相同（全额返费）",
+      "撤退返费受再部署惩罚影响：第二次部署费用变 1.5 倍，返费上限仍为基础费用，可能返不全"
+    ],
+    "source": "prts://部署费用#撤退返费",
+    "source_url": "https://prts.wiki/w/%E9%83%A8%E7%BD%B2%E8%B4%B9%E7%94%A8",
+    "sim_check_points": [
+      "simulator._remove_operator: refund = floor(deployment_cost * 0.5) for normal ops",
+      "charger retreat_refunds_initial_cost=True → refund=initial_deployment_cost",
+      "MISSING: refund cap by base deployment cost (vs deployment_cost属性)"
+    ]
+  },
+  {
+    "id": "KB-PRTS-004-attack-range-collision",
+    "topic": "range",
+    "title": "攻击范围是多边形碰撞体",
+    "summary": "干员攻击范围以 1×1 方块拼凑的多边形碰撞体或圆形（通常半径1）表示。青色=治疗，橙色=攻击。",
+    "details": [
+      "圆形碰撞体仅用于部分Boss",
+      "多边形由攻击范围ID自动生成",
+      "条纹区域显示始终以格为单位"
+    ],
+    "source": "prts://攻击范围",
+    "source_url": "https://prts.wiki/w/%E6%94%BB%E5%87%BB%E8%8C%83%E5%9B%B4",
+    "sim_check_points": [
+      "simulator.range: verify tile polygon matches operator.attack_range"
+    ]
+  },
+  {
+    "id": "KB-PRTS-005-attack-speed-formula",
+    "topic": "attack_timing",
+    "title": "攻速公式",
+    "summary": "实际攻击间隔 T = T₀ / clamp(S, 10, 600) / 100，其中 S 为攻速属性（默认100）。每秒攻击次数 = 1/T。",
+    "details": [
+      "T₀ = 理论攻击间隔（基础 attackTime）",
+      "攻速 S clamp 到 [10, 600]",
+      "维持技能有'跟随攻速'与'跟随动画'两种时间模式",
+      "技能开启期间攻击间隔可能受不同模式影响"
+    ],
+    "source": "prts://游戏数据基础#攻速公式",
+    "source_url": "https://prts.wiki/w/%E6%B8%B8%E6%88%8F%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80",
+    "sim_check_points": [
+      "simulator.attack_interval: verify S applied to T₀"
+    ]
+  },
+  {
+    "id": "KB-PRTS-006-deploy-order",
+    "topic": "ui",
+    "title": "待部署区排序规则",
+    "summary": "初始排序：初始部署费用升序 → 职业枚举值（近卫>狙击>重装>医疗>辅助>术师>特种>召唤物>装置>先锋）→ 单位ID文本升序。行动开始后固定顺序，撤退再部署插回原位。",
+    "details": [],
+    "source": "prts://待部署区",
+    "source_url": "https://prts.wiki/w/%E5%BE%85%E9%83%A8%E7%BD%B2%E5%8C%BA",
+    "sim_check_points": []
+  },
+  {
+    "id": "KB-BILI-001-frame-update",
+    "topic": "frame",
+    "title": "30帧 FixedUpdate 与浮点精度",
+    "summary": "方舟是 30 帧游戏：FixedUpdate 间隔 fixedDeltaTime = 1/30 秒。游戏时间 fixedPlayTime 是 float，每次更新增加 1/30。float 精度约 128 秒后出现误差，导致后摇计算偏差半帧，引起'攻击间隔多一帧'问题。",
+    "details": [
+      "攻击流程：CastStart→前摇 PreDelay→造成效果→后摇 PostDelay→CastEnd",
+      "前摇以 spine 事件结束，后摇 = 攻击持续时间 - (当前时间-开始时间)，四舍五入到整帧",
+      "128s 后后摇从 26帧变为 25帧，实际攻击总持续从 38帧 变为 37帧",
+      "冷却更新位于状态机tick之后，且能力执行第1帧不进行冷却更新 → 实际冷却周期比理论多1帧"
+    ],
+    "source": "bilibili.com/opus/443955595276338332",
+    "source_url": "https://www.bilibili.com/opus/443955595276338332",
+    "sim_check_points": [
+      "simulator.frame_update: verify dt = 1/30",
+      "attack post-delay rounding uses banker's or half-up?"
+    ]
+  },
+  {
+    "id": "KB-BILI-002-block-radius",
+    "topic": "blocking",
+    "title": "阻挡半径与判定",
+    "summary": "干员阻挡半径=0.7071（0.5√2）。角色类单位每 3 帧扫描阻挡半径内未被阻挡的敌人，判定一次可阻挡。多个候选时优先阻挡距离自身中心最近的敌人。干员受击判定半径 0.25，敌人受击判定半径 0.1，敌人碰撞箱是宽0.2高0.4向下偏移0.1的胶囊。这些与阻挡判定无关。",
+    "details": [
+      "阻挡判定用角色中点与敌人中点距离 ≤ 阻挡半径",
+      "阻挡偏移：若 AB 长度 < 0.5，延长至 0.5。多阻挡时累加修正向量后归一化到长度 0.2，与 AC 相加再归一化回 AC 长度",
+      "0.2 秒内敌人强制移动到 F 点（稳定阻挡位置）"
+    ],
+    "source": "bilibili.com/opus/828807037498425360",
+    "source_url": "https://www.bilibili.com/opus/828807037498425360",
+    "sim_check_points": [
+      "simulator.blocking: verify 0.7071 radius scan every 3 frames",
+      "MISSING: blocking offset (reposition after block)"
+    ]
+  },
+  {
+    "id": "KB-BILI-003-push-pull",
+    "topic": "displacement",
+    "title": "推拉机制",
+    "summary": "敌人 Rigidbody2D 质量=1。推力用 Impulse 模式（瞬时改变动量），方向 relative（来源→目标）或 directional（来源朝向）。若夹角>45°或距离<0.25，directional 转为 relative，有效力量等级 -2。拉力用 Force 模式持续施加，方向=目标→来源。有效力量等级 = 来源力量等级 - 目标重量等级，值域 [-3,3]。",
+    "details": [
+      "推力大小 = 对应力量等级值 × 0.02 × moveMultiplier(0.5)",
+      "摩擦力 = g×质量×摩擦系数 = 9.81×1×0.5 = 4.905，每帧减速",
+      "unbalance 状态下每帧检测新速度，若≤0.1且超过保护时间则退出",
+      "钩子拉力 = (现距离/初始距离)^4 × 初始力，随距离比例衰减",
+      "钩子命中后，最大持续时间 = linkDuration(1s) 或 0.5s"
+    ],
+    "source": "bilibili.com/opus/401846481769616233",
+    "source_url": "https://www.bilibili.com/opus/401846481769616233",
+    "sim_check_points": [
+      "simulator: no push/pull implementation"
+    ]
+  },
+  {
+    "id": "KB-BILI-004-pathfinding",
+    "topic": "movement",
+    "title": "路径/移动系统",
+    "summary": "敌人位置有三种：实体坐标、光标坐标（出生时等于地块中心，之后保持固定偏移）、足坐标（实体坐标下偏 0.2）。地块判定用四舍六入五成双取整。检查点类型：MOVE/PATROL_MOVE/WAIT_FOR_SECONDS 等。移动判定步骤：目标→避障力→惯性→修正。光标坐标决定给定方向，避障力每 3 帧计算一次。",
+    "details": [
+      "实体坐标用于效果判定、阻挡、受击",
+      "光标坐标用于寻路和地块进入判定",
+      "理论移速 = 属性移速 × moveMultiplier(0.5)，属性移速下限 0.1",
+      "惯性向量在非束缚 MOVE 状态下才更新；阻挡/晕眩/位移期间不变",
+      "避障力 = 避障中间量 a - a 在给定方向上的投影",
+      "加速度 = ClampMagnitude((给定方向×理论移速 - 惯性)×steeringFactor + 实际避障力, maxSteeringForce)",
+      "地面敌人 steeringFactor=8/maxSteeringForce=10，飞行 20/100，未开 Steering 100/100",
+      "移动速度向量 = ClampMagnitude(加速度×帧间隔 + 惯性, 理论移速)",
+      "若实体坐标移动前后跨地块且目的地不可通行，则反射修正位移"
+    ],
+    "source": "bilibili.com/opus/900558138389823489",
+    "source_url": "https://www.bilibili.com/opus/900558138389823489",
+    "sim_check_points": [
+      "simulator route: currently uses tile-by-tile linear path, no inertia/avoidance",
+      "MISSING: cursor offset, foot offset, inertia, avoidance force"
+    ]
+  },
+  {
+    "id": "KB-BILI-005-fear",
+    "topic": "abnormal",
+    "title": "恐惧机制",
+    "summary": "恐惧 buff 创建以恐惧目标为中心、远离恐惧来源方向为 90° 扇形，半径 10.0。目标区域=扇形内与路径终点直接联通（仅判断可通行属性，无视障碍物/坑）的非蓝门非地穴地块。恐惧期间以恐惧路径移动，不影响常规检查点/终点判定。",
+    "details": [
+      "目标地块：在恐惧区域内随机选择一个可抵达且路径距离≤5 的地块",
+      "检查点偏移为 0.5 边长正方形随机偏移",
+      "恐惧结束后再次执行目标更新",
+      "恐惧期间生成的路径不随地形变化（如调箱）更新",
+      "蓝门不会被选为目标地块，但路径可经过蓝门"
+    ],
+    "source": "bilibili.com/opus/952569870448328712",
+    "source_url": "https://www.bilibili.com/opus/952569870448328712",
+    "sim_check_points": [
+      "simulator: no fear implementation"
+    ]
+  },
+  {
+    "id": "KB-BILI-006-lure",
+    "topic": "abnormal",
+    "title": "引诱机制",
+    "summary": "引诱类似恐惧但优先级更低。目标地块由最晚创建的引诱 buff 决定，路径=当前地块→目标地块（单检查点，无偏移）。引诱期间正常判定检查点/终点抵达；与恐惧不同，引诱持续期间不更新目标（敌人到达目标地块后站着不动）。引诱可把障碍物上的敌人引出，恐惧不行。",
+    "details": [
+      "引诱删除了'当前地块的寻路距离'，允许把障碍物地块作为路径",
+      "到达目标地块后站住不动",
+      "同时被引诱+恐惧时按恐惧执行"
+    ],
+    "source": "bilibili.com/opus/1075224691553075205",
+    "source_url": "https://www.bilibili.com/opus/1075224691553075205",
+    "sim_check_points": [
+      "simulator: no lure implementation"
+    ]
+  },
+  {
+    "id": "KB-R124-001-artillery-fixed-interval",
+    "topic": "enemy_ability",
+    "title": "#0 炮击：固定间隔循环",
+    "summary": "DELAYED_LOCKED_AREA_ATTACK 类型的炮击（enemy_1112_emppnt_artillery）是固定间隔循环：第一发实际发射后（无论命中与否），冷却开始计时，下一发按 cooldown=5s 间隔发射。射界空缺不影响发射节奏，只影响下一发的锁定目标。",
+    "details": [
+      "发射判定：windup_seconds = animation_event_time / animation_duration × attack_time / max_anim_scale",
+      "PROJECTILE_BORN 在 windup 结束时发射，locked_position 在此时锁定",
+      "projectile delay 3 秒后结算伤害，结算以锁定位置为准（不看当前位置）",
+      "冷却 enemy.ability_next_fire_time = state.time + ability.cooldown (5s)",
+      "R124 candidate-063 观察：首炮 1903 帧 PROJECTILE_BORN，1993 帧 ENEMY_ABILITY_HIT；第二、三发分别 2053、2203 帧，间隔 150 帧（=5s）"
+    ],
+    "source": "simulator+R124 candidate-063 evidence",
+    "source_url": "docs/review/fc77177/five_astra_r123_critique_v1/session/candidates/candidate-063/simulation/diagnostic_events.json",
+    "sim_check_points": [
+      "simulator._enemy_ability_outputs: DELAYED_LOCKED_AREA_ATTACK fires only when candidates exist; next_fire_time = cast_time + cooldown (already fixed interval once first shot fired)",
+      "VERIFIED: no 'wait for target' re-reset"
+    ]
+  },
+  {
+    "id": "KB-R124-002-artillery-target-choice",
+    "topic": "enemy_ability",
+    "title": "炮击目标选择：锁定时场上有谁",
+    "summary": "首炮及每一炮的目标都是在 windup 结束的瞬间，从当前场上射界内的干员中选取。首炮目标不取决于后续部署，只取决于 windup 结束那一帧场上有谁在射界内。",
+    "details": [
+      "候选 = deployed_operators 且 dist(enemy_pos, operator.tile) ≤ acquisition_radius (attack_range 或 range_radius)",
+      "如果候选为空 → 不发射（continue，等待下帧），下一帧再判定",
+      "candidate = min(candidates, key=operator_id)（固定按 ID 字典序，非最后部署）",
+      "windup 期间（约 0.133s = 4 帧）新部署的干员不会改变本次发射的目标，因为目标在 windup 开始时已锁定"
+    ],
+    "source": "simulator code review + R124 prompt v9 answer",
+    "source_url": "src/arknights_planner/simulator/simulator.py#_enemy_ability_outputs",
+    "sim_check_points": [
+      "VERIFIED: candidate choice by operator_id ascending",
+      "NOTE: simulator uses spawn_index for neutral enemies, operator_id for deployed ops"
+    ]
+  },
+  {
+    "id": "KB-R124-003-plume-retreat-dp",
+    "topic": "cost",
+    "title": "Plume 提前撤退的 DP 回收",
+    "summary": "Plume（翎羽）属于先锋-冲锋手分支，retreat_refunds_initial_cost=True，撤退时返还全额本次部署费用。R123 candidate-063 中 Plume 部署消耗 10 DP，1494 帧撤退可返还 10 DP，让后续部署提前成为可能。",
+    "details": [
+      "撤退时间：candidate-063 中 Plume 首部署约 240 帧，最后一次击杀/受击约 1480 帧，1494 撤退是最晚安全点（再晚则敌 #11 开始接触）",
+      "再部署惩罚：第二次部署费用 × 1.5（向下取整），Plume 第二次部署（3594 帧）费用 = ⌊10×1.5⌋=15 而非 10",
+      "⚠️ simulator 目前未实现再部署惩罚，所以模拟中 Plume 第二次部署仍收 10 DP，这是与真实游戏的偏差"
+    ],
+    "source": "R123 candidate-063 events + prts://部署费用#再部署惩罚",
+    "source_url": "docs/review/fc77177/five_astra_r123_critique_v1/session/candidates/candidate-063/simulation/diagnostic_events.json",
+    "sim_check_points": [
+      "⚠️ SIMULATOR GAP: redeploy penalty (1.5x/2.0x cost on 2nd/3rd deploy) NOT implemented",
+      "simulator._deploy: cost = stats.cost + deployment_cost_delta (no penalty multiplier)",
+      "Prior 100+ candidate plans were built assuming no penalty; changing now would invalidate all prior sims",
+      "Recorded as known divergence from real game; tactical searches must not assume penalty exists"
+    ]
+  },
+  {
+    "id": "KB-R124-004-hibiscus-not-sacred",
+    "topic": "healing",
+    "title": "芙蓉治疗不是必须：Plume 允许残血",
+    "summary": "干员只要 HP>0 就能继续战斗。芙蓉对 Plume 的治疗如果只是维持满血而非救命（Plume 承伤后剩余 HP 仍足以撑过下一次预计承伤），就是浪费治疗窗口。芙蓉的技能应该优先救其他濒死干员。",
+    "details": [
+      "candidate-063 中 Plume 承伤后未死亡，多次治疗是维持性的",
+      "芙蓉治疗范围：以 Plume 位置为中心的周围 8 格",
+      "允许干员处于残血状态，只要下一次可能承伤不会致死"
+    ],
+    "source": "user feedback R124 v3",
+    "source_url": "docs/review/fc77177/five_astra_r124_orientation_v1/tactical_prompt_v3.txt",
+    "sim_check_points": []
+  },
+  {
+    "id": "KB-R124-005-midnight-3-5-right",
+    "topic": "operator_placement",
+    "title": "月见夜(3,5)朝右可接首炮并杀 #21",
+    "summary": "月见夜部署在 (3,5)、朝向 RIGHT 时，#0 首炮锁定月见夜（如果部署≤1902 帧），月见夜靠自身 HP 承接 1993 帧的 721 伤害。#21 从 row 3 走，月见夜在 (3,5) 攻击范围覆盖 row 3 的 c5-c6，可在 #21 漏出（5046 帧）前完成击杀。",
+    "details": [
+      "月见夜 deployment cost=13，HP≈2200，防御足以硬接一发 721 伤害",
+      "月见夜攻击范围（guard）覆盖自身格+左右前后各一格（取决于朝向）",
+      "(3,5) 朝右：范围含 (3,4)、(3,5)、(3,6)、(2,5)、(4,5)",
+      "#21 路线经过 row 3 的 c3→c4→c5→c6，在 (3,5) 朝右范围内停留多帧",
+      "月见夜普攻 ATK≈350，对 #21（HP~2000、DEF~50）单次伤害≈300，需要 7 次攻击"
+    ],
+    "source": "R124 prompt v6 + user feedback",
+    "source_url": "docs/review/fc77177/five_astra_r124_orientation_v1/tactical_prompt_v6.txt",
+    "sim_check_points": [
+      "range.py: guard range_id 2-1 or 2-2 covers adjacent tiles depending on direction",
+      "NOT YET SIMULATED"
+    ]
+  },
+  {
+    "id": "KB-R124-006-first-cannon-doesnt-hit-plume-if-shes-retreated",
+    "topic": "enemy_ability",
+    "title": "首炮目标随场上部署变化",
+    "summary": "首炮锁定目标不是固定 Plume，而是锁定 windup 结束时射界内候选干员里 operator_id 字典序最小的那一个。若 Plume 在 1903 帧前已撤退，首炮会选场上其他在射界内的干员，或因射界空缺而不发射（但冷却不重置，固定间隔仍继续）。",
+    "details": [
+      "candidate-063 首炮 1903 帧锁定 Plume，因为当时 Plume 是射界内唯一候选",
+      "如果 Plume 在 1494 撤退且没有其他部署进入射界，1903-1907 帧 candidates=[]，首炮跳过；下一帧（1908）再判定，继续等待",
+      "⚠️ 这与'固定间隔'结合：冷却不重置，但如果 candidates=[] 就 continue，跳过发射；一旦有人进入射界，立刻发射（windup 4 帧）",
+      "修正：'固定间隔'指已发射后的下一发计时，不指'无目标时继续倒计时'"
+    ],
+    "source": "simulator code + R124 prompt v9 answer",
+    "source_url": "src/arknights_planner/simulator/simulator.py#_enemy_ability_outputs",
+    "sim_check_points": [
+      "VERIFIED: candidates empty → continue (no fire, next_fire_time unchanged)",
+      "IMPORTANT: this contradicts user's 'fixed interval fires regardless'; simulator skips shot when no target. Verify against game evidence."
+    ]
+  },
+  {
+    "id": "KB-R124-007-early-kill-saves-heal",
+    "topic": "strategy",
+    "title": "快速击杀优于持续治疗",
+    "summary": "对低 HP 高威胁敌人（如路障#4、炮手#0、#21），让输出者在威胁生效前击杀敌人比让医疗持续救援承伤者更划算。死亡是最终风险；只要击杀发生在敌人造成致命一击之前，承伤者无需保持满血。",
+    "details": [
+      "每波判断：威胁首击时间 vs 击杀时间窗口",
+      "若击杀窗口 < 首击时间 → 不需要治疗该承伤者",
+      "若击杀窗口 > 首击时间 → 承伤者必须至少存活到击杀完成"
+    ],
+    "source": "user feedback R124 v3-v7",
+    "source_url": "docs/review/fc77177/five_astra_r124_orientation_v1/tactical_prompt_v7.txt",
+    "sim_check_points": []
+  },
+  {
+    "id": "KB-AUDIT-001-operator-targeting-rule",
+    "topic": "targeting",
+    "title": "模拟器干员索敌实现对照",
+    "summary": "simulator._target_enemy_for 实现：MELEE 优先 SELF_BLOCKED_FIRST，远程不优先阻挡；排序键=(anti_air优先级, remaining_path, spawn_index) 或 (0, -defense, remaining_path, spawn_index) for prioritize_high_defense。",
+    "details": [
+      "covered = range_transformer.covered_tiles(tile, offsets, direction)",
+      "MELEE: blocked_targets 优先；RANGED: 不区分 blocked",
+      "anti_air_priority=True 且 FLY → priority=0（最先）；否则 priority=1",
+      "prioritize_high_defense=True → 按 -defense 升序（防御高先）",
+      "普通排序：remaining_path 升序（离终点近优先）→ spawn_index 升序（先出生优先）",
+      "与 PRTS 的'剩余路径最短→最早出现'一致",
+      "MISSING: 最后部署优先（我方仇恨值不实现），特殊优先级/嘲讽/隐匿不实现"
+    ],
+    "source": "simulator code audit 2026-11-20",
+    "source_url": "src/arknights_planner/simulator/simulator.py#_target_enemy_for",
+    "sim_check_points": [
+      "VERIFIED vs KB-PRTS-001: remaining_path matches PRTS '剩余路径最短'",
+      "GAP: no last_deployed priority, no taunt/special priority, no stealth skip"
+    ]
+  }
+]
