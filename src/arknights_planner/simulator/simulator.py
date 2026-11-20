@@ -116,6 +116,25 @@ class Simulator:
         entity = self._enemy_position(stage, enemy)
         return hypot(position[0] - entity[0], position[1] - entity[1]) <= radius + self._EPSILON
 
+    @staticmethod
+    def _route_direction_at(stage: Stage, route, distance: float) -> tuple[float, float]:
+        total = route.length
+        if total <= 0.0:
+            return (0.0, 0.0)
+        remaining = min(max(distance, 0.0), total)
+        for first, second in zip(route.waypoints, route.waypoints[1:]):
+            segment = hypot(second.x - first.x, second.y - first.y)
+            if segment == 0:
+                continue
+            if remaining <= segment:
+                return (second.x - first.x) / segment, (second.y - first.y) / segment
+            remaining -= segment
+        last = route.waypoints[-1]
+        prev = route.waypoints[-2] if len(route.waypoints) >= 2 else last
+        dx, dy = last.x - prev.x, last.y - prev.y
+        norm = hypot(dx, dy) or 1.0
+        return dx / norm, dy / norm
+
     def _enemy_in_covered_tiles(self, stage: Stage, enemy: RuntimeEnemy, covered: set[tuple[int, int]]) -> bool:
         # KB-PRTS-004/KB-BILI-002: hit detection uses the enemy entity coordinate and
         # its 0.1 hit radius against the tile polygon union, not a rounded single tile.
@@ -973,6 +992,31 @@ class Simulator:
                 enemy.route_wait_remaining = max(0.0, enemy.route_wait_remaining - dt)
                 continue
             start, proposed = enemy.distance, min(enemy.distance + enemy.speed * dt, route.length)
+            # KB-BILI-004 inertia bookkeeping: velocity magnitude is reconciled to the
+            # route-projection model each tick (steering/avoidance integration remains
+            # MODEL_GAP until a 2D navigator is available).
+            entity = self._enemy_position(stage, enemy)
+            segment_direction = self._route_direction_at(stage, route, enemy.distance)
+            target_velocity = (segment_direction[0] * enemy.speed, segment_direction[1] * enemy.speed)
+            steering = (20.0, 100.0) if enemy.movement_mode == "FLY" else (8.0, 10.0)
+            accel = (
+                (target_velocity[0] - enemy.inertia_velocity[0]) * steering[0],
+                (target_velocity[1] - enemy.inertia_velocity[1]) * steering[0],
+            )
+            accel_mag = hypot(accel[0], accel[1])
+            max_force = steering[1]
+            if accel_mag > max_force > 0.0:
+                scale = max_force / accel_mag
+                accel = (accel[0] * scale, accel[1] * scale)
+            new_velocity = (
+                enemy.inertia_velocity[0] + accel[0] * dt,
+                enemy.inertia_velocity[1] + accel[1] * dt,
+            )
+            speed_mag = hypot(new_velocity[0], new_velocity[1])
+            if speed_mag > enemy.speed > 0.0:
+                scale = enemy.speed / speed_mag
+                new_velocity = (new_velocity[0] * scale, new_velocity[1] * scale)
+            enemy.inertia_velocity = new_velocity
             if enemy.route_wait_index < len(route.waits):
                 wait = route.waits[enemy.route_wait_index]
                 if start - self._EPSILON <= wait.distance <= proposed + self._EPSILON:

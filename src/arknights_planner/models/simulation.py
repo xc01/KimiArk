@@ -92,6 +92,8 @@ class RuntimeEnemy:
     area_hit_position: tuple[float, float] | None = None
     area_hit_radius: float | None = None
     block_reposition_remaining: float = 0.0
+    inertia_velocity: tuple[float, float] = (0.0, 0.0)
+    last_avoidance: tuple[float, float] = (0.0, 0.0)
     block_reposition_target: tuple[float, float] | None = None
 
 

@@ -5,9 +5,13 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40d-last-deploy-hatred-v1"
+ACTIVE_MECHANICS_VERSION = "m40e-inertia-bookkeeping-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40e-inertia-bookkeeping-v1": {
+        "status": "ACTIVE",
+        "summary": "Adds KB-BILI-004 inertia velocity/steering bookkeeping along route direction (ground 8/10, fly 20/100 clamped). Full 2D avoidance integration remains MODEL_GAP pending navigator.",
+    },
     "m40d-last-deploy-hatred-v1": {
         "status": "ACTIVE",
         "summary": "Enemy ranged target candidates order by last-deployed first per KB-PRTS-001; taunt/special priority and armor-class preference remain MODEL_GAP until adapter data exists.",
