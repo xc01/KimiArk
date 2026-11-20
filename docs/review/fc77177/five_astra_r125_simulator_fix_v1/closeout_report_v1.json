@@ -1,0 +1,88 @@
+{
+  "schema_version": "R125_SIMULATOR_FIX_CLOSEOUT_V1",
+  "session_root": "docs/review/fc77177/five_astra_r125_simulator_fix_v1",
+  "model": "gpt-6.2-astra",
+  "reasoning_effort": "low",
+  "features_apps": false,
+  "cli": {
+    "authorized": 1,
+    "started": 1,
+    "attempts": 1,
+    "command_sha256": "3651376752c8c85bca8b0be316af6c0cca3ac6045720efe158b01b61fd947ca7"
+  },
+  "candidates": 0,
+  "simulations": 0,
+  "check_calls": 0,
+  "implemented": [
+    {
+      "id": 1,
+      "version": "m40-redeploy-penalty-v1",
+      "commit": "329e868f",
+      "kb": [
+        "KB-PRTS-002",
+        "KB-PRTS-003"
+      ]
+    },
+    {
+      "id": 2,
+      "version": "m40b-hit-geometry-v1",
+      "commit": "e7a01b78",
+      "kb": [
+        "KB-BILI-004",
+        "KB-PRTS-004",
+        "KB-BILI-002"
+      ]
+    },
+    {
+      "id": 3,
+      "version": "m40c-block-scan-v1",
+      "commit": "d664d832",
+      "kb": [
+        "KB-BILI-002"
+      ]
+    },
+    {
+      "id": 4,
+      "version": "m40d-last-deploy-hatred-v1",
+      "commit": "b9b5de21",
+      "kb": [
+        "KB-PRTS-001"
+      ]
+    },
+    {
+      "id": 5,
+      "version": "m40e-inertia-bookkeeping-v1",
+      "commit": "b3852c3d",
+      "kb": [
+        "KB-BILI-004"
+      ]
+    },
+    {
+      "id": "6/7",
+      "version": "m40f-displacement-hooks-v1",
+      "commit": "a0e15921",
+      "kb": [
+        "KB-BILI-003",
+        "KB-BILI-005",
+        "KB-BILI-006"
+      ]
+    },
+    {
+      "id": "8",
+      "version": "m40f (verification only)",
+      "commit": "390bf15f",
+      "kb": [
+        "KB-R124-001"
+      ]
+    }
+  ],
+  "model_gaps": [
+    "push/pull 2D pull integration and directional-turn rules",
+    "fear/lure route-target override and random offset",
+    "2D avoidance integration for inertia",
+    "taunt/special-priority/armor-class preference in enemy hatred",
+    "per-route spawn cursor offsets (currently zero)"
+  ],
+  "tests": "PYTHONPATH=scripts pytest tests/simulator (ignoring pre-existing test_deep_mechanism_regressions.py ModuleNotFoundError) all pass",
+  "astra_first_answer_sha256": "885661fbc389f79db3c967d1f6730029caa37b901dec9df81c465807ce7c83b1"
+}

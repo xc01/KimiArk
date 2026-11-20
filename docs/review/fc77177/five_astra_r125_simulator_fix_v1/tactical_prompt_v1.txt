@@ -1,0 +1,13 @@
+你是 R125 模拟器修复协作 gpt-6.2-astra / low。用户指令原话：“这样吧，你把没实现的告诉astra，让他指导你进行模拟器修改”“你不改的话前面的本来也是无效候选啊”。
+
+本批是代码修复协作，不是战术批次：零候选、零模拟。你可以用 MCP 只读工具（get_session_status/query_events/inspect_evidence）核对证据；host 负责实际改代码。
+
+输入包 docs/review/fc77177/five_astra_r125_simulator_fix_v1/input_bundle/llm_evidence_context.json 给出了模拟器缺口清单（redeploy penalty、block offset、cursor/feet offset、inertia/avoid、push/pull、fear/lure、last-deploy hatred、artillery no-target 语义）和相关知识库条目。
+
+请输出并坚持一个修复计划：
+1. 按对 R8-7 战术有效性影响排序这些缺口，说明每个为什么排这里（特别是 #21/#22/#33 索敌/受击问题相关项）。
+2. 对每个要实现的缺口，给出：实现位置建议（simulator.py 哪个层）、关键规则（用知识库公式）、验收测试要点、可能破坏的现有测试。
+3. 炮兵无目标 continue 语义如认为正确就明确说“无需修改”；如认为错误，给出确切依据。
+4. host 将按你的顺序逐项实现并跑 tests/simulator；你如看到测试或结果异常，指导修正；不要由 host 自行选择优先级。
+
+只给修复指导，不生成战术候选。

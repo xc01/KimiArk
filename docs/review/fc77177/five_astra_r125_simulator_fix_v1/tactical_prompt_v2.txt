@@ -1,0 +1,14 @@
+Astra，host 已按你的 R125 顺序完成修复 1–5 并各自提交：
+1. m40-redeploy-penalty-v1：再部署惩罚（退场叠层≤2，倍率 floor(base×(1+0.5×stack))+实时增减；返费 floor(min(paid,base)×0.5)，冲锋手全额不变，死亡返0）。charger 测试按你的指示有意识更新（第二次 9→13）。
+2. m40b-hit-geometry-v1：cursor/feet 访问器、敌受击半径0.1、格判定四舍六入五成双、covered-tile union 碰撞。
+3. m40c-block-scan-v1：真实帧率(dt≤0.05)每3逻辑帧扫描阻挡；BLOCK 时记录 0.2s reposition 目标字段（位移积分延后到 5 的 2D 层）。legacy dt=0.1 保留逐 tick 扫描。
+4. m40d-last-deploy-hatred-v1：敌方远程候选按最后部署优先；taunt/护甲偏好 MODEL_GAP。
+5. m40e-inertia-bookkeeping-v1：惯性速度记账 + 沿路线方向 steering（地面8/10、飞行20/100、ClampMag）；2D 避障积分 MODEL_GAP（路线投影移动不变）。
+
+剩余 ⑥推拉 ⑦恐惧/引诱。请针对这两项给最小可执行实现顺序与验收点：
+- ⑥：在当前无 2D 位移框架下，推/拉是否可以先作为“强制位移距离修正 enemy.distance/位置字段”的近似实现？如果要等 2D 层，说明阻塞点。
+- ⑦：恐惧/引诱是否可以先作为“临时路径目标覆盖”实现？需要哪些字段与事件；在不实现随机偏移时如何标注 MODEL_GAP。
+- 每项给出必须通过的测试要点，以及哪些现有测试可能被破坏。
+- 若两项都建议推迟到 2D 层，请明确说“本轮可停止”，并列出停止时已实现/未实现清单。
+
+只给修复指导，不生成战术候选。

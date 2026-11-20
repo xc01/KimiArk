@@ -1,0 +1,60 @@
+**R125 固定实施顺序：①再部署费用与返费 → ②坐标与受击范围 → ③阻挡扫描与偏移 → ④敌方最后部署仇恨 → ⑤移动惯性与避障 → ⑥推拉 → ⑦恐惧与引诱。第⑧项炮兵无目标 `continue` 无需修改，补时序回归测试。**
+
+排序先看错误能否使整段操作失效，再看它能否直接改变 #21/#22/#33 的候选集、锁定对象和受击次数。尤其要区分两次选人：月见夜、克洛丝、史都华德选哪个敌人，走 `_target_enemy_for`；敌人选哪个干员，走 `_enemy_outputs` 或技能分支。**最后部署仇恨直接改变后者。** 把它加进我方排序，会把 #21/#22/#33 的问题修错方向。现有材料也不足以把这三个实例的每一次漏击归因给同一个缺口。[输入包](</home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r125_simulator_fix_v1/input_bundle/llm_evidence_context.json>) · [我方索敌实现](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:476)
+
+### ① 再部署费用与撤退返费
+
+排第一，因为错误的 DP 可以让本应失败的部署成功。该干员之后贡献的每次阻挡、攻击和承伤都会进入旧结果，后续索敌分析也就失去前提。
+
+- **实现**　在 `SimulationState` 按干员身份保存退场层数。在 `_deploy` 用同一次计算完成合法性检查、扣费和实付记录。在 `_remove_operator` 对每次实际撤退或死亡加一层，上限二层。按 KB-PRTS-002/003，令 `B = 初始费用 + 基础费用增减`，倍率为 `1 + 0.5 × min(层数, 2)`；倍率部分向下取整，再加实时费用增减。先核对 `deployment_cost_delta` 的来源，避免把实时修正也乘上倍率。手动部署后手撤的返费为 `floor(min(部署费用属性 × 返还率, 返还上限))`。普通干员返还率 0.5，冲锋手 1，通常上限是本次基础费用 `B`。死亡返零。
+- **验收与回归**　基础费用 5 的四次部署应扣 `5、7、10、10`。覆盖死亡叠层、失败部署不叠层、不同干员独立、差 1 DP 部署失败且余额不变。现有 charger 测试中，夹具把第二次基础费用从 5 改为 9。按这个夹具应扣 `floor(9×1.5)=13`、手撤返 9，`20−13+9=16`。**旧测试的最终余额恰好仍是 16**，必须分别断言扣 13、返 9，并说明替换旧断言的原因。首次手撤、击杀回费、死亡无返费仍须通过。[费用实现](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:192) · [现有冲锋手测试](/home/bigdata/Desktop/arknights-auto-planner/tests/simulator/test_charger_economy.py)
+
+### ② 实体、光标、足坐标与受击范围
+
+这是对 #21/#22/#33 **能否进入我方候选集**最直接的一项。当前 `_enemy_position` 只返回路线插值，`_grid_position` 用 `floor(x+0.5)`，而 `_target_enemy_for` 将取整后的单格与覆盖格集合比较。只增加一个足坐标字段，边缘目标仍会按旧方式入选或落选。
+
+- **实现**　在 `_spawn`、`RuntimeEnemy` 和位置访问层保存出生光标与实体的固定偏移。光标从出生格中心起算，用于寻路、进入地块；足坐标为实体坐标下移 0.2；效果、阻挡和受击使用实体坐标。按 KB-BILI-004 对地块判定使用五成双。按 KB-PRTS-004、KB-BILI-002，将旋转后的攻击范围格组成碰撞区域，对实体受击形状作相交判定。敌人受击半径 0.1，干员 0.25；移动碰撞胶囊另有尺寸。炮兵索敌、弹体出生时锁点和落点结算分别核对各自的位置读取。
+- **验收与回归**　用非零出生偏移分别断言实体、光标、足坐标；测 `0.5、1.5、−0.5` 的地块归属。用同一朝向测试敌人中心刚出攻击格但受击范围仍相交，以及再移出后完全不相交。分别断言 `TARGET_SELECTION.candidate_ids`、选中 ID 和最终命中。重点复核 `test_operator_runtime_fidelity.py`、`test_local_device_targeting.py`、`test_neutral_protected_target.py` 的边界断言。[坐标实现](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:94)
+
+### ③ 阻挡扫描与稳定位置偏移
+
+排在坐标之后，因为阻挡和偏移都要读写实体位置。它能通过两条路径改变 #21/#22 的交战：谁先占用阻挡位，以及月见夜是否因此触发“优先攻击自己阻挡的敌人”。对 #33，还应检查偏移后是否仍与远程攻击范围相交。
+
+- **实现**　替换 `_advance_enemies` 中普通干员依靠 `route.distances_at(operator.tile)` 的过点判定。按 KB-BILI-002，每 3 个逻辑帧由阻挡者扫描实体中心距 `≤√2/2` 的合格敌人，按距离从近到远占用容量，不能让敌人遍历顺序决定归属。保留飞行、高台、阻挡需求、装置专属半径。建立阻挡后，`AB` 短于 0.5 时延至 0.5；多阻挡修正向量求和后归一至 0.2，加到 `AC`，再归一回 `|AC|`，在 0.2 秒内移至稳定点。当前 `blocked_by` 分支会立即跳过移动，稳定点插值须在该分支中推进。输入摘要没有定义 A/B/C 的全部构造和零向量处理，落实这两处前须核对条目原图。
+- **验收与回归**　用交换出生顺序的两个敌人争最后一个阻挡位，近者应在扫描帧获选。测半径内外、阻挡建立帧、0.2 秒中间位置与终点、插值途中干员死亡解阻，以及路障对受保护单位的 0.6 半径。重点复核 `test_unblock_on_death.py`、`test_deep_mechanism_regressions.py` 和 `test_fixed_prefix_review_regressions.py`。[阻挡实现](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:899)
+
+### ④ 敌方最后部署仇恨
+
+它决定谁承伤，也可能间接决定谁能活到下一次攻击 #21/#22/#33。当前普通敌人在阻挡者和特殊保护目标之后，按距离、干员 ID 选人；延迟炮击在没有优先保护目标时按干员 ID 选人。这两个入口都要修。
+
+- **实现**　在 `_deploy` 成功后分配单调部署序号，同一帧依实际执行顺序递增。`_enemy_outputs` 和 `_enemy_ability_outputs` 复用对合格干员的排序。按 KB-PRTS-001 先满足阻挡及该攻击适用的特殊优先，再比较仇恨层级；普通同档选最后部署者，保留低仇恨例外。炮兵保留配置的保护目标优先。选择完成后保持本次锁定对象；延迟炮击继续按现有弹体出生阶段取锁点。
+- **验收与回归**　两个射程内同档干员，让后部署者更远、ID 字典序更晚，普通远程攻击和炮击回退都应选它；交换部署顺序，目标应翻转。另测阻挡者优先、保护目标优先、撤退再部署更新序号，以及前摇中新部署不抢走已锁定目标。同步断言我方近战自阻挡优先、速射手对空优先、史都华德高防优先仍成立。重点复核 `test_enemy_runtime_fidelity.py`、`test_enemy_ability_runtime.py`、`test_neutral_protected_target.py`。[普通敌方索敌](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:656) · [炮击索敌](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:739)
+
+### ⑤ 移动惯性与避障
+
+这项改变转弯和穿过射程边缘的帧数，可能增减对 #33 的一次攻击。它影响整条路线，放在坐标、阻挡和索敌之后，可以把“进入候选集的时间变了”与“同一候选集选错人”区分开。
+
+- **实现**　在 `RuntimeEnemy` 保存惯性速度和最近一次避障量，在 `_advance_enemies` 按逻辑帧推进。按 KB-BILI-004，理论速度 `s=max(属性移速,0.1)×moveMultiplier`，核对适配层是否已折算默认 0.5。光标给出单位方向 `d`；每 3 帧更新 `avoid=a−proj_d(a)`。加速度为 `ClampMagnitude((d×s−v)×steeringFactor+avoid,maxSteeringForce)`，新速度为 `ClampMagnitude(v+加速度×dt,s)`。地面参数 `8/10`、飞行 `20/100`、未开 Steering `100/100`。阻挡、晕眩、强制位移期间冻结普通惯性，跨入不可通行格时按条目修正位移。摘要没有给出避障中间量 `a` 的完整计算，不能用任意排斥常数验收。
+- **验收与回归**　测静止起步、直角转弯、空地参数差异、三帧避障、冻结恢复以及不可通行格反射。用不同外层步长复核同一逻辑帧轨迹，并验证等待点、隐藏段、终点和剩余路径排序。重点复核 `test_synthetic_simulator.py`、`test_stronghold_differential_micro.py`、`test_fixed_prefix_review_regressions.py` 中的到达帧与攻击次数。
+
+### ⑥ 推拉
+
+排在普通运动之后，因其依赖实体位移和速度状态。输入包没有给出 #21/#22/#33 在相关交战中被推拉的直接证据。
+
+- **实现**　在技能命中层产生推拉，在 `_advance_enemies` 的强制位移分支积分。按 KB-BILI-003，有效等级取来源力量减目标重量，按规定处理方向修正后限于 `[-3,3]`。定向推夹角 `>45°` 或距离 `<0.25` 时转来源至目标的相对方向，等级减 2。质量 1，推为一次冲量 `等级对应力值×0.02×0.5`；摩擦减速度 4.905，每帧速度减量为 `4.905×dt`。拉为持续力，方向朝来源，大小 `初始力×(现距/初距)^4`。保护期结束且速度 `≤0.1` 才退出失衡。力量等级表、保护时间和拉持续时间从对应来源或技能数据取得。
+- **验收与回归**　测 45° 与 0.25 两侧、重量差上下限、冲量只施加一次、拉力随距离衰减、摩擦不反向、保护期后恢复普通移动。核对无位移来源时轨迹一致。重点复核 `test_atomic_combat_runtime.py`、`test_enemy_ability_runtime.py`、`test_unblock_on_death.py`。
+
+### ⑦ 恐惧与引诱
+
+这两项会替换路径目标，但输入包没有指出相关 R8-7 交战存在施加者。优先级低于能直接改变合法部署、普通攻击与阻挡的机制。
+
+- **实现**　在状态应用层保存来源、创建顺序和到期时间，在移动层叠加临时路径目标。按 KB-BILI-005，恐惧从目标朝远离来源的方向取 90°、半径 10 的扇区，按终点连通性筛选，排除蓝门、地穴作为目的格，再从可达且路径距离 `≤5` 的格中抽取，检查点在边长 0.5 的方形内随机偏移。持续期间保留正常检查点和终点判定，结束时更新目标。按 KB-BILI-006，引诱取最新创建的有效 buff 的单一目标格，无偏移，到达后停住；恐惧优先。
+- **验收与回归**　固定种子测扇区边界、目的格排除和偏移范围；测引诱覆盖、到达停留、恐惧覆盖引诱及结束后恢复仍有效的引诱，核对经过蓝门时正常结算。重点复核 `test_enemy_runtime_fidelity.py`、`test_synthetic_simulator.py` 的检查点和终点断言。
+
+### ⑧ 炮兵无目标 `continue`：无需修改
+
+对 `DELAYED_LOCKED_AREA_ATTACK`，现代码在候选集为空时直接 `continue`。此时没有 `ENEMY_ABILITY_START`、待发射记录或冷却写入；取得目标后才写 `ability_next_fire_time = state.time + ability.cooldown`。这与输入包给出的“冷却起于 CastStart”一致。包中提到的连续周期净 `+1` 帧是**有目标周期的时序验收点**，不能据此在空等帧重置冷却。[炮击分支](/home/bigdata/Desktop/arknights-auto-planner/src/arknights_planner/simulator/simulator.py:739)
+
+回归用例应让炮兵就绪后连续空等，再令目标入圈，断言首次可索敌帧即 CastStart；分别断言前摇结束时 `PROJECTILE_BORN` 的锁点、延迟后的命中帧，以及连续有目标时相邻两次 CastStart 的帧差。若只有周期差一帧，先查就绪比较和主循环事件顺序；若取得了错误目标，回到第④项；若锁点正确而落点受击者错误，回到第②项。
+
+**Host 执行约定。** 每项先加能暴露旧行为的微型测试，完成该项后跑完整 `tests/simulator`，通过再进入下一项。若 #21/#22/#33 类回归出现差异，保留首个分歧帧的部署合法性、实体位置、阻挡归属、候选 ID、选中 ID、命中与伤害；按第一个发生分歧的环节修正，不能只更新最终击杀数或放宽时间容差。发布新运行时行为时提升 `ACTIVE_MECHANICS_VERSION` 并记录历史，保留 M70/R106 冻结产物。本次仅做只读核对和修复指导，零候选、零模拟；尚无 host 测试结果可判定。
