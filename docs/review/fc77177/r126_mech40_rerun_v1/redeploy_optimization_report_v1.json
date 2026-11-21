@@ -1,0 +1,92 @@
+{
+  "schema_version": "R126_V2_REDEPLOY_OPTIMIZATION_REPORT_V1",
+  "mechanics_version": "m40f-displacement-hooks-v1",
+  "user_directives": [
+    "reduce unnecessary redeploys under new redeploy penalty",
+    "accept damage/no-heal; death acceptable if replacement covers",
+    "retreat refund exploitation allowed"
+  ],
+  "variants": [
+    {
+      "id": "A_keep_deployed",
+      "change": "remove all 4 retreats + 3 redundant redeploys",
+      "kills": 2,
+      "leaks": 31,
+      "life": -29,
+      "deaths": 5,
+      "verdict": "REJECTED: early positions overrun; retreats are necessary"
+    },
+    {
+      "id": "B_falco_only",
+      "change": "keep only falco retreat+redeploy",
+      "kills": 2,
+      "leaks": 31,
+      "life": -29,
+      "deaths": 4,
+      "verdict": "REJECTED"
+    },
+    {
+      "id": "E_no_hibisc_redeploy",
+      "change": "drop hibisc redeploy (heal optional)",
+      "kills": 5,
+      "leaks": 28,
+      "life": -25,
+      "deaths": 2,
+      "verdict": "REJECTED: late coverage drops"
+    },
+    {
+      "id": "F_no_kroos_redeploy",
+      "change": "also drop kroos redeploy",
+      "kills": 2,
+      "leaks": 31,
+      "life": -29,
+      "deaths": 3,
+      "verdict": "REJECTED"
+    },
+    {
+      "id": "G_stward_5500",
+      "change": "stward redeploy 6500->5500 (DP allows)",
+      "kills": 8,
+      "leaks": 25,
+      "life": -22,
+      "deaths": 1,
+      "verdict": "BEST: +2 kills vs baseline rerun"
+    },
+    {
+      "id": "H_+=falco_skill_6300",
+      "change": "+ falco skill 6811->6300",
+      "kills": 8,
+      "leaks": 25,
+      "life": -22,
+      "deaths": 1,
+      "verdict": "no further gain"
+    },
+    {
+      "id": "J_+=kroos_RIGHT",
+      "change": "+ kroos 2nd direction RIGHT",
+      "kills": 8,
+      "leaks": 25,
+      "life": -22,
+      "deaths": 1,
+      "verdict": "no further gain"
+    },
+    {
+      "id": "L/M midn to row3/4",
+      "change": "midn to officer lanes",
+      "kills": 1.3333333333333333,
+      "verdict": "row3 no gain; row4 worse"
+    }
+  ],
+  "conclusions": [
+    "Retreat-refund + redeploy cadence is already minimal-latency (redeploy cooldown 70s binds all second deploys to earliest possible frames).",
+    "Removing redeploys is strictly worse: early-lane positions get overrun; deaths give no refund.",
+    "Only actionable redeploy optimization found: stward 2nd deploy 6500->5500 (earlier late-lane coverage, DP-feasible) -> 8 kills / 25 leaks / life-22 / 1 death.",
+    "Remaining failures are geometry-driven coverage windows (3 hits/pass vs old inflated 5) on officer waves #6-#20 and uterers #27/#29 — needs a tactical rework beyond redeploy tuning."
+  ],
+  "baseline_rerun": {
+    "kills": 6,
+    "leaks": 27,
+    "life": -24,
+    "deaths": 0
+  }
+}
