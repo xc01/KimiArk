@@ -1,0 +1,63 @@
+{
+  "schema_version": "R126_V3_KILL_ONLY_REPORT_V1",
+  "objective": "maximize kills; deaths/refunds/life explicitly not optimized (user directive)",
+  "variants_tested": [
+    {
+      "id": "stward_early_5460-5490",
+      "kills": 8,
+      "note": "5500 already DP-earliest"
+    },
+    {
+      "id": "N_stward_5200_first",
+      "kills": 8,
+      "deaths": 0,
+      "note": "same kills, avoids the 1 death"
+    },
+    {
+      "id": "P_drop_hibisc",
+      "kills": 6,
+      "deaths": 5,
+      "note": "REJECTED: healer sustain is what keeps DPS ops alive to farm kills; removing heal lowers kills"
+    },
+    {
+      "id": "R_midn_(6,5)",
+      "kills": 6,
+      "note": "worse"
+    },
+    {
+      "id": "S_midn_UP",
+      "kills": 8,
+      "note": "no gain"
+    },
+    {
+      "id": "T_midn_(7,4)",
+      "kills": 6,
+      "note": "worse"
+    },
+    {
+      "id": "U_kroos_1200",
+      "kills": 8,
+      "note": "no gain"
+    },
+    {
+      "id": "W_falco_skill_1200",
+      "kills": 8,
+      "note": "no gain"
+    }
+  ],
+  "best": {
+    "id": "N_stward_5200_first",
+    "kills": 8,
+    "leaks": 25,
+    "life": -22,
+    "deaths": 0,
+    "change": "stward 2nd deploy 6500->5200 (before kroos 5210->5230), DP-feasible, zero deaths"
+  },
+  "plateau_analysis": [
+    "8 kills is a hard plateau for this 5-op structure under m40f geometry.",
+    "Officer waves #6-#20 (hp 3300, def 150) pass rows 3/4 with ~3-hit windows per op; no single placement/time change adds kills.",
+    "Falco's 6 loop kills under old inflated geometry collapsed to 1 — loop coverage now structurally insufficient.",
+    "Removing the healer lowers kills (P variant), contradicting the no-heal prior; sustain = kill uptime for falco/midn.",
+    "Progress beyond 8 requires structural roster change (swap in more lane blockers/DPS), i.e., a new tactical batch, not redeploy tuning."
+  ]
+}
