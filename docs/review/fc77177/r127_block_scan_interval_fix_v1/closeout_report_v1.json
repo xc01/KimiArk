@@ -1,0 +1,38 @@
+{
+  "commit": "9b066e86",
+  "evidence": {
+    "R126 '8-kill plateau' and 'no-heal hurts kills' conclusions": "INVALIDATED as bug artifacts (P variant drop-heal comparison was made under buggy blocking)",
+    "five-op R123 candidate under m40g": {
+      "kills": 14,
+      "leaks": 19,
+      "life": -16
+    },
+    "m39 (pre-R125) M70 R8_7_GPT_M70_V1": {
+      "kills": 33,
+      "leaks": 0,
+      "life": 3,
+      "win": true
+    },
+    "m40c/m40f (buggy) same plan": {
+      "block_events": 12,
+      "first_leak_frame": 1535,
+      "kills": 9,
+      "leaks": 24,
+      "life": -23,
+      "win": false
+    },
+    "m40g (fixed) same plan": {
+      "block_events": 35,
+      "kills": 33,
+      "leaks": 0,
+      "life": 3,
+      "win": true
+    }
+  },
+  "fix": "enemy.block_scan_start tracks distance at last executed scan; scan window = [block_scan_start, proposed]; legacy dt=0.1 keeps single-tick window; mechanics version m40g-block-scan-interval-v1.",
+  "pushed": "origin/master 72015174..9b066e86",
+  "regression_test": "tests/simulator/test_block_scan_interval_coverage.py (30-phase spawn sweep; verified failing on unfixed code)",
+  "root_cause": "R125 commit d664d832 gated operator block scans to every 3rd logical frame (dt<=0.05) but kept the candidate window at the single tick [start, proposed]; enemies crossing a blocker's tile during the 2 skipped frames were never tested.",
+  "schema_version": "R127_BLOCK_SCAN_INTERVAL_FIX_V1",
+  "scope_note": "current fixed simulator only; no real-game/faithful/robust/probabilistic/global-minimum claim"
+}
