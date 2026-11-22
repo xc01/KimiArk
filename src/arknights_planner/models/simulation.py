@@ -101,6 +101,9 @@ class RuntimeEnemy:
     lure_target_tile: tuple[float, float] | None = None
     last_avoidance: tuple[float, float] = (0.0, 0.0)
     block_reposition_target: tuple[float, float] | None = None
+    # KB-BILI-002: distance at the last block scan; the next scan must cover
+    # the whole interval travelled since then, not only a single tick.
+    block_scan_start: float = 0.0
 
 
 @dataclass

@@ -5,9 +5,17 @@ from dataclasses import dataclass
 from typing import Any
 
 
-ACTIVE_MECHANICS_VERSION = "m40f-displacement-hooks-v1"
+ACTIVE_MECHANICS_VERSION = "m40g-block-scan-interval-v1"
 
 MECHANICS_VERSION_HISTORY = {
+    "m40g-block-scan-interval-v1": {
+        "status": "ACTIVE",
+        "summary": "Fixes KB-BILI-002 3-frame block scan: the scan window now spans the whole distance travelled since the previous scan (block_scan_start) instead of a single tick, so enemies can no longer slip past a blocker during skipped frames. Regression reproduced the archived M70 eight-operator WIN collapsing from 33 kills/0 leaks to 9 kills/24 leaks under m40f.",
+    },
+    "m40f-displacement-hooks-v1": {
+        "status": "SUPERSEDED",
+        "summary": "Adds KB-BILI-003 displacement force/unbalance fields with impulse displacement and friction decay, plus fear/lure target fields. No R8-7 adapter supplies force/fear/lure sources; 2D pull integration and route-target override remain MODEL_GAP.",
+    },
     "m40f-displacement-hooks-v1": {
         "status": "ACTIVE",
         "summary": "Adds KB-BILI-003 displacement force/unbalance fields with impulse displacement and friction decay, plus fear/lure target fields. No R8-7 adapter supplies force/fear/lure sources; 2D pull integration and route-target override remain MODEL_GAP.",

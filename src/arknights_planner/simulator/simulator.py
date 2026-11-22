@@ -379,6 +379,7 @@ class Simulator:
                 holder.blocked_enemy_ids = [item for item in holder.blocked_enemy_ids if item != enemy.instance_id]
             self._emit(state, EventType.UNBLOCK, source=holder.operator_id, target=enemy.instance_id)
         enemy.blocked_by = None
+        enemy.block_scan_start = enemy.distance
 
     def _remove_operator(self, state: SimulationState, operator_id: str, *, death: bool) -> None:
         operator = state.deployed_operators.get(operator_id)
@@ -1060,8 +1061,14 @@ class Simulator:
                     enemy.route_wait_remaining = wait.duration
                     continue
             candidates: list[tuple[float, RuntimeOperator]] = []
+            # KB-BILI-002: the scan is every 3 frames, so the interval that must be
+            # tested is everything travelled since the previous scan.  Testing only
+            # [start, proposed] lets an enemy step straight past a blocker's tile
+            # during the two skipped frames and never get picked up.
+            gate_active = dt <= 0.05 + 1e-9
+            scan_start = enemy.block_scan_start if gate_active else start
             if enemy.hidden:
-                pass
+                enemy.block_scan_start = proposed
             elif enemy.is_neutral:
                 device_blocked = False
                 for device in state.active_devices.values():
@@ -1087,8 +1094,10 @@ class Simulator:
                 # KB-BILI-002: operators scan for blockable enemies every 3 logical frames.
                 # The 3-frame gate applies at the real frame rate (dt <= 1/20);
                 # legacy synthetic dt=0.1 configs keep per-tick scans.
-                scan_phase = state.tick_index % 3 if dt <= 0.05 + 1e-9 else 0
+                scan_phase = state.tick_index % 3 if gate_active else 0
                 if scan_phase != 0:
+                    # Skipped scan tick: advance normally and keep block_scan_start,
+                    # so the next scan covers the whole travelled interval.
                     enemy.distance = proposed
                     self._leak_or_reach(state, enemy, route)
                     continue
@@ -1106,7 +1115,7 @@ class Simulator:
                     if self._effective_block(operator) < enemy.block_requirement:
                         continue
                     for blocking_distance in route.distances_at(operator.tile):
-                        if start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
+                        if scan_start - self._EPSILON <= blocking_distance <= proposed + self._EPSILON:
                             candidates.append((blocking_distance, operator))
             if candidates:
                 blocking_distance, holder = min(candidates, key=lambda item: (item[0], item[1].operator_id))
@@ -1117,9 +1126,11 @@ class Simulator:
                 # blocking position (holder tile center) within 0.2s.
                 enemy.block_reposition_remaining = 0.2
                 enemy.block_reposition_target = (float(holder.tile[0]), float(holder.tile[1]))
+                enemy.block_scan_start = blocking_distance
                 self._emit(state, EventType.BLOCK, source=holder.operator_id, target=enemy.instance_id)
                 continue
             enemy.distance = proposed
+            enemy.block_scan_start = proposed
             self._leak_or_reach(state, enemy, route)
 
     def _leak_or_reach(self, state: SimulationState, enemy: RuntimeEnemy, route) -> None:
