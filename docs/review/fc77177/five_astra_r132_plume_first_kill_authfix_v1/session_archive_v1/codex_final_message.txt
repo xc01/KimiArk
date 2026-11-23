@@ -1,0 +1,85 @@
+**实跑 35 次，未找到五人 WIN。你的“翎羽拿首杀，再加一个人补输出，费用够”已经被实测支持。** 没解决的是后续上下外侧路线，不能把失败归因于首杀做不到或费用不足。
+
+全程五人实验均使用指定名单，没有换人；另跑一次八人 M70 作参照。没有重复模拟同一 plan。另有一次参数格式错误，未进入模拟，不计入 35 次。
+
+**首杀与补漏的实测结果**
+
+先按 `ENEMY_LEAK.frame` 检查了现有五人基线 R123：最早是 **`#1`，第 682 帧**。这与另一套芬队基线的 `#2` 第 832 帧漏出不是同一条轨迹。
+
+| 实验 | 具体安排 | 事件结果 |
+|---|---|---|
+| 翎羽单独首杀 | 第31帧，`[3,5]`，UP | 第720帧杀死 `#1`；`#2` 第832帧漏 |
+| 加月见夜补输出、阻挡 | 翎羽同上；月见夜第481帧，`[4,5]`，RIGHT | **第600/780帧杀死 `#1/#2`，均由翎羽收尾** |
+| 首杀后撤退返费 | 上述方案第601帧撤翎羽，第602帧部署克洛丝 | 克洛丝部署成功，剩余4.067 DP；月见夜第949帧杀死 `#2` |
+| 提前克洛丝补上侧 | 月见夜补中线，克洛丝第781帧，`[2,5]`，DOWN | 对 `#4` 造成1675伤害，但它仍在第1132帧漏出 |
+| 两远程集中下侧 | 克洛丝第331帧 `[5,5]` RIGHT；史都华德第871帧 `[5,7]` LEFT | 两人对 `#5` 合计造成3105.824伤害；仍于第1282帧漏出 |
+
+在第二条实验中，`query_events` 汇总显示：对 `#1` 和 `#2`，**翎羽各打2283.6，月见夜各打1588**。月见夜第481帧部署合法，部署后剩余0.033 DP。[完整动作及事件](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r132_plume_first_kill_authfix_v1/session/runs/run-0003-midnight_second.json)
+
+**最佳结果与完整方案**
+
+本轮按终局成绩排序，最佳五人仍是复现的 **R123：14杀、19漏、life=-16、干员死亡0、WIN=false**。新方案没有超过它，不能把局部首杀成功称为整体改善。
+
+以下为该最佳方案完整输入；相对基线的 diff 为零：
+
+```json
+{
+  "selected": [
+    "char_124_kroos",
+    "char_283_midn",
+    "char_210_stward",
+    "char_120_hibisc",
+    "char_192_falco"
+  ],
+  "actions": [
+    {"action_type":"DEPLOY","frame":31,"operator_id":"char_192_falco","tile":[4,5],"direction":"RIGHT"},
+    {"action_type":"DEPLOY","frame":541,"operator_id":"char_120_hibisc","tile":[2,6],"direction":"UP"},
+    {"action_type":"DEPLOY","frame":1021,"operator_id":"char_283_midn","tile":[6,5],"direction":"RIGHT"},
+    {"action_type":"ACTIVATE_SKILL","frame":1382,"operator_id":"char_192_falco"},
+    {"action_type":"DEPLOY","frame":1411,"operator_id":"char_124_kroos","tile":[2,5],"direction":"LEFT"},
+    {"action_type":"ACTIVATE_SKILL","frame":1470,"operator_id":"char_120_hibisc"},
+    {"action_type":"DEPLOY","frame":1951,"operator_id":"char_210_stward","tile":[2,7],"direction":"DOWN"},
+    {"action_type":"RETREAT","frame":3100,"operator_id":"char_210_stward"},
+    {"action_type":"RETREAT","frame":3100,"operator_id":"char_124_kroos"},
+    {"action_type":"RETREAT","frame":3130,"operator_id":"char_120_hibisc"},
+    {"action_type":"ACTIVATE_SKILL","frame":3152,"operator_id":"char_283_midn"},
+    {"action_type":"RETREAT","frame":3350,"operator_id":"char_192_falco"},
+    {"action_type":"DEPLOY","frame":5210,"operator_id":"char_124_kroos","tile":[5,2],"direction":"RIGHT"},
+    {"action_type":"DEPLOY","frame":5240,"operator_id":"char_120_hibisc","tile":[5,3],"direction":"DOWN"},
+    {"action_type":"DEPLOY","frame":5460,"operator_id":"char_192_falco","tile":[4,3],"direction":"RIGHT"},
+    {"action_type":"ACTIVATE_SKILL","frame":6150,"operator_id":"char_120_hibisc"},
+    {"action_type":"DEPLOY","frame":6500,"operator_id":"char_210_stward","tile":[5,5],"direction":"LEFT"},
+    {"action_type":"ACTIVATE_SKILL","frame":6811,"operator_id":"char_192_falco"}
+  ],
+  "summary": {
+    "enemies_killed":14,
+    "enemies_leaked":19,
+    "remaining_life":-16,
+    "operator_deaths":0,
+    "simulator_win":false
+  }
+}
+```
+
+[最佳五人完整记录](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r132_plume_first_kill_authfix_v1/session/runs/run-0001-baseline.json)
+
+满足“翎羽首杀且 `#1/#2` 都不漏”的方案中，最好是 **run-0029：11杀、22漏、life=-20、死亡3、WIN=false**。它的完整 actions 就是上面输入替换以下三项，再按 frame 排序；其余15项及 selected 完全相同：
+
+| 动作 | 基线 → 新方案 | 目的与验证 |
+|---|---|---|
+| 翎羽首次部署 | 第31帧 `[4,5]` RIGHT → `[3,5]` UP | 阻挡 `#1`，并朝相邻中线输出 |
+| 月见夜首次部署 | 第1021帧 `[6,5]` RIGHT → 第481帧 `[4,5]` RIGHT | 提前挡 `#2`，与翎羽合击；两只均杀掉 |
+| 芙蓉首次部署 | 第541帧 `[2,6]` UP → 第961帧 `[5,6]` DOWN | 先支付月见夜费用，再覆盖中线；第961帧治疗翎羽、第1047帧治疗月见夜 |
+
+这条新轨迹里，后续分工确有事件支持：翎羽第1296/1434帧杀 `#6/#7`；月见夜第2618/2978/3212帧杀 `#10/#12/#13`；返场克洛丝第6020帧杀 `#28`；史都华德第7085帧杀 `#34`。但上下外侧并未补齐。[完整 actions、selected、summary 和事件](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r132_plume_first_kill_authfix_v1/session/runs/run-0029-dual_heal1.json)
+
+**具体卡点与排除范围**
+
+- **几何与射程内伤害量：** 两名地面干员守中线后，`#4/#5` 的外侧路线缺少阻挡。提前单远程、集中双远程的上述具体站位，都有伤害事件，但未完成击杀。反驳这些补漏安排的直接事件是第1132帧 `#4 ENEMY_LEAK`、第1282帧 `#5 ENEMY_LEAK`。
+- **再部署冷却：** 翎羽首杀撤退确实返费，能提前部署克洛丝；但第601帧撤退后需约2100帧冷却，赶不上这两只外侧猎兽。返费解决了费用，没解决即时换线。
+- **持续承伤：** 首杀路线最好方案中，芙蓉第2593帧、翎羽第3160帧、月见夜第3640帧死亡，中线随后也失守。该方案未完成医疗与承伤闭环。
+- **没有排除五人解：** 这些事件只否定已测站位和时序；没有任何一条事件足以反驳你的整体假设。
+
+M70 本轮独立复现 **33/0、life=3、死亡0、WIN=true**。借用它的 `[3,5]` 接敌位置后，我重新验证了翎羽首杀，没有沿用芬的击杀时刻。R128 七人存档核对为 **28/5、死亡0**，漏的是 `#2/#7/#11/#13/#29`；它说明中间这条路线值得补，但其后半场回场动作不能直接解决本方案早期外侧缺口。
+
+**35次构成：34次固定五人完整模拟，1次M70八人复现。本轮结论是“首杀加人补输出已成立，完整五人通关仍未做成”。**

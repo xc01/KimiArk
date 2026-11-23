@@ -1,5 +1,25 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-24 R132 plume-first-kill five-op Astra batch closed (Kroos/Midnight/
+Steward/Hibiscus/Plume fixed): one real CLI (gpt-6-astra/low), 35 fixed
+simulations (34 five-op + 1 M70 eight-op reference rerun), no roster change.
+R131's CLI died pre-generation at 401 token_revoked because the launcher
+inherited ~/.codex/auth.json; R132 forces CODEX_HOME=.runtime/codex-home
+(valid token) and updates the retired gpt-6.2-astra slug to the live
+gpt-6-astra, confirmed by a zero-generation `debug models` preflight.
+User hypothesis TESTED AND SUPPORTED: Plume @[3,5]UP secures the first kill
+(#1 dies frame 720 solo; with Midnight @[4,5]RIGHT@481 both #1@600 and #2@780
+die, last-hit by Plume, 0.033 DP left, so early DP is sufficient). But the
+leak set shifts to the outer lanes #4@1132/#5@1282, and Plume's ~2100-frame
+redeploy cooldown after her 601 retreat-refund cannot cover them. Best five-op
+result is unchanged from the R123 baseline (14 kills/19 leaks/life -16/0
+deaths, not WIN); best with Plume-first-kill is 11/22/life -20/3 deaths.
+M70 eight-ID fixed-simulator WIN independently reproduced 33/0/life 3/WIN=true
+and stays frozen; seven-or-fewer complete WIN UNKNOWN. No five-op WIN or
+impossibility claim; no automatic further experiment. Old ledgers unchanged,
+no push; see review/fc77177/five_astra_r132_plume_first_kill_authfix_v1/.
+R131 remains a historical blocked-auth batch (CLI1/1, zero generation).
+
 2026-11-19 R122 charger correction: active mechanics m39-charger-kill-and-
 retreat-dp-v1 implements source-explicit Plume final-blow+1DP and living
 retreat refund of initial paid cost; death0, DP cap respected, static does

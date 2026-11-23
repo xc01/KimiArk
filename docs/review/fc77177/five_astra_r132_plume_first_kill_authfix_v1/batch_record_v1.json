@@ -1,0 +1,40 @@
+{
+  "schema_version": "R132_PLUME_FIRST_KILL_BATCH_RECORD_V1",
+  "batch_id": "five_astra_r132_plume_first_kill_authfix_v1",
+  "predecessor": "five_astra_r131_plume_first_kill_v1",
+  "predecessor_status": "BLOCKED_AUTH_TOKEN_REVOKED_NO_MODEL_GENERATION",
+  "status": "COMPLETED",
+  "model": "gpt-6-astra",
+  "model_slug_note": "live account catalog advertises gpt-6-astra (GPT-6-Astra); legacy gpt-6.2-astra slug no longer returned by /backend-api/codex/models on 2026-11-24",
+  "reasoning_effort": "low",
+  "features_apps": false,
+  "codex_home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+  "auth_fix": "R131 read ~/.codex/auth.json (revoked OAuth token, 401 token_revoked). R132 forces CODEX_HOME=.runtime/codex-home whose auth.json is valid. Verified by zero-generation `codex -m gpt-6-astra debug models`.",
+  "cli_starts": 1,
+  "cli_exit_code": 0,
+  "simulations_run": 35,
+  "simulations_breakdown": "34 five-op fixed-simulator runs + 1 M70 eight-op reference rerun",
+  "roster_fixed": ["char_124_kroos", "char_283_midn", "char_210_stward", "char_120_hibisc", "char_192_falco"],
+  "roster_change_note": "Astra kept the user-specified five-op roster for every five-op experiment; no substitutions were made.",
+  "best_overall": {"run": "run-0001-baseline", "enemies_killed": 14, "enemies_leaked": 19, "remaining_life": -16, "operator_deaths": 0, "simulator_win": false, "note": "equals R123 baseline; last-hit/event diff vs baseline is zero"},
+  "best_with_plume_first_kill": {"run": "run-0029-dual_heal1", "enemies_killed": 11, "enemies_leaked": 22, "remaining_life": -20, "operator_deaths": 3, "simulator_win": false},
+  "m70_reference": {"run": "run-0018-M70_reference", "enemies_killed": 33, "enemies_leaked": 0, "remaining_life": 3, "operator_deaths": 0, "simulator_win": true},
+  "teaching_separation": {
+    "user_quote": "我和你说了，可以领域杀第一个后续其他人凑输出，你让astra来想",
+    "user_quote_supporting": ["你加一个人杀啊，肯定费用是够的"],
+    "astra_interpretation": "Treat Plume as the operator who secures the first kill, with a second unit added to finish/protect the follow-up; check whether the DP cost is actually sufficient rather than assuming it is not.",
+    "simulation_observation": "SUPPORTED: Plume @[3,5]UP deploys at frame 31 and solo-kills #1 at frame 720 (run-0002). Adding Midnight @[4,5]RIGHT at frame 481 kills both #1 (frame 600) and #2 (frame 780), last-hit both by Plume, with 0.033 DP leftover. DP is sufficient. But the leak set shifts to the outer lanes #4/#5 (leak #4@1132, #5@1282); Plume's 601-frame retreat refunds DP yet the ~2100-frame redeploy cooldown cannot cover those early outer lanes. Overall five-op result did not improve.",
+    "abstract_rule": "When a proposed early-kill plan technically works but the leak set merely shifts, check the redeploy cooldown against the new leak frames before adding more damage; DP refund does not buy immediate re-engagement.",
+    "scope": "THIS_STAGE_ONLY (R8-7 five-op); redeploy-cooldown-generalization CROSS_STAGE_PENDING"
+  },
+  "verification": {
+    "plume_last_hit_confirmed": true,
+    "plume_damage_to_hash1": 2283.6,
+    "midnight_damage_to_hash1": 1588.0,
+    "plume_damage_to_hash2": 2283.6,
+    "midnight_damage_to_hash2": 1588.0,
+    "verified_from": "session/runs/run-0003-midnight_second.json DAMAGE events"
+  },
+  "scope_note": "Current fixed simulator only (mechanics m40g-block-scan-interval-v1). No real-game / faithful / robust / probabilistic-WIN / five-op-unsolvable / global-minimum claim.",
+  "m70_frozen": "M70 eight-op complete simulator WIN remains frozen until a complete fewer-op WIN passes full acceptance."
+}

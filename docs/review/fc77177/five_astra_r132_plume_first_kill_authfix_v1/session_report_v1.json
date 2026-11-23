@@ -1,0 +1,33 @@
+{
+  "schema_version": "R132_ASTRA_SESSION_REPORT_V1",
+  "batch_id": "five_astra_r132_plume_first_kill_authfix_v1",
+  "status": "COMPLETED",
+  "scope_note": "Current fixed simulator only (m40g-block-scan-interval-v1); no real-game / faithful / robust / probabilistic / global-minimum claim.",
+  "mechanics_version": "m40g-block-scan-interval-v1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "low",
+  "features_apps": false,
+  "codex_home": "/home/bigdata/Desktop/arknights-auto-planner/.runtime/codex-home",
+  "auth_and_slug_fixes": [
+    "R131 failed at 401 token_revoked because the launcher inherited ~/.codex/auth.json; R132 forces CODEX_HOME=.runtime/codex-home (valid token).",
+    "The batch model slug was updated from the retired gpt-6.2-astra to the live catalog slug gpt-6-astra, confirmed by a zero-generation `codex -m gpt-6-astra debug models` preflight."
+  ],
+  "cli_starts": 1,
+  "cli_exit_code": 0,
+  "duration_seconds": 488.7,
+  "usage": {"input_tokens": 1340471, "cached_input_tokens": 1268736, "cache_write_input_tokens": 0, "output_tokens": 10141, "reasoning_output_tokens": 2861},
+  "usage_note": "cached_input_tokens is a subset of input_tokens; internal model requests UNKNOWN_CLI_INTERNAL.",
+  "total_sims": 35,
+  "track5": {
+    "roster": ["char_124_kroos", "char_283_midn", "char_210_stward", "char_120_hibisc", "char_192_falco"],
+    "roster_changed": false,
+    "sims": 34,
+    "best_overall": {"run": "run-0001-baseline", "kills": 14, "leaks": 19, "life": -16, "deaths": 0, "win": false},
+    "best_plume_first_kill": {"run": "run-0029-dual_heal1", "kills": 11, "leaks": 22, "life": -20, "deaths": 3, "win": false},
+    "user_hypothesis_supported": true,
+    "user_hypothesis_note": "Plume first-kill + a second unit for follow-up output is real; DP is sufficient; the leak set shifts to outer lanes #4/#5 where the ~2100-frame redeploy cooldown blocks re-engagement."
+  },
+  "track8_reference": {"run": "run-0018-M70_reference", "kills": 33, "leaks": 0, "life": 3, "deaths": 0, "win": true},
+  "r128_seven_archive_checked": {"kills": 28, "leaks": 5, "deaths": 0, "leak_ids": ["#2", "#7", "#11", "#13", "#29"]},
+  "m70_frozen": true
+}
