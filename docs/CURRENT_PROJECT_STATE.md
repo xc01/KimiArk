@@ -1,5 +1,25 @@
 # 2026-10-14 Civilian mechanics correction and current seven-stage state
 
+2026-11-24 R133 plume-first-kill five-op Astra batch (gpt-6-astra HIGH) closed:
+one real CLI, 24 fixed simulations. Effort upgrade was effective: R132 low
+repeatedly added ranged damage to the outer lanes and never beat 14/19; R133
+high switched structure to ground blocking, so outer #4 (route-7 row1) and
+#5 (route-9 row6) are actually blocked and killed (Midnight blocks #4@921,
+kills@1193, 3573 dmg; Spot blocks #5@1071, kills@1591, 3520 dmg). Best 24
+kills / 9 leaks / life -8 / 2 deaths (run-0024), +10 kills / -10 leaks vs the
+R123 baseline; not a WIN. CAVEAT: every R133 run changed the user-fixed five-
+op roster (best uses Wyvern/Nblade/Midnight/Spot/Steward). The fixed five
+contains only two MELEE units, while holding both outer rows and the middle
+needs three ground units whose rows' deployable tiles (cols 3/4/5 on rows 1
+and 6) are disjoint from the middle rows; recorded as ROSTER_RULE_VIOLATED.
+R132 remains the last compliant fixed-five result (14/19). Remaining 9 leaks
+are redeploy/return gaps (#15/#17/#19/#20/#21/#22), drone #0@5759, and late
+armors #33/#34; neither protected target arrived (drone killed civilians
+#14@3945 and #3@5191). The user's plume-first-kill hypothesis was not
+refuted. M70 eight-ID fixed-simulator WIN stays frozen; seven-or-fewer
+complete WIN UNKNOWN; no five-op impossibility claim; old ledgers unchanged,
+no push; see review/fc77177/five_astra_r133_plume_first_kill_high_v1/.
+
 2026-11-24 R132 plume-first-kill five-op Astra batch closed (Kroos/Midnight/
 Steward/Hibiscus/Plume fixed): one real CLI (gpt-6-astra/low), 35 fixed
 simulations (34 five-op + 1 M70 eight-op reference rerun), no roster change.

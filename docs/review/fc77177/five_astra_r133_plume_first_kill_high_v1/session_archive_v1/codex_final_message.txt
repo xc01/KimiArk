@@ -1,0 +1,103 @@
+**实跑 24 次不同方案，最佳五人达到 24 杀／9 漏；未达成 WIN。** 相对 R123 的 14／19，增加 10 杀、减少 10 漏。最佳方案换用了**香草、夜刀、月见夜、斑点、史都华德**，不是原五人名单。
+
+[完整模拟记录：actions、selected、summary、全部事件](/home/bigdata/Desktop/arknights-auto-planner/docs/review/fc77177/five_astra_r133_plume_first_kill_high_v1/session/runs/run-0024-late_yato_preattack_31.json)
+
+终局为：
+
+```json
+{
+  "run_id": "run-0024-late_yato_preattack_31",
+  "mechanics_version": "m40g-block-scan-interval-v1",
+  "enemies_killed": 24,
+  "enemies_leaked": 9,
+  "remaining_life": -8,
+  "operator_deaths": 2,
+  "simulator_win": false
+}
+```
+
+两名保护目标也死亡，因此 life 为 `3 - 9 - 2 = -8`。本方案 **26 个动作全部合法**，selected 与 DEPLOY ID 并集恰好五人。
+
+完整方案如下，帧号均为 30fps：
+
+```json
+{
+  "selected": [
+    "char_240_wyvern",
+    "char_502_nblade",
+    "char_283_midn",
+    "char_284_spot",
+    "char_210_stward"
+  ],
+  "actions": [
+    {"action_type":"DEPLOY","frame":31,"operator_id":"char_240_wyvern","tile":[3,5],"direction":"UP"},
+    {"action_type":"ACTIVATE_SKILL","frame":451,"operator_id":"char_240_wyvern"},
+    {"action_type":"DEPLOY","frame":452,"operator_id":"char_283_midn","tile":[1,5],"direction":"UP"},
+    {"action_type":"DEPLOY","frame":541,"operator_id":"char_502_nblade","tile":[4,5],"direction":"UP"},
+    {"action_type":"DEPLOY","frame":1051,"operator_id":"char_284_spot","tile":[6,5],"direction":"RIGHT"},
+    {"action_type":"ACTIVATE_SKILL","frame":1352,"operator_id":"char_240_wyvern"},
+    {"action_type":"DEPLOY","frame":1411,"operator_id":"char_210_stward","tile":[5,6],"direction":"DOWN"},
+    {"action_type":"RETREAT","frame":1500,"operator_id":"char_502_nblade"},
+    {"action_type":"ACTIVATE_SKILL","frame":1772,"operator_id":"char_283_midn"},
+    {"action_type":"ACTIVATE_SKILL","frame":2200,"operator_id":"char_284_spot"},
+    {"action_type":"ACTIVATE_SKILL","frame":2253,"operator_id":"char_240_wyvern"},
+    {"action_type":"DEPLOY","frame":2701,"operator_id":"char_502_nblade","tile":[4,5],"direction":"UP"},
+    {"action_type":"RETREAT","frame":3020,"operator_id":"char_283_midn"},
+    {"action_type":"ACTIVATE_SKILL","frame":3154,"operator_id":"char_240_wyvern"},
+    {"action_type":"RETREAT","frame":3181,"operator_id":"char_210_stward"},
+    {"action_type":"RETREAT","frame":3210,"operator_id":"char_502_nblade"},
+    {"action_type":"RETREAT","frame":3210,"operator_id":"char_240_wyvern"},
+    {"action_type":"ACTIVATE_SKILL","frame":4151,"operator_id":"char_284_spot"},
+    {"action_type":"DEPLOY","frame":5121,"operator_id":"char_283_midn","tile":[1,5],"direction":"UP"},
+    {"action_type":"DEPLOY","frame":5282,"operator_id":"char_210_stward","tile":[5,6],"direction":"DOWN"},
+    {"action_type":"DEPLOY","frame":5311,"operator_id":"char_240_wyvern","tile":[3,5],"direction":"UP"},
+    {"action_type":"DEPLOY","frame":5600,"operator_id":"char_502_nblade","tile":[4,5],"direction":"RIGHT"},
+    {"action_type":"ACTIVATE_SKILL","frame":5900,"operator_id":"char_240_wyvern"},
+    {"action_type":"ACTIVATE_SKILL","frame":6102,"operator_id":"char_284_spot"},
+    {"action_type":"ACTIVATE_SKILL","frame":6322,"operator_id":"char_283_midn"},
+    {"action_type":"ACTIVATE_SKILL","frame":8053,"operator_id":"char_284_spot"}
+  ]
+}
+```
+
+相对 R123，关键改动及作用：
+
+| 改动 | 作用与实测结果 |
+|---|---|
+| 翎羽换香草，守 `[3,5]` | 使用技能回费兼顾爆发；`#1` 在 578 帧死亡 |
+| 克洛丝换夜刀，守 `[4,5]` | 补齐第二条中央阻挡线；`#2` 在 725 帧死亡，并利用约 1200 帧冷却返场恢复承伤能力 |
+| 月见夜由行 6 改守行 1 | 接住上外路，同时向中央补输出 |
+| 芙蓉换斑点，守 `[6,5]` | 下外路阻挡、自疗，并在技能期间治疗斜邻的史都华德 |
+| 史都华德改放 `[5,6]`DOWN | 输出中央敌人和无人机；第一阶段撤退后，再参与末波 |
+| 分阶段撤退、返场 | 保存后半场战力；代价是中期出现明确的无人接替空档 |
+
+**外路已经实际拦住、实际杀死：**
+
+| 敌人 | 阻挡者 | BLOCK 帧 | 累计伤害 | 死亡帧 |
+|---|---|---:|---:|---:|
+| `#4` | 月见夜 `[1,5]` | 921 | 3573 | 1193 |
+| `#5` | 斑点 `[6,5]` | 1071 | 3520 | 1591 |
+
+因此，这次失败已经不是 R132 的“外路零伤害、零阻挡”。剩余九漏的位置很明确：
+
+- **撤退与再部署空档：**`#15、#17、#19、#20、#21、#22`。月见夜 3020→5121、香草 3210→5311 的离场期间，没有完成接替安排。
+- **无人机：**`#0` 在 5759 帧漏出，持续对空输出与存活窗口仍不足。
+- **末波重甲：**夜刀在 6172 帧死亡，香草在 6300 帧死亡；`#33、#34` 随后漏出。这里卡在中央承伤和持续输出，不是部署费用。
+- 夜刀最后一次朝 RIGHT 的提前攻击有实际贡献：虽然随后死亡，`#31` 仍被史都华德在 **6206 帧击杀**。
+
+本轮跳出了这些 R132 重复方向：
+
+| 结构实验 | 次数 |
+|---|---:|
+| 保留翎羽，增加第三名地面，重新分配外路 | 3 |
+| 四地面＋医疗，包括上下职责互换 | 3 |
+| 四地面＋术师，由斑点兼任治疗 | 3 |
+| 夜刀撤退回满血、香草回费爆发、分阶段返场 | 11 |
+| 双先锋回费、双自疗外路、中央医疗等其他结构 | 4 |
+| **合计** | **24** |
+
+没有重复提交同一 plan，也没有将不同轨迹的事件拼成结果。当前五人 **24／9** 仍落后于参照中的七人 **28／5** 和八人 **33／0 WIN**。
+
+**你的“翎羽首杀、费用够加人”没有被反驳。** 本轮保留翎羽的 run-0003 中，月见夜直接去外路 `[1,5]`，仍协助翎羽在 **600 帧拿下首杀**；后来两条外路也都杀掉了，但整局只有 10／23，故最佳方案最终改了名单。
+
+另有一条给定时序被事件纠正：**不必在敌人出生前部署，必须赶在阻挡点被越过前部署。** 最佳方案中 `#5` 出生于 930 帧，斑点 **1051 帧部署、1071 帧阻挡、1591 帧击杀**。这确实释放了早期费用窗口，但还没有解决中后期接替问题。
