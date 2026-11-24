@@ -114,10 +114,12 @@ query_events(candidate_id=..., candidate_sha256=..., event_type="...")   # 生�
 收到教师提示时：
 
 - `record_teacher_prompt(text=<原样文本>, source="user", received_by="tactical_side")` —— 原样存档并回显 `sha256`，用于审计"提示是否原样到达战术端"。不重写、不改方向。
-- 每条被"听取"的提示用 `record_teaching` 分开记三件事：
-  - `user_quote`：教师原话。
+- 每条被"听取"的提示用 `record_teaching` 分开记三件事，并用 `record_teacher_prompt` 返回的
+  `teacher_message_id` 引用原话（不要凭记忆复述教师原话）：
+  - `teacher_message_id`：指向存档原文的稳定 ID。
+  - `user_quote`：只在需要单独引述时给；与存档原文不一致会被标记 `ASTRA_QUOTE_DIVERGES_FROM_STORED_TEACHER_MESSAGE`，**不会被当作教师原话**。省略时自动用存档原文。
   - `astra_interpretation`：**你**的解释（提示改变了你什么判断；没改变也可以）。
-  - `simulation_observation`：实际模拟观察（还没有就留空）。
+  - `simulation_observation` + `candidate_id`（或 `run_id`/`event_locator`）：实际模拟观察；给 `candidate_id` 就会自动解析出该候选的确定性事件日志路径。
   - 另可给 `abstract_rule`（可检索的判断方法）、`counterexample`（反例）、`scope`。
 - **不要把"听取了提示"当成"提示已被证实"**。三者分别落 `teaching/user_quotes_v1.jsonl`、`astra_interpretations_v1.jsonl`、`observations_v1.jsonl`，可回读。
 - 抽象规则写经验时：本关标的用 `THIS_STAGE_ONLY`；跨关待验用 `CROSS_STAGE_PENDING`。
@@ -129,7 +131,11 @@ query_events(candidate_id=..., candidate_sha256=..., event_type="...")   # 生�
   - **真实后端**：会另起一次生产模拟，`counts_as_independent_verification=true`。
   - **TEST_ONLY_FAKE 后端**：诚实返回 `CACHE_HIT_NOT_INDEPENDENT`（假后端对已完成候选返回 `IDEMPOTENT_COMPLETED`，这是缓存命中，不是独立复验）。
 - 完整 WIN 判定要求：合法 ≤K、零漏、双保护安全到达、全敌结算（`enemies_remaining==0`）且模拟器判 WIN。fake 后端打出的 WIN 只是产物，标注 `artifact_projection=true`，不算真实结果。
-- 中断后重连：`get_session_status` 可读回已记录轮、已尝试变体、教学记录、剩余预算；已完成的组合不会被重复消费。
+- 中断后重连：`get_session_status` 可读回已记录轮、已尝试变体（`frozen_candidates` 含每个冻结候选的执行状态）、教学记录、剩余预算。
+- **恢复由执行状态决定，不由动作 key 决定**：已完成→复用结果（不重跑）；已冻结未启动→同一候选继续跑（不重占候选位）；启动结果未知（`STARTED_UNKNOWN` / 非空输出）→harness 停止并报告 `INTERRUPTED_UNKNOWN_RESULT`，**不要盲目重跑**。
+- 即使 harness 自己的 `batch_state.json` 写回丢失，也能按生产账本的 `candidate_sha256` 找回冻结候选；候选位和 check 不会被重复消耗。
+- **坏组合只影响自己**：一个组合非法（`INPUT_REJECTED_BEFORE_PRODUCTION_CHECK`）或静态拒绝（`FAIL`）只会记下该组合并继续下一组合；预算耗尽、账本不一致或服务不可用才停止整批。
+- **大网格先看规模**：单次调用上限 60 个组合；8 维×10 值这类大网格会返回 `COMBINATION_CAP_EXCEEDED` 与真实总数（不分配、不执行）；先 `dry_run=true`。
 
 ## 7. 一个从提问到结果的完整小例子
 
@@ -163,9 +169,10 @@ search_variants(round=2, name="r2", parent="A", hypothesis="移动 Midnight 落�
   changes=[{"type":"set","operator":"char_283_midn","action":"DEPLOY","frame":1021,"fields":{"tile":"$t"}}],
   parameters={"t":[[3,3],[4,3]]})
 
-# 记录教学三分
-record_teaching(round=1, user_quote="先别猜能不能夹住炮兵…",
+# 记录教学三分（引用 record_teacher_prompt 返回的 message_id）
+record_teaching(round=1, teacher_message_id=<teacher_message_id>,
   astra_interpretation="1382 的技能可能因为 SP 未满被拒；先验证充能窗口再谈夹击",
+  candidate_id="candidate-001",
   simulation_observation={"r1_1":"FAIL","error":"SP_NOT_READY available_sp=44.7 required_sp=45.0"},
   abstract_rule="技能被拒时，先查该帧充能/SP 是否就绪，再判断技能时机是不是杠杆",
   scope="CROSS_STAGE_PENDING",

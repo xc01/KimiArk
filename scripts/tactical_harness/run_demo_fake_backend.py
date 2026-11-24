@@ -142,6 +142,164 @@ def main() -> int:
     return 1 if failed else 0
 
 
+def verify_isolation_and_grid(root: Path) -> dict:
+    """Item 1 + 3: bad combination isolation and oversized-grid refusal, in a fresh batch."""
+    batch = prepare_batch(
+        str(root / "isolation_v1"),
+        max_checks=10, max_candidates=5, max_simulations=4, reserve=1,
+        session_id="TEST_ONLY-harness-isolation",
+    )
+    client = Harness(batch)
+    try:
+        client.tool("record_round", {"round": 1, "decision": "isolation probe"})
+        grid = client.tool("search_variants", {
+            "round": 1, "name": "grid", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [], "parameters": {f"d{i}": list(range(10)) for i in range(8)},
+        })
+        result = client.tool("search_variants", {
+            "round": 1, "name": "iso", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [
+                {"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": "$f", "fields": {"tile": [3, 3]}},
+            ],
+            "parameters": {"f": [999999, 1021]},
+        })
+        return {
+            "statuses": [row["status"] for row in result["results"]],
+            "counters": result["counters"],
+            "real_runs": result["real_runs"],
+            "input_rejected": result["counters"]["input_rejected"],
+            "status": result["status"],
+            "grid_total": grid.get("planned_total"),
+            "grid_status": grid.get("status"),
+        }
+    finally:
+        client.close()
+
+
+def verify_resume_injection(root: Path) -> dict:
+    """Item 2: interrupted after freeze / lost write-back, recovered from execution state."""
+    batch = prepare_batch(
+        str(root / "resume_v1"),
+        max_checks=10, max_candidates=5, max_simulations=5, reserve=1,
+        session_id="TEST_ONLY-harness-resume",
+    )
+    client = Harness(batch)
+    out = {}
+    try:
+        client.tool("record_round", {"round": 1, "decision": "resume fault injection"})
+        freeze = client.tool("search_variants", {
+            "round": 1, "name": "rs", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": [3, 3]}}],
+            "parameters": {"t": [[3, 3]]},
+        })
+        row = next(r for r in freeze["results"] if r["status"] == "PASS")
+        candidate = row["candidate_id"]
+
+        # Crash A: frozen, never started. Wipe run artifacts and the harness write-back.
+        _wipe_candidate_run(batch, candidate)
+        budget_before = _sim_budget(batch)
+        resumed = client.tool("search_variants", {
+            "round": 1, "name": "rs", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": [3, 3]}}],
+            "parameters": {"t": [[3, 3]]},
+        })
+        out["resumed"] = resumed["counters"]["resumed"]
+        out["resume_budget_delta"] = _sim_budget(batch) - budget_before
+
+        # Crash B: run completed on disk, harness write-back lost.
+        _wipe_harness_writeback(batch, candidate)
+        budget_mid = _sim_budget(batch)
+        reused = client.tool("search_variants", {
+            "round": 1, "name": "rs", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": [3, 3]}}],
+            "parameters": {"t": [[3, 3]]},
+        })
+        out["reused"] = reused["counters"]["reused"]
+        out["reuse_budget_delta"] = _sim_budget(batch) - budget_mid
+        return out
+    finally:
+        client.close()
+
+
+def verify_ledger_reconciliation(root: Path) -> dict:
+    """Item 2: batch_state write-back lost entirely -> reconcile against the production ledger by sha."""
+    batch = prepare_batch(
+        str(root / "ledger_reconcile_v1"),
+        max_checks=10, max_candidates=5, max_simulations=5, reserve=1,
+        session_id="TEST_ONLY-harness-reconcile",
+    )
+    client = Harness(batch)
+    try:
+        client.tool("record_round", {"round": 1, "decision": "ledger reconciliation probe"})
+        freeze = client.tool("search_variants", {
+            "round": 1, "name": "rc", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": [6, 3]}}],
+            "parameters": {"t": [[6, 3]]},
+        })
+        row = next(r for r in freeze["results"] if r["status"] == "PASS")
+        candidate = row["candidate_id"]
+        ledger = json.loads((batch / "candidate_ledger_v1.json").read_text(encoding="utf-8"))
+        candidates_before = ledger["used_candidates"]
+        checks_before = ledger["used_check_calls"]
+        # Crash C: the harness process died before it persisted ANY variant write-back, and the
+        # frozen candidate never ran. Only the production ledger and the frozen source survive.
+        state = json.loads((batch / "batch_state.json").read_text(encoding="utf-8"))
+        state["variants"] = []
+        (batch / "batch_state.json").write_text(json.dumps(state), encoding="utf-8")
+        import shutil as _shutil
+        sim_dir = batch / "session/candidates" / candidate / "simulation"
+        if sim_dir.exists():
+            _shutil.rmtree(sim_dir)
+        reservation = sim_dir.with_name("simulation.simulation_reservation.json")
+        if reservation.exists():
+            reservation.unlink()
+        budget_before = _sim_budget(batch)
+        recovered = client.tool("search_variants", {
+            "round": 1, "name": "rc", "parent": "A", "hypothesis": HYPOTHESIS,
+            "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": [6, 3]}}],
+            "parameters": {"t": [[6, 3]]},
+        })
+        ledger_after = json.loads((batch / "candidate_ledger_v1.json").read_text(encoding="utf-8"))
+        reconciled = [r for r in recovered["results"] if r.get("candidate_id") == candidate]
+        return {
+            "status": recovered["status"],
+            "resumed": recovered["counters"]["resumed"],
+            "candidate_slot_delta": ledger_after["used_candidates"] - candidates_before,
+            "check_delta": ledger_after["used_check_calls"] - checks_before,
+            "budget_delta": _sim_budget(batch) - budget_before,
+            "reconciled_candidate": candidate,
+            "found": bool(reconciled),
+        }
+    finally:
+        client.close()
+
+
+def _sim_budget(batch: Path) -> int:
+    return json.loads((batch / "simulation_budget_v1.json").read_text(encoding="utf-8"))["started_stage_simulations"]
+
+
+def _wipe_candidate_run(batch: Path, candidate: str) -> None:
+    import shutil as _shutil
+    _wipe_harness_writeback(batch, candidate)
+    sim_dir = batch / "session/candidates" / candidate / "simulation"
+    if sim_dir.exists():
+        _shutil.rmtree(sim_dir)
+    for extra in ("simulation.simulation_reservation.json", "simulation_request.json"):
+        path = batch / "session/candidates" / candidate / extra
+        if path.exists():
+            path.unlink()
+
+
+def _wipe_harness_writeback(batch: Path, candidate: str) -> None:
+    state = json.loads((batch / "batch_state.json").read_text(encoding="utf-8"))
+    for row in state["variants"]:
+        if row.get("candidate_id") == candidate:
+            row.pop("observed", None)
+            row.pop("run", None)
+            row["status"] = "PASS"
+    (batch / "batch_state.json").write_text(json.dumps(state), encoding="utf-8")
+
+
 def run_acceptance(harness: Harness, batch: Path) -> None:
     tools = harness.call("tools/list", {})["result"]["tools"]
     names = {t["name"] for t in tools}
@@ -151,12 +309,17 @@ def run_acceptance(harness: Harness, batch: Path) -> None:
         ", ".join(sorted(names)),
     )
 
-    # 1) teacher prompt reaches the tactical side verbatim
+    # ---- item 5: teacher message saved verbatim first, with a stable id ----
     prompt = harness.tool("record_teacher_prompt", {"text": TEACHER_PROMPT, "source": "user", "received_by": "tactical_side"})
     expected_sha = hashlib.sha256(TEACHER_PROMPT.encode("utf-8")).hexdigest()
-    check("teacher prompt stored verbatim with matching sha256", prompt["sha256"] == expected_sha, prompt.get("sha256", ""))
+    check("teacher message stored verbatim with matching sha256 and a stable message_id",
+          prompt["sha256"] == expected_sha and prompt.get("message_id", "").startswith("teacher-"), prompt.get("message_id", ""))
+    again = harness.tool("record_teacher_prompt", {"text": TEACHER_PROMPT, "source": "user"})
+    check("identical teacher text reuses the original message_id",
+          again["status"] == "ALREADY_RECORDED" and again["message_id"] == prompt["message_id"])
+    message_id = prompt["message_id"]
 
-    # 2) Astra consults experience + mechanics KB
+    # ---- item 2 prep: Astra consults experience + mechanics KB ----
     experience = harness.tool("inspect_evidence", {"kind": "experience", "tags": ["ARTILLERY_KILL"], "limit": 3})
     check("experience read returns applicability + source + current-mechanics verdict",
           bool(experience["records"]) and all("applicable_conditions" in r and "responsible_paths" in r and "selector_verdict" in r for r in experience["records"]))
@@ -164,31 +327,41 @@ def run_acceptance(harness: Harness, batch: Path) -> None:
     check("mechanics KB read returns summary + source + sim check points",
           kb["total_matches"] >= 1 and all("source_url" in e and "sim_check_points" in e for e in kb["entries"]))
 
-    # 3) round 1: hypothesis recorded before any spend, plus a budget pre-flight
+    # ---- item 2: round 1 cites the teacher message id ----
     harness.tool("record_round", {
         "round": 1,
-        "expected": "Moving Falco's opening deploy and skill frame changes his first artillery-window output",
-        "decision": "enumerate Falco deploy/skill frames near the charge threshold",
+        "expected": "Moving Falco's opening deploy frame changes his first artillery-window output",
+        "decision": "enumerate Falco deploy frames near the charge threshold, citing the teacher message",
     })
+
+    # ---- item 1 + 3: dry-run reports scale without allocating; grid too big is refused ----
     dry = harness.tool("search_variants", {
         "round": 1, "name": "r1_falco", "parent": "A", "hypothesis": HYPOTHESIS,
+        "teacher_message_id": message_id,
         "changes": [{"type": "set", "operator": "char_192_falco", "action": "DEPLOY", "frame": 31, "fields": {"frame": "$d"}}],
         "parameters": {"d": [31, 91]}, "dry_run": True,
     })
     check("dry_run reports combination count and remaining capability without spending",
           dry["status"] == "DRY_RUN_ONLY" and dry["planned_total"] == 2 and dry["capability"]["simulation"] == 5)
+    big = harness.tool("search_variants", {
+        "round": 1, "name": "r1_big", "parent": "A", "hypothesis": HYPOTHESIS,
+        "changes": [], "parameters": {f"d{i}": list(range(10)) for i in range(8)},
+    })
+    check("an oversized grid is refused with its true size and nothing allocated",
+          big["status"] == "COMBINATION_CAP_EXCEEDED" and big["planned_total"] == 10 ** 8, json.dumps(big)[:180])
 
+    # ---- item 1: first combination illegal, second legal must still enter the fake runner ----
     search1 = harness.tool("search_variants", {
         "round": 1, "name": "r1_falco", "parent": "A", "hypothesis": HYPOTHESIS,
-        "changes": [
-            {"type": "set", "operator": "char_192_falco", "action": "DEPLOY", "frame": 31, "fields": {"frame": "$d"}},
-        ],
+        "teacher_message_id": message_id,
+        "changes": [{"type": "set", "operator": "char_192_falco", "action": "DEPLOY", "frame": 31, "fields": {"frame": "$d"}}],
         "parameters": {"d": [31, 91]},
     })
     statuses = {r["name"]: r["status"] for r in search1["results"]}
-    check("multi-combination search ran and returned per-variant status", search1["attempted"] == 2 and search1["static_fail"] == 1 and search1["real_runs"] == 1, json.dumps(statuses))
-    check("budget pre-flight deducted the reserved verification simulation",
-          search1["capability"]["reserved_for_verification"] == 1 and search1["capability"]["usable_simulations"] == 4)
+    check("multi-combination search ran and returned per-variant status",
+          search1["attempted"] == 2 and search1["static_fail"] == 1 and search1["real_runs"] == 1, json.dumps(statuses))
+    check("counters agree with actual calls (one check-only FAIL, one real run)",
+          search1["counters"]["static_fail"] == 1 and search1["counters"]["real_runs"] == 1)
     fail_row = next(r for r in search1["results"] if r["status"] == "FAIL")
     check("static rejection is reported with its real error and consumes only a check",
           any("SP_NOT_READY" in str(e) for e in fail_row.get("errors", [])), json.dumps(fail_row.get("errors"))[:200])
@@ -196,13 +369,73 @@ def run_acceptance(harness: Harness, batch: Path) -> None:
     check("PASS variant produced a frozen candidate and one real run",
           pass_row.get("candidate_id") == "candidate-001" and pass_row.get("observed", {}).get("result") is not None)
     check("fake-backend result is flagged as an artifact, not a real win",
-          pass_row["observed"]["artifact_projection"] is True)
+          pass_row["observed"]["artifact_projection"] is True and pass_row["observed"]["complete_win"] is False)
 
-    # 4) round 2 decided by round 1's actual returned evidence
+    # ---- item 1 + 3: isolation and grid cap are exercised in a dedicated batch ----
+    isolation = verify_isolation_and_grid(getattr(main, "root", Path("output/tactical_harness_demo")))
+    check("a bad combination is recorded and the batch continues to the next combination",
+          isolation["statuses"][0] == "INPUT_REJECTED_BEFORE_PRODUCTION_CHECK" and "PASS" in isolation["statuses"],
+          json.dumps(isolation["statuses"]))
+    check("the legal combination after a bad one actually entered the fake runner",
+          isolation["real_runs"] == 1 and isolation["input_rejected"] == 1, json.dumps(isolation["counters"]))
+    check("the bad combination did not abort the batch or stop the run",
+          isolation["status"] in ("COMPLETED_PARAMETER_GROUP", "WIN_MUST_VERIFY"), isolation["status"])
+    check("8 dimensions x 10 values is reported as 1e8 without allocation or budget spend",
+          isolation["grid_total"] == 10 ** 8 and isolation["grid_status"] == "COMBINATION_CAP_EXCEEDED",
+          json.dumps({"total": isolation["grid_total"], "status": isolation["grid_status"]}))
+
+    # ---- item 4: stage acceptance separates generic evidence from R8-7 declarations ----
+    status_now = harness.tool("get_session_status", {})
+    check("status exposes frozen candidates and their execution state for resume",
+          any(row["candidate_id"] == pass_row["candidate_id"] for row in status_now["frozen_candidates"]))
+
+    # ---- item 2: resume depends on execution state, not just action_key ----
+    resume = verify_resume_injection(getattr(main, "root", Path("output/tactical_harness_demo")))
+    check("frozen-but-not-started candidate resumes with exactly one run and no lost slot",
+          resume["resumed"] == 1 and resume["resume_budget_delta"] == 1, json.dumps(resume))
+    check("completed run whose harness write-back was lost is reused, not re-executed",
+          resume["reused"] == 1 and resume["reuse_budget_delta"] == 0, json.dumps(resume))
+
+    # ---- item 2: a fully lost batch_state write-back reconciles against the ledger by sha ----
+    reconcile = verify_ledger_reconciliation(getattr(main, "root", Path("output/tactical_harness_demo")))
+    check("a lost variant write-back reuses the frozen candidate without a second slot or check",
+          reconcile["resumed"] == 1 and reconcile["candidate_slot_delta"] == 0
+          and reconcile["check_delta"] == 0 and reconcile["found"],
+          json.dumps(reconcile))
+    check("the reconciled candidate still ran (exactly one simulation) and advanced the budget",
+          reconcile["budget_delta"] == 1, json.dumps(reconcile))
+
+    # ---- item 5: Astra references the teacher message id; paraphrase is not the verified quote ----
+    teaching = harness.tool("record_teaching", {
+        "round": 1,
+        "teacher_message_id": message_id,
+        "astra_interpretation": "Falco's 1382 cast may be refused because SP is not charged yet; test the charge window before assuming a coerced cast",
+        "candidate_id": pass_row["candidate_id"],
+        "run_id": "run-1",
+        "simulation_observation": {"r1_falco_1_status": "FAIL", "error": "SP_NOT_READY available_sp=44.7 required_sp=45.0"},
+        "event_locator": {"candidate_id": pass_row["candidate_id"], "event_type": "SKILL_ACTIVATE", "earliest_frame": 1382, "latest_frame": 1442},
+        "abstract_rule": "When a scheduled skill is refused, check charge/SP readiness at that frame before assuming the skill timing is the lever",
+        "scope": "CROSS_STAGE_PENDING",
+        "counterexample": "A refused cast can also be a same-frame ordering issue rather than a charge shortfall",
+    })
+    check("teaching record splits into separate user/astra/observation files",
+          teaching["status"] == "RECORDED" and len(teaching["separate_files"]) == 3)
+    check("teacher reference resolves to the stored verbatim text, not an Astra paraphrase",
+          teaching["quote_provenance"] == "TEACHER_VERBATIM_RESOLVED_FROM_STORED_MESSAGE" and teaching["teacher_message_id"] == message_id)
+    divergent = harness.tool("record_teaching", {
+        "round": 1,
+        "teacher_message_id": message_id,
+        "user_quote": "A paraphrase that is not the teacher's actual words",
+        "astra_interpretation": "recorded to show provenance labelling",
+    })
+    check("an Astra paraphrase is flagged as diverging, never labelled verified teacher text",
+          divergent["quote_provenance"] == "ASTRA_QUOTE_DIVERGES_FROM_STORED_TEACHER_MESSAGE" and divergent["quote_mismatch"] is not None)
+
+    # ---- item 3: round 2 reads real evidence and changes direction ----
     harness.tool("record_round", {
         "round": 2,
         "observed": {"round1_statuses": statuses, "earliest_error": fail_row.get("errors", [])[:1]},
-        "next_reason": "Deploying Falco later while keeping the original skill frame is what changes the charge window, so search mid-lane tile shifts instead of only frame shifts",
+        "next_reason": "Deploying Falco later while keeping the original skill frame changes the charge window, so shift a mid-lane tile instead of only frames",
         "decision": "Change mechanism: shift Midnight's tile rather than Falco's frames",
     })
     search2 = harness.tool("search_variants", {
@@ -212,45 +445,20 @@ def run_acceptance(harness: Harness, batch: Path) -> None:
         "parameters": {"t": [[3, 3], [4, 3]]},
     })
     check("second round changed direction based on the first round's evidence",
-          search2["attempted"] >= 1 and search2["status"] in ("COMPLETED_PARAMETER_GROUP", "WIN_MUST_VERIFY"), search2["status"])
+          search2["real_runs"] >= 1 and search2["status"] in ("COMPLETED_PARAMETER_GROUP", "WIN_MUST_VERIFY"), search2["status"])
     if search2["status"] == "WIN_MUST_VERIFY":
-        winner = search2["results"][-1]
         check("fake backend typed candidate-002 as win and asked for verification",
               (batch / "WIN_PENDING_VERIFICATION.json").is_file(), search2["status"])
 
-    # 5) duplicate submission is deduplicated, not re-run
-    dedup = harness.tool("search_variants", {
-        "round": 2, "name": "r2_tile", "parent": "A",
-        "hypothesis": "Move Midnight to an alternative ground tile to open the mid-lane window without changing Falco",
-        "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": "$t"}}],
-        "parameters": {"t": [[3, 3], [4, 3]]},
-    })
-    check("repeated identical submission is DEDUP, not a new candidate or run",
-          dedup["dedup"] == 2 and dedup["real_runs"] == 0, json.dumps(dedup["results"])[:200])
-
-    # 6) independent verification is truthful in fake mode
+    # ---- item 2: independent verification is truthful in fake mode ----
     candidates = [r for r in search1["results"] if r["status"] == "PASS"]
     verify = harness.tool("independent_verify", {"candidate_id": candidates[0]["candidate_id"]})
     check("fake-mode independent_verify reports a cache hit instead of faking an independent run",
           verify["status"] == "CACHE_HIT_NOT_INDEPENDENT" and verify["counts_as_independent_verification"] is False)
 
-    # 7) split teaching record
-    teaching = harness.tool("record_teaching", {
-        "round": 1,
-        "user_quote": TEACHER_PROMPT,
-        "astra_interpretation": "Falco's 1382 cast may be refused because SP is not charged yet; test the charge window before assuming a coerced cast",
-        "simulation_observation": {"r1_falco_1_status": "FAIL", "error": "SP_NOT_READY available_sp=44.7 required_sp=45.0"},
-        "abstract_rule": "When a scheduled skill is refused, check charge/SP readiness at that frame before assuming the skill timing is the lever",
-        "scope": "CROSS_STAGE_PENDING",
-        "counterexample": "A refused cast can also be a same-frame ordering issue rather than a charge shortfall",
-    })
-    check("teaching record splits into separate user/astra/observation files",
-          teaching["status"] == "RECORDED" and len(teaching["separate_files"]) == 3)
-
-    # 8) resume: state readable back
     state_status = harness.tool("get_session_status", {})
     check("status returns rounds, variants, teaching records and remaining budget for resume",
-          state_status["rounds_recorded"] == [1, 2] and state_status["variants_attempted"] == 4 and state_status["teaching_record_count"] == 1)
+          state_status["rounds_recorded"] == [1, 2] and state_status["teaching_record_count"] == 2)
     check("harness status reports the open roster and parent choices",
           state_status["roster_mode"] == "open" and set(state_status["parent_choices"]) == {"A", "M70", "T"})
 
@@ -269,28 +477,121 @@ def verify_artifacts(batch: Path) -> None:
     added = sorted(set(variant) - set(parent))
     check("synthetic leak-delta computes resolved and newly-added enemy IDs", resolved == ["enemy_a"] and added == ["enemy_c"], f"resolved={resolved} added={added}")
 
-    # observe() must read real per-enemy ENEMY_LEAK ids and judge a genuine complete win
+    # observe() must read real per-enemy ENEMY_LEAK ids and judge a genuine complete win.
+    # Real R8-7 archives put the arriving protected entity in source_id.
     scratch = getattr(main, "root", ROOT / "output/tactical_harness_demo") / "synth_v1"
-    simulation = scratch / "session/candidates/candidate-001/simulation"
-    simulation.mkdir(parents=True, exist_ok=True)
-    events = [
-        {"frame": 100, "time": 3.33, "event_type": "ENEMY_DEATH", "source_id": "char_210_stward", "target_id": "enemy_1112_emppnt#0", "details": {"kill_counted": True}},
-        {"frame": 200, "time": 6.66, "event_type": "ENEMY_LEAK", "source_id": "enemy_1109_lurker#7", "target_id": None, "details": {"amount": 1}},
-        {"frame": 300, "time": 10.0, "event_type": "PROTECTED_TARGET_REACHED", "source_id": None, "target_id": "trap_protect#14", "details": {}},
-        {"frame": 310, "time": 10.33, "event_type": "PROTECTED_TARGET_REACHED", "source_id": None, "target_id": "trap_protect#3", "details": {}},
-    ]
-    (simulation / "diagnostic_events.json").write_text(json.dumps({"events": events}), encoding="utf-8")
-    (simulation / "diagnostic_summary.json").write_text(json.dumps({
-        "result": {"win": False, "enemies_killed": 1, "enemies_leaked": 1, "operator_deaths": [], "remaining_life": 2, "final_dp": 7, "deployment_errors": [], "enemies_remaining": 0},
-    }), encoding="utf-8")
+    sim_dir = scratch / "session/candidates/candidate-001/simulation"
+    sim_dir.mkdir(parents=True, exist_ok=True)
     module.BASE = scratch
-    observed = module.observe("candidate-001")
+    import types
+    module.CONFIG = types.SimpleNamespace(stage_id="main_08-07")
+
+    def write_case(result: dict, events: list) -> dict:
+        (sim_dir / "diagnostic_events.json").write_text(json.dumps({"events": events}), encoding="utf-8")
+        (sim_dir / "diagnostic_summary.json").write_text(json.dumps({"result": result}), encoding="utf-8")
+        return module.observe("candidate-001")
+
+    leak_case = write_case(
+        {"win": False, "enemies_killed": 1, "enemies_leaked": 1, "operator_deaths": [], "remaining_life": 2,
+         "final_dp": 7, "deployment_errors": [], "enemies_remaining": 0},
+        [
+            {"frame": 100, "time": 3.33, "event_type": "ENEMY_DEATH", "source_id": "char_210_stward", "target_id": "enemy_1112_emppnt#0", "details": {"kill_counted": True}},
+            {"frame": 200, "time": 6.66, "event_type": "ENEMY_LEAK", "source_id": "enemy_1109_lurker#7", "target_id": None, "details": {"amount": 1}},
+            {"frame": 300, "time": 10.0, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {"amount": 0}},
+            {"frame": 310, "time": 10.33, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#3", "target_id": None, "details": {"amount": 0}},
+        ],
+    )
     check("observe reads real per-enemy leak ids from events",
-          observed["leak_ids"] == ["enemy_1109_lurker#7"] and observed["leak_ids_available"] is True, json.dumps(observed["leak_ids"]))
+          leak_case["leak_ids"] == ["enemy_1109_lurker#7"] and leak_case["leak_ids_available"] is True)
+    check("observe reads protected arrivals from source_id (production field)",
+          leak_case["protected_arrival_distinct_count"] == 2 and leak_case["artillery_kill"] is not None)
     check("observe refuses to call a leaking run a complete win",
-          observed["complete_win"] is False and observed["artifact_projection"] is False)
-    check("observe reports both protected arrivals and the artillery kill",
-          len(observed["protected_arrivals"]) == 2 and observed["artillery_kill"] is not None)
+          leak_case["complete_win"] is False and leak_case["stage_acceptance"]["status"] == "NOT_WIN")
+
+    # item 4: a typed win that is missing enemies_remaining must be INSUFFICIENT_EVIDENCE, not WIN
+    missing_zero = write_case(
+        {"win": True, "enemies_killed": 33, "enemies_leaked": 0, "operator_deaths": [], "remaining_life": 3,
+         "final_dp": 10, "deployment_errors": []},
+        [
+            {"frame": 11119, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+            {"frame": 11349, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#3", "target_id": None, "details": {}},
+        ],
+    )
+    check("a typed win without explicit enemies_remaining=0 is INSUFFICIENT_EVIDENCE",
+          missing_zero["stage_acceptance"]["status"] == "INSUFFICIENT_EVIDENCE" and missing_zero["complete_win"] is False)
+
+    # item 4: one target arriving twice must not satisfy two distinct declared targets
+    duplicate = write_case(
+        {"win": True, "enemies_killed": 33, "enemies_leaked": 0, "operator_deaths": [], "remaining_life": 3,
+         "final_dp": 10, "deployment_errors": [], "enemies_remaining": 0},
+        [
+            {"frame": 11119, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+            {"frame": 11349, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+        ],
+    )
+    check("the same protected target arriving twice does not count as two targets",
+          duplicate["stage_acceptance"]["status"] != "COMPLETE_WIN" and duplicate["complete_win"] is False,
+          json.dumps(duplicate["stage_acceptance"].get("reasons"))[:200])
+
+    # item 4: a genuine complete WIN needs win, zero leaks, explicit 0 remaining, and each declared ID
+    win_case = write_case(
+        {"win": True, "enemies_killed": 33, "enemies_leaked": 0, "operator_deaths": [], "remaining_life": 3,
+         "final_dp": 10, "deployment_errors": [], "enemies_remaining": 0},
+        [
+            {"frame": 11119, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+            {"frame": 11349, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#3", "target_id": None, "details": {}},
+        ],
+    )
+    check("a genuine complete WIN is only declared with all stage conditions met",
+          win_case["stage_acceptance"]["status"] == "COMPLETE_WIN" and win_case["complete_win"] is True)
+
+    # item 4: a definite failure must not be hidden behind a missing field
+    definite = write_case(
+        {"win": True, "enemies_killed": 20, "enemies_leaked": 3, "operator_deaths": [], "remaining_life": 1,
+         "final_dp": 10, "deployment_errors": []},
+        [
+            {"frame": 11119, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+            {"frame": 11349, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#3", "target_id": None, "details": {}},
+        ],
+    )
+    check("a definite failure (3 leaks, no remaining field) is NOT_WIN, not merely INSUFFICIENT_EVIDENCE",
+          definite["stage_acceptance"]["status"] == "NOT_WIN"
+          and any("enemies_leaked" in reason for reason in definite["stage_acceptance"]["failures"]),
+          json.dumps(definite["stage_acceptance"])[:220])
+
+    # item 4: replay the real M70 archive through observe() and demand a certified complete WIN
+    import gzip as _gzip
+    m70 = ROOT / "docs/review/fc77177/m70_full_roster_reassessment_v1/evidence/attempts/attempt_01_diagnostic"
+    m70_dir = scratch / "session/candidates/candidate-m70/simulation"
+    m70_dir.mkdir(parents=True, exist_ok=True)
+    (m70_dir / "diagnostic_events.json").write_bytes(_gzip.decompress((m70 / "diagnostic_events.json.gz").read_bytes()))
+    (m70_dir / "diagnostic_summary.json").write_bytes(_gzip.decompress((m70 / "diagnostic_summary.json.gz").read_bytes()))
+    m70_obs = module.observe("candidate-m70")
+    check("real M70 archive certifies COMPLETE_WIN with both distinct protected arrivals",
+          m70_obs["stage_acceptance"]["status"] == "COMPLETE_WIN" and m70_obs["complete_win"] is True,
+          json.dumps(m70_obs["stage_acceptance"])[:240])
+    check("real M70 archive observes artillery #0 and key enemy #19 actual kills",
+          m70_obs["artillery_kill"] is not None and m70_obs["key_enemy_kills"].get("enemy_1107_uoffcr#19") is not None,
+          json.dumps({"artillery": m70_obs["artillery_kill"], "key": m70_obs["key_enemy_kills"]})[:200])
+
+    # item 4: a fake-backend win can never certify a real WIN
+    fake_win = write_case(
+        {"FAKE_TEST": True, "win": True, "enemies_killed": 2, "enemies_leaked": 0, "operator_deaths": [],
+         "remaining_life": 3, "final_dp": 10, "deployment_errors": [], "enemies_remaining": 0},
+        [
+            {"frame": 11119, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#14", "target_id": None, "details": {}},
+            {"frame": 11349, "event_type": "PROTECTED_TARGET_REACHED", "source_id": "enemy_3001_upeopl#3", "target_id": None, "details": {}},
+        ],
+    )
+    check("a fake-backend typed win is ARTIFACT_PROJECTION_NOT_REAL_WIN, never a real WIN",
+          fake_win["stage_acceptance"]["status"] == "ARTIFACT_PROJECTION_NOT_REAL_WIN" and fake_win["complete_win"] is False)
+
+    # item 3: an oversized lazy grid is refused without building the product
+    names, total, shape = module.plan_grid({f"d{i}": list(range(10)) for i in range(8)})
+    check("plan_grid computes 8x10 grid size without materialising it",
+          total == 10 ** 8 and shape["dimensions"] == 8)
+    first = next(iter(module.iter_grid({"a": [1, 2, 3], "b": ["x"]})))
+    check("iter_grid yields lazily from a real product", first == (1, "x"))
 
     # budget truncation path on a dedicated small batch
     small = prepare_batch(
@@ -306,12 +607,11 @@ def verify_artifacts(batch: Path) -> None:
             "changes": [{"type": "set", "operator": "char_283_midn", "action": "DEPLOY", "frame": 1021, "fields": {"tile": "$t"}}],
             "parameters": {"t": [[3, 3], [4, 3], [5, 3], [6, 3]]},
         })
-        check("budget truncation stops at the usable limit and lists the skipped combinations",
-              result["status"] == "TRUNCATED_BY_BUDGET" and result["real_runs"] == 1 and len(result["skipped"]) == 3,
-              json.dumps({"status": result["status"], "real_runs": result["real_runs"], "skipped": len(result["skipped"])}))
+        check("budget truncation stops at the usable limit and reports skipped count",
+              result["status"] == "SIMULATION_BUDGET_TRUNCATED" and result["real_runs"] == 1 and result["skipped_count"] == 3,
+              json.dumps({"status": result["status"], "real_runs": result["real_runs"], "skipped_count": result.get("skipped_count")}))
     finally:
         client.close()
-
     transport = (batch / "tool_transport.jsonl").read_text(encoding="utf-8").splitlines()
     phases = [json.loads(line)["phase"] for line in transport if line.strip()]
     check("tool transport log keeps STARTED and COMPLETED events separate",

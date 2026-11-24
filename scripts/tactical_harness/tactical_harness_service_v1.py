@@ -15,11 +15,14 @@ No model call happens here. ``TEST_ONLY_FAKE`` batches use the production fake e
 from __future__ import annotations
 
 import copy
+import datetime as _dt
 import hashlib
 import itertools
 import json
+import math
 import sys
 import time
+import uuid
 from contextlib import redirect_stdout
 from pathlib import Path
 
@@ -35,7 +38,9 @@ from run_gpt_tactical_stage_diagnostic_v1 import validated_unique_deployments
 STATE_SCHEMA = "KIMIARK_TACTICAL_HARNESS_BATCH_STATE_V1"
 CONSTRAINTS_SCHEMA = "KIMIARK_TACTICAL_HARNESS_CONSTRAINTS_V1"
 MAX_COMBINATIONS_PER_CALL = 60
+MAX_PREVIEW_ROWS = 20
 KB_PATH = ROOT / "data/mechanics_kb/kb_entries_v1.json"
+STAGE_PROFILES_PATH = ROOT / "scripts/tactical_harness/stage_profiles_v1.json"
 EXPERIENCE_STORE = ROOT / "output/codex_experience_selector_v1/experience_records.jsonl"
 EXPERIENCE_MECHANICS_VERSION = "m38b-2781-animation-speed-v1"
 
@@ -201,17 +206,29 @@ def status(_config, _args) -> dict:
             },
             "remaining_harness_budget": budget,
             "teaching_record_count": len(state.get("teaching_records") or []),
-            "teacher_prompts": len(
-                (base_dir() / "teaching" / "teacher_prompts_v1.jsonl").read_text(encoding="utf-8").splitlines()
-            )
-            if (base_dir() / "teaching" / "teacher_prompts_v1.jsonl").is_file()
-            else 0,
+            "teacher_prompts": len(_read_jsonl(base_dir() / "teaching" / "teacher_prompts_v1.jsonl")),
+            "teacher_message_ids": [row.get("message_id") for row in _read_jsonl(base_dir() / "teaching" / "teacher_prompts_v1.jsonl")],
+            "frozen_candidates": _frozen_candidate_states(state),
             "batch_stopped": bool(state.get("stopped")),
             "blocker": state.get("blocker"),
             "independent_runs": state.get("independent_runs") or [],
         }
     )
     return status_payload
+
+
+def _frozen_candidate_states(state: dict) -> list[dict]:
+    rows = []
+    for row in state.get("variants") or []:
+        candidate_id = row.get("candidate_id")
+        if not candidate_id:
+            continue
+        try:
+            probe = candidate_execution_state(candidate_id)
+            rows.append({"candidate_id": candidate_id, "name": row.get("name"), "state": probe.get("status")})
+        except Exception as exc:  # noqa: BLE001 - status must never crash on a probe fault
+            rows.append({"candidate_id": candidate_id, "name": row.get("name"), "state": "PROBE_ERROR", "error": str(exc)})
+    return rows
 
 
 def checked_plan(_config, arguments: dict) -> dict:
@@ -248,7 +265,38 @@ def query_events(_config, arguments: dict) -> dict:
     return production.query_events(session_config(), arguments)
 
 
+def _utc_now_iso() -> str:
+    return _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="milliseconds")
+
+
+def _new_message_id(prefix: str = "msg") -> str:
+    return f"{prefix}-{uuid.uuid5(uuid.NAMESPACE_URL, f'{ROOT}:{base_dir()}:{time.time_ns()}:{uuid.uuid4()}')}"
+
+def load_stage_profile(stage_id: str) -> dict:
+    profiles = read(STAGE_PROFILES_PATH)
+    row = profiles.get("profiles", {}).get(stage_id)
+    if row is None:
+        return {"stage_id": stage_id, "configured": False, "reason": "no per-stage acceptance profile"}
+    return {**row, "configured": True, "profile_sha256": sha(STAGE_PROFILES_PATH)}
+
+
+def _completion_evidence(result: dict) -> dict:
+    """Separate explicit terminal evidence from missing fields; never coerce None to PASS."""
+    explicit_zero = isinstance(result.get("enemies_remaining"), int) and result["enemies_remaining"] == 0
+    missing = [key for key in ("win", "enemies_leaked", "enemies_remaining") if key not in result]
+    deployment_errors = result.get("deployment_errors")
+    return {
+        "win": result.get("win"),
+        "enemies_leaked": result.get("enemies_leaked"),
+        "enemies_remaining": result.get("enemies_remaining"),
+        "enemies_remaining_explicit_zero": explicit_zero,
+        "missing_fields": missing,
+        "deployment_errors_present": bool(deployment_errors),
+    }
+
+
 def observe(candidate_id: str) -> dict:
+    """Extract generic, evidence-backed observations only. Per-stage acceptance is separate."""
     directory = base_dir() / "session" / "candidates" / candidate_id / "simulation"
     summary = read(directory / "diagnostic_summary.json")
     events = read(directory / "diagnostic_events.json").get("events") or []
@@ -267,8 +315,9 @@ def observe(candidate_id: str) -> dict:
         for e in events
         if e.get("event_type") == "ENEMY_LEAK"
     ]
+    # Production R8-7 archives put the arriving protected entity in source_id.
     arrivals = [
-        {"target_id": e.get("target_id"), "frame": e["frame"]}
+        {"target_id": e.get("source_id") or e.get("target_id"), "frame": e["frame"]}
         for e in events
         if e.get("event_type") == "PROTECTED_TARGET_REACHED"
     ]
@@ -281,6 +330,19 @@ def observe(candidate_id: str) -> dict:
     leak_ids_confirmed = None if artifact_projection else sorted(
         str(x["enemy_id"]) for x in leaks if x.get("enemy_id")
     )
+    arrival_ids = {a["target_id"] for a in arrivals if a.get("target_id")}
+    arrival_duplicates = sorted(
+        tid for tid in arrival_ids if sum(1 for a in arrivals if a.get("target_id") == tid) > 1
+    )
+    profile = load_stage_profile(session_config().stage_id)
+    required = profile.get("protected_targets") if profile.get("configured") else []
+    required_ids = [row["target_id"] for row in required or []]
+    missing_arrivals = [item for item in required_ids if item not in arrival_ids]
+    completion = _completion_evidence(result)
+    acceptance = evaluate_stage_acceptance(
+        profile=profile, completion=completion, result=result,
+        arrival_ids=arrival_ids, artifact_projection=artifact_projection, arrivals=arrivals,
+    )
     return {
         "result": result,
         "leaks": leaks,
@@ -288,22 +350,100 @@ def observe(candidate_id: str) -> dict:
         "leak_ids_available": leak_ids_confirmed is not None,
         "kills": kills,
         "protected_arrivals": arrivals,
+        "protected_arrival_duplicate_ids": arrival_duplicates,
+        "protected_arrival_distinct_count": len(arrival_ids),
         "operator_deaths": deaths,
-        "artillery_kill": kills.get("enemy_1112_emppnt#0"),
-        "enemy19_kill": kills.get("enemy_1107_uoffcr#19"),
-        "complete_win": bool(
-            result.get("win")
-            and result.get("enemies_leaked") == 0
-            and len(arrivals) == 2
-            and result.get("enemies_remaining") in (0, None)
-            and not result.get("deployment_errors")
-            and not artifact_projection
-        ),
-        "complete_win_boundary": "A typed win from a TEST_ONLY_FAKE backend is an artifact, not a real fixed-simulator result.",
+        "artillery_kill": kills.get(profile.get("artillery")) if profile.get("configured") else None,
+        "key_enemy_kills": {
+            enemy_id: kills.get(enemy_id)
+            for enemy_id, _ in (profile.get("key_enemies") or {}).items()
+        } if profile.get("configured") else {},
+        "stage_acceptance": acceptance,
+        "complete_win": acceptance["status"] == "COMPLETE_WIN",
+        "complete_win_boundary": acceptance["boundary"],
         "artifact_projection": artifact_projection,
         "artifact_win": bool(result.get("win")),
         "event_log": str((directory / "diagnostic_events.json").relative_to(ROOT)),
         "summary_log": str((directory / "diagnostic_summary.json").relative_to(ROOT)),
+    }
+
+
+def evaluate_stage_acceptance(*, profile: dict, completion: dict, result: dict, arrival_ids: set, artifact_projection: bool, arrivals: list | None = None) -> dict:
+    """Generic evidence + per-stage declarations => COMPLETE_WIN / NOT_WIN / INSUFFICIENT_EVIDENCE.
+
+    ``failures`` are definite contradictions (a typed loss, a nonzero leak/remaining count).
+    ``gaps`` are missing evidence (absent fields, unobserved arrivals) that cannot prove OR disprove a win.
+    A run with any definite failure is NOT_WIN even if other fields are missing; only runs with no
+    failure and no gap are COMPLETE_WIN.
+    """
+    stage_id = profile.get("stage_id") or session_config().stage_id
+    if artifact_projection:
+        return {
+            "status": "ARTIFACT_PROJECTION_NOT_REAL_WIN",
+            "stage_id": stage_id,
+            "failures": [],
+            "gaps": ["artifact projection cannot certify a real fixed-simulator WIN"],
+            "boundary": "TEST_ONLY_FAKE output cannot certify a real fixed-simulator WIN, regardless of typed win/enemies_remaining.",
+            "evidence": completion,
+        }
+    if not profile.get("configured"):
+        return {
+            "status": "INSUFFICIENT_EVIDENCE",
+            "stage_id": stage_id,
+            "failures": [],
+            "gaps": ["stage acceptance profile is not configured; generic evidence cannot certify a complete WIN"],
+            "evidence": completion,
+            "boundary": "Only per-stage declarations can certify a complete WIN.",
+        }
+    required_ids = [row["target_id"] for row in (profile.get("protected_targets") or [])]
+    failures: list[str] = []
+    gaps: list[str] = list(completion.get("missing_fields") or [])
+
+    if "win" in (result or {}):
+        if result.get("win") is not True:
+            failures.append("production simulator did not report win=true")
+    if completion.get("enemies_leaked") is not None and completion.get("enemies_leaked") != 0:
+        failures.append(f"enemies_leaked={completion.get('enemies_leaked')!r}")
+    if completion.get("enemies_leaked") is None and profile.get("requires_zero_leaks", True):
+        gaps.append("enemies_leaked field is missing; zero leaks cannot be confirmed")
+    if completion.get("enemies_remaining") is not None and not completion.get("enemies_remaining_explicit_zero"):
+        if profile.get("requires_enemies_remaining_zero", True):
+            failures.append(f"enemies_remaining={completion.get('enemies_remaining')!r} (must be exactly 0)")
+    elif profile.get("requires_enemies_remaining_zero", True) and completion.get("enemies_remaining") is None:
+        gaps.append("enemies_remaining field is missing; it must be explicitly 0")
+    if completion.get("deployment_errors_present"):
+        failures.append("deployment_errors is non-empty")
+
+    arrival_counts: dict[str, int] = {}
+    for arrival in (arrivals or []):
+        tid = arrival.get("target_id")
+        if tid:
+            arrival_counts[tid] = arrival_counts.get(tid, 0) + 1
+    for item in required_ids:
+        if item not in arrival_ids:
+            gaps.append(f"required protected target not observed arrived: {item}")
+    if len(arrival_ids) < len(set(required_ids)):
+        gaps.append("distinct required protected-target arrivals are missing")
+    for item, count in arrival_counts.items():
+        if count > 1:
+            failures.append(f"duplicate arrival for the same protected target does not satisfy a distinct target: {item}")
+
+    if failures:
+        status = "NOT_WIN"
+    elif gaps:
+        status = "INSUFFICIENT_EVIDENCE"
+    else:
+        status = "COMPLETE_WIN"
+    return {
+        "status": status,
+        "stage_id": stage_id,
+        "failures": failures,
+        "gaps": gaps,
+        "reasons": [*failures, *gaps],
+        "required_protected_target_ids": required_ids,
+        "observed_arrival_ids": sorted(arrival_ids),
+        "evidence": completion,
+        "boundary": "A complete WIN requires the production simulator win, explicit zero leaks/remaining, and each declared protected target to arrive by its own distinct ID.",
     }
 
 
@@ -401,6 +541,197 @@ def build_payload(parent: str, name: str, changes, hypothesis: str, round_number
     return payload
 
 
+RECOVERABLE_CHECK_STATUSES = {
+    "FAIL",
+    "INPUT_REJECTED_BEFORE_PRODUCTION_CHECK",
+}
+FATAL_CHECK_STATUSES = {
+    "CHECK_BUDGET_EXHAUSTED",
+    "BUDGET_EXHAUSTED",
+    "SERVICE_UNAVAILABLE",
+}
+BUDGET_CHECK_STATUSES = {"CHECK_BUDGET_EXHAUSTED", "BUDGET_EXHAUSTED"}
+LEDGER_FAULT_MARKERS = (
+    "candidate ledger belongs to a different session",
+    "candidate ledger",
+    "ledger does not match",
+    "used_candidates and attempts count disagree",
+    "directory collision",
+)
+
+
+def classify_check_fault(exc: Exception) -> dict:
+    """Separate a ledger/consistency fault from an unavailable service, by the real message."""
+    message = f"{type(exc).__name__}: {exc}"
+    lowered = str(exc).lower()
+    if any(marker in str(exc) or marker in lowered for marker in LEDGER_FAULT_MARKERS):
+        return {"kind": "ledger_inconsistency", "fatal": True, "error": message}
+    return {"kind": "check_service_fault", "fatal": True, "error": message}
+
+
+def fatal_stop_kind(status: str) -> str:
+    if status in BUDGET_CHECK_STATUSES:
+        return "check_budget_exhausted"
+    return "check_blocked"
+
+
+def plan_grid(params: dict) -> tuple[list[str], int, dict]:
+    """Validate a parameter grid and compute its size without allocating the product."""
+    names = list(params)
+    if not names:
+        return [], 1, {"dimensions": 0, "sizes": {}}
+    sizes = {}
+    total = 1
+    for name in names:
+        values = params[name]
+        if not isinstance(values, (list, tuple)):
+            raise RuntimeError(f"parameter {name!r} must be a list of values")
+        sizes[name] = len(values)
+        total *= len(values)
+    return names, total, {"dimensions": len(names), "sizes": sizes}
+
+
+def iter_grid(params: dict):
+    """Lazily iterate the Cartesian product; never materialise the full grid."""
+    names = list(params)
+    axes = [params[name] for name in names]
+    if not names:
+        yield ()
+        return
+    yield from itertools.product(*axes)
+
+
+def _preview_rows(params: dict, name_prefix: str, cap: int) -> list[dict]:
+    rows = []
+    for index, values in enumerate(iter_grid(params)):
+        if index >= cap:
+            break
+        rows.append({"index": index, "name": f"{name_prefix}_{index}", "parameters": dict(zip(list(params), values))})
+    return rows
+
+
+def payload_candidate_sha256(payload: dict) -> str:
+    """Hash exactly as production.check_plan does, so ledger reconciliation matches."""
+    material = production.canonical_json(payload).encode("utf-8")
+    return hashlib.sha256(material).hexdigest()
+
+
+def frozen_candidate_by_sha(payload_sha: str) -> dict | None:
+    """Find an already-frozen candidate in the production ledger by its authoritative hash."""
+    ledger = read(session_config().candidate_ledger_path)
+    for attempt in ledger.get("attempts") or []:
+        if attempt.get("candidate_sha256") == payload_sha and attempt.get("check_status") == "PASS":
+            return attempt
+    return None
+
+
+def candidate_execution_state(candidate_id: str) -> dict:
+    """Read the production ledger + on-disk reservation to classify a frozen candidate."""
+    cfg = session_config()
+    ledger = read(cfg.candidate_ledger_path)
+    attempts = [row for row in ledger.get("attempts", []) if row.get("candidate_id") == candidate_id]
+    if len(attempts) != 1:
+        return {"status": "UNKNOWN_LEDGER", "reason": f"ledger has {len(attempts)} attempts for {candidate_id}"}
+    attempt = attempts[0]
+    output_dir = base_dir() / "session" / "candidates" / candidate_id / "simulation"
+    try:
+        disk = production._simulation_output_state(output_dir)
+    except Exception as exc:  # noqa: BLE001 - surface, do not guess
+        return {"status": "UNKNOWN_DISK_STATE", "reason": f"{type(exc).__name__}: {exc}", "attempt": attempt}
+    disk_status = disk.get("status")
+    if disk_status == "COMPLETED":
+        return {"status": "COMPLETED", "attempt": attempt, "disk": disk}
+    if disk_status == "NOT_STARTED":
+        return {"status": "NOT_STARTED", "attempt": attempt, "disk": disk}
+    return {"status": "UNKNOWN_STARTED", "attempt": attempt, "disk": disk}
+
+
+def _record_leak_delta(row: dict, parent_leaks) -> None:
+    observed = row.get("observed") or {}
+    if parent_leaks is not None and observed.get("leak_ids_available"):
+        row["leak_delta"] = {
+            "parent_leaks": parent_leaks,
+            "variant_leaks": observed["leak_ids"],
+            "resolved": sorted(set(parent_leaks) - set(observed["leak_ids"])),
+            "new": sorted(set(observed["leak_ids"]) - set(parent_leaks)),
+        }
+
+
+def _resume_or_reuse(row: dict, *, results: list, counters: dict, state: dict, parent_leaks=None) -> str:
+    """Reconcile an existing frozen candidate from its real execution state, not the action key.
+
+    COMPLETED -> reuse the stored result; NOT_STARTED -> re-run the same frozen candidate;
+    anything ambiguous (STARTED_UNKNOWN / non-empty output / ledger mismatch) -> stop and report.
+    """
+    candidate = row.get("candidate_id")
+    probe = candidate_execution_state(candidate)
+    if probe["status"] == "COMPLETED":
+        row["observed"] = observe(candidate)
+        row["resumed_from"] = "completed_result_reused"
+        _record_leak_delta(row, parent_leaks)
+        counters["reused"] += 1
+        save_state(state)
+        results.append(_compact_row(row))
+        return "REUSED"
+    if probe["status"] == "NOT_STARTED":
+        row["resumed_from"] = "not_started_reused_candidate"
+        run = production.run_simulation(session_config(), {"candidate_id": candidate, "candidate_sha256": row["candidate_sha256"]})
+        row["run"] = {k: run.get(k) for k in ("status", "simulation_started_counted", "result")}
+        if run.get("status") not in ("COMPLETED", "IDEMPOTENT_COMPLETED"):
+            state["stopped"] = True
+            state["blocker"] = {"kind": "resume_simulation_not_completed", "candidate_id": candidate, "run": run}
+            save_state(state)
+            results.append(_compact_row(row))
+            return "STOP"
+        if run.get("status") == "COMPLETED":
+            counters["real_runs"] += 1
+        else:
+            row["resumed_from"] = "completed_result_reused"
+        row["observed"] = observe(candidate)
+        _record_leak_delta(row, parent_leaks)
+        counters["resumed"] += 1
+        save_state(state)
+        results.append(_compact_row(row))
+        return "RESUMED"
+    state["stopped"] = True
+    state["blocker"] = {
+        "kind": "interrupted_execution_unknown_result",
+        "candidate_id": candidate,
+        "execution_state": probe,
+        "instruction": "Do not rerun blindly; inspect the reservation/attempt files and report before any further action.",
+    }
+    save_state(state)
+    results.append({"name": row.get("name"), "candidate_id": candidate, "status": "INTERRUPTED_UNKNOWN_RESULT", "execution_state": probe})
+    return "STOP"
+
+
+def _compact_row(row: dict) -> dict:
+    compact = {k: row.get(k) for k in ("name", "parameters", "status", "candidate_id", "plan_id", "resumed_from") if k in row}
+    if row.get("observed"):
+        observed_keys = (
+            "result",
+            "leak_ids",
+            "leak_ids_available",
+            "protected_arrivals",
+            "protected_arrival_distinct_count",
+            "stage_acceptance",
+            "artillery_kill",
+            "key_enemy_kills",
+            "operator_deaths",
+            "complete_win",
+            "artifact_projection",
+            "artifact_win",
+        )
+        compact["observed"] = {key: row["observed"].get(key) for key in observed_keys}
+    if row.get("leak_delta"):
+        compact["leak_delta"] = row["leak_delta"]
+    if row.get("check") and row["check"].get("errors"):
+        compact["errors"] = row["check"]["errors"]
+    if row.get("input_error"):
+        compact["input_error"] = row["input_error"]
+    return compact
+
+
 def search_variants(_config, arguments: dict) -> dict:
     state = batch_state()
     constraints = batch_constraints()
@@ -413,12 +744,23 @@ def search_variants(_config, arguments: dict) -> dict:
     if round_number not in {row["round"] for row in state["rounds"]}:
         raise RuntimeError("record the Astra hypothesis for this round with record_round first")
 
+    teacher_message_id = arguments.get("teacher_message_id")
+    if teacher_message_id is not None:
+        if not any(row.get("message_id") == teacher_message_id for row in teacher_messages()):
+            raise RuntimeError(f"unknown teacher_message_id: {teacher_message_id!r}; record the teacher prompt first")
+
     params = arguments.get("parameters") or {}
-    names = list(params)
-    choices = list(itertools.product(*(params[k] for k in names))) if names else [()]
-    planned_total = len(choices)
+    names, planned_total, grid_shape = plan_grid(params)
+    if planned_total == 0:
+        return {"status": "EMPTY_PARAMETER_GRID", "planned_total": 0, "grid": grid_shape}
     if planned_total > MAX_COMBINATIONS_PER_CALL:
-        raise RuntimeError(f"batch cap is {MAX_COMBINATIONS_PER_CALL} combinations per call; narrow the range")
+        return {
+            "status": "COMBINATION_CAP_EXCEEDED",
+            "planned_total": planned_total,
+            "cap": MAX_COMBINATIONS_PER_CALL,
+            "grid": grid_shape,
+            "note": "Narrow the range, split into several calls, or lower the grid; nothing was allocated or executed.",
+        }
 
     budget = remaining_budget()
     reserved = budget["reserved_simulations"] if arguments.get("reserve_for_verification", True) else 0
@@ -437,67 +779,105 @@ def search_variants(_config, arguments: dict) -> dict:
         "simulation": budget["simulation_remaining"],
         "reserved_for_verification": reserved,
         "usable_simulations": usable_simulations,
+        "planned_total": planned_total,
+        "grid": grid_shape,
     }
     if arguments.get("dry_run"):
-        preview = []
-        for index, values in enumerate(choices):
-            mapping = dict(zip(names, values))
-            preview.append({"index": index, "name": f"{arguments['name']}_{index}", "parameters": mapping})
         return {
             "status": "DRY_RUN_ONLY",
             "planned_total": planned_total,
-            "combinations": preview,
+            "preview": _preview_rows(params, arguments["name"], MAX_PREVIEW_ROWS),
+            "preview_truncated": planned_total > MAX_PREVIEW_ROWS,
             "capability": capability,
-            "note": "Static rejection counts only a check; only PASS creates a candidate and can consume one simulation.",
+            "note": "Grid size computed without building the product; static rejection counts only a check.",
         }
 
     parent_leaks = baseline_leaks(arguments["parent"])
-    results = []
-    skipped = []
-    attempted = 0
-    dedup = 0
-    static_fail = 0
-    real_runs = 0
-    exceeded = False
-    for index, values in enumerate(choices):
-        if real_runs >= usable_simulations:
-            skipped = [
-                {"index": i, "parameters": dict(zip(names, v))}
-                for i, v in enumerate(choices[index:], start=index)
-            ]
-            exceeded = True
+    results: list[dict] = []
+    counters = {"attempted": 0, "dedup": 0, "static_fail": 0, "real_runs": 0, "input_rejected": 0, "reused": 0, "resumed": 0}
+    stop_reason = None
+    processed = 0
+    for index, values in enumerate(iter_grid(params)):
+        if stop_reason:
+            break
+        if counters["real_runs"] >= usable_simulations:
+            stop_reason = "SIMULATION_BUDGET_TRUNCATED"
             break
         mapping = dict(zip(names, values))
         name = f"{arguments['name']}_{index}"
-        changes = expand(arguments.get("changes") or [], mapping)
-        actions = expand(arguments.get("actions"), mapping)
-        row = {
-            "name": name,
-            "round": round_number,
-            "parent": arguments["parent"],
-            "hypothesis": arguments["hypothesis"],
-            "parameters": mapping,
-            "changes": changes,
-            "actions_replaced": actions is not None,
-            "source": "Astra tool arguments expanded mechanically by the harness",
-        }
-        payload = build_payload(arguments["parent"], name, changes, arguments["hypothesis"], round_number, actions=actions)
+        processed += 1
+        try:
+            changes = expand(arguments.get("changes") or [], mapping)
+            actions = expand(arguments.get("actions"), mapping)
+            payload = build_payload(arguments["parent"], name, changes, arguments["hypothesis"], round_number, actions=actions)
+        except Exception as exc:  # recoverable authoring/input error for this one combination
+            row = {
+                "name": name, "round": round_number, "parent": arguments["parent"],
+                "hypothesis": arguments["hypothesis"], "parameters": mapping,
+                "status": "INPUT_REJECTED_BEFORE_PRODUCTION_CHECK",
+                "input_error": f"{type(exc).__name__}: {exc}",
+                "teacher_message_id": teacher_message_id,
+                "source": "harness build stage rejected this combination only",
+            }
+            counters["input_rejected"] += 1
+            state["variants"].append(row)
+            save_state(state)
+            results.append(_compact_row(row))
+            continue
+
         key = action_key(payload)
         known = next((r for r in state["variants"] if r.get("action_key") == key), None)
         archive_key = read(base_dir() / "old_action_index.json").get(key)
         if known or archive_key:
-            dedup += 1
-            results.append({"name": name, "status": "DEDUP", "original": known or archive_key})
+            counters["dedup"] += 1
+            if known and known.get("candidate_id"):
+                resume = _resume_or_reuse(known, results=results, counters=counters, state=state, parent_leaks=parent_leaks)
+                if resume == "STOP":
+                    stop_reason = "INTERRUPTED_UNKNOWN_RESULT"
+                continue
+            results.append({"name": name, "status": "DEDUP", "original": _compact_row(known) if known else archive_key})
             continue
-        row["action_key"] = key
+
+        row = {
+            "name": name, "round": round_number, "parent": arguments["parent"],
+            "hypothesis": arguments["hypothesis"], "parameters": mapping,
+            "changes": changes, "actions_replaced": actions is not None, "action_key": key,
+            "teacher_message_id": teacher_message_id,
+            "source": "Astra tool arguments expanded mechanically by the harness",
+        }
+        # A lost batch_state write-back must not buy a second slot for the same frozen plan.
+        frozen = frozen_candidate_by_sha(payload_candidate_sha256(payload))
+        if frozen is not None:
+            row.update(
+                candidate_id=frozen["candidate_id"],
+                candidate_sha256=frozen["candidate_sha256"],
+                plan_id=payload["revised_operational_plans"][0]["operational_plan_id"],
+                status="PASS",
+            )
+            row["reconciled_from"] = "production_ledger_candidate_sha256"
+            counters["dedup"] += 1
+            resume = _resume_or_reuse(row, results=results, counters=counters, state=state, parent_leaks=parent_leaks)
+            if resume == "STOP":
+                stop_reason = "INTERRUPTED_UNKNOWN_RESULT"
+            continue
         context, derivation = derive_evidence(arguments["parent"])
         install_evidence(context)
         row["evidence_derivation"] = derivation
-        check = checked_plan(None, {"plan": payload})
+        try:
+            check = checked_plan(None, {"plan": payload})
+        except Exception as exc:  # service/ledger fault is not a per-combination input error
+            fault = classify_check_fault(exc)
+            state["stopped"] = True
+            state["blocker"] = {**fault, "combination": name}
+            save_state(state)
+            results.append({"name": name, "status": fault["kind"].upper(), "error": fault["error"]})
+            stop_reason = fault["kind"].upper()
+            break
         row["check"] = check
-        row["status"] = check["status"]
-        attempted += 1
-        if check["status"] == "PASS":
+        row["status"] = check.get("status")
+        status = check.get("status")
+        counters["attempted"] += 1
+        if status in ("PASS", "IDEMPOTENT_RECHECK"):
             row.update(
                 candidate_id=check["candidate_id"],
                 candidate_sha256=check["candidate_sha256"],
@@ -505,106 +885,129 @@ def search_variants(_config, arguments: dict) -> dict:
             )
         state["variants"].append(row)
         save_state(state)
-        if check["status"] == "PASS":
+
+        if status == "IDEMPOTENT_RECHECK":
+            # The candidate was already frozen (e.g. the harness crashed after check_plan but before
+            # writing back). Reconcile by execution state instead of aborting the whole batch.
+            row["recheck_status"] = "IDEMPOTENT_RECHECK"
+            row["status"] = "PASS"
+            counters["dedup"] += 1
+            resume = _resume_or_reuse(row, results=results, counters=counters, state=state, parent_leaks=parent_leaks)
+            if resume == "STOP":
+                stop_reason = "INTERRUPTED_UNKNOWN_RESULT"
+            continue
+
+        if status in FATAL_CHECK_STATUSES:
+            kind = fatal_stop_kind(status)
+            state["stopped"] = True
+            state["blocker"] = {"kind": kind, "combination": name, "check_status": status, "check": check}
+            save_state(state)
+            results.append(_compact_row(row))
+            stop_reason = status
+            break
+        if status in RECOVERABLE_CHECK_STATUSES:
+            if status == "FAIL":
+                counters["static_fail"] += 1
+            else:
+                counters["input_rejected"] += 1
+            results.append(_compact_row(row))
+            continue
+        if status != "PASS":
+            state["stopped"] = True
+            state["blocker"] = {"kind": "unexpected_check_status", "combination": name, "check": check}
+            save_state(state)
+            results.append(_compact_row(row))
+            stop_reason = status
+            break
+
+        try:
             run = production.run_simulation(
                 session_config(),
                 {"candidate_id": row["candidate_id"], "candidate_sha256": row["candidate_sha256"]},
             )
-            row["run"] = {k: run.get(k) for k in ("status", "simulation_started_counted", "result")}
-            if run["status"] != "COMPLETED":
-                state["stopped"] = True
-                state["blocker"] = {"kind": "simulation_not_completed", "run": run}
-                row["observed"] = {"status": run["status"]}
-                save_state(state)
-                results.append({k: row.get(k) for k in ("name", "parameters", "status", "candidate_id")})
-                break
-            real_runs += 1
-            observed = observe(row["candidate_id"])
-            row["observed"] = observed
-            if parent_leaks is not None and observed.get("leak_ids_available"):
-                row["leak_delta"] = {
-                    "parent_leaks": parent_leaks,
-                    "variant_leaks": observed["leak_ids"],
-                    "resolved": sorted(set(parent_leaks) - set(observed["leak_ids"])),
-                    "new": sorted(set(observed["leak_ids"]) - set(parent_leaks)),
-                }
-            state["variants"][-1] = row
-            save_state(state)
-        elif check["status"] == "FAIL":
-            static_fail += 1
-        else:
+        except Exception as exc:  # service fault on execution
+            fault = classify_check_fault(exc)
+            kind = "simulation_ledger_fault" if fault["kind"] == "ledger_inconsistency" else "simulation_service_fault"
             state["stopped"] = True
-            state["blocker"] = {"kind": "check_blocked", "check": check}
+            state["blocker"] = {"kind": kind, "candidate_id": row["candidate_id"], "error": fault["error"]}
             save_state(state)
-            results.append({"name": name, "status": check["status"], "check": check})
+            results.append(_compact_row(row))
+            stop_reason = "SERVICE_FAULT"
             break
-        compact = {k: row.get(k) for k in ("name", "parameters", "status", "candidate_id", "plan_id") if k in row}
-        if row.get("observed"):
-            compact["observed"] = {
-                key: row["observed"].get(key)
-                for key in (
-                    "result",
-                    "leak_ids",
-                    "leak_ids_available",
-                    "protected_arrivals",
-                    "artillery_kill",
-                    "enemy19_kill",
-                    "operator_deaths",
-                    "complete_win",
-                    "artifact_projection",
-                    "artifact_win",
-                )
-            }
-        if row.get("leak_delta"):
-            compact["leak_delta"] = row["leak_delta"]
-        if row["status"] == "FAIL":
-            compact["errors"] = check.get("errors")
-        results.append(compact)
-        if row.get("observed", {}).get("complete_win"):
+        row["run"] = {k: run.get(k) for k in ("status", "simulation_started_counted", "result")}
+        if run.get("status") not in ("COMPLETED", "IDEMPOTENT_COMPLETED"):
+            state["stopped"] = True
+            state["blocker"] = {"kind": "simulation_not_completed", "candidate_id": row["candidate_id"], "run": run}
+            save_state(state)
+            results.append(_compact_row(row))
+            stop_reason = "SIMULATION_NOT_COMPLETED"
+            break
+        if run.get("status") == "IDEMPOTENT_COMPLETED":
+            # The result already existed on disk; no new simulation was started, so don't count one.
+            row["resumed_from"] = "completed_result_reused"
+            counters["reused"] += 1
+        else:
+            counters["real_runs"] += 1
+        row["observed"] = observe(row["candidate_id"])
+        _record_leak_delta(row, parent_leaks)
+        state["variants"][-1] = row
+        save_state(state)
+        results.append(_compact_row(row))
+        if row["observed"].get("complete_win"):
             write(base_dir() / "WIN_PENDING_VERIFICATION.json", {"candidate_id": row["candidate_id"], "name": name})
             return {
                 "status": "WIN_MUST_VERIFY",
                 "planned_total": planned_total,
-                "attempted": attempted,
-                "dedup": dedup,
-                "static_fail": static_fail,
-                "real_runs": real_runs,
+                "counters": counters,
                 "results": results,
                 "capability": capability,
                 "next": "call independent_verify with this candidate_id",
             }
 
+    skipped_count = planned_total - processed
+    skipped = []
+    for index, values in enumerate(iter_grid(params)):
+        if index < processed:
+            continue
+        if len(skipped) >= MAX_PREVIEW_ROWS:
+            break
+        skipped.append({"index": index, "parameters": dict(zip(names, values))})
     summaries = [
         row
         for row in state["variants"]
         if row.get("observed") and row["round"] == round_number and row.get("candidate_id")
     ]
-    complementary = {}
+    complementary: dict[str, list] = {}
     for row in summaries:
-        key = tuple(row["observed"].get("leak_ids") or ["UNKNOWN"])
+        key = str(row["observed"].get("leak_ids") or ["UNKNOWN"])
         complementary.setdefault(key, []).append(
             {
                 "name": row["name"],
                 "candidate_id": row["candidate_id"],
                 "plan_id": row.get("plan_id"),
                 "leak_delta": row.get("leak_delta"),
-                "protected_arrivals": len(row["observed"].get("protected_arrivals") or []),
+                "protected_arrival_distinct_count": row["observed"].get("protected_arrival_distinct_count"),
                 "artillery_kill": bool(row["observed"].get("artillery_kill")),
+                "stage_acceptance": (row["observed"].get("stage_acceptance") or {}).get("status"),
             }
         )
     return {
-        "status": "TRUNCATED_BY_BUDGET" if exceeded else "COMPLETED_PARAMETER_GROUP",
+        "status": stop_reason or "COMPLETED_PARAMETER_GROUP",
         "planned_total": planned_total,
-        "attempted": attempted,
-        "dedup": dedup,
-        "static_fail": static_fail,
-        "real_runs": real_runs,
-        "skipped": skipped,
+        "processed": processed,
+        "counters": counters,
+        "attempted": counters["attempted"],
+        "dedup": counters["dedup"],
+        "static_fail": counters["static_fail"],
+        "real_runs": counters["real_runs"],
+        "skipped_count": skipped_count,
+        "skipped_preview": skipped,
         "results": results,
         "parent_leaks": parent_leaks,
-        "complementary_by_leak_set": {str(list(k)): v for k, v in complementary.items()},
+        "complementary_by_leak_set": complementary,
         "capability": capability,
         "budget_after": remaining_budget(),
+        "blocker": state.get("blocker"),
     }
 
 
@@ -832,51 +1235,40 @@ def record_round(_config, arguments: dict) -> dict:
     }
 
 
-def record_teaching(_config, arguments: dict) -> dict:
-    record = {
-        "record_id": arguments.get("record_id") or f"teaching-{len(batch_state().get('teaching_records') or []) + 1:03d}",
-        "round": arguments.get("round"),
-        "user_quote": arguments.get("user_quote"),
-        "astra_interpretation": arguments.get("astra_interpretation"),
-        "simulation_observation": arguments.get("simulation_observation"),
-        "abstract_rule": arguments.get("abstract_rule"),
-        "scope": arguments.get("scope", "THIS_STAGE_ONLY"),
-        "counterexample": arguments.get("counterexample"),
-        "at": time.time(),
-    }
-    missing = [key for key in ("user_quote", "astra_interpretation") if not record.get(key)]
-    if missing:
-        raise RuntimeError(f"teaching record requires {missing}; observations may stay empty until a run exists")
-    teaching_dir = base_dir() / "teaching"
-    append_jsonl(teaching_dir / "user_quotes_v1.jsonl", {"record_id": record["record_id"], "round": record["round"], "quote": record["user_quote"], "at": record["at"]})
-    append_jsonl(teaching_dir / "astra_interpretations_v1.jsonl", {"record_id": record["record_id"], "round": record["round"], "interpretation": record["astra_interpretation"], "at": record["at"]})
-    append_jsonl(teaching_dir / "observations_v1.jsonl", {"record_id": record["record_id"], "round": record["round"], "observation": record["simulation_observation"], "at": record["at"]})
-    append_jsonl(teaching_dir / "records_v1.jsonl", record)
-    state = batch_state()
-    state.setdefault("teaching_records", []).append(record)
-    save_state(state)
-    return {
-        "status": "RECORDED",
-        "record_id": record["record_id"],
-        "separate_files": [
-            str((teaching_dir / name).relative_to(ROOT))
-            for name in ("user_quotes_v1.jsonl", "astra_interpretations_v1.jsonl", "observations_v1.jsonl")
-        ],
-        "rule_scope": record["scope"],
-    }
+def _read_jsonl(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def teacher_messages() -> list[dict]:
+    return _read_jsonl(base_dir() / "teaching" / "teacher_prompts_v1.jsonl")
 
 
 def record_teacher_prompt(_config, arguments: dict) -> dict:
+    """Save a teacher message verbatim first, with a stable ID. No rewriting."""
     text = arguments.get("text")
     if not isinstance(text, str) or not text.strip():
         raise RuntimeError("teacher prompt text is required")
     payload = text.encode("utf-8")
     digest = hashlib.sha256(payload).hexdigest()
     path = base_dir() / "teaching" / "teacher_prompts_v1.jsonl"
+    existing = next((row for row in teacher_messages() if row.get("sha256") == digest), None)
+    if existing is not None:
+        return {
+            "status": "ALREADY_RECORDED",
+            "message_id": existing["message_id"],
+            "sha256": digest,
+            "bytes": len(payload),
+            "path": str(path.relative_to(ROOT)),
+            "note": "Identical text already stored; reusing the original message_id so references stay stable.",
+        }
+    message_id = _new_message_id("teacher")
     append_jsonl(
         path,
         {
-            "at": time.time(),
+            "message_id": message_id,
+            "at": _utc_now_iso(),
             "source": arguments.get("source", "user"),
             "sha256": digest,
             "bytes": len(payload),
@@ -886,10 +1278,124 @@ def record_teacher_prompt(_config, arguments: dict) -> dict:
     )
     return {
         "status": "RECORDED",
+        "message_id": message_id,
         "sha256": digest,
         "bytes": len(payload),
         "path": str(path.relative_to(ROOT)),
-        "echo": "Verbatim text stored; compare this sha256 with the teacher-side copy to prove unchanged delivery.",
+        "next": "Reference this message_id in record_teaching so Astra's interpretation is linked to the original teacher message.",
+    }
+
+
+def record_teaching(_config, arguments: dict) -> dict:
+    """Three separate, append-only records: teacher quote, Astra interpretation, simulation observation."""
+    teaching_dir = base_dir() / "teaching"
+    teacher_message_id = arguments.get("teacher_message_id")
+    stored = None
+    if teacher_message_id:
+        stored = next((row for row in teacher_messages() if row.get("message_id") == teacher_message_id), None)
+        if stored is None:
+            raise RuntimeError(f"unknown teacher_message_id: {teacher_message_id!r}; record the teacher prompt first")
+
+    quote = arguments.get("user_quote")
+    provenance = "ASTRA_SUPPLIED_QUOTE_NOT_TEACHER_VERIFIED"
+    quote_sha = None
+    mismatch = None
+    if stored is not None:
+        if quote is None:
+            quote = stored["text"]
+            provenance = "TEACHER_VERBATIM_RESOLVED_FROM_STORED_MESSAGE"
+        else:
+            quote_sha = hashlib.sha256(quote.encode("utf-8")).hexdigest()
+            if quote_sha == stored["sha256"]:
+                provenance = "TEACHER_VERBATIM_MATCHED_STORED_MESSAGE"
+            else:
+                provenance = "ASTRA_QUOTE_DIVERGES_FROM_STORED_TEACHER_MESSAGE"
+                mismatch = {"astra_quote_sha256": quote_sha, "stored_sha256": stored["sha256"]}
+    elif quote is not None:
+        quote_sha = hashlib.sha256(quote.encode("utf-8")).hexdigest()
+
+    interpretation = arguments.get("astra_interpretation")
+    observation = arguments.get("simulation_observation")
+    if not (quote or stored) and not interpretation and observation is None:
+        raise RuntimeError("a teaching record needs at least a teacher reference/quote, an Astra interpretation, or an observation")
+
+    observation_ref = {
+        "candidate_id": arguments.get("candidate_id"),
+        "run_id": arguments.get("run_id"),
+        "event_log": arguments.get("event_log"),
+        "event_locator": arguments.get("event_locator"),
+    }
+    # A candidate id alone still has a deterministic, single event log; resolve it so the
+    # observation stays locatable instead of pointing at nothing.
+    if observation_ref["candidate_id"] and not observation_ref["event_log"]:
+        candidate_events = base_dir() / "session/candidates" / observation_ref["candidate_id"] / "simulation/diagnostic_events.json"
+        if candidate_events.is_file():
+            observation_ref["event_log"] = str(candidate_events.relative_to(ROOT))
+    has_obs_ref = any(value is not None for value in observation_ref.values())
+
+    record_id = arguments.get("record_id") or _new_message_id("teaching")
+    at = _utc_now_iso()
+    base_record = {
+        "record_id": record_id,
+        "at": at,
+        "round": arguments.get("round"),
+        "teacher_message_id": teacher_message_id,
+        "quote_provenance": provenance,
+        "quote_mismatch": mismatch,
+        "scope": arguments.get("scope", "THIS_STAGE_ONLY"),
+        "abstract_rule": arguments.get("abstract_rule"),
+        "counterexample": arguments.get("counterexample"),
+        "source_capability": {
+            "teacher_reference": "STORED_MESSAGE" if stored is not None else (
+                "UNLINKED_QUOTE" if quote is not None else "NONE"
+            ),
+            "observation_located": bool(observation_ref.get("run_id") or observation_ref.get("event_locator")
+                                        or observation_ref.get("event_log")),
+        },
+    }
+    if quote is not None or stored is not None:
+        append_jsonl(
+            teaching_dir / "user_quotes_v1.jsonl",
+            {
+                "record_id": record_id, "at": at, "round": arguments.get("round"),
+                "teacher_message_id": teacher_message_id, "provenance": provenance,
+                "quote_sha256": quote_sha if quote_sha is not None else (stored or {}).get("sha256"),
+                "quote": quote, "quote_mismatch": mismatch,
+            },
+        )
+    if interpretation is not None:
+        append_jsonl(
+            teaching_dir / "astra_interpretations_v1.jsonl",
+            {
+                "record_id": record_id, "at": at, "round": arguments.get("round"),
+                "teacher_message_id": teacher_message_id, "interpretation": interpretation,
+                "author": "astra",
+            },
+        )
+    if observation is not None or has_obs_ref:
+        append_jsonl(
+            teaching_dir / "observations_v1.jsonl",
+            {
+                "record_id": record_id, "at": at, "round": arguments.get("round"),
+                **observation_ref, "observation": observation,
+            },
+        )
+    append_jsonl(teaching_dir / "records_v1.jsonl", base_record)
+    state = batch_state()
+    state.setdefault("teaching_records", []).append(base_record)
+    save_state(state)
+    return {
+        "status": "RECORDED",
+        "record_id": record_id,
+        "teacher_message_id": teacher_message_id,
+        "quote_provenance": provenance,
+        "quote_mismatch": mismatch,
+        "separate_files": [
+            str((teaching_dir / name).relative_to(ROOT))
+            for name in ("user_quotes_v1.jsonl", "astra_interpretations_v1.jsonl", "observations_v1.jsonl")
+        ],
+        "rule_scope": base_record["scope"],
+        "note": "Quote, interpretation and observation are appended separately; an Astra paraphrase is never labelled as the verified teacher text.",
     }
 
 
@@ -1069,6 +1575,7 @@ EXTRA_TOOLS = [
                 "name": {"type": "string", "pattern": "^[A-Za-z0-9_]+$"},
                 "parent": {"type": "string"},
                 "hypothesis": {"type": "string"},
+                "teacher_message_id": {"type": "string"},
                 "changes": {"type": "array", "items": {"type": "object"}},
                 "actions": {"type": "array", "items": {"type": "object"}},
                 "parameters": {"type": "object", "additionalProperties": {"type": "array"}},
@@ -1080,16 +1587,24 @@ EXTRA_TOOLS = [
     },
     {
         "name": "record_teaching",
-        "description": "Split-record one teaching exchange: user_quote, astra_interpretation, simulation_observation. Scope defaults to THIS_STAGE_ONLY.",
+        "description": (
+            "Append separate records: teacher quote (by teacher_message_id), Astra interpretation, and a simulation observation "
+            "referencing a run/event. Astra paraphrases are never labelled as the verified teacher text. "
+            "If teacher_message_id is given with no user_quote, the stored verbatim text is used. If both are given and differ, both are stored and the mismatch is flagged."
+        ),
         "inputSchema": {
             "type": "object",
-            "required": ["user_quote", "astra_interpretation"],
             "properties": {
                 "record_id": {"type": "string"},
                 "round": {"type": "integer"},
+                "teacher_message_id": {"type": "string"},
                 "user_quote": {"type": "string"},
                 "astra_interpretation": {"type": "string"},
                 "simulation_observation": {},
+                "candidate_id": {"type": "string"},
+                "run_id": {"type": "string"},
+                "event_log": {"type": "string"},
+                "event_locator": {"type": "object"},
                 "abstract_rule": {"type": "string"},
                 "scope": {"type": "string", "enum": ["THIS_STAGE_ONLY", "CROSS_STAGE_PENDING"]},
                 "counterexample": {"type": "string"},
@@ -1099,7 +1614,7 @@ EXTRA_TOOLS = [
     },
     {
         "name": "record_teacher_prompt",
-        "description": "Store a teacher prompt verbatim with sha256 so delivery can be audited byte-for-byte. No rewriting.",
+        "description": "Store a teacher message verbatim (first) and return a stable message_id plus sha256. Identical text reuses the original message_id. No rewriting.",
         "inputSchema": {
             "type": "object",
             "required": ["text"],

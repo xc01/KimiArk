@@ -1,0 +1,31 @@
+{
+  "schema_version": "KIMIARK_TACTICAL_HARNESS_STAGE_PROFILES_V1",
+  "boundary": "Per-stage acceptance declarations only. Generic observation lives in code; which protected targets, artillery and key enemies count is declared here per stage_id and must be grounded in that stage's facts.",
+  "profiles": {
+    "main_08-07": {
+      "stage_id": "main_08-07",
+      "label": "R8-7",
+      "protected_targets": [
+        {
+          "target_id": "enemy_3001_upeopl#14",
+          "source": "model_spawn_timeline enemy_3001_upeopl spawn @frame 3030 (route-15) becomes #14; arrival observed @11119 in M70 archive"
+        },
+        {
+          "target_id": "enemy_3001_upeopl#3",
+          "source": "model_spawn_timeline enemy_3001_upeopl spawn @frame 540 (route-2) becomes #3; arrival observed @11349 in M70 archive"
+        }
+      ],
+      "protected_target_evidence": "M70 eight-op complete WIN archive shows PROTECTED_TARGET_REACHED source_id enemy_3001_upeopl#14 @11119 and enemy_3001_upeopl#3 @11349",
+      "artillery": "enemy_1112_emppnt#0",
+      "key_enemies": {
+        "enemy_1107_uoffcr#19": "central officer #19 tracked across R104/R106/R110/R111 lines"
+      },
+      "requires_enemies_remaining_zero": true,
+      "requires_zero_leaks": true,
+      "notes": [
+        "Arrival events carry the protected enemy in source_id, not target_id.",
+        "Two arrival events must be two distinct declared IDs; a duplicate of one ID never counts as the second target."
+      ]
+    }
+  }
+}
